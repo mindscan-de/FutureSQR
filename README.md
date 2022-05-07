@@ -2,8 +2,8 @@
 Code Review Tool - Future Source Quality Review
 
 ## Why another code review system?
-Well, it caught me off guard, that Jetbrains decided to discontinue their product at the beginning of 2022. We used Upsource for a bunch 
-of reasons.
+Well, it caught me off guard, that Jetbrains decided to discontinue their product at the beginning of 2022. Upsource was used for a bunch 
+of reasons - but the main one, were: easy to use, easy to administrate and easy to integrate into a workflow.
 
 Unlike many people believe, there are some good reasons to not only look at Git and their  feature-branch and pull-request system. 
 Despite Git being a quite useful SCM system, people tend to forget, that there are other SCM systems out there for a reason. We tend to
@@ -30,7 +30,7 @@ requires extra synchronization and creates extra bottlenecks and creates extra w
 delivery of a feature or a bugfix becomes somehow unpredictable.
 
 There is a need for a code-review system which can still work post commit, which adds no extra synchronization between people and where
-people are not forced to wait for each other. An improvent of the source code as a result of a code review can still be applied later on trunk
+people are not forced to wait for each other. An improvement of the source code as a result of a code review can still be applied later on trunk
 and can be delivered to the customer. There is no need to punish people by rejecting their code, in an environment where they are paid for
 creating this code in the first place. When there is a need to improve the code, it can still be done. Each time the code is not integrated, the 
 non integrated code looses value. The longer code waits for its integration on trunk, the more likely it is that errors post integration are found
