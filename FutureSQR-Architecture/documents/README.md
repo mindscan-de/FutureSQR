@@ -11,6 +11,7 @@ and what's its guiding architectural and design principles are.
   * [What it is not](090.WhatItsNot.md)
     * Not a static code analysis tool
     * Not a source code browser
+    * Not a code search engine
 * Impact of the Review Life Cycle
   * [The Review Life Cycle](100.ReviewLifecycle.md)
   * [Expectations on Performance](100.ReviewPerfomance.md)
