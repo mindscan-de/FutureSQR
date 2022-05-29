@@ -8,6 +8,8 @@ and what's its guiding architectural and design principles are.
     * Why this project
     * Target Audience
     * Why no Review Process
+  * [User and User Roles](010.Users.md)
+    * Short collection of user roles and temporary user roles
   * [What it is not](090.WhatItsNot.md)
     * Not a static code analysis tool
     * Not a source code browser
@@ -16,7 +18,7 @@ and what's its guiding architectural and design principles are.
   * [The Review Life Cycle](100.ReviewLifecycle.md)
   * [Expectations on Performance](100.ReviewPerfomance.md)
 * Support
-  * [SCM's](200.SupportedSCM.md)
+  * [Supported SCM's](200.SupportedSCM.md)
     * [SVN](200.SupportedSVNAccess.md)
     * [Git + Github](200.SupportedGithubAccess.md)
     * [Git + Gitlab](200.SupportedGitlabAccess.md)
