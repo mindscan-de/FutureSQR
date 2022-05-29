@@ -19,3 +19,8 @@ and what's its guiding architectural and design principles are.
     * [SVN](200.SupportedSVNAccess.md)
     * [Git + Github](200.SupportedGithubAccess.md)
     * [Git + Gitlab](200.SupportedGitlabAccess.md)
+* Access
+  * [Access](200.SupportedAccess.md)
+    * Web-Application
+    * Technical aspects of authentication and Authorization
+    * kind of unsorted, because it is about access, authn and authz at the same time
