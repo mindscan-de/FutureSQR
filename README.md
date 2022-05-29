@@ -46,7 +46,9 @@ Anyhow, as the world progresses, there is still demand for a  good, simple and e
 
 Attention: The implementation has not yet been started. Currently some basic ideas and white paper like documents are written down.
 
-* Description of what we want to reach (some green/white paper like description) ((**The current phase**))
+* Description of what we want to reach (some green/white paper like description) ((**The current phase**)) 
+  * [You may want to have a look here first](FutureSQR-Architecture/documents/README.md)
+  * It describes some of the objectives and some basic requirements
 * Work on requirements and user stories
   * Extract requirements and user stories from the description
 * Work towards a first System and Software architecture
