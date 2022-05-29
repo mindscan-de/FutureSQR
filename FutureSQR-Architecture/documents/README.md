@@ -23,7 +23,9 @@ and what's its guiding architectural and design principles are.
 * Access
   * [Access](200.SupportedAccess.md)
     * Web-Application
+    * REST
   * [AuthN](200.SupportedAuthN.md)
-    * Not yet specified
+    * MVP - Simple User-Password-Database
+    * TODO
   * [AuthZ](200.SupportedAuthZ.md)
-    * Technical aspects of authentication and Authorization
+    * TODO
