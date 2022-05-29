@@ -23,5 +23,7 @@ and what's its guiding architectural and design principles are.
 * Access
   * [Access](200.SupportedAccess.md)
     * Web-Application
+  * [AuthN](200.SupportedAuthN.md)
+    * Not yet specified
+  * [AuthZ](200.SupportedAuthZ.md)
     * Technical aspects of authentication and Authorization
-    * kind of unsorted, because it is about access, authn and authz at the same time
