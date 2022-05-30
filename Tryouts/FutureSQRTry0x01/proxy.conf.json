@@ -1,0 +1,11 @@
+{
+  "/FutureSQR/*": {
+    "target": "http://localhost:8000/",
+    "secure": false,
+    "pathRewrite": {
+      "^/FutureSQR/rest/": "/FutureSQR/rest/"
+    },
+    "changeOrigin": false,
+    "logLevel": "debug"
+  }
+}
