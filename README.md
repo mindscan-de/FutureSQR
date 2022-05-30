@@ -49,6 +49,8 @@ Attention: The implementation has not yet been started. Currently some basic ide
 * Description of what we want to reach (some green/white paper like description) ((**The current phase**)) 
   * [You may want to have a look here first](FutureSQR-Architecture/documents/README.md)
   * It describes some of the objectives and some basic requirements
+* Tryout Section
+  * [Some concepts which I'm not familiar with, but deem somehow important](Tryouts/README.md)
 * Work on requirements and user stories
   * Extract requirements and user stories from the description
 * Work towards a first System and Software architecture
@@ -64,4 +66,3 @@ Attention: The implementation has not yet been started. Currently some basic ide
   * e.g. how to see something from day #1 of development
   * e.g. write some scripts / tools for this mode of development
   * e.g. plan a mocked development back-end (maybe python with fast-api)
-  
