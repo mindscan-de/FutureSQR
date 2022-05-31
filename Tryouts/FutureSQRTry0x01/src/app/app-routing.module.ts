@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MainComponent } from './main/main.component';
 import { ReviewComponent } from './review/review.component';
 import { RevisionComponent } from './revision/revision.component';
+import { DiffComponent } from './diff/diff.component';
 
 const routes: Routes = [
 	
@@ -12,10 +13,10 @@ const routes: Routes = [
 	{ path:':projectname/review/:reviewname', component:ReviewComponent},
 	// this path should lead to a review in the project.
 	
-	{ path:':projectname/revision/:revisonid}', component:RevisionComponent},
+	{ path:':projectname/revision/:revisonid', component:RevisionComponent},
 	// this path should lead to a certain revision and a list of diffs for this particular version in the project
 	
-	// { path:'p/{projectname}/diff/{revisionid}'}
+	{ path:':projectname/diff/:revisionid', component: DiffComponent},
 	// this path should lead to a diff to the previous version
 	
 	// { path:'p/{projectname}'}
