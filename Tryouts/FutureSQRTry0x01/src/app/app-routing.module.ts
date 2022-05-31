@@ -2,16 +2,17 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainComponent } from './main/main.component';
 import { ReviewComponent } from './review/review.component';
+import { RevisionComponent } from './revision/revision.component';
 
 const routes: Routes = [
 	
 	{ path:'', pathMatch: 'full', component: MainComponent},
 	// this path should lead to a component, where we will show some project lists customized tot the user
 
-	{ path:':projectname/review/:reviewname', component:ReviewComponent}
+	{ path:':projectname/review/:reviewname', component:ReviewComponent},
 	// this path should lead to a review in the project.
 	
-	// { path:'p/:projectname/revision/:revisonid}'}
+	{ path:':projectname/revision/:revisonid}', component:RevisionComponent},
 	// this path should lead to a certain revision and a list of diffs for this particular version in the project
 	
 	// { path:'p/{projectname}/diff/{revisionid}'}
