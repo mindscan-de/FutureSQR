@@ -66,3 +66,12 @@ Attention: The implementation has not yet been started. Currently some basic ide
   * e.g. how to see something from day #1 of development
   * e.g. write some scripts / tools for this mode of development
   * e.g. plan a mocked development back-end (maybe python with fast-api)
+
+## Principles of Development
+
+* Useful from Day One
+* My three other principles
+* Two Monoliths and a Mockup
+  * Back-End-Monolith
+  * Back-End-Mockup
+  * Front-End-Monolith
