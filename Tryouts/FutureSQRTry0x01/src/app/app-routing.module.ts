@@ -4,6 +4,7 @@ import { MainComponent } from './main/main.component';
 import { ReviewComponent } from './review/review.component';
 import { RevisionComponent } from './revision/revision.component';
 import { DiffComponent } from './diff/diff.component';
+import { ProjectComponent } from './project/project.component';
 
 const routes: Routes = [
 	
@@ -19,7 +20,7 @@ const routes: Routes = [
 	{ path:':projectname/diff/:revisionid', component: DiffComponent},
 	// this path should lead to a diff to the previous version
 	
-	// { path:'p/{projectname}'}
+	{ path:':projectname', component:ProjectComponent}
 	// this path should lead to a project containing all recent commits as a list
 	
 	// { path:'login/', loadChildren: './authentication/authentication.module#AuthenticationModule' }

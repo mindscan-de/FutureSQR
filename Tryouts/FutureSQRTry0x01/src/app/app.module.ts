@@ -7,6 +7,7 @@ import { MainComponent } from './main/main.component';
 import { ReviewComponent } from './review/review.component';
 import { RevisionComponent } from './revision/revision.component';
 import { DiffComponent } from './diff/diff.component';
+import { ProjectComponent } from './project/project.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { DiffComponent } from './diff/diff.component';
     MainComponent,
     ReviewComponent,
     RevisionComponent,
-    DiffComponent
+    DiffComponent,
+    ProjectComponent
   ],
   imports: [
     BrowserModule,
