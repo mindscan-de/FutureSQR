@@ -11,16 +11,16 @@ const routes: Routes = [
 	{ path:'', pathMatch: 'full', component: MainComponent},
 	// this path should lead to a component, where we will show some project lists customized tot the user
 
-	{ path:':projectname/review/:reviewname', component:ReviewComponent},
+	{ path:':projectid/review/:reviewid', component:ReviewComponent},
 	// this path should lead to a review in the project.
 	
-	{ path:':projectname/revision/:revisonid', component:RevisionComponent},
+	{ path:':projectid/revision/:revisonid', component:RevisionComponent},
 	// this path should lead to a certain revision and a list of diffs for this particular version in the project
 	
-	{ path:':projectname/diff/:revisionid', component: DiffComponent},
+	{ path:':projectid/diff/:revisionid', component: DiffComponent},
 	// this path should lead to a diff to the previous version
 	
-	{ path:':projectname', component:ProjectComponent}
+	{ path:':projectid', component:ProjectComponent}
 	// this path should lead to a project containing all recent commits as a list
 	
 	// { path:'login/', loadChildren: './authentication/authentication.module#AuthenticationModule' }

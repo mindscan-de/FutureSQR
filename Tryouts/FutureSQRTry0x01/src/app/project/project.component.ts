@@ -8,12 +8,12 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class ProjectComponent implements OnInit {
 	
-  public activeProjectName: string = "";
+  public activeProjectID: string = "";
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-	this.activeProjectName = this.route.snapshot.paramMap.get('projectname');
+	this.activeProjectID = this.route.snapshot.paramMap.get('projectid');
   }
 
 }
