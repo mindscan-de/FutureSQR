@@ -5,13 +5,14 @@ import { ReviewComponent } from './review/review.component';
 import { RevisionComponent } from './revision/revision.component';
 import { DiffComponent } from './diff/diff.component';
 import { ProjectComponent } from './project/project.component';
+import { AllProjectsComponent } from './all-projects/all-projects.component';
 
 const routes: Routes = [
 	
 	{ path:'', pathMatch: 'full', component: MainComponent},
 	// this path should lead to a component, where we will show some project lists customized tot the user
 	
-		
+	{ path:'allprojects', pathMatch: 'full', component: AllProjectsComponent},	
 
 	{ path:':projectid/review/:reviewid', component:ReviewComponent},
 	// this path should lead to a review in the project.
