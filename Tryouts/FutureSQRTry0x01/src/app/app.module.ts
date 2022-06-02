@@ -8,6 +8,7 @@ import { ReviewComponent } from './review/review.component';
 import { RevisionComponent } from './revision/revision.component';
 import { DiffComponent } from './diff/diff.component';
 import { ProjectComponent } from './project/project.component';
+import { StarredProjectsComponent } from './main/starred-projects/starred-projects.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ProjectComponent } from './project/project.component';
     ReviewComponent,
     RevisionComponent,
     DiffComponent,
-    ProjectComponent
+    ProjectComponent,
+    StarredProjectsComponent
   ],
   imports: [
     BrowserModule,
