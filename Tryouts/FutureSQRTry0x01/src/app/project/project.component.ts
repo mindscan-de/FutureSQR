@@ -8,7 +8,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class ProjectComponent implements OnInit {
 	
-  public activeProjectID: string = "";
+  public activeProjectID: string = '';
 
   constructor(private route: ActivatedRoute) { }
 
