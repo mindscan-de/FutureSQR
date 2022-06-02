@@ -1,6 +1,8 @@
 <div>
-<h1>Review View Works!</h1>
-This ia a patzicular review in of the Projectname :projectname.
+<h1>{{activeReviewID}} in {{activeProjectID}}</h1>
+This is a particular review in of the ProjectID {{activeProjectID}}.
+
+<a [routerLink]="['/', activeProjectID]">Back to Project {{activeProjectID}}</a>
 
 <ul>
 	<li>This is a particular file</li>
