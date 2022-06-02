@@ -1,1 +1,15 @@
+<h1>Welcome to {{activeProjectID}}:{{activeRevisionID}}</h1>
 <p>revision works!</p>
+
+<div>
+We want some status information about this particular revision here.<br/>
+<br/>
+Next thing is that we need a link <a [routerLink]="['/', activeProjectID]"> back to the project</a>.<br/>
+<br/>
+</div>
+
+<div>
+what basically follows is a list of files and paths changed in this revision. <br/>
+<br/>
+And maybe some fast small diff for each file
+</div>
