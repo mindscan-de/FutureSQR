@@ -20,13 +20,14 @@ const routes: Routes = [
 	{ path:':projectid/diff/:revisionid', component: DiffComponent},
 	// this path should lead to a diff to the previous version
 	
-	{ path:':projectid', component:ProjectComponent}
+	{ path:':projectid', component:ProjectComponent},
 	// this path should lead to a project containing all recent commits as a list
 	
 	// { path:'login/', loadChildren: './authentication/authentication.module#AuthenticationModule' }
 	// 
 	
-	
+	// let any other url redirect to main page - for good measures
+	{ path:'**',redirectTo:''}
 	
 ];
 
