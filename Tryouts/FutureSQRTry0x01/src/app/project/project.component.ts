@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-project',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./project.component.scss']
 })
 export class ProjectComponent implements OnInit {
+	
+  public activeProjectName: string = "";
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+	this.activeProjectName = this.route.snapshot.paramMap.get('projectname');
   }
 
 }
