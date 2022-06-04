@@ -15,6 +15,8 @@ import { BackendModelProjectItem } from '../backend-service/project-model/backen
   styleUrls: ['./all-projects.component.scss']
 })
 export class AllProjectsComponent implements OnInit {
+	
+	public uiModelAllProjects: BackendModelProjectItem[] = [];
 
   constructor(private projectDataQueryBackend : ProjectDataQueryBackendService ) { }
 
@@ -26,7 +28,7 @@ export class AllProjectsComponent implements OnInit {
   }
 
   onAllProjectsProvided( allProjects: BackendModelProjectItem[]) : void {
-	
+	this.uiModelAllProjects = allProjects;
   }
 
 }

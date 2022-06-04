@@ -1,1 +1,10 @@
 <p>all-projects works!</p>
+
+<div>
+<ul>
+
+	<li *ngFor="let project of uiModelAllProjects"> <a [routerLink]="['/',project.project_id]">{{project.project_name}}</a> <br/> {{project.description}}  </li>
+
+</ul>
+
+</div>
