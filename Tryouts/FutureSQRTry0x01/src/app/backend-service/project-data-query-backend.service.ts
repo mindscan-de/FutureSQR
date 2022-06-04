@@ -12,6 +12,7 @@ import { BackendModelProjectItem } from './project-model/backend-model-project-i
 export class ProjectDataQueryBackendService {
 	
 	private static readonly URL_GET_ALL_PROJECTS = "/assets/allprojects/mockup_allprojects.json";
+	private static readonly URL_GET_MY_STARRED_PROJECTS = "/assets/allprojects/mockup_mystarredprojects.json";
 
     constructor(private httpClient : HttpClient ) { }
 
@@ -19,5 +20,7 @@ export class ProjectDataQueryBackendService {
 	    return this.httpClient.get<BackendModelProjectItem[]>(ProjectDataQueryBackendService.URL_GET_ALL_PROJECTS, {});
     }
 
-
+	getMyStarredProjects() : Observable<BackendModelProjectItem[]> {
+		return this.httpClient.get<BackendModelProjectItem[]>(ProjectDataQueryBackendService.URL_GET_MY_STARRED_PROJECTS, {});
+	}
 }
