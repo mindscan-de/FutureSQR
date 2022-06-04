@@ -1,9 +1,6 @@
 <div>
-<h3>Starred Projects</h3>
+<h3>My Starred Projects</h3>
 <ul>
-
 	<li *ngFor="let project of uiModelStarredProjects"> <a [routerLink]="['/',project.project_id]">{{project.project_name}}</a> <br/> {{project.description}}  </li>
-
 </ul>
-
 </div>
