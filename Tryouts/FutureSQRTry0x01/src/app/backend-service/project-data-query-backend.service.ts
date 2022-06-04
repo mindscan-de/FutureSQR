@@ -20,6 +20,7 @@ export class ProjectDataQueryBackendService {
 	    return this.httpClient.get<BackendModelProjectItem[]>(ProjectDataQueryBackendService.URL_GET_ALL_PROJECTS, {});
     }
 
+	// Actually the starred projects depend on the users choices
 	getMyStarredProjects() : Observable<BackendModelProjectItem[]> {
 		return this.httpClient.get<BackendModelProjectItem[]>(ProjectDataQueryBackendService.URL_GET_MY_STARRED_PROJECTS, {});
 	}
