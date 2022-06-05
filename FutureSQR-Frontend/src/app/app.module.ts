@@ -6,12 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainPageComponent } from './views/main-page/main-page.component';
 import { StarredProjectsComponent } from './views/main-page/starred-projects/starred-projects.component';
+import { MostActiveProjectsComponent } from './views/main-page/most-active-projects/most-active-projects.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainPageComponent,
-    StarredProjectsComponent
+    StarredProjectsComponent,
+    MostActiveProjectsComponent
   ],
   imports: [
     BrowserModule,
