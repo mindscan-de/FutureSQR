@@ -5,11 +5,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainPageComponent } from './views/main-page/main-page.component';
+import { StarredProjectsComponent } from './views/main-page/starred-projects/starred-projects.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainPageComponent
+    MainPageComponent,
+    StarredProjectsComponent
   ],
   imports: [
     BrowserModule,
