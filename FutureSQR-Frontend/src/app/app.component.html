@@ -1,1 +1,27 @@
-<router-outlet></router-outlet>
+<div>
+	<header class="header">
+		<!-- Home link -->
+		<div class="header-item"><a [routerLink]="['/']">F</a></div>
+		<!-- Spacer -->
+		<div class="header-item"></div>
+		<!-- Navigation bar, which is controlled by the selected view, flexible until the last items -->
+		<div class="header-item"></div>
+		<!-- Notification area -->
+		<div class="header-item"></div>
+		<!-- User icon area with drop down navigation and indicator? -->
+		<div class="header-item">Me</div>
+	</header>
+</div>
+<div class="application-main">
+	<router-outlet></router-outlet>
+</div>
+<footer class="footer">
+	<ul>
+		<li>&copy; 2022, Maxim Gansert, <a href="https://github.com/mindscan-de">mindscan-de</a></li>
+	</ul>
+	<ul>
+		<li>A</li>
+		<li>B</li>
+		<li>C</li>
+	</ul>
+</footer>
