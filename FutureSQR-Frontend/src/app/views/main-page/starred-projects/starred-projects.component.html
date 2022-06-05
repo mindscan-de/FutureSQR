@@ -1,3 +1,10 @@
 <h4>Starred Projects</h4>
-<p>starred-projects works!</p>
+
+<ul class="list-unstyled">
+	<li *ngFor="let project of uiModelStarredProjects" class="list-item"> <a [routerLink]="['/',project.project_id]" >{{project.project_name}}</a> <br/>
+	<span class="text-muted small">{{project.description}}</span>
+	</li> 
+</ul>
+
+
 <hr>
