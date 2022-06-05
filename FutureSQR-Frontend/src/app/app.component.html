@@ -1,27 +1,24 @@
-<div>
-	<header class="header">
+<div class="bg-secondary">
+	<header >
 		<!-- Home link -->
-		<div class="header-item"><a [routerLink]="['/']">F</a></div>
+		<div><a [routerLink]="['/']">FutureSQR</a></div>
 		<!-- Spacer -->
-		<div class="header-item"></div>
+		<!-- <div></div> -->
 		<!-- Navigation bar, which is controlled by the selected view, flexible until the last items -->
-		<div class="header-item"></div>
+		<!-- <div></div> -->
 		<!-- Notification area -->
-		<div class="header-item"></div>
+		<!-- <div></div> -->
 		<!-- User icon area with drop down navigation and indicator? -->
-		<div class="header-item">Me</div>
+		<!-- <div>Me</div> -->
 	</header>
 </div>
-<div class="application-main">
+
+<div class="container-fluid">
 	<router-outlet></router-outlet>
 </div>
-<footer class="footer">
-	<ul>
-		<li>&copy; 2022, Maxim Gansert, <a href="https://github.com/mindscan-de">mindscan-de</a></li>
-	</ul>
-	<ul>
-		<li>A</li>
-		<li>B</li>
-		<li>C</li>
-	</ul>
+
+<footer class="footer fixed-bottom">
+		<ul class="list-unstyled">
+			<li><span class="text-muted">&copy; 2022 &mdash; <a href="https://github.com/mindscan-de">mindscan-de</a> | Maxim Gansert</span></li>
+		</ul>
 </footer>
