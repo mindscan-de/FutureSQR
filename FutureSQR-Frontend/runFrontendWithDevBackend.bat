@@ -1,0 +1,1 @@
+ng serve --proxy-config=proxy.devbackend.conf.json
