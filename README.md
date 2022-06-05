@@ -18,11 +18,11 @@ SCM with configuration management and want the configuration management also bei
 Therefore we can conclude there are good reasons to support Git as well as SVN for a code review tool. 
 
 Another important thing is that there are different types of collaborations possible. In case of a corporate environment, there is an intrinsic
-alignment between members of a team, which is done by the working contract. Therefore a SCM system which is enforcing some sort of 
+alignment between members of a team, which is essentially done by the working contract. Therefore a SCM system which is enforcing some sort of 
 synchronization process (which is useful in an open source environment) might be considered inefficient in a corporate environment. The
-current most efficient type collaboration at development is trunk-based-development. You can find enough sources supporting this claim,
+current most efficient type of collaboration in development is trunk-based-development. You can find enough sources supporting this claim,
 don't let me spoon feed you. In a corporate environment trunk-based-development is considered SOTA (state of the art). So now the big 
-question, if trunk based development is more efficient compared to feature-branches, do we need to use a SCM supporting it, or is it just
+question, if trunk based development is more efficient compared to feature-branches, do we need to use a SCM supporting feature branches, or is this just
 a nice-to-have feature (remember in a corporate setting)?
 
 Most of the newer code review tools only have the Git / Pull-Requests and the feature-branch development in mind. But this feature-branch approach
