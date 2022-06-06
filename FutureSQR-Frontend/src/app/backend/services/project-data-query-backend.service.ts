@@ -11,7 +11,7 @@ import { BackendModelProjectItem } from '../model/backend-model-project-item';
 })
 export class ProjectDataQueryBackendService {
 	
-	private static readonly URL_GET_ALL_PROJECTS        = "/assets/mockup/allprojects.json";
+	private static readonly URL_GET_ALL_PROJECTS        = "/FutureSQR/rest/user/allaccessibleprojetcs";
 	private static readonly URL_GET_MY_STARRED_PROJECTS = "/FutureSQR/rest/user/starredprojects";
 
     constructor(private httpClient : HttpClient ) { }
