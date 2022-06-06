@@ -12,7 +12,7 @@ import { BackendModelProjectItem } from '../model/backend-model-project-item';
 export class ProjectDataQueryBackendService {
 	
 	private static readonly URL_GET_ALL_PROJECTS        = "/assets/mockup/allprojects.json";
-	private static readonly URL_GET_MY_STARRED_PROJECTS = "/assets/mockup/mystarredprojects.json";
+	private static readonly URL_GET_MY_STARRED_PROJECTS = "/FutureSQR/rest/user/starredprojects";
 
     constructor(private httpClient : HttpClient ) { }
 
@@ -22,6 +22,7 @@ export class ProjectDataQueryBackendService {
 
 	// Actually the starred projects depend on the users choices
 	getMyStarredProjects() : Observable<BackendModelProjectItem[]> {
+		// TODO: provide USER-UUID / username
 		return this.httpClient.get<BackendModelProjectItem[]>(ProjectDataQueryBackendService.URL_GET_MY_STARRED_PROJECTS, {});
 	}
 }
