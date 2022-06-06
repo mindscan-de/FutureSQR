@@ -3,7 +3,7 @@
 		<h4>All Projects</h4>
 		<ul class="list-unstyled">
 			<li *ngFor="let project of uiModelAllProjects" class="list-item">
-				<a [routerLink]="['/',project.project_id]">{{project.project_name}}</a><br/>
+				<a [routerLink]="['/',project.project_id]" class="font-weight-bold">{{project.project_name}}</a><br/>
 				<span class="small text-muted">{{project.description}}</span>
 			</li> 
 		</ul>
