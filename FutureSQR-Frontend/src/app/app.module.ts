@@ -9,6 +9,7 @@ import { MainPageComponent } from './views/main-page/main-page.component';
 import { StarredProjectsComponent } from './views/main-page/starred-projects/starred-projects.component';
 import { MostActiveProjectsComponent } from './views/main-page/most-active-projects/most-active-projects.component';
 import { AllProjectsPageComponent } from './views/all-projects-page/all-projects-page.component';
+import { ProjectRecentCommitsPageComponent } from './views/project-recent-commits-page/project-recent-commits-page.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { AllProjectsPageComponent } from './views/all-projects-page/all-projects
     MainPageComponent,
     StarredProjectsComponent,
     MostActiveProjectsComponent,
-    AllProjectsPageComponent
+    AllProjectsPageComponent,
+    ProjectRecentCommitsPageComponent
   ],
   imports: [
     BrowserModule,
