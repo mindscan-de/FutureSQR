@@ -1,7 +1,6 @@
-pushd
-cd %dp0%
-set PYTHONPATH=%dp0%/src:%PYTHONPATH%
-echo %PYTHONPATH% 
+pushd %~dp0
+cd %~dp0
+set PYTHONPATH=%~dp0/src;%PYTHONPATH%
 cd src/de/mindscan/futuresqr/devhttpserver
-uvicorn futuresqr_dev:app --reload --root-path
+uvicorn futuresqr_dev:app --reload
 popd
