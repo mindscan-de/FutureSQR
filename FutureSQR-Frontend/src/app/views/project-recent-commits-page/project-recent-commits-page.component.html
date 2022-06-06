@@ -1,1 +1,14 @@
-<p>project-recent-commits-page works!</p>
+<div class="row">
+	<div class="col-xl-9">
+		<h4>Recent commits</h4>
+		<ul class=list-group>
+			<li *ngFor="let revision of uiModelRecentProjectCommits.revisions" class="list-group-item">
+			{{revision.authorname}} &mdash; <span class="text-muted">{{revision.message}}</span> <br/> <br/>
+			{{revision.date}} &mdash; <a [routerLink]="['/','xxx','revision',revision.revisionid]">{{revision.shortrev}}</a> &mdash; <a [routerLink]="['/','xxx','diff',revision.revisionid]">diff</a>
+			</li>
+		</ul>
+	</div>
+	<div class="col-xl-3">
+		<h4>Feed</h4>
+	</div>
+</div>
