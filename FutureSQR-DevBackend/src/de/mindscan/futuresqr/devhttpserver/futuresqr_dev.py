@@ -4,7 +4,11 @@ Created on 05.06.2022
 @author: JohnDoe
 '''
 
+import json
+
 from fastapi import FastAPI, Form, HTTPException
+
+TEMP_ASSET_FOLDER = '../../../../../tempassets/'
 
 app = FastAPI()
 
@@ -15,7 +19,7 @@ def read_root():
 @app.get("/FutureSQR/rest/user/starredprojects")
 def getUserStarredProjects(user_uuid:str = ""):
     result = [
-        {"project_id":"furiousiron-frontend", "project_name":"FuriousIron-Backend", "description":"My personal source code engine project. Frontend. (Angular. TS)"},
+        {"project_id":"furiousiron-frontend", "project_name":"FuriousIron-Frontend", "description":"My personal source code engine project. Frontend. (Angular. TS)"},
         {"project_id":"furiousiron-hfb", "project_name":"FuriousIron-HFB", "description":"Hash-Free Bloom-Filter (Proof of concept implementation)"},
         {"project_id":"furiousiron-indexer", "project_name":"FuriousIron-Indexer", "description":"My personal source code search engine project. Indexer. (Java. Windows. No Database. Filesystem only) "},
         {"project_id":"furiousiron-searchbackend", "project_name":"FuriousIron-SearchBackend", "description":"My personal source code search engine project. Backend. (Java. Tomcat. Windows. No Database. Filesystem only) "},
@@ -41,4 +45,15 @@ def getUserAllAccessibleProjects(user_uuid: str = ""):
         {"project_id":"fluentgenesis-classifier", "project_name":"FluentGenesis-Classifier", "description":""},
         {"project_id":"fluentgenesis-plugin", "project_name":"FluentGenesis-Plugin", "description":""}
         ]
+    return result
+
+@app.get("/FutureSQR/rest/project/{projectid}/recentcommits")
+def getProjectRevisions(projectid:str):
+    if projectid =='furiousiron-frontend':
+        print("known project found")
+                
+        with open(TEMP_ASSET_FOLDER + projectid + ".revisions.json","r") as revisionsfile:
+            return json.load(revisionsfile)
+    
+    result = {'revisions':[]}
     return result
