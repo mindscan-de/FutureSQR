@@ -32,4 +32,10 @@ export class ProjectDataQueryBackendService {
 		var url = `/FutureSQR/rest/project/${projectid}/recentcommits`;
 		return this.httpClient.get<BackendModelProjectRecentCommits>(url, {});
 	}
+	
+	getRecentProjectRevisionDiff(projectid:string, revisionid:string) {
+		var url = `/FutureSQR/rest/project/${projectid}/revisiondiff/${revisionid}`
+		// TODO: 
+		// return this.httpClient.get<>(url, {});
+	}
 }
