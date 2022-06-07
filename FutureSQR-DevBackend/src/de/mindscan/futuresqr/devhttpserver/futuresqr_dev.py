@@ -12,6 +12,10 @@ TEMP_ASSET_FOLDER = '../../../../../tempassets/'
 
 app = FastAPI()
 
+project_path_translation = {
+    'furiousiron-frontend':"D:\\Temp\\future-square-cache\\FuriousIron-Frontend",
+    }
+
 @app.get("/")
 def read_root():
     return {"message":"Hello World! It works! But now, go away!"}
@@ -49,11 +53,20 @@ def getUserAllAccessibleProjects(user_uuid: str = ""):
 
 @app.get("/FutureSQR/rest/project/{projectid}/recentcommits")
 def getProjectRevisions(projectid:str):
-    if projectid =='furiousiron-frontend':
-        print("known project found")
-                
+    if projectid in project_path_translation:
+        # TODO: poor mans git access, instead of cached file. 
+               
         with open(TEMP_ASSET_FOLDER + projectid + ".revisions.json","r") as revisionsfile:
             return json.load(revisionsfile)
     
     result = {'revisions':[]}
+    return result
+
+@app.get("/FutureSQR/rest/project/{projectid}/revisiondiff/{revisionid}")
+def getProjectRevisionDiffToPrevious(projectid:str, revisionid:str):
+    if projectid in project_path_translation:
+        result = {}
+        return result
+    
+    result = {}
     return result
