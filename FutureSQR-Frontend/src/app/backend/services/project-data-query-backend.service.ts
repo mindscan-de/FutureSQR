@@ -12,9 +12,9 @@ import { BackendModelProjectRecentCommits } from '../model/backend-model-project
 })
 export class ProjectDataQueryBackendService {
 	
-	private static readonly URL_GET_ALL_PROJECTS           = "/FutureSQR/rest/user/allaccessibleprojetcs";
-	private static readonly URL_GET_MY_STARRED_PROJECTS    = "/FutureSQR/rest/user/starredprojects";
-	private static readonly URL_GET_RECENT_PROJECT_COMMITS = "/FutureSQR/rest/project/furiousiron-frontend/recentcommits";
+	private static readonly URL_GET_ALL_PROJECTS:string           = "/FutureSQR/rest/user/allaccessibleprojetcs";
+	private static readonly URL_GET_MY_STARRED_PROJECTS:string    = "/FutureSQR/rest/user/starredprojects";
+	private static readonly URL_GET_RECENT_PROJECT_COMMITS:string = "/FutureSQR/rest/project/${0}/recentcommits";
 
     constructor(private httpClient : HttpClient ) { }
 
@@ -29,6 +29,7 @@ export class ProjectDataQueryBackendService {
 	}
 	
 	getRecentProjectCommits(projectid:string) : Observable<BackendModelProjectRecentCommits> {
-		return this.httpClient.get<BackendModelProjectRecentCommits>(ProjectDataQueryBackendService.URL_GET_RECENT_PROJECT_COMMITS, {});
+		var url = `/FutureSQR/rest/project/${projectid}/recentcommits`;
+		return this.httpClient.get<BackendModelProjectRecentCommits>(url, {});
 	}
 }

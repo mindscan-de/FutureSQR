@@ -23,7 +23,7 @@ export class ProjectRecentCommitsPageComponent implements OnInit {
   ngOnInit(): void {
 	this.activeProjectID = this.route.snapshot.paramMap.get('projectid');
 	
-	this.projectDataQueryBackend.getRecentProjectCommits("").subscribe( 
+	this.projectDataQueryBackend.getRecentProjectCommits(this.activeProjectID).subscribe( 
 		data => this.onRecentProjectCommitsProvided(data),
 		error => console.log(error)
 	);
