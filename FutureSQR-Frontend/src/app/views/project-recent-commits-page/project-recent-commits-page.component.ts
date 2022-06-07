@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 // Services
 import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
@@ -15,10 +16,13 @@ import { BackendModelProjectRecentCommits } from '../../backend/model/backend-mo
 export class ProjectRecentCommitsPageComponent implements OnInit {
 
   public uiModelRecentProjectCommits: BackendModelProjectRecentCommits = new BackendModelProjectRecentCommits();
+  public activeProjectID: string = '';
 
-  constructor( private projectDataQueryBackend : ProjectDataQueryBackendService ) { }
+  constructor( private projectDataQueryBackend : ProjectDataQueryBackendService, private route: ActivatedRoute  ) { }
 
   ngOnInit(): void {
+	this.activeProjectID = this.route.snapshot.paramMap.get('projectid');
+	
 	this.projectDataQueryBackend.getRecentProjectCommits("").subscribe( 
 		data => this.onRecentProjectCommitsProvided(data),
 		error => console.log(error)
