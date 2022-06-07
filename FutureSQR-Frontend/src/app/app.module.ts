@@ -10,6 +10,7 @@ import { StarredProjectsComponent } from './views/main-page/starred-projects/sta
 import { MostActiveProjectsComponent } from './views/main-page/most-active-projects/most-active-projects.component';
 import { AllProjectsPageComponent } from './views/all-projects-page/all-projects-page.component';
 import { ProjectRecentCommitsPageComponent } from './views/project-recent-commits-page/project-recent-commits-page.component';
+import { BasicProjectInformationComponent } from './views/project-recent-commits-page/basic-project-information/basic-project-information.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ProjectRecentCommitsPageComponent } from './views/project-recent-commit
     StarredProjectsComponent,
     MostActiveProjectsComponent,
     AllProjectsPageComponent,
-    ProjectRecentCommitsPageComponent
+    ProjectRecentCommitsPageComponent,
+    BasicProjectInformationComponent
   ],
   imports: [
     BrowserModule,
