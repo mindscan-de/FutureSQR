@@ -14,7 +14,9 @@ export class ProjectDataQueryBackendService {
 	
 	private static readonly URL_GET_ALL_PROJECTS:string           = "/FutureSQR/rest/user/allaccessibleprojetcs";
 	private static readonly URL_GET_MY_STARRED_PROJECTS:string    = "/FutureSQR/rest/user/starredprojects";
-	private static readonly URL_GET_RECENT_PROJECT_COMMITS:string = "/FutureSQR/rest/project/${0}/recentcommits";
+	// TODO: this should be cooler
+	private static readonly URL_GET_RECENT_PROJECT_COMMITS:string = "/FutureSQR/rest/project/${projectid}/recentcommits";
+	private static readonly URL_GET_PROJECT_REVISION_DIFF:string  = "/FutureSQR/rest/project/${projectid}/revisiondiff/${revisionid}"
 
     constructor(private httpClient : HttpClient ) { }
 
@@ -34,7 +36,7 @@ export class ProjectDataQueryBackendService {
 	}
 	
 	getRecentProjectRevisionDiff(projectid:string, revisionid:string) {
-		var url = `/FutureSQR/rest/project/${projectid}/revisiondiff/${revisionid}`
+		var url = `/FutureSQR/rest/project/${projectid}/revisiondiff/${revisionid}`;
 		// TODO: 
 		// return this.httpClient.get<>(url, {});
 	}
