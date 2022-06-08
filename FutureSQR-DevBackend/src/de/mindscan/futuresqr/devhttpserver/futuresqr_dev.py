@@ -58,9 +58,10 @@ def getUserAllAccessibleProjects(user_uuid: str = ""):
 @app.get("/FutureSQR/rest/project/{projectid}/recentcommits")
 def getProjectRevisions(projectid:str):
     if projectid in project_path_translation:
-        # TODO: cache this answer for some time.
+        # TODO: cache this answer for some time and/or limit the number of results?
         return calculateRecentRevisionsForLocalGitRepo(project_path_translation[projectid])
-            
+    
+    # TODO: we should say that this repository is not yet available?        
     result = {'revisions':[]}
     return result
 
