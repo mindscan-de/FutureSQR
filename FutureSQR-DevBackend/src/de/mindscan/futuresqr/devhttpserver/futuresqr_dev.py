@@ -36,7 +36,7 @@ def getUserStarredProjects(user_uuid:str = ""):
 @app.get("/FutureSQR/rest/user/allaccessibleprojetcs")
 def getUserAllAccessibleProjects(user_uuid: str = ""):
     result = [
-        {"project_id":"furiousiron-frontend", "project_name":"FuriousIron-Backend", "description":"My personal source code engine project. Frontend. (Angular. TS)"},
+        {"project_id":"furiousiron-frontend", "project_name":"FuriousIron-Frontend", "description":"My personal source code engine project. Frontend. (Angular. TS)"},
         {"project_id":"furiousiron-hfb", "project_name":"FuriousIron-HFB", "description":"Hash-Free Bloom-Filter (Proof of concept implementation)"},
         {"project_id":"furiousiron-indexer", "project_name":"FuriousIron-Indexer", "description":"My personal source code search engine project. Indexer. (Java. Windows. No Database. Filesystem only) "},
         {"project_id":"furiousiron-searchbackend", "project_name":"FuriousIron-SearchBackend", "description":"My personal source code search engine project. Backend. (Java. Tomcat. Windows. No Database. Filesystem only) "},
