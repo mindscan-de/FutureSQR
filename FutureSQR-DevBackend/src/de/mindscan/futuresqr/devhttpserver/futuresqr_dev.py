@@ -6,6 +6,8 @@ Created on 05.06.2022
 
 import json
 
+from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo 
+
 from fastapi import FastAPI, Form, HTTPException
 
 TEMP_ASSET_FOLDER = '../../../../../tempassets/'
@@ -54,11 +56,9 @@ def getUserAllAccessibleProjects(user_uuid: str = ""):
 @app.get("/FutureSQR/rest/project/{projectid}/recentcommits")
 def getProjectRevisions(projectid:str):
     if projectid in project_path_translation:
-        # TODO: poor mans git access, instead of cached file. 
-               
-        with open(TEMP_ASSET_FOLDER + projectid + ".revisions.json","r") as revisionsfile:
-            return json.load(revisionsfile)
-    
+        # TODO: cache this answer for some time.
+        return calculateRecentRevisionsForLocalGitRepo(project_path_translation[projectid])
+            
     result = {'revisions':[]}
     return result
 
