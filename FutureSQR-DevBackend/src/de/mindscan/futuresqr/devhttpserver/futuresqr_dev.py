@@ -16,6 +16,8 @@ app = FastAPI()
 
 project_path_translation = {
     'furiousiron-frontend':"D:\\Temp\\future-square-cache\\FuriousIron-Frontend",
+    'futuresqr':"D:\\Temp\\future-square-cache\\FutureSQR",
+    'furiousiron-hfb':"D:\\Temp\\future-square-cache\\FuriousIron-HFB"
     }
 
 @app.get("/")
