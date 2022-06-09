@@ -26,6 +26,9 @@ SOFTWARE.
 @autor: Maxim Gansert
 '''
 
+import json
+import os
+
 TEMP_ASSET_FOLDER = '../../../../../tempassets/'
 
 '''
@@ -40,10 +43,23 @@ need to solve this problem later - but that means we can still go fast, and
 do not need to solve everything by now.
 '''
 
+
+def _getFromTempAssets( filename:str ):
+    '''
+    Provide an asset stored as a json file in the temp asset folder.
+    
+    :param filename:
+    '''
+    with open(TEMP_ASSET_FOLDER+str(filename),'r') as inputfile:
+        return json.load(inputfile)
+    print("something went wrong with "+str(filename) )
+    return {}
+
 def getAllProjectToLocalPathMap():
     return {
     'furiousiron-frontend':"D:\\Temp\\future-square-cache\\FuriousIron-Frontend",
     'futuresqr':"D:\\Temp\\future-square-cache\\FutureSQR",
     'furiousiron-hfb':"D:\\Temp\\future-square-cache\\FuriousIron-HFB"
     }
-    
+
+
