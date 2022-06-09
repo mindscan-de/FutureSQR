@@ -6,19 +6,13 @@ Created on 05.06.2022
 
 import json
 
-from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo 
+from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo
+from de.mindscan.futuresqr.assets.hardcoded import getAllProjectToLocalPathMap
 
 from fastapi import FastAPI, Form, HTTPException
 
-TEMP_ASSET_FOLDER = '../../../../../tempassets/'
-
 app = FastAPI()
 
-project_path_translation = {
-    'furiousiron-frontend':"D:\\Temp\\future-square-cache\\FuriousIron-Frontend",
-    'futuresqr':"D:\\Temp\\future-square-cache\\FutureSQR",
-    'furiousiron-hfb':"D:\\Temp\\future-square-cache\\FuriousIron-HFB"
-    }
 
 @app.get("/")
 def read_root():
@@ -57,6 +51,7 @@ def getUserAllAccessibleProjects(user_uuid: str = ""):
 
 @app.get("/FutureSQR/rest/project/{projectid}/recentcommits")
 def getProjectRevisions(projectid:str):
+    project_path_translation = getAllProjectToLocalPathMap()
     if projectid in project_path_translation:
         # TODO: cache this answer for some time and/or limit the number of results?
         return calculateRecentRevisionsForLocalGitRepo(project_path_translation[projectid])
@@ -67,6 +62,8 @@ def getProjectRevisions(projectid:str):
 
 @app.get("/FutureSQR/rest/project/{projectid}/revisiondiff/{revisionid}")
 def getProjectRevisionDiffToPrevious(projectid:str, revisionid:str):
+    project_path_translation = getAllProjectToLocalPathMap()
+    
     if projectid in project_path_translation:
         result = {}
         return result
