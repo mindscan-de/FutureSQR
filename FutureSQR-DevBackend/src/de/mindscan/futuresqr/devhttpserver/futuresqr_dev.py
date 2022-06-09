@@ -4,7 +4,6 @@ Created on 05.06.2022
 @author: JohnDoe
 '''
 
-import json
 
 from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo
 from de.mindscan.futuresqr.assets.hardcoded import getAllProjectToLocalPathMap
