@@ -7,6 +7,10 @@ import { ProjectDataQueryBackendService } from '../../backend/services/project-d
 // BackendModel - should be actually a ui model 
 import { BackendModelProjectRecentCommits } from '../../backend/model/backend-model-project-recent-commits';
 
+/*
+ * We want to group changes by date, therefore we might need the relative date as well.
+
+ */
 
 @Component({
   selector: 'app-project-recent-commits-page',

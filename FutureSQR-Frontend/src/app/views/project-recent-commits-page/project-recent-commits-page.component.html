@@ -8,7 +8,7 @@
 				<ul class="list-group">
 					<li *ngFor="let revision of uiModelRecentProjectCommits.revisions" class="list-group-item">
 					{{revision.authorname}} &mdash; <span class="text-muted">{{revision.message}}</span> <br/> <br/>
-					{{revision.date}} &mdash; <a [routerLink]="['/',activeProjectID,'revision',revision.revisionid]">{{revision.shortrev}}</a> &mdash; <a [routerLink]="['/',activeProjectID,'diff',revision.revisionid]">diff</a>
+					{{revision.date}} ({{revision.reldate}})  &mdash; <a [routerLink]="['/',activeProjectID,'revision',revision.revisionid]">{{revision.shortrev}}</a> &mdash; <a [routerLink]="['/',activeProjectID,'diff',revision.revisionid]">diff</a>
 					</li>
 				</ul>
 			</div>
