@@ -6,7 +6,7 @@ Created on 05.06.2022
 
 
 from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo
-from de.mindscan.futuresqr.assets.hardcoded import getAllProjectToLocalPathMap
+from de.mindscan.futuresqr.assets.hardcoded import getAllProjectToLocalPathMap, getAllStarredProjectsForUser
 
 from fastapi import FastAPI, Form, HTTPException
 
@@ -19,15 +19,7 @@ def read_root():
 
 @app.get("/FutureSQR/rest/user/starredprojects")
 def getUserStarredProjects(user_uuid:str = ""):
-    result = [
-        {"project_id":"furiousiron-frontend", "project_name":"FuriousIron-Frontend", "description":"My personal source code engine project. Frontend. (Angular. TS)"},
-        {"project_id":"furiousiron-hfb", "project_name":"FuriousIron-HFB", "description":"Hash-Free Bloom-Filter (Proof of concept implementation)"},
-        {"project_id":"furiousiron-indexer", "project_name":"FuriousIron-Indexer", "description":"My personal source code search engine project. Indexer. (Java. Windows. No Database. Filesystem only) "},
-        {"project_id":"furiousiron-searchbackend", "project_name":"FuriousIron-SearchBackend", "description":"My personal source code search engine project. Backend. (Java. Tomcat. Windows. No Database. Filesystem only) "},
-        {"project_id":"futuresqr", "project_name":"FutureSQR", "description":"Code Review Tool - Future Source Quality Review"},
-        {"project_id":"orangemoon-frontend", "project_name":"OrangeMoon-Frontend", "description":"Japanese Dictionary Web-App - Frontend (based on nodejs and angular)"},
-        {"project_id":"orangemoon-backend", "project_name":"OrangeMoon-Backend", "description":"Japanese Dictionary Web-App - Backend (based on fastapi and jamdict) "}
-    ]
+    result = getAllStarredProjectsForUser() 
     return result
 
 @app.get("/FutureSQR/rest/user/allaccessibleprojetcs")
