@@ -5,8 +5,8 @@ Created on 08.06.2022
 '''
 import subprocess
 
-GIT_FIELDS = ['shortrev','revisionid','authorname','authorid','date','message']
-GIT_FORMAT_PARAMS = ['%h','%H','%an','%ae','%ar','%s']
+GIT_FIELDS = ['shortrev','revisionid','authorname','authorid','date','reldate','message']
+GIT_FORMAT_PARAMS = ['%h','%H','%an','%ae','%ad','%ar','%s']
 
 
 def calculateRecentRevisionsForLocalGitRepo(local_git_repo_path:str):
