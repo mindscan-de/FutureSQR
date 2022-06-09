@@ -11,6 +11,7 @@ import { MostActiveProjectsComponent } from './views/main-page/most-active-proje
 import { AllProjectsPageComponent } from './views/all-projects-page/all-projects-page.component';
 import { ProjectRecentCommitsPageComponent } from './views/project-recent-commits-page/project-recent-commits-page.component';
 import { BasicProjectInformationComponent } from './views/project-recent-commits-page/basic-project-information/basic-project-information.component';
+import { SingleRevisionPageComponent } from './views/single-revision-page/single-revision-page.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { BasicProjectInformationComponent } from './views/project-recent-commits
     MostActiveProjectsComponent,
     AllProjectsPageComponent,
     ProjectRecentCommitsPageComponent,
-    BasicProjectInformationComponent
+    BasicProjectInformationComponent,
+    SingleRevisionPageComponent
   ],
   imports: [
     BrowserModule,
