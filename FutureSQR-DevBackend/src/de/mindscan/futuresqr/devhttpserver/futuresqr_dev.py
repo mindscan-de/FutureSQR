@@ -38,6 +38,20 @@ def getProjectRevisions(projectid:str):
     result = {'revisions':[]}
     return result
 
+@app.get("/FutureSQR/rest/project/{projectid}/recentreviews")
+def getProjectReviews(projectid:str):
+    project_path_translation = getAllProjectToLocalPathMap()
+    if projectid in project_path_translation:
+        pass
+    
+    result = {
+#         'projectinfo' : {
+#                 'projectName':'The Full Project Name'
+#             }
+        'reviews':[]
+        }
+    return result
+
 @app.get("/FutureSQR/rest/project/{projectid}/revisiondiff/{revisionid}")
 def getProjectRevisionDiffToPrevious(projectid:str, revisionid:str):
     project_path_translation = getAllProjectToLocalPathMap()
