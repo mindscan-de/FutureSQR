@@ -5,7 +5,7 @@ Created on 05.06.2022
 '''
 
 
-from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo
+from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision
 from de.mindscan.futuresqr.assets.hardcoded import getAllProjectToLocalPathMap, getAllStarredProjectsForUser, getAllProjectsForUser
 
 from fastapi import FastAPI, Form, HTTPException
@@ -57,7 +57,7 @@ def getProjectRevisionDiffToPrevious(projectid:str, revisionid:str):
     project_path_translation = getAllProjectToLocalPathMap()
     
     if projectid in project_path_translation:
-        result = {}
+        result = calculateDiffForSingleRevision(project_path_translation[projectid], revisionid)
         return result
     
     result = {}
