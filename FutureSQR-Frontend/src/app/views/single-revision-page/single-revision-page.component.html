@@ -20,8 +20,8 @@
 						<p class="text-muted">{{change.lazy_lineinfo_line}}</p>
 						<ul class="list-unstyled mb-0 pb-0 mt-0 pt-0">
 							<li class="mb-0 pb-0 mt-0 pt-0" *ngFor="let linechange of change.lazy_file_diff">
-								<pre *ngIf="linechange.startsWith('-')" class="bg-danger text-dark">{{linechange}}</pre>
-								<pre *ngIf="linechange.startsWith('+')" class="bg-success text-dark">{{linechange}}</pre>
+								<pre *ngIf="linechange.startsWith('-')" class="diff-bg-removed text-dark">{{linechange}}</pre>
+								<pre *ngIf="linechange.startsWith('+')" class="diff-bg-added text-dark">{{linechange}}</pre>
 								<pre *ngIf="!linechange.startsWith('-') && !linechange.startsWith('+')" class="bg-light text-dark" >{{linechange}}</pre>
 							</li>
 						</ul>

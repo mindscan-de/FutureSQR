@@ -1,0 +1,7 @@
+.diff-bg-removed {
+	background: rgba(220,53,69,0.25) !important;
+}
+
+.diff-bg-added {
+	background: rgba(40,167,69,0.25) !important;
+}
