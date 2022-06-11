@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { BackendModelProjectItem } from '../model/backend-model-project-item';
 import { BackendModelProjectRecentCommits } from '../model/backend-model-project-recent-commits';
+import { BackendModelProjectSingleRevisonDiff } from '../model/backend-model-project-single-revison-diff';
 
 @Injectable({
   providedIn: 'root'
@@ -35,9 +36,8 @@ export class ProjectDataQueryBackendService {
 		return this.httpClient.get<BackendModelProjectRecentCommits>(url, {});
 	}
 	
-	getRecentProjectRevisionDiff(projectid:string, revisionid:string) {
+	getRecentProjectRevisionDiff(projectid:string, revisionid:string): Observable<BackendModelProjectSingleRevisonDiff> {
 		var url = `/FutureSQR/rest/project/${projectid}/revisiondiff/${revisionid}`;
-		// TODO: 
-		// return this.httpClient.get<>(url, {});
+		return this.httpClient.get<BackendModelProjectSingleRevisonDiff>(url, {});
 	}
 }
