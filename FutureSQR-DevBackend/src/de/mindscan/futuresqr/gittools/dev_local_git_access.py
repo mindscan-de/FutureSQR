@@ -10,18 +10,26 @@ GIT_FORMAT_PARAMS = ['%h','%H','%an','%ae','%ad','%ar','%s']
 
 # ATTENTION: NEVER EVER PUT THIS CODE INTO PRODUCTION, THIS CODE IS DANGEROUS
 
+GIT_EXECUTABLE_PATH = 'C:\\Program Files\\Git\\cmd\\git.exe'
+
+def __execute_git_command( git_parameters ):
+    git_command = [ GIT_EXECUTABLE_PATH ]
+    git_command.extend(git_parameters)
+    
+    output = subprocess.run(git_command, stdout=subprocess.PIPE)
+    return output.stdout.decode()
+
+
 def calculateRecentRevisionsForLocalGitRepo(local_git_repo_path:str):
     formatdetails = '%x1f'.join(GIT_FORMAT_PARAMS)
     
-    GIT_COMMAND = [
-        'C:\\Program Files\\Git\\cmd\\git.exe', 
+    GIT_PARAMETERS = [
         '-C',  local_git_repo_path, 
         'log',  
         '--pretty=format:%x1f'+formatdetails+'%x1e'
     ]
     
-    output = subprocess.run(GIT_COMMAND, stdout=subprocess.PIPE)
-    log = output.stdout.decode()    
+    log = __execute_git_command(GIT_PARAMETERS)
 
     log = log.strip('\n\x1e').split('\x1e')
     log = [ row.strip().split('\x1f') for row in log ]
@@ -84,8 +92,7 @@ def __parse_file_changes_from_log(log):
 
 def calculateDiffForSingleRevision(local_git_repo_path:str, revisionid:str):
     
-    GIT_COMMAND = [
-        'C:\\Program Files\\Git\\cmd\\git.exe', 
+    GIT_PARAMETERS = [
         '-C',  local_git_repo_path, 
         'log',  
         '-u',
@@ -93,8 +100,7 @@ def calculateDiffForSingleRevision(local_git_repo_path:str, revisionid:str):
         revisionid
         ]
     
-    output = subprocess.run(GIT_COMMAND, stdout=subprocess.PIPE)
-    log = output.stdout.decode()
+    log = __execute_git_command(GIT_PARAMETERS)
     
     fileChanges = __parse_file_changes_from_log(log)
     
