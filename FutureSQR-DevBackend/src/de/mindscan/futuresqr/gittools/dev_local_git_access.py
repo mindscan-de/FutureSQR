@@ -90,9 +90,9 @@ def calculateDiffForSingleRevision(local_git_repo_path:str, revisionid:str):
     
     log = __execute_git_command_on_local_repo(local_git_repo_path, git_parameters)
     
-    fullChangeSet = parse_log_full_changeset(log)
+    fileChangeSets = parse_log_full_changeset(log)
     
     diffData = {
-            'changes': fullChangeSet
+            'fileChangeSet': fileChangeSets
         }
     return diffData

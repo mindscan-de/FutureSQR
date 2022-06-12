@@ -39,7 +39,7 @@ def parse_log_by_rs_us(log, fieldnames):
 # * a line changeset contains a description of the lines changed and a list of lines.
 
 def parse_log_full_changeset(log):
-    result = []
+    fileChangeSets = []
     
     lines = log.split('\n')
     
@@ -48,15 +48,15 @@ def parse_log_full_changeset(log):
         line:str = lines[linecounter]
         
         if line.startswith('diff --git '):
-            entry = {}
+            singleFileChangeSet = {}
             
             # found a new file change
             # TODO: exract filenames from  line
-            entry['lazy_diff_line']=lines[linecounter]
+            singleFileChangeSet['lazy_diff_line']=lines[linecounter]
             linecounter+=1
             
             # parse index
-            entry['lazy_index_line']=lines[linecounter]
+            singleFileChangeSet['lazy_index_line']=lines[linecounter]
             linecounter+=1
             
             # parse ---
@@ -66,22 +66,29 @@ def parse_log_full_changeset(log):
             linecounter+=1
             
             # parse @@ ... @@
-            entry['lazy_lineinfo_line']=lines[linecounter]
+            singleContentChangeset = {'line_info':lines[linecounter], 'line_diff_data':[]}
+            singleFileChangeSet['fileContentChangeSet']=[]
+            singleFileChangeSet['fileContentChangeSet'].append(singleContentChangeset)
             linecounter+=1
             
             # TODO: now read until end of lines or until next diff line.
             if len(lines)<=linecounter:
-                result.append(entry)
+                fileChangeSets.append(singleFileChangeSet)
                 break;
             
             # calculate from filenames, whether add, remove, rename or move
-            entry['lazy_file_diff'] = []
-            while linecounter<len(lines) and not lines[linecounter].startswith('diff --git') :
-                entry['lazy_file_diff'].append(lines[linecounter])
+            singleFileChangeSet['lazy_file_diff'] = []
+            while linecounter<len(lines) and not lines[linecounter].startswith('diff --git')  :
+                if lines[linecounter].startswith("@@ "):
+                    singleContentChangeset = {'line_info':lines[linecounter], 'line_diff_data':[]}
+                    singleFileChangeSet['fileContentChangeSet'].append(singleContentChangeset)                    
+                    pass
+                
+                singleContentChangeset['line_diff_data'].append(lines[linecounter])
                 linecounter+=1
             
-            result.append(entry)
+            fileChangeSets.append(singleFileChangeSet)
         else:
             linecounter+=1
         
-    return result
+    return fileChangeSets
