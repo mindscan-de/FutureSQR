@@ -6,8 +6,8 @@ import { ProjectDataQueryBackendService } from '../../backend/services/project-d
 
 
 // BackendModel - should be actually a ui model 
-import { BackendModelProjectSingleRevisonDiff } from '../../backend/model/backend-model-project-single-revison-diff';
-import { BackendModelProjectSingleFileChangeItem } from '../../backend/model/backend-model-project-single-file-change-item';
+import { BackendModelSingleCommitFullChangeSet } from '../../backend/model/backend-model-single-commit-full-change-set';
+import { BackendModelSingleCommitFileChangeSet } from '../../backend/model/backend-model-single-commit-file-change-set';
 
 @Component({
   selector: 'app-single-revision-page',
@@ -18,8 +18,8 @@ export class SingleRevisionPageComponent implements OnInit {
 	
 	public activeProjectID: string = '';
 	public activeRevisionID: string = '';
-    public uiModelSingleRevisionDiffs: BackendModelProjectSingleRevisonDiff = new BackendModelProjectSingleRevisonDiff();
-	public uiChanges: BackendModelProjectSingleFileChangeItem[] = [];
+    public uiModelSingleRevisionDiffs: BackendModelSingleCommitFullChangeSet = new BackendModelSingleCommitFullChangeSet();
+	public uiFileChangeSets: BackendModelSingleCommitFileChangeSet[] = [];
 
     constructor(private projectDataQueryBackend : ProjectDataQueryBackendService, private route: ActivatedRoute  ) { }
 
@@ -28,15 +28,15 @@ export class SingleRevisionPageComponent implements OnInit {
 		this.activeRevisionID = this.route.snapshot.paramMap.get('revisionid');
 	
 		// TODO: query the revision change to previous revision from backend.
-		this.projectDataQueryBackend.getRecentProjectRevisionDiff(this.activeProjectID,this.activeRevisionID).subscribe(
+		this.projectDataQueryBackend.getRecentProjectRevisionDiffFullChangeSet(this.activeProjectID,this.activeRevisionID).subscribe(
 			data => this.onSingeRevisionDiffProvided(data),
 			error => console.log(error)
 		)
 	}
 
-	onSingeRevisionDiffProvided( diffData: BackendModelProjectSingleRevisonDiff):void {
+	onSingeRevisionDiffProvided( diffData: BackendModelSingleCommitFullChangeSet):void {
 		this.uiModelSingleRevisionDiffs = diffData;
-		this.uiChanges = diffData.changes;
+		this.uiFileChangeSets = diffData.fileChangeSet;
 	}
 
 }
