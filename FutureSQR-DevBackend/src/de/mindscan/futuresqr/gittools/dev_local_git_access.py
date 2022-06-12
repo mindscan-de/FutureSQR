@@ -57,7 +57,7 @@ def calculateRecentRevisionsForLocalGitRepo(local_repo_path:str):
     :param local_repo_path: path to the local git repository.
     
     This method uses the ascii values 0x1e and 0x1f. These are reserved
-    for record separation (0x1e) and for unit separation (0x1f).
+    for record separation(RS) (0x1e) and for unit separation(US) (0x1f).
     
     @return: dictionary with revisions from newest to oldest.
     '''

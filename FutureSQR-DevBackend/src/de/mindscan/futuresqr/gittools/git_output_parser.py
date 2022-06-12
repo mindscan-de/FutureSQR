@@ -33,6 +33,10 @@ def parse_log_by_rs_us(log, fieldnames):
     records = [ dict(zip(fieldnames,row)) for row in records ]
     return records
 
+# TODO: 
+# * actually a full changeset contains a list of file changesets, and information about the commit
+# * a filechangeset contains a description of the file change (add, remove, modify...), and a list of line changesets 
+# * a line changeset contains a description of the lines changed and a list of lines.
 
 def parse_log_full_changeset(log):
     result = []
