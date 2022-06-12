@@ -77,7 +77,6 @@ def parse_log_full_changeset(log):
                 break;
             
             # calculate from filenames, whether add, remove, rename or move
-            singleFileChangeSet['lazy_file_diff'] = []
             while linecounter<len(lines) and not lines[linecounter].startswith('diff --git')  :
                 if lines[linecounter].startswith("@@ "):
                     singleContentChangeset = {'line_info':lines[linecounter], 'line_diff_data':[]}
