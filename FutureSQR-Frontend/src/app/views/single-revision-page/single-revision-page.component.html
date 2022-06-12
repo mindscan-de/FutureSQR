@@ -16,7 +16,8 @@
 				<ul *ngFor="let fileChangeSet of uiFileChangeSets" class="list-group">
 					<li class="p-2 m-2 list-group-item" *ngFor="let contentChangeSet of fileChangeSet.fileContentChangeSet">
 						<h5>{{fileChangeSet.lazy_diff_line}}</h5>
-						<p class="text-muted">{{contentChangeSet.lazy_lineinfo_line}}</p>
+						<p class="text-muted">{{fileChangeSet.lazy_index_line}}</p>
+						<p class="text-muted">{{contentChangeSet.line_info}}</p>
 						<ul class="list-unstyled mb-0 pb-0 mt-0 pt-0">
 							<li class="mb-0 pb-0 mt-0 pt-0" *ngFor="let linechange of contentChangeSet.line_diff_data">
 								<pre *ngIf="linechange.startsWith('-')" class="diff-bg-removed text-dark">{{linechange}}</pre>
