@@ -19,17 +19,33 @@ def __execute_git_command( git_parameters ):
     output = subprocess.run(git_command, stdout=subprocess.PIPE)
     return output.stdout.decode()
 
+def __execute_git_command_on_local_repo( local_git_repo, git_parameters):
+    full_git_parameters =  [ '-C', local_git_repo ]
+    full_git_parameters.extend(git_parameters)
+    
+    return __execute_git_command(full_git_parameters)
+    
 
-def calculateRecentRevisionsForLocalGitRepo(local_git_repo_path:str):
+def calculateRecentRevisionsForLocalGitRepo(local_repo_path:str):
+    '''
+    This method provides a list of all versions for a given local git repository.
+    
+    :param local_repo_path: path to the local git repository.
+    
+    This method uses the ascii values 0x1e and 0x1f. These are reserved
+    for record separation (0x1e) and for unit separation (0x1f).
+    
+    @return: dictionary with revisions from newest to oldest.
+    '''
+    
     formatdetails = '%x1f'.join(GIT_FORMAT_PARAMS)
     
     GIT_PARAMETERS = [
-        '-C',  local_git_repo_path, 
         'log',  
         '--pretty=format:%x1f'+formatdetails+'%x1e'
     ]
     
-    log = __execute_git_command(GIT_PARAMETERS)
+    log = __execute_git_command_on_local_repo(local_repo_path, GIT_PARAMETERS)
 
     log = log.strip('\n\x1e').split('\x1e')
     log = [ row.strip().split('\x1f') for row in log ]
@@ -93,14 +109,13 @@ def __parse_file_changes_from_log(log):
 def calculateDiffForSingleRevision(local_git_repo_path:str, revisionid:str):
     
     GIT_PARAMETERS = [
-        '-C',  local_git_repo_path, 
         'log',  
         '-u',
         '-1',
         revisionid
         ]
     
-    log = __execute_git_command(GIT_PARAMETERS)
+    log = __execute_git_command_on_local_repo(local_git_repo_path, GIT_PARAMETERS)
     
     fileChanges = __parse_file_changes_from_log(log)
     
