@@ -33,4 +33,51 @@ def parse_log_by_rs_us(log, fieldnames):
     records = [ dict(zip(fieldnames,row)) for row in records ]
     return records
 
+
+def parse_log_full_changeset(log):
+    result = []
     
+    lines = log.split('\n')
+    
+    linecounter = 0;
+    while linecounter< len(lines):
+        line:str = lines[linecounter]
+        
+        if line.startswith('diff --git '):
+            entry = {}
+            
+            # found a new file change
+            # TODO: exract filenames from  line
+            entry['lazy_diff_line']=lines[linecounter]
+            linecounter+=1
+            
+            # parse index
+            entry['lazy_index_line']=lines[linecounter]
+            linecounter+=1
+            
+            # parse ---
+            linecounter+=1
+            
+            # parse +++
+            linecounter+=1
+            
+            # parse @@ ... @@
+            entry['lazy_lineinfo_line']=lines[linecounter]
+            linecounter+=1
+            
+            # TODO: now read until end of lines or until next diff line.
+            if len(lines)<=linecounter:
+                result.append(entry)
+                break;
+            
+            # calculate from filenames, whether add, remove, rename or move
+            entry['lazy_file_diff'] = []
+            while linecounter<len(lines) and not lines[linecounter].startswith('diff --git') :
+                entry['lazy_file_diff'].append(lines[linecounter])
+                linecounter+=1
+            
+            result.append(entry)
+        else:
+            linecounter+=1
+        
+    return result
