@@ -27,7 +27,7 @@ SOFTWARE.
 '''
 
 import subprocess
-from de.mindscan.futuresqr.gittools.git_output_parser import split_log_by_rs_us 
+from de.mindscan.futuresqr.gittools.git_output_parser import parse_log_by_rs_us 
 
 GIT_FIELDS = ['shortrev','revisionid','authorname','authorid','date','reldate','message']
 GIT_FORMAT_PARAMS = ['%h','%H','%an','%ae','%ad','%ar','%s']
@@ -71,7 +71,7 @@ def calculateRecentRevisionsForLocalGitRepo(local_repo_path:str):
     
     log = __execute_git_command_on_local_repo(local_repo_path, git_parameters)
 
-    revisions = split_log_by_rs_us(log, GIT_FIELDS)
+    revisions = parse_log_by_rs_us(log, GIT_FIELDS)
     
     recentRevisions = {
         'revisions': revisions
@@ -79,7 +79,7 @@ def calculateRecentRevisionsForLocalGitRepo(local_repo_path:str):
     return recentRevisions
 
 
-def __parse_file_changes_from_log(log):
+def __parse_full_changeset(log):
     result = []
     
     lines = log.split('\n')
@@ -139,9 +139,9 @@ def calculateDiffForSingleRevision(local_git_repo_path:str, revisionid:str):
     
     log = __execute_git_command_on_local_repo(local_git_repo_path, git_parameters)
     
-    fileChanges = __parse_file_changes_from_log(log)
+    fullChangeSet = __parse_full_changeset(log)
     
     diffData = {
-            'changes': fileChanges
+            'changes': fullChangeSet
         }
     return diffData

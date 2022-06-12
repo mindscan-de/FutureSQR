@@ -27,7 +27,7 @@ SOFTWARE.
 '''
 
 
-def split_log_by_rs_us(log, fieldnames):
+def parse_log_by_rs_us(log, fieldnames):
     records = log.strip('\n\x1e').split('\x1e')
     records = [ row.strip().split('\x1f') for row in records ]
     records = [ dict(zip(fieldnames,row)) for row in records ]
