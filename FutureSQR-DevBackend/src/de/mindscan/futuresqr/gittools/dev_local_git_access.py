@@ -1,9 +1,33 @@
 '''
 Created on 08.06.2022
 
-@author: JohnDoe
+MIT License
+
+Copyright (c) 2022 Maxim Gansert
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+@autor: Maxim Gansert
 '''
+
 import subprocess
+from de.mindscan.futuresqr.gittools.git_output_parser import split_log_by_rs_us 
 
 GIT_FIELDS = ['shortrev','revisionid','authorname','authorid','date','reldate','message']
 GIT_FORMAT_PARAMS = ['%h','%H','%an','%ae','%ad','%ar','%s']
@@ -40,19 +64,17 @@ def calculateRecentRevisionsForLocalGitRepo(local_repo_path:str):
     
     formatdetails = '%x1f'.join(GIT_FORMAT_PARAMS)
     
-    GIT_PARAMETERS = [
+    git_parameters = [
         'log',  
         '--pretty=format:%x1f'+formatdetails+'%x1e'
     ]
     
-    log = __execute_git_command_on_local_repo(local_repo_path, GIT_PARAMETERS)
+    log = __execute_git_command_on_local_repo(local_repo_path, git_parameters)
 
-    log = log.strip('\n\x1e').split('\x1e')
-    log = [ row.strip().split('\x1f') for row in log ]
-    log = [ dict(zip(GIT_FIELDS,row)) for row in log ]
+    revisions = split_log_by_rs_us(log, GIT_FIELDS)
     
     recentRevisions = {
-        'revisions': log
+        'revisions': revisions
     }
     return recentRevisions
 
@@ -108,14 +130,14 @@ def __parse_file_changes_from_log(log):
 
 def calculateDiffForSingleRevision(local_git_repo_path:str, revisionid:str):
     
-    GIT_PARAMETERS = [
+    git_parameters = [
         'log',  
         '-u',
         '-1',
         revisionid
         ]
     
-    log = __execute_git_command_on_local_repo(local_git_repo_path, GIT_PARAMETERS)
+    log = __execute_git_command_on_local_repo(local_git_repo_path, git_parameters)
     
     fileChanges = __parse_file_changes_from_log(log)
     
