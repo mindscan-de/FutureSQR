@@ -6,5 +6,5 @@ export class BackendModelSingleCommitFileChangeSet {
 	// modified, added, renamed, etc., which hash it has. and so on....
 	
 	// It contains a list of file_content_changeset
-	public fileContetChangeSet: BackendModelSingleCommitFileContentChangeSet[] = [];
+	public fileContentChangeSet: BackendModelSingleCommitFileContentChangeSet[] = [];
 }
