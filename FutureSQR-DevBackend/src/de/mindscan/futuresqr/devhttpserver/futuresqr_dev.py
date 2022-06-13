@@ -57,12 +57,12 @@ def getProjectRevisions(projectid:str):
         # combine revisions with a review list for the revisons and add the revision id to the revision list
         revision_map = getRevisionToReviewMap()
         
-        for revision in revisions:
+        for revision in revisions['revisions']:
             if revision['revisionid'] in revision_map:
-                revision.put('hasReview', True )
-                revision.put('reviewID', revision_map[revision['revisionid']])
+                revision['hasReview']= True
+                revision['reviewID']= revision_map[revision['revisionid']]
             else:
-                revision.put('hasReview', False )
+                revision['hasReview']= False
         
         return revisions
     
