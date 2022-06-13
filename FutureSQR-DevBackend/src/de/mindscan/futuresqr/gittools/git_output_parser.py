@@ -84,6 +84,8 @@ def parse_log_full_changeset(log):
                 if lines[linecounter].startswith("@@ "):
                     singleContentChangeset = {'line_info':lines[linecounter], 'line_diff_data':[]}
                     singleFileChangeSet['fileContentChangeSet'].append(singleContentChangeset)                    
+                elif lines[linecounter].startswith("\\ No newline at end of file"):
+                    pass
                 else:
                     singleContentChangeset['line_diff_data'].append(lines[linecounter])
                 linecounter+=1
