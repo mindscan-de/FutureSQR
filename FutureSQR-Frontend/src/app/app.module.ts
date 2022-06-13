@@ -12,6 +12,7 @@ import { AllProjectsPageComponent } from './views/all-projects-page/all-projects
 import { ProjectRecentCommitsPageComponent } from './views/project-recent-commits-page/project-recent-commits-page.component';
 import { BasicProjectInformationComponent } from './views/project-recent-commits-page/basic-project-information/basic-project-information.component';
 import { SingleRevisionPageComponent } from './views/single-revision-page/single-revision-page.component';
+import { SingleReviewPageComponent } from './views/single-review-page/single-review-page.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { SingleRevisionPageComponent } from './views/single-revision-page/single
     AllProjectsPageComponent,
     ProjectRecentCommitsPageComponent,
     BasicProjectInformationComponent,
-    SingleRevisionPageComponent
+    SingleRevisionPageComponent,
+    SingleReviewPageComponent
   ],
   imports: [
     BrowserModule,
