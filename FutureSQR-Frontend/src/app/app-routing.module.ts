@@ -6,6 +6,7 @@ import { MainPageComponent } from './views/main-page/main-page.component';
 import { AllProjectsPageComponent } from './views/all-projects-page/all-projects-page.component';
 import { ProjectRecentCommitsPageComponent } from './views/project-recent-commits-page/project-recent-commits-page.component';
 import { SingleRevisionPageComponent } from './views/single-revision-page/single-revision-page.component';
+import { SingleReviewPageComponent } from './views/single-review-page/single-review-page.component';
 
 const routes: Routes = [
 	// show the main Page
@@ -17,8 +18,8 @@ const routes: Routes = [
 	// TODO:
 	// :projectid/reviews
 	
-	// TODO:
-	// :projectid/review/:reviewid
+	// show a review for a certain project
+	{ path:':projectid/review/:reviewid', component:SingleReviewPageComponent },
 	
 	// show a list of files which were changed for a single revision, and their diffs
 	// the action area should include some actions related to this particular revision
