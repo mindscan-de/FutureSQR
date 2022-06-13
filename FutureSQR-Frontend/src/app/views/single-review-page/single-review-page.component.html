@@ -1,1 +1,39 @@
-<p>single-review-page works!</p>
+<div class="row">
+	<div class="col-xl-9">
+		<div class="row">
+			<div class="col">
+
+
+				<h4>Some Revison information data</h4>
+				
+				Back to <a [routerLink]="['/', activeProjectID]">activeProjectID</a>.
+
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col">
+				<h4>CodeReview: {{activeReviewID}}</h4>
+				
+				And here are some revision information for this particular code review, e.g.s if it contains multiple revisions.
+				
+				 
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col">
+				<h4>And Here the diffs</h4>
+				
+				And here are some revision information for this particular code review
+			</div>
+		</div>
+		
+		
+	</div>
+	
+	<div class="col-xl-3">
+		<h4>Feed &amp; Action Area</h4>
+	</div>
+	
+</div>
