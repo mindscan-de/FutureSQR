@@ -27,7 +27,7 @@ SOFTWARE.
 '''
 
 from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision
-from de.mindscan.futuresqr.assets.hardcoded import getAllProjectToLocalPathMap, getAllStarredProjectsForUser, getAllProjectsForUser
+from de.mindscan.futuresqr.assets.hardcoded import getAllProjectToLocalPathMap, getAllStarredProjectsForUser, getAllProjectsForUser, getRevisionToReviewMap
 
 from fastapi import FastAPI, Form, HTTPException
 
@@ -53,7 +53,18 @@ def getProjectRevisions(projectid:str):
     project_path_translation = getAllProjectToLocalPathMap()
     if projectid in project_path_translation:
         # TODO: cache this answer for some time and/or limit the number of results?
-        return calculateRecentRevisionsForLocalGitRepo(project_path_translation[projectid])
+        revisions = calculateRecentRevisionsForLocalGitRepo(project_path_translation[projectid])
+        # combine revisions with a review list for the revisons and add the revision id to the revision list
+        revision_map = getRevisionToReviewMap()
+        
+        for revision in revisions:
+            if revision['revisionid'] in revision_map:
+                revision.put('hasReview', True )
+                revision.put('reviewID', revision_map[revision['revisionid']])
+            else:
+                revision.put('hasReview', False )
+        
+        return revisions
     
     # TODO: we should say that this repository is not yet available?        
     result = {'revisions':[]}
