@@ -6,4 +6,7 @@ export class BackendModelProjectRecentCommitRevision {
 		public date:string = "";
 		public reldate:string = "";
 		public message:string = "";
+		public hasReview: boolean = false;
+		public reviewID: string = "";
+		
 }
