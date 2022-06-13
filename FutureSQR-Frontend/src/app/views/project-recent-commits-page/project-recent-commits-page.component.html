@@ -7,8 +7,13 @@
 				<h4>Recent commits</h4>
 				<ul class="list-group">
 					<li *ngFor="let revision of uiModelRecentProjectCommits.revisions" class="list-group-item">
+					<div class="float-right" *ngIf="revision.hasReview==true">
+						<a [routerLink]="['/',activeProjectID,'review',revision.reviewID]">{{revision.reviewID}}</a>
+					</div>
+					
 					{{revision.authorname}} &mdash; <span class="text-muted">{{revision.message}}</span> <br/> <br/>
 					{{revision.date}} ({{revision.reldate}})  &mdash; <a [routerLink]="['/',activeProjectID,'revision',revision.revisionid]">{{revision.shortrev}}</a> &mdash; <a [routerLink]="['/',activeProjectID,'diff',revision.revisionid]">diff</a>
+					
 					</li>
 				</ul>
 			</div>
