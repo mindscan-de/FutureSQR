@@ -95,3 +95,12 @@ def parse_log_full_changeset(log):
             linecounter+=1
         
     return fileChangeSets
+
+
+def parse_log_fileListToMap(log):
+    lines = log.split('\n')
+    lines_with_rows = [ line.split('\t',2) for line in lines[1:] ]
+    file_dict = { row[1]:row[0] for row in lines_with_rows }
+    
+    print (file_dict)
+    return file_dict
