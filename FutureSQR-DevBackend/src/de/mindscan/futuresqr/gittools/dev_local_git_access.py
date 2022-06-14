@@ -96,3 +96,30 @@ def calculateDiffForSingleRevision(local_git_repo_path:str, revisionid:str):
             'fileChangeSet': fileChangeSets
         }
     return diffData
+
+
+def calculateFileListForSigleRevision(local_git_repo_path:str, revisionid:str):
+    pretty_format=['%H','%cn','%cr']
+    formatdetails = '%x1f'.join(pretty_format)
+
+    git_parameters = [
+        'log',
+        '--find-renames',
+        '--name-status',
+        '--pretty=format:%x1f'+formatdetails+'%x1e',
+        '-1',
+        revisionid
+        ]
+    
+    log = __execute_git_command_on_local_repo(local_git_repo_path, git_parameters)
+    
+    # TODO: filter all lines starting with 0x1f
+    # TODO: good engough: filter first line
+    # TODO: parse the result from filepath (key) to action (value) dictionary
+    
+    fileDetails = {
+        # TODO: fill this parsed data
+        'fileListAndFileAction': {}
+        }
+    
+    return fileDetails
