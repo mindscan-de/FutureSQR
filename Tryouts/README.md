@@ -15,13 +15,26 @@ of javascript with a full application, and how to split it into different compon
 scale partial apps. Then figure out how that can then be delivered to the user using a webserver and how the 
 deployment would look like. e.g. in a tomcat based server.
 
-Tryout_0x01
+## Tryout_0x01
 
 Angular app with individual components and some deeper routing, with some kind of include apps. And then 
 figure out how a deployment and a build of such an app would look like (create a buildscript/and then also
 check the dist-folder).
 
-Tryout_0x02
+Maybe i should stick to a monolith until there are some real problems to solve.
+
+## Tryout_0x02
+
+Angular app using and evaluating CodeMirror to provide source code formatting and interaction with the source code.
+
+
+# Future Tryouts?
+
+## Tryout_0x0?
 
 Make a minimal tomcat based server, and check, whether the dist folder of tryout_0x01 can be used and will 
 serve that application even with deeper url-structures. Maybe this will require some rewrite rules?
+
+## Tryout_0x0?
+
+User-authentication / user authorization with an angular app.
