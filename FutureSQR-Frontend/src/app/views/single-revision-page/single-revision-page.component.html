@@ -10,11 +10,21 @@
 			</div>
 		</div>
 	
+		<div class="row">
+			<div class="col">
+				<h4>Filelist below...</h4>
+				<ul class="list-group">
+					<li class="list-group-item"  *ngFor="let change of uiFilePathActions">
+						{{change[0]}} &mdash; {{change[1]}} 
+					</li>
+				</ul>
+			</div>
+		</div>
 
 		<div class="row">
 			<div class="col">
 				<ul *ngFor="let fileChangeSet of uiFileChangeSets" class="list-group">
-					<li class="p-2 m-2 list-group-item" *ngFor="let contentChangeSet of fileChangeSet.fileContentChangeSet">
+					<li class="p-2 mt-2 list-group-item" *ngFor="let contentChangeSet of fileChangeSet.fileContentChangeSet">
 						<h5>{{fileChangeSet.lazy_diff_line}}</h5>
 						<p class="text-muted">{{fileChangeSet.lazy_index_line}}</p>
 						<p class="text-muted">{{contentChangeSet.line_info}}</p>

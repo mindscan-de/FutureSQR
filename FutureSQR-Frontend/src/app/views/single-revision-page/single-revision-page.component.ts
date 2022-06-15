@@ -8,6 +8,8 @@ import { ProjectDataQueryBackendService } from '../../backend/services/project-d
 // BackendModel - should be actually a ui model 
 import { BackendModelSingleCommitFullChangeSet } from '../../backend/model/backend-model-single-commit-full-change-set';
 import { BackendModelSingleCommitFileChangeSet } from '../../backend/model/backend-model-single-commit-file-change-set';
+import { BackendModelSingleCommitFileActionsInfo } from '../../backend/model/backend-model-single-commit-file-actions-info';
+
 
 @Component({
   selector: 'app-single-revision-page',
@@ -20,6 +22,7 @@ export class SingleRevisionPageComponent implements OnInit {
 	public activeRevisionID: string = '';
     public uiModelSingleRevisionDiffs: BackendModelSingleCommitFullChangeSet = new BackendModelSingleCommitFullChangeSet();
 	public uiFileChangeSets: BackendModelSingleCommitFileChangeSet[] = [];
+	public uiFilePathActions: string[][] = [];
 
     constructor(private projectDataQueryBackend : ProjectDataQueryBackendService, private route: ActivatedRoute  ) { }
 
@@ -31,12 +34,22 @@ export class SingleRevisionPageComponent implements OnInit {
 		this.projectDataQueryBackend.getRecentProjectRevisionDiffFullChangeSet(this.activeProjectID,this.activeRevisionID).subscribe(
 			data => this.onSingeRevisionDiffProvided(data),
 			error => console.log(error)
-		)
+		);
+		
+		this.projectDataQueryBackend.getRecentProjectRevisionFilePathsData(this.activeProjectID,this.activeRevisionID).subscribe(
+			data => this.onFileListActionsProvided(data),
+			error => console.log(error)
+			);
 	}
 
 	onSingeRevisionDiffProvided( diffData: BackendModelSingleCommitFullChangeSet):void {
 		this.uiModelSingleRevisionDiffs = diffData;
 		this.uiFileChangeSets = diffData.fileChangeSet;
+	}
+	
+	
+	onFileListActionsProvided( fileChanges: BackendModelSingleCommitFileActionsInfo) : void {
+		this.uiFilePathActions = fileChanges.fileActionMap;
 	}
 
 }
