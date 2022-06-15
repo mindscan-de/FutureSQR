@@ -26,10 +26,11 @@ SOFTWARE.
 @autor: Maxim Gansert
 '''
 
-from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision
+from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision, calculateFileListForSigleRevision
 from de.mindscan.futuresqr.assets.hardcoded import getAllProjectToLocalPathMap, getAllStarredProjectsForUser, getAllProjectsForUser, getRevisionToReviewMap
 
 from fastapi import FastAPI, Form, HTTPException
+from pip._internal.pyproject import make_pyproject_path
 
 app = FastAPI()
 
@@ -90,6 +91,18 @@ def getProjectRevisionDiffToPrevious(projectid:str, revisionid:str):
     
     if projectid in project_path_translation:
         result = calculateDiffForSingleRevision(project_path_translation[projectid], revisionid)
+        return result
+    
+    result = {}
+    return result
+
+
+@app.get("/FutureSQR/rest/project/{projectid}/filelist/{revisionid}")
+def getProjectRevisionListeListDiffToPrevious(projectid:str, revisionid:str):
+    project_path_translation = getAllProjectToLocalPathMap()
+    
+    if projectid in project_path_translation:
+        result = calculateFileListForSigleRevision(project_path_translation[projectid], revisionid)
         return result
     
     result = {}
