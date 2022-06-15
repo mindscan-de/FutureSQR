@@ -27,7 +27,7 @@ SOFTWARE.
 '''
 
 import subprocess
-from de.mindscan.futuresqr.gittools.git_output_parser import parse_log_by_rs_us, parse_log_full_changeset, parse_log_fileListToMap
+from de.mindscan.futuresqr.gittools.git_output_parser import parse_log_by_rs_us, parse_log_full_changeset, parse_log_fileListToArray
 
 GIT_FIELDS = ['shortrev','revisionid','authorname','authorid','date','reldate','message']
 GIT_FORMAT_PARAMS = ['%h','%H','%an','%ae','%ad','%ar','%s']
@@ -113,13 +113,12 @@ def calculateFileListForSigleRevision(local_git_repo_path:str, revisionid:str):
     
     log = __execute_git_command_on_local_repo(local_git_repo_path, git_parameters)
     
-    fileToActionMap = parse_log_fileListToMap(log)
+    fileToActionMap = parse_log_fileListToArray(log)
     # TODO: filter all lines starting with 0x1f
     # TODO: good engough: filter first line
     # TODO: parse the result from filepath (key) to action (value) dictionary
     
     fileDetails = {
-        # TODO: fill this parsed data
         'fileActionMap': fileToActionMap
         }
     
