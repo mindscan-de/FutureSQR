@@ -1,4 +1,7 @@
 
 export class BackendModelSingleCommitFileActionsInfo {
-	public fileActionMap : Map<string,string> = new Map<string,string>();
+	public readonly FILENAME_IDX = 1;
+	public readonly FILEACTION_IDX = 0;	
+	
+	public fileActionList : string[][] = []; 
 }
