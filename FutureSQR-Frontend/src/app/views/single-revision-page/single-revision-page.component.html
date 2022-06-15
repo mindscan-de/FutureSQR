@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-xl-9">
-		<div class="row">
+		<div class="row mt-2">
 			<div class="col">
 				<h4>Some Revison information data</h4>
 				
@@ -10,19 +10,20 @@
 			</div>
 		</div>
 	
-		<div class="row">
+		<div class="row mt-2">
 			<div class="col">
-				<h4>Filelist below...</h4>
+				<h4>File Change Actions</h4>
 				<ul class="list-group">
 					<li class="list-group-item"  *ngFor="let change of uiFilePathActions">
-						{{change[0]}} &mdash; {{change[1]}} 
+						{{change[0]}} &mdash; <tt>{{change[1]}}</tt> 
 					</li>
 				</ul>
 			</div>
 		</div>
 
-		<div class="row">
+		<div class="row mt-2">
 			<div class="col">
+				<h4>File Changes</h4>
 				<ul *ngFor="let fileChangeSet of uiFileChangeSets" class="list-group">
 					<li class="p-2 mt-2 list-group-item" *ngFor="let contentChangeSet of fileChangeSet.fileContentChangeSet">
 						<h5>{{fileChangeSet.lazy_diff_line}}</h5>
