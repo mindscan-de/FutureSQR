@@ -120,7 +120,7 @@ def calculateFileListForSigleRevision(local_git_repo_path:str, revisionid:str):
     
     fileDetails = {
         # TODO: fill this parsed data
-        'filesToAction': fileToActionMap
+        'fileActionMap': fileToActionMap
         }
     
     return fileDetails
