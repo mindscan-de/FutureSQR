@@ -312,10 +312,12 @@
 
 <ngx-codemirror
   [(ngModel)]="content"
+  [disabled]="readOnly"
   [options]="{
     lineNumbers: true,
-    theme: 'material',
+    theme: '3024-day',
     mode: 'markdown'
   }"
+  
 ></ngx-codemirror>
 <router-outlet></router-outlet>
