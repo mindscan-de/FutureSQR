@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DualDiffComponent } from './ui/dual-diff/dual-diff.component';
 import { SingleDiffComponent } from './ui/single-diff/single-diff.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SingleDiffComponent } from './ui/single-diff/single-diff.component';
     BrowserModule,
     AppRoutingModule,
 	FormsModule,
- 	CodemirrorModule
+ 	CodemirrorModule,
+ 	NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
