@@ -3,3 +3,7 @@
 @import '~codemirror/lib/codemirror';
 @import '~codemirror/theme/3024-day';
 @import '~codemirror/theme/eclipse';
+
+/* improve readability of diff in eclipse mode */
+.cm-s-eclipse span.cm-positive { background: #dfd; }
+.cm-s-eclipse span.cm-negative { background: #fdd; }
