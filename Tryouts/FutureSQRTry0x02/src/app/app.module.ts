@@ -8,12 +8,16 @@ import { AppComponent } from './app.component';
 import { DualDiffComponent } from './ui/dual-diff/dual-diff.component';
 import { SingleDiffComponent } from './ui/single-diff/single-diff.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MySingleDiffViewComponent } from './views/my-single-diff-view/my-single-diff-view.component';
+import { MyDualDiffViewComponent } from './views/my-dual-diff-view/my-dual-diff-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DualDiffComponent,
-    SingleDiffComponent
+    SingleDiffComponent,
+    MySingleDiffViewComponent,
+    MyDualDiffViewComponent
   ],
   imports: [
     BrowserModule,
