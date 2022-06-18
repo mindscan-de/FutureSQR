@@ -1,1 +1,19 @@
-<p>my-single-diff-view works!</p>
+<div class="row">
+	<div class="col-xl-12">
+
+	<p>my-single-diff-view works!</p>
+
+
+	<ngx-codemirror
+	  [(ngModel)]="content"
+	  [disabled]="readOnly"
+	  [options]="{
+	    lineNumbers: true,
+	    theme: '3024-day',
+	    mode: 'markdown'
+	  }"
+	  
+	></ngx-codemirror>
+
+	</div>
+</div>
