@@ -5,10 +5,14 @@ import { CodemirrorModule } from '@ctrl/ngx-codemirror'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { DualDiffComponent } from './ui/dual-diff/dual-diff.component';
+import { SingleDiffComponent } from './ui/single-diff/single-diff.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DualDiffComponent,
+    SingleDiffComponent
   ],
   imports: [
     BrowserModule,
