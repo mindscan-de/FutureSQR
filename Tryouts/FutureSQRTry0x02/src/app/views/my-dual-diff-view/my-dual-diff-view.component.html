@@ -1,1 +1,33 @@
-<p>my-dual-diff-view works!</p>
+<div class="row p-4">
+	<div class="col-xl-6">
+
+		<ngx-codemirror
+		  [(ngModel)]="content"
+		  [disabled]="readOnly"
+		  [options]="{
+		    lineNumbers: true,
+		    theme: '3024-day',
+		    mode: 'markdown'
+		  }"
+		  
+		></ngx-codemirror>
+
+	</div>
+	
+	<div class="col-xl-6">
+
+		<ngx-codemirror
+		  [(ngModel)]="content"
+		  [disabled]="readOnly"
+		  [options]="{
+		    lineNumbers: true,
+		    theme: '3024-day',
+		    mode: 'markdown'
+		  }"
+		  
+		></ngx-codemirror>
+
+	</div>
+	
+</div>
+
