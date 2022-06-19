@@ -12,7 +12,7 @@
 	
 		<div class="row mt-2">
 			<div class="col">
-				<h4>File Change Actions</h4>
+				<h4>File Commit Actions</h4>
 				<ul class="list-group">
 					<li class="list-group-item"  *ngFor="let change of uiFilePathActions">
 						{{change[0]}} &mdash; <tt>{{change[1]}}</tt> 
@@ -23,7 +23,6 @@
 
 		<div class="row mt-2">
 			<div class="col">
-				<h4>File Changes</h4>
 				<ng-container *ngFor="let fileChangeSet of uiFileChangeSets" >
 					<app-file-change-set-single-diff [fileChangeSet]="fileChangeSet"></app-file-change-set-single-diff>
 				</ng-container>
