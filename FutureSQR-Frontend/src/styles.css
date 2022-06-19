@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import '~codemirror/lib/codemirror';
+@import '~codemirror/theme/3024-day';
+@import '~codemirror/theme/eclipse';
+
+/* reduce default basis font-size of application */
+
+body {
+	font-size: 11pt, !important;
+}
+
+/* improve readability of diff in eclipse mode */
+
+.CodeMirror {
+	font-family: "Courier New", monospace;
+	font-size: 11pt;
+}
+
+.cm-s-eclipse span.cm-positive { background: #ddffdd60; }
+.cm-s-eclipse span.cm-negative { background: #ffdddd60; }
