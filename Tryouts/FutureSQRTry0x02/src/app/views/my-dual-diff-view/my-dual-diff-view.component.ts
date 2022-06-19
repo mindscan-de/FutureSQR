@@ -17,7 +17,7 @@ export class MyDualDiffViewComponent implements OnInit {
 	public leftContent : UiDiffContentModel = new UiDiffContentModel("",1); 
 	public rightContent : UiDiffContentModel = new UiDiffContentModel("",1);
 	
-	private lineDiffData : string[] =  [
+	public lineDiffData : string[] =  [
             "   \"requires\": true,",
             "   \"dependencies\": {",
             "     \"@angular-devkit/architect\": {",
