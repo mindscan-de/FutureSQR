@@ -24,14 +24,9 @@
 		<div class="row mt-2">
 			<div class="col">
 				<h4>File Changes</h4>
-				<ul *ngFor="let fileChangeSet of uiFileChangeSets" class="list-group">
-					<li class="p-2 mt-2 list-group-item" *ngFor="let contentChangeSet of fileChangeSet.fileContentChangeSet">
-						<h5>{{fileChangeSet.lazy_diff_line}}</h5>
-						<p class="text-muted">{{fileChangeSet.lazy_index_line}}</p>
-						<p class="text-muted">{{contentChangeSet.line_info}}</p>
-						<app-content-change-set-single-diff [contentChangeSet]="contentChangeSet.line_diff_data"></app-content-change-set-single-diff>
-					</li>
-				</ul>
+				<ng-container *ngFor="let fileChangeSet of uiFileChangeSets" >
+					<app-file-change-set-single-diff [fileChangeSet]="fileChangeSet"></app-file-change-set-single-diff>
+				</ng-container>
 			</div>
 		</div>
 	</div>
