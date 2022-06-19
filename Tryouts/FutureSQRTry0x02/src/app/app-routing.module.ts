@@ -7,7 +7,7 @@ import { MySingleDiffViewComponent } from './views/my-single-diff-view/my-single
 
 const routes: Routes = [
 	{ path:'dual', pathMatch: 'full', component: MyDualDiffViewComponent},
-	{ path:'single', pathMatch: 'full', component: MySingleDiffViewComponent},
+	{ path:'markup', pathMatch: 'full', component: MySingleDiffViewComponent},
 ];
 
 @NgModule({
