@@ -15,6 +15,7 @@ export class ContentChangeSetSingleDiffComponent implements OnInit {
 	
 	// make the editor readonly
 	public readOnly:boolean = true;
+	public viewPortMargin:number = 1;
 	
 	// actually this will an intermediate external model
 	@Input() contentChangeSet:string[] =[];
@@ -26,8 +27,9 @@ export class ContentChangeSetSingleDiffComponent implements OnInit {
 
 	// maybe we don't need the update thing but only the setting this value once...
  	ngOnChanges(changes: SimpleChanges): void {
-		let contentChangeSetCurrent = changes.contentChangeSet.currentValue;
+		let contentChangeSetCurrent:string[] = changes.contentChangeSet.currentValue;
 		if(contentChangeSetCurrent) {
+			this.viewPortMargin = Math.min(Math.max(contentChangeSetCurrent.length,1),30);
 			this.diffContent = this.filterDiff(contentChangeSetCurrent);
 		}
 	}

@@ -15,6 +15,7 @@ body {
 .CodeMirror {
 	font-family: "Courier New", monospace;
 	font-size: 11pt;
+	height: auto;	
 }
 
 .cm-s-eclipse span.cm-positive { background: #ddffdd60; }
