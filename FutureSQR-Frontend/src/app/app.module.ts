@@ -20,6 +20,7 @@ import { ProjectRecentCommitsPageComponent } from './views/project-recent-commit
 import { BasicProjectInformationComponent } from './views/project-recent-commits-page/basic-project-information/basic-project-information.component';
 import { SingleRevisionPageComponent } from './views/single-revision-page/single-revision-page.component';
 import { SingleReviewPageComponent } from './views/single-review-page/single-review-page.component';
+import { ContentChangeSetSingleDiffComponent } from './commonui/content-change-set-single-diff/content-change-set-single-diff.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { SingleReviewPageComponent } from './views/single-review-page/single-rev
     ProjectRecentCommitsPageComponent,
     BasicProjectInformationComponent,
     SingleRevisionPageComponent,
-    SingleReviewPageComponent
+    SingleReviewPageComponent,
+    ContentChangeSetSingleDiffComponent
   ],
   imports: [
     BrowserModule,
