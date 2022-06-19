@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-// ui model
-import { UiDiffContentModel } from './uimodel/ui-diff-content-model';
- 
-
 @Component({
   selector: 'app-my-dual-diff-view',
   templateUrl: './my-dual-diff-view.component.html',
@@ -13,9 +9,6 @@ export class MyDualDiffViewComponent implements OnInit {
 
 	public content:string = "# Chapter 1\n"+"## Chapter 2\n"+"* X\n"+"  * Y\n"+"    * Z\n";  
 	public readOnly:boolean = true;
-	
-	public leftContent : UiDiffContentModel = new UiDiffContentModel("",1); 
-	public rightContent : UiDiffContentModel = new UiDiffContentModel("",1);
 	
 	public lineDiffData : string[] =  [
             "   \"requires\": true,",
@@ -44,24 +37,7 @@ export class MyDualDiffViewComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-	this.leftContent = this.filterLeftDiff(this.lineDiffData);
-	this.rightContent = this.filterRightDiff(this.lineDiffData)
   }
 
-	filterLeftDiff(linediff: string[]) : UiDiffContentModel {
-		let leftdiff = linediff.filter(line => !line.startsWith("+")).join("\n");
-		
-		let result:UiDiffContentModel = new UiDiffContentModel(leftdiff,12);
-		
-		return result; 
-	}
-	
-	filterRightDiff(linediff: string[]) : UiDiffContentModel {
-		let rightdiff = linediff.filter(line => !line.startsWith("-")).join("\n");
-		
-		let result:UiDiffContentModel = new UiDiffContentModel(rightdiff,12);
-		
-		return result; 
-	}
 	
 }

@@ -1,37 +1,3 @@
-<div class="row p-4">
-	<div class="col-xl-6">
-
-		<ngx-codemirror
-		  [(ngModel)]="leftContent.diffContent"
-		  [disabled]="readOnly"
-		  [options]="{
-		    lineNumbers: true,
-		    firstLineNumber: leftContent.diffLineNumberStart,
-		    theme: 'eclipse',
-		    mode: 'diff'
-		  }"
-		  
-		></ngx-codemirror>
-
-	</div>
-	
-	<div class="col-xl-6">
-
-		<ngx-codemirror
-		  [(ngModel)]="rightContent.diffContent"
-		  [disabled]="readOnly"
-		  [options]="{
-		    lineNumbers: true,
-		    firstLineNumber: rightContent.diffLineNumberStart,
-		    theme: 'eclipse',
-		    mode: 'diff'
-		  }"
-		  
-		></ngx-codemirror>
-
-	</div>
-</div>
-
 <app-dual-diff [contentChangeSet]="lineDiffData"></app-dual-diff>
 
 
