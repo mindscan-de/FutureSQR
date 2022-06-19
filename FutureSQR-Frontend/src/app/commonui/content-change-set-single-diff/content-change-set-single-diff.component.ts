@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+
+// ui model
+import { UiDiffContentModel } from './uimodel/ui-diff-content-model';
+
 
 @Component({
   selector: 'app-content-change-set-single-diff',
@@ -6,10 +10,35 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./content-change-set-single-diff.component.css']
 })
 export class ContentChangeSetSingleDiffComponent implements OnInit {
+	// diff content to show
+	public diffContent : UiDiffContentModel = new uiDiffContentModel("",1);
+	
+	// make the editor readonly
+	public readOnly:boolean = true;
+	
+	// actually this will an intermediate external model
+	@Input() contentChangeSet:string[] =[];
 
-  constructor() { }
+	constructor() { }
 
-  ngOnInit(): void {
-  }
+	ngOnInit(): void {
+	}
+
+	// maybe we don't need the update thing but only the setting this value once...
+ 	ngOnChanges(changes: SimpleChanges): void {
+		let contentChangeSetCurrent = changes.contentChangeSet.currentValue;
+		if(contentChangeSetCurrent) {
+			this.diffContent = this.filterDiff(contentChangeSetCurrent);
+		}
+	}
+
+	filterDiff(diffLines: string[]) : UiDiffContentModel {
+		let diff = diffLines.join("\n");
+		
+		let result:UiDiffContentModel = new UiDiffContentModel(diff,12);
+		
+		return result; 
+	}
+
 
 }

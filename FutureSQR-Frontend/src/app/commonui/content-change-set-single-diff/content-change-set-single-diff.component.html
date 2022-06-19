@@ -1,1 +1,14 @@
-<p>content-change-set-single-diff works!</p>
+<div class="row p-4">
+	<div class="col-xl-12">
+		<ngx-codemirror
+		  [(ngModel)]="diffContent.diffContent"
+		  [disabled]="readOnly"
+		  [options]="{
+		    lineNumbers: false,
+		    firstLineNumber: diffContent.diffLineNumberStart,
+		    theme: 'eclipse',
+		    mode: 'diff'
+		  }"
+		></ngx-codemirror>
+	</div>
+</div>
