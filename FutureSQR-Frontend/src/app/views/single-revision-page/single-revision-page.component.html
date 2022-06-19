@@ -29,13 +29,7 @@
 						<h5>{{fileChangeSet.lazy_diff_line}}</h5>
 						<p class="text-muted">{{fileChangeSet.lazy_index_line}}</p>
 						<p class="text-muted">{{contentChangeSet.line_info}}</p>
-						<ul class="list-unstyled mb-0 pb-0 mt-0 pt-0">
-							<li class="mb-0 pb-0 mt-0 pt-0" *ngFor="let linechange of contentChangeSet.line_diff_data">
-								<pre *ngIf="linechange.startsWith('-')" class="diff-bg-removed text-dark">{{linechange}}</pre>
-								<pre *ngIf="linechange.startsWith('+')" class="diff-bg-added text-dark">{{linechange}}</pre>
-								<pre *ngIf="!linechange.startsWith('-') && !linechange.startsWith('+')" class="bg-light text-dark" >{{linechange}}</pre>
-							</li>
-						</ul>
+						<app-content-change-set-single-diff [contentChangeSet]="contentChangeSet.line_diff_data"></app-content-change-set-single-diff>
 					</li>
 				</ul>
 			</div>

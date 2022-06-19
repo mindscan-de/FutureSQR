@@ -11,7 +11,7 @@ import { UiDiffContentModel } from './uimodel/ui-diff-content-model';
 })
 export class ContentChangeSetSingleDiffComponent implements OnInit {
 	// diff content to show
-	public diffContent : UiDiffContentModel = new uiDiffContentModel("",1);
+	public diffContent : UiDiffContentModel = new UiDiffContentModel("",1);
 	
 	// make the editor readonly
 	public readOnly:boolean = true;
