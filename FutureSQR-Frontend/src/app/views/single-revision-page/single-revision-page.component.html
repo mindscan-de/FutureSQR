@@ -24,6 +24,7 @@
 		<div class="row mt-2">
 			<div class="col">
 				<ng-container *ngFor="let fileChangeSet of uiFileChangeSets" >
+					<span class="float-right"><button type="button" class="btn btn-light" (click)="openSideBySideDialog(fileChangeSet)">Side by Side</button></span>
 					<app-file-change-set-single-diff [fileChangeSet]="fileChangeSet"></app-file-change-set-single-diff>
 				</ng-container>
 			</div>

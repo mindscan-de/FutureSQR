@@ -6,11 +6,13 @@ import {NgbModal } from '@ng-bootstrap/ng-bootstrap';
 // Services
 import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
 
-
 // BackendModel - should be actually a ui model 
 import { BackendModelSingleCommitFullChangeSet } from '../../backend/model/backend-model-single-commit-full-change-set';
 import { BackendModelSingleCommitFileChangeSet } from '../../backend/model/backend-model-single-commit-file-change-set';
 import { BackendModelSingleCommitFileActionsInfo } from '../../backend/model/backend-model-single-commit-file-actions-info';
+
+// Dialog 
+import { SingleRevisionSideBySideDialogComponent } from '../../commonui/single-revision-side-by-side-dialog/single-revision-side-by-side-dialog.component';
 
 
 @Component({
@@ -55,16 +57,22 @@ export class SingleRevisionPageComponent implements OnInit {
 	}
 
 	// open side by side dialog
-	// const modalref = this.modalService.open(  NameOfDialog,  {centered: true, ariaLabelledBy: 'modal-basic-title', size:'xl' }   )
-	// modalref.componentInstance.setFoo
-	// modalref.componentInstance.setBar
-	// modalref.result.then((result) => {
-	//		result.subscribe(
-	//			data => this.onUUIDResult(data),
-	//			error => this.onError(error)
-	//		)
-	//	}, (reason) => {
-	//	  // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-	// 	});
+	openSideBySideDialog( filechangeSet ):void {
+		
+		const modalref = this.modalService.open(  SingleRevisionSideBySideDialogComponent,  {centered: true, ariaLabelledBy: 'modal-basic-title', size:'xl' }   )
+		
+		modalref.componentInstance.setFoo
+		modalref.componentInstance.setBar
+		
+		modalref.result.then((result) => {
+			result.subscribe(
+				data => {} ,
+				error => {}
+			)
+		}, (reason) => {
+		  // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+	 	});
+		
+	}
 
 }
