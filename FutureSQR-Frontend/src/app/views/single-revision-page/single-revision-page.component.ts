@@ -61,8 +61,8 @@ export class SingleRevisionPageComponent implements OnInit {
 		
 		const modalref = this.modalService.open(  SingleRevisionSideBySideDialogComponent,  {centered: true, ariaLabelledBy: 'modal-basic-title', size:'xl' }   )
 		
-		modalref.componentInstance.setFoo
-		modalref.componentInstance.setBar
+		modalref.componentInstance.setFileChangeSet(filechangeSet);
+		// modalref.componentInstance.setBar
 		
 		modalref.result.then((result) => {
 			result.subscribe(

@@ -23,6 +23,10 @@ export class SingleRevisionSideBySideDialogComponent  {
 	onClose() : void  {
 		this.activeModal.close(null)
 	}
+	
+	setFileChangeSet(newFileChangeSet) : void {
+		this.currentUiFileChangeSet = newFileChangeSet;
+	}
 
 	ngOnChanges(changes: SimpleChanges): void {
 		let fileChangeSetCandidate:BackendModelSingleCommitFileChangeSet = changes.fileChangeSet.currentValue;
