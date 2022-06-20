@@ -23,6 +23,7 @@ import { SingleReviewPageComponent } from './views/single-review-page/single-rev
 import { ContentChangeSetSingleDiffComponent } from './commonui/content-change-set-single-diff/content-change-set-single-diff.component';
 import { FileChangeSetSingleDiffComponent } from './commonui/file-change-set-single-diff/file-change-set-single-diff.component';
 import { ContentChangeSetSideBySideDiffComponent } from './commonui/content-change-set-side-by-side-diff/content-change-set-side-by-side-diff.component';
+import { FileChangeSetSideBySideDiffComponent } from './commonui/file-change-set-side-by-side-diff/file-change-set-side-by-side-diff.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ContentChangeSetSideBySideDiffComponent } from './commonui/content-chan
     SingleReviewPageComponent,
     ContentChangeSetSingleDiffComponent,
     FileChangeSetSingleDiffComponent,
-    ContentChangeSetSideBySideDiffComponent
+    ContentChangeSetSideBySideDiffComponent,
+    FileChangeSetSideBySideDiffComponent
   ],
   imports: [
     BrowserModule,
