@@ -59,7 +59,7 @@ export class SingleRevisionPageComponent implements OnInit {
 	// open side by side dialog
 	openSideBySideDialog( filechangeSet ):void {
 		
-		const modalref = this.modalService.open(  SingleRevisionSideBySideDialogComponent,  {centered: true, ariaLabelledBy: 'modal-basic-title', size:'xl' }   )
+		const modalref = this.modalService.open(  SingleRevisionSideBySideDialogComponent,  {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'fs'}    )
 		
 		modalref.componentInstance.setFileChangeSet(filechangeSet);
 		// modalref.componentInstance.setBar

@@ -20,3 +20,9 @@ body {
 
 .cm-s-eclipse span.cm-positive { background: #ddffdd60; }
 .cm-s-eclipse span.cm-negative { background: #ffdddd60; }
+
+/* Bootstrap hack for a modal dialog near fullscreen size.*/
+.modal-fs {
+	width:95%;
+	max-width:98%;
+}
