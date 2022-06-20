@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
+import {NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 // Services
 import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
 
@@ -24,7 +26,7 @@ export class SingleRevisionPageComponent implements OnInit {
 	public uiFileChangeSets: BackendModelSingleCommitFileChangeSet[] = [];
 	public uiFilePathActions: string[][] = [];
 
-    constructor(private projectDataQueryBackend : ProjectDataQueryBackendService, private route: ActivatedRoute  ) { }
+    constructor(private projectDataQueryBackend : ProjectDataQueryBackendService, private route: ActivatedRoute, private modalService: NgbModal ) { }
 
 	ngOnInit(): void {
 		this.activeProjectID = this.route.snapshot.paramMap.get('projectid');
@@ -51,5 +53,18 @@ export class SingleRevisionPageComponent implements OnInit {
 	onFileListActionsProvided( fileChanges: BackendModelSingleCommitFileActionsInfo) : void {
 		this.uiFilePathActions = fileChanges.fileActionMap;
 	}
+
+	// open side by side dialog
+	// const modalref = this.modalService.open(  NameOfDialog,  {centered: true, ariaLabelledBy: 'modal-basic-title', size:'xl' }   )
+	// modalref.componentInstance.setFoo
+	// modalref.componentInstance.setBar
+	// modalref.result.then((result) => {
+	//		result.subscribe(
+	//			data => this.onUUIDResult(data),
+	//			error => this.onError(error)
+	//		)
+	//	}, (reason) => {
+	//	  // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+	// 	});
 
 }
