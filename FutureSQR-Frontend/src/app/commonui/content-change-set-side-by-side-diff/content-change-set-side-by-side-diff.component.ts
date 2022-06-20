@@ -17,6 +17,9 @@ export class ContentChangeSetSideBySideDiffComponent implements OnInit {
 	// make the editor readonly
 	public readOnly:boolean = true;
 	public viewPortMargin:number = 1;
+
+	// actually this will an intermediate external model
+	@Input() contentChangeSet:string[] =[];
 	
 
 	constructor() { }
