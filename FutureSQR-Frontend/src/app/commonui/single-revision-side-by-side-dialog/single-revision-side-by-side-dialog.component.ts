@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 // Should be a ui model instead of a backend model...
@@ -10,7 +10,7 @@ import { BackendModelSingleCommitFileChangeSet } from '../../backend/model/backe
   templateUrl: './single-revision-side-by-side-dialog.component.html',
   styleUrls: ['./single-revision-side-by-side-dialog.component.css']
 })
-export class SingleRevisionSideBySideDialogComponent  {
+export class SingleRevisionSideBySideDialogComponent implements OnInit {
 	
 	public currentUiFileChangeSet: BackendModelSingleCommitFileChangeSet = new BackendModelSingleCommitFileChangeSet();
 	
@@ -19,6 +19,8 @@ export class SingleRevisionSideBySideDialogComponent  {
 
 
 	constructor(public activeModal: NgbActiveModal) { }
+	
+	ngOnInit() : void { }
 	
 	onClose() : void  {
 		this.activeModal.close(null)
