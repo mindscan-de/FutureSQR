@@ -24,6 +24,7 @@ import { ContentChangeSetSingleDiffComponent } from './commonui/content-change-s
 import { FileChangeSetSingleDiffComponent } from './commonui/file-change-set-single-diff/file-change-set-single-diff.component';
 import { ContentChangeSetSideBySideDiffComponent } from './commonui/content-change-set-side-by-side-diff/content-change-set-side-by-side-diff.component';
 import { FileChangeSetSideBySideDiffComponent } from './commonui/file-change-set-side-by-side-diff/file-change-set-side-by-side-diff.component';
+import { SingleRevisionSideBySideDialogComponent } from './commonui/single-revision-side-by-side-dialog/single-revision-side-by-side-dialog.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { FileChangeSetSideBySideDiffComponent } from './commonui/file-change-set
     ContentChangeSetSingleDiffComponent,
     FileChangeSetSingleDiffComponent,
     ContentChangeSetSideBySideDiffComponent,
-    FileChangeSetSideBySideDiffComponent
+    FileChangeSetSideBySideDiffComponent,
+    SingleRevisionSideBySideDialogComponent
   ],
   imports: [
     BrowserModule,
