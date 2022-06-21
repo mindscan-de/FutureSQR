@@ -9,7 +9,7 @@
 					<li *ngFor="let revision of uiModelRecentProjectCommits.revisions" class="list-group-item">
 						<div class="d-flex flex-row-reverse">
 							<div class="p-0">
-								<span><a class="mr-2 ml-2" [routerLink]="['/',activeProjectID,'revision',revision.revisionid]">{{revision.shortrev}}</a></span>
+								<span><a class="mr-2 ml-2" [routerLink]="['/',activeProjectID,'revision',revision.revisionid]"><tt class="small">{{revision.shortrev}}</tt></a></span>
 								<!-- &mdash; <a [routerLink]="['/',activeProjectID,'diff',revision.revisionid]">diff</a> -->
 							</div>
 						
