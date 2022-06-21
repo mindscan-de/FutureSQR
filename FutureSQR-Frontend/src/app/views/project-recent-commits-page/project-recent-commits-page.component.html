@@ -7,13 +7,26 @@
 				<h4>Recent commits</h4>
 				<ul class="list-group">
 					<li *ngFor="let revision of uiModelRecentProjectCommits.revisions" class="list-group-item">
-					<div class="float-right" *ngIf="revision.hasReview==true">
-						<a [routerLink]="['/',activeProjectID,'review',revision.reviewID]">{{revision.reviewID}}</a>
-					</div>
-					
-					{{revision.authorname}} &mdash; <span class="text-muted">{{revision.message}}</span> <br/> <br/>
-					{{revision.date}} ({{revision.reldate}})  &mdash; <a [routerLink]="['/',activeProjectID,'revision',revision.revisionid]">{{revision.shortrev}}</a> &mdash; <a [routerLink]="['/',activeProjectID,'diff',revision.revisionid]">diff</a>
-					
+						<div class="d-flex flex-row-reverse">
+							<div class="p-0">
+								<span><a class="mr-2 ml-2" [routerLink]="['/',activeProjectID,'revision',revision.revisionid]">{{revision.shortrev}}</a></span>
+								<!-- &mdash; <a [routerLink]="['/',activeProjectID,'diff',revision.revisionid]">diff</a> -->
+							</div>
+						
+							<div class="p-0" *ngIf="revision.hasReview==false">
+								<span><a class="mr-2 ml-2 text-light"  [routerLink]="['/',activeProjectID,'review','create',revision.revisionid]">create Review</a></span>
+							</div>
+							
+							<div class="p-0" *ngIf="revision.hasReview==true">
+								<span><a class="mr-2 ml-2" [routerLink]="['/',activeProjectID,'review',revision.reviewID]">{{revision.reviewID}}</a></span>
+							</div>
+							
+							<div class="p-0 mr-auto">
+								<p><span class="text-muted small mr-4">{{revision.authorname}}</span>  <strong>{{revision.message}}</strong></p>
+			
+								<span class="text-muted small"> {{revision.reldate}} | {{revision.date}}</span>
+							</div> 
+						</div>
 					</li>
 				</ul>
 			</div>
