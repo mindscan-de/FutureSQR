@@ -107,3 +107,70 @@ def getProjectRevisionListeListDiffToPrevious(projectid:str, revisionid:str):
     
     result = {}
     return result
+
+### #########################################
+###
+### Some Review functions - non persistent
+###
+### #########################################
+
+# to create a new review from a revision
+@app.post("/FutureSQR/rest/project/{projectid}/review/create")
+def postCreateNewReview(projectid:str, revisionid:str = Form(...)):
+    project_path_translation = getAllProjectToLocalPathMap()
+    
+    if projectid in project_path_translation:
+        # TODO: 
+        # * get someinformation about this particular version heading and so on for the review title
+        # * we then create a new review in the backend
+        #   * we get then a new unique review ID back
+        # project confioguration should have an autoincrementing index, which is the truth for the creation of reviews.
+        result = {
+                'projectid':projectid,
+                'revisionid':revisionid,
+                'reviewid':12
+            }
+        return result
+    
+    result = {}
+    return result
+    
+    
+    
+@app.post("/FutureSQR/rest/project/{projectid}/review/close")
+def postCloseReview(projectid:str, reviewid:str = Form(...)):
+    project_path_translation = getAllProjectToLocalPathMap()
+    
+    if projectid in project_path_translation:
+        # TODO. review should exist in project
+        #
+        pass
+    
+    result = {}
+    return result
+    
+@app.post("/FutureSQR/rest/project/{projectid}/review/delete")
+def postDeleteReview(projectid:str, reviewid:str = Form(...)):
+    project_path_translation = getAllProjectToLocalPathMap()
+    
+    if projectid in project_path_translation:
+        # TODO. review should exist in project
+        #
+        pass
+    
+    result = {}
+    return result
+    
+    
+@app.post("/FutureSQR/rest/project/{projectid}/review/reopen")
+def postReopenReview(projectid:str, reviewid:str=Form(...)):
+    project_path_translation = getAllProjectToLocalPathMap()
+    
+    if projectid in project_path_translation:
+        # TODO. review should exist in project
+        #
+        pass
+    
+    result = {}
+    return result
+
