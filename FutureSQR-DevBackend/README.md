@@ -16,3 +16,12 @@ guess for the real backend is, that I will probably implement it in Java. But th
 will be slightly slower in Java than in python. The DevBackend is just some proof of concept 
 code - and helps to debug and solve the concepts and problems between FutureSQR-Frontend and 
 its particular FutureSQR-Backend.
+
+
+
+# TODO: Fast API offline 
+
+use for doc and redoc folder - too much cdn use vs too much offline
+
+* https://github.com/tiangolo/fastapi/issues/608
+* https://fastapi.tiangolo.com/advanced/extending-openapi/#self-hosting-javascript-and-css-for-docs
