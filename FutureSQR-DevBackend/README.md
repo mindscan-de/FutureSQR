@@ -25,3 +25,6 @@ use for doc and redoc folder - too much cdn use vs too much offline
 
 * https://github.com/tiangolo/fastapi/issues/608
 * https://fastapi.tiangolo.com/advanced/extending-openapi/#self-hosting-javascript-and-css-for-docs
+
+* another way would be to use
+* https://pypi.org/project/fastapi-offline/
