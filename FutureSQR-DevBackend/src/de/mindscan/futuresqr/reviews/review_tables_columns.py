@@ -27,6 +27,7 @@ SOFTWARE.
 '''
 
 REVIEW_REVIEW_ID                   = 'reviewId'
+REVIEW_PK_REVIEW_ID                = REVIEW_REVIEW_ID 
 REVIEW_TITLE                       = 'reviewTitle'
 REVIEW_ADDITIONAL_DESCRIPTION      = 'reviewDescription'
 REVIEW_REVISIONS                   = 'reviewRevisions'
