@@ -94,3 +94,19 @@ def getRevisionToReviewMap():
     return {
             '04f1e231a4c0f6d3ff0d0938a30aa656488c7270':"CR-FIF-1"
         }
+    
+def getProjectConfigurations(): 
+        return {
+            'furiousiron-frontend' : {
+                    'autoIndex':1,
+                    'reviewPrefix':"CR-FI-F-"
+                },
+            'futuresqr': {
+                    'autoIndex':100,
+                    'reviewPrefix':"CR-FSQR-"
+                },
+            'furiousiron-hfb' : {
+                    'autoIndex':50,
+                    'reviewPrefix':"CR-FI-HFB-"
+                }
+            }
