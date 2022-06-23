@@ -26,13 +26,17 @@ SOFTWARE.
 @autor: Maxim Gansert
 '''
 
-from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision, calculateFileListForSigleRevision
-from de.mindscan.futuresqr.assets.hardcoded import getAllProjectToLocalPathMap, getAllStarredProjectsForUser, getAllProjectsForUser, getRevisionToReviewMap
-
 from fastapi import FastAPI, Form, HTTPException
 from pip._internal.pyproject import make_pyproject_path
 
+from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision, calculateFileListForSigleRevision
+from de.mindscan.futuresqr.assets.hardcoded import getAllProjectToLocalPathMap, getAllStarredProjectsForUser, getAllProjectsForUser, getRevisionToReviewMap
+from de.mindscan.futuresqr.reviews.review_database import ReviewDatabase
+
 app = FastAPI()
+
+reviewDB = ReviewDatabase({})
+
 
 
 @app.get("/")
@@ -120,6 +124,8 @@ def postCreateNewReview(projectid:str, revisionid:str = Form(...)):
     project_path_translation = getAllProjectToLocalPathMap()
     
     if projectid in project_path_translation:
+        # revision_information = get
+        
         # TODO: 
         # * get someinformation about this particular version heading and so on for the review title
         # * we then create a new review in the backend

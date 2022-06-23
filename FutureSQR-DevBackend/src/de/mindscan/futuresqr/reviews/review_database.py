@@ -33,7 +33,7 @@ class ReviewDatabase(object):
     classdocs
     '''
 
-    def __init__(self, params):
+    def __init__(self, params:dict):
         '''
         Constructor
         '''
