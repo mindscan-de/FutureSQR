@@ -42,7 +42,7 @@ def createNewReview(projectConfiguration, revisionInformation) :
     reviewIdentifier = projectConfiguration['reviewPrefix'] +  str(newReviewId)
     
     review = {
-        REVIEW_REVIEW_ID : reviewIdentifier,
+        REVIEW_PK_REVIEW_ID : reviewIdentifier,
         REVIEW_TITLE : revisionInformation['firstCommitLine'],
         REVIEW_ADDITIONAL_DESCRIPTION : "",
         REVIEW_REVISIONS : [revisionInformation['revisionID']],
