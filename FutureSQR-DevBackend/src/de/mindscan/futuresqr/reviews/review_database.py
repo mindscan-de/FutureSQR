@@ -39,5 +39,15 @@ class ReviewDatabase(object):
         '''
         self.reviewTable = {}
 
-    def insertReview(self, review):
-        self.reviewTable [ review[REVIEW_REVIEW_ID] ] = review 
+    def insertReview(self, project_id, review):
+        if not project_id in self.reviewTable:
+            self.reviewTable[project_id] = {}
+        self.reviewTable[project_id][ review[REVIEW_REVIEW_ID] ] = review
+        
+    def selectReviewByReviewId(self, project_id, review_id):
+        if not project_id in self.reviewTable:
+            return None
+        if not review_id in self.reviewTable[project_id]:
+            return None 
+        return self.reviewTable[project_id][review_id]
+
