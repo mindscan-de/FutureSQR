@@ -26,8 +26,27 @@ SOFTWARE.
 @autor: Maxim Gansert
 '''
 
-REVIEW_REVIEW_ID                   = 'reviewId'
-REVIEW_TITLE                       = 'reviewTitle'
-REVIEW_ADDITIONAL_DESCRIPTION      = 'reviewDescription'
-REVIEW_REVISIONS                   = 'reviewRevisions'
-REVIEW_FK_PROJECT_ID               = 'reviewFkProjectId'
+from de.mindscan.futuresqr.assets.hardcoded import getProjectConfigurations
+from de.mindscan.futuresqr.reviews.review_tables_columns import *  # @UnusedWildImport
+
+projectConfigurations = { }
+
+def initProjectConfigurations():
+    global projectConfigurations
+    projectConfigurations = getProjectConfigurations();
+    pass
+
+def createNewReview(projectConfiguration, revisionInformation) :
+    newReviewId = projectConfiguration['autoIndex']
+    projectConfiguration['autoIndex']+=1
+    reviewIdentifier = projectConfiguration['reviewPrefix'] +  str(newReviewId)
+    
+    review = {
+        REVIEW_REVIEW_ID : reviewIdentifier,
+        REVIEW_TITLE : revisionInformation['firstCommitLine'],
+        REVIEW_ADDITIONAL_DESCRIPTION : "",
+        REVIEW_REVISIONS : [revisionInformation['revisionID']],
+        REVIEW_FK_PROJECT_ID: projectConfiguration['projectID']
+        }
+    
+    return review
