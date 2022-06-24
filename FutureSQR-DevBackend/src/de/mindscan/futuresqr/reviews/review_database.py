@@ -38,11 +38,19 @@ class ReviewDatabase(object):
         Constructor
         '''
         self.reviewTable = {}
+        self.revisionTable = {}
 
     def insertReview(self, project_id, review):
         if not project_id in self.reviewTable:
             self.reviewTable[project_id] = {}
+        if not project_id in self.revisionTable:
+            self.revisionTable[project_id] = {}
+        # insert the revisions into a revision (reverse lookup) table 
+        for revision_id in review[REVIEW_REVISIONS]:
+            self.revisionTable[project_id][revision_id] = review[ REVIEW_PK_REVIEW_ID]
+        # 
         self.reviewTable[project_id][ review[ REVIEW_PK_REVIEW_ID] ] = review
+        
         
     def selectReviewByReviewId(self, project_id, review_id):
         if not project_id in self.reviewTable:
@@ -51,3 +59,16 @@ class ReviewDatabase(object):
             return None 
         return self.reviewTable[project_id][review_id]
 
+    def hasReviewByRevisionId(self, project_id, revision_id):
+        if not project_id in self.revisionTable:
+            return False
+        if not revision_id in self.revisionTable[project_id]:
+            return False
+        return True
+
+    def selectReviewIdByRevisionId(self, project_id, revision_id):
+        if not project_id in self.revisionTable:
+            return None
+        if not revision_id in self.revisionTable[project_id]:
+            return None
+        return self.revisionTable[project_id][revision_id]
