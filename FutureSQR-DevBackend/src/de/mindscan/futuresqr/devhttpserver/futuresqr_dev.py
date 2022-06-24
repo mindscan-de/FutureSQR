@@ -30,8 +30,11 @@ from fastapi import FastAPI, Form, HTTPException
 from pip._internal.pyproject import make_pyproject_path
 
 from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision, calculateFileListForSigleRevision
-from de.mindscan.futuresqr.assets.hardcoded import getAllProjectToLocalPathMap, getAllStarredProjectsForUser, getAllProjectsForUser, getRevisionToReviewMap
+from de.mindscan.futuresqr.assets.hardcoded import getAllProjectToLocalPathMap, getAllStarredProjectsForUser, getAllProjectsForUser, getRevisionToReviewMap, getProjectConfigurations
 from de.mindscan.futuresqr.reviews.review_database import ReviewDatabase
+from de.mindscan.futuresqr.reviews.review_tools import createNewReview
+from de.mindscan.futuresqr.reviews.review_tables_columns import *  # @UnusedWildImport
+
 
 app = FastAPI()
 
@@ -124,17 +127,27 @@ def postCreateNewReview(projectid:str, revisionid:str = Form(...)):
     project_path_translation = getAllProjectToLocalPathMap()
     
     if projectid in project_path_translation:
-        # revision_information = get
-        
-        # TODO: 
         # * get someinformation about this particular version heading and so on for the review title
+        revisionInformation = {
+                'firstCommitLine': "let this be the first line",
+                'revisionID':revisionid
+            }
+        
+        # project confioguration should have an autoincrementing index, which is the truth for the creation of reviews.
+        cnfigurations = getProjectConfigurations()
+        projectConfiguration = cnfigurations[projectid]
+        
         # * we then create a new review in the backend
         #   * we get then a new unique review ID back
-        # project confioguration should have an autoincrementing index, which is the truth for the creation of reviews.
+        newReview = createNewReview(projectConfiguration, revisionInformation)
+        
+        reviewDB.insertReview(projectid, newReview)
+        
         result = {
                 'projectid':projectid,
                 'revisionid':revisionid,
-                'reviewid':12
+                'reviewid':newReview[REVIEW_PK_REVIEW_ID],
+                'reviewdata':newReview
             }
         return result
     
