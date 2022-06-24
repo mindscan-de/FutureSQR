@@ -72,3 +72,8 @@ class ReviewDatabase(object):
         if not revision_id in self.revisionTable[project_id]:
             return None
         return self.revisionTable[project_id][revision_id]
+    
+    def getRevisionToReviewsMap(self, project_id):
+        if not project_id in self.revisionTable:
+            return {}
+        return self.revisionTable[project_id]
