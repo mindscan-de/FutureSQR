@@ -65,7 +65,7 @@ def getProjectRevisions(projectid:str):
         # TODO: cache this answer for some time and/or limit the number of results?
         revisions = calculateRecentRevisionsForLocalGitRepo(project_path_translation[projectid])
         # combine revisions with a review list for the revisons and add the revision id to the revision list
-        revision_map = getRevisionToReviewMap()
+        revision_map = reviewDB.getRevisionToReviewsMap(projectid)
         
         for revision in revisions['revisions']:
             if revision['revisionid'] in revision_map:
