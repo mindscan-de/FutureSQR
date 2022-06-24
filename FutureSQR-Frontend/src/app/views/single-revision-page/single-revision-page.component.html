@@ -28,14 +28,18 @@
 	</div>
 	
 	<div class="col-xl-3">
-		<h4>Feed &amp; Action Area</h4>
+		<div class="row mt-2">
+			<div class="col">
+				<h4>Feed &amp; Action Area</h4>
+			</div>
+		</div>
 		
 		<div class="row mt-2">
 			<div class="col">
 				<h4>Files (todo file tree)</h4>
 				<ul class="list-group">
 					<li class="list-group-item"  *ngFor="let change of uiFilePathActions">
-						<span class="small">{{change[0]}} &mdash; <tt>{{change[1]}}</tt> </span>
+						<span class="small">{{change[0]}} &mdash; {{change[1]}}</span>
 					</li>
 				</ul>
 			</div>
@@ -43,3 +47,4 @@
 		
 	</div>
 </div>	
+
