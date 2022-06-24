@@ -27,7 +27,6 @@ SOFTWARE.
 '''
 
 import json
-import os
 
 TEMP_ASSET_FOLDER = '../../../../../tempassets/'
 
@@ -89,11 +88,6 @@ def getAllProjectsForUser():
         {"project_id":"fluentgenesis-classifier", "project_name":"FluentGenesis-Classifier", "description":""},
         {"project_id":"fluentgenesis-plugin", "project_name":"FluentGenesis-Plugin", "description":""}
         ]
-    
-def getRevisionToReviewMap():
-    return {
-            '04f1e231a4c0f6d3ff0d0938a30aa656488c7270':"CR-FIF-1"
-        }
     
 def getProjectConfigurations(): 
         return {

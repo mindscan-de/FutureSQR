@@ -27,10 +27,9 @@ SOFTWARE.
 '''
 
 from fastapi import FastAPI, Form, HTTPException
-from pip._internal.pyproject import make_pyproject_path
 
 from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision, calculateFileListForSigleRevision
-from de.mindscan.futuresqr.assets.hardcoded import getAllProjectToLocalPathMap, getAllStarredProjectsForUser, getAllProjectsForUser, getRevisionToReviewMap, getProjectConfigurations
+from de.mindscan.futuresqr.assets.hardcoded import getAllProjectToLocalPathMap, getAllStarredProjectsForUser, getAllProjectsForUser, getProjectConfigurations
 from de.mindscan.futuresqr.reviews.review_database import ReviewDatabase
 from de.mindscan.futuresqr.projects.project_database import ProjectDatabase
 from de.mindscan.futuresqr.reviews.review_tools import createNewReview
