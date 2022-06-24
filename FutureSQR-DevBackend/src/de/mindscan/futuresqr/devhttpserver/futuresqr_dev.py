@@ -32,6 +32,7 @@ from pip._internal.pyproject import make_pyproject_path
 from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision, calculateFileListForSigleRevision
 from de.mindscan.futuresqr.assets.hardcoded import getAllProjectToLocalPathMap, getAllStarredProjectsForUser, getAllProjectsForUser, getRevisionToReviewMap, getProjectConfigurations
 from de.mindscan.futuresqr.reviews.review_database import ReviewDatabase
+from de.mindscan.futuresqr.projects.project_database import ProjectDatabase
 from de.mindscan.futuresqr.reviews.review_tools import createNewReview
 from de.mindscan.futuresqr.reviews.review_tables_columns import *  # @UnusedWildImport
 
@@ -39,6 +40,7 @@ from de.mindscan.futuresqr.reviews.review_tables_columns import *  # @UnusedWild
 app = FastAPI()
 
 reviewDB = ReviewDatabase({})
+projectDB = ProjectDatabase({'allProjects':getProjectConfigurations()})
 
 
 
@@ -134,8 +136,7 @@ def postCreateNewReview(projectid:str, revisionid:str = Form(...)):
             }
         
         # project confioguration should have an autoincrementing index, which is the truth for the creation of reviews.
-        cnfigurations = getProjectConfigurations()
-        projectConfiguration = cnfigurations[projectid]
+        projectConfiguration = projectDB.getProjectConfiguration(projectid);
         
         # * we then create a new review in the backend
         #   * we get then a new unique review ID back
