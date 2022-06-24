@@ -22,7 +22,7 @@
 							</div>
 							
 							<div class="p-0 mr-auto">
-								<p><span class="text-muted small mr-4">{{revision.authorname}}</span>  <strong>{{revision.message}}</strong></p>
+								<p><span class="text-muted small mr-4">{{revision.authorname}}</span>  <a [routerLink]="['/',activeProjectID,'revision',revision.revisionid]"><strong>{{revision.message}}</strong></a></p>
 			
 								<span class="text-muted small"> {{revision.reldate}} | {{revision.date}}</span>
 							</div> 
