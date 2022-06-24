@@ -99,14 +99,17 @@ def getProjectConfigurations():
         return {
             'furiousiron-frontend' : {
                     'autoIndex':1,
-                    'reviewPrefix':"CR-FI-F-"
+                    'reviewPrefix':"CR-FI-F-",
+                    'projectID':'furiousiron-frontend'
                 },
             'futuresqr': {
                     'autoIndex':100,
-                    'reviewPrefix':"CR-FSQR-"
+                    'reviewPrefix':"CR-FSQR-",
+                    'projectID':'futuresqr'
                 },
             'furiousiron-hfb' : {
                     'autoIndex':50,
-                    'reviewPrefix':"CR-FI-HFB-"
+                    'reviewPrefix':"CR-FI-HFB-",
+                    'projectID':'furiousiron-hfb'
                 }
             }
