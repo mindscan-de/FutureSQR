@@ -135,6 +135,8 @@ def postCreateNewReview(projectid:str, revisionid:str = Form(...)):
                 'revisionID':revisionid
             }
         
+        # TODO: check if the review revisionid is already covered by a review
+        
         # project confioguration should have an autoincrementing index, which is the truth for the creation of reviews.
         projectConfiguration = projectDB.getProjectConfiguration(projectid);
         
