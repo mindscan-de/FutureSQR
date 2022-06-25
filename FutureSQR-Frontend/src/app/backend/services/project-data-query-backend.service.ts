@@ -52,7 +52,7 @@ export class ProjectDataQueryBackendService {
 	}
 	
 	getReviewData(projectid:string, reviewid:string): Observable<BackendModelReviewData> {
-		var url = `/FutureSQR/rest/project/${projectid}/review/data`
+		var url = `/FutureSQR/rest/project/${projectid}/review/${reviewid}/data`
 		
 		return this.httpClient.get<BackendModelReviewData>(url, {});
 	}

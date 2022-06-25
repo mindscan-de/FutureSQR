@@ -116,8 +116,8 @@ def getProjectRevisionListeListDiffToPrevious(projectid:str, revisionid:str):
     result = {}
     return result
 
-@app.get("/FutureSQR/rest/project/{projectid}/review/data")
-def gerReviewData(projectid:str, reviewid:str):
+@app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/data")
+def getReviewData(projectid:str, reviewid:str):
     project_path_translation = getAllProjectToLocalPathMap()
     
     if projectid in project_path_translation:
