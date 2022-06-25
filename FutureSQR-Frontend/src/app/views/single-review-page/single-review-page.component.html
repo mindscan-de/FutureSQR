@@ -3,10 +3,16 @@
 		<div class="row">
 			<div class="col">
 
-
-				<h4>Some Revison information data</h4>
+				<ul class="list-group mt-2">
+					<li class="list-group-item">
+						<span><span class="float-left mr-2 badge badge-secondary">TODO: ReviewState</span><h4><b>{{activeReviewID}}</b> {{activeReviewData.reviewTitle}}</h4></span>
+					</li>
+					<li class="list-group-item">
+						<p>Back to <a [routerLink]="['/', activeProjectID]">{{activeProjectID}}</a></p>
+						<span class="small text-muted">Additional Description:<br>{{activeReviewData.reviewDescription}}</span>
+					</li>
+				</ul>
 				
-				Back to <a [routerLink]="['/', activeProjectID]">activeProjectID</a>.
 
 			</div>
 		</div>
@@ -17,7 +23,7 @@
 				
 				And here are some revision information for this particular code review, e.g.s if it contains multiple revisions.
 				
-				 
+				
 			</div>
 		</div>
 		
@@ -34,6 +40,7 @@
 	
 	<div class="col-xl-3">
 		<h4>Feed &amp; Action Area</h4>
+		<h4>Also file list area</h4>
 	</div>
 	
 </div>
