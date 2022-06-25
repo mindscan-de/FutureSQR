@@ -19,19 +19,34 @@
 		
 		<div class="row">
 			<div class="col">
-				<h4>CodeReview: {{activeReviewID}}</h4>
-				
 				And here are some revision information for this particular code review, e.g.s if it contains multiple revisions.
 				
 				
 			</div>
 		</div>
 		
+		<div class="row mt-2" >
+			<div class="col">
+				<ul class="list-group">
+					<li class="list-group-item" *ngFor="let fileChangeSet of uiFileChangeSets">
+						<div class="row">
+							<div class="col">
+								<span class="float-right"><button type="button" class="btn btn-light" (click)="openSideBySideDialog(fileChangeSet)">Side by Side</button></span>				
+								<app-file-change-set-single-diff [fileChangeSet]="fileChangeSet"></app-file-change-set-single-diff>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+
 		<div class="row">
 			<div class="col">
-				<h4>And Here the diffs</h4>
+				<h4>Discussion</h4>
 				
-				And here are some revision information for this particular code review
+				Provide the previous discussion
+				
+				Provide text fields and editors
 			</div>
 		</div>
 		

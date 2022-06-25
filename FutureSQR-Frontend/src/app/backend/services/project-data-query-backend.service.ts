@@ -46,6 +46,11 @@ export class ProjectDataQueryBackendService {
 		return this.httpClient.get<BackendModelSingleCommitFullChangeSet>(url, {});
 	}
 	
+	getReviewRevisionDiffFullChangeSet(projectid:string, reviewid:string) : Observable<BackendModelSingleCommitFullChangeSet> {
+		var url = `/FutureSQR/rest/project/${projectid}/reviewdiff/${reviewid}`;
+		return this.httpClient.get<BackendModelSingleCommitFullChangeSet>(url, {});
+	}
+	
 	getRecentProjectRevisionFilePathsData(projectid:string, revisionid:string): Observable<BackendModelSingleCommitFileActionsInfo> {
 		var url = `/FutureSQR/rest/project/${projectid}/filelist/${revisionid}`;
 		return this.httpClient.get<BackendModelSingleCommitFileActionsInfo>(url, {});
