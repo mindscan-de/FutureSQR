@@ -156,10 +156,10 @@ def postCreateNewReview(projectid:str, revisionid:str = Form(...)):
     reviewDB.insertReview(projectid, newReview)
     
     result = {
-            'projectid':projectid,
-            'revisionid':revisionid,
-            'reviewid':newReview[REVIEW_PK_REVIEW_ID],
-            'reviewdata':newReview
+            'projectId':projectid,
+            'revisionId':revisionid,
+            'reviewId':newReview[REVIEW_PK_REVIEW_ID],
+            'reviewData':newReview
         }
     return result
     
