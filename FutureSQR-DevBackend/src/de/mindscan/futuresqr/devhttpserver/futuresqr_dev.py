@@ -116,8 +116,8 @@ def getProjectReviewDiff(projectid:str, reviewid:str):
     result = {}
     return result
 
-@app.get("/FutureSQR/rest/project/{projectid}/filelist/{revisionid}")
-def getProjectRevisionListeListDiffToPrevious(projectid:str, revisionid:str):
+@app.get("/FutureSQR/rest/project/{projectid}/revisionfilelist/{revisionid}")
+def getProjectRevisionFileListDiffToPrevious(projectid:str, revisionid:str):
     project_path_translation = getAllProjectToLocalPathMap()
     
     if projectid in project_path_translation:
@@ -126,6 +126,19 @@ def getProjectRevisionListeListDiffToPrevious(projectid:str, revisionid:str):
     
     result = {}
     return result
+
+@app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/filelist")
+def getProjectReviewFileList(projectid:str, reviewid:str):
+    project_path_translation = getAllProjectToLocalPathMap()
+    
+    if projectid in project_path_translation:
+        reviewData = getReviewData(projectid, reviewid)
+        result = calculateFileListForSigleRevision(project_path_translation[projectid], reviewData[REVIEW_REVISIONS][0])
+        return result
+    
+    result = {}
+    return result
+
 
 @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/data")
 def getReviewData(projectid:str, reviewid:str):
