@@ -9,6 +9,7 @@ import { BackendModelReviewData } from '../../backend/model/backend-model-review
 
 import { BackendModelSingleCommitFullChangeSet } from '../../backend/model/backend-model-single-commit-full-change-set';
 import { BackendModelSingleCommitFileChangeSet } from '../../backend/model/backend-model-single-commit-file-change-set';
+import { BackendModelSingleCommitFileActionsInfo } from '../../backend/model/backend-model-single-commit-file-actions-info';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class SingleReviewPageComponent implements OnInit {
 	
 	public activeProjectID: string = '';
 	public activeReviewID: string = '';
+	public uiFilePathActions: string[][] = [];
 
     public uiModelSingleRevisionDiffs: BackendModelSingleCommitFullChangeSet = new BackendModelSingleCommitFullChangeSet();
 	public uiFileChangeSets: BackendModelSingleCommitFileChangeSet[] = [];
@@ -40,6 +42,10 @@ export class SingleReviewPageComponent implements OnInit {
 		
 		// TODO: query some revision infromation for this particular review
 		// TODO: query the filelist for this review
+		this.projectDataQueryBackend.getReviewFilePathsData(this.activeProjectID,this.activeReviewID ).subscribe (
+			data => this.onFileListActionsProvided(data),
+			error => console.log(error)
+		);
 
 		this.projectDataQueryBackend.getReviewRevisionDiffFullChangeSet(this.activeProjectID,this.activeReviewID ).subscribe(
 			data => this.onDiffDataReceived(data),
@@ -54,6 +60,11 @@ export class SingleReviewPageComponent implements OnInit {
 	onDiffDataReceived( diffData: BackendModelSingleCommitFullChangeSet ):void {
 		this.uiModelSingleRevisionDiffs = diffData;
 		this.uiFileChangeSets = diffData.fileChangeSet;
+	}
+
+
+	onFileListActionsProvided( fileChanges: BackendModelSingleCommitFileActionsInfo) : void {
+		this.uiFilePathActions = fileChanges.fileActionMap;
 	}
 
 }

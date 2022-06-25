@@ -52,7 +52,12 @@ export class ProjectDataQueryBackendService {
 	}
 	
 	getRecentProjectRevisionFilePathsData(projectid:string, revisionid:string): Observable<BackendModelSingleCommitFileActionsInfo> {
-		var url = `/FutureSQR/rest/project/${projectid}/filelist/${revisionid}`;
+		var url = `/FutureSQR/rest/project/${projectid}/revisionfilelist/${revisionid}`;
+		return this.httpClient.get<BackendModelSingleCommitFileActionsInfo>(url, {});
+	}
+	
+	getReviewFilePathsData(projectid:string, reviewid:string): Observable<BackendModelSingleCommitFileActionsInfo> {
+		var url = `/FutureSQR/rest/project/${projectid}/review/${reviewid}/filelist`;
 		return this.httpClient.get<BackendModelSingleCommitFileActionsInfo>(url, {});
 	}
 	
