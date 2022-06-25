@@ -127,33 +127,40 @@ def getProjectRevisionListeListDiffToPrevious(projectid:str, revisionid:str):
 def postCreateNewReview(projectid:str, revisionid:str = Form(...)):
     project_path_translation = getAllProjectToLocalPathMap()
     
-    if projectid in project_path_translation:
-        # * get someinformation about this particular version heading and so on for the review title
-        revisionInformation = {
-                'firstCommitLine': "let this be the first line",
-                'revisionID':revisionid
-            }
-        
-        # TODO: check if the review revisionid is already covered by a review
-        
-        # project confioguration should have an autoincrementing index, which is the truth for the creation of reviews.
-        projectConfiguration = projectDB.getProjectConfiguration(projectid);
-        
-        # * we then create a new review in the backend
-        #   * we get then a new unique review ID back
-        newReview = createNewReview(projectConfiguration, revisionInformation)
-        
-        reviewDB.insertReview(projectid, newReview)
-        
-        result = {
-                'projectid':projectid,
-                'revisionid':revisionid,
-                'reviewid':newReview[REVIEW_PK_REVIEW_ID],
-                'reviewdata':newReview
-            }
-        return result
+    if not projectid in project_path_translation:
+        return {} 
+
+    # TODO: check if the review revisionid is already covered by a review
+    if reviewDB.hasReviewByRevisionId(projectid, revisionid):
+        # 'projectid':projectid,
+        # 'revisionid':revisionid,
+        # 'reviewid':knownReview[REVIEW_PK_REVIEW_ID],
+        # 'reviewdata':knownReview
+        return {}
+
+
+    # * get someinformation about this particular version heading and so on for the review title
+    revisionInformation = {
+            'firstCommitLine': "let this be the first line",
+            'revisionID':revisionid
+        }
     
-    result = {}
+    
+    # project confioguration should have an autoincrementing index, which is the truth for the creation of reviews.
+    projectConfiguration = projectDB.getProjectConfiguration(projectid);
+    
+    # * we then create a new review in the backend
+    #   * we get then a new unique review ID back
+    newReview = createNewReview(projectConfiguration, revisionInformation)
+    
+    reviewDB.insertReview(projectid, newReview)
+    
+    result = {
+            'projectid':projectid,
+            'revisionid':revisionid,
+            'reviewid':newReview[REVIEW_PK_REVIEW_ID],
+            'reviewdata':newReview
+        }
     return result
     
     
