@@ -140,7 +140,7 @@ def getProjectReviewFileList(projectid:str, reviewid:str):
     return result
 
 
-@app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/data")
+@app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/information")
 def getReviewData(projectid:str, reviewid:str):
     project_path_translation = getAllProjectToLocalPathMap()
     
