@@ -116,6 +116,17 @@ def getProjectRevisionListeListDiffToPrevious(projectid:str, revisionid:str):
     result = {}
     return result
 
+@app.get("/FutureSQR/rest/project/{projectid}/review/data")
+def gerReviewData(projectid:str, reviewid:str):
+    project_path_translation = getAllProjectToLocalPathMap()
+    
+    if projectid in project_path_translation:
+        return reviewDB.selectReviewByReviewId(projectid, reviewid);
+    
+    result = {}
+    return result
+    
+
 ### #########################################
 ###
 ### Some Review functions - non persistent
