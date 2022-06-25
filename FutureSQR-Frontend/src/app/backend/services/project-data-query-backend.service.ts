@@ -8,6 +8,8 @@ import { BackendModelProjectItem } from '../model/backend-model-project-item';
 import { BackendModelProjectRecentCommits } from '../model/backend-model-project-recent-commits';
 import { BackendModelSingleCommitFullChangeSet } from '../model/backend-model-single-commit-full-change-set'; 
 import { BackendModelSingleCommitFileActionsInfo } from '../model/backend-model-single-commit-file-actions-info';
+import { BackendModelCreateReviewResult } from '../model/backend-model-create-review-result';
+
 
 @Injectable({
   providedIn: 'root'
@@ -46,6 +48,15 @@ export class ProjectDataQueryBackendService {
 	getRecentProjectRevisionFilePathsData(projectid:string, revisionid:string): Observable<BackendModelSingleCommitFileActionsInfo> {
 		var url = `/FutureSQR/rest/project/${projectid}/filelist/${revisionid}`;
 		return this.httpClient.get<BackendModelSingleCommitFileActionsInfo>(url, {});
+	}
+	
+	createNewReview(projectid:string, revisionid:string): Observable<BackendModelCreateReviewResult> {
+		var url = `/FutureSQR/rest/project/${projectid}/review/create`;
+		let formdata = new FormData();
+		
+		formdata.append('revisionid', revisionid);
+		
+		return this.httpClient.post<BackendModelCreateReviewResult>(url, formdata);
 	}
 	
 }

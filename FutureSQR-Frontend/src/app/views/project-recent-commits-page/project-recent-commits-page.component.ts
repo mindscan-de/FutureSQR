@@ -22,7 +22,7 @@ export class ProjectRecentCommitsPageComponent implements OnInit {
   public uiModelRecentProjectCommits: BackendModelProjectRecentCommits = new BackendModelProjectRecentCommits();
   public activeProjectID: string = '';
 
-  constructor( private projectDataQueryBackend : ProjectDataQueryBackendService, private route: ActivatedRoute  ) { }
+  constructor( private projectDataQueryBackend : ProjectDataQueryBackendService, private route: ActivatedRoute, private router: Router  ) { }
 
   ngOnInit(): void {
 	this.activeProjectID = this.route.snapshot.paramMap.get('projectid');
@@ -37,4 +37,13 @@ export class ProjectRecentCommitsPageComponent implements OnInit {
 	this.uiModelRecentProjectCommits = recentProjectCommits;
   }
 
+	onCreateReview(projectId: string, revisionId: string) : void {
+		this.projectDataQueryBackend.createNewReview(projectId, revisionId).subscribe (
+			data => {
+				// TODO redirect o review page.
+				this.router.navigate(['/', projectId, 'review', data['reviewId']]);
+			},
+			error => {}
+		);
+	}
 }
