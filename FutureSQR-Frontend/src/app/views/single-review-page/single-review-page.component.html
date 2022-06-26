@@ -41,7 +41,7 @@
 					<li class="list-group-item" *ngFor="let fileChangeSet of uiFileChangeSets">
 						<div class="row">
 							<div class="col">
-								<span class="float-right"><button type="button" class="btn btn-light" (click)="openSideBySideDialog(fileChangeSet)">Side by Side</button></span>				
+								<span class="float-right"><button type="button" class="btn btn-light btn-sm" (click)="openSideBySideDialog(fileChangeSet)">Side by Side</button></span>				
 								<app-file-change-set-single-diff [fileChangeSet]="fileChangeSet"></app-file-change-set-single-diff>
 							</div>
 						</div>
