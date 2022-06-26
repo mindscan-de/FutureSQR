@@ -45,7 +45,11 @@ def createNewReview(projectConfiguration, revisionInformation) :
         REVIEW_PK_REVIEW_ID : reviewIdentifier,
         REVIEW_TITLE : revisionInformation['firstCommitLine'],
         REVIEW_ADDITIONAL_DESCRIPTION : "",
+        # WHENEVER WE CHANGE THE revision configuration -- WE MUST UPDATE THE AUTHORS LIST
         REVIEW_REVISIONS : [revisionInformation['revisionID']],
+        # Actually this should be a uuid for each author
+        REVIEW_AUTHORS : ['mindscan-de'],
+        # 
         REVIEW_FK_PROJECT_ID : projectConfiguration['projectID'],
         REVIEW_LIFECYLCE_STATE : REVIEW_LIFECYCLE_STATE_OPEN
         }

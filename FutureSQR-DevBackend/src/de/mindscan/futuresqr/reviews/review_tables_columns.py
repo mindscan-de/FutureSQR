@@ -31,6 +31,7 @@ REVIEW_PK_REVIEW_ID                = REVIEW_REVIEW_ID
 REVIEW_TITLE                       = 'reviewTitle'
 REVIEW_ADDITIONAL_DESCRIPTION      = 'reviewDescription'
 REVIEW_REVISIONS                   = 'reviewRevisions'
+REVIEW_AUTHORS                     = 'reviewAuthors'
 REVIEW_FK_PROJECT_ID               = 'reviewFkProjectId'
 REVIEW_LIFECYLCE_STATE             = 'reviewLifecycleState'
 
