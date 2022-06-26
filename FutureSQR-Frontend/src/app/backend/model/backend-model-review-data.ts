@@ -4,5 +4,7 @@ export class BackendModelReviewData {
 	public reviewLifecycleState:string = "";
 	public reviewDescription: string = "";
 	public reviewRevisions: string[] = [];
+	// 
+	public reviewAuthors: string[] = [];
 	public reviewFkProjectId: string = "";
 }

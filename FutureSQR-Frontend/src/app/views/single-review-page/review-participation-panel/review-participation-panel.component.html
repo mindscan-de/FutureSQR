@@ -1,10 +1,14 @@
 <div class="card mt-2">
   <div class="card-body">
-	Review | Revisionmanagement
+	Reviewmanagement | Revisionmanagement
   </div>
   <ul class="list-group list-group-flush">
   	<li class ="list-group-item">
-  		<p><span class="small text-muted"><b>Author(s):</b></span></p>
+  		<p><span class="small text-muted"><b>Author(s):</b> {{currentUiReviewData.reviewAuthors.length}}</span></p>
+  		
+  		<ng-container *ngFor="let author of currentUiReviewData.reviewAuthors">
+  			<span>{{author}}</span>
+  		</ng-container>
   	</li>
   	<li class ="list-group-item">
   		<p><span class="small text-muted"><b>Reviewer(s):</b></span></p>
