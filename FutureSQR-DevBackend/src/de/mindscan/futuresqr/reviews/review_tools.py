@@ -49,6 +49,8 @@ def createNewReview(projectConfiguration, revisionInformation) :
         REVIEW_REVISIONS : [revisionInformation['revisionID']],
         # Actually this should be a uuid for each author
         REVIEW_AUTHORS : ['mindscan-de'],
+        # This is more complicated i guess.. (right now)
+        REVIEW_REVIEWERRESULTS : [],
         # 
         REVIEW_FK_PROJECT_ID : projectConfiguration['projectID'],
         REVIEW_LIFECYLCE_STATE : REVIEW_LIFECYCLE_STATE_OPEN
