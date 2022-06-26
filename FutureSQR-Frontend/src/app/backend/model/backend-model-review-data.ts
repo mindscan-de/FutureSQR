@@ -6,5 +6,7 @@ export class BackendModelReviewData {
 	public reviewRevisions: string[] = [];
 	// 
 	public reviewAuthors: string[] = [];
+	// TODO: we have review results by different reviewers, actually we want both here.
+	public reviewReviewersResults: string[] = [];
 	public reviewFkProjectId: string = "";
 }
