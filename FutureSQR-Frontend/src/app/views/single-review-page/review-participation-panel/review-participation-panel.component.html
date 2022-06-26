@@ -1,2 +1,23 @@
-<p>review-participation-panel works!</p>
-<h4>Feed &amp; Action Area</h4>
+<div class="card mt-2">
+  <div class="card-body">
+	Review | Revisionmanagement
+  </div>
+  <ul class="list-group list-group-flush">
+  	<li class ="list-group-item">
+  		<p><span class="small text-muted"><b>Author(s):</b></span></p>
+  	</li>
+  	<li class ="list-group-item">
+  		<p><span class="small text-muted"><b>Reviewer(s):</b></span></p>
+  	</li>
+	<li class ="list-group-item">
+<!-- 		<a class="btn btn-success btn-sm mr-2" title="Approve this Review" *ngIf="currentUiReviewData.reviewLifecycleState=='Open'">approve</a> -->
+<!-- 		<a class="btn btn-info btn-sm mr-2" title="Raise concerns for this Review" *ngIf="currentUiReviewData.reviewLifecycleState=='Open'">have concerns</a> -->
+		
+  		<a class="btn btn-secondary btn-sm mr-2" title="Close this Review" *ngIf="currentUiReviewData.reviewLifecycleState!='Closed'">close</a>
+  		<a class="btn btn-secondary btn-sm mr-2" title="Reopen this Review" *ngIf="currentUiReviewData.reviewLifecycleState!='Open'">reopen</a>
+  		<a class="btn btn-danger btn-sm mr-2" title="Delete this Review (admins only)" *ngIf="currentUiReviewData.reviewLifecycleState!='Deleted'">delete</a>
+  	</li>
+  	
+  </ul>
+</div>
+
