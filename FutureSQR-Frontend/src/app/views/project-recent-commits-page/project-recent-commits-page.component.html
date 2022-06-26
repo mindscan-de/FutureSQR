@@ -14,7 +14,7 @@
 							</div>
 						
 							<div class="p-0" *ngIf="revision.hasReview==false">
-								<span><a class="mr-2 ml-2 text-light btn btn-light"  (click)="onCreateReview(activeProjectID,revision.revisionid)" >create Review</a></span>
+								<span><a title="Create a new Review" class="mr-2 ml-2 text-light btn btn-sm btn-light"  (click)="onCreateReview(activeProjectID,revision.revisionid)" >create Review</a></span>
 							</div>
 							
 							<div class="p-0" *ngIf="revision.hasReview==true">
