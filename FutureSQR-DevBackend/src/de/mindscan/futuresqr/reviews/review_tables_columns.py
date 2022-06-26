@@ -32,3 +32,8 @@ REVIEW_TITLE                       = 'reviewTitle'
 REVIEW_ADDITIONAL_DESCRIPTION      = 'reviewDescription'
 REVIEW_REVISIONS                   = 'reviewRevisions'
 REVIEW_FK_PROJECT_ID               = 'reviewFkProjectId'
+REVIEW_LIFECYLCE_STATE             = 'reviewLifecylceState'
+
+REVIEW_LIFECYCLE_STATE_OPEN        = 'Open'
+REVIEW_LIFECYCLE_STATE_CLOSED      = 'Closed'
+REVIEW_LIFECYCLE_STATE_DELETED     = 'Deleted'

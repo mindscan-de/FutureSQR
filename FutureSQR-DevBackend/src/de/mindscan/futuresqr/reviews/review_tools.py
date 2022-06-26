@@ -46,7 +46,8 @@ def createNewReview(projectConfiguration, revisionInformation) :
         REVIEW_TITLE : revisionInformation['firstCommitLine'],
         REVIEW_ADDITIONAL_DESCRIPTION : "",
         REVIEW_REVISIONS : [revisionInformation['revisionID']],
-        REVIEW_FK_PROJECT_ID: projectConfiguration['projectID']
+        REVIEW_FK_PROJECT_ID : projectConfiguration['projectID'],
+        REVIEW_LIFECYLCE_STATE : REVIEW_LIFECYCLE_STATE_OPEN
         }
     
     return review
