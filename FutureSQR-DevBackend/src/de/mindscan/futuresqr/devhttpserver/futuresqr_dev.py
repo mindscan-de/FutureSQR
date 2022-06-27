@@ -205,9 +205,7 @@ def postCloseReview(projectid:str, reviewid:str = Form(...)):
     project_path_translation = getAllProjectToLocalPathMap()
     
     if projectid in project_path_translation:
-        # TODO. review should exist in project
-        #
-        pass
+        reviewDB.updateCloseReviewByReviewId(projectid, reviewid)
     
     result = {}
     return result
