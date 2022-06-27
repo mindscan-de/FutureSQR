@@ -85,4 +85,14 @@ export class ProjectDataQueryBackendService {
 		return this.httpClient.post<any>(url,formdata);
 	}
 	
+	reopenReview(projectid:string, reviewid:string): Observable<any> {
+		var url =`/FutureSQR/rest/project/${projectid}/review/reopen`;
+		let formdata = new FormData();
+		
+		formdata.append('reviewid',reviewid)
+		
+		return this.httpClient.post<any>(url,formdata);
+	}
+	
+	
 }
