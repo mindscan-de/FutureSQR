@@ -52,4 +52,15 @@ export class ReviewParticipationPanelComponent implements OnInit {
 		);
 	}
 	
+	onDeleteReview(projectid:string, reviewId:string):void {
+		// use the backend service to close this review.
+		this.projectDataQueryBackend.deleteReview(projectid, reviewId).subscribe(
+			data => {
+				// parent component should reload the page...
+			},
+			error => {}			
+		);
+	}
+	
+	
 }
