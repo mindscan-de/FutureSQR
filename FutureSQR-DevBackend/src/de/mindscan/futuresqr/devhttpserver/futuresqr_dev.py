@@ -228,9 +228,7 @@ def postReopenReview(projectid:str, reviewid:str=Form(...)):
     project_path_translation = getAllProjectToLocalPathMap()
     
     if projectid in project_path_translation:
-        # TODO. review should exist in project
-        #
-        pass
+        reviewDB.updateReopenReviewByReviewId(projectid, reviewid)
     
     result = {}
     return result

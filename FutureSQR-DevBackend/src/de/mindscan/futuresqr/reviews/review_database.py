@@ -67,6 +67,16 @@ class ReviewDatabase(object):
         
         self.reviewTable[project_id][review_id][REVIEW_LIFECYLCE_STATE]=REVIEW_LIFECYCLE_STATE_CLOSED
         return None
+    
+    def updateReopenReviewByReviewId(self, project_id, review_id):
+        if not project_id in self.reviewTable:
+            return None
+        if not review_id in self.reviewTable[project_id]:
+            return None 
+        
+        self.reviewTable[project_id][review_id][REVIEW_LIFECYLCE_STATE]=REVIEW_LIFECYCLE_STATE_OPEN
+        return None
+    
 
     def hasReviewByRevisionId(self, project_id, revision_id):
         if not project_id in self.revisionTable:
