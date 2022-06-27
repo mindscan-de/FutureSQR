@@ -44,12 +44,12 @@ export class ReviewParticipationPanelComponent implements OnInit {
 	
 	onReopenReview(projectid:string, reviewId:string):void {
 		// use the backend service to close this review.
-/*		this.projectDataQueryBackend.closeReview(projectid, reviewId).subscribe(
+		this.projectDataQueryBackend.reopenReview(projectid, reviewId).subscribe(
 			data => {
 				// parent component should reload the page...
 			},
 			error => {}			
 		);
-*/	}
+	}
 	
 }
