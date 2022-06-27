@@ -65,7 +65,7 @@
 	</div>
 	
 	<div class="col-xl-3">
-		<app-review-participation-panel [activeReviewData]="activeReviewData"></app-review-participation-panel>
+		<app-review-participation-panel [activeReviewData]="activeReviewData" (onReviewStateChanged)="reloadReviewInformation($event)"></app-review-participation-panel>
 		
 		<div class="row mt-2">
 			<div class="col">

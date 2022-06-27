@@ -88,8 +88,13 @@ export class SingleReviewPageComponent implements OnInit {
 		}, (reason) => {
 		  // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
 	 	});
-		
 	}
 	
-
+	reloadReviewInformation(event):void {
+		this.projectDataQueryBackend.getReviewData(this.activeProjectID, this.activeReviewID).subscribe(
+			data => this.onReviewDataReceived(data),
+			error => {}			
+		);
+	}
+	
 }

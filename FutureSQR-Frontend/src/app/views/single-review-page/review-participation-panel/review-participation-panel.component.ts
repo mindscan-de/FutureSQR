@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges  } from '@angular/core';
+import { Component, OnInit, Input, Output, SimpleChanges, EventEmitter } from '@angular/core';
 
 
 // Services
@@ -18,6 +18,7 @@ export class ReviewParticipationPanelComponent implements OnInit {
 	public currentUiReviewData: BackendModelReviewData = new BackendModelReviewData();
 	
 	@Input() activeReviewData: BackendModelReviewData = new BackendModelReviewData();
+	@Output() onReviewStateChanged = new EventEmitter<string>();
 
 	constructor( private projectDataQueryBackend : ProjectDataQueryBackendService, ) { }
 
@@ -37,6 +38,7 @@ export class ReviewParticipationPanelComponent implements OnInit {
 		this.projectDataQueryBackend.closeReview(projectid, reviewId).subscribe(
 			data => {
 				// parent component should reload the page...
+				this.onReviewStateChanged.emit('close');
 			},
 			error => {}			
 		);
@@ -46,7 +48,7 @@ export class ReviewParticipationPanelComponent implements OnInit {
 		// use the backend service to close this review.
 		this.projectDataQueryBackend.reopenReview(projectid, reviewId).subscribe(
 			data => {
-				// parent component should reload the page...
+				this.onReviewStateChanged.emit('reopen');
 			},
 			error => {}			
 		);
@@ -57,10 +59,11 @@ export class ReviewParticipationPanelComponent implements OnInit {
 		this.projectDataQueryBackend.deleteReview(projectid, reviewId).subscribe(
 			data => {
 				// parent component should reload the page...
+				this.onReviewStateChanged.emit('delete');
 			},
 			error => {}			
 		);
 	}
 	
-	
+
 }
