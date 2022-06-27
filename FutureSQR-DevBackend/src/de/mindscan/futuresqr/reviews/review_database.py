@@ -50,8 +50,7 @@ class ReviewDatabase(object):
             self.revisionTable[project_id][revision_id] = review[ REVIEW_PK_REVIEW_ID]
         # 
         self.reviewTable[project_id][ review[ REVIEW_PK_REVIEW_ID] ] = review
-        
-        
+    
     def selectReviewByReviewId(self, project_id, review_id):
         if not project_id in self.reviewTable:
             return None
@@ -77,6 +76,23 @@ class ReviewDatabase(object):
         self.reviewTable[project_id][review_id][REVIEW_LIFECYLCE_STATE]=REVIEW_LIFECYCLE_STATE_OPEN
         return None
     
+    def updateDeleteReviewByReviewId(self, project_id, review_id):
+        if not project_id in self.reviewTable:
+            return None
+        if not review_id in self.reviewTable[project_id]:
+            return None 
+        # delete revision list
+        #         revision_list = self.reviewTable[project_id][review_id][REVIEW_REVISIONS]
+        #         self.reviewTable[project_id][review_id][REVIEW_REVISIONS]=[]
+        #         # set to deleted
+        #         self.reviewTable[project_id][review_id][REVIEW_LIFECYLCE_STATE]=REVIEW_LIFECYCLE_STATE_DELETED
+        #         
+        #         # free up revision from revision list
+        #         for revision_id in revision_list:
+        #             self.revisionTable[project_id].pop(revision_id,None)
+            
+        return None
+        
 
     def hasReviewByRevisionId(self, project_id, revision_id):
         if not project_id in self.revisionTable:
