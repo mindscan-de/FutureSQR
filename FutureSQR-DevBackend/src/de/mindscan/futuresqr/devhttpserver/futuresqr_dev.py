@@ -210,6 +210,18 @@ def postCloseReview(projectid:str, reviewid:str = Form(...)):
     result = {}
     return result
     
+    
+@app.post("/FutureSQR/rest/project/{projectid}/review/reopen")
+def postReopenReview(projectid:str, reviewid:str=Form(...)):
+    project_path_translation = getAllProjectToLocalPathMap()
+    
+    if projectid in project_path_translation:
+        reviewDB.updateReopenReviewByReviewId(projectid, reviewid)
+    
+    result = {}
+    return result
+    
+
 @app.post("/FutureSQR/rest/project/{projectid}/review/delete")
 def postDeleteReview(projectid:str, reviewid:str = Form(...)):
     project_path_translation = getAllProjectToLocalPathMap()
@@ -221,15 +233,3 @@ def postDeleteReview(projectid:str, reviewid:str = Form(...)):
     
     result = {}
     return result
-    
-    
-@app.post("/FutureSQR/rest/project/{projectid}/review/reopen")
-def postReopenReview(projectid:str, reviewid:str=Form(...)):
-    project_path_translation = getAllProjectToLocalPathMap()
-    
-    if projectid in project_path_translation:
-        reviewDB.updateReopenReviewByReviewId(projectid, reviewid)
-    
-    result = {}
-    return result
-
