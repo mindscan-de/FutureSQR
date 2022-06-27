@@ -76,4 +76,13 @@ export class ProjectDataQueryBackendService {
 		return this.httpClient.post<BackendModelCreateReviewResult>(url, formdata);
 	}
 	
+	closeReview(projectid:string, reviewid:string): Observable<any> {
+		var url =`/FutureSQR/rest/project/${projectid}/rewiew/close`;
+		let formdata = new FormData();
+		
+		formdata.append('reviewid',reviewid)
+		
+		return this.httpClient.post<any>(url,formdata);
+	}
+	
 }
