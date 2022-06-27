@@ -94,5 +94,13 @@ export class ProjectDataQueryBackendService {
 		return this.httpClient.post<any>(url,formdata);
 	}
 	
+	deleteReview(projectid:string, reviewid:string): Observable<any> {
+		var url =`/FutureSQR/rest/project/${projectid}/review/delete`;
+		let formdata = new FormData();
+		
+		formdata.append('reviewid',reviewid)
+		
+		return this.httpClient.post<any>(url,formdata);
+	}
 	
 }
