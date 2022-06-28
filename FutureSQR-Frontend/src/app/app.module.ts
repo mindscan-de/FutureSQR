@@ -26,6 +26,7 @@ import { ContentChangeSetSideBySideDiffComponent } from './commonui/content-chan
 import { FileChangeSetSideBySideDiffComponent } from './commonui/file-change-set-side-by-side-diff/file-change-set-side-by-side-diff.component';
 import { SingleRevisionSideBySideDialogComponent } from './commonui/single-revision-side-by-side-dialog/single-revision-side-by-side-dialog.component';
 import { ReviewParticipationPanelComponent } from './views/single-review-page/review-participation-panel/review-participation-panel.component';
+import { ProjectRecentReviewsPageComponent } from './views/project-recent-reviews-page/project-recent-reviews-page.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ReviewParticipationPanelComponent } from './views/single-review-page/re
     ContentChangeSetSideBySideDiffComponent,
     FileChangeSetSideBySideDiffComponent,
     SingleRevisionSideBySideDialogComponent,
-    ReviewParticipationPanelComponent
+    ReviewParticipationPanelComponent,
+    ProjectRecentReviewsPageComponent
   ],
   imports: [
     BrowserModule,
