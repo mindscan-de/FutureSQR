@@ -150,6 +150,10 @@ def getReviewData(projectid:str, reviewid:str):
     result = {}
     return result
     
+@app.get("/FutureSQR/rest/project/{projectid}/recentreviews")    
+def getRecentReviews(projectid:str):
+    rseult = {}
+    return rseult
 
 ### #########################################
 ###
