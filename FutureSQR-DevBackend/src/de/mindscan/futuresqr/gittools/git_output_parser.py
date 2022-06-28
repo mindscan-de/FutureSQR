@@ -58,21 +58,27 @@ def parse_log_full_changeset(log):
             singleFileChangeSet['lazy_diff_line']=lines[linecounter]
             linecounter+=1
             
-            # parse index
-            singleFileChangeSet['lazy_index_line']=lines[linecounter]
-            linecounter+=1
-            
+            # parse index line if present
+            if lines[linecounter].startsWith('index'):
+                singleFileChangeSet['lazy_index_line']=lines[linecounter]
+                linecounter+=1
+            else:
+                singleFileChangeSet['lazy_index_line']= "(empty)"
+                
             # parse ---
-            linecounter+=1
+            if lines[linecounter].startsWith('---'):
+                linecounter+=1
             
             # parse +++
-            linecounter+=1
+            if lines[linecounter].startsWith('+++'):
+                linecounter+=1
             
             # parse @@ ... @@
-            singleContentChangeset = {'line_info':lines[linecounter], 'line_diff_data':[]}
-            singleFileChangeSet['fileContentChangeSet']=[]
-            singleFileChangeSet['fileContentChangeSet'].append(singleContentChangeset)
-            linecounter+=1
+            if lines[linecounter].startsWith('@@ '):
+                singleContentChangeset = {'line_info':lines[linecounter], 'line_diff_data':[]}
+                singleFileChangeSet['fileContentChangeSet']=[]
+                singleFileChangeSet['fileContentChangeSet'].append(singleContentChangeset)
+                linecounter+=1
             
             # TODO: now read until end of lines or until next diff line.
             if len(lines)<=linecounter:
