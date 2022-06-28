@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-basic-project-information',
@@ -6,10 +6,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./basic-project-information.component.css']
 })
 export class BasicProjectInformationComponent implements OnInit {
+	
+	@Input() activeProjectId:string;
 
-  constructor() { }
+	constructor() { }
 
-  ngOnInit(): void {
-  }
+	ngOnInit(): void {
+	}
+	
+	ngOnChanges(changes: SimpleChanges): void {
+		let activeProjectId:string = changes.activeProjectId.currentValue;
+		
+		if(this.activeProjectId != activeProjectId) {
+			this.activeProjectId = activeProjectId;
+		}
+	}
 
 }
