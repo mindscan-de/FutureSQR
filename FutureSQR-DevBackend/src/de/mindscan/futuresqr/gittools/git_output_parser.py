@@ -59,22 +59,22 @@ def parse_log_full_changeset(log):
             linecounter+=1
             
             # parse index line if present
-            if lines[linecounter].startsWith('index'):
+            if lines[linecounter].startswith('index'):
                 singleFileChangeSet['lazy_index_line']=lines[linecounter]
                 linecounter+=1
             else:
                 singleFileChangeSet['lazy_index_line']= "(empty)"
                 
             # parse ---
-            if lines[linecounter].startsWith('---'):
+            if lines[linecounter].startswith('---'):
                 linecounter+=1
             
             # parse +++
-            if lines[linecounter].startsWith('+++'):
+            if lines[linecounter].startswith('+++'):
                 linecounter+=1
             
             # parse @@ ... @@
-            if lines[linecounter].startsWith('@@ '):
+            if lines[linecounter].startswith('@@ '):
                 singleContentChangeset = {'line_info':lines[linecounter], 'line_diff_data':[]}
                 singleFileChangeSet['fileContentChangeSet']=[]
                 singleFileChangeSet['fileContentChangeSet'].append(singleContentChangeset)
