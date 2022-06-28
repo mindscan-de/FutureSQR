@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MainPageComponent } from './views/main-page/main-page.component';
 import { AllProjectsPageComponent } from './views/all-projects-page/all-projects-page.component';
 import { ProjectRecentCommitsPageComponent } from './views/project-recent-commits-page/project-recent-commits-page.component';
+import { ProjectRecentReviewsPageComponent }  from './views/project-recent-reviews-page/project-recent-reviews-page.component';
 import { SingleRevisionPageComponent } from './views/single-revision-page/single-revision-page.component';
 import { SingleReviewPageComponent } from './views/single-review-page/single-review-page.component';
 
@@ -15,8 +16,8 @@ const routes: Routes = [
 	// show a list of all available projects for a logged on user
 	{ path:'allprojects', pathMatch: 'full', component: AllProjectsPageComponent },	
 
-	// TODO:
-	// :projectid/reviews
+	// show a list of all recent project reviews (open and maybe some recent closed)
+	{ path:':projectid/reviews', component:ProjectRecentReviewsPageComponent },
 	
 	// show a review for a certain project
 	{ path:':projectid/review/:reviewid', component:SingleReviewPageComponent },
