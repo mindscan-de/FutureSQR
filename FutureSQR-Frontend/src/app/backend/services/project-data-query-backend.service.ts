@@ -63,8 +63,14 @@ export class ProjectDataQueryBackendService {
 	
 	getReviewData(projectid:string, reviewid:string): Observable<BackendModelReviewData> {
 		var url = `/FutureSQR/rest/project/${projectid}/review/${reviewid}/information`
-		
 		return this.httpClient.get<BackendModelReviewData>(url, {});
+	}
+	
+	getRecentReviewsByProject(projectid:string): Observable<any> {
+		var url = `/FutureSQR/rest/project/${projectid}/recentreviews`;
+		
+		// returns actually a list of open reviews for this project with some useful info....
+		return this.httpClient.get<any>(url, {});
 	}
 	
 	createNewReview(projectid:string, revisionid:string): Observable<BackendModelCreateReviewResult> {
