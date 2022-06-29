@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { BackendModelProjectItem } from '../model/backend-model-project-item';
 import { BackendModelProjectRecentCommits } from '../model/backend-model-project-recent-commits';
+import { BackendModelProjectRecentReviews } from '../model/backend-model-project-recent-reviews';
 import { BackendModelSingleCommitFullChangeSet } from '../model/backend-model-single-commit-full-change-set'; 
 import { BackendModelSingleCommitFileActionsInfo } from '../model/backend-model-single-commit-file-actions-info';
 import { BackendModelCreateReviewResult } from '../model/backend-model-create-review-result';
@@ -66,11 +67,11 @@ export class ProjectDataQueryBackendService {
 		return this.httpClient.get<BackendModelReviewData>(url, {});
 	}
 	
-	getRecentReviewsByProject(projectid:string): Observable<any> {
+	getRecentReviewsByProject(projectid:string): Observable<BackendModelProjectRecentReviews> {
 		var url = `/FutureSQR/rest/project/${projectid}/recentreviews`;
 		
 		// returns actually a list of open reviews for this project with some useful info....
-		return this.httpClient.get<any>(url, {});
+		return this.httpClient.get<BackendModelProjectRecentReviews>(url, {});
 	}
 	
 	createNewReview(projectid:string, revisionid:string): Observable<BackendModelCreateReviewResult> {
