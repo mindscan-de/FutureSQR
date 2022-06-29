@@ -152,6 +152,15 @@ def getReviewData(projectid:str, reviewid:str):
     
 @app.get("/FutureSQR/rest/project/{projectid}/recentreviews")    
 def getRecentReviews(projectid:str):
+    project_path_translation = getAllProjectToLocalPathMap()
+    
+    if projectid in project_path_translation:
+        result = {
+            'openReviews':reviewDB.selectOpenReviewsByProjectId(projectid),
+            'recentClosedReviews':[]
+                  }
+        return result
+    
     rseult = {}
     return rseult
 
