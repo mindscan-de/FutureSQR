@@ -6,8 +6,10 @@
 				
 				<p>Here some basic project information. etc. pp. Maybe we want to star this project...</p>
 				
-				<span>back to <a [routerLink]="['/',activeProjectId]">{{activeProjectId}}</a>&nbsp;|&nbsp;</span>
-				<span><a [routerLink]="['/',activeProjectId,'reviews']">recent reviews</a>&nbsp;</span>
+				<span class="mr-2">{{activeProjectId}}</span>
+				<span class="mr-2"><a [routerLink]="['/',activeProjectId]">recent commits</a></span>
+				<span class="mr-2">|</span>
+				<span class="mr-2"><a [routerLink]="['/',activeProjectId,'reviews']">recent reviews</a></span>
 			</li>
 		</ul>
 	</div>
