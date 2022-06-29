@@ -7,6 +7,8 @@ import { ProjectDataQueryBackendService } from '../../backend/services/project-d
 
 // backend model -> should be a ui model.
 import { BackendModelReviewData } from '../../backend/model/backend-model-review-data';
+import { BackendModelProjectRecentReviews } from '../../backend/model/backend-model-project-recent-reviews';
+
 
 @Component({
   selector: 'app-project-recent-reviews-page',
@@ -23,6 +25,15 @@ export class ProjectRecentReviewsPageComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.activeProjectID = this.route.snapshot.paramMap.get('projectid');
+		
+		this.projectDataQueryBackend.getRecentReviewsByProject(this.activeProjectID).subscribe (
+			data => this.onRecentReviewsLoaded(data),
+			error => {}
+		);
+	}
+	
+	onRecentReviewsLoaded(recentReviews:BackendModelProjectRecentReviews) : void {
+		this.uiModelRecentProjectReviews = recentReviews.openReviews;
 	}
 
 }
