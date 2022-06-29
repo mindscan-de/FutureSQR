@@ -63,7 +63,7 @@ class ReviewDatabase(object):
         if not project_id in self.reviewTable:
             return []
         
-        result = [ review for review in self.reviewTable if review[REVIEW_LIFECYLCE_STATE] == REVIEW_LIFECYCLE_STATE_OPEN ]
+        result = [ review for review in self.reviewTable[project_id].values() if review[REVIEW_LIFECYLCE_STATE] == REVIEW_LIFECYCLE_STATE_OPEN ]
         return result
     
     def updateCloseReviewByReviewId(self, project_id, review_id):
