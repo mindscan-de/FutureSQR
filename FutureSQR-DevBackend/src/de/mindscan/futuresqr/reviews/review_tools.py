@@ -48,7 +48,7 @@ def createNewReview(projectConfiguration, revisionInformation) :
         # WHENEVER WE CHANGE THE revision configuration -- WE MUST UPDATE THE AUTHORS LIST
         REVIEW_REVISIONS : [revisionInformation['revisionID']],
         # Actually this should be a uuid for each author
-        REVIEW_AUTHORS : ['mindscan-de'],
+        REVIEW_AUTHORS : [revisionInformation['author']],
         # This is more complicated i guess.. (right now)
         REVIEW_REVIEWERRESULTS : [],
         # 
