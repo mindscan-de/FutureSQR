@@ -28,7 +28,7 @@ SOFTWARE.
 
 from fastapi import FastAPI, Form, HTTPException
 
-from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision, calculateFileListForSigleRevision
+from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision, calculateFileListForSigleRevision, caluclateSimpleRevisionInformation
 from de.mindscan.futuresqr.assets.hardcoded import getAllProjectToLocalPathMap, getAllStarredProjectsForUser, getAllProjectsForUser, getProjectConfigurations
 from de.mindscan.futuresqr.reviews.review_database import ReviewDatabase
 from de.mindscan.futuresqr.projects.project_database import ProjectDatabase
@@ -150,6 +150,18 @@ def getRecentReviews(projectid:str):
     rseult = {}
     return rseult
 
+@app.get("/FutureSQR/rest/project/{projectid}/revision/{revisionid}/information")
+def getSimpleReviewInfomation(projectid:str, revisionid:str):
+    project_path_translation = getAllProjectToLocalPathMap()
+    
+    if projectid in project_path_translation:
+        revinfo = caluclateSimpleRevisionInformation(project_path_translation[projectid], revisionid)
+        return revinfo
+    
+    rseult = {}
+    return rseult
+    
+
 ### #########################################
 ###
 ### Some Review functions - non persistent
@@ -174,9 +186,12 @@ def postCreateNewReview(projectid:str, revisionid:str = Form(...)):
 
 
     # * get someinformation about this particular version heading and so on for the review title
+    shortrevInfo=getSimpleReviewInfomation(projectid, revisionid)
+    
     revisionInformation = {
-            'firstCommitLine': "let this be the first line",
-            'revisionID':revisionid
+            'firstCommitLine': shortrevInfo[0]['message'],
+            'revisionID':shortrevInfo[0]['revisionid'],
+            'author':shortrevInfo[0]['authorname']
         }
     
     
