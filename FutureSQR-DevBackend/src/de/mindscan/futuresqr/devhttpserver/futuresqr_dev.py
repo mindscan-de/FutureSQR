@@ -160,7 +160,16 @@ def getSimpleReviewInfomation(projectid:str, revisionid:str):
     
     rseult = {}
     return rseult
-    
+
+# TODO implement me    
+def postStarProjectbForUser(projectid:str, userid:str):
+    # this will star a project
+    pass
+
+# TODO implement me
+def postUnstarProjectForUser(projectid:str, userid:str):
+    # this will remove a stry set for a project. 
+    pass
 
 ### #########################################
 ###
