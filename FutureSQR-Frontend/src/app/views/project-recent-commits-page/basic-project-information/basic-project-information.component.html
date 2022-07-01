@@ -2,6 +2,11 @@
 	<div class="col">
 		<ul class="list-group mt-2 mb-2">
 			<li class="list-group-item">
+				<div class="float-right">
+					<a class="btn btn-secondary" *ngIf="!isStarred" (click)="onStarMe(activeProjectId)">Star project</a>
+					<a class="btn btn-secondary" *ngIf="isStarred" (click)="onUnstarMe(activeProjectId)">Unstar project</a>
+				</div>
+				
 				<h4>Basic Project Information</h4>
 				
 				<p>Here some basic project information. etc. pp. Maybe we want to star this project...</p>
