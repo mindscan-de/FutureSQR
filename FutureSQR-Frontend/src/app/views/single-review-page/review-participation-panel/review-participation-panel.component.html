@@ -4,18 +4,23 @@
   </div>
   <ul class="list-group list-group-flush">
   	<li class ="list-group-item">
-  		<p><span class="small text-muted"><b>Author(s):</b> {{currentUiReviewData.reviewAuthors.length}}</span></p>
+  		<p><span class="small text-muted"><b class="mr-2">Author(s):</b>{{currentUiReviewData.reviewAuthors.length}}</span></p>
   		
   		<ng-container *ngFor="let author of currentUiReviewData.reviewAuthors">
   			<span>{{author}}</span>
   		</ng-container>
   	</li>
   	<li class ="list-group-item">
-  		<p><span class="small text-muted"><b>Reviewer(s):</b><a class="btn btn-sm mr-2 ml-2 btn-light" title="add a reviewer">+</a> </span></p>
+  		<p><span class="small text-muted"><b class="mr-2">Reviewer(s):</b><a class="btn btn-sm mr-2 btn-light" title="add a reviewer">+</a></span></p>
   		
-  		
- 		<a class="btn btn-sm m-1 btn-success" title="Approve this Review" *ngIf="currentUiReviewData.reviewLifecycleState=='Open'">approve</a>
- 		<a class="btn btn-sm m-1 btn-info" title="Raise concerns for this Review" *ngIf="currentUiReviewData.reviewLifecycleState=='Open'">have concerns</a>
+  		<span class="float-right" *ngIf="isCurrentUserAReviewer">
+	 		<a class="btn btn-sm m-1 btn-success" title="Approve this Review" *ngIf="currentUiReviewData.reviewLifecycleState=='Open'">approve</a>
+	 		<a class="btn btn-sm m-1 btn-info" title="Raise concerns for this Review" *ngIf="currentUiReviewData.reviewLifecycleState=='Open'">have concerns</a>
+ 		</span>
+ 		<span class="float-right" *ngIf="!isCurrentUserAReviewer">
+			<a class="btn btn-sm m-1 btn-light" title="add me">add me</a> 		
+ 		</span>
+ 		
   	</li>
 	<li class ="list-group-item">
   		<a class="btn btn-sm m-1 btn-secondary" title="Close this Review" *ngIf="currentUiReviewData.reviewLifecycleState!='Closed' && currentUiReviewData.reviewLifecycleState!='Deleted'" (click)="onCloseReview( currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId )">close</a>

@@ -16,6 +16,7 @@ import { BackendModelReviewData } from '../../../backend/model/backend-model-rev
 export class ReviewParticipationPanelComponent implements OnInit {
 	
 	public currentUiReviewData: BackendModelReviewData = new BackendModelReviewData();
+	public isCurrentUserAReviewer: boolean = false;
 	
 	@Input() activeReviewData: BackendModelReviewData = new BackendModelReviewData();
 	@Output() onReviewStateChanged = new EventEmitter<string>();
