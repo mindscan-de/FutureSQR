@@ -69,8 +69,8 @@ def getAllProjectsForUser():
     return [
         {"project_id":"furiousiron-frontend", "project_name":"FuriousIron-Frontend", "description":"My personal source code engine project. Frontend. (Angular. TS)"},
         {"project_id":"furiousiron-hfb", "project_name":"FuriousIron-HFB", "description":"Hash-Free Bloom-Filter (Proof of concept implementation)"},
-        # todo
         {"project_id":"furiousiron-indexer", "project_name":"FuriousIron-Indexer", "description":"My personal source code search engine project. Indexer. (Java. Windows. No Database. Filesystem only) "},
+        # todo
         {"project_id":"furiousiron-searchbackend", "project_name":"FuriousIron-SearchBackend", "description":"My personal source code search engine project. Backend. (Java. Tomcat. Windows. No Database. Filesystem only) "},
         # done
         {"project_id":"futuresqr", "project_name":"FutureSQR", "description":"Future Source Quality Review -- Code Review Tool for Trunk-Based-Development "},
@@ -106,6 +106,18 @@ def getProjectConfigurations():
                 'administration':{
                     'localPath':"D:\\Temp\\future-square-cache\\FuriousIron-HFB",
                     }
+                },
+                
+            'furiousiron-indexer' : {
+                'autoIndex':1,
+                'reviewPrefix':'CR-FI-NDX-',
+                'projectID':'furiousiron-indexer',
+                'projectName':'FuriousIron-Indexer',
+                'projectDescription':'My personal source code search engine project. Indexer. (Java. Windows. No Database. Filesystem only)',
+                'administration':{
+                    'localPath':None
+                    }
+                
                 },
                 
             'futuresqr': {
