@@ -66,5 +66,8 @@ export class ReviewParticipationPanelComponent implements OnInit {
 		);
 	}
 	
+	onAddMeToReview(): void {
+		this.isCurrentUserAReviewer=true;
+	}
 
 }
