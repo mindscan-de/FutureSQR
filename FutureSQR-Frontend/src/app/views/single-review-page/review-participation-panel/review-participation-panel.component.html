@@ -11,15 +11,16 @@
   		</ng-container>
   	</li>
   	<li class ="list-group-item">
-  		<p><span class="small text-muted"><b>Reviewer(s):</b></span></p>
+  		<p><span class="small text-muted"><b>Reviewer(s):</b><a class="btn btn-sm mr-2 ml-2 btn-light" title="add a reviewer">+</a> </span></p>
+  		
+  		
+ 		<a class="btn btn-sm m-1 btn-success" title="Approve this Review" *ngIf="currentUiReviewData.reviewLifecycleState=='Open'">approve</a>
+ 		<a class="btn btn-sm m-1 btn-info" title="Raise concerns for this Review" *ngIf="currentUiReviewData.reviewLifecycleState=='Open'">have concerns</a>
   	</li>
 	<li class ="list-group-item">
- 		<!-- <a class="btn btn-sm mr-2 btn-success" title="Approve this Review" *ngIf="currentUiReviewData.reviewLifecycleState=='Open'">approve</a> -->
- 		<!-- <a class="btn btn-sm mr-2 btn-info" title="Raise concerns for this Review" *ngIf="currentUiReviewData.reviewLifecycleState=='Open'">have concerns</a> -->
-		
-  		<a class="btn btn-sm mr-2 btn-secondary" title="Close this Review" *ngIf="currentUiReviewData.reviewLifecycleState!='Closed' && currentUiReviewData.reviewLifecycleState!='Deleted'" (click)="onCloseReview( currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId )">close</a>
-  		<a class="btn btn-sm mr-2 btn-secondary" title="Reopen this Review" *ngIf="currentUiReviewData.reviewLifecycleState!='Open'" (click)="onReopenReview( currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId )">reopen</a>
-  		<a class="btn btn-sm mr-2 btn-danger" title="Delete this Review" *ngIf="currentUiReviewData.reviewLifecycleState!='Deleted'" (click)="onDeleteReview( currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId )">delete</a>
+  		<a class="btn btn-sm m-1 btn-secondary" title="Close this Review" *ngIf="currentUiReviewData.reviewLifecycleState!='Closed' && currentUiReviewData.reviewLifecycleState!='Deleted'" (click)="onCloseReview( currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId )">close</a>
+  		<a class="btn btn-sm m-1 btn-secondary" title="Reopen this Review" *ngIf="currentUiReviewData.reviewLifecycleState!='Open'" (click)="onReopenReview( currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId )">reopen</a>
+  		<a class="btn btn-sm m-1 btn-danger" title="Delete this Review" *ngIf="currentUiReviewData.reviewLifecycleState!='Deleted'" (click)="onDeleteReview( currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId )">delete</a>
   	</li>
   	
   </ul>
