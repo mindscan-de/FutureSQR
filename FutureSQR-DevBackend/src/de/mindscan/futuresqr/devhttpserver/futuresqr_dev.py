@@ -59,7 +59,7 @@ def getUserAllAccessibleProjects(user_uuid: str = ""):
 
 @app.get("/FutureSQR/rest/project/{projectid}/recentcommits")
 def getProjectRevisions(projectid:str):
-    if projectDB.isProjectIdPresent(projectid):
+    if projectDB.hasProjectLocalPath(projectid):
         # TODO: cache this answer for some time and/or limit the number of results?
         revisions = calculateRecentRevisionsForLocalGitRepo(projectDB.getProjectLocalPath(projectid))
         # combine revisions with a review list for the revisons and add the revision id to the revision list
@@ -80,7 +80,7 @@ def getProjectRevisions(projectid:str):
 
 @app.get("/FutureSQR/rest/project/{projectid}/revisiondiff/{revisionid}")
 def getProjectRevisionDiffToPrevious(projectid:str, revisionid:str):
-    if projectDB.isProjectIdPresent(projectid):
+    if projectDB.hasProjectLocalPath(projectid):
         result = calculateDiffForSingleRevision(projectDB.getProjectLocalPath(projectid), revisionid)
         return result
     
@@ -89,7 +89,7 @@ def getProjectRevisionDiffToPrevious(projectid:str, revisionid:str):
 
 @app.get("/FutureSQR/rest/project/{projectid}/reviewdiff/{reviewid}")
 def getProjectReviewDiff(projectid:str, reviewid:str):
-    if projectDB.isProjectIdPresent(projectid):
+    if projectDB.hasProjectLocalPath(projectid):
         reviewData = getReviewData(projectid, reviewid)
         result = calculateDiffForSingleRevision(projectDB.getProjectLocalPath(projectid), reviewData[REVIEW_REVISIONS][0])
         return result
@@ -99,7 +99,7 @@ def getProjectReviewDiff(projectid:str, reviewid:str):
 
 @app.get("/FutureSQR/rest/project/{projectid}/revisionfilelist/{revisionid}")
 def getProjectRevisionFileListDiffToPrevious(projectid:str, revisionid:str):
-    if projectDB.isProjectIdPresent(projectid):
+    if projectDB.hasProjectLocalPath(projectid):
         result = calculateFileListForSigleRevision(projectDB.getProjectLocalPath(projectid), revisionid)
         return result
     
@@ -108,7 +108,7 @@ def getProjectRevisionFileListDiffToPrevious(projectid:str, revisionid:str):
 
 @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/filelist")
 def getProjectReviewFileList(projectid:str, reviewid:str):
-    if projectDB.isProjectIdPresent(projectid):
+    if projectDB.hasProjectLocalPath(projectid):
         reviewData = getReviewData(projectid, reviewid)
         result = calculateFileListForSigleRevision(projectDB.getProjectLocalPath(projectid), reviewData[REVIEW_REVISIONS][0])
         return result
@@ -139,7 +139,7 @@ def getRecentReviews(projectid:str):
 
 @app.get("/FutureSQR/rest/project/{projectid}/revision/{revisionid}/information")
 def getSimpleReviewInfomation(projectid:str, revisionid:str):
-    if projectDB.isProjectIdPresent(projectid):
+    if projectDB.hasProjectLocalPath(projectid):
         revinfo = caluclateSimpleRevisionInformation(projectDB.getProjectLocalPath(projectid), revisionid)
         return revinfo
     

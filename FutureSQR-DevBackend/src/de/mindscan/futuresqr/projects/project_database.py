@@ -52,5 +52,17 @@ class ProjectDatabase(object):
             return self.projectConfigurations[projectid]['administration']['localPath']
         return None
     
+    def hasProjectLocalPath(self, projectid):
+        if not self.isProjectIdPresent(projectid):
+            return False
+        
+        if not self.projectConfigurations[projectid]['administration']:
+            return False
+        
+        if not self.projectConfigurations[projectid]['administration']['localPath']:
+            return False
+        
+        return True
+    
     def getAllProjectToLocalPathMap(self):
         pass
