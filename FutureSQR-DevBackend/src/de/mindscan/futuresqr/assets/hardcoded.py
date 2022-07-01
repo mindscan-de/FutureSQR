@@ -92,18 +92,27 @@ def getAllProjectsForUser():
 def getProjectConfigurations(): 
         return {
             'furiousiron-frontend' : {
-                    'autoIndex':1,
-                    'reviewPrefix':"CR-FI-FRNT-",
-                    'projectID':'furiousiron-frontend'
+                'autoIndex':1,
+                'reviewPrefix':"CR-FI-FRNT-",
+                'projectID':'furiousiron-frontend',
+                'administration': {
+                    'localPath':"D:\\Temp\\future-square-cache\\FuriousIron-Frontend",
+                    }
                 },
             'futuresqr': {
-                    'autoIndex':100,
-                    'reviewPrefix':"CR-FSQR-",
-                    'projectID':'futuresqr'
+                'autoIndex':100,
+                'reviewPrefix':"CR-FSQR-",
+                'projectID':'futuresqr',
+                'administration': {
+                    'localPath':"D:\\Temp\\future-square-cache\\FutureSQR",                        
+                    }
                 },
             'furiousiron-hfb' : {
-                    'autoIndex':50,
-                    'reviewPrefix':"CR-FI-HFB-",
-                    'projectID':'furiousiron-hfb'
+                'autoIndex':50,
+                'reviewPrefix':"CR-FI-HFB-",
+                'projectID':'furiousiron-hfb',
+                'administration':{
+                    'localPath':"D:\\Temp\\future-square-cache\\FuriousIron-HFB",
+                    }
                 }
             }
