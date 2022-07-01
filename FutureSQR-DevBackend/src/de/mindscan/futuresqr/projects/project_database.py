@@ -43,3 +43,14 @@ class ProjectDatabase(object):
     
     def getNewReviewIndex(self, projectid):
         pass
+    
+    def isProjectIdPresent(self, projectid):
+        return projectid in self.projectConfigurations 
+    
+    def getProjectLocalPath(self, projectid):
+        if self.isProjectIdPresent(projectid):
+            return self.projectConfigurations[projectid]['administration']['localPath']
+        return None
+    
+    def getAllProjectToLocalPathMap(self):
+        pass
