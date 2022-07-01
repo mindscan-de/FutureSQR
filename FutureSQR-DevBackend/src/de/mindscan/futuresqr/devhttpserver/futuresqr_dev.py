@@ -60,7 +60,7 @@ def getUserAllAccessibleProjects(user_uuid: str = ""):
 @app.get("/FutureSQR/rest/project/{projectid}/recentcommits")
 def getProjectRevisions(projectid:str):
     project_path_translation = getAllProjectToLocalPathMap()
-    if projectid in project_path_translation:
+    if projectDB.isProjectIdPresent(projectid):
         # TODO: cache this answer for some time and/or limit the number of results?
         revisions = calculateRecentRevisionsForLocalGitRepo(project_path_translation[projectid])
         # combine revisions with a review list for the revisons and add the revision id to the revision list
@@ -81,10 +81,8 @@ def getProjectRevisions(projectid:str):
 
 @app.get("/FutureSQR/rest/project/{projectid}/revisiondiff/{revisionid}")
 def getProjectRevisionDiffToPrevious(projectid:str, revisionid:str):
-    project_path_translation = getAllProjectToLocalPathMap()
-    
-    if projectid in project_path_translation:
-        result = calculateDiffForSingleRevision(project_path_translation[projectid], revisionid)
+    if projectDB.isProjectIdPresent(projectid):
+        result = calculateDiffForSingleRevision(projectDB.getProjectLocalPath(projectid), revisionid)
         return result
     
     result = {}
@@ -94,7 +92,7 @@ def getProjectRevisionDiffToPrevious(projectid:str, revisionid:str):
 def getProjectReviewDiff(projectid:str, reviewid:str):
     project_path_translation = getAllProjectToLocalPathMap()
     
-    if projectid in project_path_translation:
+    if projectDB.isProjectIdPresent(projectid):
         reviewData = getReviewData(projectid, reviewid)
         result = calculateDiffForSingleRevision(project_path_translation[projectid], reviewData[REVIEW_REVISIONS][0])
         return result
@@ -106,7 +104,7 @@ def getProjectReviewDiff(projectid:str, reviewid:str):
 def getProjectRevisionFileListDiffToPrevious(projectid:str, revisionid:str):
     project_path_translation = getAllProjectToLocalPathMap()
     
-    if projectid in project_path_translation:
+    if projectDB.isProjectIdPresent(projectid):
         result = calculateFileListForSigleRevision(project_path_translation[projectid], revisionid)
         return result
     
@@ -117,7 +115,7 @@ def getProjectRevisionFileListDiffToPrevious(projectid:str, revisionid:str):
 def getProjectReviewFileList(projectid:str, reviewid:str):
     project_path_translation = getAllProjectToLocalPathMap()
     
-    if projectid in project_path_translation:
+    if projectDB.isProjectIdPresent(projectid):
         reviewData = getReviewData(projectid, reviewid)
         result = calculateFileListForSigleRevision(project_path_translation[projectid], reviewData[REVIEW_REVISIONS][0])
         return result
@@ -128,9 +126,7 @@ def getProjectReviewFileList(projectid:str, reviewid:str):
 
 @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/information")
 def getReviewData(projectid:str, reviewid:str):
-    project_path_translation = getAllProjectToLocalPathMap()
-    
-    if projectid in project_path_translation:
+    if projectDB.isProjectIdPresent(projectid):
         return reviewDB.selectReviewByReviewId(projectid, reviewid);
     
     result = {}
@@ -138,9 +134,7 @@ def getReviewData(projectid:str, reviewid:str):
     
 @app.get("/FutureSQR/rest/project/{projectid}/recentreviews")    
 def getRecentReviews(projectid:str):
-    project_path_translation = getAllProjectToLocalPathMap()
-    
-    if projectid in project_path_translation:
+    if projectDB.isProjectIdPresent(projectid):
         result = {
             'openReviews':reviewDB.selectOpenReviewsByProjectId(projectid),
             'recentClosedReviews':[]
@@ -154,7 +148,7 @@ def getRecentReviews(projectid:str):
 def getSimpleReviewInfomation(projectid:str, revisionid:str):
     project_path_translation = getAllProjectToLocalPathMap()
     
-    if projectid in project_path_translation:
+    if projectDB.isProjectIdPresent(projectid):
         revinfo = caluclateSimpleRevisionInformation(project_path_translation[projectid], revisionid)
         return revinfo
     
@@ -180,9 +174,7 @@ def postUnstarProjectForUser(projectid:str, userid:str):
 # to create a new review from a revision
 @app.post("/FutureSQR/rest/project/{projectid}/review/create")
 def postCreateNewReview(projectid:str, revisionid:str = Form(...)):
-    project_path_translation = getAllProjectToLocalPathMap()
-    
-    if not projectid in project_path_translation:
+    if not projectDB.isProjectIdPresent(projectid):
         return {} 
 
     # TODO: check if the review revisionid is already covered by a review
@@ -225,9 +217,7 @@ def postCreateNewReview(projectid:str, revisionid:str = Form(...)):
     
 @app.post("/FutureSQR/rest/project/{projectid}/review/close")
 def postCloseReview(projectid:str, reviewid:str = Form(...)):
-    project_path_translation = getAllProjectToLocalPathMap()
-    
-    if projectid in project_path_translation:
+    if projectDB.isProjectIdPresent(projectid):
         reviewDB.updateCloseReviewByReviewId(projectid, reviewid)
     
     result = {}
@@ -236,9 +226,7 @@ def postCloseReview(projectid:str, reviewid:str = Form(...)):
     
 @app.post("/FutureSQR/rest/project/{projectid}/review/reopen")
 def postReopenReview(projectid:str, reviewid:str=Form(...)):
-    project_path_translation = getAllProjectToLocalPathMap()
-    
-    if projectid in project_path_translation:
+    if projectDB.isProjectIdPresent(projectid):
         reviewDB.updateReopenReviewByReviewId(projectid, reviewid)
     
     result = {}
@@ -247,9 +235,7 @@ def postReopenReview(projectid:str, reviewid:str=Form(...)):
 
 @app.post("/FutureSQR/rest/project/{projectid}/review/delete")
 def postDeleteReview(projectid:str, reviewid:str = Form(...)):
-    project_path_translation = getAllProjectToLocalPathMap()
-    
-    if projectid in project_path_translation:
+    if projectDB.isProjectIdPresent(projectid):
         reviewDB.updateDeleteReviewByReviewId(projectid, reviewid)
     
     result = {}
