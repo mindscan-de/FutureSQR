@@ -29,7 +29,7 @@ SOFTWARE.
 from fastapi import FastAPI, Form, HTTPException
 
 from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision, calculateFileListForSigleRevision, caluclateSimpleRevisionInformation
-from de.mindscan.futuresqr.assets.hardcoded import getAllProjectToLocalPathMap, getAllStarredProjectsForUser, getAllProjectsForUser, getProjectConfigurations
+from de.mindscan.futuresqr.assets.hardcoded import getAllStarredProjectsForUser, getAllProjectsForUser, getProjectConfigurations
 from de.mindscan.futuresqr.reviews.review_database import ReviewDatabase
 from de.mindscan.futuresqr.projects.project_database import ProjectDatabase
 from de.mindscan.futuresqr.reviews.review_tools import createNewReview
@@ -59,10 +59,9 @@ def getUserAllAccessibleProjects(user_uuid: str = ""):
 
 @app.get("/FutureSQR/rest/project/{projectid}/recentcommits")
 def getProjectRevisions(projectid:str):
-    project_path_translation = getAllProjectToLocalPathMap()
     if projectDB.isProjectIdPresent(projectid):
         # TODO: cache this answer for some time and/or limit the number of results?
-        revisions = calculateRecentRevisionsForLocalGitRepo(project_path_translation[projectid])
+        revisions = calculateRecentRevisionsForLocalGitRepo(projectDB.getProjectLocalPath(projectid))
         # combine revisions with a review list for the revisons and add the revision id to the revision list
         revision_map = reviewDB.getRevisionToReviewsMap(projectid)
         
@@ -90,11 +89,9 @@ def getProjectRevisionDiffToPrevious(projectid:str, revisionid:str):
 
 @app.get("/FutureSQR/rest/project/{projectid}/reviewdiff/{reviewid}")
 def getProjectReviewDiff(projectid:str, reviewid:str):
-    project_path_translation = getAllProjectToLocalPathMap()
-    
     if projectDB.isProjectIdPresent(projectid):
         reviewData = getReviewData(projectid, reviewid)
-        result = calculateDiffForSingleRevision(project_path_translation[projectid], reviewData[REVIEW_REVISIONS][0])
+        result = calculateDiffForSingleRevision(projectDB.getProjectLocalPath(projectid), reviewData[REVIEW_REVISIONS][0])
         return result
     
     result = {}
@@ -102,10 +99,8 @@ def getProjectReviewDiff(projectid:str, reviewid:str):
 
 @app.get("/FutureSQR/rest/project/{projectid}/revisionfilelist/{revisionid}")
 def getProjectRevisionFileListDiffToPrevious(projectid:str, revisionid:str):
-    project_path_translation = getAllProjectToLocalPathMap()
-    
     if projectDB.isProjectIdPresent(projectid):
-        result = calculateFileListForSigleRevision(project_path_translation[projectid], revisionid)
+        result = calculateFileListForSigleRevision(projectDB.getProjectLocalPath(projectid), revisionid)
         return result
     
     result = {}
@@ -113,11 +108,9 @@ def getProjectRevisionFileListDiffToPrevious(projectid:str, revisionid:str):
 
 @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/filelist")
 def getProjectReviewFileList(projectid:str, reviewid:str):
-    project_path_translation = getAllProjectToLocalPathMap()
-    
     if projectDB.isProjectIdPresent(projectid):
         reviewData = getReviewData(projectid, reviewid)
-        result = calculateFileListForSigleRevision(project_path_translation[projectid], reviewData[REVIEW_REVISIONS][0])
+        result = calculateFileListForSigleRevision(projectDB.getProjectLocalPath(projectid), reviewData[REVIEW_REVISIONS][0])
         return result
     
     result = {}
@@ -146,10 +139,8 @@ def getRecentReviews(projectid:str):
 
 @app.get("/FutureSQR/rest/project/{projectid}/revision/{revisionid}/information")
 def getSimpleReviewInfomation(projectid:str, revisionid:str):
-    project_path_translation = getAllProjectToLocalPathMap()
-    
     if projectDB.isProjectIdPresent(projectid):
-        revinfo = caluclateSimpleRevisionInformation(project_path_translation[projectid], revisionid)
+        revinfo = caluclateSimpleRevisionInformation(projectDB.getProjectLocalPath(projectid), revisionid)
         return revinfo
     
     rseult = {}

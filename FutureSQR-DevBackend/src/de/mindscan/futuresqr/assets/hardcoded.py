@@ -54,14 +54,6 @@ def _getFromTempAssets( filename:str ):
     print("something went wrong with "+str(filename) )
     return {}
 
-def getAllProjectToLocalPathMap():
-    return {
-    'furiousiron-frontend':"D:\\Temp\\future-square-cache\\FuriousIron-Frontend",
-    'futuresqr':"D:\\Temp\\future-square-cache\\FutureSQR",
-    'furiousiron-hfb':"D:\\Temp\\future-square-cache\\FuriousIron-HFB"
-    }
-
-
 def getAllStarredProjectsForUser():
     return [
         {"project_id":"furiousiron-frontend", "project_name":"FuriousIron-Frontend", "description":"My personal source code engine project. Frontend. (Angular. TS)"},
