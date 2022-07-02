@@ -52,7 +52,24 @@ class ProjectDatabase(object):
                 }
             result.append(converted)
             
+        return result
+    
+    def getAllStarredUserProjects(self, userid:str):
+        result = []
+        for project in self.projectConfigurations.values():
+            if not project['projectIsStarred']:
+                continue
+            
+            converted = {
+                'project_id':project['projectID'],
+                'project_display_name':project['projectDisplayName'],
+                'description':project['projectDescription'],
+                'is_starred':project['projectIsStarred'],
+                }
+            result.append(converted)
+            
         return result 
+
     
     def calculateNewReviewIndex(self, projectid):
         if not self.isProjectIdPresent(projectid):

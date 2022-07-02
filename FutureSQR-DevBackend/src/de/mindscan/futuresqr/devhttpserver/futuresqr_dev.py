@@ -29,7 +29,7 @@ SOFTWARE.
 from fastapi import FastAPI, Form, HTTPException
 
 from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision, calculateFileListForSigleRevision, caluclateSimpleRevisionInformation
-from de.mindscan.futuresqr.assets.hardcoded import getAllStarredProjectsForUser, getProjectConfigurations
+from de.mindscan.futuresqr.assets.hardcoded import getProjectConfigurations
 from de.mindscan.futuresqr.reviews.review_database import ReviewDatabase
 from de.mindscan.futuresqr.projects.project_database import ProjectDatabase
 from de.mindscan.futuresqr.reviews.review_tools import createNewReview
@@ -49,7 +49,7 @@ def read_root():
 
 @app.get("/FutureSQR/rest/user/starredprojects")
 def getUserStarredProjects(user_uuid:str = ""):
-    result = getAllStarredProjectsForUser() 
+    result = projectDB.getAllStarredUserProjects(user_uuid)
     return result
 
 @app.get("/FutureSQR/rest/user/allaccessibleprojetcs")
