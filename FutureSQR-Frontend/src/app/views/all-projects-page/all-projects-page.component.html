@@ -1,14 +1,20 @@
 <div class="row">
 	<div class="col-xl-9">
-		<h4>All Projects</h4>
-		<ul class="list-unstyled">
-			<li *ngFor="let project of uiModelAllProjects" class="list-item">
-				<a [routerLink]="['/',project.project_id]" class="font-weight-bold">{{project.project_name}}</a><br/>
-				<span class="small text-muted">{{project.description}}</span>
-			</li> 
-		</ul>
+		<div class="card mt-2 mb-2">
+			<div class="card-body">
+				<h5>All Projects</h5>
+			</div>
+			<ul class="list-group list-group-flush">
+				<li *ngFor="let project of uiModelAllProjects" class="list-group-item">
+					<a [routerLink]="['/',project.project_id]" class="font-weight-bold">{{project.project_name}}</a><br/>
+					<span class="small text-muted">{{project.description}}</span>
+				</li> 
+			</ul>
+			
+		</div>
 	</div>
 	<div class="col-xl-3">
+	
 		<h4>Feed Area</h4>
 	</div>
 </div>
