@@ -26,15 +26,7 @@ SOFTWARE.
 @autor: Maxim Gansert
 '''
 
-from de.mindscan.futuresqr.assets.hardcoded import getProjectConfigurations
 from de.mindscan.futuresqr.reviews.review_tables_columns import *  # @UnusedWildImport
-
-projectConfigurations = { }
-
-def initProjectConfigurations():
-    global projectConfigurations
-    projectConfigurations = getProjectConfigurations();
-    pass
 
 def createNewReview(projectDB, projectId, revisionInformation) :
     reviewIdentifier = projectDB.calculateNewReviewIndex(projectId)
