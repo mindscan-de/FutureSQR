@@ -41,8 +41,15 @@ class ProjectDatabase(object):
     def getProjectConfiguration(self, projectid):
         return self.projectConfigurations[projectid]
     
-    def getNewReviewIndex(self, projectid):
-        pass
+    def calculateNewReviewIndex(self, projectid):
+        newReviewId = self.projectConfigurations[projectid]['autoIndex']
+        self.projectConfigurations[projectid]['autoIndex']+=1
+        
+        prefix = self.projectConfigurations[projectid]['reviewPrefix']
+        if not prefix.endswith('-'):
+            prefix=prefix+"-"
+        
+        return prefix + str(newReviewId)
     
     def isProjectIdPresent(self, projectid):
         return projectid in self.projectConfigurations 
