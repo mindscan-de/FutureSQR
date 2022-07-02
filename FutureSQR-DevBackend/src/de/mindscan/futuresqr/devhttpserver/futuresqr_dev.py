@@ -86,8 +86,7 @@ def getSimpleProjectInformation(projectid:str):
         
     rseult = {}
     return rseult
-        
-
+    
 
 @app.get("/FutureSQR/rest/project/{projectid}/revisiondiff/{revisionid}")
 def getProjectRevisionDiffToPrevious(projectid:str, revisionid:str):

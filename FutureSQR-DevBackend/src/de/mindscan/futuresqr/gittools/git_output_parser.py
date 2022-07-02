@@ -58,12 +58,14 @@ def parse_log_full_changeset(log):
             singleFileChangeSet['lazy_diff_line']=lines[linecounter]
             linecounter+=1
             
+            if lines[linecounter].startswith('new file mode'):
+                linecounter+=1
+            
             # parse index line if present
+            singleFileChangeSet['lazy_index_line']= "(empty)"
             if lines[linecounter].startswith('index'):
                 singleFileChangeSet['lazy_index_line']=lines[linecounter]
                 linecounter+=1
-            else:
-                singleFileChangeSet['lazy_index_line']= "(empty)"
                 
             # parse ---
             if lines[linecounter].startswith('---'):
