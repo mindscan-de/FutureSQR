@@ -54,7 +54,7 @@ def getUserStarredProjects(user_uuid:str = ""):
 
 @app.get("/FutureSQR/rest/user/allaccessibleprojetcs")
 def getUserAllAccessibleProjects(user_uuid: str = ""):
-    result = getAllProjectsForUser()
+    result = projectDB.getAllUserProjects(user_uuid)
     return result
 
 @app.get("/FutureSQR/rest/project/{projectid}/recentcommits")
@@ -164,7 +164,7 @@ def getSimpleReviewInfomation(projectid:str, revisionid:str):
 ### #########################################
         
 @app.post("/FutureSQR/rest/project/{projectid}/star")
-def postStarProjectbForUser(projectid:str, userid:str=''):
+def postStarProjectForUser(projectid:str, userid:str=''):
     if not projectDB.isProjectIdPresent(projectid):
         return {} 
     

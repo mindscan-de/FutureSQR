@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 
 // Services
 import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
@@ -16,7 +16,7 @@ export class AllProjectsPageComponent implements OnInit {
 
   public uiModelAllProjects: BackendModelProjectItem[] = [];
 
-  constructor( private projectDataQueryBackend : ProjectDataQueryBackendService ) { }
+  constructor( private projectDataQueryBackend : ProjectDataQueryBackendService, private cdr: ChangeDetectorRef ) { }
 
   ngOnInit(): void {
 	this.projectDataQueryBackend.getAllProjects().subscribe( 
@@ -33,6 +33,7 @@ export class AllProjectsPageComponent implements OnInit {
 		this.projectDataQueryBackend.starProject(activeProjectId).subscribe(
 			data=>{
 				// TODO react -> update local listitem for projectid and current new state.
+				this.ui_update_star(activeProjectId, true);
 			},
 			error=>{}
 		);
@@ -41,11 +42,22 @@ export class AllProjectsPageComponent implements OnInit {
 	onUnstarMe(activeProjectId:string): void {
 		this.projectDataQueryBackend.unstarProject(activeProjectId).subscribe(
 			data =>{
-				// TODO react -> update local listitem for projectid and current new state. 
+				// TODO react -> update local listitem for projectid and current new state.
+				this.ui_update_star(activeProjectId, false); 
 			},
 			error=>{},
 		);
 	}
 
+	ui_update_star(activeProjectId:string, newvalue:boolean): void {
+		for (var i: number = 0; i<this.uiModelAllProjects.length;i++) {
+			
+			if(this.uiModelAllProjects[i]['project_id']==activeProjectId ) {
+				this.uiModelAllProjects[i]['is_starred']=newvalue;
+				this.cdr.detectChanges();
+				break;
+			}
+		}
+	}
 
 }

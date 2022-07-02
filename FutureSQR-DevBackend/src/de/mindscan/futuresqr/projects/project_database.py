@@ -41,6 +41,19 @@ class ProjectDatabase(object):
     def getProjectConfiguration(self, projectid):
         return self.projectConfigurations[projectid]
     
+    def getAllUserProjects(self, userid:str):
+        result = []
+        for project in self.projectConfigurations.values():
+            converted = {
+                'project_id':project['projectID'],
+                'project_display_name':project['projectDisplayName'],
+                'description':project['projectDescription'],
+                'is_starred':project['projectIsStarred'],
+                }
+            result.append(converted)
+            
+        return result 
+    
     def calculateNewReviewIndex(self, projectid):
         if not self.isProjectIdPresent(projectid):
             return None
@@ -65,33 +78,23 @@ class ProjectDatabase(object):
     def hasProjectLocalPath(self, projectid):
         if not self.isProjectIdPresent(projectid):
             return False
-        
         if not self.projectConfigurations[projectid]['administration']:
             return False
-        
         if not self.projectConfigurations[projectid]['administration']['localPath']:
             return False
-        
         return True
-    
-    def getAllProjectToLocalPathMap(self):
-        pass
-    
     
     def starProject(self, projectid):
         if not self.isProjectIdPresent(projectid):
             return False
-        
         # TODO: this only preliminary until user project relation is implemented
         self.projectConfigurations[projectid]['projectIsStarred'] = True
-        
         # successfully executed - not state 
         return True
     
     def unstarProject(self, projectid):
         if not self.isProjectIdPresent(projectid):
             return False
-
         # TODO: this only preliminary until user project relation is implemented
         self.projectConfigurations[projectid]['projectIsStarred'] = False
         # successfully executed

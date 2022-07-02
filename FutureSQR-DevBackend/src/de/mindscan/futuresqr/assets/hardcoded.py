@@ -87,7 +87,7 @@ def getProjectConfigurations():
             'furiousiron-frontend' : {
                 'autoIndex':1,
                 'reviewPrefix':"CR-FI-FRNT-",
-                'projectId':'furiousiron-frontend',
+                'projectID':'furiousiron-frontend',
                 'projectDisplayName':'FuriousIron-Frontend',
                 'projectDescription': 'My personal source code engine project. Frontend. (Angular. TS)',
                 'projectIsStarred':False,
