@@ -25,8 +25,27 @@ export class AllProjectsPageComponent implements OnInit {
 	);
   }
 
-  onAllProjectsProvided( allProjects: BackendModelProjectItem[]) : void {
-	this.uiModelAllProjects = allProjects;
-  }
+	onAllProjectsProvided( allProjects: BackendModelProjectItem[]) : void {
+		this.uiModelAllProjects = allProjects;
+	}
+
+	onStarMe(activeProjectId:string): void {
+		this.projectDataQueryBackend.starProject(activeProjectId).subscribe(
+			data=>{
+				// TODO react -> update local listitem for projectid and current new state.
+			},
+			error=>{}
+		);
+	}
+	
+	onUnstarMe(activeProjectId:string): void {
+		this.projectDataQueryBackend.unstarProject(activeProjectId).subscribe(
+			data =>{
+				// TODO react -> update local listitem for projectid and current new state. 
+			},
+			error=>{},
+		);
+	}
+
 
 }

@@ -38,6 +38,28 @@ export class ProjectDataQueryBackendService {
 		return this.httpClient.get<BackendModelProjectItem[]>(ProjectDataQueryBackendService.URL_GET_MY_STARRED_PROJECTS, {});
 	}
 	
+	starProject(projectid:string) : Observable<any> {
+		var url =`/FutureSQR/rest/project/${projectid}/star`;
+		let formdata = new FormData();
+		
+		// TODO later
+		formdata.append('userid','')
+		
+		return this.httpClient.post<any>(url,formdata);
+	}
+	
+	unstarProject(projectid:string) : Observable<any> {
+		var url =`/FutureSQR/rest/project/${projectid}/unstar`;
+		let formdata = new FormData();
+		
+		// TODO later
+		formdata.append('userid','')
+		
+		return this.httpClient.post<any>(url,formdata);
+	}
+	
+	
+	
 	getRecentProjectCommits(projectid:string) : Observable<BackendModelProjectRecentCommits> {
 		var url = `/FutureSQR/rest/project/${projectid}/recentcommits`;
 		return this.httpClient.get<BackendModelProjectRecentCommits>(url, {});
@@ -89,6 +111,7 @@ export class ProjectDataQueryBackendService {
 		
 		return this.httpClient.post<BackendModelCreateReviewResult>(url, formdata);
 	}
+	
 	
 	closeReview(projectid:string, reviewid:string): Observable<any> {
 		var url =`/FutureSQR/rest/project/${projectid}/review/close`;

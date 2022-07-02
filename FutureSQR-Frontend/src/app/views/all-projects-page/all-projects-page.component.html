@@ -5,7 +5,13 @@
 				<h5>All Projects</h5>
 			</div>
 			<ul class="list-group list-group-flush">
+				<li class="list-group-item">TODO: Filter here?</li>
 				<li *ngFor="let project of uiModelAllProjects" class="list-group-item">
+					<span class="float-right">
+						<a class="btn btn-secondary" (click)="onStarMe(project.project_id)"  >star</a>
+						<a class="btn btn-secondary" (click)="onUnstarMe(project.project_id)" >unstar</a>
+					</span>
+					
 					<a [routerLink]="['/',project.project_id]" class="font-weight-bold">{{project.project_name}}</a><br/>
 					<span class="small text-muted">{{project.description}}</span>
 				</li> 
