@@ -67,14 +67,12 @@ def getAllStarredProjectsForUser():
 
 def getAllProjectsForUser():
     return [
+        # done
         {"project_id":"furiousiron-frontend", "project_name":"FuriousIron-Frontend", "description":"My personal source code engine project. Frontend. (Angular. TS)"},
         {"project_id":"furiousiron-hfb", "project_name":"FuriousIron-HFB", "description":"Hash-Free Bloom-Filter (Proof of concept implementation)"},
-        {"project_id":"furiousiron-indexer", "project_name":"FuriousIron-Indexer", "description":"My personal source code search engine project. Indexer. (Java. Windows. No Database. Filesystem only) "},
-        # todo
-        {"project_id":"furiousiron-searchbackend", "project_name":"FuriousIron-SearchBackend", "description":"My personal source code search engine project. Backend. (Java. Tomcat. Windows. No Database. Filesystem only) "},
-        # done
+        {"project_id":"furiousiron-indexer", "project_name":"FuriousIron-Indexer", "description":"My personal source code search engine project. Indexer. (Java. Windows. No Database. Filesystem only)"},
+        {"project_id":"furiousiron-searchbackend", "project_name":"FuriousIron-SearchBackend", "description":"My personal source code search engine project. Backend. (Java. Tomcat. Windows. No Database. Filesystem only)"},
         {"project_id":"futuresqr", "project_name":"FutureSQR", "description":"Future Source Quality Review -- Code Review Tool for Trunk-Based-Development "},
-        # todo
         {"project_id":"brightflux", "project_name":"BrightFlux", "description":"LogFileViewer and LogFileAnalysis with yet unseen Features and written in Java"},
         {"project_id":"curiousmyth", "project_name":"CuriousMyth", "description":"Modelling facts, entities and information for knowledge representation"},
         {"project_id":"orangemoon-frontend", "project_name":"OrangeMoon-Frontend", "description":"Japanese Dictionary Web-App - Frontend (based on nodejs and angular)"},
@@ -90,7 +88,7 @@ def getProjectConfigurations():
                 'autoIndex':1,
                 'reviewPrefix':"CR-FI-FRNT-",
                 'projectId':'furiousiron-frontend',
-                'projectName':'FuriousIron-Frontend',
+                'projectDisplayName':'FuriousIron-Frontend',
                 'projectDescription': 'My personal source code engine project. Frontend. (Angular. TS)',
                 'administration': {
                     'localPath':"D:\\Temp\\future-square-cache\\FuriousIron-Frontend",
@@ -101,7 +99,7 @@ def getProjectConfigurations():
                 'autoIndex':50,
                 'reviewPrefix':"CR-FI-HFB-",
                 'projectID':'furiousiron-hfb',
-                'projectName':'FuriousIron-HFB',
+                'projectDisplayName':'FuriousIron-HFB',
                 'projectDescription':'Hash-Free Bloom-Filter (Proof of concept implementation)',
                 'administration':{
                     'localPath':"D:\\Temp\\future-square-cache\\FuriousIron-HFB",
@@ -112,22 +110,111 @@ def getProjectConfigurations():
                 'autoIndex':1,
                 'reviewPrefix':'CR-FI-NDX-',
                 'projectID':'furiousiron-indexer',
-                'projectName':'FuriousIron-Indexer',
+                'projectDisplayName':'FuriousIron-Indexer',
                 'projectDescription':'My personal source code search engine project. Indexer. (Java. Windows. No Database. Filesystem only)',
                 'administration':{
                     'localPath':None
                     }
+                },
                 
+            'furiousiron-searchbackend' : {
+                'autoIndex':1,
+                'reviewPrefix':'CR-FI-SRND-',
+                'projectID':'furiousiron-searchbackend',
+                'projectDisplayName':'FuriousIron-SearchBackend',
+                'projectDescription':'My personal source code search engine project. Backend. (Java. Tomcat. Windows. No Database. Filesystem only)',
+                'administration':{
+                    'localPath':None
+                    }
                 },
                 
             'futuresqr': {
                 'autoIndex':100,
                 'reviewPrefix':"CR-FSQR-",
                 'projectID':'futuresqr',
-                'projectName':'FutureSQR',
+                'projectDisplayName':'FutureSQR',
                 'projectDescription':'Future Source Quality Review -- Code Review Tool for Trunk-Based-Development',
                 'administration': {
                     'localPath':"D:\\Temp\\future-square-cache\\FutureSQR",                        
                     }
                 },
+                
+            'brightflux' : {
+                'autoIndex':1,
+                'reviewPrefix':'CR-BRFX-',
+                'projectID':'brightflux',
+                'projectDisplayName':'BrightFlux',
+                'projectDescription':'LogFileViewer and LogFileAnalysis with yet unseen Features and written in Java',
+                'administration':{
+                    'localPath':None
+                    }
+                },
+
+            'curiousmyth' : {
+                'autoIndex':1,
+                'reviewPrefix':'CR-CRSM-',
+                'projectID':'curiousmyth',
+                'projectDisplayName':'CuriousMyth',
+                'projectDescription':'Modelling facts, entities and information for knowledge representation',
+                'administration':{
+                    'localPath':None
+                    }
+                },
+                
+            'orangemoon-frontend' : {
+                'autoIndex':1,
+                'reviewPrefix':'CR-ORM-FND-',
+                'projectID':'orangemoon-frontend',
+                'projectDisplayName':'OrangeMoon-Frontend',
+                'projectDescription':'Japanese Dictionary Web-App - Frontend (based on nodejs and angular)',
+                'administration':{
+                    'localPath':None
+                    }
+                },
+
+            'orangemoon-backend' : {
+                'autoIndex':1,
+                'reviewPrefix':'CR-ORM-BND-',
+                'projectID':'orangemoon-backend',
+                'projectDisplayName':'OrangeMoon-Backend',
+                'projectDescription':'Japanese Dictionary Web-App - Backend (based on fastapi and jamdict)',
+                'administration':{
+                    'localPath':None
+                    }
+                },
+
+            'fluentgenesis-embedder' : {
+                'autoIndex':1,
+                'reviewPrefix':'CR-FLUGEN-EMB-',
+                'projectID':'fluentgenesis-embedder',
+                'projectDisplayName':'FluentGenesis-Embedder',
+                'projectDescription':'Source Code Language Unserstanding - Calculating the Embedding vectors and such.',
+                'administration':{
+                    'localPath':None
+                    }
+                },
+
+            'fluentgenesis-classifier' : {
+                'autoIndex':1,
+                'reviewPrefix':'CR-FLUGEN-CLS-',
+                'projectID':'fluentgenesis-classifier',
+                'projectDisplayName':'FluentGenesis-Classifier',
+                'projectDescription':'',
+                'administration':{
+                    'localPath':None
+                    }
+                },
+
+            'fluentgenesis-plugin' : {
+                'autoIndex':1,
+                'reviewPrefix':'CR-FLUGEN-PLG-',
+                'projectID':'fluentgenesis-plugin',
+                'projectDisplayName':'FluentGenesis-Plugin',
+                'projectDescription':'Source Code Language Understanding - Eclipse plugin for Source Code Generation.',
+                'administration':{
+                    'localPath':None
+                    }
+                },
+
+                
             }
