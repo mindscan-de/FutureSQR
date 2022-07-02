@@ -11,6 +11,7 @@ import { BackendModelSingleCommitFullChangeSet } from '../model/backend-model-si
 import { BackendModelSingleCommitFileActionsInfo } from '../model/backend-model-single-commit-file-actions-info';
 import { BackendModelCreateReviewResult } from '../model/backend-model-create-review-result';
 import { BackendModelReviewData } from '../model/backend-model-review-data';
+import { BackendModelProjectSimpleInformation } from '../model/backend-model-project-simple-information';
 
 
 @Injectable({
@@ -72,6 +73,12 @@ export class ProjectDataQueryBackendService {
 		
 		// returns actually a list of open reviews for this project with some useful info....
 		return this.httpClient.get<BackendModelProjectRecentReviews>(url, {});
+	}
+	
+	getSimpleInformationByProject(projectid:string) : Observable<BackendModelProjectSimpleInformation> {
+		var url = `/FutureSQR/rest/project/${projectid}/information`;
+		
+		return this.httpClient.get<BackendModelProjectSimpleInformation>(url, {});
 	}
 	
 	createNewReview(projectid:string, revisionid:string): Observable<BackendModelCreateReviewResult> {

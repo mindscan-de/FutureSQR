@@ -78,6 +78,17 @@ def getProjectRevisions(projectid:str):
     result = {'revisions':[]}
     return result
 
+@app.get("/FutureSQR/rest/project/{projectid}/information")
+def getSimpleProjectInformation(projectid:str):
+    if projectDB.hasProjectLocalPath(projectid):
+        projectInfo = projectDB.getProjectConfiguration(projectid)
+        return projectInfo
+        
+    rseult = {}
+    return rseult
+        
+
+
 @app.get("/FutureSQR/rest/project/{projectid}/revisiondiff/{revisionid}")
 def getProjectRevisionDiffToPrevious(projectid:str, revisionid:str):
     if projectDB.hasProjectLocalPath(projectid):
@@ -146,6 +157,8 @@ def getSimpleReviewInfomation(projectid:str, revisionid:str):
     rseult = {}
     return rseult
 
+
+        
 # TODO implement me    
 def postStarProjectbForUser(projectid:str, userid:str):
     # this will star a project
