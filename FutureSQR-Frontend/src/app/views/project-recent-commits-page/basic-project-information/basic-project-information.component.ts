@@ -1,7 +1,10 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 
 // Services
 import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
+
+// Backed Model
+import { BackendModelProjectSimpleInformation } from '../../../backend/model/backend-model-project-simple-information';
 
 
 @Component({
@@ -12,13 +15,24 @@ import { ProjectDataQueryBackendService } from '../../../backend/services/projec
 export class BasicProjectInformationComponent implements OnInit {
 	
 	public isStarred: boolean = false;
+	public uiProjectInfo: BackendModelProjectSimpleInformation = new BackendModelProjectSimpleInformation();
 	
 	// TODO: we might provide better project information here.
 	@Input() activeProjectId:string;
 
-	constructor( private projectDataQueryBackend : ProjectDataQueryBackendService ) { }
+	constructor( private projectDataQueryBackend : ProjectDataQueryBackendService, private cdr: ChangeDetectorRef  ) { }
 
 	ngOnInit(): void {
+		this.projectDataQueryBackend.getSimpleInformationByProject(this.activeProjectId).subscribe(
+			data=> this.onSimpleProjectInformationLoaded(data),
+			error=> {}
+		);
+	}
+	
+	onSimpleProjectInformationLoaded(projectInfo: BackendModelProjectSimpleInformation) : void {
+		this.uiProjectInfo = projectInfo;
+		this.isStarred = projectInfo.projectIsStarred;
+		this.cdr.detectChanges();
 	}
 	
 	ngOnChanges(changes: SimpleChanges): void {
@@ -33,6 +47,7 @@ export class BasicProjectInformationComponent implements OnInit {
 		this.projectDataQueryBackend.starProject(activeProjectId).subscribe(
 			data=>{
 				this.isStarred = true;
+				this.cdr.detectChanges();
 			},
 			error=>{}
 		);
@@ -43,6 +58,7 @@ export class BasicProjectInformationComponent implements OnInit {
 		this.projectDataQueryBackend.unstarProject(activeProjectId).subscribe(
 			data =>{
 				this.isStarred = false; 
+				this.cdr.detectChanges();
 			},
 			error=>{},
 		);

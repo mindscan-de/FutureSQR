@@ -7,9 +7,9 @@
 					<a class="btn btn-sm btn-secondary" *ngIf="isStarred" (click)="onUnstarMe(activeProjectId)">Unstar project</a>
 				</div>
 				
-				<h4>Basic Project Information</h4>
+				<h4>{{uiProjectInfo.projectDisplayName}}</h4>
 				
-				<p>Here some basic project information. etc. pp. Maybe we want to star this project...</p>
+				<p class="text-muted">{{uiProjectInfo.projectDescription}}</p>
 				
 				<span class="mr-2">{{activeProjectId}}</span>
 				<span class="mr-2"><a [routerLink]="['/',activeProjectId]">recent commits</a></span>
