@@ -157,17 +157,34 @@ def getSimpleReviewInfomation(projectid:str, revisionid:str):
     rseult = {}
     return rseult
 
-
+### #########################################
+###
+### Some Project functions - non persistent
+###
+### #########################################
         
-# TODO implement me    
-def postStarProjectbForUser(projectid:str, userid:str):
+@app.post("/FutureSQR/rest/project/{projectid}/star")
+def postStarProjectbForUser(projectid:str, userid:str=''):
+    if not projectDB.isProjectIdPresent(projectid):
+        return {} 
+    
     # this will star a project
-    pass
+    # actually this should be done on a ProjectUserRelation, but for now we don't have separate users
+    projectDB.starProject(projectid)
+    
+    return {}
 
-# TODO implement me
-def postUnstarProjectForUser(projectid:str, userid:str):
-    # this will remove a stry set for a project. 
-    pass
+@app.post("/FutureSQR/rest/project/{projectid}/unstar")
+def postUnstarProjectForUser(projectid:str, userid:str=''):
+    if not projectDB.isProjectIdPresent(projectid):
+        return {} 
+    
+    # this will remove a star set for a project.
+    # actually this should be done on a ProjectUserRelation, but for now we don't have separate users
+    projectDB.unstarProject(projectid)
+    
+    return {}
+
 
 ### #########################################
 ###

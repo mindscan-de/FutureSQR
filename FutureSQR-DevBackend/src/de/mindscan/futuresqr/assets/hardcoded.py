@@ -90,6 +90,7 @@ def getProjectConfigurations():
                 'projectId':'furiousiron-frontend',
                 'projectDisplayName':'FuriousIron-Frontend',
                 'projectDescription': 'My personal source code engine project. Frontend. (Angular. TS)',
+                'projectIsStarred':False,
                 'administration': {
                     'localPath':"D:\\Temp\\future-square-cache\\FuriousIron-Frontend",
                     }
@@ -101,6 +102,7 @@ def getProjectConfigurations():
                 'projectID':'furiousiron-hfb',
                 'projectDisplayName':'FuriousIron-HFB',
                 'projectDescription':'Hash-Free Bloom-Filter (Proof of concept implementation)',
+                'projectIsStarred':False,
                 'administration':{
                     'localPath':"D:\\Temp\\future-square-cache\\FuriousIron-HFB",
                     }
@@ -112,6 +114,7 @@ def getProjectConfigurations():
                 'projectID':'furiousiron-indexer',
                 'projectDisplayName':'FuriousIron-Indexer',
                 'projectDescription':'My personal source code search engine project. Indexer. (Java. Windows. No Database. Filesystem only)',
+                'projectIsStarred':False,
                 'administration':{
                     'localPath':None
                     }
@@ -123,6 +126,7 @@ def getProjectConfigurations():
                 'projectID':'furiousiron-searchbackend',
                 'projectDisplayName':'FuriousIron-SearchBackend',
                 'projectDescription':'My personal source code search engine project. Backend. (Java. Tomcat. Windows. No Database. Filesystem only)',
+                'projectIsStarred':False,
                 'administration':{
                     'localPath':None
                     }
@@ -134,6 +138,7 @@ def getProjectConfigurations():
                 'projectID':'futuresqr',
                 'projectDisplayName':'FutureSQR',
                 'projectDescription':'Future Source Quality Review -- Code Review Tool for Trunk-Based-Development',
+                'projectIsStarred':False,
                 'administration': {
                     'localPath':"D:\\Temp\\future-square-cache\\FutureSQR",                        
                     }
@@ -145,6 +150,7 @@ def getProjectConfigurations():
                 'projectID':'brightflux',
                 'projectDisplayName':'BrightFlux',
                 'projectDescription':'LogFileViewer and LogFileAnalysis with yet unseen Features and written in Java',
+                'projectIsStarred':False,
                 'administration':{
                     'localPath':None
                     }
@@ -156,6 +162,7 @@ def getProjectConfigurations():
                 'projectID':'curiousmyth',
                 'projectDisplayName':'CuriousMyth',
                 'projectDescription':'Modelling facts, entities and information for knowledge representation',
+                'projectIsStarred':False,
                 'administration':{
                     'localPath':None
                     }
@@ -167,6 +174,7 @@ def getProjectConfigurations():
                 'projectID':'orangemoon-frontend',
                 'projectDisplayName':'OrangeMoon-Frontend',
                 'projectDescription':'Japanese Dictionary Web-App - Frontend (based on nodejs and angular)',
+                'projectIsStarred':False,
                 'administration':{
                     'localPath':None
                     }
@@ -178,6 +186,7 @@ def getProjectConfigurations():
                 'projectID':'orangemoon-backend',
                 'projectDisplayName':'OrangeMoon-Backend',
                 'projectDescription':'Japanese Dictionary Web-App - Backend (based on fastapi and jamdict)',
+                'projectIsStarred':False,
                 'administration':{
                     'localPath':None
                     }
@@ -189,6 +198,7 @@ def getProjectConfigurations():
                 'projectID':'fluentgenesis-embedder',
                 'projectDisplayName':'FluentGenesis-Embedder',
                 'projectDescription':'Source Code Language Unserstanding - Calculating the Embedding vectors and such.',
+                'projectIsStarred':False,
                 'administration':{
                     'localPath':None
                     }
@@ -200,6 +210,7 @@ def getProjectConfigurations():
                 'projectID':'fluentgenesis-classifier',
                 'projectDisplayName':'FluentGenesis-Classifier',
                 'projectDescription':'',
+                'projectIsStarred':False,
                 'administration':{
                     'localPath':None
                     }
@@ -211,6 +222,7 @@ def getProjectConfigurations():
                 'projectID':'fluentgenesis-plugin',
                 'projectDisplayName':'FluentGenesis-Plugin',
                 'projectDescription':'Source Code Language Understanding - Eclipse plugin for Source Code Generation.',
+                'projectIsStarred':False,
                 'administration':{
                     'localPath':None
                     }

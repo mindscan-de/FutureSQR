@@ -76,3 +76,23 @@ class ProjectDatabase(object):
     
     def getAllProjectToLocalPathMap(self):
         pass
+    
+    
+    def starProject(self, projectid):
+        if not self.isProjectIdPresent(projectid):
+            return False
+        
+        # TODO: this only preliminary until user project relation is implemented
+        self.projectConfigurations[projectid]['projectIsStarred'] = True
+        
+        # successfully executed - not state 
+        return True
+    
+    def unstarProject(self, projectid):
+        if not self.isProjectIdPresent(projectid):
+            return False
+
+        # TODO: this only preliminary until user project relation is implemented
+        self.projectConfigurations[projectid]['projectIsStarred'] = False
+        # successfully executed
+        return True
