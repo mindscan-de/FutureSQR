@@ -187,12 +187,12 @@ def postCreateNewReview(projectid:str, revisionid:str = Form(...)):
         }
     
     
-    # project confioguration should have an autoincrementing index, which is the truth for the creation of reviews.
-    projectConfiguration = projectDB.getProjectConfiguration(projectid);
-    
     # * we then create a new review in the backend
     #   * we get then a new unique review ID back
-    newReview = createNewReview(projectConfiguration, revisionInformation)
+    newReview = createNewReview(projectDB, projectid, revisionInformation)
+    
+    if newReview is None:
+        return {}
     
     reviewDB.insertReview(projectid, newReview)
     

@@ -36,10 +36,11 @@ def initProjectConfigurations():
     projectConfigurations = getProjectConfigurations();
     pass
 
-def createNewReview(projectConfiguration, revisionInformation) :
-    newReviewId = projectConfiguration['autoIndex']
-    projectConfiguration['autoIndex']+=1
-    reviewIdentifier = projectConfiguration['reviewPrefix'] +  str(newReviewId)
+def createNewReview(projectDB, projectId, revisionInformation) :
+    reviewIdentifier = projectDB.calculateNewReviewIndex(projectId)
+    
+    if reviewIdentifier is None:
+        return None
     
     review = {
         REVIEW_PK_REVIEW_ID : reviewIdentifier,
@@ -52,7 +53,7 @@ def createNewReview(projectConfiguration, revisionInformation) :
         # This is more complicated i guess.. (right now)
         REVIEW_REVIEWERRESULTS : [],
         # 
-        REVIEW_FK_PROJECT_ID : projectConfiguration['projectID'],
+        REVIEW_FK_PROJECT_ID : projectId,
         REVIEW_LIFECYLCE_STATE : REVIEW_LIFECYCLE_STATE_OPEN
         }
     

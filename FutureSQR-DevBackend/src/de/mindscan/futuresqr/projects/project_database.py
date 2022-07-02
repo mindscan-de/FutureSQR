@@ -42,6 +42,9 @@ class ProjectDatabase(object):
         return self.projectConfigurations[projectid]
     
     def calculateNewReviewIndex(self, projectid):
+        if not self.isProjectIdPresent(projectid):
+            return None
+        
         newReviewId = self.projectConfigurations[projectid]['autoIndex']
         self.projectConfigurations[projectid]['autoIndex']+=1
         
