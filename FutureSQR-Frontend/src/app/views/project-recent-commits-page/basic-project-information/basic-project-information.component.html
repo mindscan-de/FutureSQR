@@ -3,8 +3,8 @@
 		<ul class="list-group mt-2 mb-2">
 			<li class="list-group-item">
 				<div class="float-right">
-					<a class="btn btn-sm btn-secondary" *ngIf="!isStarred" (click)="onStarMe(activeProjectId)">Star project</a>
-					<a class="btn btn-sm btn-secondary" *ngIf="isStarred" (click)="onUnstarMe(activeProjectId)">Unstar project</a>
+					<a class="btn btn-sm btn-light" *ngIf="!isStarred" (click)="onStarMe(activeProjectId)" title="Star this project"><span class="text-white">&#9734;</span></a>
+					<a class="btn btn-sm btn-secondary" *ngIf="isStarred" (click)="onUnstarMe(activeProjectId)" title="Unstar this project"><span class="text-warning">&#9733;</span></a>
 				</div>
 				
 				<h4>{{uiProjectInfo.projectDisplayName}}</h4>
