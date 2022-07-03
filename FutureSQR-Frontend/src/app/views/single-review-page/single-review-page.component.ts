@@ -97,4 +97,8 @@ export class SingleReviewPageComponent implements OnInit {
 		);
 	}
 	
+	reloadRevisionInformation(event):void {
+		// TODO: later
+	}
+	
 }

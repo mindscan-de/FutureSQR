@@ -67,6 +67,8 @@
 	<div class="col-xl-3">
 		<app-review-participation-panel [activeReviewData]="activeReviewData" (onReviewStateChanged)="reloadReviewInformation($event)"></app-review-participation-panel>
 		
+		<app-revision-participation-panel (onRevisionStateChanges)="reloadRevisionInformation($event)"></app-revision-participation-panel>
+		
 		<div class="row mt-2">
 			<div class="col">
 				<h4>Files (todo file tree)</h4>
