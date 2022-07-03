@@ -70,8 +70,26 @@ Attention: The implementation has not yet been started. Currently some basic ide
 ## Principles of Development
 
 * Useful from Day One
-* My three other principles
-* Two Monoliths and a Mockup
-  * Back-End-Monolith
-  * Back-End-Mockup
-  * Front-End-Monolith
+* My three other principles (won't tell them here...)
+
+## Split in actually two different Applications+Services
+
+FutureSQR
+* Frontend Monolith - Code-Review-Application
+* Backend Monolith - Code-Review-Application
+
+Dev-Backends
+* One or multiple Backends
+  * At least one Dev-Backend for the Code-Review
+  * At least one Dev-Backend for the Configuration Application
+    * configue the code-review application
+	* configure the users
+	* configure the roles, groups, etc, 
+	* configure authn, authz
+	* provide access control for Code-Review Application
+
+Kuukou (Skyport) - Application
+* Frontend Monolith - Configuration App (User Management + Access Control + Application Configuration)
+* Backend Monolith - Configuration App (User Management + Access Control + Application Configuration)
+
+Idea is, that "Kuukou" can be reused for other applications as well, because this is a generic problem this only needs to be solved once.
