@@ -8,8 +8,8 @@
 				<li class="list-group-item">TODO: Filter here?</li>
 				<li *ngFor="let project of uiModelAllProjects" class="list-group-item">
 					<span class="float-right">
-						<a class="btn btn-sm btn-secondary" (click)="onStarMe(project.project_id)" *ngIf="!project.is_starred" >star</a>
-						<a class="btn btn-sm btn-secondary" (click)="onUnstarMe(project.project_id)" *ngIf="project.is_starred" >unstar</a>
+						<a class="btn btn-sm btn-light" (click)="onStarMe(project.project_id)" *ngIf="!project.is_starred" ><span class="text-white">&#9734;</span></a>
+						<a class="btn btn-sm btn-secondary" (click)="onUnstarMe(project.project_id)" *ngIf="project.is_starred" ><span class="text-warning">&#9733;</span></a>
 					</span>
 					
 					<a [routerLink]="['/',project.project_id]" class="font-weight-bold">{{project.project_display_name}}</a><br/>
