@@ -14,4 +14,7 @@ export class RevisionParticipationPanelComponent implements OnInit {
 	ngOnInit(): void {
 	}
 
+	onAddRevisions(): void {
+		
+	}
 }
