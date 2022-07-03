@@ -61,7 +61,7 @@ def getUserAllAccessibleProjects(user_uuid: str = ""):
 def getProjectRevisions(projectid:str):
     if projectDB.hasProjectLocalPath(projectid):
         # TODO: cache this answer for some time and/or limit the number of results?
-        revisions = calculateRecentRevisionsForLocalGitRepo(projectDB.getProjectLocalPath(projectid))
+        revisions = calculateRecentRevisionsForLocalGitRepo(projectDB.getProjectLocalPath(projectid),75)
         # combine revisions with a review list for the revisons and add the revision id to the revision list
         revision_map = reviewDB.getRevisionToReviewsMap(projectid)
         

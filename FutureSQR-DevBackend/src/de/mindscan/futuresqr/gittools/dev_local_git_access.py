@@ -29,8 +29,8 @@ SOFTWARE.
 import subprocess
 from de.mindscan.futuresqr.gittools.git_output_parser import parse_log_by_rs_us, parse_log_full_changeset, parse_log_fileListToArray
 
-GIT_FIELDS = ['shortrev','revisionid','authorname','authorid','date','reldate','message']
-GIT_FORMAT_PARAMS = ['%h','%H','%an','%ae','%ad','%ar','%s']
+GIT_FIELDS = ['shortrev','revisionid','authorname','authorid','date','shortdate','reldate','message']
+GIT_FORMAT_PARAMS = ['%h','%H','%an','%ae','%ad','%as','%ar','%s']
 
 # ATTENTION: NEVER EVER PUT THIS CODE INTO PRODUCTION, THIS CODE IS DANGEROUS
 
@@ -50,7 +50,7 @@ def __execute_git_command_on_local_repo( local_git_repo, git_parameters):
     return __execute_git_command(full_git_parameters)
     
 
-def calculateRecentRevisionsForLocalGitRepo(local_repo_path:str):
+def calculateRecentRevisionsForLocalGitRepo(local_repo_path:str, limit:int = -1):
     '''
     This method provides a list of all versions for a given local git repository.
     
@@ -61,6 +61,8 @@ def calculateRecentRevisionsForLocalGitRepo(local_repo_path:str):
     
     @return: dictionary with revisions from newest to oldest.
     '''
+    if limit!=-1:
+        return calculateNRecentRevisionsForLocalGitRepo(local_repo_path, limit)
     
     formatdetails = '%x1f'.join(GIT_FORMAT_PARAMS)
     
@@ -78,6 +80,45 @@ def calculateRecentRevisionsForLocalGitRepo(local_repo_path:str):
     }
     return recentRevisions
 
+
+def calculateNRecentRevisionsForLocalGitRepo(local_repo_path:str, max_revisions:int):
+    formatdetails = '%x1f'.join(GIT_FORMAT_PARAMS)
+    
+    git_parameters = [
+        'log',
+        '--pretty=format:%x1f'+formatdetails+'%x1e',
+        'HEAD~'+str(max_revisions)+'..'
+    ]
+    
+    log = __execute_git_command_on_local_repo(local_repo_path, git_parameters)
+
+    revisions = parse_log_by_rs_us(log, GIT_FIELDS)
+    
+    recentRevisions = {
+        'revisions': revisions
+    }
+    return recentRevisions
+
+
+def calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo(local_repo_path:str, from_commit_hash:str):
+    formatdetails = '%x1f'.join(GIT_FORMAT_PARAMS)
+    
+    git_parameters = [
+        'log',
+        '--pretty=format:%x1f'+formatdetails+'%x1e',
+        str(from_commit_hash)+'...HEAD'
+        # str(from_commit_hash)+'^..'
+    ]
+    
+    log = __execute_git_command_on_local_repo(local_repo_path, git_parameters)
+
+    revisions = parse_log_by_rs_us(log, GIT_FIELDS)
+    
+    recentRevisions = {
+        'revisions': revisions
+    }
+    return recentRevisions
+    
 
 def caluclateSimpleRevisionInformation(local_git_repo_path:str, revisionid:str):
     formatdetails = '%x1f'.join(GIT_FORMAT_PARAMS)
