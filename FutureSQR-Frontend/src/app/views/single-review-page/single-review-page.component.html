@@ -25,13 +25,19 @@
 		
 		<div class="row">
 			<div class="col">
-				<span class="small text-muted">Revisions: <span title="Number of revisions">{{activeReviewData.reviewRevisions.length}}</span> (TODO: implement a more complex revision list, including commitcomments, parent state, etc.)</span>
 			
-				<ul class="list-group">
-					<li class="list-group-item" *ngFor="let revision of activeReviewData.reviewRevisions">
-						<span class="small">{{revision}}</span>
-					</li>
-				</ul>
+				<div class="card mt-2">
+					<div class="card-body">
+						Revisionselection
+						<span class="small text-muted">Revisions: <span title="Number of revisions">{{activeReviewData.reviewRevisions.length}}</span> (TODO: implement a more complex revision list, including commitcomments, parent state, etc.)</span>
+					</div>
+					
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item" *ngFor="let revision of activeReviewData.reviewRevisions">
+							<span class="small">{{revision}}</span>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 		
