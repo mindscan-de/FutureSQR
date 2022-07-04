@@ -19,7 +19,8 @@
 	
 
 		<p *ngIf="currentReviewers.length>0">
-			<span class="mr-3" *ngFor="let reviewer of currentReviewers">{{reviewer}}</span>
+		
+			<span class="mr-3" *ngFor="let reviewer of currentReviewers"><span class="badge badge-success">{{reviewer}}</span></span>
 		</p>  		
   		
   		<span class="float-left" *ngIf="isCurrentUserAReviewer">
