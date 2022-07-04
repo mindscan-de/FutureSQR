@@ -43,7 +43,7 @@ def createNewReview(projectDB, projectId, revisionInformation) :
         # Actually this should be a uuid for each author
         REVIEW_AUTHORS : [revisionInformation['author']],
         # This is more complicated i guess.. (right now)
-        REVIEW_REVIEWERRESULTS : {},
+        REVIEW_REVIEWERRESULTS : [],
         # 
         REVIEW_FK_PROJECT_ID : projectId,
         REVIEW_LIFECYLCE_STATE : REVIEW_LIFECYCLE_STATE_OPEN

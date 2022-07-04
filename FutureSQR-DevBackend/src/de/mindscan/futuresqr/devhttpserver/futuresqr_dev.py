@@ -265,7 +265,7 @@ def postDeleteReview(projectid:str, reviewid:str = Form(...)):
 def postAddReviewerToReview(projectid:str, reviewid:str = Form(...), reviewerid:str = Form(...)):
     if projectDB.isProjectIdPresent(projectid):
         reviewDB.insertReviewerToReview(projectid, reviewid, reviewerid)
-    
+            
     result = {}
     return result
 

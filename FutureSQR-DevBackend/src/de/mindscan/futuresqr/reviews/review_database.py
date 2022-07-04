@@ -107,9 +107,9 @@ class ReviewDatabase(object):
         if not review_id in self.reviewTable[project_id]:
             return None 
         
-        currentReviewersMap = self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS]
-        if not reviewer_id  in currentReviewersMap:
-            self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS][reviewer_id]=''
+        currentReviewersList = self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS]
+        if not reviewer_id  in currentReviewersList:
+            self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS].append(reviewer_id)
             
         return None
 
