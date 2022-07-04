@@ -100,7 +100,18 @@ class ReviewDatabase(object):
         #             self.revisionTable[project_id].pop(revision_id,None)
             
         return None
+
+    def insertReviewerToReview(self, project_id, review_id, reviewer_id):
+        if not project_id in self.reviewTable:
+            return None
+        if not review_id in self.reviewTable[project_id]:
+            return None 
         
+        currentReviewersMap = self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS]
+        if not reviewer_id  in currentReviewersMap:
+            self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS][reviewer_id]=''
+            
+        return None
 
     def hasReviewByRevisionId(self, project_id, revision_id):
         if not project_id in self.revisionTable:
@@ -120,3 +131,5 @@ class ReviewDatabase(object):
         if not project_id in self.revisionTable:
             return {}
         return self.revisionTable[project_id]
+    
+        

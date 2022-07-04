@@ -260,3 +260,12 @@ def postDeleteReview(projectid:str, reviewid:str = Form(...)):
     
     result = {}
     return result
+
+@app.post("/FutureSQR/rest/project/{projectid}/review/addreviewer")
+def postAddReviewerToReview(projectid:str, reviewid:str = Form(...), reviewerid:str = Form(...)):
+    if projectDB.isProjectIdPresent(projectid):
+        reviewDB.insertReviewerToReview(projectid, reviewid, reviewerid)
+    
+    result = {}
+    return result
+
