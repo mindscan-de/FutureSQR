@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, SimpleChanges, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, SimpleChanges, EventEmitter, ChangeDetectorRef  } from '@angular/core';
 
 
 // Services
@@ -16,12 +16,13 @@ import { BackendModelReviewData } from '../../../backend/model/backend-model-rev
 export class ReviewParticipationPanelComponent implements OnInit {
 	
 	public currentUiReviewData: BackendModelReviewData = new BackendModelReviewData();
-	public isCurrentUserAReviewer: boolean = false;
+	public currentReviewers: string[] = [];
+	public isCurrentUserAReviewer: Boolean = false;
 	
 	@Input() activeReviewData: BackendModelReviewData = new BackendModelReviewData();
 	@Output() onReviewStateChanged = new EventEmitter<string>();
 
-	constructor( private projectDataQueryBackend : ProjectDataQueryBackendService, ) { }
+	constructor( private projectDataQueryBackend : ProjectDataQueryBackendService, private cdr: ChangeDetectorRef  ) { }
 
 	ngOnInit(): void {
 	}
@@ -31,6 +32,10 @@ export class ReviewParticipationPanelComponent implements OnInit {
 		
 		if(this.currentUiReviewData != reviewDataCandidate) {
 			this.currentUiReviewData = reviewDataCandidate;
+			console.log(reviewDataCandidate.reviewReviewersResults);
+			this.currentReviewers = reviewDataCandidate.reviewReviewersResults;
+			this.isCurrentUserAReviewer = reviewDataCandidate.reviewReviewersResults.includes('mindscan-de');
+			this.cdr.detectChanges();
 		}
 	}
 	
@@ -66,8 +71,14 @@ export class ReviewParticipationPanelComponent implements OnInit {
 		);
 	}
 	
-	onAddMeToReview(): void {
-		this.isCurrentUserAReviewer=true;
+	onAddMeToReview(projectid:string, reviewId:string): void {
+		// use the abckend service to add me to review
+		this.projectDataQueryBackend.addReviewer(projectid, reviewId, 'mindscan-de').subscribe(
+			data => {
+				this.onReviewStateChanged.emit('revieweradded');
+			},
+			error => {}
+		);
 	}
 
 }
