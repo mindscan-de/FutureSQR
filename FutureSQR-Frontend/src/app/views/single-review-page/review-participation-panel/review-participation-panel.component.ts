@@ -7,6 +7,7 @@ import { ProjectDataQueryBackendService } from '../../../backend/services/projec
 
 // should be a uimodel instead of a backend model
 import { BackendModelReviewData } from '../../../backend/model/backend-model-review-data';
+import { BackendModelReviewResult } from '../../../backend/model/backend-model-review-result';
 
 @Component({
   selector: 'app-review-participation-panel',
@@ -16,7 +17,7 @@ import { BackendModelReviewData } from '../../../backend/model/backend-model-rev
 export class ReviewParticipationPanelComponent implements OnInit {
 	
 	public currentUiReviewData: BackendModelReviewData = new BackendModelReviewData();
-	public currentReviewers: string[] = [];
+	public currentReviewers: Map<string,BackendModelReviewResult> = new Map<string, BackendModelReviewResult>();
 	public isCurrentUserAReviewer: Boolean = false;
 	
 	@Input() activeReviewData: BackendModelReviewData = new BackendModelReviewData();
@@ -34,7 +35,7 @@ export class ReviewParticipationPanelComponent implements OnInit {
 			this.currentUiReviewData = reviewDataCandidate;
 			console.log(reviewDataCandidate.reviewReviewersResults);
 			this.currentReviewers = reviewDataCandidate.reviewReviewersResults;
-			this.isCurrentUserAReviewer = reviewDataCandidate.reviewReviewersResults.includes('mindscan-de');
+			this.isCurrentUserAReviewer = reviewDataCandidate.reviewReviewersResults.has('mindscan-de');
 			this.cdr.detectChanges();
 		}
 	}
