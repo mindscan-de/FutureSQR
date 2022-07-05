@@ -269,3 +269,16 @@ def postAddReviewerToReview(projectid:str, reviewid:str = Form(...), reviewerid:
     result = {}
     return result
 
+@app.post("/FutureSQR/rest/project/{projectid}/review/approvereview")
+def postReviewApprove(projectid:str, reviewid:str = Form(...), reviewerid:str = Form(...)):
+    if projectDB.isProjectIdPresent(projectid):
+        reviewDB.approveReview(projectid, reviewid, reviewerid)
+    result = {}
+    return result
+
+@app.post("/FutureSQR/rest/project/{projectid}/review/concernreview")
+def postReviewConcern(projectid:str, reviewid:str = Form(...), reviewerid:str = Form(...)):
+    if projectDB.isProjectIdPresent(projectid):
+        reviewDB.concernReview(projectid, reviewid, reviewerid)
+    result = {}
+    return result

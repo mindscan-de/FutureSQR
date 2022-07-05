@@ -109,16 +109,42 @@ class ReviewDatabase(object):
         
         currentReviewersMap = self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS]
         if not reviewer_id in currentReviewersMap:
-            empty_review_result=self.createReviewResult(reviewer_id,'');
+            empty_review_result=self.__createReviewResult(reviewer_id,'');
             self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS][reviewer_id] = empty_review_result
             
         return None
     
-    def createReviewResult(self, reviewer_id, result):
+    def __createReviewResult(self, reviewer_id, result):
         return {
                 'reviewer_id':reviewer_id,
                 'reviewresult':result
             }
+        
+    def approveReview(self, project_id, review_id, reviewer_id):
+        if not project_id in self.reviewTable:
+            return None
+        if not review_id in self.reviewTable[project_id]:
+            return None 
+        currentReviewersMap = self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS]
+        if not reviewer_id in currentReviewersMap:
+            return None
+        
+        approve_review_result=self.__createReviewResult(reviewer_id,'approve');
+        self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS][reviewer_id] = approve_review_result
+        return None
+    
+    def concernReview(self, project_id, review_id, reviewer_id):
+        if not project_id in self.reviewTable:
+            return None
+        if not review_id in self.reviewTable[project_id]:
+            return None 
+        currentReviewersMap = self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS]
+        if not reviewer_id in currentReviewersMap:
+            return None
+        
+        concern_review_result=self.__createReviewResult(reviewer_id,'concern');
+        self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS][reviewer_id] = concern_review_result
+        return None
 
     def hasReviewByRevisionId(self, project_id, revision_id):
         if not project_id in self.revisionTable:
