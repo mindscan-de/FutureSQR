@@ -80,5 +80,23 @@ export class ReviewParticipationPanelComponent implements OnInit {
 			error => {}
 		);
 	}
+	
+	onReviewApprove(projectid:string, reviewId:string): void {
+		this.projectDataQueryBackend.approveReview(projectid, reviewId, 'mindscan-de').subscribe(
+			data => {
+				this.onReviewStateChanged.emit('reviewapproved');
+			},
+			error => {}
+		);
+	}
+	
+	onReviewConcern(projectid:string, reviewId:string): void {
+		this.projectDataQueryBackend.concernReview(projectid, reviewId, 'mindscan-de').subscribe(
+			data => {
+				this.onReviewStateChanged.emit('reviewapproved');
+			},
+			error => {}
+		);
+	}
 
 }

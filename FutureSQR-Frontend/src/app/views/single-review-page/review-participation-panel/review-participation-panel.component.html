@@ -29,8 +29,8 @@
 		</p>  		
   		
   		<span class="float-left" *ngIf="isCurrentUserAReviewer">
-	 		<a class="btn btn-sm m-1 btn-success" title="Approve this Review" *ngIf="currentUiReviewData.reviewLifecycleState=='Open'">approve</a>
-	 		<a class="btn btn-sm m-1 btn-info" title="Raise concerns for this Review" *ngIf="currentUiReviewData.reviewLifecycleState=='Open'">have concerns</a>
+	 		<a class="btn btn-sm m-1 btn-success" title="Approve this Review" *ngIf="currentUiReviewData.reviewLifecycleState=='Open'"          (click)="onReviewApprove(currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId)">approve</a>
+	 		<a class="btn btn-sm m-1 btn-info" title="Raise concerns for this Review" *ngIf="currentUiReviewData.reviewLifecycleState=='Open'"  (click)="onReviewConcern(currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId)">have concerns</a>
  		</span>
   	</li>
 	<li class ="list-group-item">

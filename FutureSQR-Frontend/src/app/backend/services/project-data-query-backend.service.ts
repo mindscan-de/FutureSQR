@@ -151,4 +151,27 @@ export class ProjectDataQueryBackendService {
 		return this.httpClient.post<any>(url,formdata);
 	}
 	
+	approveReview(projectid: string, reviewid:string, reviewerid:string) : Observable<any> {
+		var url = `/FutureSQR/rest/project/${projectid}/review/approvereview`;
+		
+		let formdata = new FormData();
+		
+		formdata.append('reviewid',reviewid)
+		formdata.append('reviewerid', reviewerid);
+		
+		return this.httpClient.post<any>(url,formdata);
+	}
+
+
+	concernReview(projectid: string, reviewid:string, reviewerid:string) : Observable<any> {
+		var url = `/FutureSQR/rest/project/${projectid}/review/concernreview`;
+		
+		let formdata = new FormData();
+		
+		formdata.append('reviewid',reviewid)
+		formdata.append('reviewerid', reviewerid);
+		
+		return this.httpClient.post<any>(url,formdata);
+	}
+	
 }
