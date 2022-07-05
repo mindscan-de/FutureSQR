@@ -19,9 +19,14 @@
 	
 
 		<p >
-			Testtesttest
 			<!-- *ngIf="currentReviewers.size()>0" -->
-			<!-- <span class="mr-3" *ngFor="let reviewer of currentReviewers"><span class="badge badge-success">{{reviewer}}</span></span> -->
+			<ng-container *ngFor="let reviewer_kv of currentReviewers | keyvalue">
+				<span class="mr-3"><span class="badge " [ngClass]="{
+					'badge-success':reviewer_kv.value.reviewresult=='approve',
+					'badge-info': reviewer_kv.value.reviewresult=='concern',
+					'badge-light': reviewer_kv.value.reviewresult==''
+				}" >{{reviewer_kv.value.reviewer_id}}</span></span>
+			</ng-container>
 		</p>  		
   		
   		<span class="float-left" *ngIf="isCurrentUserAReviewer">
