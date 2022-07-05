@@ -18,8 +18,7 @@
   		<p><span class="small text-muted"><b class="mr-2">Reviewer(s):</b><a class="btn btn-sm mr-2 btn-light" title="add a reviewer">+</a></span></p>
 	
 
-		<p >
-			<!-- *ngIf="currentReviewers.size()>0" -->
+		<p *ngIf="currentReviewers.size>0">
 			<ng-container *ngFor="let reviewer_kv of currentReviewers | keyvalue">
 				<span class="mr-3"><span class="badge " [ngClass]="{
 					'badge-success':reviewer_kv.value.reviewresult=='approve',

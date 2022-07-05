@@ -33,9 +33,8 @@ export class ReviewParticipationPanelComponent implements OnInit {
 		
 		if(this.currentUiReviewData != reviewDataCandidate) {
 			this.currentUiReviewData = reviewDataCandidate;
-			console.log(reviewDataCandidate.reviewReviewersResults);
-			this.currentReviewers = reviewDataCandidate.reviewReviewersResults;
-			this.isCurrentUserAReviewer = reviewDataCandidate.reviewReviewersResults.has('mindscan-de');
+			this.currentReviewers = new Map<string, BackendModelReviewResult>(Object.entries(reviewDataCandidate.reviewReviewersResults));
+			this.isCurrentUserAReviewer = this.currentReviewers.has('mindscan-de');
 			this.cdr.detectChanges();
 		}
 	}
