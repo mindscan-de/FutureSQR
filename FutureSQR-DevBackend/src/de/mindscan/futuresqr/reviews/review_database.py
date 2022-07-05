@@ -107,11 +107,18 @@ class ReviewDatabase(object):
         if not review_id in self.reviewTable[project_id]:
             return None 
         
-        currentReviewersList = self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS]
-        if not reviewer_id  in currentReviewersList:
-            self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS].append(reviewer_id)
+        currentReviewersMap = self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS]
+        if not reviewer_id in currentReviewersMap:
+            empty_review_result=self.createReviewResult(reviewer_id,'');
+            self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS][reviewer_id] = empty_review_result
             
         return None
+    
+    def createReviewResult(self, reviewer_id, result):
+        return {
+                'reviewer_id':reviewer_id,
+                'reviewresult':result
+            }
 
     def hasReviewByRevisionId(self, project_id, revision_id):
         if not project_id in self.revisionTable:
