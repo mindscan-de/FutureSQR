@@ -1,5 +1,10 @@
 import { Component, OnInit, Input, Output, SimpleChanges, EventEmitter } from '@angular/core';
 
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+
+import { AddRevisionToReviewSelectionDialogComponent } from '../../../commonui/add-revision-to-review-selection-dialog/add-revision-to-review-selection-dialog.component';
+
 // should be a uimodel instead of a backend model
 import { BackendModelReviewData } from '../../../backend/model/backend-model-review-data';
 
@@ -16,7 +21,7 @@ export class RevisionParticipationPanelComponent implements OnInit {
 	@Input() activeReviewData: BackendModelReviewData = new BackendModelReviewData();
 	@Output() onRevisionStateChanged = new EventEmitter<string>();
 
-	constructor() { }
+	constructor( private modalService: NgbModal) { }
 
 	ngOnInit(): void {
 	}
@@ -30,7 +35,19 @@ export class RevisionParticipationPanelComponent implements OnInit {
 	}
 	
 
-	onAddRevisions(): void {
+	openAddRevisionsDialog(reviewData:BackendModelReviewData): void {
+		const modalref = this.modalService.open(  AddRevisionToReviewSelectionDialogComponent,  {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'lg'}    )
+		
+		// modalref.componentInstance.setFileChangeSet(filechangeSet);
+		
+		modalref.result.then((result) => {
+			result.subscribe(
+				data => {} ,
+				error => {}
+			)
+		}, (resason) => {
+			
+		})	
 		
 	}
 }
