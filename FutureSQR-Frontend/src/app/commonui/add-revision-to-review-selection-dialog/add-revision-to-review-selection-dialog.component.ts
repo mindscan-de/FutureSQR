@@ -5,6 +5,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 // should be a uimodel instead of a backend model
 import { BackendModelReviewData } from '../../backend/model/backend-model-review-data';
+import { BackendModelProjectRecentCommits } from '../../backend/model/backend-model-project-recent-commits';
 
 
 @Component({
@@ -14,6 +15,7 @@ import { BackendModelReviewData } from '../../backend/model/backend-model-review
 })
 export class AddRevisionToReviewSelectionDialogComponent implements OnInit {
 
+	public uiModelRecentProjectCommitsGroupedByDate: Map<string, BackendModelProjectRecentCommits> = new Map<string, BackendModelProjectRecentCommits>();
 	public currentUiReviewData : BackendModelReviewData = new BackendModelReviewData();
 
 	constructor(public activeModal: NgbActiveModal) { }
@@ -23,5 +25,8 @@ export class AddRevisionToReviewSelectionDialogComponent implements OnInit {
 
 	setActiveReviewData(activeReviewData: BackendModelReviewData): void {
 		this.currentUiReviewData = activeReviewData;
+		
+		// TODO collect the project commits groupted by date, without those
+		//      which are already connected to reviews.
 	}
 }
