@@ -282,3 +282,17 @@ def postReviewConcern(projectid:str, reviewid:str = Form(...), reviewerid:str = 
         reviewDB.concernReview(projectid, reviewid, reviewerid)
     result = {}
     return result
+
+@app.post("/FutureSQR/rest/project/{projectid}/review/addrevision")
+def postAddRevisionToReview(projectid:str, reviewid:str = Form(...), revisionid:str = Form(...)):
+    if projectDB.isProjectIdPresent(projectid):
+        # get all revisions since first revision no previous revision can be addded 
+        # filter all revisions whether it is bound to a review... 
+        # filter all revisions and use this as order, check if tzhe revision is pat of this list
+        # TODO: 
+        # calculate the correct order of the added revision (not that easy for GIT)....
+        # add in correct order, because the hashes have an implicit order, by the parent relationship.
+        reviewDB.addRevisionToReview(projectid, reviewid, revisionid)
+    result = {}
+    return result
+    

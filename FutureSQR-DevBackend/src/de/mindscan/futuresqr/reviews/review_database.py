@@ -89,6 +89,9 @@ class ReviewDatabase(object):
             return None
         if not review_id in self.reviewTable[project_id]:
             return None 
+        #if not project_id in self.revisionTable:
+        #    self.revisionTable[project_id] = {}
+        
         # delete revision list
         #         revision_list = self.reviewTable[project_id][review_id][REVIEW_REVISIONS]
         #         self.reviewTable[project_id][review_id][REVIEW_REVISIONS]=[]
@@ -144,6 +147,19 @@ class ReviewDatabase(object):
         
         concern_review_result=self.__createReviewResult(reviewer_id,'concern');
         self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS][reviewer_id] = concern_review_result
+        return None
+    
+    def addRevisionToReview(self, project_id, review_id, revision_id):
+        if not project_id in self.reviewTable:
+            return None
+        if not project_id in self.revisionTable:
+            return None
+        if not review_id in self.reviewTable[project_id]:
+            return None
+        
+        self.reviewTable[project_id][review_id][REVIEW_REVISIONS].append(revision_id) 
+        self.revisionTable[project_id][revision_id] = review_id
+
         return None
 
     def hasReviewByRevisionId(self, project_id, revision_id):
