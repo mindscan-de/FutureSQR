@@ -38,7 +38,7 @@ export class RevisionParticipationPanelComponent implements OnInit {
 	openAddRevisionsDialog(reviewData:BackendModelReviewData): void {
 		const modalref = this.modalService.open(  AddRevisionToReviewSelectionDialogComponent,  {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'lg'}    )
 		
-		// modalref.componentInstance.setFileChangeSet(filechangeSet);
+		modalref.componentInstance.setActiveReviewData(this.currentUiReviewData);
 		
 		modalref.result.then((result) => {
 			result.subscribe(
