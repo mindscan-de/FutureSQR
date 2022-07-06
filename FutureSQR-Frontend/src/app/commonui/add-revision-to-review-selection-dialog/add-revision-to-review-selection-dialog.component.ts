@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
+
+// should be a uimodel instead of a backend model
+import { BackendModelReviewData } from '../../backend/model/backend-model-review-data';
+
+
 @Component({
   selector: 'app-add-revision-to-review-selection-dialog',
   templateUrl: './add-revision-to-review-selection-dialog.component.html',
@@ -9,9 +14,14 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class AddRevisionToReviewSelectionDialogComponent implements OnInit {
 
-  constructor(public activeModal: NgbActiveModal) { }
+	public currentUiReviewData : BackendModelReviewData = new BackendModelReviewData();
 
-  ngOnInit(): void {
-  }
+	constructor(public activeModal: NgbActiveModal) { }
 
+	ngOnInit(): void {
+	}
+
+	setActiveReviewData(activeReviewData: BackendModelReviewData): void {
+		this.currentUiReviewData = activeReviewData;
+	}
 }
