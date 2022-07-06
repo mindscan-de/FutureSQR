@@ -28,6 +28,7 @@ import { SingleRevisionSideBySideDialogComponent } from './commonui/single-revis
 import { ReviewParticipationPanelComponent } from './views/single-review-page/review-participation-panel/review-participation-panel.component';
 import { ProjectRecentReviewsPageComponent } from './views/project-recent-reviews-page/project-recent-reviews-page.component';
 import { RevisionParticipationPanelComponent } from './views/single-review-page/revision-participation-panel/revision-participation-panel.component';
+import { AddRevisionToReviewSelectionDialogComponent } from './commonui/add-revision-to-review-selection-dialog/add-revision-to-review-selection-dialog.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { RevisionParticipationPanelComponent } from './views/single-review-page/
     SingleRevisionSideBySideDialogComponent,
     ReviewParticipationPanelComponent,
     ProjectRecentReviewsPageComponent,
-    RevisionParticipationPanelComponent
+    RevisionParticipationPanelComponent,
+    AddRevisionToReviewSelectionDialogComponent
   ],
   imports: [
     BrowserModule,
