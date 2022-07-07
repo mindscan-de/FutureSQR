@@ -78,7 +78,7 @@ def getProjectRevisions(projectid:str):
     result = {'revisions':[]}
     return result
 
-@app.get("FutureSQR/rest/peiject/{projectid}/recentcommitsfromrevid/{fromrevisionid}")
+@app.get("/FutureSQR/rest/project/{projectid}/recentcommitsfromrevid/{fromrevisionid}")
 def getProjectRevisionsSinceCommitId(projectid: str, fromrevisionid:str):
     if projectDB.hasProjectLocalPath(projectid):
         revisions = calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo(projectDB.getProjectLocalPath(projectid), fromrevisionid)
