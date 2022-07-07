@@ -65,6 +65,12 @@ export class ProjectDataQueryBackendService {
 		return this.httpClient.get<BackendModelProjectRecentCommits>(url, {});
 	}
 	
+	
+	getRecentProjectCommutsSinceRevision(projectid: string, revisionid:string):Observable<BackendModelProjectRecentCommits> {
+		var url = `/FutureSQR/rest/project/${projectid}/recentcommitsfromrevid/${revisionid}`;
+		return this.httpClient.get<BackendModelProjectRecentCommits>(url, {});
+	} 	
+	
 	getRecentProjectRevisionDiffFullChangeSet(projectid:string, revisionid:string): Observable<BackendModelSingleCommitFullChangeSet> {
 		var url = `/FutureSQR/rest/project/${projectid}/revisiondiff/${revisionid}`;
 		return this.httpClient.get<BackendModelSingleCommitFullChangeSet>(url, {});
