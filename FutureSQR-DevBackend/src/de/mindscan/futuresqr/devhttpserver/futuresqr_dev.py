@@ -78,10 +78,10 @@ def getProjectRevisions(projectid:str):
     result = {'revisions':[]}
     return result
 
-@app.get("FutureSQR/rest/peiject/{projectid}/recentcommitsfromid")
-def getProjectRevisionsSinceCommitId(projectid: str, commit_id:str):
+@app.get("FutureSQR/rest/peiject/{projectid}/recentcommitsfromrevid/{fromrevisionid}")
+def getProjectRevisionsSinceCommitId(projectid: str, fromrevisionid:str):
     if projectDB.hasProjectLocalPath(projectid):
-        revisions = calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo(projectDB.getProjectLocalPath(projectid), commit_id)
+        revisions = calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo(projectDB.getProjectLocalPath(projectid), fromrevisionid)
         # combine revisions with a review list for the revisons and add the revision id to the revision list        
         revision_map = reviewDB.getRevisionToReviewsMap(projectid)
 
@@ -100,7 +100,7 @@ def getProjectRevisionsSinceCommitId(projectid: str, commit_id:str):
 
 @app.get("/FutureSQR/rest/project/{projectid}/information")
 def getSimpleProjectInformation(projectid:str):
-    if projectDB.hasProjectLocalPath(projectid):
+    if projectDB.isProjectIdPresent(projectid):
         projectInfo = projectDB.getProjectConfiguration(projectid)
         return projectInfo
         
