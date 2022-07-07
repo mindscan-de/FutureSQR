@@ -1,3 +1,4 @@
+import { KeyValue } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -29,4 +30,10 @@ export class AddRevisionToReviewSelectionDialogComponent implements OnInit {
 		// TODO collect the project commits groupted by date, without those
 		//      which are already connected to reviews.
 	}
+	
+	
+	public originalOrder = (a: KeyValue<number,string>, b: KeyValue<number,string>): number => {
+	  return 0;
+	}	
+	
 }
