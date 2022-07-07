@@ -10,9 +10,9 @@
 		<h5 class="mt-3">{{commitsByDate.key}}</h5>
 		<ul class="list-group">
 			<li *ngFor="let revision of commitsByDate.value.revisions" class="list-group-item ">
-				<p><span class="small text-muted"><b>{{revision.message}}</b></span>		
-				<span class="float-right"><a class="btn btn-sm btn-secondary mr-2" title="Add this revision to the review" *ngIf="!revision.hasReview">add</a><tt>{{revision.shortrev}}</tt></span>
-				</p>
+				<span class="float-right"><a class="btn btn-sm btn-secondary mr-2" title="Add this revision to the review" *ngIf="!revision.hasReview">add</a><tt class="small">{{revision.shortrev}}</tt></span>
+			
+				<span class="small text-muted"><b>{{revision.message}}</b></span><br/>		
 				<span class="small text-muted">authored by: {{revision.authorname}} on {{revision.date}}({{revision.reldate}})</span>
 			</li>
 		</ul>
