@@ -28,7 +28,7 @@ SOFTWARE.
 
 from fastapi import FastAPI, Form, HTTPException
 
-from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision, calculateFileListForSigleRevision, caluclateSimpleRevisionInformation
+from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision, calculateFileListForSigleRevision, caluclateSimpleRevisionInformation, calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo
 from de.mindscan.futuresqr.assets.hardcoded import getProjectConfigurations
 from de.mindscan.futuresqr.reviews.review_database import ReviewDatabase
 from de.mindscan.futuresqr.projects.project_database import ProjectDatabase
@@ -77,6 +77,26 @@ def getProjectRevisions(projectid:str):
     # TODO: we should say that this repository is not yet available?        
     result = {'revisions':[]}
     return result
+
+@app.get("FutureSQR/rest/peiject/{projectid}/recentcommitsfromid")
+def getProjectRevisionsSinceCommitId(projectid: str, commit_id:str):
+    if projectDB.hasProjectLocalPath(projectid):
+        revisions = calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo(projectDB.getProjectLocalPath(projectid), commit_id)
+        # combine revisions with a review list for the revisons and add the revision id to the revision list        
+        revision_map = reviewDB.getRevisionToReviewsMap(projectid)
+
+        for revision in revisions['revisions']:
+            if revision['revisionid'] in revision_map:
+                revision['hasReview']= True
+                revision['reviewID']= revision_map[revision['revisionid']]
+            else:
+                revision['hasReview']= False
+        
+        return revisions
+
+    result = {'revisions':[]}
+    return result
+
 
 @app.get("/FutureSQR/rest/project/{projectid}/information")
 def getSimpleProjectInformation(projectid:str):
