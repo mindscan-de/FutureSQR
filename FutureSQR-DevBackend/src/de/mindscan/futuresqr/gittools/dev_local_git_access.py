@@ -106,7 +106,7 @@ def calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo(local_repo_path:st
     git_parameters = [
         'log',
         '--pretty=format:%x1f'+formatdetails+'%x1e',
-        str(from_commit_hash)+'...HEAD'
+        str(from_commit_hash)+'^..HEAD'
         # str(from_commit_hash)+'^..'
     ]
     
