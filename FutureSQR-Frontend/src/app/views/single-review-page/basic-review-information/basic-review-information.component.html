@@ -1,0 +1,18 @@
+<div class="card mt-2">
+	<div class="card-body">
+				<span class="h4">
+					<span class="float-left mr-3 badge " 
+					 [ngClass]="{
+					 'badge-primary': activeReviewData.reviewLifecycleState=='Open', 
+					 'badge-secondary': activeReviewData.reviewLifecycleState=='Closed',
+					 'badge-warning': activeReviewData.reviewLifecycleState=='Deleted'
+					  } ">  {{activeReviewData.reviewLifecycleState}}</span><h4><b>{{activeReviewID}}</b> {{activeReviewData.reviewTitle}}</h4></span>
+	</div>
+	<ul class=" list-group list-group-flush">
+		<li class="list-group-item">
+			<p>Back to <a [routerLink]="['/', activeProjectID]">{{activeProjectID}}</a> &nbsp; <span class="small text-muted">(TODO: use title bar for back navigation)</span></p>
+			<span class="small text-muted">Additional Description:<br>{{activeReviewData.reviewDescription}}</span>
+		</li>
+	</ul>
+</div>
+
