@@ -44,6 +44,10 @@ export class AddRevisionToReviewSelectionDialogComponent implements OnInit {
 		this.uiModelRecentProjectCommitsGroupedByDate = this.m2mGroupByDateTransformer(ungrouped);
 	}
 	
+	addRevisionToReview(revisionid): void {
+		
+	}
+	
 	
 	public originalOrder = (a: KeyValue<number,string>, b: KeyValue<number,string>): number => {
 	  return 0;
