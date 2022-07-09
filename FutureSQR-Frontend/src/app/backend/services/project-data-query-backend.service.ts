@@ -43,7 +43,7 @@ export class ProjectDataQueryBackendService {
 		let formdata = new FormData();
 		
 		// TODO later
-		formdata.append('userid','')
+		formdata.append('userid','');
 		
 		return this.httpClient.post<any>(url,formdata);
 	}
@@ -53,7 +53,7 @@ export class ProjectDataQueryBackendService {
 		let formdata = new FormData();
 		
 		// TODO later
-		formdata.append('userid','')
+		formdata.append('userid','');
 		
 		return this.httpClient.post<any>(url,formdata);
 	}
@@ -123,7 +123,7 @@ export class ProjectDataQueryBackendService {
 		var url =`/FutureSQR/rest/project/${projectid}/review/close`;
 		let formdata = new FormData();
 		
-		formdata.append('reviewid',reviewid)
+		formdata.append('reviewid',reviewid);
 		
 		return this.httpClient.post<any>(url,formdata);
 	}
@@ -132,7 +132,17 @@ export class ProjectDataQueryBackendService {
 		var url =`/FutureSQR/rest/project/${projectid}/review/reopen`;
 		let formdata = new FormData();
 		
-		formdata.append('reviewid',reviewid)
+		formdata.append('reviewid',reviewid);
+		
+		return this.httpClient.post<any>(url,formdata);
+	}
+	
+	appendReviewWithRevision(projectid: string, reviewid:string, revisionid): Observable<any> {
+		var url = `/FutureSQR/rest/project/${projectid}/review/apppend`;
+		
+		let formdata = new FormData();
+		formdata.append('reviewid',reviewid);
+		formdata.append('revisionid',revisionid);
 		
 		return this.httpClient.post<any>(url,formdata);
 	}
@@ -141,7 +151,7 @@ export class ProjectDataQueryBackendService {
 		var url =`/FutureSQR/rest/project/${projectid}/review/delete`;
 		let formdata = new FormData();
 		
-		formdata.append('reviewid',reviewid)
+		formdata.append('reviewid',reviewid);
 		
 		return this.httpClient.post<any>(url,formdata);
 	}
@@ -151,7 +161,7 @@ export class ProjectDataQueryBackendService {
 		
 		let formdata = new FormData();
 		
-		formdata.append('reviewid',reviewid)
+		formdata.append('reviewid',reviewid);
 		formdata.append('reviewerid', reviewerid);
 		
 		return this.httpClient.post<any>(url,formdata);
@@ -162,7 +172,7 @@ export class ProjectDataQueryBackendService {
 		
 		let formdata = new FormData();
 		
-		formdata.append('reviewid',reviewid)
+		formdata.append('reviewid',reviewid);
 		formdata.append('reviewerid', reviewerid);
 		
 		return this.httpClient.post<any>(url,formdata);
@@ -174,7 +184,7 @@ export class ProjectDataQueryBackendService {
 		
 		let formdata = new FormData();
 		
-		formdata.append('reviewid',reviewid)
+		formdata.append('reviewid',reviewid);
 		formdata.append('reviewerid', reviewerid);
 		
 		return this.httpClient.post<any>(url,formdata);
