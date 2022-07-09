@@ -15,10 +15,13 @@ export class BasicReviewInformationComponent implements OnInit {
 	@Input() activeProjectID: string = "";
 	@Input() activeReviewID:string = "";
 		
+	constructor() { }
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+	ngOnInit(): void {
+	}
+	
+	ngOnChanges(changes: SimpleChanges): void {
+		
+	}
 
 }
