@@ -7,6 +7,7 @@ import { AddRevisionToReviewSelectionDialogComponent } from '../../../commonui/a
 
 // should be a uimodel instead of a backend model
 import { BackendModelReviewData } from '../../../backend/model/backend-model-review-data';
+import { BackendModelProjectRecentCommitRevision } from '../../../backend/model/backend-model-project-recent-commit-revision';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class RevisionParticipationPanelComponent implements OnInit {
 	public currentUiReviewData: BackendModelReviewData = new BackendModelReviewData();
 	
 	@Input() activeReviewData: BackendModelReviewData = new BackendModelReviewData();
+	@Input() reviewRevisions: BackendModelProjectRecentCommitRevision[] = [];
 	@Output() onRevisionStateChanged = new EventEmitter<string>();
 
 	constructor( private modalService: NgbModal) { }
