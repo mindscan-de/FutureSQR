@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input,  SimpleChanges } from '@angular/core';
+
+import { BackendModelReviewData } from '../../../backend/model/backend-model-review-data';
+import { BackendModelProjectRecentCommitRevision } from '../../../backend/model/backend-model-project-recent-commit-revision';
 
 @Component({
   selector: 'app-revision-selection-panel',
@@ -7,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RevisionSelectionPanelComponent implements OnInit {
 
-  constructor() { }
+	@Input() activeReviewData: BackendModelReviewData = new BackendModelReviewData();
+	@Input() reviewRevisions: BackendModelProjectRecentCommitRevision[] = [];	
 
-  ngOnInit(): void {
-  }
+	constructor() { }
+
+	ngOnInit(): void {
+	}
+	
+	ngOnChanges(changes: SimpleChanges): void {
+		
+	}
+	
 
 }

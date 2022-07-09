@@ -2,25 +2,8 @@
 	<div class="col-xl-9">
 		<app-basic-review-information [activeReviewData]="activeReviewData" [activeProjectID]="activeProjectID" [activeReviewID]="activeReviewID"></app-basic-review-information>
 	
-		
-		<div class="row">
-			<div class="col">
+		<app-revision-selection-panel [activeReviewData]="activeReviewData" [reviewRevisions]=""></app-revision-selection-panel>		
 			
-				<div class="card mt-2">
-					<div class="card-body">
-						Revisionselection Panel (TODO: implement me)<br />
-						<span class="small text-muted">Revisions: <span title="Number of revisions">{{activeReviewData.reviewRevisions.length}}</span> (TODO: implement a more complex revision list, including commitcomments, parent state, etc.)</span>
-					</div>
-					
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item" *ngFor="let revision of activeReviewData.reviewRevisions">
-							<span class="small">{{revision}}</span>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		
 		<div class="row mt-2" >
 			<div class="col">
 				<ul class="list-group">
