@@ -44,8 +44,17 @@ export class AddRevisionToReviewSelectionDialogComponent implements OnInit {
 		this.uiModelRecentProjectCommitsGroupedByDate = this.m2mGroupByDateTransformer(ungrouped);
 	}
 	
-	addRevisionToReview(revisionid): void {
-		
+	appendRevisionToReview(projectid, reviewid, revisionid): void {
+		// TODO: lock tthis component until the append was successful
+		this.projectDataQueryBackend.appendReviewWithRevision( projectid, reviewid, revisionid).subscribe(
+			data=>{
+				// todo: unlock this component.				
+				// todo: close dialog?
+			},
+			error=> {
+				// todo: unlock this component.
+			}			
+		);
 	}
 	
 	
