@@ -303,8 +303,8 @@ def postReviewConcern(projectid:str, reviewid:str = Form(...), reviewerid:str = 
     result = {}
     return result
 
-@app.post("/FutureSQR/rest/project/{projectid}/review/addrevision")
-def postAddRevisionToReview(projectid:str, reviewid:str = Form(...), revisionid:str = Form(...)):
+@app.post("/FutureSQR/rest/project/{projectid}/review/appendrevision")
+def postAppendRevisionToReview(projectid:str, reviewid:str = Form(...), revisionid:str = Form(...)):
     if projectDB.isProjectIdPresent(projectid):
         # get all revisions since first revision no previous revision can be addded 
         # filter all revisions whether it is bound to a review... 

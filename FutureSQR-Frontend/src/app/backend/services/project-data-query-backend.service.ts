@@ -138,7 +138,7 @@ export class ProjectDataQueryBackendService {
 	}
 	
 	appendReviewWithRevision(projectid: string, reviewid:string, revisionid): Observable<any> {
-		var url = `/FutureSQR/rest/project/${projectid}/review/apppend`;
+		var url = `/FutureSQR/rest/project/${projectid}/review/apppendrevision`;
 		
 		let formdata = new FormData();
 		formdata.append('reviewid',reviewid);
