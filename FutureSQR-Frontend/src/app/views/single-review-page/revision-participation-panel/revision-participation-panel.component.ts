@@ -18,6 +18,7 @@ import { BackendModelProjectRecentCommitRevision } from '../../../backend/model/
 export class RevisionParticipationPanelComponent implements OnInit {
 	
 	public currentUiReviewData: BackendModelReviewData = new BackendModelReviewData();
+	public currentUiReviewRevisions: BackendModelProjectRecentCommitRevision [] = [];
 	
 	@Input() activeReviewData: BackendModelReviewData = new BackendModelReviewData();
 	@Input() reviewRevisions: BackendModelProjectRecentCommitRevision[] = [];
@@ -29,10 +30,17 @@ export class RevisionParticipationPanelComponent implements OnInit {
 	}
 	
 	ngOnChanges(changes: SimpleChanges): void {
-		let reviewDataCandidate:BackendModelReviewData = changes.activeReviewData.currentValue;
 		
-		if(this.currentUiReviewData != reviewDataCandidate) {
-			this.currentUiReviewData = reviewDataCandidate;
+		if(changes.activeReviewData !== undefined) {
+			let reviewDataCandidate:BackendModelReviewData = changes.activeReviewData.currentValue;
+			
+			if(this.currentUiReviewData != reviewDataCandidate) {
+				this.currentUiReviewData = reviewDataCandidate;
+			}
+		}
+		
+		if(changes.reviewRevisions !== undefined) {
+			this.currentUiReviewRevisions = changes.reviewRevisions.currentValue; 
 		}
 	}
 	

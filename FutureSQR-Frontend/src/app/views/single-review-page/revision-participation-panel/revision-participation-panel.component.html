@@ -9,7 +9,11 @@
  		</span>
   	
   		<p><span class="small text-muted"><b class="mr-2">Revision(s):</b><span title="Number of Revisions">{{activeReviewData.reviewRevisions.length}}</span></span></p>
-  		<span class="small text-muted"><b>TODO:</b> show the revision (ids and messages and author information)</span>
+  		<ul >
+			<li *ngFor="let revision of currentUiReviewRevisions">
+				<span class="small text-muted" title="{{revision.shortrev}}&nbsp;{{revision.date}}&nbsp;{{revision.authorname}}"> <b>{{revision.message}}</b> ({{revision.shortdate}})</span>
+			</li>
+  		</ul>
 	</li>
   </ul>
 
