@@ -10,6 +10,8 @@ import { BackendModelProjectRecentCommitRevision } from '../../../backend/model/
 })
 export class RevisionSelectionPanelComponent implements OnInit {
 
+	public currentUiReviewRevisions: BackendModelProjectRecentCommitRevision [] = [];
+
 	@Input() activeReviewData: BackendModelReviewData = new BackendModelReviewData();
 	@Input() reviewRevisions: BackendModelProjectRecentCommitRevision[] = [];	
 
@@ -19,6 +21,11 @@ export class RevisionSelectionPanelComponent implements OnInit {
 	}
 	
 	ngOnChanges(changes: SimpleChanges): void {
+		
+		if(changes.reviewRevisions !== undefined) {
+			this.currentUiReviewRevisions = changes.reviewRevisions.currentValue.reverse(); 
+		}
+		
 		
 	}
 	
