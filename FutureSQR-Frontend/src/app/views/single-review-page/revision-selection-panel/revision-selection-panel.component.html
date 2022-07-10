@@ -7,17 +7,17 @@
 	<ul class="list-group list-group-flush">
 		<li class="list-group-item">
 			<div class="h2">
-			<ul class="list-group list-group-horizontal m-1">
-			<ng-container *ngFor="let revision of currentUiReviewRevisions">
-				<li class="list-group-item m-0 p-0" title="{{revision.message}} - p({{revision.parents}})">
-					<div class="badge badge-primary m-1">&#x25C6; &#x25C7;</div>
-				</li>
-				<li class="list-group-item m-0 p-0">
-					<b class="text-primary" title="revisions skipped">&hellip;</b>
-					<b class="text-primary" title="direct parent">&mdash;</b>
-				</li>
-			</ng-container>
-			</ul>
+				<ul class="list-group list-group-horizontal m-1">
+					<ng-container *ngFor="let revision of currentUiReviewRevisions">
+						<li class="list-group-item m-0 p-0" title="{{revision.message}} - p({{revision.parents}})">
+							<div class="badge badge-primary m-1">&#x25C6; &#x25C7;</div>
+						</li>
+						<li class="list-group-item m-0 p-0">
+							<b class="text-primary" title="revision(s) skipped">&hellip;</b>
+							<b class="text-primary" title="direct parent">&mdash;</b>
+						</li>
+					</ng-container>
+				</ul>
 			</div>
 		</li>
 	</ul>
