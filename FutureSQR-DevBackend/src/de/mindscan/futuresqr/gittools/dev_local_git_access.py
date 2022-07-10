@@ -132,10 +132,27 @@ def caluclateSimpleRevisionInformation(local_git_repo_path:str, revisionid:str):
         ]
 
     log = __execute_git_command_on_local_repo(local_git_repo_path, git_parameters)
-    print(log)
     revision = parse_log_by_rs_us(log, GIT_FIELDS)
 
     return revision
+
+
+def calculateSimpleRevisionInformationForRevisionList(local_git_repo_path:str, revisionlist:list):
+    formatdetails = '%x1f'.join(GIT_FORMAT_PARAMS)
+    
+    git_parameters = [
+        'log',
+        #'-u',
+        '--pretty=format:%x1f'+formatdetails+'%x1e',
+        # '-1',
+        str(revisionlist[0])+"^.."+str(revisionlist[-1])
+        ]
+
+    log = __execute_git_command_on_local_repo(local_git_repo_path, git_parameters)
+    revisions = parse_log_by_rs_us(log, GIT_FIELDS)
+    revisions = [ revision for revision in revisions if revision['revisionid'] in revisionlist] 
+
+    return revisions
 
 
 def calculateDiffForSingleRevision(local_git_repo_path:str, revisionid:str):

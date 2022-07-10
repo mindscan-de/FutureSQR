@@ -28,7 +28,7 @@ SOFTWARE.
 
 from fastapi import FastAPI, Form, HTTPException
 
-from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision, calculateFileListForSigleRevision, caluclateSimpleRevisionInformation, calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo
+from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision, calculateFileListForSigleRevision, caluclateSimpleRevisionInformation, calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo, calculateSimpleRevisionInformationForRevisionList
 from de.mindscan.futuresqr.assets.hardcoded import getProjectConfigurations
 from de.mindscan.futuresqr.reviews.review_database import ReviewDatabase
 from de.mindscan.futuresqr.projects.project_database import ProjectDatabase
@@ -160,12 +160,12 @@ def getReviewRevisionInformation(projectid:str, reviewid:str):
     if projectDB.isProjectIdPresent(projectid):
         # get revison numbers from review
         revisions=reviewDB.selectRevisionsForReview(projectid, reviewid)
-         
-        # todo get revision information from
-        # revisionDetails = calculateRevisionInformationForRevisionList(revisions)
-        pass
+        # get revision information from
+        revisionDetails = calculateSimpleRevisionInformationForRevisionList(projectDB.getProjectLocalPath(projectid),revisions)
+        return revisionDetails
     
-    pass
+    result = []
+    return result
     
     
 @app.get("/FutureSQR/rest/project/{projectid}/recentreviews")    
