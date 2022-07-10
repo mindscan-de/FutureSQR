@@ -154,6 +154,19 @@ def getReviewData(projectid:str, reviewid:str):
     
     result = {}
     return result
+
+@app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/revisiondetails")
+def getReviewRevisionInformation(projectid:str, reviewid:str):
+    if projectDB.isProjectIdPresent(projectid):
+        # get revison numbers from review
+        revisions=reviewDB.selectRevisionsForReview(projectid, reviewid)
+         
+        # todo get revision information from
+        # revisionDetails = calculateRevisionInformationForRevisionList(revisions)
+        pass
+    
+    pass
+    
     
 @app.get("/FutureSQR/rest/project/{projectid}/recentreviews")    
 def getRecentReviews(projectid:str):

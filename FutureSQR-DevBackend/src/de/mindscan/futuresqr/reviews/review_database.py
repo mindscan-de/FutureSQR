@@ -181,4 +181,10 @@ class ReviewDatabase(object):
             return {}
         return self.revisionTable[project_id]
     
-        
+    def selectRevisionsForReview(self, project_id, review_id):
+        if not project_id in self.reviewTable:
+            return None
+        if not review_id in self.reviewTable[project_id]:
+            return None
+        return self.reviewTable[project_id][review_id][REVIEW_REVISIONS]
+    
