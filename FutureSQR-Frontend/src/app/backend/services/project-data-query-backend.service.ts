@@ -98,7 +98,7 @@ export class ProjectDataQueryBackendService {
 	}
 	
 	getReviewSimpleRevisionInformationList(projectid: string, reviewid: string): Observable <BackendModelProjectRecentCommitRevision[]> {
-		var url = `/FutureSQR/rest/project/${projectid}/review/${reviewid}/information`
+		var url = `/FutureSQR/rest/project/${projectid}/review/${reviewid}/revisiondetails`
 		return this.httpClient.get<BackendModelProjectRecentCommitRevision[]>(url, {});
 	}
 	
