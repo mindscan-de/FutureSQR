@@ -8,10 +8,10 @@
 			<a class="btn btn-sm m-0 btn-light" title="add revision(s)" (click)="openAddRevisionsDialog(activeReviewData)">+</a> 		
  		</span>
   	
-  		<p><span class="small text-muted"><b class="mr-2">Revision(s):</b><span title="Number of Revisions">{{activeReviewData.reviewRevisions.length}}</span></span></p>
+  		<p><span class="small text-muted"><b class="mr-2">Revision(s):</b><span title="Number of Revisions">{{currentUiReviewRevisions.length}}</span></span></p>
   		<ul >
 			<li *ngFor="let revision of currentUiReviewRevisions">
-				<span class="small text-muted" title="{{revision.shortrev}}&nbsp;{{revision.date}}&nbsp;{{revision.authorname}}"> <b>{{revision.message}}</b> ({{revision.shortdate}})</span>
+				<span class="small text-muted" title="{{revision.authorname}}&nbsp;{{revision.shortrev}}&nbsp;{{revision.date}}"> <b>{{revision.message}}</b> ({{revision.shortdate}})</span>
 			</li>
   		</ul>
 	</li>
