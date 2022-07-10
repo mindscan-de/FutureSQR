@@ -13,6 +13,8 @@ import { BackendModelReviewData } from '../../backend/model/backend-model-review
 import { BackendModelSingleCommitFullChangeSet } from '../../backend/model/backend-model-single-commit-full-change-set';
 import { BackendModelSingleCommitFileChangeSet } from '../../backend/model/backend-model-single-commit-file-change-set';
 import { BackendModelSingleCommitFileActionsInfo } from '../../backend/model/backend-model-single-commit-file-actions-info';
+import { BackendModelProjectRecentCommitRevision } from '../../backend/model/backend-model-project-recent-commit-revision';
+
 
 // TODO rework this with a review side by side dialog, which can work with a configured filechangeset and a file paging configuration
 import { SingleRevisionSideBySideDialogComponent } from '../../commonui/single-revision-side-by-side-dialog/single-revision-side-by-side-dialog.component';
@@ -30,6 +32,7 @@ export class SingleReviewPageComponent implements OnInit {
 
     public uiModelSingleRevisionDiffs: BackendModelSingleCommitFullChangeSet = new BackendModelSingleCommitFullChangeSet();
 	public uiFileChangeSets: BackendModelSingleCommitFileChangeSet[] = [];
+	public uiRevisionInformation: BackendModelProjectRecentCommitRevision[] = [];
 	
 	public activeReviewData: BackendModelReviewData = new BackendModelReviewData();
 
@@ -54,6 +57,12 @@ export class SingleReviewPageComponent implements OnInit {
 
 		this.projectDataQueryBackend.getReviewRevisionDiffFullChangeSet(this.activeProjectID,this.activeReviewID ).subscribe(
 			data => this.onDiffDataReceived(data),
+			error => {}
+		);
+		
+		
+		this.projectDataQueryBackend.getReviewSimpleRevisionInformationList(this.activeProjectID,this.activeReviewID).subscribe(
+			data => this.onReviewReviewInformation(data),
 			error => {}
 		);
 	}
@@ -90,6 +99,10 @@ export class SingleReviewPageComponent implements OnInit {
 	 	});
 	}
 	
+	onReviewReviewInformation(data): void {
+		this.uiRevisionInformation = data;
+	}
+	
 	reloadReviewInformation(event):void {
 		this.projectDataQueryBackend.getReviewData(this.activeProjectID, this.activeReviewID).subscribe(
 			data => this.onReviewDataReceived(data),
@@ -98,7 +111,10 @@ export class SingleReviewPageComponent implements OnInit {
 	}
 	
 	reloadRevisionInformation(event):void {
-		// TODO: later
+		this.projectDataQueryBackend.getReviewSimpleRevisionInformationList(this.activeProjectID,this.activeReviewID).subscribe(
+			data => this.onReviewReviewInformation(data),
+			error => {}
+		);
 	}
 	
 }
