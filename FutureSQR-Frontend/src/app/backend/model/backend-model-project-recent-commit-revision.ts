@@ -9,6 +9,7 @@ export class BackendModelProjectRecentCommitRevision {
 		public message:string = "";
 		public hasReview: boolean = false;
 		public parents: string = "";
+		public parentsshort: string ="";
 		public reviewID: string = "";
 		
 }

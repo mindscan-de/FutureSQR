@@ -29,8 +29,8 @@ SOFTWARE.
 import subprocess
 from de.mindscan.futuresqr.gittools.git_output_parser import parse_log_by_rs_us, parse_log_full_changeset, parse_log_fileListToArray
 
-GIT_FIELDS = ['shortrev','revisionid','authorname','authorid','date','shortdate','reldate','parents','message']
-GIT_FORMAT_PARAMS = ['%h','%H','%an','%ae','%ad','%as','%ar','%p','%s']
+GIT_FIELDS = ['shortrev','revisionid','authorname','authorid','date','shortdate','reldate','parents','parentsshort','message']
+GIT_FORMAT_PARAMS = ['%h','%H','%an','%ae','%ad','%as','%ar','%P','%p','%s']
 
 # ATTENTION: NEVER EVER PUT THIS CODE INTO PRODUCTION, THIS CODE IS DANGEROUS
 
