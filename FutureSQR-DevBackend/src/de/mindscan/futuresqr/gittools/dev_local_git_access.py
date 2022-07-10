@@ -144,9 +144,9 @@ def calculateSimpleRevisionInformationForRevisionList(local_git_repo_path:str, r
         'log',
         #'-u',
         '--pretty=format:%x1f'+formatdetails+'%x1e',
-        # '-1',
-        str(revisionlist[0])+"^.."+str(revisionlist[-1])
-        ]
+    ]
+    git_parameters.extend(revisionlist)
+    git_parameters.append('--')
 
     log = __execute_git_command_on_local_repo(local_git_repo_path, git_parameters)
     revisions = parse_log_by_rs_us(log, GIT_FIELDS)
