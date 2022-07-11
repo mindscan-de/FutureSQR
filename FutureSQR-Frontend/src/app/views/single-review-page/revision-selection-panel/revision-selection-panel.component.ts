@@ -25,9 +25,11 @@ export class RevisionSelectionPanelComponent implements OnInit {
 		if(changes.reviewRevisions !== undefined) {
 			this.currentUiReviewRevisions = changes.reviewRevisions.currentValue.reverse(); 
 		}
-		
-		
 	}
 	
+	// todo: convert to ui model
 
+	m2mTransform(inputList: BackendModelProjectRecentCommitRevision[]) : void {
+		
+	}
 }
