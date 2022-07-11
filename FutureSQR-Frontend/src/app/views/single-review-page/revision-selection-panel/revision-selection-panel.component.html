@@ -15,7 +15,7 @@
 					<ng-container *ngFor="let revision of currentUiReviewRevisions">
 						<li class="list-group-item m-0 p-0  border-0" *ngIf="!revision.isRoot">
 							<b class="text-primary" title="revision(s) skipped" *ngIf="!revision.isDirectChild">&hellip;</b>
-							<b class="text-primary" title="direct parent" *ngIf="revision.isDirectChild">&mdash;</b>
+							<b class="text-primary" title="direct parent" *ngIf="revision.isDirectChild">&ndash;</b>
 						</li>
 						<li class="list-group-item m-0 p-0  border-0" title="{{revision.message}} - p({{revision.parents}})">
 							<div class="badge badge-primary m-0">&#x25C6; &#x25C7;</div>
