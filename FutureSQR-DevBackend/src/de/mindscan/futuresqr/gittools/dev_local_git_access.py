@@ -52,16 +52,19 @@ def __execute_git_command_on_local_repo( local_git_repo, git_parameters):
 
 def calculateRecentRevisionsForLocalGitRepo(local_repo_path:str, limit:int = -1):
     '''
-    This method provides a list of all versions for a given local git repository.
+    This method provides a list of all revisions for a given local git repository.
     
     :param local_repo_path: path to the local git repository.
+    :param limit: define a maximum number of revisions. if greater 0 then maximum of limit revisions is retrieved.  
     
     This method uses the ascii values 0x1e and 0x1f. These are reserved
     for record separation(RS) (0x1e) and for unit separation(US) (0x1f).
     
+    if a limit is defined, then #calculateNRecentRevisionsForLocalGitRepo is invoked.
+    
     @return: dictionary with revisions from newest to oldest.
     '''
-    if limit!=-1:
+    if limit > 0:
         return calculateNRecentRevisionsForLocalGitRepo(local_repo_path, limit)
     
     formatdetails = '%x1f'.join(GIT_FORMAT_PARAMS)
@@ -82,6 +85,19 @@ def calculateRecentRevisionsForLocalGitRepo(local_repo_path:str, limit:int = -1)
 
 
 def calculateNRecentRevisionsForLocalGitRepo(local_repo_path:str, max_revisions:int):
+    '''
+    This method provides a list of a limited number of revisions for a given local git repository.
+    
+    :param local_repo_path: path to the local git repository.
+    :param max_revisions: define a maximum number of revisions, at most the maximum number of revisiosns is retrieved.  
+    
+    This method uses the ascii values 0x1e and 0x1f. These are reserved
+    for record separation(RS) (0x1e) and for unit separation(US) (0x1f).
+    
+    if a limit is defined, then #calculateNRecentRevisionsForLocalGitRepo is invoked.
+    
+    @return: dictionary with revisions from newest to oldest.
+    '''
     formatdetails = '%x1f'.join(GIT_FORMAT_PARAMS)
     
     git_parameters = [
@@ -199,3 +215,4 @@ def calculateFileListForSigleRevision(local_git_repo_path:str, revisionid:str):
         }
     
     return fileDetails
+
