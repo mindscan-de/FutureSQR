@@ -28,7 +28,8 @@ SOFTWARE.
 
 from fastapi import FastAPI, Form, HTTPException
 
-from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision, calculateFileListForSingleRevision, caluclateSimpleRevisionInformation, calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo, calculateSimpleRevisionInformationForRevisionList
+from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision, calculateFileListForSingleRevision, caluclateSimpleRevisionInformation, calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo, calculateSimpleRevisionInformationForRevisionList,\
+    calculateFileListForListOfRevisions
 from de.mindscan.futuresqr.assets.hardcoded import getProjectConfigurations
 from de.mindscan.futuresqr.reviews.review_database import ReviewDatabase
 from de.mindscan.futuresqr.projects.project_database import ProjectDatabase
@@ -140,7 +141,7 @@ def getProjectRevisionFileListDiffToPrevious(projectid:str, revisionid:str):
 def getProjectReviewFileList(projectid:str, reviewid:str):
     if projectDB.hasProjectLocalPath(projectid):
         reviewData = getReviewData(projectid, reviewid)
-        result = calculateFileListForSingleRevision(projectDB.getProjectLocalPath(projectid), reviewData[REVIEW_REVISIONS][0])
+        result = calculateFileListForListOfRevisions(projectDB.getProjectLocalPath(projectid), reviewData[REVIEW_REVISIONS])
         return result
     
     result = {}
