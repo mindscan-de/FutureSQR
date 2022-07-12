@@ -158,7 +158,6 @@ def calculateSimpleRevisionInformationForRevisionList(local_git_repo_path:str, r
     
     git_parameters = [
         'log',
-        #'-u',
         '--pretty=format:%x1f'+formatdetails+'%x1e',
     ]
     git_parameters.extend(revisionlist)
@@ -216,7 +215,7 @@ def calculateFileListForSingleRevision(local_git_repo_path:str, revisionid:str):
     
     return fileDetails
 
-def calculateFileListForListOfRevisions(local_git_repo_path:str, revisionid_list:list(str)):
+def calculateFileListForListOfRevisions(local_git_repo_path:str, revisionid_list:list):
     pretty_format=['%H','%cn','%cr']
     formatdetails = '%x1f'.join(pretty_format)
 
@@ -224,12 +223,20 @@ def calculateFileListForListOfRevisions(local_git_repo_path:str, revisionid_list
         'log',
         '--find-renames',
         '--name-status',
-        '--pretty=format:%x1f'+formatdetails+'%x1e',
+        '--pretty=format:%x1f'+formatdetails+'%x1e'
         ]
-
-    git_parameters.extend(revisionid_list)
+    
+    print("which version does belong")
+    print(revisionid_list)
+    
+    if len(revisionid_list) == 1:
+        git_parameters.append(revisionid_list[0]+"^..")
+    
+    git_parameters.extend([revision+"~0^" for revision in revisionid_list])
+    git_parameters.append('--')
     
     log = __execute_git_command_on_local_repo(local_git_repo_path, git_parameters)
+    print(log)
     
     fileToActionMap = parse_log_fileListToArray(log)
     # TODO: filter all lines starting with 0x1f
