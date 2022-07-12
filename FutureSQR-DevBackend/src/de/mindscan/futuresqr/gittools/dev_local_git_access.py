@@ -216,3 +216,29 @@ def calculateFileListForSingleRevision(local_git_repo_path:str, revisionid:str):
     
     return fileDetails
 
+def calculateFileListForListOfRevisions(local_git_repo_path:str, revisionid_list:list(str)):
+    pretty_format=['%H','%cn','%cr']
+    formatdetails = '%x1f'.join(pretty_format)
+
+    git_parameters = [
+        'log',
+        '--find-renames',
+        '--name-status',
+        '--pretty=format:%x1f'+formatdetails+'%x1e',
+        ]
+
+    git_parameters.extend(revisionid_list)
+    
+    log = __execute_git_command_on_local_repo(local_git_repo_path, git_parameters)
+    
+    fileToActionMap = parse_log_fileListToArray(log)
+    # TODO: filter all lines starting with 0x1f
+    # TODO: good engough: filter first line
+    # TODO: parse the result from filepath (key) to action (value) dictionary
+    
+    fileDetails = {
+        'fileActionMap': fileToActionMap
+        }
+    
+    return fileDetails
+    
