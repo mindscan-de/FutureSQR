@@ -107,7 +107,7 @@ def parse_log_full_changeset(log):
 
 def parse_log_fileListToArray(log):
     lines = log.split('\n')
-    lines_with_rows = [ line.strip().split('\t',2) for line in lines[1:] ]
+    lines_with_rows = [ line.strip().split('\t',2) for line in lines ]
     file_list = [ row for row in lines_with_rows if len(row)==2 ]
     
     return file_list
