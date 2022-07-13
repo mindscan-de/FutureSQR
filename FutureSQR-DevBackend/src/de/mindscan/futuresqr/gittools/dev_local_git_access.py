@@ -215,6 +215,10 @@ def calculateFileListForSingleRevision(local_git_repo_path:str, revisionid:str):
     
     return fileDetails
 
+
+# Todo, this needs a diff between oldest and newest revision and then for each the filelist, which needs 
+#       to be parsed individually and then filtered for the desired revisions and then combined to a new 
+#       complete filelist
 def calculateFileListForListOfRevisions(local_git_repo_path:str, revisionid_list:list):
     pretty_format=['%H','%cn','%cr']
     formatdetails = '%x1f'.join(pretty_format)
