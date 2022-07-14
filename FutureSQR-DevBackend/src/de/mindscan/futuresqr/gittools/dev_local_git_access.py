@@ -234,14 +234,15 @@ def calculateFileListForListOfRevisions(local_git_repo_path:str, revisionid_list
     print(revisionid_list)
     
     if len(revisionid_list) == 1:
-        git_parameters.append(revisionid_list[0]+"^..")
-    
-    git_parameters.extend([revision+"~0^" for revision in revisionid_list])
+        return calculateFileListForSingleRevision(local_git_repo_path, revisionid_list[0])
+
+    git_parameters.append(revisionid_list[0]+"^..."+revisionid_list[-1])
     git_parameters.append('--')
     
     log = __execute_git_command_on_local_repo(local_git_repo_path, git_parameters)
     print(log)
-    
+
+    # TODO this is just wrong.... now.    
     fileToActionMap = parse_log_fileListToArray(log)
     # TODO: filter all lines starting with 0x1f
     # TODO: good engough: filter first line
