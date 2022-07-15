@@ -53,10 +53,12 @@ export class RevisionParticipationPanelComponent implements OnInit {
 		modalref.result.then((result) => {
 			result.subscribe(
 				data => {
-					// TODO: onRevisionStateChanged.emit(updated....)))
+					this.onRevisionStateChanged.emit('udpated');
 					// this should trigger a reload of the revision data on the review page.
 				} ,
-				error => {}
+				error => {
+					this.onRevisionStateChanged.emit('udpated');
+				}
 			)
 		}, (resason) => {
 			
