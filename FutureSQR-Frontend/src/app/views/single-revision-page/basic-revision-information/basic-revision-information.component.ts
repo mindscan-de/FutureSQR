@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input,  SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-basic-revision-information',
@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./basic-revision-information.component.css']
 })
 export class BasicRevisionInformationComponent implements OnInit {
+	
+	@Input() activeProjectID: string = "";
+	@Input() activeRevisionID: string = "";
 
-  constructor() { }
+	constructor() { }
 
-  ngOnInit(): void {
-  }
+	ngOnInit(): void {
+	}
+
+	ngOnChanges(changes: SimpleChanges): void {
+		
+	}
 
 }
