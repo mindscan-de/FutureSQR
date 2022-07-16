@@ -6,5 +6,13 @@
 			<li>TODO: if part of review - show link to review - get info from revision information data</li>
 			<li>TODO: if not part of review - show create Button - get info from revision information data</li>
 		</ul>
+		<p *ngIf="activeRevisionData.hasReview">
+			This revision is part of a review: <a class="btn btn-sm btn-light" [routerLink]="['/',activeProjectID,'review',activeRevisionData.reviewID]">Goto Review ({{activeRevisionData.reviewID}})</a>
+		</p>
+		<p *ngIf="!activeRevisionData.hasReview">
+			<a class="btn btn-sm btn-secondary" title="Create a new review from this revision">create review</a>
+		</p>
+	
+		
 	</div>
 </div>
