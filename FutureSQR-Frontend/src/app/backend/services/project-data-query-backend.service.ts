@@ -87,9 +87,9 @@ export class ProjectDataQueryBackendService {
 		return this.httpClient.get<BackendModelSingleCommitFileActionsInfo>(url, {});
 	}
 	
-	getRecentProjectRevisionInformation(projectid:string, revisionid:string): Observable<any> {
-		var url = `/FutureSQR/rest/project/${projectid}/revisiondiff/${revisionid}`;
-		return this.httpClient.get<any>(url, {});
+	getRecentProjectRevisionInformation(projectid:string, revisionid:string): Observable<BackendModelProjectRecentCommitRevision> {
+		var url = `/FutureSQR/rest/project/${projectid}/revisioninfo/${revisionid}`;
+		return this.httpClient.get<BackendModelProjectRecentCommitRevision>(url, {});
 	}
 	
 	getReviewFilePathsData(projectid:string, reviewid:string): Observable<BackendModelSingleCommitFileActionsInfo> {
