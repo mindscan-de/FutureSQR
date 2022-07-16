@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input,  SimpleChanges } from '@angular/core';
+
+import { BackendModelProjectRecentCommitRevision } from '../../../backend/model/backend-model-project-recent-commit-revision';
+
 
 @Component({
   selector: 'app-revision-action-panel',
@@ -6,10 +9,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./revision-action-panel.component.css']
 })
 export class RevisionActionPanelComponent implements OnInit {
+	
+	@Input() activeRevisionData: BackendModelProjectRecentCommitRevision = new BackendModelProjectRecentCommitRevision();	
 
-  constructor() { }
+	constructor() { }
 
-  ngOnInit(): void {
-  }
+	ngOnInit(): void {
+	}
+
+	ngOnChanges(changes: SimpleChanges): void {
+		
+	}
 
 }
