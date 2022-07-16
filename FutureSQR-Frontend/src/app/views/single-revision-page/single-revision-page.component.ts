@@ -10,6 +10,8 @@ import { ProjectDataQueryBackendService } from '../../backend/services/project-d
 import { BackendModelSingleCommitFullChangeSet } from '../../backend/model/backend-model-single-commit-full-change-set';
 import { BackendModelSingleCommitFileChangeSet } from '../../backend/model/backend-model-single-commit-file-change-set';
 import { BackendModelSingleCommitFileActionsInfo } from '../../backend/model/backend-model-single-commit-file-actions-info';
+import { BackendModelProjectRecentCommitRevision } from '../../backend/model/backend-model-project-recent-commit-revision';
+
 
 // Dialog 
 import { SingleRevisionSideBySideDialogComponent } from '../../commonui/single-revision-side-by-side-dialog/single-revision-side-by-side-dialog.component';
@@ -27,6 +29,7 @@ export class SingleRevisionPageComponent implements OnInit {
     public uiModelSingleRevisionDiffs: BackendModelSingleCommitFullChangeSet = new BackendModelSingleCommitFullChangeSet();
 	public uiFileChangeSets: BackendModelSingleCommitFileChangeSet[] = [];
 	public uiFilePathActions: string[][] = [];
+	public uiRevisionData: BackendModelProjectRecentCommitRevision = new BackendModelProjectRecentCommitRevision();
 
     constructor(private projectDataQueryBackend : ProjectDataQueryBackendService, private route: ActivatedRoute, private modalService: NgbModal ) { }
 
@@ -55,6 +58,10 @@ export class SingleRevisionPageComponent implements OnInit {
 	onSingeRevisionDiffProvided( diffData: BackendModelSingleCommitFullChangeSet):void {
 		this.uiModelSingleRevisionDiffs = diffData;
 		this.uiFileChangeSets = diffData.fileChangeSet;
+	}
+	
+	onRevisionInformationProvided( revisionData: BackendModelProjectRecentCommitRevision): void {
+		this.uiRevisionData = revisionData;
 	}
 	
 	
