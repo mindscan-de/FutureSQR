@@ -43,7 +43,13 @@ export class SingleRevisionPageComponent implements OnInit {
 		this.projectDataQueryBackend.getRecentProjectRevisionFilePathsData(this.activeProjectID,this.activeRevisionID).subscribe(
 			data => this.onFileListActionsProvided(data),
 			error => console.log(error)
-			);
+		);
+		
+		// TOOD: maybe combine with  ""getRecentProjectRevisionDiffFullChangeSet""
+		this.projectDataQueryBackend.getRecentProjectRevisionInformation(this.activeProjectID,this.activeRevisionID).subscribe(
+			data => {},
+			error => console.log(error)
+		);
 	}
 
 	onSingeRevisionDiffProvided( diffData: BackendModelSingleCommitFullChangeSet):void {
