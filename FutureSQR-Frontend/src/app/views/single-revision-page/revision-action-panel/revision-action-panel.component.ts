@@ -10,6 +10,7 @@ import { BackendModelProjectRecentCommitRevision } from '../../../backend/model/
 })
 export class RevisionActionPanelComponent implements OnInit {
 	
+	@Input() activeProjectID: string = "";
 	@Input() activeRevisionData: BackendModelProjectRecentCommitRevision = new BackendModelProjectRecentCommitRevision();	
 
 	constructor() { }
