@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,  SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input,  SimpleChanges, } from '@angular/core';
 
 import { BackendModelProjectRecentCommitRevision } from '../../../backend/model/backend-model-project-recent-commit-revision';
 
@@ -19,7 +19,11 @@ export class BasicRevisionInformationComponent implements OnInit {
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
-		
+		if(changes.activeRevisionData != undefined) {
+			if(changes.activeRevisionData.currentValue != undefined)	{
+				this.activeRevisionData = changes.activeRevisionData.currentValue;
+			}
+		}
 	}
 
 }
