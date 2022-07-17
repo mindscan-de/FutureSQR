@@ -185,7 +185,8 @@ def getRecentReviews(projectid:str):
 def getSimpleReviewInfomation(projectid:str, revisionid:str):
     if projectDB.hasProjectLocalPath(projectid):
         revinfo = caluclateSimpleRevisionInformation(projectDB.getProjectLocalPath(projectid), revisionid)
-        return revinfo
+        #TODO: we might have to calculate the review.
+        return revinfo[0]
     
     rseult = {}
     return rseult
