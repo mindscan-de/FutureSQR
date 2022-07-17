@@ -26,7 +26,7 @@ const routes: Routes = [
 	// the action area should include some actions related to this particular revision
 	{ path:':projectid/revision/:revisionid', component: SingleRevisionPageComponent },
 	
-	// TODO:
+	// TODO: let the diffpage be about about the unified diff? e.g. download patch/diff file etc.
 	// :projectid/diff/:revisionid
 
 	// show the recent commits for a certain project
