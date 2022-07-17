@@ -245,9 +245,9 @@ def postCreateNewReview(projectid:str, revisionid:str = Form(...)):
     shortrevInfo=getSimpleReviewInfomation(projectid, revisionid)
     
     revisionInformation = {
-            'firstCommitLine': shortrevInfo[0]['message'],
-            'revisionID':shortrevInfo[0]['revisionid'],
-            'author':shortrevInfo[0]['authorname']
+            'firstCommitLine': shortrevInfo['message'],
+            'revisionID':shortrevInfo['revisionid'],
+            'author':shortrevInfo['authorname']
         }
     
     
