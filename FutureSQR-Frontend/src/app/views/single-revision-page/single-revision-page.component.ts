@@ -50,7 +50,7 @@ export class SingleRevisionPageComponent implements OnInit {
 		
 		// TOOD: maybe combine with  ""getRecentProjectRevisionDiffFullChangeSet""
 		this.projectDataQueryBackend.getRecentProjectRevisionInformation(this.activeProjectID,this.activeRevisionID).subscribe(
-			data => {},
+			data => this.onRevisionInformationProvided(data),
 			error => console.log(error)
 		);
 	}
