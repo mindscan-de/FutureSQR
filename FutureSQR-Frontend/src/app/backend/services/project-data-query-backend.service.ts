@@ -88,7 +88,7 @@ export class ProjectDataQueryBackendService {
 	}
 	
 	getRecentProjectRevisionInformation(projectid:string, revisionid:string): Observable<BackendModelProjectRecentCommitRevision> {
-		var url = `/FutureSQR/rest/project/${projectid}/revisioninfo/${revisionid}`;
+		var url = `/FutureSQR/rest/project/${projectid}/revision/${revisionid}/information`;
 		return this.httpClient.get<BackendModelProjectRecentCommitRevision>(url, {});
 	}
 	
