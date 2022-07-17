@@ -160,6 +160,8 @@ def calculateSimpleRevisionInformationForRevisionList(local_git_repo_path:str, r
         'log',
         '--pretty=format:%x1f'+formatdetails+'%x1e',
     ]
+    # TODO: this is not how git works... we start with smallest and the latest. 
+    # startrev^...endrevisision
     git_parameters.extend(revisionlist)
     git_parameters.append('--')
 
@@ -220,6 +222,9 @@ def calculateFileListForSingleRevision(local_git_repo_path:str, revisionid:str):
 #       to be parsed individually and then filtered for the desired revisions and then combined to a new 
 #       complete filelist
 def calculateFileListForListOfRevisions(local_git_repo_path:str, revisionid_list:list):
+    if len(revisionid_list) == 1:
+        return calculateFileListForSingleRevision(local_git_repo_path, revisionid_list[0])
+    
     pretty_format=['%H','%cn','%cr']
     formatdetails = '%x1f'.join(pretty_format)
 
@@ -233,8 +238,6 @@ def calculateFileListForListOfRevisions(local_git_repo_path:str, revisionid_list
     print("which version does belong")
     print(revisionid_list)
     
-    if len(revisionid_list) == 1:
-        return calculateFileListForSingleRevision(local_git_repo_path, revisionid_list[0])
 
     git_parameters.append(revisionid_list[0]+"^..."+revisionid_list[-1])
     git_parameters.append('--')
@@ -242,6 +245,9 @@ def calculateFileListForListOfRevisions(local_git_repo_path:str, revisionid_list
     log = __execute_git_command_on_local_repo(local_git_repo_path, git_parameters)
     print(log)
 
+
+    # build a map of hash functions
+    
     # TODO this is just wrong.... now.    
     fileToActionMap = parse_log_fileListToArray(log)
     # TODO: filter all lines starting with 0x1f
