@@ -186,6 +186,16 @@ def getRecentReviews(projectid:str):
 def getSimpleReviewInfomation(projectid:str, revisionid:str):
     if projectDB.hasProjectLocalPath(projectid):
         revinfo = caluclateSimpleRevisionInformation(projectDB.getProjectLocalPath(projectid), revisionid)
+        
+        revision_map = reviewDB.getRevisionToReviewsMap(projectid)
+        
+        for revision in revinfo:
+            if revision['revisionid'] in revision_map:
+                revision['hasReview']= True
+                revision['reviewID']= revision_map[revision['revisionid']]
+            else:
+                revision['hasReview']= False
+        
         #TODO: we might have to calculate the review.
         return revinfo[0]
     
