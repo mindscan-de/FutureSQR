@@ -187,12 +187,10 @@ def getSimpleReviewInfomation(projectid:str, revisionid:str):
     if projectDB.hasProjectLocalPath(projectid):
         revinfo = caluclateSimpleRevisionInformation(projectDB.getProjectLocalPath(projectid), revisionid)
         
-        revision_map = reviewDB.getRevisionToReviewsMap(projectid)
-        
         for revision in revinfo:
-            if revision['revisionid'] in revision_map:
+            if reviewDB.hasReviewByRevisionId(projectid, revisionid):
                 revision['hasReview']= True
-                revision['reviewID']= revision_map[revision['revisionid']]
+                revision['reviewID']= reviewDB.selectReviewIdByRevisionId(projectid, revisionid)
             else:
                 revision['hasReview']= False
         
