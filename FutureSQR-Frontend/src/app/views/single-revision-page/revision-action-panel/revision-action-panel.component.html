@@ -1,7 +1,7 @@
 <div class="card mt-2">
 	<div class="card-body">
 		<span *ngIf="activeRevisionData.hasReview">
-			This revision is part of review {{activeRevisionData.reviewID}} : <a class="btn btn-sm btn-secondary" [routerLink]="['/',activeProjectID,'review',activeRevisionData.reviewID]">goto review</a>
+			This revision is part of review <b><a [routerLink]="['/',activeProjectID,'review',activeRevisionData.reviewID]" title="goto review">{{activeRevisionData.reviewID}}</a></b>
 		</span>
 		<span *ngIf="!activeRevisionData.hasReview">
 			<a class="btn btn-sm btn-secondary mr-2" title="Create a new review from this revision">create new review</a>
