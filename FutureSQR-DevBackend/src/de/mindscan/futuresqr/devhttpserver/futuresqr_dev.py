@@ -26,11 +26,11 @@ SOFTWARE.
 @autor: Maxim Gansert
 '''
 
-from fastapi import FastAPI, Form, HTTPException
+from fastapi import FastAPI, Form   #, HTTPException
 
 from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision,\
     calculateFileListForSingleRevision, caluclateSimpleRevisionInformation, calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo,\
-    calculateSimpleRevisionInformationForRevisionList, calculateFileListForListOfRevisions
+    calculateSimpleRevisionInformationForRevisionList, calculateFileListForListOfRevisions, updateProjectCache
 from de.mindscan.futuresqr.assets.hardcoded import getProjectConfigurations
 from de.mindscan.futuresqr.reviews.review_database import ReviewDatabase
 from de.mindscan.futuresqr.projects.project_database import ProjectDatabase
@@ -65,12 +65,11 @@ def getProjectRevisions(projectid:str):
         # TODO: cache this answer for some time and/or limit the number of results?
         revisions = calculateRecentRevisionsForLocalGitRepo(projectDB.getProjectLocalPath(projectid),75)
         # combine revisions with a review list for the revisons and add the revision id to the revision list
-        revision_map = reviewDB.getRevisionToReviewsMap(projectid)
-        
+
         for revision in revisions['revisions']:
-            if revision['revisionid'] in revision_map:
+            if reviewDB.hasReviewByRevisionId(projectid, revision['revisionid']):
                 revision['hasReview']= True
-                revision['reviewID']= revision_map[revision['revisionid']]
+                revision['reviewID']= reviewDB.selectReviewIdByRevisionId(projectid, revision['revisionid'])
             else:
                 revision['hasReview']= False
         
@@ -85,12 +84,11 @@ def getProjectRevisionsSinceCommitId(projectid: str, fromrevisionid:str):
     if projectDB.hasProjectLocalPath(projectid):
         revisions = calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo(projectDB.getProjectLocalPath(projectid), fromrevisionid)
         # combine revisions with a review list for the revisons and add the revision id to the revision list        
-        revision_map = reviewDB.getRevisionToReviewsMap(projectid)
 
         for revision in revisions['revisions']:
-            if revision['revisionid'] in revision_map:
+            if reviewDB.hasReviewByRevisionId(projectid, revision['revisionid']):
                 revision['hasReview']= True
-                revision['reviewID']= revision_map[revision['revisionid']]
+                revision['reviewID']= reviewDB.selectReviewIdByRevisionId(projectid, revision['revisionid'])
             else:
                 revision['hasReview']= False
         
@@ -339,4 +337,25 @@ def postAppendRevisionToReview(projectid:str, reviewid:str = Form(...), revision
         reviewDB.addRevisionToReview(projectid, reviewid, revisionid)
     result = {}
     return result
-    
+
+@app.post("/FutureSQR/rest/project/{projectid}/updatecache")
+def postUpdateProjectCache(projectid: str):
+    if projectDB.hasProjectLocalPath(projectid):
+        project_branch_name = projectDB.getProjectBranchName(projectid)
+        if project_branch_name is not None:
+            project_path = projectDB.getProjectLocalPath(projectid)
+            updateProjectCache(project_path, project_branch_name)
+    result = {}
+    return result
+
+### #########################################
+###
+### Review Threads
+###
+### #########################################
+
+def getReviewThreads(projectid: str, reviewid:str):
+    pass
+
+def postCreateReviewThread():
+    pass
