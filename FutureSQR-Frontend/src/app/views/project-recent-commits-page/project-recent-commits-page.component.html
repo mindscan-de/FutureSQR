@@ -26,8 +26,10 @@
 								<div class="p-0 mr-auto">
 									<p><span class="text-muted small mr-4">{{revision.authorname}}</span>  <a [routerLink]="['/',activeProjectID,'revision',revision.revisionid]"><strong>{{revision.message}}</strong></a></p>
 				
-									<span class="text-muted small"> {{revision.reldate}} | {{revision.date}}</span>
-								</div> 
+									<span class="text-muted small">created <b>{{revision.reldate}}</b> | {{revision.date}} by <b>{{revision.authorname}}</b></span>
+									<span> <a class="btn btn-sm btn-light ml-4">v</a></span>
+								</div>
+								 
 							</div>
 						</li>
 					</ul>
