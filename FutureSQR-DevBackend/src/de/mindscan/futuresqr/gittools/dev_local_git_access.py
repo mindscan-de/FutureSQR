@@ -260,3 +260,14 @@ def calculateFileListForListOfRevisions(local_git_repo_path:str, revisionid_list
     
     return fileDetails
     
+    
+def updateProjectCache(local_git_repo_path:str, branch_name:str):
+    git_parameters = [
+        'pull',
+        'origin',
+        branch_name # main/master
+        ]
+    
+    __execute_git_command_on_local_repo(local_git_repo_path, git_parameters)
+    
+    pass
