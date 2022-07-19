@@ -63,5 +63,15 @@ export class BasicProjectInformationComponent implements OnInit {
 			error=>{},
 		);
 	}
+	
+	onUpdateProjectCache(activeProjectId:string): void {
+		this.projectDataQueryBackend.updateProjectCache(activeProjectId).subscribe(
+			data => {
+				// TODO: we want to now emit a change to the hosting component,
+				// such that it can react on the update.
+			},
+			error=>{}
+		);
+	}
 
 }
