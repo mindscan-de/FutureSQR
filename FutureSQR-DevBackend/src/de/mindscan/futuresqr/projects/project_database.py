@@ -92,6 +92,13 @@ class ProjectDatabase(object):
             return self.projectConfigurations[projectid]['administration']['localPath']
         return None
     
+    def getProjectBranchName(self, projectid):
+        if self.isProjectIdPresent(projectid):
+            if 'projectBranchName' not in self.projectConfigurations[projectid]:
+                return None
+            return self.projectConfigurations[projectid]['projectBranchName']
+        return None
+    
     def hasProjectLocalPath(self, projectid):
         if not self.isProjectIdPresent(projectid):
             return False
