@@ -59,6 +59,12 @@ export class ProjectDataQueryBackendService {
 		return this.httpClient.post<any>(url,formdata);
 	}
 	
+	updateProjectCache(projectid:string) : Observable<any> {
+		var url =`/FutureSQR/rest/project/${projectid}/updatecache`;
+		let formdata = new FormData();
+		
+		return this.httpClient.post<any>(url,formdata);
+	}
 	
 	
 	getRecentProjectCommits(projectid:string) : Observable<BackendModelProjectRecentCommits> {
