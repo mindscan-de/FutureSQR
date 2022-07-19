@@ -63,6 +63,7 @@ def getProjectConfigurations():
                 'projectDisplayName':'FuriousIron-Frontend',
                 'projectDescription': 'My personal source code engine project. Frontend. (Angular. TS)',
                 'projectIsStarred':False,
+                'projectBranchName':'master', # polluted by git scm, should be part of a SCM configuration
                 'administration': {
                     'localPath':"D:\\Temp\\future-square-cache\\FuriousIron-Frontend",
                     }
@@ -75,6 +76,7 @@ def getProjectConfigurations():
                 'projectDisplayName':'FuriousIron-HFB',
                 'projectDescription':'Hash-Free Bloom-Filter (Proof of concept implementation)',
                 'projectIsStarred':False,
+                'projectBranchName':'main', # polluted by git scm, should be part of a SCM configuration
                 'administration':{
                     'localPath':"D:\\Temp\\future-square-cache\\FuriousIron-HFB",
                     }
@@ -111,6 +113,7 @@ def getProjectConfigurations():
                 'projectDisplayName':'FutureSQR',
                 'projectDescription':'Future Source Quality Review -- Code Review Tool for Trunk-Based-Development',
                 'projectIsStarred':False,
+                'projectBranchName':'main', # polluted by git scm, should be part of a SCM configuration
                 'administration': {
                     'localPath':"D:\\Temp\\future-square-cache\\FutureSQR",                        
                     }
