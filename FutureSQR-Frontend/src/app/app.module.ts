@@ -33,6 +33,7 @@ import { BasicReviewInformationComponent } from './views/single-review-page/basi
 import { RevisionSelectionPanelComponent } from './views/single-review-page/revision-selection-panel/revision-selection-panel.component';
 import { BasicRevisionInformationComponent } from './views/single-revision-page/basic-revision-information/basic-revision-information.component';
 import { RevisionActionPanelComponent } from './views/single-revision-page/revision-action-panel/revision-action-panel.component';
+import { ReviewDiscussionPanelComponent } from './views/single-review-page/review-discussion-panel/review-discussion-panel.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { RevisionActionPanelComponent } from './views/single-revision-page/revis
     BasicReviewInformationComponent,
     RevisionSelectionPanelComponent,
     BasicRevisionInformationComponent,
-    RevisionActionPanelComponent
+    RevisionActionPanelComponent,
+    ReviewDiscussionPanelComponent
   ],
   imports: [
     BrowserModule,
