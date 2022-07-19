@@ -5,6 +5,11 @@
 		<div class="row">
 			<div class="col">
 				<h4>Recent Commits</h4>
+				
+				<ul>
+					<li><b>TODO:</b> the very HEAD is missing.... for some reason.... fix this.</li>
+				</ul>
+				
 				<ng-container *ngFor="let commitsByDate of uiModelRecentProjectCommitsGroupedByDate | keyvalue:originalOrder">
 					<h5 class="mt-3">{{commitsByDate.key}}</h5>
 					<ul class="list-group">
@@ -24,9 +29,9 @@
 								</div>
 								
 								<div class="p-0 mr-auto">
-									<p><span class="text-muted small mr-4">{{revision.authorname}}</span>  <a [routerLink]="['/',activeProjectID,'revision',revision.revisionid]"><strong>{{revision.message}}</strong></a></p>
+									<p><a [routerLink]="['/',activeProjectID,'revision',revision.revisionid]"><strong>{{revision.message}}</strong></a></p>
 				
-									<span class="text-muted small">created <b>{{revision.reldate}}</b> | {{revision.date}} by <b>{{revision.authorname}}</b></span>
+									<span class="text-muted small">created <b title="{{revision.date}}">{{revision.reldate}}</b> by <b>{{revision.authorname}}</b></span>
 									<span> <a class="btn btn-sm btn-light ml-4">v</a></span>
 								</div>
 								 
