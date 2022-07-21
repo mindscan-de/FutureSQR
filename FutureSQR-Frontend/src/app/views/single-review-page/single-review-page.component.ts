@@ -42,14 +42,12 @@ export class SingleReviewPageComponent implements OnInit {
 		this.activeProjectID = this.route.snapshot.paramMap.get('projectid');
 		this.activeReviewID = this.route.snapshot.paramMap.get('reviewid');
 		
-		// TODO: query the review information
 		this.projectDataQueryBackend.getReviewData(this.activeProjectID, this.activeReviewID).subscribe(
 			data => this.onReviewDataReceived(data),
 			error => {}			
 		);
 		
-		// TODO: query some revision infromation for this particular review
-		// TODO: query the filelist for this review
+		// query the filelist for this review
 		this.projectDataQueryBackend.getReviewFilePathsData(this.activeProjectID,this.activeReviewID ).subscribe (
 			data => this.onFileListActionsProvided(data),
 			error => console.log(error)
@@ -61,6 +59,7 @@ export class SingleReviewPageComponent implements OnInit {
 		);
 		
 		
+		// query some revision information for this particular review
 		this.projectDataQueryBackend.getReviewSimpleRevisionInformationList(this.activeProjectID,this.activeReviewID).subscribe(
 			data => this.onReviewReviewInformation(data),
 			error => {}
