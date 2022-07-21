@@ -111,7 +111,12 @@ export class SingleReviewPageComponent implements OnInit {
 	
 	reloadRevisionInformation(event):void {
 		console.log("We now should reload so much data....");
+	
+		// actually this method is called...
 		
+		// TODO: the first call after loading this page will somehow not update this page for some reason...
+		// TODO: change detector? 
+		 	
 		this.projectDataQueryBackend.getReviewSimpleRevisionInformationList(this.activeProjectID,this.activeReviewID).subscribe(
 			data => this.onReviewReviewInformation(data),
 			error => {}
