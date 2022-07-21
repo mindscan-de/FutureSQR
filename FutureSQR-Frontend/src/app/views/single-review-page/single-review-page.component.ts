@@ -110,6 +110,8 @@ export class SingleReviewPageComponent implements OnInit {
 	}
 	
 	reloadRevisionInformation(event):void {
+		console.log("We now should reload so much data....");
+		
 		this.projectDataQueryBackend.getReviewSimpleRevisionInformationList(this.activeProjectID,this.activeReviewID).subscribe(
 			data => this.onReviewReviewInformation(data),
 			error => {}
