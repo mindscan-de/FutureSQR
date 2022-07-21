@@ -26,7 +26,7 @@
 	<div class="col-xl-3">
 		<app-review-participation-panel [activeReviewData]="activeReviewData" (onReviewStateChanged)="reloadReviewInformation($event)"></app-review-participation-panel>
 		
-		<app-revision-participation-panel [activeReviewData]="activeReviewData" [reviewRevisions]="uiRevisionInformation" (onRevisionStateChanges)="reloadRevisionInformation($event)"></app-revision-participation-panel>
+		<app-revision-participation-panel [activeReviewData]="activeReviewData" [reviewRevisions]="uiRevisionInformation" (onRevisionStateChanged)="reloadRevisionInformation($event)"></app-revision-participation-panel>
 		
 		<div class="row mt-2">
 			<div class="col">
