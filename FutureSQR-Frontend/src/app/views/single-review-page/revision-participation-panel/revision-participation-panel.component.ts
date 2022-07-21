@@ -19,7 +19,6 @@ export class RevisionParticipationPanelComponent implements OnInit {
 	
 	public currentUiReviewData: BackendModelReviewData = new BackendModelReviewData();
 	public currentUiReviewRevisions: BackendModelProjectRecentCommitRevision [] = [];
-	public reviewConfigurationChanged: boolean = false;
 	
 	@Input() activeReviewData: BackendModelReviewData = new BackendModelReviewData();
 	@Input() reviewRevisions: BackendModelProjectRecentCommitRevision[] = [];
@@ -45,12 +44,7 @@ export class RevisionParticipationPanelComponent implements OnInit {
 		}
 	}
 	
-	clearRevisionConfigurationChanged(): void {
-		this.reviewConfigurationChanged = false;
-	}
-	
 	setRevisionConfigurationChanged(): void {
-		this.reviewConfigurationChanged = true;
 		console.log("revision configuration changed....")
 		this.onRevisionStateChanged.emit("revision configuration changed.");
 	}
@@ -59,8 +53,6 @@ export class RevisionParticipationPanelComponent implements OnInit {
 
 		const modalref = this.modalService.open(  AddRevisionToReviewSelectionDialogComponent,  {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'lg'}    )
 
-		this.clearRevisionConfigurationChanged();		
-		
 		let that = this;
 		
 		modalref.componentInstance.setActiveReviewData(this.currentUiReviewData);
