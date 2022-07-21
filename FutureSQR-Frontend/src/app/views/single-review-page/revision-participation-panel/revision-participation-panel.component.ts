@@ -19,10 +19,11 @@ export class RevisionParticipationPanelComponent implements OnInit {
 	
 	public currentUiReviewData: BackendModelReviewData = new BackendModelReviewData();
 	public currentUiReviewRevisions: BackendModelProjectRecentCommitRevision [] = [];
+	public reviewConfigurationChanged: boolean = false;
 	
 	@Input() activeReviewData: BackendModelReviewData = new BackendModelReviewData();
 	@Input() reviewRevisions: BackendModelProjectRecentCommitRevision[] = [];
-	@Output() onRevisionStateChanged = new EventEmitter<string>();
+	@Output() onRevisionStateChanged: EventEmitter<string> = new EventEmitter<string>();
 
 	constructor( private modalService: NgbModal) { }
 
@@ -44,11 +45,30 @@ export class RevisionParticipationPanelComponent implements OnInit {
 		}
 	}
 	
-
+	clearRevisionConfigurationChanged(): void {
+		this.reviewConfigurationChanged = false;
+	}
+	
+	setRevisionConfigurationChanged(): void {
+		this.reviewConfigurationChanged = true;
+		console.log("revision configuration changed....")
+		this.onRevisionStateChanged.emit("revision configuration changed.");
+	}
+	
 	openAddRevisionsDialog(reviewData:BackendModelReviewData): void {
+
 		const modalref = this.modalService.open(  AddRevisionToReviewSelectionDialogComponent,  {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'lg'}    )
+
+		this.clearRevisionConfigurationChanged();		
+		
+		let that = this;
 		
 		modalref.componentInstance.setActiveReviewData(this.currentUiReviewData);
+		modalref.componentInstance.setRevisionConfigurationChangedCallback(
+			function() {
+				that.setRevisionConfigurationChanged();
+				}
+			);
 		
 		modalref.result.then((result) => {
 			result.subscribe(
