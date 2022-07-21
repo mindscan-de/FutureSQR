@@ -21,6 +21,7 @@ export class AddRevisionToReviewSelectionDialogComponent implements OnInit {
 
 	public uiModelRecentProjectCommitsGroupedByDate: Map<string, BackendModelProjectRecentCommits> = new Map<string, BackendModelProjectRecentCommits>();
 	public currentUiReviewData : BackendModelReviewData = new BackendModelReviewData();
+	public revisionChangedCallbackFkt = null;
 
 	constructor(private projectDataQueryBackend : ProjectDataQueryBackendService, public activeModal: NgbActiveModal) { }
 
@@ -40,11 +41,20 @@ export class AddRevisionToReviewSelectionDialogComponent implements OnInit {
 		);
 	}
 	
+	setRevisionConfigurationChangedCallback(fkt): void {
+		this.revisionChangedCallbackFkt = fkt;
+	}
+	
 	onRevisionDataProvided(ungrouped:BackendModelProjectRecentCommits) : void {
 		this.uiModelRecentProjectCommitsGroupedByDate = this.m2mGroupByDateTransformer(ungrouped);
 	}
 	
 	appendRevisionToReview(projectid, reviewid, revisionid): void {
+		
+		if(this.revisionChangedCallbackFkt != null) {
+			this.revisionChangedCallbackFkt();
+		}
+		
 		// TODO: lock tthis component until the append was successful
 		this.projectDataQueryBackend.appendReviewWithRevision( projectid, reviewid, revisionid).subscribe(
 			data=>{
