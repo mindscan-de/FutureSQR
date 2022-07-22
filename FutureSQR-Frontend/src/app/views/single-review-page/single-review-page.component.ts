@@ -79,6 +79,10 @@ export class SingleReviewPageComponent implements OnInit {
 		this.uiFilePathActions = fileChanges.fileActionMap;
 	}
 	
+	onRevisionSelectionChanged(eventdata:any):void {
+		
+	}
+	
 	// open side by side dialog
 	openSideBySideDialog( filechangeSet ):void {
 		
