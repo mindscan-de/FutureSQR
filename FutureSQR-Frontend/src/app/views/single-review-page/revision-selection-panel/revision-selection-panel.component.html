@@ -4,8 +4,8 @@
 			Revisionselection Panel<br />
 			<span class="small text-muted">Revisions: <span title="Number of revisions">{{currentUiReviewRevisions.length}}</span> (TODO: implement toggle buttons)</span>
 		</p>
-		<a class="btn btn-sm btn-secondary m-1" title="Show all revisions">show all (todo)</a>
-		<a class="btn btn-sm btn-secondary m-1" title="Hide all revisions">hide all (todo)</a>
+		<a class="btn btn-sm btn-secondary m-1" title="Show all revisions" (click)="onShowAllRevisions()">show all</a>
+		<a class="btn btn-sm btn-secondary m-1" title="Hide all revisions" (click)="onHideAllRevisions()">hide all</a>
 	</div>
 	
 	<ul class="list-group list-group-flush">

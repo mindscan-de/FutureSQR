@@ -36,6 +36,14 @@ export class RevisionSelectionPanelComponent implements OnInit {
 		this.onRevisionSelectionChanged.emit("fooooooooo");
 	}
 	
+	onShowAllRevisions(): void {
+		this.onRevisionSelectionChanged.emit("showAll");
+	}
+	
+	onHideAllRevisions(): void {
+		this.onRevisionSelectionChanged.emit("hideAll");
+	}
+	
 	// todo: convert to ui model
 
 	m2mTransform(inputList: BackendModelProjectRecentCommitRevision[]) : UiModelProjectRecentCommitRevision[] {
