@@ -32,6 +32,10 @@ export class RevisionSelectionPanelComponent implements OnInit {
 		}
 	}
 	
+	onToggleSelection(revision:UiModelProjectRecentCommitRevision): void {
+		this.onRevisionSelectionChanged.emit("fooooooooo");
+	}
+	
 	// todo: convert to ui model
 
 	m2mTransform(inputList: BackendModelProjectRecentCommitRevision[]) : UiModelProjectRecentCommitRevision[] {
