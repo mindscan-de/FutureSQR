@@ -4,8 +4,8 @@
 			Revisionselection Panel<br />
 			<span class="small text-muted">Revisions: <span title="Number of revisions">{{currentUiReviewRevisions.length}}</span> (TODO: implement toggle buttons)</span>
 		</p>
-		<a class="btn btn-sm btn-secondary text-warning m-1" title="Show all revisions" (click)="onShowAllRevisions()">&#x2605; show all</a>
-		<a class="btn btn-sm btn-secondary m-1" title="Hide all revisions" (click)="onHideAllRevisions()">&#x2605; hide all</a>
+		<a class="btn btn-sm btn-secondary text-warning m-1" title="Show all revisions" (click)="onShowAllRevisions()"><span class="h5">&#x2605;</span> show all</a>
+		<a class="btn btn-sm btn-secondary text-white m-1" title="Hide all revisions" (click)="onHideAllRevisions()"><span class="h5">&#x2605;</span> hide all</a>
 	</div>
 	
 	<ul class="list-group list-group-flush">
@@ -18,8 +18,8 @@
 							<b class="text-secondary" title="direct parent" *ngIf="revision.isDirectChild">&ndash;</b>
 						</li>
 						<li class="list-group-item m-0 p-0  border-0" title="{{revision.message}} - p({{revision.parents}})">
-							<div class="badge badge-secondary m-0" (click)="onToggleSelection(revision)" >&#x2605;</div>
-							<div class="badge badge-secondary text-warning m-0" (click)="onToggleSelection(revision)">&#x2605;</div>
+							<a class="btn btn-sm btn-secondary text-white m-0 p-1"   (click)="onToggleSelection(revision)"><span class="h5">&#x2605;</span></a>
+							<a class="btn btn-sm btn-secondary text-warning m-0 p-1" (click)="onToggleSelection(revision)"><span class="h5">&#x2605;</span></a>
 						</li>
 					</ng-container>
 				</ul>
