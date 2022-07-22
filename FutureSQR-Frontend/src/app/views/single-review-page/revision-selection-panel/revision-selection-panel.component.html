@@ -4,8 +4,8 @@
 			Revisionselection Panel<br />
 			<span class="small text-muted">Revisions: <span title="Number of revisions">{{currentUiReviewRevisions.length}}</span> (TODO: implement toggle buttons)</span>
 		</p>
-		<a class="btn btn-sm btn-secondary m-1" title="Show all revisions" (click)="onShowAllRevisions()">show all</a>
-		<a class="btn btn-sm btn-secondary m-1" title="Hide all revisions" (click)="onHideAllRevisions()">hide all</a>
+		<a class="btn btn-sm btn-secondary text-warning m-1" title="Show all revisions" (click)="onShowAllRevisions()">&#x2605; show all</a>
+		<a class="btn btn-sm btn-secondary m-1" title="Hide all revisions" (click)="onHideAllRevisions()">&#x2605; hide all</a>
 	</div>
 	
 	<ul class="list-group list-group-flush">
@@ -14,12 +14,12 @@
 				<ul class="list-group list-group-horizontal m-1  border-0">
 					<ng-container *ngFor="let revision of currentUiReviewRevisions">
 						<li class="list-group-item m-0 p-0  border-0" *ngIf="!revision.isRoot">
-							<b class="text-primary" title="revision(s) skipped" *ngIf="!revision.isDirectChild">&hellip;</b>
-							<b class="text-primary" title="direct parent" *ngIf="revision.isDirectChild">&ndash;</b>
+							<b class="text-secondary" title="revision(s) skipped" *ngIf="!revision.isDirectChild">&hellip;</b>
+							<b class="text-secondary" title="direct parent" *ngIf="revision.isDirectChild">&ndash;</b>
 						</li>
 						<li class="list-group-item m-0 p-0  border-0" title="{{revision.message}} - p({{revision.parents}})">
-							<div class="badge badge-primary m-0" (click)="onToggleSelection(revision)">&#x2605;</div>
-							<div class="badge badge-primary text-warning m-0" (click)="onToggleSelection(revision)">&#x2605;</div>
+							<div class="badge badge-secondary m-0" (click)="onToggleSelection(revision)" >&#x2605;</div>
+							<div class="badge badge-secondary text-warning m-0" (click)="onToggleSelection(revision)">&#x2605;</div>
 						</li>
 					</ng-container>
 				</ul>
