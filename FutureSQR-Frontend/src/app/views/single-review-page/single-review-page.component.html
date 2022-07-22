@@ -2,7 +2,7 @@
 	<div class="col-xl-9">
 		<app-basic-review-information [activeReviewData]="activeReviewData" [activeProjectID]="activeProjectID" [activeReviewID]="activeReviewID"></app-basic-review-information>
 	
-		<app-revision-selection-panel [activeReviewData]="activeReviewData" [reviewRevisions]="uiRevisionInformation"></app-revision-selection-panel>		
+		<app-revision-selection-panel [activeReviewData]="activeReviewData" [reviewRevisions]="uiRevisionInformation" (onRevisionSelectionChanged)="onRevisionSelectionChanged($event)"></app-revision-selection-panel>		
 			
 		<div class="row mt-2" >
 			<div class="col">
