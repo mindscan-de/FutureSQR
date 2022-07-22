@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,  SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, SimpleChanges, EventEmitter } from '@angular/core';
 
 import { BackendModelReviewData } from '../../../backend/model/backend-model-review-data';
 import { BackendModelProjectRecentCommitRevision } from '../../../backend/model/backend-model-project-recent-commit-revision';
@@ -18,13 +18,14 @@ export class RevisionSelectionPanelComponent implements OnInit {
 
 	@Input() activeReviewData: BackendModelReviewData = new BackendModelReviewData();
 	@Input() reviewRevisions: BackendModelProjectRecentCommitRevision[] = [];	
+	@Output() onRevisionSelectionChanged: EventEmitter<any> = new EventEmitter<any>();
 
 	constructor() { }
 
 	ngOnInit(): void {
 	}
 	
-	ngOnChanges(changes: SimpleChanges): void {
+	ngOnChanges(changes: SimpleChanges) : void {
 		
 		if(changes.reviewRevisions !== undefined) {
 			this.currentUiReviewRevisions = this.m2mTransform(changes.reviewRevisions.currentValue.reverse()); 
