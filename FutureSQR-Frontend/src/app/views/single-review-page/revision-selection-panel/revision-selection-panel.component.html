@@ -18,7 +18,8 @@
 							<b class="text-primary" title="direct parent" *ngIf="revision.isDirectChild">&ndash;</b>
 						</li>
 						<li class="list-group-item m-0 p-0  border-0" title="{{revision.message}} - p({{revision.parents}})">
-							<div class="badge badge-primary m-0" (click)="onToggleSelection(revision)">&#x25C6; &#x25C7;</div>
+							<div class="badge badge-primary m-0" (click)="onToggleSelection(revision)">&#x2605;</div>
+							<div class="badge badge-primary text-warning m-0" (click)="onToggleSelection(revision)">&#x2605;</div>
 						</li>
 					</ng-container>
 				</ul>
