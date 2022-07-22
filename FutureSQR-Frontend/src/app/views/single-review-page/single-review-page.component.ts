@@ -80,7 +80,8 @@ export class SingleReviewPageComponent implements OnInit {
 	}
 	
 	onRevisionSelectionChanged(eventdata:any):void {
-		
+		console.log("Guess what");
+		console.log(eventdata);
 	}
 	
 	// open side by side dialog
