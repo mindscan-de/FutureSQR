@@ -18,6 +18,12 @@ export class UiReviewFileInformation {
 		this.fileAction = fileAction;
 		this.fullFilePath = filepath;
 		
-		//TODO: split the filepath into sinplefilename and parentfilepath
+		let lastIndex = filepath.lastIndexOf('/');
+		this.simpleFileName = filepath.slice(lastIndex+1);
+		this.parentFilePath = "";
+				
+		if(lastIndex !== -1) {
+			this.parentFilePath = filepath.slice(0,lastIndex);
+		}
 	}
 }
