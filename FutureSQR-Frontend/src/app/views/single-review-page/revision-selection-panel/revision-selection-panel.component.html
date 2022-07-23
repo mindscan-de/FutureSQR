@@ -14,7 +14,7 @@
 					<ng-container *ngFor="let revision of currentUiReviewRevisions">
 						<li class="list-group-item m-0 p-0  border-0" *ngIf="!revision.isRoot">
 							<b class="text-secondary" title="revision(s) skipped" *ngIf="!revision.isDirectChild">&hellip;</b>
-							<b class="text-secondary" title="direct parent" *ngIf="revision.isDirectChild">&ndash;</b>
+							<b class="text-secondary" title="direct parent" *ngIf="revision.isDirectChild">&mdash;</b>
 						</li>
 						<li class="list-group-item m-0 p-0  border-0" title="{{revision.message}} - p({{revision.parents}})">
 							<a class="btn btn-sm btn-secondary text-white m-0 p-1"  (click)="onToggleSelection(revision)" *ngIf="!revision.isRevisionSelected"><span class="h5">&#x2605;</span></a>
