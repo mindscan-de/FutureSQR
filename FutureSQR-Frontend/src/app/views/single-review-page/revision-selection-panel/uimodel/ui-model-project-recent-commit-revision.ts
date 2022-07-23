@@ -11,6 +11,7 @@ export class UiModelProjectRecentCommitRevision {
 		public parents: string = "";
 		public parentsshort: string ="";
 		public reviewID: string = "";
+		public isRevisionSelected: boolean = true;
 		
 		public isRoot: boolean = false;
 		public isDirectChild: boolean = false;
