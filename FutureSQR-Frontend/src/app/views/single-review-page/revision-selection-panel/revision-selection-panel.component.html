@@ -1,8 +1,7 @@
 <div class="card mt-2">
 	<div class="card-body">
 		<p>
-			Revisionselection Panel<br />
-			<span class="small text-muted">Revisions: <span title="Number of revisions">{{currentUiReviewRevisions.length}}</span> (TODO: implement toggle buttons)</span>
+			Select Revisions <span class="small text-muted">(<span title="Number of revisions">{{currentUiReviewRevisions.length}}</span> included in review)</span> 
 		</p>
 		<a class="btn btn-sm btn-secondary text-warning m-1" title="Show all revisions" (click)="onShowAllRevisions()"><span class="h5">&#x2605;</span> show all</a>
 		<a class="btn btn-sm btn-secondary text-white m-1" title="Hide all revisions" (click)="onHideAllRevisions()"><span class="h5">&#x2605;</span> hide all</a>
@@ -18,8 +17,8 @@
 							<b class="text-secondary" title="direct parent" *ngIf="revision.isDirectChild">&ndash;</b>
 						</li>
 						<li class="list-group-item m-0 p-0  border-0" title="{{revision.message}} - p({{revision.parents}})">
-							<a class="btn btn-sm btn-secondary text-white m-0 p-1"   (click)="onToggleSelection(revision)"><span class="h5">&#x2605;</span></a>
-							<a class="btn btn-sm btn-secondary text-warning m-0 p-1" (click)="onToggleSelection(revision)"><span class="h5">&#x2605;</span></a>
+							<a class="btn btn-sm btn-secondary text-white m-0 p-1"  (click)="onToggleSelection(revision)" *ngIf="!revision.isRevisionSelected"><span class="h5">&#x2605;</span></a>
+							<a class="btn btn-sm btn-secondary text-warning m-0 p-1" (click)="onToggleSelection(revision)" *ngIf="revision.isRevisionSelected"><span class="h5">&#x2605;</span></a>
 						</li>
 					</ng-container>
 				</ul>

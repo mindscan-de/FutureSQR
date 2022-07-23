@@ -33,14 +33,21 @@ export class RevisionSelectionPanelComponent implements OnInit {
 	}
 	
 	onToggleSelection(revision:UiModelProjectRecentCommitRevision): void {
+		revision.isRevisionSelected = !revision.isRevisionSelected;
 		this.onRevisionSelectionChanged.emit("fooooooooo");
 	}
 	
 	onShowAllRevisions(): void {
+		for(let i:number=0;i<this.currentUiReviewRevisions.length;i++) {
+			this.currentUiReviewRevisions[i].isRevisionSelected = true;
+		}
 		this.onRevisionSelectionChanged.emit("showAll");
 	}
 	
 	onHideAllRevisions(): void {
+		for(let i:number=0;i<this.currentUiReviewRevisions.length;i++) {
+			this.currentUiReviewRevisions[i].isRevisionSelected = false;
+		}
 		this.onRevisionSelectionChanged.emit("hideAll");
 	}
 	
@@ -66,6 +73,7 @@ export class RevisionSelectionPanelComponent implements OnInit {
 			newItem.revisionid = currentItem.revisionid;
 			newItem.shortdate = currentItem.shortdate;
 			newItem.shortrev = currentItem.shortrev;
+			newItem.isRevisionSelected = true;
 			
 			if(previousUiItem != null) {
 				newItem.isRoot = false;
