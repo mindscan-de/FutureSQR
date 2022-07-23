@@ -14,6 +14,9 @@ export class UiReviewFileInformation {
 	// TOOD: resolved discussion threads for this file
 	// TODO: number of discussion threads for this file
 	
+	// maybe also a temporary file visited state - e.g. to highlight, a file which was not yet reviewed, as long as this page remains open. 
+	// TODO: fileWasVisited
+	
 	constructor(filepath:string , fileAction: string ) {
 		this.fileAction = fileAction;
 		this.fullFilePath = filepath;
