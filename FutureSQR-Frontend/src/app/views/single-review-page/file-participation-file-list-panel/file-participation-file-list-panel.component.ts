@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-file-participation-file-list-panel',
@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FileParticipationFileListPanelComponent implements OnInit {
 
-  constructor() { }
+	public uiFilePathActions: string[][] = [];
 
-  ngOnInit(): void {
-  }
+	@Input() filePathActions: string[][] = [];
+
+	constructor() { }
+
+	ngOnInit(): void {
+		
+	}
+
+	ngOnChanges(changes: SimpleChanges) : void {
+		
+		if(changes.filePathActions !== undefined) {
+			this.uiFilePathActions = changes.filePathActions.currentValue; 
+		}
+	}
 
 }
