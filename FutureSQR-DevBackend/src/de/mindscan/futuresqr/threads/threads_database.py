@@ -53,19 +53,23 @@ class ThreadsDatabase(object):
         # like when was it created,
         # by whom etc.
         
-        # TODO: then create a new root message
+        # create a new root message
+        message_uuid = self.createRootMessage(thread_uuid, message)
+        
         # TODO: then add the message to the thread as well
         # TODO: so messages can be resolved forward and backward
+        # TODO: register message_uuid in threadid        
         
         # register current thread in in-memory thread table
         self.threadTable[thread_uuid] = thread
         return thread_uuid
     
-    def createRootMessage(self, threadid, message):
+    def createRootMessage(self, thread_uuid, message):
         message_uuid = self.__create_uuid()
         
         messge = {
-                MESSAGES_PK_MESSAGES_ID: message_uuid
+                MESSAGES_PK_MESSAGES_ID: message_uuid,
+                MESSAGES_FK_THREAD_ID  : thread_uuid
             }
         
         # author
@@ -73,7 +77,6 @@ class ThreadsDatabase(object):
         # set some initial message state
         # set the threadid
         # set reply to empty or to threadid?
-        # register message to threadid
         
         self.messageTable[message_uuid] = message
         return message_uuid
