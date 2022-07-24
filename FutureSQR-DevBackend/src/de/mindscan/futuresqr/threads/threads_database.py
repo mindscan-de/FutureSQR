@@ -26,6 +26,9 @@ SOFTWARE.
 @autor: Maxim Gansert
 '''
 
+import uuid
+from de.mindscan.futuresqr.threads.thread_table_columns import * # @UnusedWildImports
+
 class ThreadsDatabase(object):
     '''
     classdocs
@@ -40,7 +43,12 @@ class ThreadsDatabase(object):
         self.messageTable = {}
     
     def createNewThread(self, message):
-        # TODO: create a thread_uuid
+        thread_uuid = self.__create_uuid()
+        
+        thread = {
+                THREADS_PK_THREAD_ID: thread_uuid
+             }
+        
         # provide some meta information for the thread
         # like when was it created,
         # by whom etc.
@@ -48,10 +56,14 @@ class ThreadsDatabase(object):
         # TODO: then create a new root message
         # TODO: then add the message to the thread as well
         # TODO: so messages can be resolved forward and backward
-        pass
+        
+        # register current thread in in-memory thread table
+        self.threadTable[thread_uuid] = thread
+        return thread_uuid
     
     def createRootMessage(self, threadid, message):
-        # create a new message uuid
+        message_uuid = self.__create_uuid()
+        
         # author
         # message
         # set some initial message state
@@ -62,6 +74,8 @@ class ThreadsDatabase(object):
     
     def createMessageResponse(self, threadid, replyto_messageid, message):
         # create a new message uuid
+        message_uuid = self.__create_uuid()
+        
         # author
         # message
         # set some initial message state
@@ -72,7 +86,8 @@ class ThreadsDatabase(object):
         pass
     
     
-    def updateMessage(self, messageid, newmessage):
+    def updateMessage(self, message_uuid, newmessage):
+        # set message text to updated message
         # set some edited flag
         # set last updated date
         pass
@@ -82,3 +97,6 @@ class ThreadsDatabase(object):
         # TODO: find thread
         # TODO: find all messages
         pass
+    
+    def __create_uuid(self):
+        return uuid.uuid4().hex
