@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 
+import { UiReviewFileInformation } from '../uimodel/ui-review-file-information';
+
 @Component({
   selector: 'app-file-participation-file-list-panel',
   templateUrl: './file-participation-file-list-panel.component.html',
@@ -7,9 +9,9 @@ import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 })
 export class FileParticipationFileListPanelComponent implements OnInit {
 
-	public uiFilePathActions: string[][] = [];
+	public uiFileInformations: UiReviewFileInformation[] = [];
 
-	@Input() filePathActions: string[][] = [];
+	@Input() fileInformations: UiReviewFileInformation[] = [];
 
 	constructor() { }
 
@@ -19,8 +21,8 @@ export class FileParticipationFileListPanelComponent implements OnInit {
 
 	ngOnChanges(changes: SimpleChanges) : void {
 		
-		if(changes.filePathActions !== undefined) {
-			this.uiFilePathActions = changes.filePathActions.currentValue; 
+		if(changes.fileInformations !== undefined) {
+			this.uiFileInformations = changes.fileInformations.currentValue; 
 		}
 	}
 

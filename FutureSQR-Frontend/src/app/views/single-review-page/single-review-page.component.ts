@@ -9,11 +9,13 @@ import { ProjectDataQueryBackendService } from '../../backend/services/project-d
 
 // Backend Model
 import { BackendModelReviewData } from '../../backend/model/backend-model-review-data';
-
 import { BackendModelSingleCommitFullChangeSet } from '../../backend/model/backend-model-single-commit-full-change-set';
 import { BackendModelSingleCommitFileChangeSet } from '../../backend/model/backend-model-single-commit-file-change-set';
 import { BackendModelSingleCommitFileActionsInfo } from '../../backend/model/backend-model-single-commit-file-actions-info';
 import { BackendModelProjectRecentCommitRevision } from '../../backend/model/backend-model-project-recent-commit-revision';
+
+// UI Model
+import { UiReviewFileInformation } from './uimodel/ui-review-file-information';
 
 
 // TODO rework this with a review side by side dialog, which can work with a configured filechangeset and a file paging configuration
@@ -28,7 +30,7 @@ export class SingleReviewPageComponent implements OnInit {
 	
 	public activeProjectID: string = '';
 	public activeReviewID: string = '';
-	public uiFilePathActions: string[][] = [];
+	public uiFileInformations: UiReviewFileInformation[] = [];  
 
     public uiModelSingleRevisionDiffs: BackendModelSingleCommitFullChangeSet = new BackendModelSingleCommitFullChangeSet();
 	public uiFileChangeSets: BackendModelSingleCommitFileChangeSet[] = [];
@@ -76,7 +78,14 @@ export class SingleReviewPageComponent implements OnInit {
 	}
 
 	onFileListActionsProvided( fileChanges: BackendModelSingleCommitFileActionsInfo) : void {
-		this.uiFilePathActions = fileChanges.fileActionMap;
+		let fileInformations : UiReviewFileInformation[] = [];
+		
+		let map = fileChanges.fileActionMap;
+		for(let i: number = 0;i<map.length;i++) {
+			let fileInfo: UiReviewFileInformation = new UiReviewFileInformation( map[i][1], map[i][0] );
+			fileInformations.push(fileInfo);
+		}
+		this.uiFileInformations = fileInformations;
 	}
 	
 	onRevisionSelectionChanged(eventdata:any):void {
