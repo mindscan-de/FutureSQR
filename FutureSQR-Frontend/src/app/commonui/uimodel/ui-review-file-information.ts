@@ -4,6 +4,9 @@ export class UiReviewFileInformation {
 	public simpleFileName: string = "";
 	public parentFilePath: string = "";
 	
+	public isFile: boolean = true;
+	public isDirectory: boolean = false;
+	
 	// maybe a separate object type
 	// TODO: statistics
 	// TODO: added lines
@@ -17,7 +20,12 @@ export class UiReviewFileInformation {
 	// maybe also a temporary file visited state - e.g. to highlight, a file which was not yet reviewed, as long as this page remains open. 
 	// TODO: fileWasVisited
 	
-	constructor(filepath:string , fileAction: string ) {
+	// maybe also have children of type UiReviewFileInformation[];
+	// TODO: implement also a filetree
+	// TODO: implement a function to add a child
+	// TODO: has child etc...
+	
+	constructor(filepath:string , fileAction: string, isFile: boolean ) {
 		this.fileAction = fileAction;
 		this.fullFilePath = filepath;
 		
@@ -28,5 +36,8 @@ export class UiReviewFileInformation {
 		if(lastIndex !== -1) {
 			this.parentFilePath = filepath.slice(0,lastIndex);
 		}
+		
+		this.isFile = isFile;
+		this.isDirectory = !isFile;
 	}
 }

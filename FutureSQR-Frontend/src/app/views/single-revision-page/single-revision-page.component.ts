@@ -75,7 +75,7 @@ export class SingleRevisionPageComponent implements OnInit {
 		
 		let map = fileChanges.fileActionMap;
 		for(let i: number = 0;i<map.length;i++) {
-			let fileInfo: UiReviewFileInformation = new UiReviewFileInformation( map[i][1], map[i][0] );
+			let fileInfo: UiReviewFileInformation = new UiReviewFileInformation( map[i][1], map[i][0], true );
 			fileInformations.push(fileInfo);
 		}
 		this.uiFileInformations = fileInformations;
