@@ -15,7 +15,7 @@ import { BackendModelSingleCommitFileActionsInfo } from '../../backend/model/bac
 import { BackendModelProjectRecentCommitRevision } from '../../backend/model/backend-model-project-recent-commit-revision';
 
 // UI Model
-import { UiReviewFileInformation } from './uimodel/ui-review-file-information';
+import { UiReviewFileInformation } from '../../commonui/uimodel/ui-review-file-information';
 
 
 // TODO rework this with a review side by side dialog, which can work with a configured filechangeset and a file paging configuration
