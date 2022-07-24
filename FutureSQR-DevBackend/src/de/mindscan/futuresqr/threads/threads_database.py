@@ -42,40 +42,39 @@ class ThreadsDatabase(object):
         self.threadTable = {}
         self.messageTable = {}
     
-    def createNewThread(self, message):
+    def createNewThread(self, message, author_uuid):
         thread_uuid = self.__create_uuid()
         
+        # create a new root message
+        message_uuid = self.createRootMessage(thread_uuid, message, author_uuid)
+        
         thread = {
-                THREADS_PK_THREAD_ID: thread_uuid
+                THREADS_PK_THREAD_ID: thread_uuid,
+                THREADS_FK_AUTHOR_ID: author_uuid,
+                # register message_uuid in threadid        
+                # so messages can be resolved forward and backward
+                THREADS_MESSAGES    : [message_uuid]
              }
         
         # provide some meta information for the thread
         # like when was it created,
         # by whom etc.
         
-        # create a new root message
-        message_uuid = self.createRootMessage(thread_uuid, message)
-        
-        # TODO: then add the message to the thread as well
-        # TODO: so messages can be resolved forward and backward
-        # TODO: register message_uuid in threadid        
-        
         # register current thread in in-memory thread table
         self.threadTable[thread_uuid] = thread
         return thread_uuid
     
-    def createRootMessage(self, thread_uuid, message):
+    def createRootMessage(self, thread_uuid, message, author_uuid):
         message_uuid = self.__create_uuid()
         
         messge = {
                 MESSAGES_PK_MESSAGES_ID: message_uuid,
-                MESSAGES_FK_THREAD_ID  : thread_uuid
+                MESSAGES_FK_THREAD_ID  : thread_uuid,
+                MESSAGES_MESSAGE       : message,
+                MESSAGES_FK_AUTHOR_ID  : author_uuid
             }
         
-        # author
-        # message
         # set some initial message state
-        # set the threadid
         # set reply to empty or to threadid?
         
         self.messageTable[message_uuid] = message

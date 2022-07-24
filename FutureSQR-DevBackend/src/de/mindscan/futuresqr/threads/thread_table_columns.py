@@ -28,7 +28,11 @@ SOFTWARE.
 
 THREADS_THREAD_ID          = 'threadId'
 THREADS_PK_THREAD_ID       = THREADS_THREAD_ID 
+THREADS_FK_AUTHOR_ID       = 'authorId'
+THREADS_MESSAGES           = 'messages'
 
 MESSAGES_MESSAGE_ID        = 'messageId'
 MESSAGES_PK_MESSAGES_ID    = MESSAGES_MESSAGE_ID
-MESSAGES_FK_THREAD_ID      = 'threadId' 
+MESSAGES_FK_THREAD_ID      = 'threadId'
+MESSAGES_MESSAGE           = 'message'
+MESSAGES_FK_AUTHOR_ID      = 'authorId'
