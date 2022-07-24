@@ -12,6 +12,9 @@ import { BackendModelSingleCommitFileChangeSet } from '../../backend/model/backe
 import { BackendModelSingleCommitFileActionsInfo } from '../../backend/model/backend-model-single-commit-file-actions-info';
 import { BackendModelProjectRecentCommitRevision } from '../../backend/model/backend-model-project-recent-commit-revision';
 
+// UI Model
+import { UiReviewFileInformation } from '../../commonui/uimodel/ui-review-file-information';
+
 
 // Dialog 
 import { SingleRevisionSideBySideDialogComponent } from '../../commonui/single-revision-side-by-side-dialog/single-revision-side-by-side-dialog.component';
@@ -26,9 +29,11 @@ export class SingleRevisionPageComponent implements OnInit {
 	
 	public activeProjectID: string = '';
 	public activeRevisionID: string = '';
+	public uiFileInformations: UiReviewFileInformation[] = [];
     public uiModelSingleRevisionDiffs: BackendModelSingleCommitFullChangeSet = new BackendModelSingleCommitFullChangeSet();
 	public uiFileChangeSets: BackendModelSingleCommitFileChangeSet[] = [];
-	public uiFilePathActions: string[][] = [];
+	
+	
 	public uiRevisionData: BackendModelProjectRecentCommitRevision = new BackendModelProjectRecentCommitRevision();
 
     constructor(private projectDataQueryBackend : ProjectDataQueryBackendService, private route: ActivatedRoute, private modalService: NgbModal ) { }
@@ -66,7 +71,14 @@ export class SingleRevisionPageComponent implements OnInit {
 	
 	
 	onFileListActionsProvided( fileChanges: BackendModelSingleCommitFileActionsInfo) : void {
-		this.uiFilePathActions = fileChanges.fileActionMap;
+		let fileInformations : UiReviewFileInformation[] = [];
+		
+		let map = fileChanges.fileActionMap;
+		for(let i: number = 0;i<map.length;i++) {
+			let fileInfo: UiReviewFileInformation = new UiReviewFileInformation( map[i][1], map[i][0] );
+			fileInformations.push(fileInfo);
+		}
+		this.uiFileInformations = fileInformations;
 	}
 
 	// open side by side dialog
