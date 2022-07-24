@@ -36,4 +36,49 @@ class ThreadsDatabase(object):
         '''
         Constructor
         '''
+        self.threadTable = {}
+        self.messageTable = {}
+    
+    def createNewThread(self, message):
+        # TODO: create a thread_uuid
+        # provide some meta information for the thread
+        # like when was it created,
+        # by whom etc.
         
+        # TODO: then create a new root message
+        # TODO: then add the message to the thread as well
+        # TODO: so messages can be resolved forward and backward
+        pass
+    
+    def createRootMessage(self, threadid, message):
+        # create a new message uuid
+        # author
+        # message
+        # set some initial message state
+        # set the threadid
+        # set reply to empty or to threadid?
+        # register message to threadid
+        pass
+    
+    def createMessageResponse(self, threadid, replyto_messageid, message):
+        # create a new message uuid
+        # author
+        # message
+        # set some initial message state
+        # set the threadid
+        # set the reply to id to
+        
+        # register message to threadid
+        pass
+    
+    
+    def updateMessage(self, messageid, newmessage):
+        # set some edited flag
+        # set last updated date
+        pass
+    
+    
+    def selectFullThread(self, threadid):
+        # TODO: find thread
+        # TODO: find all messages
+        pass
