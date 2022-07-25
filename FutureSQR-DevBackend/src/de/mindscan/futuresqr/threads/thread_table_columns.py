@@ -36,3 +36,4 @@ MESSAGES_PK_MESSAGES_ID    = MESSAGES_MESSAGE_ID
 MESSAGES_FK_THREAD_ID      = 'threadId'
 MESSAGES_MESSAGE           = 'message'
 MESSAGES_FK_AUTHOR_ID      = 'authorId'
+MESSAGES_REPLY_TO_ID       = 'replyToMsgId'

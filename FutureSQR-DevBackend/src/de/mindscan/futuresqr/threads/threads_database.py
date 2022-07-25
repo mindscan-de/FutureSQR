@@ -64,33 +64,38 @@ class ThreadsDatabase(object):
         self.threadTable[thread_uuid] = thread
         return thread_uuid
     
-    def createRootMessage(self, thread_uuid, message, author_uuid):
+    def createRootMessage(self, thread_uuid, message_text, author_uuid):
         message_uuid = self.__create_uuid()
         
-        messge = {
+        msg_row = {
                 MESSAGES_PK_MESSAGES_ID: message_uuid,
                 MESSAGES_FK_THREAD_ID  : thread_uuid,
-                MESSAGES_MESSAGE       : message,
-                MESSAGES_FK_AUTHOR_ID  : author_uuid
+                MESSAGES_MESSAGE       : message_text,
+                MESSAGES_FK_AUTHOR_ID  : author_uuid,
+                MESSAGES_REPLY_TO_ID   : ''
             }
         
         # set some initial message state
         # set reply to empty or to threadid?
         
-        self.messageTable[message_uuid] = message
+        self.messageTable[message_uuid] = msg_row
         return message_uuid
     
-    def createMessageResponse(self, threadid, replyto_messageid, message):
+    def createMessageResponse(self, thread_uuid, replyto_messageid, message_text, author_uuid):
         # create a new message uuid
         message_uuid = self.__create_uuid()
+
+        msg_row = {
+                MESSAGES_PK_MESSAGES_ID: message_uuid,
+                MESSAGES_FK_THREAD_ID  : thread_uuid,
+                MESSAGES_MESSAGE       : message_text,
+                MESSAGES_FK_AUTHOR_ID  : author_uuid,
+                MESSAGES_REPLY_TO_ID   : replyto_messageid
+            }
         
-        # author
-        # message
         # set some initial message state
-        # set the threadid
-        # set the reply to id to
         
-        # register message to threadid
+        self.messageTable[message_uuid] = msg_row         
         pass
     
     
