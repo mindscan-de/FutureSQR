@@ -29,6 +29,8 @@ SOFTWARE.
 THREADS_THREAD_ID          = 'threadId'
 THREADS_PK_THREAD_ID       = THREADS_THREAD_ID 
 THREADS_FK_AUTHOR_ID       = 'authorId'
+THREADS_FK_MESSAGES        = 'messagesId'
+# used for unpacking the data... with a map.
 THREADS_MESSAGES           = 'messages'
 
 MESSAGES_MESSAGE_ID        = 'messageId'
