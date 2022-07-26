@@ -36,12 +36,16 @@ from de.mindscan.futuresqr.reviews.review_database import ReviewDatabase
 from de.mindscan.futuresqr.projects.project_database import ProjectDatabase
 from de.mindscan.futuresqr.reviews.review_tools import createNewReview
 from de.mindscan.futuresqr.reviews.review_tables_columns import *  # @UnusedWildImport
+from de.mindscan.futuresqr.reviewthreads.review_threads_database import ReviewThreadsDatabase
+from de.mindscan.futuresqr.threads.threads_database import ThreadsDatabase
 
 
 app = FastAPI()
 
 reviewDB = ReviewDatabase({})
 projectDB = ProjectDatabase({'allProjects':getProjectConfigurations()})
+reviewThreadsDB = ReviewThreadsDatabase({})
+threadsDB = ThreadsDatabase({})
 
 
 
