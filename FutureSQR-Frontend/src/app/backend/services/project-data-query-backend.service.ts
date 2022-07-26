@@ -13,6 +13,7 @@ import { BackendModelCreateReviewResult } from '../model/backend-model-create-re
 import { BackendModelReviewData } from '../model/backend-model-review-data';
 import { BackendModelProjectSimpleInformation } from '../model/backend-model-project-simple-information';
 import { BackendModelProjectRecentCommitRevision } from '../model/backend-model-project-recent-commit-revision';
+import { BackendModelThreadsData } from '../model/backend-model-threads-data';
 
 
 @Injectable({
@@ -106,6 +107,11 @@ export class ProjectDataQueryBackendService {
 	getReviewData(projectid:string, reviewid:string): Observable<BackendModelReviewData> {
 		var url = `/FutureSQR/rest/project/${projectid}/review/${reviewid}/information`
 		return this.httpClient.get<BackendModelReviewData>(url, {});
+	}
+	
+	getThreadData(projectid:string, reviewid:string): Observable<BackendModelThreadsData> {
+		var url = `/FutureSQR/rest/project/${projectid}/review/${reviewid}/threads`
+		return this.httpClient.get<BackendModelThreadsData>(url, {});
 	}
 	
 	getReviewSimpleRevisionInformationList(projectid: string, reviewid: string): Observable <BackendModelProjectRecentCommitRevision[]> {
