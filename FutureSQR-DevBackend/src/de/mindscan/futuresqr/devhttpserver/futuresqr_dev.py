@@ -241,6 +241,26 @@ def postUnstarProjectForUser(projectid:str, userid:str=''):
     return {}
 
 
+### #################################################
+###
+### Some Disucssion thread functions - non persistent
+###
+### #################################################
+
+@app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/createthread")
+def postCreateNewReviewThread(projectid:str, reviewid:str, authorid:str = Form(...), message:str =Form(...) ):
+    # todo, we need some privileges check here in future....
+    newthreaduuid=threadsDB.createNewThread(message, authorid)
+    reviewThreadsDB.addThreadToReview(projectid, reviewid, newthreaduuid)
+    return {}
+
+#app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/reply")
+def postReplyToReviewThread(projectid:str, reviewid:str, threadid:str =Form(...), replytoid:str = Form(...), authorid:str = Form(...), message:str =Form(...) ):
+    # we actually don't need project id and reviewid here, but we need this for privileges check,
+    # and also checks that the id's all exists properly
+    messageuuid = threadsDB.createMessageResponse(threadid, replytoid, message, authorid)
+    return {}
+
 ### #########################################
 ###
 ### Some Review functions - non persistent
