@@ -48,3 +48,9 @@ class ReviewThreadsDatabase(object):
     
         self.ReviewToThreadTable[projectid][reviewid].append(threadid)
     
+    def selectThreadsForReview(self, projectid, reviewid):
+        if not projectid in self.ReviewToThreadTable:
+            return []
+        if not reviewid in self.ReviewToThreadTable[projectid]:
+            return []
+        return self.ReviewToThreadTable[projectid][reviewid]
