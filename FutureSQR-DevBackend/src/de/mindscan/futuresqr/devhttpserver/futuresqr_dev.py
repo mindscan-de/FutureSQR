@@ -170,6 +170,16 @@ def getReviewRevisionInformation(projectid:str, reviewid:str):
     
     result = []
     return result
+
+
+@app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/threads")
+def getReviewThreadInformation(projectid:str, reviewid:str):
+    threadlist = reviewThreadsDB.selectThreadsForReview(projectid, reviewid)
+    if len(threadlist) is 0:
+        return {}
+    
+    result = [ threadsDB.selectFullThread(thread_uuid) for thread_uuid in threadlist]
+    return {'allreviewthreads': result} 
     
     
 @app.get("/FutureSQR/rest/project/{projectid}/recentreviews")    
