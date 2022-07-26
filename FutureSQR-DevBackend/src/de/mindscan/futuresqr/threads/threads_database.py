@@ -110,9 +110,13 @@ class ThreadsDatabase(object):
     
     
     def selectFullThread(self, threadid):
-        # TODO: find thread
-        # TODO: find all messages
-        pass
+        if not threadid in  self.threadTable:
+            return {}
+        
+        result = self.threadTable[threadid].copy()
+        result[THREADS_MESSAGES] = { key:self.messageTable[key].copy() for key in self.threadTable[threadid][THREADS_FK_MESSAGES].values() }
+        
+        return result
     
     def __create_uuid(self):
         return uuid.uuid4().hex
