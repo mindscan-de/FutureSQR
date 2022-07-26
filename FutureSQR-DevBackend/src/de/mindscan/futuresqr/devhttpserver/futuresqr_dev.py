@@ -173,7 +173,7 @@ def getReviewRevisionInformation(projectid:str, reviewid:str):
 
 
 @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/threads")
-def getReviewThreadInformation(projectid:str, reviewid:str):
+def getReviewThreadsInformation(projectid:str, reviewid:str):
     threadlist = reviewThreadsDB.selectThreadsForReview(projectid, reviewid)
     if len(threadlist) is 0:
         return {}
