@@ -53,7 +53,7 @@ class ThreadsDatabase(object):
                 THREADS_FK_AUTHOR_ID: author_uuid,
                 # register message_uuid in threadid        
                 # so messages can be resolved forward and backward
-                THREADS_MESSAGES    : [message_uuid]
+                THREADS_FK_MESSAGES    : [message_uuid]
              }
         
         # provide some meta information for the thread
@@ -94,6 +94,9 @@ class ThreadsDatabase(object):
             }
         
         # set some initial message state
+
+        # add this message to the list of messages related to the thread.        
+        self.threadTable[thread_uuid][THREADS_FK_MESSAGES].append(message_uuid)
         
         self.messageTable[message_uuid] = msg_row         
         pass
