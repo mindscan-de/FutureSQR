@@ -15,8 +15,12 @@ import { BackendModelThreadsData } from '../../../backend/model/backend-model-th
 })
 export class ReviewDiscussionPanelComponent implements OnInit {
 	
+	public uimodel: BackendModelThreadsData = new BackendModelThreadsData();
+	
 	@Input() activeProjectID: string = "";
 	@Input() activeReviewID: string = "";
+	
+	
 	
 
 	constructor(private projectDataQueryBackend : ProjectDataQueryBackendService) { }
@@ -53,7 +57,7 @@ export class ReviewDiscussionPanelComponent implements OnInit {
 	}
 	
 	onThreadsDataReceived(data:BackendModelThreadsData) : void {
-		
+		this.uimodel = data;
 	}
 
 }
