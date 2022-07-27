@@ -4,6 +4,10 @@ import { Component, OnInit, Input,  SimpleChanges } from '@angular/core';
 import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
 
 
+// Backend-Model
+import { BackendModelThreadsData } from '../../../backend/model/backend-model-threads-data';
+
+
 @Component({
   selector: 'app-review-discussion-panel',
   templateUrl: './review-discussion-panel.component.html',
@@ -48,7 +52,7 @@ export class ReviewDiscussionPanelComponent implements OnInit {
 			);
 	}
 	
-	onThreadsDataReceived(data:any) : void {
+	onThreadsDataReceived(data:BackendModelThreadsData) : void {
 		
 	}
 
