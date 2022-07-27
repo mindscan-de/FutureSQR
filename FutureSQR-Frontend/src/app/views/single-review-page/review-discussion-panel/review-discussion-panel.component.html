@@ -3,11 +3,20 @@
 	<div class="card-body">
 		<h4>Discussion</h4>
 		
+		{{uimodel.allreviewthreads.length}} discussions present.
+		<ul *ngif="uimodel.allreviewthreads.length>0">
+			<li *ngFor="let thread of uimodel.allreviewthreads">
+				Hey we got a discussion thread going.
+			</li>
+		</ul>
+		
 		<ul>
 			<li>TODO: Provide the discussion for this review </li>
 			<li>TODO: provide unsolved previous discussions for the file</li>
 			<li>TODO: Provide text area / formular to append a new discussion thread to a review</li>
 		</ul>
+		
+		
 	</div>
 </div>
 
