@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input,  SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-review-discussion-panel',
@@ -6,10 +6,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./review-discussion-panel.component.css']
 })
 export class ReviewDiscussionPanelComponent implements OnInit {
+	
+	@Input() activeProjectID: string = "";
+	@Input() activeReviewID: string = "";
+	
 
-  constructor() { }
+	constructor() { }
+	
+	ngOnInit(): void {
+	}
 
-  ngOnInit(): void {
-  }
+	ngOnChanges(changes: SimpleChanges): void {
+		
+	}
 
 }
