@@ -1,5 +1,9 @@
 import { Component, OnInit, Input,  SimpleChanges } from '@angular/core';
 
+// Services
+import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
+
+
 @Component({
   selector: 'app-review-discussion-panel',
   templateUrl: './review-discussion-panel.component.html',
@@ -11,7 +15,7 @@ export class ReviewDiscussionPanelComponent implements OnInit {
 	@Input() activeReviewID: string = "";
 	
 
-	constructor() { }
+	constructor(private projectDataQueryBackend : ProjectDataQueryBackendService) { }
 	
 	ngOnInit(): void {
 	}
@@ -23,6 +27,29 @@ export class ReviewDiscussionPanelComponent implements OnInit {
 		// the result of this query needs to be transformed into a ui model,
 		// especially transform the map data, because the map is not an object
 		// but must be converted from an object into a Map.
+		
+		// XXX: Quick hack to get it done
+		this.retrieveDiscussion();
+	}
+	
+	retrieveDiscussion() : void {
+		if((this.activeProjectID == undefined) || (this.activeProjectID=="")) {
+			return;
+		} 
+		
+		if((this.activeReviewID == undefined) || (this.activeReviewID=="")) {
+			return;
+		} 
+		
+		this.projectDataQueryBackend
+			.getThreadData(this.activeProjectID, this.activeReviewID).subscribe(
+				data => { this.onThreadsDataReceived(data)},
+				error => {}
+			);
+	}
+	
+	onThreadsDataReceived(data:any) : void {
+		
 	}
 
 }
