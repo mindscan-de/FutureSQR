@@ -176,7 +176,7 @@ def getReviewRevisionInformation(projectid:str, reviewid:str):
 def getReviewThreadsInformation(projectid:str, reviewid:str):
     threadlist = reviewThreadsDB.selectThreadsForReview(projectid, reviewid)
     if len(threadlist) is 0:
-        return {}
+        return {'allreviewthreads':[]}
     
     result = [ threadsDB.selectFullThread(thread_uuid) for thread_uuid in threadlist]
     return {'allreviewthreads': result} 
