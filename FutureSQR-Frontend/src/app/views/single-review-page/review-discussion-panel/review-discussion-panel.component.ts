@@ -59,5 +59,15 @@ export class ReviewDiscussionPanelComponent implements OnInit {
 	onThreadsDataReceived(data:BackendModelThreadsData) : void {
 		this.uimodel = data;
 	}
+	
+	onCreateThreadClicked(): void {
+		let that = this;
+		
+		this.projectDataQueryBackend
+			.createThreadForReview(this.activeProjectID, this.activeReviewID, 'mindscan-de', 'Hello World').subscribe(
+				data => { that.retrieveDiscussion(); },
+				error => {}
+			);
+	}
 
 }
