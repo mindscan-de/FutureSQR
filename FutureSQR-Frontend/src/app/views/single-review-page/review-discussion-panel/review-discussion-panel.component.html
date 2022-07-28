@@ -4,7 +4,7 @@
 		<h4>Discussion</h4>
 		
 		{{uimodel.allreviewthreads.length}} discussions present.
-		<ul *ngif="uimodel.allreviewthreads.length>0">
+		<ul *ngIf="uimodel.allreviewthreads.length>0">
 			<li *ngFor="let thread of uimodel.allreviewthreads">
 				Hey we got a discussion thread going.
 			</li>
