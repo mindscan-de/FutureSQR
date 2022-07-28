@@ -6,7 +6,7 @@
 		{{uimodel.allreviewthreads.length}} discussions present.
 		<ul *ngIf="uimodel.allreviewthreads.length>0">
 			<li *ngFor="let thread of uimodel.allreviewthreads">
-				Hey we got a discussion thread going.
+				<app-single-review-thread-panel></app-single-review-thread-panel>
 			</li>
 		</ul>
 		
