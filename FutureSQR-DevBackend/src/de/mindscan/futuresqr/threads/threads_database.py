@@ -114,7 +114,7 @@ class ThreadsDatabase(object):
             return {}
         
         result = self.threadTable[threadid].copy()
-        result[THREADS_MESSAGES] = { key:self.messageTable[key].copy() for key in self.threadTable[threadid][THREADS_FK_MESSAGES].values() }
+        result[THREADS_MESSAGES] = { key:self.messageTable[key].copy() for key in self.threadTable[threadid][THREADS_FK_MESSAGES] }
         
         return result
     
