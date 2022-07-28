@@ -105,12 +105,12 @@ export class ProjectDataQueryBackendService {
 	}
 	
 	getReviewData(projectid:string, reviewid:string): Observable<BackendModelReviewData> {
-		var url = `/FutureSQR/rest/project/${projectid}/review/${reviewid}/information`
+		var url = `/FutureSQR/rest/project/${projectid}/review/${reviewid}/information`;
 		return this.httpClient.get<BackendModelReviewData>(url, {});
 	}
 	
 	getThreadData(projectid:string, reviewid:string): Observable<BackendModelThreadsData> {
-		var url = `/FutureSQR/rest/project/${projectid}/review/${reviewid}/threads`
+		var url = `/FutureSQR/rest/project/${projectid}/review/${reviewid}/threads`;
 		return this.httpClient.get<BackendModelThreadsData>(url, {});
 	}
 	
