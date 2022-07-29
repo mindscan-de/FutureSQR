@@ -1,5 +1,14 @@
-				actually each thread should have its own component instance.... 
-				because each thread is complex to manage...
-				
-				Hey we got a discussion thread going.
+<span class="text-muted small">Thread (id:{{activeThread.threadId}}) started by <b>{{activeThread.authorId}}</b></span>
+<div class="card">
+	<div class="card-body">
+		
+		
+	
+		<ul>
+			<li *ngFor="let messageid of activeThread.messagesId">
+				{{activeThread.messages[messageid].message}}
+			</li>
+		</ul>
 
+	</div>
+</div>
