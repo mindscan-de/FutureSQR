@@ -16,10 +16,15 @@
 			<li>TODO: Provide text area / formular to append a new discussion thread to a review</li>
 		</ul>
 		
-		<p>
-			TODO: provide some text area here with the new message and such...<br>
-			<a class="btn btn-sm btn-primary" (click)="onCreateThreadClicked()">start discussion</a>
-		</p>
+		<form>
+			
+			<div class="form-group">
+				<label for="startThreadTextarea">Start a discussion</label>				
+				<textarea class="form-control" id="startThreadTextarea" rows="5">Hello World!</textarea>
+			</div>
+			<a class="float-right btn btn-sm btn-primary" (click)="onCreateThreadClicked()">start discussion</a>
+		</form>
+		
 		
 	</div>
 </div>
