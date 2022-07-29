@@ -2,13 +2,13 @@
 <div class="card mt-3">
 	<div class="card-body">
 		<h4>Discussion</h4>
+		<p><span>{{uimodel.allreviewthreads.length}} discussions present.</span></p>
 		
-		{{uimodel.allreviewthreads.length}} discussions present.
-		<ul *ngIf="uimodel.allreviewthreads.length>0">
-			<li *ngFor="let thread of uimodel.allreviewthreads">
+		<ng-container *ngIf="uimodel.allreviewthreads.length>0">
+			<ng-container *ngFor="let thread of uimodel.allreviewthreads">
 				<app-single-review-thread-panel [activeProjectID]="activeProjectID" [activeReviewID]="activeReviewID" [activeThread]="thread"></app-single-review-thread-panel>
-			</li>
-		</ul>
+			</ng-container>		
+		</ng-container>
 		
 		<ul>
 			<li>TODO: Provide the discussion for this review </li>
