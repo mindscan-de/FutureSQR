@@ -1,14 +1,14 @@
 <span class="text-muted small">Thread (id:{{activeThread.threadId}}) started by <b>{{activeThread.authorId}}</b></span>
 <div class="card">
 	<div class="card-body">
-		
-		
 	
 		<ul>
 			<li *ngFor="let messageid of activeThread.messagesId">
-				{{activeThread.messages[messageid].message}}
+				{{activeThread.messages[messageid].message}}<br>
+				
+				<a class="btn btn-primary btn-sm" *ngIf="activeThread.messages[messageid].replyToMsgId==''">Answer To Thread</a>
+				<a class="btn btn-primary btn-sm" *ngIf="activeThread.messages[messageid].replyToMsgId!=''">Answer This message</a>
 			</li>
 		</ul>
-
 	</div>
 </div>
