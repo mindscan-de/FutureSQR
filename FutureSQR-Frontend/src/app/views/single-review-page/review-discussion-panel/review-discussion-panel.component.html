@@ -6,7 +6,7 @@
 		{{uimodel.allreviewthreads.length}} discussions present.
 		<ul *ngIf="uimodel.allreviewthreads.length>0">
 			<li *ngFor="let thread of uimodel.allreviewthreads">
-				<app-single-review-thread-panel></app-single-review-thread-panel>
+				<app-single-review-thread-panel [activeProjectID]="activeProjectID" [activeReviewID]="activeReviewID" [activeThread]="thread"></app-single-review-thread-panel>
 			</li>
 		</ul>
 		
@@ -16,7 +16,10 @@
 			<li>TODO: Provide text area / formular to append a new discussion thread to a review</li>
 		</ul>
 		
-		<a class="btn btn-sm btn-primary" (click)="onCreateThreadClicked()">start discussion</a>
+		<p>
+			TODO: provide some text area here with the new message and such...<br>
+			<a class="btn btn-sm btn-primary" (click)="onCreateThreadClicked()">start discussion</a>
+		</p>
 		
 	</div>
 </div>
