@@ -4,10 +4,7 @@
 	</div>
 	<ul class="list-group list-group-flush">
 		<li class="list-group-item" *ngFor="let messageid of activeThread.messagesId">
-			{{activeThread.messages[messageid].message}}<br>
-			
-			<a class="btn btn-primary btn-sm" *ngIf="activeThread.messages[messageid].replyToMsgId==''">Answer To Thread</a>
-			<a class="btn btn-primary btn-sm" *ngIf="activeThread.messages[messageid].replyToMsgId!=''">Answer This message</a>
+			<app-single-review-thread-message [activeProjectID]="activeProjectID" [activeReviewID]="activeReviewID" [activeMessage]="activeThread.messages[messageid]"></app-single-review-thread-message>
 		</li>
 	</ul>
 </div>
