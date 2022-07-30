@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input,  SimpleChanges } from '@angular/core';
+
+import { BackendModelThreadsMessage } from '../../backend/model/backend-model-threads-message'; 
 
 @Component({
   selector: 'app-single-review-thread-message',
@@ -6,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./single-review-thread-message.component.css']
 })
 export class SingleReviewThreadMessageComponent implements OnInit {
+	
+	@Input() activeProjectID: string = "";
+	@Input() activeReviewID: string = "";
+	@Input() activeMessage: BackendModelThreadsMessage = new BackendModelThreadsMessage();
 
-  constructor() { }
 
-  ngOnInit(): void {
-  }
+	constructor() { }
+
+	ngOnInit(): void {
+	}
 
 }

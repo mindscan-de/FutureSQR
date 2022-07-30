@@ -1,1 +1,4 @@
-<p>single-review-thread-message works!</p>
+{{activeMessage.message}}<br>
+
+<a class="btn btn-primary btn-sm" *ngIf="activeMessage.replyToMsgId==''">Answer To Thread</a>
+<a class="btn btn-primary btn-sm" *ngIf="activeMessage.replyToMsgId!=''">Answer This message</a>
