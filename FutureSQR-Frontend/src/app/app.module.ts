@@ -36,6 +36,7 @@ import { RevisionActionPanelComponent } from './views/single-revision-page/revis
 import { ReviewDiscussionPanelComponent } from './views/single-review-page/review-discussion-panel/review-discussion-panel.component';
 import { FileParticipationFileListPanelComponent } from './commonui/file-participation-file-list-panel/file-participation-file-list-panel.component';
 import { SingleReviewThreadPanelComponent } from './commonui/single-review-thread-panel/single-review-thread-panel.component';
+import { SingleReviewThreadMessageComponent } from './commonui/single-review-thread-message/single-review-thread-message.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { SingleReviewThreadPanelComponent } from './commonui/single-review-threa
     RevisionActionPanelComponent,
     ReviewDiscussionPanelComponent,
     FileParticipationFileListPanelComponent,
-    SingleReviewThreadPanelComponent
+    SingleReviewThreadPanelComponent,
+    SingleReviewThreadMessageComponent
   ],
   imports: [
     BrowserModule,
