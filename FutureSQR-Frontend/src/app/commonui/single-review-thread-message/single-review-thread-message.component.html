@@ -5,7 +5,7 @@
 	</div>
 	<div>
 		<ng-container *ngIf="!isMessageEditMode">
-		{{activeMessage.message}}
+			{{activeMessage.message}}
 		</ng-container>
 		<ng-container *ngIf="isMessageEditMode">
 			<textarea class="col-9" [formControl]="formMessageText"></textarea>
@@ -17,8 +17,8 @@
 		</ng-container>
 	
 		<ng-container *ngIf="isInAnswerMode">
-			<a class="btn btn-primary btn-sm" *ngIf="activeMessage.replyToMsgId==''" >Answer To Thread</a>
-			<a class="btn btn-primary btn-sm" *ngIf="activeMessage.replyToMsgId!=''" >Answer This message</a>
+			<textarea class="col-9" [formControl]="formAnswerText"></textarea>
+			<a class="btn btn-primary btn-sm">Send reply</a>
 		</ng-container>
 	</div>
 </div>

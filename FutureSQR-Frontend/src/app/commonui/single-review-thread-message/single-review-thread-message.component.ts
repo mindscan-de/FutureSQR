@@ -16,6 +16,7 @@ import { BackendModelThreadsMessage } from '../../backend/model/backend-model-th
 export class SingleReviewThreadMessageComponent implements OnInit {
 	
 	public formMessageText = new FormControl(); 
+	public formAnswerText = new FormControl();
 	
 	@Input() activeProjectID: string = "";
 	@Input() activeReviewID: string = "";
