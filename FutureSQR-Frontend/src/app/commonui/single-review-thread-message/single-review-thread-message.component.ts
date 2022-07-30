@@ -1,6 +1,11 @@
 import { Component, OnInit, Input,  SimpleChanges, ChangeDetectorRef  } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
+
+// Services
+import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
+
+// Backend-Model
 import { BackendModelThreadsMessage } from '../../backend/model/backend-model-threads-message'; 
 
 @Component({
@@ -20,7 +25,7 @@ export class SingleReviewThreadMessageComponent implements OnInit {
 	public isMessageEditMode:boolean = false;
 
 
-	constructor(private cdr: ChangeDetectorRef) { }
+	constructor(private projectDataQueryBackend : ProjectDataQueryBackendService, private cdr: ChangeDetectorRef) { }
 
 	ngOnInit(): void {
 	}
@@ -31,11 +36,25 @@ export class SingleReviewThreadMessageComponent implements OnInit {
 		if(_activeMessage != undefined) {
 			this.formMessageText.setValue(_activeMessage.message);
 		}
+		
 		this.cdr.detectChanges();
 	}	
 
 	toggleEditTextMode():void {
 		this.isMessageEditMode = !this.isMessageEditMode;
 		this.cdr.detectChanges();
+	}
+	
+	saveUpdatedMessage(): void {
+		
+	}
+	
+	resetMessage(): void {
+		this.formMessageText.setValue( this.activeMessage.message );
+	}
+	
+	cancelMessageEdit(): void  {
+		this.formMessageText.setValue( this.activeMessage.message );
+		this.isMessageEditMode = false;
 	}
 }

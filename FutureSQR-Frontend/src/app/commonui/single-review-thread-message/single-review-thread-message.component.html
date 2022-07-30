@@ -9,7 +9,11 @@
 		</ng-container>
 		<ng-container *ngIf="isMessageEditMode">
 			<textarea [formControl]="formMessageText"></textarea>
-			<div><a class="btn btn-primary btn-sm mr-2">update message</a> <a class="btn btn-secondary btn-sm mr-2">cancel</a></div>
+			<div>
+				<a class="btn btn-primary btn-sm mr-2"   (click)="saveUpdatedMessage()">update message</a>
+				<a class="btn btn-danger btn-sm  mr-2"   (click)="resetMessage()">reset message</a>
+				<a class="btn btn-secondary btn-sm mr-2" (click)="cancelMessageEdit()" >cancel</a>
+			</div>
 		</ng-container>
 	
 		<ng-container *ngIf="isInAnswerMode">
