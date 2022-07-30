@@ -46,7 +46,11 @@ export class SingleReviewThreadMessageComponent implements OnInit {
 	}
 	
 	saveUpdatedMessage(): void {
-		
+		// TODO: save the current message into the backend.
+		// XXXX: This is a dirty hack, we patch the value instead of reloading the page
+		// TODO: render message to html.
+		this.activeMessage.message = this.formMessageText.value;
+		this.isMessageEditMode = false; 
 	}
 	
 	resetMessage(): void {
