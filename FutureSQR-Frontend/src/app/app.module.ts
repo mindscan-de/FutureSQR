@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // 3rd party components
 import { CodemirrorModule } from '@ctrl/ngx-codemirror'
@@ -72,6 +73,7 @@ import { SingleReviewThreadMessageComponent } from './commonui/single-review-thr
     AppRoutingModule,
     NgbModule,
 	FormsModule,
+	ReactiveFormsModule,
 	CodemirrorModule,
     HttpClientModule
   ],
