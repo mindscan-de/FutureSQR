@@ -1,19 +1,14 @@
 <hr>
 <div class="card mt-3 mb-5">
 	<div class="card-body">
-		<h4>Discussion</h4>
-		<p><span>{{uimodel.allreviewthreads.length}} discussions present.</span></p>
+		<h4>Discuss Review</h4>
+		<p><span>{{uimodel.allreviewthreads.length}} discussion(s) present.</span></p>
 		
 		<ng-container *ngIf="uimodel.allreviewthreads.length>0">
 			<ng-container *ngFor="let thread of uimodel.allreviewthreads">
 				<app-single-review-thread-panel [activeProjectID]="activeProjectID" [activeReviewID]="activeReviewID" [activeThread]="thread"></app-single-review-thread-panel>
 			</ng-container>		
 		</ng-container>
-		
-		<ul>
-			<li>TODO: Provide the discussion for this review </li>
-			<li>TODO: provide unsolved previous discussions for the file</li>
-		</ul>
 		
 		<form>
 			<div class="form-group">
@@ -22,7 +17,11 @@
 			</div>
 			<a class="float-right btn btn-sm btn-primary" (click)="onCreateThreadClicked()">start discussion</a>
 		</form>
-		
+
+		<ul>
+			<li>TODO: provide unsolved previous discussions for the files</li>
+			<li>TOOD: integrate the file discussions into the code viewer, where applicable.</li>
+		</ul>
 		
 	</div>
 </div>
