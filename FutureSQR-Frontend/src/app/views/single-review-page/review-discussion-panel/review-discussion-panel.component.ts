@@ -1,4 +1,5 @@
 import { Component, OnInit, Input,  SimpleChanges } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 // Services
 import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
@@ -14,6 +15,8 @@ import { BackendModelThreadsData } from '../../../backend/model/backend-model-th
   styleUrls: ['./review-discussion-panel.component.css']
 })
 export class ReviewDiscussionPanelComponent implements OnInit {
+	
+	public formDiscussionText = new FormControl();
 	
 	public uimodel: BackendModelThreadsData = new BackendModelThreadsData();
 	
@@ -62,11 +65,19 @@ export class ReviewDiscussionPanelComponent implements OnInit {
 	
 	onCreateThreadClicked(): void {
 		let that = this;
+		let disussionText = this.formDiscussionText.value;
 		
 		this.projectDataQueryBackend
-			.createThreadForReview(this.activeProjectID, this.activeReviewID, 'mindscan-de', 'Hello World').subscribe(
-				data => { that.retrieveDiscussion(); },
-				error => {}
+			.createThreadForReview(
+				this.activeProjectID, 
+				this.activeReviewID, 
+				'mindscan-de', 
+				disussionText).subscribe(
+					data => { 
+						that.retrieveDiscussion();
+						that.formDiscussionText.setValue("");
+					 },
+					error => {}
 			);
 	}
 

@@ -13,7 +13,7 @@
 		<form>
 			<div class="form-group">
 				<label for="startThreadTextarea">Start a discussion</label>				
-				<textarea class="form-control" id="startThreadTextarea" rows="5">Hello World!</textarea>
+				<textarea class="form-control" id="startThreadTextarea" rows="5" [formControl]="formDiscussionText"></textarea>
 			</div>
 			<a class="float-right btn btn-sm btn-primary" (click)="onCreateThreadClicked()">start discussion</a>
 		</form>
