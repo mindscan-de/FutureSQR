@@ -44,28 +44,13 @@ Anyhow, as the world progresses, there is still demand for a good, simple and ef
 
 ## Current State of this Project
 
-Attention: The implementation has not yet been started. Currently some basic ideas and white paper like documents are written down.
+Attention: The implementation of a Proof of Concept has been started. 
 
-* Description of what we want to reach (some green/white paper like description) ((**The current phase**)) 
-  * [You may want to have a look here first](FutureSQR-Architecture/documents/README.md)
-  * It describes some of the objectives and some basic requirements
-* Tryout Section
-  * [Some concepts which I'm not familiar with, but deem somehow important](Tryouts/README.md)
-* Work on requirements and user stories
-  * Extract requirements and user stories from the description
-* Work towards a first System and Software architecture
-  * Identify architecturally relevant requirements
-  * Identify quality attributes for the system
-  * Identify a system architecture
-  * Identify a software architecture
-  * document the system and its software architecture
-  * document the cross section concepts / cross cutting-concern and their particular architecture and solutions
-* Iterate between architecture and requirements
-* Specify the mode of development and split these concerns
-  * e.g. separation of frontend and backend development, (e.g. by specifying the exchanged data)
-  * e.g. how to see something from day #1 of development
-  * e.g. write some scripts / tools for this mode of development
-  * e.g. plan a mocked development back-end (maybe python with fast-api)
+Also there is a developer backend - but has hard coded values in it and no error handling and such. 
+This developer backend does not persist any of the data, and only provides in-memory-storage. The
+current state after 9 weeks of working on it in my spare time can be seen in the [Screenshot Gallery](Gallery/README.md)
+
+
 
 ## Principles of Development
 
@@ -93,3 +78,26 @@ Kuukou (Skyport) - Application
 * Backend Monolith - Configuration App (User Management + Access Control + Application Configuration)
 
 Idea is, that "Kuukou" can be reused for other applications as well, because this is a generic problem this only needs to be solved once.
+
+## Scrapped plans
+
+* Description of what we want to reach (some green/white paper like description) ((**The current phase**)) 
+  * [You may want to have a look here first](FutureSQR-Architecture/documents/README.md)
+  * It describes some of the objectives and some basic requirements
+* Tryout Section
+  * [Some concepts which I'm not familiar with, but deem somehow important](Tryouts/README.md)
+* Work on requirements and user stories
+  * Extract requirements and user stories from the description
+* Work towards a first System and Software architecture
+  * Identify architecturally relevant requirements
+  * Identify quality attributes for the system
+  * Identify a system architecture
+  * Identify a software architecture
+  * document the system and its software architecture
+  * document the cross section concepts / cross cutting-concern and their particular architecture and solutions
+* Iterate between architecture and requirements
+* Specify the mode of development and split these concerns
+  * e.g. separation of frontend and backend development, (e.g. by specifying the exchanged data)
+  * e.g. how to see something from day #1 of development
+  * e.g. write some scripts / tools for this mode of development
+  * e.g. plan a mocked development back-end (maybe python with fast-api)
