@@ -25,3 +25,8 @@ Actually this feature will take some time to be good enough. But for now it look
 
 ## Closed review
 * [A closed review looks like this right now](screen_review_approved_closed_60p.png)
+
+# Revision Page
+
+* [A revision which is already part of a review](screen_revision_page_revision_part_of_review_60p.png)
+* [A revision which is not part of a review](screen_revision_page_revision_not_part_of_a_review_60p.png)
