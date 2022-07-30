@@ -8,7 +8,7 @@
 		{{activeMessage.message}}
 		</ng-container>
 		<ng-container *ngIf="isMessageEditMode">
-			<textarea>{{activeMessage.message}}</textarea>
+			<textarea [formControl]="formMessageText"></textarea>
 			<div><a class="btn btn-primary btn-sm mr-2">update message</a> <a class="btn btn-secondary btn-sm mr-2">cancel</a></div>
 		</ng-container>
 	
