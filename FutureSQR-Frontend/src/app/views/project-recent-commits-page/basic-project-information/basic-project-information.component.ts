@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, Output, SimpleChanges, ChangeDetectorRef, EventEmitter } from '@angular/core';
 
 // Services
 import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
@@ -19,6 +19,7 @@ export class BasicProjectInformationComponent implements OnInit {
 	
 	// TODO: we might provide better project information here.
 	@Input() activeProjectId:string;
+	@Output() revisionHistoryUpdated: EventEmitter<string> = new EventEmitter<string>();
 
 	constructor( private projectDataQueryBackend : ProjectDataQueryBackendService, private cdr: ChangeDetectorRef  ) { }
 
@@ -65,10 +66,11 @@ export class BasicProjectInformationComponent implements OnInit {
 	}
 	
 	onUpdateProjectCache(activeProjectId:string): void {
+		let that = this;
+		
 		this.projectDataQueryBackend.updateProjectCache(activeProjectId).subscribe(
 			data => {
-				// TODO: we want to now emit a change to the hosting component,
-				// such that it can react on the update.
+				that.revisionHistoryUpdated.emit("updated");
 			},
 			error=>{}
 		);
