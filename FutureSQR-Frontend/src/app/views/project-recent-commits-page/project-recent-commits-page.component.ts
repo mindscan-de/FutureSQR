@@ -74,4 +74,11 @@ export class ProjectRecentCommitsPageComponent implements OnInit {
 		return grouped;
 	}
 	
+	reloadCommitHistory(event:any) : void {
+		this.projectDataQueryBackend.getRecentProjectCommits(this.activeProjectID).subscribe( 
+			data => this.onRecentProjectCommitsProvided(data),
+			error => console.log(error)
+		);
+	}
+	
 }
