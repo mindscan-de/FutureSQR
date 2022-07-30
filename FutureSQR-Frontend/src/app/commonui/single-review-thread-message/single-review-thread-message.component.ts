@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,  SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input,  SimpleChanges, ChangeDetectorRef  } from '@angular/core';
 
 import { BackendModelThreadsMessage } from '../../backend/model/backend-model-threads-message'; 
 
@@ -12,11 +12,18 @@ export class SingleReviewThreadMessageComponent implements OnInit {
 	@Input() activeProjectID: string = "";
 	@Input() activeReviewID: string = "";
 	@Input() activeMessage: BackendModelThreadsMessage = new BackendModelThreadsMessage();
+	
+	public isInAnswerMode:boolean = false;
+	public isMessageEditMode:boolean = false;
 
 
-	constructor() { }
+	constructor(private cdr: ChangeDetectorRef) { }
 
 	ngOnInit(): void {
 	}
 
+	toggleEditTextMode():void {
+		this.isMessageEditMode = !this.isMessageEditMode;
+		this.cdr.detectChanges();
+	}
 }
