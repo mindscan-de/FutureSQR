@@ -254,7 +254,7 @@ def postCreateNewReviewThread(projectid:str, reviewid:str, authorid:str = Form(.
     reviewThreadsDB.addThreadToReview(projectid, reviewid, newthreaduuid)
     return {}
 
-#app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/replythread")
+@app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/replythread")
 def postReplyToReviewThread(projectid:str, reviewid:str, threadid:str =Form(...), replytoid:str = Form(...), authorid:str = Form(...), message:str =Form(...) ):
     # we actually don't need project id and reviewid here, but we need this for privileges check,
     # and also checks that the id's all exists properly
