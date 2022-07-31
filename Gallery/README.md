@@ -1,8 +1,9 @@
 # Gallery
 
-Here a few screen shots of the project after 9 weeks of coding this in my spare time. There is no art work, 
-neither are there some icons right now. I just wanted to make this thing work in the first place. Instead 
-of cluttering the UI with icons and features, this approach is quite the opposite - remove as much as possible.
+Here are a few screen shots of the project after nine weeks of coding this in my spare time. There is no artwork, 
+neither are there some icons right now. I just wanted to make this thing work in the first place. Instead of 
+cluttering the UI with icons and features, this approach is quite the opposite - remove as much as possible.
+Because the more features we can remove, the earlier this tool becomes usable.
 
 ## Main Page and All Projects Page
 
