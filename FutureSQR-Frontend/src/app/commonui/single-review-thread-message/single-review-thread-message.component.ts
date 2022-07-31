@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,  SimpleChanges, ChangeDetectorRef  } from '@angular/core';
+import { Component, OnInit, Input,  SimpleChanges, ChangeDetectorRef , ViewChild, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 
@@ -17,6 +17,12 @@ export class SingleReviewThreadMessageComponent implements OnInit {
 	
 	public formMessageText = new FormControl(); 
 	public formAnswerText = new FormControl();
+	
+	@ViewChild('replyToMe') set inputElRef(elRef: ElementRef<HTMLInputElement>) {
+		if(elRef) {
+			elRef.nativeElement.focus();
+		}
+	}
 	
 	@Input() activeProjectID: string = "";
 	@Input() activeReviewID: string = "";
@@ -65,11 +71,7 @@ export class SingleReviewThreadMessageComponent implements OnInit {
 	
 	activateReplyMode(): void {
 		this.isInAnswerMode = true;
-		let elementid = "reply"+this.activeMessage.messageId
-		console.log(elementid)
-		let element = document.getElementById(elementid);
-		console.log(element)
-		// (<any>this.formAnswerText.control).nativeElement.focus();
+		this.formAnswerText.setValue("");
 	}
 	
 	sendReplyMessage(): void {
