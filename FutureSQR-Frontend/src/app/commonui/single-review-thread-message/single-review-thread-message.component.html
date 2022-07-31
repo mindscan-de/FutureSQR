@@ -6,19 +6,25 @@
 	<div>
 		<ng-container *ngIf="!isMessageEditMode">
 			{{activeMessage.message}}
+			<div><a class="btn btn-sm btn-primary" *ngIf="!isInAnswerMode" (click)="activateReplyMode()">reply</a></div>
 		</ng-container>
+		
 		<ng-container *ngIf="isMessageEditMode">
-			<textarea class="col-9" [formControl]="formMessageText"></textarea>
-			<div>
-				<a class="btn btn-primary btn-sm mr-2"   (click)="saveUpdatedMessage()">update message</a>
-				<a class="btn btn-danger btn-sm  mr-2"   (click)="resetMessage()">reset message</a>
-				<a class="btn btn-secondary btn-sm mr-2" (click)="cancelMessageEdit()" >cancel</a>
-			</div>
+			<form>
+				<textarea class="col-9" [formControl]="formMessageText"></textarea>
+				<div>
+					<a class="btn btn-primary btn-sm mr-2"   (click)="saveUpdatedMessage()">update message</a>
+					<a class="btn btn-danger btn-sm  mr-2"   (click)="resetMessage()">reset message</a>
+					<a class="btn btn-secondary btn-sm mr-2" (click)="cancelMessageEdit()" >cancel</a>
+				</div>
+			</form>
 		</ng-container>
 	
 		<ng-container *ngIf="isInAnswerMode">
-			<textarea class="col-9" [formControl]="formAnswerText"></textarea>
-			<a class="btn btn-primary btn-sm">Send reply</a>
+			<form>
+				<textarea class="col-9 mt-2" [formControl]="formAnswerText"></textarea>
+				<a class="btn btn-primary btn-sm">Send reply</a>
+			</form>
 		</ng-container>
 	</div>
 </div>
