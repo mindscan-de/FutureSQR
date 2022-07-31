@@ -223,4 +223,14 @@ export class ProjectDataQueryBackendService {
 		return this.httpClient.post<any>(url,formdata);
 	}
 	
+	replyThreadMessageForReview(projectid: string, reviewid: string, authorid:string, replytoid:string, message:string) : Observable<any> {
+		var url = `/FutureSQR/rest/project/${projectid}/review/${reviewid}/replythread`;
+		
+		let formdata = new FormData();
+		formdata.append('authorid', authorid);
+		formdata.append('replytoid', replytoid)
+		formdata.append('message', message);
+		
+		return this.httpClient.post<any>(url,formdata);
+	}
 }
