@@ -3,6 +3,8 @@ Code Review Tool - Future Source Quality Review
 
 ![Startig with some basic functionality - Here is an open Review](Gallery/screen_review_open_no_reviewers_60p.png)
 
+For more screen shots please visit the [Screenshot Gallery](Gallery/README.md)
+
 ## Why another code review system?
 Well, it caught me off guard, that Jetbrains decided to discontinue their product at the beginning of 2022. Upsource was used for a bunch 
 of reasons - the main ones were: easy to use, easy to administrate and most importantly easy to integrate into a workflow.
