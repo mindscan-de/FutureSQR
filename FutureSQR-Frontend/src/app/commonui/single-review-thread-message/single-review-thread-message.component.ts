@@ -66,4 +66,27 @@ export class SingleReviewThreadMessageComponent implements OnInit {
 	activateReplyMode(): void {
 		this.isInAnswerMode = true;
 	}
+	
+	sendReplyMessage(): void {
+		let that = this;
+		let message = that.formAnswerText.value;
+		
+		this.projectDataQueryBackend.replyThreadMessageForReview(
+			this.activeProjectID, 
+			this.activeReviewID,
+			this.activeMessage.threadId, 
+			"mindscan-de", 
+			this.activeMessage.messageId, 
+			message
+		).subscribe(
+			data => {
+				that.isInAnswerMode = false;
+				that.formAnswerText.setValue("");
+				
+				// TODO actually we must reload 
+			},
+			error => {}
+		);
+		
+	}
 }

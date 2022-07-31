@@ -10,10 +10,10 @@
 		</ng-container>
 		
 		<ng-container *ngIf="isMessageEditMode">
-			<form>
+			<form (ngSubmit)="saveUpdatedMessage()">
 				<textarea class="col-9" [formControl]="formMessageText"></textarea>
 				<div>
-					<button type="submit" class="btn btn-primary btn-sm mr-2"  (click)="saveUpdatedMessage()">update message</button>
+					<button type="submit" class="btn btn-primary btn-sm mr-2" >update message</button>
 					<button type="button" class="btn btn-danger btn-sm  mr-2" (click)="resetMessage()" >reset to previous message</button>
 					<button type="button" class="btn btn-secondary btn-sm mr-2" (click)="cancelMessageEdit()" >cancel</button>
 				</div>
@@ -21,7 +21,7 @@
 		</ng-container>
 	
 		<ng-container *ngIf="isInAnswerMode">
-			<form>
+			<form (ngSubmit)="sendReplyMessage()">
 				<textarea class="col-9 mt-2" [formControl]="formAnswerText"></textarea>
 				<div>
 					<button type="submit" class="btn btn-primary btn-sm mr-2" >Send reply</button>
