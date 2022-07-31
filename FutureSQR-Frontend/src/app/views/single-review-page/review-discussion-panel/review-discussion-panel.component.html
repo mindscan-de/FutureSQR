@@ -10,12 +10,12 @@
 			</ng-container>		
 		</ng-container>
 		
-		<form>
+		<form (ngSubmit)="onCreateThreadClicked()">
 			<div class="form-group">
-				<label for="startThreadTextarea">Start a discussion</label>				
+				<label for="startThreadTextarea">Start a new discussion</label>				
 				<textarea class="form-control" id="startThreadTextarea" rows="5" [formControl]="formDiscussionText"></textarea>
 			</div>
-			<a class="float-right btn btn-sm btn-primary" (click)="onCreateThreadClicked()">start discussion</a>
+			<button type="submit" class="float-right btn btn-sm btn-primary">start discussion</button>
 		</form>
 
 		<ul>
