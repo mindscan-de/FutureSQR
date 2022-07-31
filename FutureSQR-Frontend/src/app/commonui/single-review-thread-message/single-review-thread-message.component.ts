@@ -69,6 +69,11 @@ export class SingleReviewThreadMessageComponent implements OnInit {
 		this.isMessageEditMode = false;
 	}
 	
+	cancelReply(): void {
+		this.formAnswerText.setValue("");
+		this.isInAnswerMode = false;
+	}
+	
 	activateReplyMode(): void {
 		this.isInAnswerMode = true;
 		this.formAnswerText.setValue("");

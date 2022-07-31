@@ -25,7 +25,7 @@
 				<textarea id="reply{{activeMessage.messageId}}" class="col-9 mt-2" [formControl]="formAnswerText" #replyToMe></textarea>
 				<div>
 					<button type="submit" class="btn btn-primary btn-sm mr-2" >Send reply</button>
-					<button type="button" class="btn btn-secondary btn-sm mr-2">cancel</button>
+					<button type="button" class="btn btn-secondary btn-sm mr-2" (click)="cancelReply()">cancel</button>
 				</div>
 			</form>
 		</ng-container>
