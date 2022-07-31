@@ -97,9 +97,8 @@ class ThreadsDatabase(object):
 
         # add this message to the list of messages related to the thread.        
         self.threadTable[thread_uuid][THREADS_FK_MESSAGES].append(message_uuid)
-        
         self.messageTable[message_uuid] = msg_row         
-        pass
+        return message_uuid
     
     
     def updateMessage(self, message_uuid, newmessage):
