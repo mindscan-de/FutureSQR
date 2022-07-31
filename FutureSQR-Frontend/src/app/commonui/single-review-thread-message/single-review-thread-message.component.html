@@ -22,7 +22,7 @@
 	
 		<ng-container *ngIf="isInAnswerMode">
 			<form (ngSubmit)="sendReplyMessage()">
-				<textarea class="col-9 mt-2" [formControl]="formAnswerText"></textarea>
+				<textarea id="reply{{activeMessage.messageId}}" class="col-9 mt-2" [formControl]="formAnswerText"></textarea>
 				<div>
 					<button type="submit" class="btn btn-primary btn-sm mr-2" >Send reply</button>
 					<button type="button" class="btn btn-secondary btn-sm mr-2">cancel</button>

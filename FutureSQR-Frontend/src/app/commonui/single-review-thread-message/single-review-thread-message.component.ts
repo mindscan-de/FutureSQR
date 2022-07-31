@@ -65,6 +65,11 @@ export class SingleReviewThreadMessageComponent implements OnInit {
 	
 	activateReplyMode(): void {
 		this.isInAnswerMode = true;
+		let elementid = "reply"+this.activeMessage.messageId
+		console.log(elementid)
+		let element = document.getElementById(elementid);
+		console.log(element)
+		// (<any>this.formAnswerText.control).nativeElement.focus();
 	}
 	
 	sendReplyMessage(): void {
