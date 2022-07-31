@@ -13,9 +13,9 @@
 			<form>
 				<textarea class="col-9" [formControl]="formMessageText"></textarea>
 				<div>
-					<a class="btn btn-primary btn-sm mr-2"   (click)="saveUpdatedMessage()">update message</a>
-					<a class="btn btn-danger btn-sm  mr-2"   (click)="resetMessage()">reset message</a>
-					<a class="btn btn-secondary btn-sm mr-2" (click)="cancelMessageEdit()" >cancel</a>
+					<button type="submit" class="btn btn-primary btn-sm mr-2"  (click)="saveUpdatedMessage()">update message</button>
+					<button type="button" class="btn btn-danger btn-sm  mr-2" (click)="resetMessage()" >reset to previous message</button>
+					<button type="button" class="btn btn-secondary btn-sm mr-2" (click)="cancelMessageEdit()" >cancel</button>
 				</div>
 			</form>
 		</ng-container>
@@ -23,7 +23,10 @@
 		<ng-container *ngIf="isInAnswerMode">
 			<form>
 				<textarea class="col-9 mt-2" [formControl]="formAnswerText"></textarea>
-				<a class="btn btn-primary btn-sm">Send reply</a>
+				<div>
+					<button type="submit" class="btn btn-primary btn-sm mr-2" >Send reply</button>
+					<button type="button" class="btn btn-secondary btn-sm mr-2">cancel</button>
+				</div>
 			</form>
 		</ng-container>
 	</div>
