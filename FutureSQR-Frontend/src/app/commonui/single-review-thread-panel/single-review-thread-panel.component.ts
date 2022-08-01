@@ -21,5 +21,9 @@ export class SingleReviewThreadPanelComponent implements OnInit {
 	ngOnInit(): void {
 	}
 
+	onThreadUpdated(data:any): void {
+		// forward the update to the main page.
+		this.threadUpdated.emit(data);
+	}
 	
 }
