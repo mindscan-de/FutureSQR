@@ -6,7 +6,7 @@
 		
 		<ng-container *ngIf="uimodel.allreviewthreads.length>0">
 			<ng-container *ngFor="let thread of uimodel.allreviewthreads">
-				<app-single-review-thread-panel [activeProjectID]="activeProjectID" [activeReviewID]="activeReviewID" [activeThread]="thread" (onThreadUpdated)="onThreadUpdated($event)"></app-single-review-thread-panel>
+				<app-single-review-thread-panel [activeProjectID]="activeProjectID" [activeReviewID]="activeReviewID" [activeThread]="thread" (threadUpdated)="onThreadUpdated($event)"></app-single-review-thread-panel>
 			</ng-container>		
 		</ng-container>
 		

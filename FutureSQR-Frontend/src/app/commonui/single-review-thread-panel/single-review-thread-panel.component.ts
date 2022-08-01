@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,  SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, SimpleChanges, EventEmitter } from '@angular/core';
 
 import { BackendModelThreadsFullThread } from '../../backend/model/backend-model-threads-full-thread';
 
@@ -13,10 +13,13 @@ export class SingleReviewThreadPanelComponent implements OnInit {
 	@Input() activeProjectID: string = "";
 	@Input() activeReviewID: string = "";
 	@Input() activeThread: BackendModelThreadsFullThread = new BackendModelThreadsFullThread();
+	@Output() threadUpdated: EventEmitter<any> = new EventEmitter<any>();
+	
 
 	constructor() { }
 
 	ngOnInit(): void {
 	}
 
+	
 }
