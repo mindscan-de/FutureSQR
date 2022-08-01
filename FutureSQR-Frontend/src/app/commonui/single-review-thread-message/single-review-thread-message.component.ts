@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,  SimpleChanges, ChangeDetectorRef , ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, Output, SimpleChanges, ChangeDetectorRef , ViewChild, ElementRef, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 
@@ -27,6 +27,7 @@ export class SingleReviewThreadMessageComponent implements OnInit {
 	@Input() activeProjectID: string = "";
 	@Input() activeReviewID: string = "";
 	@Input() activeMessage: BackendModelThreadsMessage = new BackendModelThreadsMessage();
+	@Output() threadUpdated: EventEmitter<any> = new EventEmitter<any>();
 	
 	public isInAnswerMode:boolean = false;
 	public isMessageEditMode:boolean = false;
