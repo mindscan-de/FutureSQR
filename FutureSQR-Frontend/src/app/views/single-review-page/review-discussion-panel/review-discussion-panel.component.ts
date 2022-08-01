@@ -80,5 +80,9 @@ export class ReviewDiscussionPanelComponent implements OnInit {
 					error => {}
 			);
 	}
+	
+	onThreadUpdated(event:any): void {
+		this.retrieveDiscussion();
+	}
 
 }
