@@ -261,6 +261,13 @@ def postReplyToReviewThread(projectid:str, reviewid:str, threadid:str =Form(...)
     messageuuid = threadsDB.createMessageResponse(threadid, replytoid, message, authorid)
     return {}
 
+@app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/editmessage")
+def updateThreadMessage(projectid:str, reviewid:str, threadid:str=Form(...), messageid:str = Form(...), authorid:str = Form(...), newmessage:str=Form(...)):
+    # we want the project id and the review id, threadid here for privilege checks
+    # also we want to make sure that the projectid the reviewid and the threadid, authorid is checked before the update
+    threadsDB.updateMessage(messageid, newmessage)
+    return {}
+
 ### #########################################
 ###
 ### Some Review functions - non persistent
