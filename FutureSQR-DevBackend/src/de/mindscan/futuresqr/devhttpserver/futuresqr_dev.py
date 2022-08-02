@@ -391,12 +391,6 @@ def postUpdateProjectCache(projectid: str):
 
 ### #########################################
 ###
-### Review Threads
+### Some more Review Stuff
 ###
 ### #########################################
-
-def getReviewThreads(projectid: str, reviewid:str):
-    pass
-
-def postCreateReviewThread():
-    pass
