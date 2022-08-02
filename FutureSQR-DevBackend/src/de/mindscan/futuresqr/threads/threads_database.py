@@ -105,7 +105,8 @@ class ThreadsDatabase(object):
         # set message text to updated message
         # set some edited flag
         # set last updated date
-        pass
+        self.messageTable[message_uuid][MESSAGES_MESSAGE]=newmessage
+        return message_uuid
     
     
     def selectFullThread(self, threadid):
