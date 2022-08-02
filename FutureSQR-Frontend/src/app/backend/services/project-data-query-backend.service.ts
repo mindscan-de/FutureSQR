@@ -234,4 +234,16 @@ export class ProjectDataQueryBackendService {
 		
 		return this.httpClient.post<any>(url,formdata);
 	}
+	
+	updateThreadMessageForReview(projectid: string, reviewid: string, threadid:string, authorid:string, messageid:string, newmessage_text:string) : Observable<any> {
+		var url = `/FutureSQR/rest/project/${projectid}/review/${reviewid}/editmessage`;
+		
+		let formdata = new FormData();
+		formdata.append('authorid', authorid);
+		formdata.append('threadid', threadid);
+		formdata.append('messageid', messageid);
+		formdata.append('newmessage', newmessage_text);
+		
+		return this.httpClient.post<any>(url,formdata);
+	}
 }
