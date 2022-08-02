@@ -54,11 +54,26 @@ export class SingleReviewThreadMessageComponent implements OnInit {
 	}
 	
 	saveUpdatedMessage(): void {
-		// TODO: save the current message into the backend.
-		// XXXX: This is a dirty hack, we patch the value instead of reloading the page
+		let that = this; 
+		
+		// save the current message into the backend.
+		this.projectDataQueryBackend.updateThreadMessageForReview(
+			this.activeProjectID,
+			this.activeReviewID,
+			this.activeMessage.threadId,
+			'mindscan-de', 
+			this.activeMessage.messageId,
+			this.formMessageText.value
+		).subscribe(
+			data => {
+				that.isMessageEditMode = false;
+				// This is a dirty hack, we patch the value instead of reloading the page
+				that.activeMessage.message = that.formMessageText.value;		
+			},
+			error => {}
+			
+		)
 		// TODO: render message to html.
-		this.activeMessage.message = this.formMessageText.value;
-		this.isMessageEditMode = false; 
 	}
 	
 	resetMessage(): void {
