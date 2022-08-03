@@ -16,8 +16,11 @@
 			<p><a [routerLink]="['/',activeProjectID,'revision',activeRevision.revisionid]"><strong>{{activeRevision.message}}</strong></a></p>
 
 			<span class="text-muted small">created <b title="{{activeRevision.date}}">{{activeRevision.reldate}}</b> by <b>{{activeRevision.authorname}}</b></span>
-			<span> <a class="btn btn-sm btn-light ml-4">v</a></span>
+			<span> <a class="btn btn-sm btn-light ml-4" (click)="onToggleFileList()">v</a></span>
+			<div *ngIf="showFileList">
+				My File List for this change...
+			</div>
+			
 		</div>
-		 
 	</div>
 
