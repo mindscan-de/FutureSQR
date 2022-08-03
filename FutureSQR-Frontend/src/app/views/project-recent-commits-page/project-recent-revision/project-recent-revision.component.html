@@ -1,1 +1,23 @@
-<p>project-recent-revision works!</p>
+	<!-- TODO: extract this part into a new component and also add the ability to retrieve a file list from the component -->
+	<div class="d-flex flex-row-reverse">
+		<div class="p-0">
+			<span><a class="mr-2 ml-2" [routerLink]="['/',activeProjectID,'revision',activeRevision.revisionid]"><span style="font-family:monospace" class="small" >{{activeRevision.shortrev}}</span></a></span>
+		</div>
+	
+		<div class="p-0" *ngIf="activeRevision.hasReview==false">
+			<span><a title="Create a new Review" class="mr-2 ml-2 text-light btn btn-sm btn-light"  (click)="onCreateReview(activeProjectID,activeRevision.revisionid)" >create Review</a></span>
+		</div>
+		
+		<div class="p-0" *ngIf="activeRevision.hasReview==true">
+			<span><a class="mr-2 ml-2" [routerLink]="['/',activeProjectID,'review',activeRevision.reviewID]">{{activeRevision.reviewID}}</a></span>
+		</div>
+		
+		<div class="p-0 mr-auto">
+			<p><a [routerLink]="['/',activeProjectID,'revision',activeRevision.revisionid]"><strong>{{activeRevision.message}}</strong></a></p>
+
+			<span class="text-muted small">created <b title="{{activeRevision.date}}">{{activeRevision.reldate}}</b> by <b>{{activeRevision.authorname}}</b></span>
+			<span> <a class="btn btn-sm btn-light ml-4">v</a></span>
+		</div>
+		 
+	</div>
+
