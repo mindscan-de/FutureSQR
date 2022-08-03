@@ -62,9 +62,6 @@ export class ProjectRecentRevisionComponent implements OnInit {
 		);
 	}
 	
-	
-	// TODO: retrieve file list for this version
-	
 	onFileListActionsProvided( fileChanges: BackendModelSingleCommitFileActionsInfo) : void {
 		let fileInformations : UiReviewFileInformation[] = [];
 		
