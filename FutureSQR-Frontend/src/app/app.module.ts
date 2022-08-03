@@ -38,6 +38,7 @@ import { ReviewDiscussionPanelComponent } from './views/single-review-page/revie
 import { FileParticipationFileListPanelComponent } from './commonui/file-participation-file-list-panel/file-participation-file-list-panel.component';
 import { SingleReviewThreadPanelComponent } from './commonui/single-review-thread-panel/single-review-thread-panel.component';
 import { SingleReviewThreadMessageComponent } from './commonui/single-review-thread-message/single-review-thread-message.component';
+import { ProjectRecentRevisionComponent } from './views/project-recent-commits-page/project-recent-revision/project-recent-revision.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { SingleReviewThreadMessageComponent } from './commonui/single-review-thr
     ReviewDiscussionPanelComponent,
     FileParticipationFileListPanelComponent,
     SingleReviewThreadPanelComponent,
-    SingleReviewThreadMessageComponent
+    SingleReviewThreadMessageComponent,
+    ProjectRecentRevisionComponent
   ],
   imports: [
     BrowserModule,
