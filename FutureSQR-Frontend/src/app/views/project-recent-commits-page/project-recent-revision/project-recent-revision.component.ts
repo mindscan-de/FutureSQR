@@ -35,9 +35,14 @@ export class ProjectRecentRevisionComponent implements OnInit {
 		);
 	}
 	
-	// TODO: retrieve file list for this version
 	// Open Close filelist
 	onToggleFileList(): void {
+		// if file list is known/received, then just toggle to show
 		this.showFileList = !this.showFileList;
+		
+		// otherwise retrieve the list and then show the list.
 	}
+	
+	
+	// TODO: retrieve file list for this version
 }
