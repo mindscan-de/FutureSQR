@@ -39,16 +39,7 @@ export class ProjectRecentCommitsPageComponent implements OnInit {
 		this.uiModelRecentProjectCommitsGroupedByDate = this.m2mGroupByDateTransformer(recentProjectCommits);
 	}
 
-	onCreateReview(projectId: string, revisionId: string) : void {
-		this.projectDataQueryBackend.createNewReview(projectId, revisionId).subscribe (
-			data => {
-				// TODO redirect o review page.
-				this.router.navigate(['/', projectId, 'review', data['reviewId']]);
-			},
-			error => {}
-		);
-	}
-	
+
 	public originalOrder = (a: KeyValue<number,string>, b: KeyValue<number,string>): number => {
 	  return 0;
 	}	

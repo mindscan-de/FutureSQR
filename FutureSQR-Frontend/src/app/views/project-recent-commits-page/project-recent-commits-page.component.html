@@ -14,28 +14,7 @@
 					<h5 class="mt-3">{{commitsByDate.key}}</h5>
 					<ul class="list-group">
 						<li *ngFor="let revision of commitsByDate.value.revisions" class="list-group-item">
-							<!-- TODO: extract this part into a new component and also add the ability to retrieve a file list from the component -->
-							<div class="d-flex flex-row-reverse">
-								<div class="p-0">
-									<span><a class="mr-2 ml-2" [routerLink]="['/',activeProjectID,'revision',revision.revisionid]"><tt class="small">{{revision.shortrev}}</tt></a></span>
-								</div>
-							
-								<div class="p-0" *ngIf="revision.hasReview==false">
-									<span><a title="Create a new Review" class="mr-2 ml-2 text-light btn btn-sm btn-light"  (click)="onCreateReview(activeProjectID,revision.revisionid)" >create Review</a></span>
-								</div>
-								
-								<div class="p-0" *ngIf="revision.hasReview==true">
-									<span><a class="mr-2 ml-2" [routerLink]="['/',activeProjectID,'review',revision.reviewID]">{{revision.reviewID}}</a></span>
-								</div>
-								
-								<div class="p-0 mr-auto">
-									<p><a [routerLink]="['/',activeProjectID,'revision',revision.revisionid]"><strong>{{revision.message}}</strong></a></p>
-				
-									<span class="text-muted small">created <b title="{{revision.date}}">{{revision.reldate}}</b> by <b>{{revision.authorname}}</b></span>
-									<span> <a class="btn btn-sm btn-light ml-4">v</a></span>
-								</div>
-								 
-							</div>
+							<app-project-recent-revision [activeProjectID]="activeProjectID" [activeRevision]="revision"></app-project-recent-revision>
 						</li>
 					</ul>
 				</ng-container>
