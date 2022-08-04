@@ -15,12 +15,17 @@
 		<div class="p-0 mr-auto">
 			<p><a [routerLink]="['/',activeProjectID,'revision',activeRevision.revisionid]"><strong>{{activeRevision.message}}</strong></a></p>
 
-			<span><a class="btn btn-sm btn-light mr-2" (click)="onToggleFileList()">v</a></span>
+			<span><a class="btn btn-sm btn-light mr-2" (click)="onToggleFileList()" title="expand touched file list">v</a></span>
 			<span class="text-muted small">created <b title="{{activeRevision.date}}">{{activeRevision.reldate}}</b> by <b>{{activeRevision.authorname}}</b></span>
-			<div *ngIf="showFileList" class="ml-3 mt-2">
+			<div *ngIf="showFileList" class="ml-3 mt-2" (click)="onToggleFileList()">
 				<ul class="list-unstyled">
-					<li class="list-unstyled">
-						My File List for this change... TODO: now just present this file list...
+					<li class="list-unstyled" *ngFor="let file of uiFileInformations">
+					<span class="mr-2 badge ml-3" [ngClass]="{
+						 'badge-primary': file.fileAction=='M', 
+						 'badge-secondary': file.fileAction=='R100',
+						 'badge-danger': file.fileAction=='D',
+						 'badge-success': file.fileAction=='A'
+						  } ">{{file.fileAction}}</span><span class="small text-muted"><b>{{file.parentFilePath}}/</b></span><span class="text-black"><b>{{file.simpleFileName}}</b></span>
 					<li>
 				</ul>
 			</div>
