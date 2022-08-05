@@ -12,6 +12,7 @@
 			<span><a class="mr-2 ml-2" [routerLink]="['/',activeProjectID,'review',activeRevision.reviewID]">{{activeRevision.reviewID}}</a></span>
 		</div>
 		
+		<!--  Maybe use the click here and use $event.stopPropagation() -->
 		<div class="p-0 mr-auto">
 			<p><a [routerLink]="['/',activeProjectID,'revision',activeRevision.revisionid]"><strong>{{activeRevision.message}}</strong></a></p>
 
@@ -25,7 +26,7 @@
 						 'badge-secondary': file.fileAction=='R100',
 						 'badge-danger': file.fileAction=='D',
 						 'badge-success': file.fileAction=='A'
-						  } ">{{file.fileAction}}</span><span class="small text-muted"><b>{{file.parentFilePath}}/</b></span><span class="text-black"><b>{{file.simpleFileName}}</b></span>
+						  } ">{{file.fileAction}}</span><span class="small text-muted">{{file.parentFilePath}}/</span><span class="small text-black"><b>{{file.simpleFileName}}</b></span>
 					<li>
 				</ul>
 			</div>
