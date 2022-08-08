@@ -9,11 +9,8 @@
 				<ul class="list-group">
 					<li *ngFor="let review of uiModelRecentProjectReviews" class="list-group-item">
 					<!-- TODO: also think about a reload (callback/eventemitter) in case a reviewState was updated -->
-<!-- 						<app-open-review-item [activewProjectID]="activeProjectID" [openReview]="review"></app-open-review-item> -->
-						<p><span><b class="mr-3">{{review.reviewId}}:</b><a [routerLink]="['/',activeProjectID,'review',review.reviewId]"><b>{{review.reviewTitle}}</b></a></span></p>
-						<span class="small text-muted">authored by: <span *ngFor="let author of review.reviewAuthors">{{author}}&nbsp;</span></span>
+ 						<app-open-review-item [activeProjectID]="activeProjectID" [openReview]="review"></app-open-review-item>
 					</li>
-					
 				</ul>
 				
 			</div>
