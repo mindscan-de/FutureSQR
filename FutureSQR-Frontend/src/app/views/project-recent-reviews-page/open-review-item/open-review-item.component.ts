@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+
+import { BackendModelReviewData } from '../../../backend/model/backend-model-review-data';
 
 @Component({
   selector: 'app-open-review-item',
@@ -7,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OpenReviewItemComponent implements OnInit {
 
-  constructor() { }
+	@Input() activeProjectID: string;
+	@Input() openReview: BackendModelReviewData;
 
-  ngOnInit(): void {
-  }
+	constructor() { }
+	
+	
+	
+
+	ngOnInit(): void {
+	}
 
 }
