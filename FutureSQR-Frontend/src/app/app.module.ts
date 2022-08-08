@@ -40,6 +40,7 @@ import { SingleReviewThreadPanelComponent } from './commonui/single-review-threa
 import { SingleReviewThreadMessageComponent } from './commonui/single-review-thread-message/single-review-thread-message.component';
 import { ProjectRecentRevisionComponent } from './views/project-recent-commits-page/project-recent-revision/project-recent-revision.component';
 import { OpenReviewItemComponent } from './views/project-recent-reviews-page/open-review-item/open-review-item.component';
+import { ClosedReviewItemComponent } from './views/project-recent-reviews-page/closed-review-item/closed-review-item.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { OpenReviewItemComponent } from './views/project-recent-reviews-page/ope
     SingleReviewThreadPanelComponent,
     SingleReviewThreadMessageComponent,
     ProjectRecentRevisionComponent,
-    OpenReviewItemComponent
+    OpenReviewItemComponent,
+    ClosedReviewItemComponent
   ],
   imports: [
     BrowserModule,
