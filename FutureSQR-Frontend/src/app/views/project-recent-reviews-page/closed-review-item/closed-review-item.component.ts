@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+// Backend Model
+import { BackendModelReviewData } from '../../../backend/model/backend-model-review-data';
+
 
 @Component({
   selector: 'app-closed-review-item',
@@ -6,10 +10,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./closed-review-item.component.css']
 })
 export class ClosedReviewItemComponent implements OnInit {
+	
+	@Input() activeProjectID: string;
+	@Input() closedReview:BackendModelReviewData;
 
-  constructor() { }
+	constructor() { }
 
-  ngOnInit(): void {
-  }
+	ngOnInit(): void {
+	}
 
 }
