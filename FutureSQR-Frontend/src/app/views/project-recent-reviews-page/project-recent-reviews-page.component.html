@@ -8,6 +8,7 @@
 
 				<ul class="list-group">
 					<li *ngFor="let review of uiModelRecentProjectReviews" class="list-group-item">
+					<!-- TODO: also think about a reload (callback/eventemitter) in case a reviewState was updated -->
 <!-- 						<app-open-review-item [activewProjectID]="activeProjectID" [openReview]="review"></app-open-review-item> -->
 						<p><span><b class="mr-3">{{review.reviewId}}:</b><a [routerLink]="['/',activeProjectID,'review',review.reviewId]"><b>{{review.reviewTitle}}</b></a></span></p>
 						<span class="small text-muted">authored by: <span *ngFor="let author of review.reviewAuthors">{{author}}&nbsp;</span></span>
@@ -24,6 +25,7 @@
 				
 				<ul class="list-group">
 					<li class="list-group-item" *ngFor="let closedreview of uiModelRecentClosedProjectReviews">
+					<!-- TODO: also think about a reload (callback/eventemitter) in case a reviewState was updated -->					
 <!-- 						<app-closed-review-item [activeProjectID]="activeProjectID" [closedReview]="closedreview"></app-closed-review-item> -->
 						<p><span><b class="mr-3">{{closedreview.reviewId}}:</b><a [routerLink]="['/',activeProjectID,'review',closedreview.reviewId]"><b>{{closedreview.reviewTitle}}</b></a></span></p>
 						<span class="small text-muted">authored by: <span *ngFor="let author of closedreview.reviewAuthors">{{author}}&nbsp;</span></span>
