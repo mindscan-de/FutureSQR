@@ -12,6 +12,10 @@ export class OpenReviewItemComponent implements OnInit {
 
 	@Input() activeProjectID: string;
 	@Input() openReview: BackendModelReviewData;
+	
+	// TODO: we want to present a close button if all participants are happy, so you can close reviews from here.
+	// TODO: we want to present a list of reviewers and their current state, such you can see which are open for what reason.
+	
 
 	constructor() { }
 	
