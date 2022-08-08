@@ -39,6 +39,7 @@ import { FileParticipationFileListPanelComponent } from './commonui/file-partici
 import { SingleReviewThreadPanelComponent } from './commonui/single-review-thread-panel/single-review-thread-panel.component';
 import { SingleReviewThreadMessageComponent } from './commonui/single-review-thread-message/single-review-thread-message.component';
 import { ProjectRecentRevisionComponent } from './views/project-recent-commits-page/project-recent-revision/project-recent-revision.component';
+import { OpenReviewItemComponent } from './views/project-recent-reviews-page/open-review-item/open-review-item.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { ProjectRecentRevisionComponent } from './views/project-recent-commits-p
     FileParticipationFileListPanelComponent,
     SingleReviewThreadPanelComponent,
     SingleReviewThreadMessageComponent,
-    ProjectRecentRevisionComponent
+    ProjectRecentRevisionComponent,
+    OpenReviewItemComponent
   ],
   imports: [
     BrowserModule,
