@@ -18,6 +18,7 @@ import { BackendModelProjectRecentReviews } from '../../backend/model/backend-mo
 export class ProjectRecentReviewsPageComponent implements OnInit {
 	
 	public uiModelRecentProjectReviews:BackendModelReviewData[] = [];
+	public uiModelRecentClosedProjectReviews:BackendModelReviewData[] = [];
 	public activeProjectID: string = '';
 
 
@@ -34,6 +35,7 @@ export class ProjectRecentReviewsPageComponent implements OnInit {
 	
 	onRecentReviewsLoaded(recentReviews:BackendModelProjectRecentReviews) : void {
 		this.uiModelRecentProjectReviews = recentReviews.openReviews;
+		this.uiModelRecentClosedProjectReviews = recentReviews.recentClosedReviews;
 	}
 
 }

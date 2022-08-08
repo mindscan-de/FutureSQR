@@ -20,6 +20,13 @@
 		<div class="row">
 			<div class="col">
 				<h4>Recently Closed Reviews</h4>
+				
+				<ul class="list-group">
+					<li class="list-group-item" *ngFor="let closedreview of uiModelRecentClosedProjectReviews"> 
+						<p><span><b class="mr-3">{{closedreview.reviewId}}:</b><a [routerLink]="['/',activeProjectID,'review',closedreview.reviewId]"><b>{{closedreview.reviewTitle}}</b></a></span></p>
+						<span class="small text-muted">authored by: <span *ngFor="let author of closedreview.reviewAuthors">{{author}}&nbsp;</span></span>
+					</li>
+				</ul>
 			</div>
 		</div>
 					
