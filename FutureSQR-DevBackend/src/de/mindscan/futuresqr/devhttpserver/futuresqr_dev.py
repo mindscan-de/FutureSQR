@@ -187,7 +187,7 @@ def getRecentReviews(projectid:str):
     if projectDB.isProjectIdPresent(projectid):
         result = {
             'openReviews':reviewDB.selectOpenReviewsByProjectId(projectid),
-            'recentClosedReviews':[]
+            'recentClosedReviews':reviewDB.selectClosedReviewsByProjectId(projectid)
                   }
         return result
     
