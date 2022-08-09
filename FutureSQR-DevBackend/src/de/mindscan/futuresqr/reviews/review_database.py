@@ -123,6 +123,7 @@ class ReviewDatabase(object):
             empty_review_result=self.__createReviewResult(reviewer_id,'');
             self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS][reviewer_id] = empty_review_result
             self.reviewTable[project_id][review_id][REVIEW_READY_TO_CLOSE] = self._calcReadyToCloseState(self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS])
+            self.reviewTable[project_id][review_id][REVIEW_UNASSIGNED] = len(currentReviewersMap)==0 
             
         return None
     
