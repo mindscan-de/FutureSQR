@@ -32,6 +32,7 @@ REVIEW_TITLE                       = 'reviewTitle'
 REVIEW_ADDITIONAL_DESCRIPTION      = 'reviewDescription'
 REVIEW_REVISIONS                   = 'reviewRevisions'
 REVIEW_AUTHORS                     = 'reviewAuthors'
+REVIEW_READY_TO_CLOSE              = 'reviewReadyToClose'
 # reviewers and their results
 REVIEW_REVIEWERRESULTS             = 'reviewReviewersResults'
 REVIEW_FK_PROJECT_ID               = 'reviewFkProjectId'
