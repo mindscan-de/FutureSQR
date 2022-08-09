@@ -122,15 +122,32 @@ class ReviewDatabase(object):
         if not reviewer_id in currentReviewersMap:
             empty_review_result=self.__createReviewResult(reviewer_id,'');
             self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS][reviewer_id] = empty_review_result
+            self.reviewTable[project_id][review_id][REVIEW_READY_TO_CLOSE] = self._calcReadyToCloseState(self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS])
             
         return None
+    
+    # TODO we need also be ableto remove a reviewer from he review and then re-evaluate readyToClose State
     
     def __createReviewResult(self, reviewer_id, result):
         return {
                 'reviewer_id':reviewer_id,
                 'reviewresult':result
+                # TODO: we also want to add a date
             }
         
+
+    def _calcReadyToCloseState(self, reviewer_map:dict):
+        reviewers = reviewer_map.values()
+        if len(reviewers) is 0: 
+            return False
+
+        for reviewresult in reviewers:
+            if(reviewresult['reviewresult'] != 'approve'):
+                return False
+        
+        return True
+    
+    
     def approveReview(self, project_id, review_id, reviewer_id):
         if not project_id in self.reviewTable:
             return None
@@ -142,6 +159,8 @@ class ReviewDatabase(object):
         
         approve_review_result=self.__createReviewResult(reviewer_id,'approve');
         self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS][reviewer_id] = approve_review_result
+        self.reviewTable[project_id][review_id][REVIEW_READY_TO_CLOSE] = self._calcReadyToCloseState(self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS])
+        
         return None
     
     def concernReview(self, project_id, review_id, reviewer_id):
@@ -155,7 +174,11 @@ class ReviewDatabase(object):
         
         concern_review_result=self.__createReviewResult(reviewer_id,'concern');
         self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS][reviewer_id] = concern_review_result
+        self.reviewTable[project_id][review_id][REVIEW_READY_TO_CLOSE] = self._calcReadyToCloseState(self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS])
+                
         return None
+    
+    # TODO: clear review with empty review result again.
     
     def addRevisionToReview(self, project_id, review_id, revision_id):
         if not project_id in self.reviewTable:
