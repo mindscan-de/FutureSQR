@@ -190,6 +190,10 @@ class ReviewDatabase(object):
         
         self.reviewTable[project_id][review_id][REVIEW_REVISIONS].append(revision_id) 
         self.revisionTable[project_id][revision_id] = review_id
+        
+        # TOOD: that should also render all given reviewresults neutral again.
+        # TOOD: actually it should be kept who approved what already, such that the user is presented oly with the newest revisions for review
+        # TODO: MOVETO: maybe at time of approval include a copy of the current revisions list into the review results.
 
         return None
 
