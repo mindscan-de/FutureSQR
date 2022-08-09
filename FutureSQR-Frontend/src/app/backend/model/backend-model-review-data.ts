@@ -11,6 +11,7 @@ export class BackendModelReviewData {
 	
 	public reviewReviewersResults: Map<string,BackendModelReviewResult> = new Map<string, BackendModelReviewResult>();
 	public reviewReadyToClose: boolean = false;
+	public reviewUnassigned: boolean = true;
 	
 	public reviewFkProjectId: string = "";
 }
