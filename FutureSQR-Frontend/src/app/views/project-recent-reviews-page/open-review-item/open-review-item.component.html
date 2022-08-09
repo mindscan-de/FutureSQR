@@ -1,3 +1,3 @@
-<p><span><b class="mr-3">{{openReview.reviewId}}:</b><a [routerLink]="['/',activeProjectID,'review',openReview.reviewId]"><b>{{openReview.reviewTitle}}</b></a></span></p>
+<p><span><b class="mr-3">{{openReview.reviewId}}:</b><a [routerLink]="['/',activeProjectID,'review',openReview.reviewId]"><b>{{openReview.reviewTitle}}</b></a></span> <a *ngIf="openReview.reviewReadyToClose" class="btn btn-sm btn-success" title="close this review">close</a></p>
 <span class="small text-muted">authored by: <span *ngFor="let author of openReview.reviewAuthors">{{author}}&nbsp;</span></span>
 
