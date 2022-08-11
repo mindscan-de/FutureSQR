@@ -1,5 +1,5 @@
 <div class="d-flex flex-row-reverse">
-	<div class="col-1 p-1 align-self-center"><a *ngIf="openReview.reviewReadyToClose" class="btn btn-sm btn-secondary" title="close this review">close</a></div>
+	<div class="col-1 p-1 align-self-center"><a *ngIf="openReview.reviewReadyToClose" class="btn btn-sm btn-secondary" title="close this review" (click)="onCloseReview()">close</a></div>
 	<div class="col-2 p-1 align-self-center" >
 		<span *ngIf="openReview.reviewUnassigned" class="text-danger small"><b>No reviewers assigned</b></span>
 		<div *ngIf="!openReview.reviewUnassigned">
