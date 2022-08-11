@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Output, EventEmitter } from '@angular/core';
 
 // Services
 import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
@@ -19,6 +20,7 @@ export class OpenReviewItemComponent implements OnInit {
 	
 	@Input() activeProjectID: string;
 	@Input() openReview: BackendModelReviewData;
+	@Output() reviewUpdated: EventEmitter<string> = new EventEmitter<string>();
 	
 	
 	constructor(private projectDataQueryBackend : ProjectDataQueryBackendService) { }
@@ -37,7 +39,7 @@ export class OpenReviewItemComponent implements OnInit {
 		if(this.openReview.reviewReadyToClose) {
 			this.projectDataQueryBackend.closeReview(this.openReview.reviewFkProjectId, this.openReview.reviewId).subscribe(
 				data => {
-					// TODO: send an event that a review was closed.
+					this.reviewUpdated.emit("review closed");
 				},
 				error => {}				
 			);
