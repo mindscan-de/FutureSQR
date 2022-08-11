@@ -1,9 +1,16 @@
 <div class="d-flex flex-row-reverse">
-	<div class="col-1 p-1 align-self-center"><a *ngIf="openReview.reviewReadyToClose" class="btn btn-sm btn-success" title="close this review">close</a></div>
+	<div class="col-1 p-1 align-self-center"><a *ngIf="openReview.reviewReadyToClose" class="btn btn-sm btn-secondary" title="close this review">close</a></div>
 	<div class="col-2 p-1 align-self-center" >
 		<span *ngIf="openReview.reviewUnassigned" class="text-danger small"><b>No reviewers assigned</b></span>
 		<div *ngIf="!openReview.reviewUnassigned">
-			<span>{{openReview.reviewReviewersResults}}</span>
+			<ng-container *ngFor="let reviewer_kv of currentReviewers | keyvalue">
+				<span class="m-1"><span class="badge" [ngClass]="{
+					'badge-success':reviewer_kv.value.reviewresult=='approve',
+					'badge-info': reviewer_kv.value.reviewresult=='concern',
+					'badge-light': reviewer_kv.value.reviewresult==''
+				}" >{{reviewer_kv.value.reviewer_id}}</span><span class="badge badge-warning badge-default" *ngIf="reviewer_kv.value.reviewresult=='concern'">!</span></span>
+
+			</ng-container>
 		</div>
 	</div>
 	<div class="mr-auto p-1">
