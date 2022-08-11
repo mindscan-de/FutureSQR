@@ -30,12 +30,19 @@ export class ProjectRecentReviewsPageComponent implements OnInit {
 		this.projectDataQueryBackend.getRecentReviewsByProject(this.activeProjectID).subscribe (
 			data => this.onRecentReviewsLoaded(data),
 			error => {}
-		);
+		);		
 	}
 	
 	onRecentReviewsLoaded(recentReviews:BackendModelProjectRecentReviews) : void {
 		this.uiModelRecentProjectReviews = recentReviews.openReviews;
 		this.uiModelRecentClosedProjectReviews = recentReviews.recentClosedReviews;
+	}
+	
+	onReviewUpdated(event: string): void {
+		this.projectDataQueryBackend.getRecentReviewsByProject(this.activeProjectID).subscribe (
+					data => this.onRecentReviewsLoaded(data),
+					error => {}
+				);		
 	}
 
 }

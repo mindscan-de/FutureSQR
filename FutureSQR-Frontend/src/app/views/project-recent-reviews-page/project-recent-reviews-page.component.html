@@ -9,7 +9,7 @@
 				<ul class="list-group">
 					<li *ngFor="let review of uiModelRecentProjectReviews" class="list-group-item">
 					<!-- TODO: also think about a reload (callback/eventemitter) in case a reviewState was updated -->
- 						<app-open-review-item [activeProjectID]="activeProjectID" [openReview]="review"></app-open-review-item>
+ 						<app-open-review-item [activeProjectID]="activeProjectID" [openReview]="review" (reviewUpdated)="onReviewUpdated($event)"></app-open-review-item>
 					</li>
 				</ul>
 				
