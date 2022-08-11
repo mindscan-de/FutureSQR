@@ -1,8 +1,11 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 
+// Services
+import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
 
+
+// Backend-Models
 import { BackendModelReviewData } from '../../../backend/model/backend-model-review-data';
-
 import { BackendModelReviewResult } from '../../../backend/model/backend-model-review-result';
 
 @Component({
@@ -18,9 +21,7 @@ export class OpenReviewItemComponent implements OnInit {
 	@Input() openReview: BackendModelReviewData;
 	
 	
-	// TODO: we want to present a list of reviewers and their current state, such you can see which are open for what reason.
-
-	constructor() { }
+	constructor(private projectDataQueryBackend : ProjectDataQueryBackendService) { }
 
 	ngOnInit(): void {
 	}
@@ -30,6 +31,17 @@ export class OpenReviewItemComponent implements OnInit {
 		if(changes.openReview != undefined) {
 			this.currentReviewers = new Map<string, BackendModelReviewResult>(Object.entries(changes.openReview.currentValue.reviewReviewersResults));
 		}
+	}
+	
+	onCloseReview():void {
+		if(this.openReview.reviewReadyToClose) {
+			this.projectDataQueryBackend.closeReview(this.openReview.reviewFkProjectId, this.openReview.reviewId).subscribe(
+				data => {
+					// TODO: send an event that a review was closed.
+				},
+				error => {}				
+			);
+		} 
 	}
 
 }
