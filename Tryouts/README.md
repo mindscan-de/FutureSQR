@@ -27,6 +27,12 @@ Maybe i should stick to a monolith until there are some real problems to solve.
 
 Angular app using and evaluating CodeMirror to provide source code formatting and interaction with the source code.
 
+## Tryout_0x03
+
+A minimal Login based app with a user management component. This Application is to tryout user Authentication, user 
+authorization and such in connection with an angular app. If this works well enough against another developer backend
+a more real backend using Java will be tried as well.
+
 
 # Future Tryouts?
 
@@ -35,6 +41,3 @@ Angular app using and evaluating CodeMirror to provide source code formatting an
 Make a minimal tomcat based server, and check, whether the dist folder of tryout_0x01 can be used and will 
 serve that application even with deeper url-structures. Maybe this will require some rewrite rules?
 
-## Tryout_0x0?
-
-User-authentication / user authorization with an angular app.
