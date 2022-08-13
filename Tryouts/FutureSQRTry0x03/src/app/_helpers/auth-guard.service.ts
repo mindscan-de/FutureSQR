@@ -15,7 +15,8 @@ export class AuthGuardService implements CanActivate{
 		
 		// if we don't have a user, we want the user to navigate to the account page and perform a login
 		// using a return URL
-	
+		
+		this.router.navigate(['/account/login'], { queryParams: { returnUrl : state.url}});
 		return false; 
 	}
 	
