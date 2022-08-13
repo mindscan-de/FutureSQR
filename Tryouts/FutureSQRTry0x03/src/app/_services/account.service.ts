@@ -18,4 +18,12 @@ export class AccountService {
 	public get userValue(): User {
 		return this.userSubject.value;
 	}
+	
+	// TODO: login
+	// TODO: logout
+	// TODO: register
+	// TODO: getAll
+	// TODO: getById
+	// TODO: update
+	
 }
