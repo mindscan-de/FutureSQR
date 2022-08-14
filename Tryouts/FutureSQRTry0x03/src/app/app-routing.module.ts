@@ -8,7 +8,8 @@ const routes: Routes = [
 	{ path: '', component: HomeComponent },
 	{ path: 'users', component: UsersComponent},
 	
-	// { path: 'account'}
+	// login, register
+	// { path: 'account'},
 	
 	// otherwise redirect to home
 	{ path: '**', redirectTo:''}
