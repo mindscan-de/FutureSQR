@@ -27,7 +27,7 @@ export class AccountService {
 	}
 	
 	public login(username, password) {
-		let restURL = '/users/authenticate';
+		let restURL = '/FutureSQR/rest/user/authenticate';
 		
 		return this.httpClient.post<User>(restURL, {username, password}).pipe(
 			map(user => {
