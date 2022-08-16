@@ -9,8 +9,8 @@ import { AuthGuardService } from './_helpers/auth-guard.service';
 const accountModule = () => import('./account/account.module').then(x => x.AccountModule);
 
 const routes: Routes = [
-	{ path: '', component: HomeComponent  /*, canActivate: [AuthGuardService]*/ },
-	{ path: 'users', component: UsersComponent /*, canActivate: [AuthGuardService] */},
+	{ path: '', component: HomeComponent, canActivate: [AuthGuardService] },
+	{ path: 'users', component: UsersComponent , canActivate: [AuthGuardService] },
 	
 	// login, register
 	{ path: 'account', loadChildren: accountModule },
