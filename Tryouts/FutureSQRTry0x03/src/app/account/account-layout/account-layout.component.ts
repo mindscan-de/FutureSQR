@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AccountService } from '../../_services/account.service';
+
 @Component({
   selector: 'app-account-layout',
   templateUrl: './account-layout.component.html',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountLayoutComponent implements OnInit {
 
-  constructor() { }
+	constructor(
+		private accountService: AccountService
+	) { }
 
   ngOnInit(): void {
   }
