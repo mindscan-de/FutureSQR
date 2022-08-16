@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup,  Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { first } from 'rxjs/operators';
+
+import { AccountService } from '../../_services/account.service';
 
 @Component({
   selector: 'app-login',
@@ -13,8 +17,10 @@ export class LoginComponent implements OnInit {
 	public submitted = false;
 
 	constructor(
-		private formBuilder : FormBuilder
-		
+		private formBuilder : FormBuilder,
+		private route: ActivatedRoute,
+		private router: Router,
+		private accountService: AccountService
 	) { }
 
 	ngOnInit(): void {
@@ -32,7 +38,21 @@ export class LoginComponent implements OnInit {
 		
 		if (this.form.invalid) {
             return;
-        }		
+        }
+
+		this.loading = true;
+		this.accountService.login(this.f.username.value, this.f.password.value)
+		.pipe(first())
+		.subscribe({
+			next: ()=> {
+				const returnURL = this.route.snapshot.queryParams['returnUrl'] || '/';
+				this.router.navigateByUrl(returnURL);				
+			},
+			error: error => {
+				// TODO: have a kind of notification center in case of a bad login and then show this error.
+				this.loading = false;
+			}
+		});
 	}
 	
 
