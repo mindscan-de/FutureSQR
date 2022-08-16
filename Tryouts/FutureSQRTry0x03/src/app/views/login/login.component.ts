@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup,  Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 
-import { AccountService } from '../../_services/account.service';
+/*import { AccountService } from '../../_services/account.service';*/
 
 @Component({
   selector: 'app-login',
@@ -19,8 +19,8 @@ export class LoginComponent implements OnInit {
 	constructor(
 		private formBuilder : FormBuilder,
 		private route: ActivatedRoute,
-		private router: Router,
-		private accountService: AccountService
+		private router: Router // ,
+		// private accountService: AccountService
 	) { }
 
 	ngOnInit(): void {
@@ -41,7 +41,8 @@ export class LoginComponent implements OnInit {
         }
 
 		this.loading = true;
-		this.accountService.login(this.f.username.value, this.f.password.value)
+		// 
+/*		this.accountService.login(this.f.username.value, this.f.password.value)
 		.pipe(first())
 		.subscribe({
 			next: ()=> {
@@ -53,7 +54,7 @@ export class LoginComponent implements OnInit {
 				this.loading = false;
 			}
 		});
-	}
+*/	}
 	
 
 }
