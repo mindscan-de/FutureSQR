@@ -25,3 +25,11 @@ SOFTWARE.
 
 @autor: Maxim Gansert
 '''
+
+def getPasswdEntry(username:str):
+    if username is "mindscan-de":
+        
+        # username , secret, -> and then generate a OTP from it?
+        # or maybe just the username 
+        return ['mindscan-de','']
+    return None
