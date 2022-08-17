@@ -27,8 +27,7 @@ SOFTWARE.
 '''
 
 from fastapi import FastAPI, Form, HTTPException, status
-
-#todo import passwd
+from de.mindscan.futuresqr.assets.passwd import getPasswdEntry
 
 
 app = FastAPI()
@@ -39,6 +38,10 @@ def postLoginData(username:str = Form(...), password:str = Form(...)):
     # verify password,
     # either we generate a valid user dataset response
     # or we handle the wrong password by how?
-
+    pwEntry = getPasswdEntry(username)
+    if pwEntry is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND
+            )
     
     return {}
