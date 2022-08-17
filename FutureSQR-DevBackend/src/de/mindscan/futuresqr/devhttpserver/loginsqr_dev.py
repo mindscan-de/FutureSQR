@@ -26,7 +26,10 @@ SOFTWARE.
 @autor: Maxim Gansert
 '''
 
-from fastapi import FastAPI, Form   #, HTTPException
+from fastapi import FastAPI, Form, HTTPException, status
+
+#todo import passwd
+
 
 app = FastAPI()
 
@@ -36,4 +39,6 @@ def postLoginData(username:str = Form(...), password:str = Form(...)):
     # verify password,
     # either we generate a valid user dataset response
     # or we handle the wrong password by how?
+
+    
     return {}
