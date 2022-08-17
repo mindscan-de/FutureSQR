@@ -31,7 +31,7 @@ from fastapi import FastAPI, Form   #, HTTPException
 app = FastAPI()
 
 @app.post("/FutureSQR/rest/user/authenticate")
-def postLoginData(username, password):
+def postLoginData(username:str = Form(...), password:str = Form(...)):
     # TODO: find user by uername in user passwd database
     # verify password,
     # either we generate a valid user dataset response
