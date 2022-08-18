@@ -45,4 +45,6 @@ def postLoginData(username:str = Form(...), password:str = Form(...)):
             detail="No such user or not authenticated"
             )
     
-    return {}
+    return {
+        'id': username
+        }
