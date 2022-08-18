@@ -27,7 +27,7 @@ SOFTWARE.
 '''
 
 def getPasswdEntry(username:str):
-    if username is "mindscan-de":
+    if username == "mindscan-de":
         
         # username , secret, -> and then generate a OTP from it?
         # or maybe just the username 
