@@ -41,7 +41,8 @@ def postLoginData(username:str = Form(...), password:str = Form(...)):
     pwEntry = getPasswdEntry(username)
     if pwEntry is None:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No such user or not authenticated"
             )
     
     return {}
