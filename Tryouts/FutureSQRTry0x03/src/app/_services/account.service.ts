@@ -29,7 +29,11 @@ export class AccountService {
 	public login(username, password) {
 		let restURL = '/FutureSQR/rest/user/authenticate';
 		
-		return this.httpClient.post<User>(restURL, {username, password}).pipe(
+		let formdata = new FormData();
+		formdata.append('username', username);
+		formdata.append('password', password);
+		
+		return this.httpClient.post<User>(restURL, formdata).pipe(
 			map(user => {
 				localStorage.setItem('user', JSON.stringify(user));
 				this.userSubject.next(user);
