@@ -31,5 +31,5 @@ def getPasswdEntry(username:str):
         
         # username , secret, -> and then generate a OTP from it?
         # or maybe just the username 
-        return ['mindscan-de','']
+        return ['mindscan-de','Maxim Gansert (54321)']
     return None
