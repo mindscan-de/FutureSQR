@@ -35,6 +35,8 @@ export class AccountService {
 		
 		return this.httpClient.post<User>(restURL, formdata).pipe(
 			map(user => {
+				console.log("User was found...")
+				console.log(user);
 				localStorage.setItem('user', JSON.stringify(user));
 				this.userSubject.next(user);
 				return user;
