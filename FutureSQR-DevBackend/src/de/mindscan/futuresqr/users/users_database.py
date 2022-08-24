@@ -26,6 +26,9 @@ SOFTWARE.
 @autor: Maxim Gansert
 '''
 
+import uuid
+from de.mindscan.futuresqr.users.user_table_columns import *  # @UnusedWildImport
+
 class UsersDatabase(object):
     '''
     classdocs
@@ -36,4 +39,26 @@ class UsersDatabase(object):
         '''
         Constructor
         '''
+        self._userMap = {}
+    
+    def getUserByUUID(self, uuid: str):
+        if(uuid in self._userMap):
+            return self._userMap[uuid]
         
+        return None
+    
+    def insertNewUser(self, logonname, displayname):
+        pk_uuid = str(uuid.uuid4())
+        
+        userRow = {
+                USER_UUID: pk_uuid,
+                USER_LOGON_NAME: logonname,
+                USER_DISPLAYNAME: displayname,
+                USER_AVATARLOCATION: pk_uuid + ".png",
+                USER_ISBANNED: False,
+                # USER_CREATEDDATE: now()
+                # USER_MODIFIEDDATE: 0
+                # USER_BANNEDDATE: 0
+            }
+        
+        self._userMap[pk_uuid] = userRow
