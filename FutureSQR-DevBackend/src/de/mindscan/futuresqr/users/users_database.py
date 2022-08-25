@@ -44,7 +44,12 @@ class UsersDatabase(object):
     def getUserByUUID(self, uuid: str):
         if(uuid in self._userMap):
             return self._userMap[uuid]
-        
+        return None
+    
+    def getUserByLogonName(self, logonname:str):
+        for user in self._userMap:
+            if user[USER_LOGON_NAME] == logonname:
+                return user
         return None
     
     def insertNewUser(self, logonname, displayname):
@@ -62,3 +67,5 @@ class UsersDatabase(object):
             }
         
         self._userMap[pk_uuid] = userRow
+        
+        return userRow
