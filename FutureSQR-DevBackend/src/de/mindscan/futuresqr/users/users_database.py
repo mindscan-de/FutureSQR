@@ -52,7 +52,7 @@ class UsersDatabase(object):
                 return user
         return None
     
-    def insertNewUser(self, logonname, displayname):
+    def insertNewUser(self, logonname, displayname, contactemail):
         pk_uuid = str(uuid.uuid4())
         
         userRow = {
@@ -60,6 +60,7 @@ class UsersDatabase(object):
                 USER_LOGON_NAME: logonname,
                 USER_DISPLAYNAME: displayname,
                 USER_AVATARLOCATION: pk_uuid + ".png",
+                USER_CONTACT_EMAIL: contactemail,
                 USER_ISBANNED: False,
                 # USER_CREATEDDATE: now()
                 # USER_MODIFIEDDATE: 0

@@ -32,6 +32,7 @@ USER_PK_USERID      = USER_UUID
 USER_LOGON_NAME     = 'loginname'
 USER_DISPLAYNAME    = 'displayname'
 USER_AVATARLOCATION = 'avatarlocation'
+USER_CONTACT_EMAIL  = 'email'
 USER_ISBANNED       = 'isbanned'
 USER_CREATEDDATE    = 'created'
 USER_MODIFIEDDATE   = 'modified'
