@@ -42,7 +42,7 @@ class UsersDatabase(object):
         self._userMap = {}
     
     def getUserByUUID(self, uuid: str):
-        if(uuid in self._userMap):
+        if self.hasUserByUUID(uuid):
             return self._userMap[uuid]
         return None
     
@@ -51,6 +51,15 @@ class UsersDatabase(object):
             if user[USER_LOGON_NAME] == logonname:
                 return user
         return None
+    
+    def hasUserByUUID(self,uuid: str):
+        return uuid in self._userMap
+    
+    def hasUserByLogonNme(self, logonname:str):
+        for user in self._userMap:
+            if user[USER_LOGON_NAME] == logonname:
+                return True
+        return False
     
     def insertNewUser(self, logonname, displayname, contactemail):
         pk_uuid = str(uuid.uuid4())
