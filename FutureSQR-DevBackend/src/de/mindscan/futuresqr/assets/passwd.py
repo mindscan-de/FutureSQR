@@ -26,10 +26,10 @@ SOFTWARE.
 @autor: Maxim Gansert
 '''
 
-def getPasswdEntry(username:str):
-    if username == "mindscan-de":
+def getPasswdEntry(logonname:str):
+    if logonname == "mindscan-de":
         
-        # username , secret, -> and then generate a OTP from it?
-        # or maybe just the username 
+        # logonname , secret, -> and then generate a OTP from it?
+        # or maybe just the logonname 
         return ['mindscan-de','Maxim Gansert (54321)']
     return None
