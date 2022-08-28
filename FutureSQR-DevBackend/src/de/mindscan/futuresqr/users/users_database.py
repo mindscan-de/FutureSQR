@@ -100,3 +100,11 @@ class UsersDatabase(object):
                 self._userMap[user[USER_PK_USERID]][USER_CONTACT_EMAIL] = contactemail
                 return user
         return None
+    
+    def updateDisplayName(self, logonname:str, displayname:str):
+        for user in self._userMap:
+            if user[USER_LOGON_NAME] == logonname:
+                self._userMap[user[USER_PK_USERID]][USER_DISPLAYNAME] = displayname
+                return user
+        return None
+        
