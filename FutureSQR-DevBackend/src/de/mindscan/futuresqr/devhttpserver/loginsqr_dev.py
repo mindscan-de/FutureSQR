@@ -62,16 +62,16 @@ def postLoginData(
 
 @app.post("/FutureSQR/rest/user/add")
 def addNewUser(
-        logonname:str = Form(...), 
+        username:str = Form(...), 
         password:str = Form(...), 
         displayname:str = Form(...),
         contactemail:str = Form(...)):
     
     # TODO check user token, if eligible
-    if userDatabase.hasUserByLogonNme(logonname):
+    if userDatabase.hasUserByLogonNme(username):
         return False
     
-    userrow = userDatabase.insertNewUser(logonname, displayname, contactemail)
+    userrow = userDatabase.insertNewUser(username, displayname, contactemail)
     
     # TODO: assign password to this user.
     pass
