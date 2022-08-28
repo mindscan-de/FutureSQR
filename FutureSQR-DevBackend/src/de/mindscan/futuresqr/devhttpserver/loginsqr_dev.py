@@ -35,17 +35,26 @@ app = FastAPI()
 userDatabase = UsersDatabase({});
 
 @app.post("/FutureSQR/rest/user/authenticate")
-def postLoginData(username:str = Form(...), password:str = Form(...)):
-    # TODO: find user by uername in user passwd database
-    # verify password,
-    # either we generate a valid user dataset response
-    # or we handle the wrong password by how?
+def postLoginData(
+        username:str = Form(...), 
+        password:str = Form(...)):
+
+    # find user by uername in user passwd database
     pwEntry = getPasswdEntry(username)
     if pwEntry is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="No such user or not authenticated"
             )
+    # find userentry by username in user database
+    userEntry = userDatabase.getUserByLogonName(username);
+
+    # check if user is banned
+    
+    # verify password,
+    # either we generate a valid user dataset response
+    # or we handle the wrong password by how?
+    
     
     return {
         'id': username
@@ -57,6 +66,8 @@ def addNewUser(
         password:str = Form(...), 
         displayname:str = Form(...),
         contactemail:str = Form(...)):
+    
+    # TODO check user token, if eligible
     if userDatabase.hasUserByLogonNme(logonname):
         return False
     
