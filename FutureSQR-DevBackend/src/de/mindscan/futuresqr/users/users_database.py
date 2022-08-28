@@ -79,3 +79,24 @@ class UsersDatabase(object):
         self._userMap[pk_uuid] = userRow
         
         return userRow
+    
+    def banUser(self, logonname:str):
+        for user in self._userMap:
+            if user[USER_LOGON_NAME] == logonname:
+                self._userMap[user[USER_PK_USERID]][USER_ISBANNED] = True
+                return user
+        return None
+                
+    def unbanUser(self, logonname: str):
+        for user in self._userMap:
+            if user[USER_LOGON_NAME] == logonname:
+                self._userMap[user[USER_PK_USERID]][USER_ISBANNED] = False
+                return user
+        return None
+    
+    def updateContactEmail(self, logonname:str, contactemail:str):
+        for user in self._userMap:
+            if user[USER_LOGON_NAME] == logonname:
+                self._userMap[user[USER_PK_USERID]][USER_CONTACT_EMAIL] = contactemail
+                return user
+        return None
