@@ -76,3 +76,20 @@ def addNewUser(
     # TODO: assign password to this user.
     pass
 
+@app.post("FutureSQR/rest/user/ban")
+def banUser(
+        username:str = Form(...)):
+    # TODO check user token, if eligible
+    if userDatabase.hasUserByLogonNme(username):
+        userDatabase.banUser(username)
+    pass
+
+@app.post("FutureSQR/rest/user/unban")
+def unbanUser(
+        username:str = Form(...)):
+
+    # TODO check user token, if eligible
+    if userDatabase.hasUserByLogonNme(username):
+        userDatabase.unbanUser(username)
+    pass
+    
