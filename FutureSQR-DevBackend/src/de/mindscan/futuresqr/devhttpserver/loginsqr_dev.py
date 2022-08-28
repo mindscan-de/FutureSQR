@@ -74,9 +74,10 @@ def addNewUser(
     userrow = userDatabase.insertNewUser(username, displayname, contactemail)
     
     # TODO: assign password to this user.
+    # in case of a different password based backend  (e.g. LDAP), we may not need the password at all.
     pass
 
-@app.post("FutureSQR/rest/user/ban")
+@app.post("/FutureSQR/rest/user/ban")
 def banUser(
         username:str = Form(...)):
     # TODO check user token, if eligible
@@ -84,12 +85,30 @@ def banUser(
         userDatabase.banUser(username)
     pass
 
-@app.post("FutureSQR/rest/user/unban")
+@app.post("/FutureSQR/rest/user/unban")
 def unbanUser(
         username:str = Form(...)):
 
     # TODO check user token, if eligible
     if userDatabase.hasUserByLogonNme(username):
         userDatabase.unbanUser(username)
+    pass
+
+def updateContactEmail(
+        username:str = Form(...),
+        contactemail:str = Form(...)):
+
+    # TOOD: check user token if eligible
+    if userDatabase.hasUserByLogonNme(username):
+        userDatabase.updateContactEmail(username, contactemail)
+    pass
+
+def updateDisplayName(
+        username:str = Form(...),
+        displayname:str = Form(...)):
+
+    # TOOD: check user token if eligible
+    if userDatabase.hasUserByLogonNme(username):
+        userDatabase.updateContactEmail(username, displayname)
     pass
     
