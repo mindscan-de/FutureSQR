@@ -28,9 +28,11 @@ SOFTWARE.
 
 from fastapi import FastAPI, Form, HTTPException, status
 from de.mindscan.futuresqr.assets.passwd import getPasswdEntry
-
+from de.mindscan.futuresqr.users.users_database import UsersDatabase
 
 app = FastAPI()
+
+userDatabase = UsersDatabase({});
 
 @app.post("/FutureSQR/rest/user/authenticate")
 def postLoginData(username:str = Form(...), password:str = Form(...)):
@@ -48,3 +50,18 @@ def postLoginData(username:str = Form(...), password:str = Form(...)):
     return {
         'id': username
         }
+
+@app.post("/FutureSQR/rest/user/add")
+def addNewUser(
+        logonname:str = Form(...), 
+        password:str = Form(...), 
+        displayname:str = Form(...),
+        contactemail:str = Form(...)):
+    if userDatabase.hasUserByLogonNme(logonname):
+        return False
+    
+    userrow = userDatabase.insertNewUser(logonname, displayname, contactemail)
+    
+    # TODO: assign password to this user.
+    pass
+
