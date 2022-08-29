@@ -94,11 +94,18 @@ def unbanUser(
         userDatabase.unbanUser(username)
     pass
 
+@app.post("FutureSQR/rest/user/updatecontact")
 def updateContactEmail(
         username:str = Form(...),
         contactemail:str = Form(...)):
-
-    # TOOD: check user token if eligible
+	# if admin, change the email for the username
+	
+    # TOOD: check user token if eligible username == logged in user
+	
+	# let the person receive the mail and then use the sent link to update 
+	# the new contact address.
+	
+	# instead of changing it immediately, there should be an activation procedure, which proves that the logged in user is the owner of this email address
     if userDatabase.hasUserByLogonNme(username):
         userDatabase.updateContactEmail(username, contactemail)
     pass
