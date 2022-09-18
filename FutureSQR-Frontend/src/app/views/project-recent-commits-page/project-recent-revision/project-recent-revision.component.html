@@ -1,6 +1,6 @@
-	<div class="d-flex flex-row-reverse">
+	<div class="d-flex flex-row-reverse" (click)="onToggleFileList()">
 		<div class="p-0">
-			<span><a class="mr-2 ml-2" [routerLink]="['/',activeProjectID,'revision',activeRevision.revisionid]"><span style="font-family:monospace" class="small" >{{activeRevision.shortrev}}</span></a></span>
+			<span><a class="mr-2 ml-2" [routerLink]="['/',activeProjectID,'revision',activeRevision.revisionid]" ><span style="font-family:monospace" class="small" >{{activeRevision.shortrev}}</span></a></span>
 		</div>
 	
 		<div class="p-0" *ngIf="activeRevision.hasReview==false">
@@ -17,7 +17,7 @@
 
 			<span><a class="btn btn-sm btn-light mr-2" (click)="onToggleFileList()" title="expand touched file list"><span *ngIf="!showFileList">&#9660;</span><span *ngIf="showFileList">&#9650;</span></a></span>
 			<span class="text-muted small">created <b title="{{activeRevision.date}}">{{activeRevision.reldate}}</b> by <b>{{activeRevision.authorname}}</b></span>
-			<div *ngIf="showFileList" class="ml-3 mt-2" (click)="onToggleFileList()">
+			<div *ngIf="showFileList" class="ml-3 mt-2">
 				<ul class="list-unstyled">
 					<li class="list-unstyled" *ngFor="let file of uiFileInformations">
 					<span class="mr-2 badge ml-3" [ngClass]="{
