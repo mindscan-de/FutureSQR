@@ -29,7 +29,7 @@ export class ContentChangeSetSideBySideDiffComponent implements OnInit {
 	}
 	
  	ngOnChanges(changes: SimpleChanges): void {
-		let contentChangeSetCurrent = changes.contentChangeSet.currentValue;
+		let contentChangeSetCurrent:string[] = changes.contentChangeSet.currentValue;
 		if(contentChangeSetCurrent) {
 			// This needs to be reworked such that the line numbers are correctly transferred.
 			this.leftContent = this.filterLeftDiff(contentChangeSetCurrent, 12);
