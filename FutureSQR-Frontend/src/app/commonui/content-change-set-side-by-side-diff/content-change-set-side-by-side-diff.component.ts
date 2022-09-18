@@ -18,6 +18,7 @@ export class ContentChangeSetSideBySideDiffComponent implements OnInit {
 	public readOnly:boolean = true;
 	public viewPortMargin:number = 1;
 
+	// TODO: create a ui model from it
 	// actually this will an intermediate external model
 	@Input() contentChangeSet:string[] =[];
 	
@@ -30,23 +31,24 @@ export class ContentChangeSetSideBySideDiffComponent implements OnInit {
  	ngOnChanges(changes: SimpleChanges): void {
 		let contentChangeSetCurrent = changes.contentChangeSet.currentValue;
 		if(contentChangeSetCurrent) {
-			this.leftContent = this.filterLeftDiff(contentChangeSetCurrent);
-			this.rightContent = this.filterRightDiff(contentChangeSetCurrent)
+			// This needs to be reworked such that the line numbers are correctly transferred.
+			this.leftContent = this.filterLeftDiff(contentChangeSetCurrent, 12);
+			this.rightContent = this.filterRightDiff(contentChangeSetCurrent, 12)
 		}
 	}
 
-	filterLeftDiff(linediff: string[]) : UiDiffContentModel {
+	filterLeftDiff(linediff: string[], left_line_count_start: number) : UiDiffContentModel {
 		let leftdiff = linediff.filter(line => !line.startsWith("+")).join("\n");
 		
-		let result:UiDiffContentModel = new UiDiffContentModel(leftdiff,12);
+		let result:UiDiffContentModel = new UiDiffContentModel(leftdiff, left_line_count_start);
 		
 		return result; 
 	}
 	
-	filterRightDiff(linediff: string[]) : UiDiffContentModel {
+	filterRightDiff(linediff: string[], right_line_count_start: number) : UiDiffContentModel {
 		let rightdiff = linediff.filter(line => !line.startsWith("-")).join("\n");
 		
-		let result:UiDiffContentModel = new UiDiffContentModel(rightdiff,12);
+		let result:UiDiffContentModel = new UiDiffContentModel(rightdiff,right_line_count_start);
 		
 		return result; 
 	}
