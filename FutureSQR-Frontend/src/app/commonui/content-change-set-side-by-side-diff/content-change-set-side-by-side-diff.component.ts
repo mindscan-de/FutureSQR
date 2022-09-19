@@ -33,7 +33,7 @@ export class ContentChangeSetSideBySideDiffComponent implements OnInit {
 		if(contentChangeSetCurrent) {
 			// This needs to be reworked such that the line numbers are correctly transferred.
 			this.leftContent = this.filterLeftDiff(contentChangeSetCurrent, 12);
-			this.rightContent = this.filterRightDiff(contentChangeSetCurrent, 12)
+			this.rightContent = this.filterRightDiff(contentChangeSetCurrent, 15)
 		}
 	}
 
