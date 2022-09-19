@@ -16,14 +16,21 @@ export class FileParticipationFileListPanelComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit(): void {
-		
 	}
 
 	ngOnChanges(changes: SimpleChanges) : void {
-		
 		if(changes.fileInformations !== undefined) {
-			this.uiFileInformations = changes.fileInformations.currentValue; 
+			// thing is we get this as an array of files sorted by path
+			let allFiles : UiReviewFileInformation[] = changes.fileInformations.currentValue
+			
+			this.m2mTransform(allFiles);
+			this.uiFileInformations = allFiles; 
 		}
 	}
 
+	m2mTransform( allfiles:UiReviewFileInformation[]) : void {
+		// TODO: We use parent file path to group the files.
+		// TODO: what about the empty path?
+		// just an algorithmic question...
+	}
 }
