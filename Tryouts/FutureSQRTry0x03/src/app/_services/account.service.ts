@@ -54,7 +54,7 @@ export class AccountService {
 	}
 	// TODO: register
 	
-	public getAllSimpleList() {
+	public getAllSimpleList(): Observable<BackendModelSimpleUserItem[]> {
 		let restURL = '/FutureSQR/rest/user/simplelist';
 		
 		// TODO: actually this needs to be checked for rights, to get a complete userlist
