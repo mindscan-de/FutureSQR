@@ -6,6 +6,9 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 import { User } from '../_models/user';
+import { BackendModelSimpleUserItem } from '../_models/backend-model-simple-user-item';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +53,13 @@ export class AccountService {
 		this.router.navigate(['/account/login'])
 	}
 	// TODO: register
+	
+	public getAllSimpleList() {
+		let restURL = '/FutureSQR/rest/user/simplelist';
+		
+		// TODO: actually this needs to be checked for rights, to get a complete userlist
+		return this.httpClient.get<BackendModelSimpleUserItem[]>( restURL );
+	}
 	// TODO: getAll
 	// TODO: getById
 	// TODO: update
