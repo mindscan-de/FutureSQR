@@ -18,7 +18,7 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
 	this.accoutService.getAllSimpleList().subscribe(
-		data => {},
+		data => {this.onAccountListProvided(data)},
 		error => {}
 	);
   }
