@@ -24,6 +24,10 @@ export class UsersComponent implements OnInit {
   }
 
 	private onAccountListProvided( userlist: BackendModelSimpleUserItem[]): void {
-		
+		this.uiModelSimpleUserlist = this.m2mTransform(userlist);
+	}
+	
+	private m2mTransform(input: BackendModelSimpleUserItem[]): BackendModelSimpleUserItem[] {
+		return input;
 	}
 }
