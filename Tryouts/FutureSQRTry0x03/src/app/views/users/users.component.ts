@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AccountService } from '../../_services/account.service';
+import { BackendModelSimpleUserItem } from '../../_models/backend-model-simple-user-item';
 
 @Component({
   selector: 'app-users',
@@ -8,6 +9,8 @@ import { AccountService } from '../../_services/account.service';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
+	
+	public uiModelSimpleUserlist: BackendModelSimpleUserItem[] = []; 
 
   constructor(
 	private accoutService:AccountService	
@@ -18,7 +21,9 @@ export class UsersComponent implements OnInit {
 		data => {},
 		error => {}
 	);
-	
   }
 
+	private onAccountListProvided( userlist: BackendModelSimpleUserItem[]): void {
+		
+	}
 }
