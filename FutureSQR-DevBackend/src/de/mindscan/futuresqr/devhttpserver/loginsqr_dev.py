@@ -29,6 +29,7 @@ SOFTWARE.
 from fastapi import FastAPI, Form, HTTPException, status
 from de.mindscan.futuresqr.assets.passwd import getPasswdEntry
 from de.mindscan.futuresqr.users.users_database import UsersDatabase
+from de.mindscan.futuresqr.users.user_table_columns import *  # @UnusedWildImport
 
 app = FastAPI()
 
@@ -114,8 +115,24 @@ def updateContactEmail(
 def getSimpleUserList():
     # the role of the user has to be checked for admin rights to retrieve
     # that list, even then the list should be filtered.
+    first_hardcoded_user = {
+            USER_UUID: "abcd-284738-38253",
+            USER_LOGON_NAME: 'mindscan-de',
+            USER_DISPLAYNAME: 'Maxim Gansert',
+            USER_ISBANNED: False,
+            USER_AVATARLOCATION: "abcd-284738-38253.png"
+        }
     
-    return []
+    first_banned_user = {
+            USER_UUID: "1123-abef67891-83aab",
+            USER_LOGON_NAME: 'someoneelse',
+            USER_DISPLAYNAME: 'Elsa Someone',
+            USER_ISBANNED: True,
+            USER_AVATARLOCATION: "1123-abef67891-83aab.png",
+        }
+    
+    
+    return [ first_hardcoded_user, first_banned_user]
 
 def updateDisplayName(
         username:str = Form(...),
