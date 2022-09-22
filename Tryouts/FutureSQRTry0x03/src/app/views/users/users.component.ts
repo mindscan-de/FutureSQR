@@ -30,4 +30,14 @@ export class UsersComponent implements OnInit {
 	private m2mTransform(input: BackendModelSimpleUserItem[]): BackendModelSimpleUserItem[] {
 		return input;
 	}
+	
+	onUnbanUser(user:BackendModelSimpleUserItem) : void {
+		// TODO: post unban user
+		
+		// then refresh list....
+	}
+	
+	onBanUser(user: BackendModelSimpleUserItem) : void {
+		// TODO: post ban user
+	}
 }
