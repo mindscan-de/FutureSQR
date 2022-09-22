@@ -95,7 +95,7 @@ def unbanUser(
         userDatabase.unbanUser(username)
     pass
 
-@app.post("FutureSQR/rest/user/updatecontact")
+@app.post("/FutureSQR/rest/user/updatecontact")
 def updateContactEmail(
         username:str = Form(...),
         contactemail:str = Form(...)):
@@ -111,7 +111,7 @@ def updateContactEmail(
         userDatabase.updateContactEmail(username, contactemail)
     pass
 
-@app.get("FutureSQR/rest/user/simplelist")
+@app.get("/FutureSQR/rest/user/simplelist")
 def getSimpleUserList():
     # the role of the user has to be checked for admin rights to retrieve
     # that list, even then the list should be filtered.
