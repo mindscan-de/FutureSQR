@@ -3,14 +3,14 @@
 		Users (TODO: maybe provide textbox for filtering names)
 	</div>
 	<ul class="list-group list-group-flush">
-		<li class="list-group-item list-unstyled">
+		<li class="list-group-item list-unstyled" *ngFor="let user of uiModelSimpleUserlist">
 			<div><!-- TODO: flex box layout -->
-				<span>avatarimage</span>
-				<span class="ml-2">(login name)</span>
-				<span class="ml-2"><b>User Displayname</b></span>
-				<span><a class="badge badge-danger ml-2">show if is banned</a> (and also when if so)</span>
-				<span><a class="btn btn-light btn-sm ml-2">ban</a></span>
-				<span><a class="btn btn-light btn-sm ml-2">unban</a></span>
+				<span>{{user.avatarlocation}}</span>
+				<span class="ml-2">{{user.loginname}}</span>
+				<span class="ml-2"><b>{{user.displayname}}</b></span>
+				<span *ngIf="user.isbanned"><a class="badge badge-danger ml-2" >banned</a> (and also when if so)</span>
+				<span *ngIf="!user.isbanned"><a class="btn btn-light btn-sm ml-2">ban</a></span>
+				<span *ngIf="user.isbanned"><a class="btn btn-light btn-sm ml-2">unban</a></span>
 				<span><a class="btn btn-light btn-sm ml-2">edit</a></span>
 			</div>
 		</li>
