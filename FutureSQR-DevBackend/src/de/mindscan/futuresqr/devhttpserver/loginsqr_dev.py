@@ -88,7 +88,10 @@ def banUser(
     
     if userDatabase.hasUserByLogonNme(username):
         userDatabase.banUser(username)
-    pass
+        
+    # TODO: banned / updated user entry
+    return {}
+
 
 @app.post("/FutureSQR/rest/user/unban")
 def unbanUser(
@@ -99,7 +102,9 @@ def unbanUser(
     
     if userDatabase.hasUserByLogonNme(username):
         userDatabase.unbanUser(username)
-    pass
+
+    # TODO: unbanned / updated user entry
+    return {}
 
 @app.post("/FutureSQR/rest/user/updatecontact")
 def updateContactEmail(
