@@ -82,6 +82,10 @@ def addNewUser(
 def banUser(
         username:str = Form(...)):
     # TODO check user token, if eligible
+    
+    # TODO check if yourself, you should not be able to ban yourself
+    
+    
     if userDatabase.hasUserByLogonNme(username):
         userDatabase.banUser(username)
     pass
@@ -89,8 +93,10 @@ def banUser(
 @app.post("/FutureSQR/rest/user/unban")
 def unbanUser(
         username:str = Form(...)):
-
     # TODO check user token, if eligible
+    
+    # TODO check if yourself, you should not be able to unban yourself
+    
     if userDatabase.hasUserByLogonNme(username):
         userDatabase.unbanUser(username)
     pass
