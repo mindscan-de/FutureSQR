@@ -33,8 +33,10 @@ export class UsersComponent implements OnInit {
 	
 	onUnbanUser(user:BackendModelSimpleUserItem) : void {
 		// TODO: post unban user
-		
-		// then refresh list....
+		this.accoutService.postBanUser(user.loginname).subscribe(
+			data => { /* result entry after baning, refresh user list after baning */  },
+			error => {}
+		)
 	}
 	
 	onBanUser(user: BackendModelSimpleUserItem) : void {
