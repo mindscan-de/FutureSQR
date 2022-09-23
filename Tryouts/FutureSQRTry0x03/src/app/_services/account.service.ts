@@ -60,6 +60,19 @@ export class AccountService {
 		// TODO: actually this needs to be checked for rights, to get a complete userlist
 		return this.httpClient.get<BackendModelSimpleUserItem[]>( restURL );
 	}
+	
+	public postBanUser(username:string): Observable<BackendModelSimpleUserItem[]> {
+		let restURL = '/FutureSQR/rest/user/ban';
+		
+		let formdata = new FormData();
+		
+		formdata.append('username',username);
+		
+		return this.httpClient.post<BackendModelSimpleUserItem[]>( restURL, formdata)
+	}
+	
+	
+	
 	// TODO: getAll
 	// TODO: getById
 	// TODO: update
