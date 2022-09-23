@@ -70,8 +70,17 @@ export class AccountService {
 		
 		return this.httpClient.post<BackendModelSimpleUserItem[]>( restURL, formdata)
 	}
-	
-	
+
+	public postUnbanUser(username:string): Observable<BackendModelSimpleUserItem[]> {
+		let restURL = '/FutureSQR/rest/user/unban';
+		
+		let formdata = new FormData();
+		
+		formdata.append('username',username);
+		
+		return this.httpClient.post<BackendModelSimpleUserItem[]>( restURL, formdata)
+	}
+
 	
 	// TODO: getAll
 	// TODO: getById
