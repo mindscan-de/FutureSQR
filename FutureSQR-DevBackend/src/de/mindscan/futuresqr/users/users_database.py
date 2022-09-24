@@ -40,6 +40,9 @@ class UsersDatabase(object):
         Constructor
         '''
         self._userMap = {}
+        self.insertNewUser('mindscan-de', 'Maxim Gansert', 'contact@themail.local')
+        self.insertNewUser('soneoneelsa', 'Elsa Someone', 'contact@elsamail.local')
+        
     
     def getUserByUUID(self, uuid: str):
         if self.hasUserByUUID(uuid):
