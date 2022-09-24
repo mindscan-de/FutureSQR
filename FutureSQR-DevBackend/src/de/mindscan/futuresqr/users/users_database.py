@@ -85,7 +85,7 @@ class UsersDatabase(object):
     
     def selectAllUSers(self):
         # TODO sort by some criteria
-        return self._userMap.values()
+        return list(self._userMap.values())
     
     def banUser(self, logonname:str):
         for user in self._userMap:
