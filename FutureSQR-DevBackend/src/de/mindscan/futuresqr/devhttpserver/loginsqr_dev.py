@@ -87,7 +87,7 @@ def banUser(
     
     
     if userDatabase.hasUserByLogonNme(username):
-        userDatabase.banUser(username)
+        return userDatabase.banUser(username)
         
     # TODO: banned / updated user entry
     return {}
@@ -101,7 +101,7 @@ def unbanUser(
     # TODO check if yourself, you should not be able to unban yourself
     
     if userDatabase.hasUserByLogonNme(username):
-        userDatabase.unbanUser(username)
+        return userDatabase.unbanUser(username)
 
     # TODO: unbanned / updated user entry
     return {}
