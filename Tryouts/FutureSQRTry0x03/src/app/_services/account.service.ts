@@ -61,24 +61,24 @@ export class AccountService {
 		return this.httpClient.get<BackendModelSimpleUserItem[]>( restURL );
 	}
 	
-	public postBanUser(username:string): Observable<BackendModelSimpleUserItem[]> {
+	public postBanUser(username:string): Observable<BackendModelSimpleUserItem> {
 		let restURL = '/FutureSQR/rest/user/ban';
 		
 		let formdata = new FormData();
 		
 		formdata.append('username',username);
 		
-		return this.httpClient.post<BackendModelSimpleUserItem[]>( restURL, formdata)
+		return this.httpClient.post<BackendModelSimpleUserItem>( restURL, formdata)
 	}
 
-	public postUnbanUser(username:string): Observable<BackendModelSimpleUserItem[]> {
+	public postUnbanUser(username:string): Observable<BackendModelSimpleUserItem> {
 		let restURL = '/FutureSQR/rest/user/unban';
 		
 		let formdata = new FormData();
 		
 		formdata.append('username',username);
 		
-		return this.httpClient.post<BackendModelSimpleUserItem[]>( restURL, formdata)
+		return this.httpClient.post<BackendModelSimpleUserItem>( restURL, formdata)
 	}
 
 	
