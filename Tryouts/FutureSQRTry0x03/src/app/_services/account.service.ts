@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
-import { map } from 'rxjs/operators';
+import { map,first } from 'rxjs/operators';
+
 
 import { User } from '../_models/user';
 import { BackendModelSimpleUserItem } from '../_models/backend-model-simple-user-item';
@@ -58,7 +59,7 @@ export class AccountService {
 		let restURL = '/FutureSQR/rest/user/simplelist';
 		
 		// TODO: actually this needs to be checked for rights, to get a complete userlist
-		return this.httpClient.get<BackendModelSimpleUserItem[]>( restURL );
+		return this.httpClient.get<BackendModelSimpleUserItem[]>( restURL ).pipe( first() );
 	}
 	
 	public postBanUser(username:string): Observable<BackendModelSimpleUserItem> {
@@ -68,7 +69,8 @@ export class AccountService {
 		
 		formdata.append('username',username);
 		
-		return this.httpClient.post<BackendModelSimpleUserItem>( restURL, formdata)
+		// make sure we automatically unsubscribe / otherwise memory leak
+		return this.httpClient.post<BackendModelSimpleUserItem>( restURL, formdata).pipe( first() );
 	}
 
 	public postUnbanUser(username:string): Observable<BackendModelSimpleUserItem> {
@@ -78,7 +80,8 @@ export class AccountService {
 		
 		formdata.append('username',username);
 		
-		return this.httpClient.post<BackendModelSimpleUserItem>( restURL, formdata)
+		// make sure we automatically unsubscribe / otherwise memory leak
+		return this.httpClient.post<BackendModelSimpleUserItem>( restURL, formdata).pipe( first() );
 	}
 
 	
