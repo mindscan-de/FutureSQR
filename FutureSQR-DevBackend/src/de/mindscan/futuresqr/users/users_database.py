@@ -41,7 +41,7 @@ class UsersDatabase(object):
         '''
         self._userMap = {}
         self.insertNewUser('mindscan-de', 'Maxim Gansert', 'contact@themail.local')
-        self.insertNewUser('soneoneelsa', 'Elsa Someone', 'contact@elsamail.local')
+        self.insertNewUser('someoneelsa', 'Elsa Someone', 'contact@elsamail.local')
         
     
     def getUserByUUID(self, uuid: str):
@@ -50,7 +50,7 @@ class UsersDatabase(object):
         return None
     
     def getUserByLogonName(self, logonname:str):
-        for user in self._userMap:
+        for user in self._userMap.values():
             if user[USER_LOGON_NAME] == logonname:
                 return user
         return None
@@ -59,7 +59,7 @@ class UsersDatabase(object):
         return uuid in self._userMap
     
     def hasUserByLogonNme(self, logonname:str):
-        for user in self._userMap:
+        for user in self._userMap.values():
             if user[USER_LOGON_NAME] == logonname:
                 return True
         return False
@@ -88,28 +88,28 @@ class UsersDatabase(object):
         return list(self._userMap.values())
     
     def banUser(self, logonname:str):
-        for user in self._userMap:
+        for user in self._userMap.values():
             if user[USER_LOGON_NAME] == logonname:
                 self._userMap[user[USER_PK_USERID]][USER_ISBANNED] = True
                 return user
         return None
                 
     def unbanUser(self, logonname: str):
-        for user in self._userMap:
+        for user in self._userMap.values():
             if user[USER_LOGON_NAME] == logonname:
                 self._userMap[user[USER_PK_USERID]][USER_ISBANNED] = False
                 return user
         return None
     
     def updateContactEmail(self, logonname:str, contactemail:str):
-        for user in self._userMap:
+        for user in self._userMap.values():
             if user[USER_LOGON_NAME] == logonname:
                 self._userMap[user[USER_PK_USERID]][USER_CONTACT_EMAIL] = contactemail
                 return user
         return None
     
     def updateDisplayName(self, logonname:str, displayname:str):
-        for user in self._userMap:
+        for user in self._userMap.values():
             if user[USER_LOGON_NAME] == logonname:
                 self._userMap[user[USER_PK_USERID]][USER_DISPLAYNAME] = displayname
                 return user
