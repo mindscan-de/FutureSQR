@@ -5,13 +5,14 @@
 	<ul class="list-group list-group-flush">
 		<li class="list-group-item list-unstyled" *ngFor="let user of uiModelSimpleUserlist">
 			<div><!-- TODO: flex box layout -->
-				<span>{{user.avatarlocation}}</span>
-				<span class="ml-2">{{user.loginname}}</span>
-				<span class="ml-2"><b>{{user.displayname}}</b></span>
-				<span *ngIf="user.isbanned"><a class="badge badge-danger ml-2" >banned</a> (and also when if so)</span>
-				<span *ngIf="!user.isbanned"><a class="btn btn-light btn-sm ml-2" (click)="onBanUser(user)">ban</a></span>
-				<span *ngIf="user.isbanned"><a class="btn btn-light btn-sm ml-2" (click)="onUnbanUser(user)">unban</a></span>
-				<span><a class="btn btn-light btn-sm ml-2">edit</a></span>
+				<!-- <span class="col-1">{{user.avatarlocation}}</span> -->
+				<span class="col-1 ml-2">{{user.loginname}}</span>
+				<span class="col-1 ml-2"><b>{{user.displayname}}</b></span>
+				<span class="col-4" *ngIf="user.isbanned"><a class="badge badge-danger ml-2" >banned</a> (and also when if so)</span>
+				<span class="col-4" *ngIf="!user.isbanned">&nbsp;</span>
+				<span class="col-1" *ngIf="!user.isbanned"><a class="btn btn-light btn-sm ml-2" (click)="onBanUser(user)">ban</a></span>
+				<span class="col-1" *ngIf="user.isbanned"><a class="btn btn-light btn-sm ml-2" (click)="onUnbanUser(user)">unban</a></span>
+				<span class="col-1"><a class="btn btn-light btn-sm ml-2">edit</a></span>
 			</div>
 		</li>
 	</ul>
