@@ -33,17 +33,33 @@ export class UsersComponent implements OnInit {
 	
 	onUnbanUser(user:BackendModelSimpleUserItem) : void {
 		// TODO: post unban user
+		let that = this;
 		this.accoutService.postUnbanUser(user.loginname).subscribe(
-			data => { /* result entry after baning, refresh user list after baning */  },
+			data => { 
+				/* result entry after baning, refresh user list after baning */  
+				that.updateUserList(data);
+				},
 			error => {}
 		)
 		
 	}
 	
 	onBanUser(user: BackendModelSimpleUserItem) : void {
+		let that = this;
 		this.accoutService.postBanUser(user.loginname).subscribe(
-			data => { /* result entry after baning, refresh user list after baning */  },
+			data => { 
+				/* result entry after baning, refresh user list after baning */
+				that.updateUserList(data);  
+				},
 			error => {}
 		)
+	}
+	
+	updateUserList(user: BackendModelSimpleUserItem):void {
+		// currently we simply reload the data, actually we should patch it.
+		this.accoutService.getAllSimpleList().subscribe(
+			data => {this.onAccountListProvided(data)},
+			error => {}
+		);
 	}
 }
