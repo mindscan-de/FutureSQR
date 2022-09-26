@@ -53,6 +53,7 @@ export class AccountService {
 		this.userSubject.next(null);
 		this.router.navigate(['/account/login'])
 	}
+	
 	// TODO: register
 	
 	public getAllSimpleList(): Observable<BackendModelSimpleUserItem[]> {
@@ -84,8 +85,19 @@ export class AccountService {
 		return this.httpClient.post<BackendModelSimpleUserItem>( restURL, formdata).pipe( first() );
 	}
 
+	public postAddUser(username:string, displayname, emailcontact, password): Observable<BackendModelSimpleUserItem> {
+		let restURL = '/FutureSQR/rest/user/add';
+		
+		let formdata = new FormData();
+		formdata.append('username', username);
+		formdata.append('displayname', displayname);
+		formdata.append('contactemail', emailcontact);
+		formdata.append('password', password);
+		
+		// make sure we automatically unsubscribe
+		return this.httpClient.post<BackendModelSimpleUserItem>( restURL, formdata).pipe(first());
+	}
 	
-	// TODO: getAll
 	// TODO: getById
 	// TODO: update
 	
