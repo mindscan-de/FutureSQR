@@ -76,7 +76,8 @@ def addNewUser(
     
     # TODO: assign password to this user.
     # in case of a different password based backend  (e.g. LDAP), we may not need the password at all.
-    pass
+    
+    return userrow
 
 @app.post("/FutureSQR/rest/user/ban")
 def banUser(
