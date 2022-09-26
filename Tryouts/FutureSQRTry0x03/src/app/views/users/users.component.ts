@@ -62,4 +62,8 @@ export class UsersComponent implements OnInit {
 			error => {}
 		);
 	}
+	
+	onCreateUserClicked(): void {
+		
+	}
 }
