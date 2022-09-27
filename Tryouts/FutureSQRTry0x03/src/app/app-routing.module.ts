@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './views/home/home.component';
 import { UsersComponent } from './views/users/users.component';
+import { AddUserComponent } from './views/add-user/add-user.component';
 import { AuthGuardService } from './_helpers/auth-guard.service';
 
 
@@ -11,6 +12,7 @@ const accountModule = () => import('./account/account.module').then(x => x.Accou
 const routes: Routes = [
 	{ path: '', component: HomeComponent, canActivate: [AuthGuardService] },
 	{ path: 'users', component: UsersComponent , canActivate: [AuthGuardService] },
+	{ path: 'users/add', component:AddUserComponent, canActivate: [AuthGuardService] },
 	
 	// login, register
 	{ path: 'account', loadChildren: accountModule },
