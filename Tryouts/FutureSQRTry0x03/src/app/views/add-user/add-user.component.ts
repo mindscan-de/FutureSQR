@@ -11,6 +11,7 @@ import { AccountService } from '../../_services/account.service';
 export class AddUserComponent implements OnInit {
 	
 	public addForm: FormGroup;
+	public loading = false;	
 	public submitted = false;
 
 	constructor(
@@ -27,7 +28,7 @@ export class AddUserComponent implements OnInit {
 			password2: ['', Validators.required],
 			
 			displayname: ['', Validators.required],
-			emailcontact: ['', [Validators.required, Validators.email]]
+			contactemail: ['', [Validators.required, Validators.email]]
 			} )
 	}
 
@@ -35,19 +36,24 @@ export class AddUserComponent implements OnInit {
 	get f() { return this.addForm.controls; }
 	
 	onSubmit() : void {
+		console.log("onSubmit invoked...")
+		
 		this.submitted = true;
 		
 		if(this.addForm.invalid) {
 			this.submitted = false;
+			console.log("form is invalid")
 			return;
 		}
 		
 		let that:AddUserComponent = this; 
-		
+
+		this.loading = false;
+				
 		this.accountService.postAddUser(
 			this.f.username.value, 
 			this.f.displayname.value,
-			this.f.emailcontact.value,
+			this.f.contactemail.value,
 			this.f.password
 			).subscribe( {
 				next : (data) => {
@@ -57,10 +63,11 @@ export class AddUserComponent implements OnInit {
 					console.log(data);
 				},
 				error : error => { 
-					that.submitted = false;
+					that.loading = false;
 					}
 				}
 			)
+
 		
 	}
 
