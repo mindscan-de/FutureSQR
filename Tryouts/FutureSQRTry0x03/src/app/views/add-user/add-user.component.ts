@@ -65,7 +65,7 @@ export class AddUserComponent implements OnInit {
 					console.log(data);
 					
 					// TODO: actually the users page must be reloaded...
-					this.router.navigateByUrl(['/users']);
+					this.router.navigate(['/users']);
 				},
 				error : error => { 
 					that.loading = false;
