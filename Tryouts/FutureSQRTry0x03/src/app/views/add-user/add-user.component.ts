@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup,  Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { AccountService } from '../../_services/account.service';
 
@@ -16,6 +17,7 @@ export class AddUserComponent implements OnInit {
 
 	constructor(
 		private formBuilder : FormBuilder,
+		private router: Router,		
 		private accountService: AccountService
 	) { }
 
@@ -61,6 +63,9 @@ export class AddUserComponent implements OnInit {
 					// to tell frontend which state the frontend should take
 					console.log("User created");
 					console.log(data);
+					
+					// TODO: actually the users page must be reloaded...
+					this.router.navigateByUrl(['/users']);
 				},
 				error : error => { 
 					that.loading = false;
