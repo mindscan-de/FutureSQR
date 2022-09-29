@@ -26,7 +26,8 @@
 						<label for="contactemail">Email</label>
 						<input type="text" formControlName="contactemail" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.contactemail.errors}"/>
 		                <div *ngIf="submitted && f.contactemail.errors" class="invalid-feedback">
-		                    <div *ngIf="f.contactemail.errors.required">Display Name is required</div>
+		                    <div *ngIf="f.contactemail.errors.required">An Email-Address is required</div>
+		                    <div *ngIf="f.contactemail.errors.email">Email-Address is invalid</div>
 		                </div>				
 					</div>
 					
