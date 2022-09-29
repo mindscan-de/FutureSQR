@@ -17,7 +17,7 @@ export class UsersComponent implements OnInit {
 ) { }
 
   ngOnInit(): void {
-	this.accoutService.getAllSimpleList().subscribe(
+	this.accoutService.getAdminUserList().subscribe(
 		data => {this.onAccountListProvided(data)},
 		error => {}
 	);
@@ -57,7 +57,7 @@ export class UsersComponent implements OnInit {
 	
 	updateUserList(user: BackendModelSimpleUserItem):void {
 		// currently we simply reload the data, actually we should patch it.
-		this.accoutService.getAllSimpleList().subscribe(
+		this.accoutService.getAdminUserList().subscribe(
 			data => {this.onAccountListProvided(data)},
 			error => {}
 		);
