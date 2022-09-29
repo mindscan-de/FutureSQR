@@ -30,7 +30,7 @@ export class AddUserComponent implements OnInit {
 			password2: ['', Validators.required],
 			
 			displayname: ['', Validators.required],
-			contactemail: ['', Validators.required]
+			contactemail: ['', Validators.compose([Validators.required, Validators.email])]
 			});
 	}
 
