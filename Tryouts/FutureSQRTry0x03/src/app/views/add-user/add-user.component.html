@@ -1,55 +1,66 @@
-<div class="card">
-	<div class="card-header">Add User</div>
-	<div class="card-body">
-		<form [formGroup]="addForm" (ngSubmit)="onSubmit()">
-			
-			<div class="form-group">
-				<label for="username">Username</label>
-				<input type="text" formControlName="username" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.username.errors}"/>
-                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-                    <div *ngIf="f.username.errors.required">Username is required</div>
-                </div>				
-			</div>
-			
-			<div class="form-group">
-				<label for="displayname">Display Name</label>
-				<input type="text" formControlName="displayname" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.displayname.errors}"/>
-                <div *ngIf="submitted && f.displayname.errors" class="invalid-feedback">
-                    <div *ngIf="f.displayname.errors.required">Display Name is required</div>
-                </div>				
-			</div>
+<div class="row">
+	<div class="col col-4">
 
-			<div class="form-group">
-				<label for="contactemail">Email</label>
-				<input type="text" formControlName="contactemail" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.contactemail.errors}"/>
-                <div *ngIf="submitted && f.contactemail.errors" class="invalid-feedback">
-                    <div *ngIf="f.contactemail.errors.required">Display Name is required</div>
-                </div>				
+		<div class="card mt-2">
+			<div class="card-header">Add User</div>
+			<div class="card-body">
+				<form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+					
+					<div class="form-group">
+						<label for="username">Username</label>
+						<input type="text" formControlName="username" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.username.errors}"/>
+		                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+		                    <div *ngIf="f.username.errors.required">Username is required</div>
+		                </div>				
+					</div>
+					
+					<div class="form-group">
+						<label for="displayname">Display Name</label>
+						<input type="text" formControlName="displayname" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.displayname.errors}"/>
+		                <div *ngIf="submitted && f.displayname.errors" class="invalid-feedback">
+		                    <div *ngIf="f.displayname.errors.required">Display Name is required</div>
+		                </div>				
+					</div>
+		
+					<div class="form-group">
+						<label for="contactemail">Email</label>
+						<input type="text" formControlName="contactemail" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.contactemail.errors}"/>
+		                <div *ngIf="submitted && f.contactemail.errors" class="invalid-feedback">
+		                    <div *ngIf="f.contactemail.errors.required">Display Name is required</div>
+		                </div>				
+					</div>
+					
+					
+					<div class="form-group">
+		                <label for="password">Password</label>
+		                <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+		                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+		                    <div *ngIf="f.password.errors.required">Password is required</div>
+		                </div>			
+					</div>
+					
+					<div class="form-group">
+		                <label for="password2">Repeat Password</label>
+		                <input type="password" formControlName="password2" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password2.errors }" />
+		                <div *ngIf="submitted && f.password2.errors" class="invalid-feedback">
+		                    <div *ngIf="f.password2.errors.required">Password is required</div>
+		                </div>
+					</div>
+					
+					<div class="form-group">
+		 				<button [disabled]="loading" class="btn btn-primary">
+		                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+		                    Add User
+		                </button>
+					</div>
+					
+					<div class="form-group"> 
+						<a [routerLink]="['/users']">Go back o user list</a>
+					</div>
+				</form>
 			</div>
-			
-			
-			<div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                    <div *ngIf="f.password.errors.required">Password is required</div>
-                </div>			
-			</div>
-			
-			<div class="form-group">
-                <label for="password2">Repeat Password</label>
-                <input type="password" formControlName="password2" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password2.errors }" />
-                <div *ngIf="submitted && f.password2.errors" class="invalid-feedback">
-                    <div *ngIf="f.password2.errors.required">Password is required</div>
-                </div>
-			</div>
-			
-			<div class="form-group">
- 				<button [disabled]="loading" class="btn btn-primary">
-                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                    Add User
-                </button>
-			</div>
-		</form>
+		</div>
+
+
 	</div>
 </div>
