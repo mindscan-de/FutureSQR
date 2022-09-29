@@ -17,9 +17,11 @@
 						</div>
 						<!-- <span class="col-1">{{user.avatarlocation}}</span> -->
 						<div class="mr-auto p-0 col-9" >
-							<span class="ml-2">{{user.loginname}}</span>
-							<span class="ml-2"><b>{{user.displayname}}</b></span>
-							<span *ngIf="user.isbanned"><a class="badge badge-danger ml-2" >banned</a> (and also when if so)</span>
+							<div class="row">
+								<span class="ml-2 col-2">{{user.loginname}}</span>
+								<span class="ml-2 col-4"><b>{{user.displayname}}</b></span>
+								<span *ngIf="user.isbanned"><a class="badge badge-danger ml-2" >banned</a> (and also when if so)</span>
+							</div>
 						</div>
 					</div>
 				</li>
