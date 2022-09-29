@@ -40,6 +40,8 @@ class UsersDatabase(object):
         Constructor
         '''
         self._userMap = {}
+        # TODO: if tempassets/user_database.json exist -> load this...
+        # TODO: also use a flag whether we want to persist things or not.
         self.insertNewUser('mindscan-de', 'Maxim Gansert', 'contact@themail.local')
         self.insertNewUser('someoneelsa', 'Elsa Someone', 'contact@elsamail.local')
         
@@ -80,7 +82,7 @@ class UsersDatabase(object):
             }
         
         self._userMap[pk_uuid] = userRow
-        
+        # TODO persist current table in temp assets
         return userRow
     
     def selectAllUSers(self):
@@ -91,6 +93,7 @@ class UsersDatabase(object):
         for user in self._userMap.values():
             if user[USER_LOGON_NAME] == logonname:
                 self._userMap[user[USER_PK_USERID]][USER_ISBANNED] = True
+                # TODO persist current table in temp assets                
                 return user
         return None
                 
@@ -98,6 +101,7 @@ class UsersDatabase(object):
         for user in self._userMap.values():
             if user[USER_LOGON_NAME] == logonname:
                 self._userMap[user[USER_PK_USERID]][USER_ISBANNED] = False
+                # TODO persist current table in temp assets
                 return user
         return None
     
@@ -105,6 +109,7 @@ class UsersDatabase(object):
         for user in self._userMap.values():
             if user[USER_LOGON_NAME] == logonname:
                 self._userMap[user[USER_PK_USERID]][USER_CONTACT_EMAIL] = contactemail
+                # TODO persist current table in temp assets
                 return user
         return None
     
@@ -112,6 +117,7 @@ class UsersDatabase(object):
         for user in self._userMap.values():
             if user[USER_LOGON_NAME] == logonname:
                 self._userMap[user[USER_PK_USERID]][USER_DISPLAYNAME] = displayname
+                # TODO persist current table in temp assets
                 return user
         return None
         
