@@ -127,10 +127,28 @@ def updateContactEmail(
         userDatabase.updateContactEmail(username, contactemail)
     pass
 
+
 @app.get("/FutureSQR/rest/user/simplelist")
 def getSimpleUserList():
-    return userDatabase.selectAllUSers()
+    # this one should be reduced to a map
+    # key (uuid) -> array of [uuid, displayname, avatarlocation]
+    # this one is loaded by every user to resolve the uuids
+    allusers = userDatabase.selectAllUSers()
     
+    simpleUserMap = { 
+        user[USER_UUID] : {
+                USER_UUID:user[USER_UUID], 
+                USER_DISPLAYNAME:user[USER_DISPLAYNAME],
+                USER_AVATARLOCATION:user[USER_AVATARLOCATION]
+             } for user in allusers }
+    
+    return simpleUserMap 
+
+
+@app.get("/FutureSQR/rest/user/adminuserlist")
+def getUserManagementUserList():
+    # this one is meant to be used for administration purposes.
+    return userDatabase.selectAllUSers()
 
 def updateDisplayName(
         username:str = Form(...),
