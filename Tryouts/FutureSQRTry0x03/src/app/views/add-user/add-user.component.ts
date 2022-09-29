@@ -30,7 +30,7 @@ export class AddUserComponent implements OnInit {
 			password2: ['', Validators.required],
 			
 			displayname: ['', Validators.required],
-			contactemail: ['', [Validators.required, Validators.email]]
+			contactemail: ['', Validators.required]
 			} )
 	}
 
@@ -64,7 +64,7 @@ export class AddUserComponent implements OnInit {
 					console.log("User created");
 					console.log(data);
 					
-					// TODO: actually the users page must be reloaded...
+					// will trigger a navigation and a page reload
 					this.router.navigate(['/users']);
 				},
 				error : error => { 
