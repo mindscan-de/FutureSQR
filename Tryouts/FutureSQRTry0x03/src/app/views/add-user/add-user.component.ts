@@ -31,7 +31,7 @@ export class AddUserComponent implements OnInit {
 			
 			displayname: ['', Validators.required],
 			contactemail: ['', Validators.required]
-			} )
+			});
 	}
 
 	// accessor for the form.
@@ -43,7 +43,6 @@ export class AddUserComponent implements OnInit {
 		this.submitted = true;
 		
 		if(this.addForm.invalid) {
-			this.submitted = false;
 			console.log("form is invalid")
 			return;
 		}
