@@ -35,10 +35,14 @@ class UsersDatabase(object):
     '''
 
 
-    def __init__(self, params):
+    def __init__(self, params:dict):
         '''
         Constructor
         '''
+        self.__persistence = True
+        if 'persistenceActive' in params:
+            self.__persistence = params['persistenceActive']
+        
         self._userMap = {}
         # TODO: if tempassets/user_database.json exist -> load this...
         # TODO: also use a flag whether we want to persist things or not.
