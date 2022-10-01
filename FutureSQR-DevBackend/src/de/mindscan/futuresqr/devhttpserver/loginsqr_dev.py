@@ -33,7 +33,9 @@ from de.mindscan.futuresqr.users.user_table_columns import *  # @UnusedWildImpor
 
 app = FastAPI()
 
-userDatabase = UsersDatabase({});
+userDatabase = UsersDatabase({
+    'persistenceActive': True
+    });
 
 @app.post("/FutureSQR/rest/user/authenticate")
 def postLoginData(
