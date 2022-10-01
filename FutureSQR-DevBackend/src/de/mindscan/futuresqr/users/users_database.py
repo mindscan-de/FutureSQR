@@ -28,6 +28,7 @@ SOFTWARE.
 
 import uuid
 from de.mindscan.futuresqr.users.user_table_columns import *  # @UnusedWildImport
+from de.mindscan.futuresqr.assets.hardcoded import _getFromTempAssets
 
 class UsersDatabase(object):
     '''
@@ -44,10 +45,17 @@ class UsersDatabase(object):
             self.__persistence = params['persistenceActive']
         
         self._userMap = {}
+        
+        userdatabase = _getFromTempAssets('userdatabase.json')
+        
+        if(len(userdatabase) == 0):
+            self.insertNewUser('mindscan-de', 'Maxim Gansert', 'contact@themail.local')
+            self.insertNewUser('someoneelsa', 'Elsa Someone', 'contact@elsamail.local')
+        else:
+            self._userMap = userdatabase
+        
         # TODO: if tempassets/user_database.json exist -> load this...
         # TODO: also use a flag whether we want to persist things or not.
-        self.insertNewUser('mindscan-de', 'Maxim Gansert', 'contact@themail.local')
-        self.insertNewUser('someoneelsa', 'Elsa Someone', 'contact@elsamail.local')
         
     
     def getUserByUUID(self, uuid: str):
