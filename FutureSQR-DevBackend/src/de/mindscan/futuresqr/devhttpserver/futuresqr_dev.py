@@ -38,6 +38,7 @@ from de.mindscan.futuresqr.reviews.review_tools import createNewReview
 from de.mindscan.futuresqr.reviews.review_tables_columns import *  # @UnusedWildImport
 from de.mindscan.futuresqr.reviewthreads.review_threads_database import ReviewThreadsDatabase
 from de.mindscan.futuresqr.threads.threads_database import ThreadsDatabase
+from de.mindscan.futuresqr.users.users_database import UsersDatabase
 
 
 app = FastAPI()
@@ -46,6 +47,7 @@ reviewDB = ReviewDatabase({})
 projectDB = ProjectDatabase({'allProjects':getProjectConfigurations()})
 reviewThreadsDB = ReviewThreadsDatabase({})
 threadsDB = ThreadsDatabase({})
+usersDB = UsersDatabase({'persistenceActive': False});
 
 
 
