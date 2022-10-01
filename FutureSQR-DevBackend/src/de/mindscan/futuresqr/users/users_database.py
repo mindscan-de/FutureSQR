@@ -86,7 +86,7 @@ class UsersDatabase(object):
             }
         
         self._userMap[pk_uuid] = userRow
-        # TODO persist current table in temp assets
+        self.__persist_userdatabase()
         return userRow
     
     def selectAllUSers(self):
@@ -97,7 +97,7 @@ class UsersDatabase(object):
         for user in self._userMap.values():
             if user[USER_LOGON_NAME] == logonname:
                 self._userMap[user[USER_PK_USERID]][USER_ISBANNED] = True
-                # TODO persist current table in temp assets                
+                self.__persist_userdatabase()                
                 return user
         return None
                 
@@ -105,7 +105,7 @@ class UsersDatabase(object):
         for user in self._userMap.values():
             if user[USER_LOGON_NAME] == logonname:
                 self._userMap[user[USER_PK_USERID]][USER_ISBANNED] = False
-                # TODO persist current table in temp assets
+                self.__persist_userdatabase()
                 return user
         return None
     
@@ -113,7 +113,7 @@ class UsersDatabase(object):
         for user in self._userMap.values():
             if user[USER_LOGON_NAME] == logonname:
                 self._userMap[user[USER_PK_USERID]][USER_CONTACT_EMAIL] = contactemail
-                # TODO persist current table in temp assets
+                self.__persist_userdatabase()
                 return user
         return None
     
@@ -121,7 +121,13 @@ class UsersDatabase(object):
         for user in self._userMap.values():
             if user[USER_LOGON_NAME] == logonname:
                 self._userMap[user[USER_PK_USERID]][USER_DISPLAYNAME] = displayname
-                # TODO persist current table in temp assets
+                self.__persist_userdatabase()
                 return user
         return None
         
+    def __persist_userdatabase(self): 
+        if self.__persistence:
+            # TODO write user database to tempassets folder.
+            pass
+        pass
+    
