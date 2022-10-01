@@ -49,6 +49,8 @@ def _getFromTempAssets( filename:str ):
     
     :param filename:
     '''
+    # TODO test existence...
+    
     with open(TEMP_ASSET_FOLDER+str(filename),'r') as inputfile:
         return json.load(inputfile)
     print("something went wrong with "+str(filename) )
