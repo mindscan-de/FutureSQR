@@ -40,7 +40,7 @@ class UsersDatabase(object):
         '''
         Constructor
         '''
-        self.__persistence = True
+        self.__persistence = False
         if 'persistenceActive' in params:
             self.__persistence = params['persistenceActive']
         
