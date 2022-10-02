@@ -130,10 +130,11 @@ def updateContactEmail(
     pass
 
 
+# TODO we may want to prarameterize for banned, unbanned or any users?
 @app.get("/FutureSQR/rest/user/simplelist")
 def getSimpleUserList():
     # this one should be reduced to a map
-    # key (uuid) -> array of [uuid, displayname, avatarlocation]
+    # key (uuid) -> array of [uuid, displayname, avatarlocation, isbanned]
     # this one is loaded by every user to resolve the uuids
     allusers = userDatabase.selectAllUSers()
     
@@ -141,7 +142,8 @@ def getSimpleUserList():
         user[USER_UUID] : {
                 USER_UUID:user[USER_UUID], 
                 USER_DISPLAYNAME:user[USER_DISPLAYNAME],
-                USER_AVATARLOCATION:user[USER_AVATARLOCATION]
+                USER_AVATARLOCATION:user[USER_AVATARLOCATION],
+                USER_ISBANNED:user[USER_ISBANNED]
              } for user in allusers }
     
     return simpleUserMap 
