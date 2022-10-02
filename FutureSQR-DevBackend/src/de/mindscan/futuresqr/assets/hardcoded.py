@@ -58,7 +58,7 @@ def _getFromTempAssets( filename:str ):
 
 def _putToTempAssets( data , filename:str ):
     with open(TEMP_ASSET_FOLDER+str(filename),'w') as outputfile:
-        return json.dump(data, outputfile)
+        return json.dump(data, outputfile, indent=2, sort_keys=True)
     print("something went wrong with "+str(filename) )
     pass
     
