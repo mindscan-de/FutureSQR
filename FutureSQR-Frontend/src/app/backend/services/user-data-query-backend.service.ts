@@ -7,7 +7,8 @@ export class UserDataQueryBackendService {
 
 	constructor() { }
 
-	public getSimpleUserDataMap() {
+	// creates a shadow copy of the simple userdatabase for performance reasons.
+	public getSimpleUserDataMap(isReRequest: boolean) {
 		// this map should be requested 
 		// check if we already have this database downloaded.
 	}
@@ -30,6 +31,9 @@ export class UserDataQueryBackendService {
 		// TODO: maybe we want to create a surrogate user in the backend (todo according to which event) 
 	}
 	
-	
+	// TODO: sometimes we need a user list, e.g. for ticket assignment, maybe we also want 
+	//       a filtered user list, and the aplication provdes enough filter information.
+
+	// we need this user data also for keeping track of the discussions done in the review
 
 }
