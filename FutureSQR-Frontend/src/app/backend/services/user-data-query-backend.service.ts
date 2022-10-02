@@ -20,10 +20,16 @@ export class UserDataQueryBackendService {
 	public getSimpleUserObject(uuid : string) {
 		// we use our cached copy od the userdatabase orwe have to request the simple user database once
 		// if we found this user, we return the user
-		// check if this username is on our blacklist -> return nothing
-		// if this user is not on our blacklist, we rerequest the usermap
-				
+		// if user is in surrogate list, we return this surrogate user
+		// if not we request an updated userdatabase
+		// if user is not in this map, we found an unknown user and wasted resources, 
+		//     so we simple create a dummy/surrogate entry for this user and return the surrogate
+		// if we found this user we return this user.
+		// we keep a list of all surrogate users, such that after a rerequested userdatabase those surrogate users
+		
+		// TODO: maybe we want to create a surrogate user in the backend (todo according to which event) 
 	}
+	
 	
 
 }
