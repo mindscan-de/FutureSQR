@@ -16,6 +16,11 @@ import { BackendModelProjectRecentCommitRevision } from '../model/backend-model-
 import { BackendModelThreadsData } from '../model/backend-model-threads-data';
 
 
+/**
+ * TODO: rework all subscription and post events to avoid any memory and/or resource leaks.
+
+ */
+
 @Injectable({
   providedIn: 'root'
 })
