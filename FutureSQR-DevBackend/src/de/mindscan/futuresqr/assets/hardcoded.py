@@ -56,6 +56,13 @@ def _getFromTempAssets( filename:str ):
     print("something went wrong with "+str(filename) )
     return {}
 
+def _putToTempAssets( data , filename:str ):
+    with open(TEMP_ASSET_FOLDER+str(filename),'w') as outputfile:
+        return json.dump(data, outputfile)
+    print("something went wrong with "+str(filename) )
+    pass
+    
+
 def getProjectConfigurations(): 
         return {
             'furiousiron-frontend' : {
