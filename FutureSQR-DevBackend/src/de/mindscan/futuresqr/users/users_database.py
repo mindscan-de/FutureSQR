@@ -28,7 +28,7 @@ SOFTWARE.
 
 import uuid
 from de.mindscan.futuresqr.users.user_table_columns import *  # @UnusedWildImport
-from de.mindscan.futuresqr.assets.hardcoded import _getFromTempAssets
+from de.mindscan.futuresqr.assets.hardcoded import _getFromTempAssets, _putToTempAssets
 
 class UsersDatabase(object):
     '''
@@ -135,7 +135,6 @@ class UsersDatabase(object):
         
     def __persist_userdatabase(self): 
         if self.__persistence:
-            # TODO write user database to tempassets folder.
-            pass
+            _putToTempAssets(self._userMap, 'userdatabase.json')
         pass
     
