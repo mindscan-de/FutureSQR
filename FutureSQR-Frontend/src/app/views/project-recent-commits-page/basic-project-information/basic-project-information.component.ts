@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, SimpleChanges, ChangeDetectorRef, Eve
 
 // Services
 import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
+import { UserDataQueryBackendService } from '../../../backend/services/user-data-query-backend.service';
 
 // Backed Model
 import { BackendModelProjectSimpleInformation } from '../../../backend/model/backend-model-project-simple-information';
@@ -21,7 +22,10 @@ export class BasicProjectInformationComponent implements OnInit {
 	@Input() activeProjectId:string;
 	@Output() revisionHistoryUpdated: EventEmitter<string> = new EventEmitter<string>();
 
-	constructor( private projectDataQueryBackend : ProjectDataQueryBackendService, private cdr: ChangeDetectorRef  ) { }
+	constructor( 
+		private projectDataQueryBackend : ProjectDataQueryBackendService,
+		private userDataQueryBackend : UserDataQueryBackendService,
+		private cdr: ChangeDetectorRef  ) { }
 
 	ngOnInit(): void {
 		this.projectDataQueryBackend.getSimpleInformationByProject(this.activeProjectId).subscribe(
@@ -45,8 +49,7 @@ export class BasicProjectInformationComponent implements OnInit {
 	}
 
 	onStarMe(activeProjectId:string): void {
-		// TODO: provide current user UUID
-		let currentUserUUID:string='x';
+		let currentUserUUID:string = this.userDataQueryBackend.getCurrentUserUUID();
 		
 		this.projectDataQueryBackend.starProject(activeProjectId, currentUserUUID).subscribe(
 			data=>{
@@ -59,8 +62,7 @@ export class BasicProjectInformationComponent implements OnInit {
 	}
 	
 	onUnstarMe(activeProjectId:string): void {
-		// TODO: provide current user UUID
-		let currentUserUUID:string='x';
+		let currentUserUUID:string = this.userDataQueryBackend.getCurrentUserUUID();
 		
 		this.projectDataQueryBackend.unstarProject(activeProjectId, currentUserUUID).subscribe(
 			data =>{

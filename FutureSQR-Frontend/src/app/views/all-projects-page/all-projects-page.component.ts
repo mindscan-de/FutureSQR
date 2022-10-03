@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 
 // Services
 import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
+import { UserDataQueryBackendService } from '../../backend/services/user-data-query-backend.service';
 
 // BackendModel - should be actually 
 import { BackendModelProjectItem } from '../../backend/model/backend-model-project-item';
@@ -16,7 +17,11 @@ export class AllProjectsPageComponent implements OnInit {
 
   public uiModelAllProjects: BackendModelProjectItem[] = [];
 
-  constructor( private projectDataQueryBackend : ProjectDataQueryBackendService, private cdr: ChangeDetectorRef ) { }
+	constructor( 
+		private projectDataQueryBackend : ProjectDataQueryBackendService, 
+		private userDataQueryBackend : UserDataQueryBackendService,
+		private cdr: ChangeDetectorRef
+	) { }
 
   ngOnInit(): void {
 	this.projectDataQueryBackend.getAllProjects().subscribe( 
@@ -30,8 +35,7 @@ export class AllProjectsPageComponent implements OnInit {
 	}
 
 	onStarMe(activeProjectId:string): void {
-		// TODO: provide current user uuid
-		let currentUserUUID:string='x';
+		let currentUserUUID:string = this.userDataQueryBackend.getCurrentUserUUID();
 		
 		this.projectDataQueryBackend.starProject(activeProjectId, currentUserUUID).subscribe(
 			data=>{
@@ -43,8 +47,7 @@ export class AllProjectsPageComponent implements OnInit {
 	}
 	
 	onUnstarMe(activeProjectId:string): void {
-		// TODO: provide current user uuid
-		let currentUserUUID:string='x';
+		let currentUserUUID:string = this.userDataQueryBackend.getCurrentUserUUID();
 		
 		this.projectDataQueryBackend.unstarProject(activeProjectId, currentUserUUID).subscribe(
 			data =>{
