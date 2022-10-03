@@ -35,5 +35,10 @@ export class UserDataQueryBackendService {
 	//       a filtered user list, and the aplication provdes enough filter information.
 
 	// we need this user data also for keeping track of the discussions done in the review
+	
+	// Provide the current logged in user.
+	public getCurrentUserUUID():string {
+		return "b4d1449b-d50e-4c9f-a4cb-dd2230278306";
+	}
 
 }
