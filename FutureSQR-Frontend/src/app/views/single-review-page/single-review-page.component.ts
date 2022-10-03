@@ -38,7 +38,11 @@ export class SingleReviewPageComponent implements OnInit {
 	
 	public activeReviewData: BackendModelReviewData = new BackendModelReviewData();
 
-	constructor( private projectDataQueryBackend : ProjectDataQueryBackendService, private route: ActivatedRoute, private modalService: NgbModal ) { }
+	constructor( 
+		private projectDataQueryBackend : ProjectDataQueryBackendService, 
+		private route: ActivatedRoute, 
+		private modalService: NgbModal 
+	) { }
 
 	ngOnInit(): void {
 		this.activeProjectID = this.route.snapshot.paramMap.get('projectid');

@@ -98,16 +98,20 @@ export class ProjectDataQueryBackendService {
 				.pipe(first());
 	} 	
 	
-	// TODO: rework this subscription to once.
 	getRecentProjectRevisionDiffFullChangeSet(projectid:string, revisionid:string): Observable<BackendModelSingleCommitFullChangeSet> {
 		var url = `/FutureSQR/rest/project/${projectid}/revisiondiff/${revisionid}`;
-		return this.httpClient.get<BackendModelSingleCommitFullChangeSet>(url, {});
+		
+		return this.httpClient
+				.get<BackendModelSingleCommitFullChangeSet>(url, {})
+				.pipe(first());
 	}
 	
-	// TODO: rework this subscription to once.
 	getReviewRevisionDiffFullChangeSet(projectid:string, reviewid:string) : Observable<BackendModelSingleCommitFullChangeSet> {
 		var url = `/FutureSQR/rest/project/${projectid}/reviewdiff/${reviewid}`;
-		return this.httpClient.get<BackendModelSingleCommitFullChangeSet>(url, {});
+		
+		return this.httpClient
+			.get<BackendModelSingleCommitFullChangeSet>(url, {})
+			.pipe(first());
 	}
 	
 	// TODO: rework this subscription to once.

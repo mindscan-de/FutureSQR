@@ -36,7 +36,11 @@ export class SingleRevisionPageComponent implements OnInit {
 	
 	public uiRevisionData: BackendModelProjectRecentCommitRevision = new BackendModelProjectRecentCommitRevision();
 
-    constructor(private projectDataQueryBackend : ProjectDataQueryBackendService, private route: ActivatedRoute, private modalService: NgbModal ) { }
+    constructor(
+		private projectDataQueryBackend : ProjectDataQueryBackendService, 
+		private route: ActivatedRoute, 
+		private modalService: NgbModal 
+	) { }
 
 	ngOnInit(): void {
 		this.activeProjectID = this.route.snapshot.paramMap.get('projectid');
