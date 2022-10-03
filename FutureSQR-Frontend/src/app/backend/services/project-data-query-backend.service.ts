@@ -198,7 +198,9 @@ export class ProjectDataQueryBackendService {
 		formdata.append('reviewid',reviewid);
 		formdata.append('closing_userid', closing_userid);
 		
-		return this.httpClient.post<any>(url,formdata);
+		return this.httpClient
+				.post<any>(url,formdata)
+				.pipe(first());
 	}
 	
 	// TODO: rework this subscription to once.
