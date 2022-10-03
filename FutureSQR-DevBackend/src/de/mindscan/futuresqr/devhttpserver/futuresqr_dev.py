@@ -221,7 +221,7 @@ def getSimpleReviewInfomation(projectid:str, revisionid:str):
 ### #########################################
         
 @app.post("/FutureSQR/rest/project/{projectid}/star")
-def postStarProjectForUser(projectid:str, userid:str=''):
+def postStarProjectForUser(projectid:str, userid:str=Form(...)):
     if not projectDB.isProjectIdPresent(projectid):
         return {} 
     
@@ -232,7 +232,7 @@ def postStarProjectForUser(projectid:str, userid:str=''):
     return {}
 
 @app.post("/FutureSQR/rest/project/{projectid}/unstar")
-def postUnstarProjectForUser(projectid:str, userid:str=''):
+def postUnstarProjectForUser(projectid:str, userid:str=Form(...)):
     if not projectDB.isProjectIdPresent(projectid):
         return {} 
     
