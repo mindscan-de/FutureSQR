@@ -57,11 +57,17 @@ def read_root():
 
 @app.get("/FutureSQR/rest/user/starredprojects")
 def getUserStarredProjects(user_uuid:str = ""):
+    # Either get the user_UUID from the session or from the URL
+    # if from the  URL, does it need protection, eg validation against current user in session?
+    
     result = projectDB.getAllStarredUserProjects(user_uuid)
     return result
 
 @app.get("/FutureSQR/rest/user/allaccessibleprojetcs")
 def getUserAllAccessibleProjects(user_uuid: str = ""):
+    # this userid needs to be checked. the user id mus come from the authorized session
+    # for some time it would be acceptable to hava a get url parameter for this, but for
+    # security reasons this must be then nailed to the session info.
     result = projectDB.getAllUserProjects(user_uuid)
     return result
 
