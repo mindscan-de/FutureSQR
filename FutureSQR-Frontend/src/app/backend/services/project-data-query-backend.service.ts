@@ -130,7 +130,7 @@ export class ProjectDataQueryBackendService {
 				.pipe(first());
 	}
 	
-	getReviewFilePathsData11(projectid:string, reviewid:string): Observable<BackendModelSingleCommitFileActionsInfo> {
+	getReviewFilePathsData(projectid:string, reviewid:string): Observable<BackendModelSingleCommitFileActionsInfo> {
 		var url = `/FutureSQR/rest/project/${projectid}/review/${reviewid}/filelist`;
 		
 		return this.httpClient
