@@ -24,7 +24,11 @@ export class ProjectRecentCommitsPageComponent implements OnInit {
 	public uiModelRecentProjectCommitsGroupedByDate: Map<string, BackendModelProjectRecentCommits> = new Map<string, BackendModelProjectRecentCommits>();
 	public activeProjectID: string = '';
 
-	constructor( private projectDataQueryBackend : ProjectDataQueryBackendService, private route: ActivatedRoute, private router: Router  ) { }
+	constructor( 
+		private projectDataQueryBackend : ProjectDataQueryBackendService, 
+		private route: ActivatedRoute, 
+		private router: Router
+	) { }
 
 	ngOnInit(): void {
 		this.activeProjectID = this.route.snapshot.paramMap.get('projectid');
