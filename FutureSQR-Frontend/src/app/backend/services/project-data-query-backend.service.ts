@@ -41,11 +41,13 @@ export class ProjectDataQueryBackendService {
 				.pipe(first());
     }
 
-	// TODO: rework this subscription to once.
-	// Actually the starred projects depend on the users choices
-	getMyStarredProjects() : Observable<BackendModelProjectItem[]> {
-		// TODO: provide USER-UUID / username
-		return this.httpClient.get<BackendModelProjectItem[]>(ProjectDataQueryBackendService.URL_GET_MY_STARRED_PROJECTS, {});
+	getStarredProjects(userid:string) : Observable<BackendModelProjectItem[]> {
+		
+		// TODO: provide USER-UUID / username to URL - so that the backend can work with it.
+		
+		return this.httpClient
+				.get<BackendModelProjectItem[]>(ProjectDataQueryBackendService.URL_GET_MY_STARRED_PROJECTS, {})
+				.pipe(first());
 	}
 	
 	starProject(projectid:string, currentuser_uuid:string) : Observable<any> {

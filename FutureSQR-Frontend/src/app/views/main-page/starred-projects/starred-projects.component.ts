@@ -21,7 +21,9 @@ export class StarredProjectsComponent implements OnInit {
   constructor( private projectDataQueryBackend : ProjectDataQueryBackendService ) { }
 
   ngOnInit(): void {
-	this.projectDataQueryBackend.getMyStarredProjects().subscribe( 
+	let currentUserUUID: string = ''
+	
+	this.projectDataQueryBackend.getStarredProjects(currentUserUUID).subscribe( 
 		data => this.onStarredProjectsProvided(data),
 		error => console.log(error)
 	);
