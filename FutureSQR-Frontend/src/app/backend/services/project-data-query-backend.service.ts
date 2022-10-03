@@ -72,12 +72,14 @@ export class ProjectDataQueryBackendService {
 				.pipe(first());
 	}
 	
-	// TODO: rework this subscription to once.
 	updateProjectCache(projectid:string) : Observable<any> {
 		var url =`/FutureSQR/rest/project/${projectid}/updatecache`;
 		let formdata = new FormData();
 		
-		return this.httpClient.post<any>(url,formdata);
+		return this.httpClient
+				.post<any>(url,formdata)
+				.pipe(first());
+				;
 	}
 	
 	// TODO: rework this subscription to once.
