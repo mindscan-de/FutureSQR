@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { map, first } from 'rxjs/operators';
 
 // ---- Import the interesting backend models
 
@@ -34,9 +35,10 @@ export class ProjectDataQueryBackendService {
 
     constructor(private httpClient : HttpClient ) { }
 
-	// TODO: rework this subscription to once.
     getAllProjects () : Observable<BackendModelProjectItem[]> {
-	    return this.httpClient.get<BackendModelProjectItem[]>(ProjectDataQueryBackendService.URL_GET_ALL_PROJECTS, {});
+	    return this.httpClient
+				.get<BackendModelProjectItem[]>(ProjectDataQueryBackendService.URL_GET_ALL_PROJECTS, {})
+				.pipe(first());
     }
 
 	// TODO: rework this subscription to once.
@@ -46,26 +48,26 @@ export class ProjectDataQueryBackendService {
 		return this.httpClient.get<BackendModelProjectItem[]>(ProjectDataQueryBackendService.URL_GET_MY_STARRED_PROJECTS, {});
 	}
 	
-	// TODO: rework this subscription to once.
-	starProject(projectid:string) : Observable<any> {
+	starProject(projectid:string, currentuser_uuid:string) : Observable<any> {
 		var url =`/FutureSQR/rest/project/${projectid}/star`;
 		let formdata = new FormData();
 		
-		// TODO later
-		formdata.append('userid','');
+		formdata.append('userid', currentuser_uuid);
 		
-		return this.httpClient.post<any>(url,formdata);
+		return this.httpClient
+				.post<any>(url,formdata)
+				.pipe(first());
 	}
 	
-	// TODO: rework this subscription to once.
-	unstarProject(projectid:string) : Observable<any> {
+	unstarProject(projectid:string, currentuser_uuid:string) : Observable<any> {
 		var url =`/FutureSQR/rest/project/${projectid}/unstar`;
 		let formdata = new FormData();
 		
-		// TODO later
-		formdata.append('userid','');
+		formdata.append('userid' ,currentuser_uuid);
 		
-		return this.httpClient.post<any>(url,formdata);
+		return this.httpClient
+				.post<any>(url,formdata)
+				.pipe(first());
 	}
 	
 	// TODO: rework this subscription to once.

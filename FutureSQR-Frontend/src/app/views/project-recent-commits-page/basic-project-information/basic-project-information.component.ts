@@ -45,7 +45,10 @@ export class BasicProjectInformationComponent implements OnInit {
 	}
 
 	onStarMe(activeProjectId:string): void {
-		this.projectDataQueryBackend.starProject(activeProjectId).subscribe(
+		// TODO: provide current user UUID
+		let currentUserUUID:string='';
+		
+		this.projectDataQueryBackend.starProject(activeProjectId, currentUserUUID).subscribe(
 			data=>{
 				this.isStarred = true;
 				this.cdr.detectChanges();
@@ -56,7 +59,10 @@ export class BasicProjectInformationComponent implements OnInit {
 	}
 	
 	onUnstarMe(activeProjectId:string): void {
-		this.projectDataQueryBackend.unstarProject(activeProjectId).subscribe(
+		// TODO: provide current user UUID
+		let currentUserUUID:string='';
+		
+		this.projectDataQueryBackend.unstarProject(activeProjectId, currentUserUUID).subscribe(
 			data =>{
 				this.isStarred = false; 
 				this.cdr.detectChanges();

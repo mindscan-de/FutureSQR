@@ -30,7 +30,10 @@ export class AllProjectsPageComponent implements OnInit {
 	}
 
 	onStarMe(activeProjectId:string): void {
-		this.projectDataQueryBackend.starProject(activeProjectId).subscribe(
+		// TODO: provide current user uuid
+		let currentUserUUID:string='';
+		
+		this.projectDataQueryBackend.starProject(activeProjectId, currentUserUUID).subscribe(
 			data=>{
 				// TODO react -> update local listitem for projectid and current new state.
 				this.ui_update_star(activeProjectId, true);
@@ -40,7 +43,10 @@ export class AllProjectsPageComponent implements OnInit {
 	}
 	
 	onUnstarMe(activeProjectId:string): void {
-		this.projectDataQueryBackend.unstarProject(activeProjectId).subscribe(
+		// TODO: provide current user uuid
+		let currentUserUUID:string='';
+		
+		this.projectDataQueryBackend.unstarProject(activeProjectId, currentUserUUID).subscribe(
 			data =>{
 				// TODO react -> update local listitem for projectid and current new state.
 				this.ui_update_star(activeProjectId, false); 
