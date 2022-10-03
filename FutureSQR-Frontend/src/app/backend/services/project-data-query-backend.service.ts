@@ -138,55 +138,64 @@ export class ProjectDataQueryBackendService {
 				.pipe(first());
 	}
 	
-	// TODO: rework this subscription to once.
 	getReviewData(projectid:string, reviewid:string): Observable<BackendModelReviewData> {
 		var url = `/FutureSQR/rest/project/${projectid}/review/${reviewid}/information`;
-		return this.httpClient.get<BackendModelReviewData>(url, {});
+		
+		return this.httpClient
+				.get<BackendModelReviewData>(url, {})
+				.pipe(first());
 	}
 	
-	// TODO: rework this subscription to once.
 	getThreadData(projectid:string, reviewid:string): Observable<BackendModelThreadsData> {
 		var url = `/FutureSQR/rest/project/${projectid}/review/${reviewid}/threads`;
-		return this.httpClient.get<BackendModelThreadsData>(url, {});
+		
+		return this.httpClient
+				.get<BackendModelThreadsData>(url, {})
+				.pipe(first());
 	}
 	
-	// TODO: rework this subscription to once.
 	getReviewSimpleRevisionInformationList(projectid: string, reviewid: string): Observable <BackendModelProjectRecentCommitRevision[]> {
 		var url = `/FutureSQR/rest/project/${projectid}/review/${reviewid}/revisiondetails`
-		return this.httpClient.get<BackendModelProjectRecentCommitRevision[]>(url, {});
+		
+		return this.httpClient
+				.get<BackendModelProjectRecentCommitRevision[]>(url, {})
+				.pipe(first());
 	}
 	
-	// TODO: rework this subscription to once.
 	getRecentReviewsByProject(projectid:string): Observable<BackendModelProjectRecentReviews> {
 		var url = `/FutureSQR/rest/project/${projectid}/recentreviews`;
 		
 		// returns actually a list of open reviews for this project with some useful info....
-		return this.httpClient.get<BackendModelProjectRecentReviews>(url, {});
+		return this.httpClient
+				.get<BackendModelProjectRecentReviews>(url, {})
+				.pipe(first());
 	}
 	
-	// TODO: rework this subscription to once.
 	getSimpleInformationByProject(projectid:string) : Observable<BackendModelProjectSimpleInformation> {
 		var url = `/FutureSQR/rest/project/${projectid}/information`;
 		
-		return this.httpClient.get<BackendModelProjectSimpleInformation>(url, {});
+		return this.httpClient
+				.get<BackendModelProjectSimpleInformation>(url, {})
+				.pipe(first());
 	}
 	
-	// TODO: rework this subscription to once.
 	createNewReview(projectid:string, revisionid:string): Observable<BackendModelCreateReviewResult> {
 		var url = `/FutureSQR/rest/project/${projectid}/review/create`;
 		let formdata = new FormData();
 		
 		formdata.append('revisionid', revisionid);
 		
-		return this.httpClient.post<BackendModelCreateReviewResult>(url, formdata);
+		return this.httpClient
+				.post<BackendModelCreateReviewResult>(url, formdata)
+				.pipe(first());
 	}
 	
-	// TODO: rework this subscription to once.
-	closeReview(projectid:string, reviewid:string): Observable<any> {
+	closeReview(projectid:string, reviewid:string, closing_userid:string): Observable<any> {
 		var url =`/FutureSQR/rest/project/${projectid}/review/close`;
 		let formdata = new FormData();
 		
 		formdata.append('reviewid',reviewid);
+		formdata.append('closing_userid', closing_userid);
 		
 		return this.httpClient.post<any>(url,formdata);
 	}

@@ -3,6 +3,7 @@ import { Component, OnInit, Input, Output, SimpleChanges, EventEmitter, ChangeDe
 
 // Services
 import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
+import { UserDataQueryBackendService } from '../../../backend/services/user-data-query-backend.service';
 
 
 // should be a uimodel instead of a backend model
@@ -23,7 +24,10 @@ export class ReviewParticipationPanelComponent implements OnInit {
 	@Input() activeReviewData: BackendModelReviewData = new BackendModelReviewData();
 	@Output() onReviewStateChanged = new EventEmitter<string>();
 
-	constructor( private projectDataQueryBackend : ProjectDataQueryBackendService, private cdr: ChangeDetectorRef  ) { }
+	constructor( 
+		private projectDataQueryBackend : ProjectDataQueryBackendService,
+		private userDataQueryBackend : UserDataQueryBackendService, 
+		private cdr: ChangeDetectorRef  ) { }
 
 	ngOnInit(): void {
 	}
@@ -40,8 +44,10 @@ export class ReviewParticipationPanelComponent implements OnInit {
 	}
 	
 	onCloseReview(projectid:string, reviewId:string):void {
+		let currentClosingUser:string = this.userDataQueryBackend.getCurrentUserUUID();
+		
 		// use the backend service to close this review.
-		this.projectDataQueryBackend.closeReview(projectid, reviewId).subscribe(
+		this.projectDataQueryBackend.closeReview(projectid, reviewId, currentClosingUser).subscribe(
 			data => {
 				// parent component should reload the page...
 				this.onReviewStateChanged.emit('close');
