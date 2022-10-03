@@ -46,7 +46,7 @@ export class BasicProjectInformationComponent implements OnInit {
 
 	onStarMe(activeProjectId:string): void {
 		// TODO: provide current user UUID
-		let currentUserUUID:string='';
+		let currentUserUUID:string='x';
 		
 		this.projectDataQueryBackend.starProject(activeProjectId, currentUserUUID).subscribe(
 			data=>{
@@ -60,7 +60,7 @@ export class BasicProjectInformationComponent implements OnInit {
 	
 	onUnstarMe(activeProjectId:string): void {
 		// TODO: provide current user UUID
-		let currentUserUUID:string='';
+		let currentUserUUID:string='x';
 		
 		this.projectDataQueryBackend.unstarProject(activeProjectId, currentUserUUID).subscribe(
 			data =>{
