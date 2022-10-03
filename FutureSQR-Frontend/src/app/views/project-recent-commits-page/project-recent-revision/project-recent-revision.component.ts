@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 // Services
 import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
+import { UserDataQueryBackendService } from '../../../backend/services/user-data-query-backend.service'; 
 
 // UI Model
 import { UiReviewFileInformation } from '../../../commonui/uimodel/ui-review-file-information';
@@ -26,7 +27,8 @@ export class ProjectRecentRevisionComponent implements OnInit {
 	public showFileList: boolean = false;
 	
 	constructor( 
-		private projectDataQueryBackend : ProjectDataQueryBackendService, 
+		private projectDataQueryBackend : ProjectDataQueryBackendService,
+		private userDataQueryBackend : UserDataQueryBackendService,
 		private router: Router
 	) { }
 
@@ -37,7 +39,8 @@ export class ProjectRecentRevisionComponent implements OnInit {
 	}
 	
 	onCreateReview(projectId: string, revisionId: string) : void {
-		this.projectDataQueryBackend.createNewReview(projectId, revisionId).subscribe (
+		let opening_userid:string = this.userDataQueryBackend.getCurrentUserUUID();
+		this.projectDataQueryBackend.createNewReview(projectId, revisionId, opening_userid).subscribe (
 			data => {
 				// TODO redirect o review page.
 				this.router.navigate(['/', projectId, 'review', data['reviewId']]);

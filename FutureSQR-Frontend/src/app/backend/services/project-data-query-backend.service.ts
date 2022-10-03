@@ -179,11 +179,12 @@ export class ProjectDataQueryBackendService {
 				.pipe(first());
 	}
 	
-	createNewReview(projectid:string, revisionid:string): Observable<BackendModelCreateReviewResult> {
+	createNewReview(projectid:string, revisionid:string, opening_userid:string): Observable<BackendModelCreateReviewResult> {
 		var url = `/FutureSQR/rest/project/${projectid}/review/create`;
 		let formdata = new FormData();
 		
 		formdata.append('revisionid', revisionid);
+		formdata.append('opening_userid', opening_userid);
 		
 		return this.httpClient
 				.post<BackendModelCreateReviewResult>(url, formdata)
