@@ -25,7 +25,10 @@ export class ProjectRecentRevisionComponent implements OnInit {
 	
 	public showFileList: boolean = false;
 	
-	constructor( private projectDataQueryBackend : ProjectDataQueryBackendService, private router: Router  ) { }
+	constructor( 
+		private projectDataQueryBackend : ProjectDataQueryBackendService, 
+		private router: Router
+	) { }
 
 	ngOnInit(): void {
 	}

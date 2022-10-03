@@ -110,26 +110,32 @@ export class ProjectDataQueryBackendService {
 		var url = `/FutureSQR/rest/project/${projectid}/reviewdiff/${reviewid}`;
 		
 		return this.httpClient
-			.get<BackendModelSingleCommitFullChangeSet>(url, {})
-			.pipe(first());
+				.get<BackendModelSingleCommitFullChangeSet>(url, {})
+				.pipe(first());
 	}
 	
-	// TODO: rework this subscription to once.
 	getRecentProjectRevisionFilePathsData(projectid:string, revisionid:string): Observable<BackendModelSingleCommitFileActionsInfo> {
 		var url = `/FutureSQR/rest/project/${projectid}/revisionfilelist/${revisionid}`;
-		return this.httpClient.get<BackendModelSingleCommitFileActionsInfo>(url, {});
+		
+		return this.httpClient
+				.get<BackendModelSingleCommitFileActionsInfo>(url, {})
+				.pipe(first());
 	}
 	
-	// TODO: rework this subscription to once.
 	getRecentProjectRevisionInformation(projectid:string, revisionid:string): Observable<BackendModelProjectRecentCommitRevision> {
 		var url = `/FutureSQR/rest/project/${projectid}/revision/${revisionid}/information`;
-		return this.httpClient.get<BackendModelProjectRecentCommitRevision>(url, {});
+		
+		return this.httpClient
+				.get<BackendModelProjectRecentCommitRevision>(url, {})
+				.pipe(first());
 	}
 	
-	// TODO: rework this subscription to once.
-	getReviewFilePathsData(projectid:string, reviewid:string): Observable<BackendModelSingleCommitFileActionsInfo> {
+	getReviewFilePathsData11(projectid:string, reviewid:string): Observable<BackendModelSingleCommitFileActionsInfo> {
 		var url = `/FutureSQR/rest/project/${projectid}/review/${reviewid}/filelist`;
-		return this.httpClient.get<BackendModelSingleCommitFileActionsInfo>(url, {});
+		
+		return this.httpClient
+				.get<BackendModelSingleCommitFileActionsInfo>(url, {})
+				.pipe(first());
 	}
 	
 	// TODO: rework this subscription to once.
