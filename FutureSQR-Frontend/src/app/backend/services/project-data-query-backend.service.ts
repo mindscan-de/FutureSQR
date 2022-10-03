@@ -82,16 +82,20 @@ export class ProjectDataQueryBackendService {
 				;
 	}
 	
-	// TODO: rework this subscription to once.
 	getRecentProjectCommits(projectid:string) : Observable<BackendModelProjectRecentCommits> {
 		var url = `/FutureSQR/rest/project/${projectid}/recentcommits`;
-		return this.httpClient.get<BackendModelProjectRecentCommits>(url, {});
+		
+		return this.httpClient
+				.get<BackendModelProjectRecentCommits>(url, {})
+				.pipe(first());
 	}
 	
-	// TODO: rework this subscription to once.
-	getRecentProjectCommutsSinceRevision(projectid: string, revisionid:string):Observable<BackendModelProjectRecentCommits> {
+	getRecentProjectCommitsSinceRevision(projectid: string, revisionid:string):Observable<BackendModelProjectRecentCommits> {
 		var url = `/FutureSQR/rest/project/${projectid}/recentcommitsfromrevid/${revisionid}`;
-		return this.httpClient.get<BackendModelProjectRecentCommits>(url, {});
+		
+		return this.httpClient
+				.get<BackendModelProjectRecentCommits>(url, {})
+				.pipe(first());
 	} 	
 	
 	// TODO: rework this subscription to once.

@@ -23,7 +23,10 @@ export class AddRevisionToReviewSelectionDialogComponent implements OnInit {
 	public currentUiReviewData : BackendModelReviewData = new BackendModelReviewData();
 	public revisionChangedCallbackFkt = null;
 
-	constructor(private projectDataQueryBackend : ProjectDataQueryBackendService, public activeModal: NgbActiveModal) { }
+	constructor(
+		private projectDataQueryBackend : ProjectDataQueryBackendService, 
+		public activeModal: NgbActiveModal
+	) { }
 
 	ngOnInit(): void {
 	}
@@ -35,7 +38,7 @@ export class AddRevisionToReviewSelectionDialogComponent implements OnInit {
 		//      which are already connected to reviews.
 		// console.log(activeReviewData);
 		
-		this.projectDataQueryBackend.getRecentProjectCommutsSinceRevision( activeReviewData.reviewFkProjectId, activeReviewData.reviewRevisions[0]).subscribe (
+		this.projectDataQueryBackend.getRecentProjectCommitsSinceRevision( activeReviewData.reviewFkProjectId, activeReviewData.reviewRevisions[0]).subscribe (
 			data => this.onRevisionDataProvided(data) ,
 			error => {}			
 		);
