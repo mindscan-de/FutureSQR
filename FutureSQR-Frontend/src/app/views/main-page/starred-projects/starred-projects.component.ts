@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 // Services
 import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
+import { UserDataQueryBackendService } from '../../../backend/services/user-data-query-backend.service';
 
 // BackendModel - should be actually 
 import { BackendModelProjectItem } from '../../../backend/model/backend-model-project-item';
@@ -14,24 +15,26 @@ import { BackendModelProjectItem } from '../../../backend/model/backend-model-pr
 })
 export class StarredProjectsComponent implements OnInit {
 	
-  // contains the ui data for the starred projects
-  // actually this should be a ui model. 
-  public uiModelStarredProjects: BackendModelProjectItem[] = [];
+	// contains the ui data for the starred projects
+	// actually this should be a ui model. 
+	public uiModelStarredProjects: BackendModelProjectItem[] = [];
   
-  constructor( private projectDataQueryBackend : ProjectDataQueryBackendService ) { }
+	constructor( 
+		private projectDataQueryBackend : ProjectDataQueryBackendService,
+		private userDataQueryBackend : UserDataQueryBackendService	
+	) { }
 
-  ngOnInit(): void {
-	let currentUserUUID: string = ''
+	ngOnInit(): void {
+		let currentUserUUID: string = this.userDataQueryBackend.getCurrentUserUUID();
 	
-	this.projectDataQueryBackend.getStarredProjects(currentUserUUID).subscribe( 
-		data => this.onStarredProjectsProvided(data),
-		error => console.log(error)
-	);
-  }
+		this.projectDataQueryBackend.getStarredProjects(currentUserUUID).subscribe( 
+			data => this.onStarredProjectsProvided(data),
+			error => console.log(error)
+		);
+	}
 
-  onStarredProjectsProvided( starredProjects: BackendModelProjectItem[]) : void {
-	this.uiModelStarredProjects = starredProjects;
-  }
-
+	onStarredProjectsProvided( starredProjects: BackendModelProjectItem[]) : void {
+		this.uiModelStarredProjects = starredProjects;
+	}
 
 }
