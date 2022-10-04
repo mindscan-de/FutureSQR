@@ -1,11 +1,20 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { map, first } from 'rxjs/operators';
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserDataQueryBackendService {
+	
+	private static readonly URL_GET_ALL_USERS_AS_DICT:string           = "/FutureSQR/rest/user/userdictionary";
 
-	constructor() { }
+	constructor(
+		private httpClient : HttpClient
+	) { }
 
 	// creates a shadow copy of the simple userdatabase for performance reasons.
 	public getSimpleUserDataMap(isReRequest: boolean) {
@@ -39,6 +48,13 @@ export class UserDataQueryBackendService {
 	// Provide the current logged in user.
 	public getCurrentUserUUID():string {
 		return "b4d1449b-d50e-4c9f-a4cb-dd2230278306";
+	}
+	
+	
+	public getSimpleUserDictionary():Observable<any> {
+	    return this.httpClient
+				.get<any>(UserDataQueryBackendService.URL_GET_ALL_USERS_AS_DICT, {})
+				.pipe(first());
 	}
 
 }
