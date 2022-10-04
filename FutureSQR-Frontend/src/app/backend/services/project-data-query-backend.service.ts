@@ -33,7 +33,9 @@ export class ProjectDataQueryBackendService {
 	private static readonly URL_GET_PROJECT_REVISION_DIFF:string  = "/FutureSQR/rest/project/${projectid}/revisiondiff/${revisionid}";
 	private static readonly URL_GET_PROJECT_REVISION_FILES:string = "/FutureSQR/rest/project/${projectid}/filelist/${revisionid}";
 
-    constructor(private httpClient : HttpClient ) { }
+    constructor(
+		private httpClient : HttpClient 
+	) { }
 
     getAllProjects () : Observable<BackendModelProjectItem[]> {
 	    return this.httpClient
@@ -79,7 +81,6 @@ export class ProjectDataQueryBackendService {
 		return this.httpClient
 				.post<any>(url,formdata)
 				.pipe(first());
-				;
 	}
 	
 	getRecentProjectCommits(projectid:string) : Observable<BackendModelProjectRecentCommits> {
