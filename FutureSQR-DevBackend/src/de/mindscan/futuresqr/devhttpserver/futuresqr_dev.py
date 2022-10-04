@@ -427,6 +427,6 @@ def getSimpleUserDictionary():
                 USER_ISBANNED:user[USER_ISBANNED]
              } for user in allusers }
     
-    return simpleUserMap 
+    return { 'dictionary' : simpleUserMap }
 
 
