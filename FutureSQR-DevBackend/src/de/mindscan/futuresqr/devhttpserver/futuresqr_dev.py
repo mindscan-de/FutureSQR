@@ -39,6 +39,8 @@ from de.mindscan.futuresqr.reviews.review_tables_columns import *  # @UnusedWild
 from de.mindscan.futuresqr.reviewthreads.review_threads_database import ReviewThreadsDatabase
 from de.mindscan.futuresqr.threads.threads_database import ThreadsDatabase
 from de.mindscan.futuresqr.users.users_database import UsersDatabase
+from de.mindscan.futuresqr.users.user_table_columns import USER_UUID, USER_DISPLAYNAME, USER_AVATARLOCATION,\
+    USER_ISBANNED
 
 
 app = FastAPI()
@@ -402,3 +404,29 @@ def postUpdateProjectCache(projectid: str):
 ### Some more Review Stuff
 ###
 ### #########################################
+
+
+### #########################################
+###
+### Some User Data Stuff
+###
+### #########################################
+
+@app.get("/FutureSQR/rest/user/userdictionary")
+def getSimpleUserDictionary():
+    # this one should be reduced to a map
+    # key (uuid) -> array of [uuid, displayname, avatarlocation, isbanned]
+    # this one is loaded by every user to resolve the uuids
+    allusers = usersDB.selectAllUSers()
+    
+    simpleUserMap = { 
+        user[USER_UUID] : {
+                USER_UUID:user[USER_UUID], 
+                USER_DISPLAYNAME:user[USER_DISPLAYNAME],
+                USER_AVATARLOCATION:user[USER_AVATARLOCATION],
+                USER_ISBANNED:user[USER_ISBANNED]
+             } for user in allusers }
+    
+    return simpleUserMap 
+
+
