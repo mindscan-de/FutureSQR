@@ -255,7 +255,6 @@ export class ProjectDataQueryBackendService {
 				
 	}
 	
-	// TODO: rework this subscription to once.
 	approveReview(projectid: string, reviewid:string, reviewerid:string) : Observable<any> {
 		var url = `/FutureSQR/rest/project/${projectid}/review/approvereview`;
 		
@@ -264,10 +263,11 @@ export class ProjectDataQueryBackendService {
 		formdata.append('reviewid',reviewid);
 		formdata.append('reviewerid', reviewerid);
 		
-		return this.httpClient.post<any>(url,formdata);
+		return this.httpClient
+				.post<any>(url,formdata)
+				.pipe(first());
 	}
 
-	// TODO: rework this subscription to once.
 	concernReview(projectid: string, reviewid:string, reviewerid:string) : Observable<any> {
 		var url = `/FutureSQR/rest/project/${projectid}/review/concernreview`;
 		
@@ -276,7 +276,9 @@ export class ProjectDataQueryBackendService {
 		formdata.append('reviewid',reviewid);
 		formdata.append('reviewerid', reviewerid);
 		
-		return this.httpClient.post<any>(url,formdata);
+		return this.httpClient
+				.post<any>(url,formdata)
+				.pipe(first());
 	}
 	
 	// TODO: rework this subscription to once.
