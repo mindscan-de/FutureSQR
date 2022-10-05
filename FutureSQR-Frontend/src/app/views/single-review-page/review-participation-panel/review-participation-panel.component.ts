@@ -27,7 +27,8 @@ export class ReviewParticipationPanelComponent implements OnInit {
 	constructor( 
 		private projectDataQueryBackend : ProjectDataQueryBackendService,
 		private userDataQueryBackend : UserDataQueryBackendService, 
-		private cdr: ChangeDetectorRef  ) { }
+		private cdr: ChangeDetectorRef 
+	) { }
 
 	ngOnInit(): void {
 	}
@@ -57,8 +58,10 @@ export class ReviewParticipationPanelComponent implements OnInit {
 	}
 	
 	onReopenReview(projectid:string, reviewId:string):void {
+		let currentReopeningUser:string = this.userDataQueryBackend.getCurrentUserUUID();
+		
 		// use the backend service to close this review.
-		this.projectDataQueryBackend.reopenReview(projectid, reviewId).subscribe(
+		this.projectDataQueryBackend.reopenReview(projectid, reviewId, currentReopeningUser).subscribe(
 			data => {
 				this.onReviewStateChanged.emit('reopen');
 			},
@@ -78,8 +81,10 @@ export class ReviewParticipationPanelComponent implements OnInit {
 	}
 	
 	onAddMeToReview(projectid:string, reviewId:string): void {
-		// use the abckend service to add me to review
-		this.projectDataQueryBackend.addReviewer(projectid, reviewId, 'mindscan-de').subscribe(
+		let currentUser:string = this.userDataQueryBackend.getCurrentUserUUID();
+		
+		// use the backend service to add me to review
+		this.projectDataQueryBackend.addReviewer(projectid, reviewId, currentUser).subscribe(
 			data => {
 				this.onReviewStateChanged.emit('revieweradded');
 			},
@@ -88,7 +93,9 @@ export class ReviewParticipationPanelComponent implements OnInit {
 	}
 	
 	onReviewApprove(projectid:string, reviewId:string): void {
-		this.projectDataQueryBackend.approveReview(projectid, reviewId, 'mindscan-de').subscribe(
+		let currentUser:string = this.userDataQueryBackend.getCurrentUserUUID();
+		
+		this.projectDataQueryBackend.approveReview(projectid, reviewId, currentUser).subscribe(
 			data => {
 				this.onReviewStateChanged.emit('reviewapproved');
 			},
@@ -97,7 +104,9 @@ export class ReviewParticipationPanelComponent implements OnInit {
 	}
 	
 	onReviewConcern(projectid:string, reviewId:string): void {
-		this.projectDataQueryBackend.concernReview(projectid, reviewId, 'mindscan-de').subscribe(
+		let currentUser:string = this.userDataQueryBackend.getCurrentUserUUID();
+		
+		this.projectDataQueryBackend.concernReview(projectid, reviewId, currentUser).subscribe(
 			data => {
 				this.onReviewStateChanged.emit('reviewapproved');
 			},

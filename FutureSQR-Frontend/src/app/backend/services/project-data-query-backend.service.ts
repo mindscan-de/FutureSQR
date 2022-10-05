@@ -205,7 +205,7 @@ export class ProjectDataQueryBackendService {
 	}
 	
 	// TODO: rework this subscription to once.
-	reopenReview(projectid:string, reviewid:string): Observable<any> {
+	reopenReview(projectid:string, reviewid:string, reopening_userid:string): Observable<any> {
 		var url =`/FutureSQR/rest/project/${projectid}/review/reopen`;
 		let formdata = new FormData();
 		
