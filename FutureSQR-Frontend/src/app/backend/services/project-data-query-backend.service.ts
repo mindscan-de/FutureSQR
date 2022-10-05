@@ -204,14 +204,16 @@ export class ProjectDataQueryBackendService {
 				.pipe(first());
 	}
 	
-	// TODO: rework this subscription to once.
 	reopenReview(projectid:string, reviewid:string, reopening_userid:string): Observable<any> {
 		var url =`/FutureSQR/rest/project/${projectid}/review/reopen`;
 		let formdata = new FormData();
 		
 		formdata.append('reviewid',reviewid);
+		formdata.append('reopening_userid', reopening_userid);
 		
-		return this.httpClient.post<any>(url,formdata);
+		return this.httpClient
+				.post<any>(url,formdata)
+				.pipe(first());
 	}
 	
 	// TODO: rework this subscription to once.
