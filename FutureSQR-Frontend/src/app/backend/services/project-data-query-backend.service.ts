@@ -216,15 +216,17 @@ export class ProjectDataQueryBackendService {
 				.pipe(first());
 	}
 	
-	// TODO: rework this subscription to once.
-	appendReviewWithRevision(projectid: string, reviewid:string, revisionid:string): Observable<any> {
+	appendReviewWithRevision(projectid: string, reviewid:string, revisionid:string, userid:string): Observable<any> {
 		var url = `/FutureSQR/rest/project/${projectid}/review/appendrevision`;
 		
 		let formdata = new FormData();
 		formdata.append('reviewid',reviewid);
 		formdata.append('revisionid',revisionid);
+		formdata.append('userid', userid);
 		
-		return this.httpClient.post<any>(url,formdata);
+		return this.httpClient
+				.post<any>(url,formdata)
+				.pipe(first());
 	}
 	
 	// TODO: rework this subscription to once.

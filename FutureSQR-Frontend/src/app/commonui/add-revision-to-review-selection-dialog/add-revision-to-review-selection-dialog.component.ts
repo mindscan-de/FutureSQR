@@ -5,6 +5,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 // Services
 import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
+import { UserDataQueryBackendService } from '../../backend/services/user-data-query-backend.service';
 
 // should be a uimodel instead of a backend model
 import { BackendModelReviewData } from '../../backend/model/backend-model-review-data';
@@ -24,7 +25,8 @@ export class AddRevisionToReviewSelectionDialogComponent implements OnInit {
 	public revisionChangedCallbackFkt = null;
 
 	constructor(
-		private projectDataQueryBackend : ProjectDataQueryBackendService, 
+		private projectDataQueryBackend : ProjectDataQueryBackendService,
+		private userDataQueryBackend: UserDataQueryBackendService,
 		public activeModal: NgbActiveModal
 	) { }
 
@@ -58,8 +60,10 @@ export class AddRevisionToReviewSelectionDialogComponent implements OnInit {
 			this.revisionChangedCallbackFkt();
 		}
 		
+		let currentUserId = this.userDataQueryBackend.getCurrentUserUUID();
+		
 		// TODO: lock tthis component until the append was successful
-		this.projectDataQueryBackend.appendReviewWithRevision( projectid, reviewid, revisionid).subscribe(
+		this.projectDataQueryBackend.appendReviewWithRevision( projectid, reviewid, revisionid, currentUserId).subscribe(
 			data=>{
 				// todo: unlock this component.				
 				// todo: close dialog?
