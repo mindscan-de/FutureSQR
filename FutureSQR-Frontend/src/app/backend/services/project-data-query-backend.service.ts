@@ -239,16 +239,20 @@ export class ProjectDataQueryBackendService {
 		return this.httpClient.post<any>(url,formdata);
 	}
 	
-	// TODO: rework this subscription to once.
-	addReviewer(projectid:string, reviewid:string, reviewerid:string): Observable<any> {
+	addReviewer(projectid:string, reviewid:string, reviewerid:string, userid:string): Observable<any> {
 		var url = `/FutureSQR/rest/project/${projectid}/review/addreviewer`;
 		
 		let formdata = new FormData();
 		
 		formdata.append('reviewid',reviewid);
 		formdata.append('reviewerid', reviewerid);
+		// the user who added the reviewer (might be different from the reviewer.)
+		formdata.append('userid',userid);
 		
-		return this.httpClient.post<any>(url,formdata);
+		return this.httpClient
+				.post<any>(url,formdata)
+				.pipe(first());
+				
 	}
 	
 	// TODO: rework this subscription to once.

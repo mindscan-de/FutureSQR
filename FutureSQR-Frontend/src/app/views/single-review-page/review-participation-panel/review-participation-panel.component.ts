@@ -84,7 +84,7 @@ export class ReviewParticipationPanelComponent implements OnInit {
 		let currentUser:string = this.userDataQueryBackend.getCurrentUserUUID();
 		
 		// use the backend service to add me to review
-		this.projectDataQueryBackend.addReviewer(projectid, reviewId, currentUser).subscribe(
+		this.projectDataQueryBackend.addReviewer(projectid, reviewId, currentUser, currentUser).subscribe(
 			data => {
 				this.onReviewStateChanged.emit('revieweradded');
 			},
