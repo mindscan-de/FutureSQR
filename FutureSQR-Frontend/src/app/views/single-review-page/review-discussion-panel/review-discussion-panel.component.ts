@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 
 // Services
 import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
+import { UserDataQueryBackendService } from '../../../backend/services/user-data-query-backend.service';
 
 
 // Backend-Model
@@ -23,10 +24,10 @@ export class ReviewDiscussionPanelComponent implements OnInit {
 	@Input() activeProjectID: string = "";
 	@Input() activeReviewID: string = "";
 	
-	
-	
-
-	constructor(private projectDataQueryBackend : ProjectDataQueryBackendService) { }
+	constructor(
+		private projectDataQueryBackend : ProjectDataQueryBackendService,
+		private userDataQueryBackend : UserDataQueryBackendService
+		) { }
 	
 	ngOnInit(): void {
 	}
@@ -63,15 +64,17 @@ export class ReviewDiscussionPanelComponent implements OnInit {
 		this.uimodel = data;
 	}
 	
+	
 	onCreateThreadClicked(): void {
 		let that = this;
 		let disussionText = this.formDiscussionText.value;
+		let currentUserId = this.userDataQueryBackend.getCurrentUserUUID();
 		
 		this.projectDataQueryBackend
 			.createThreadForReview(
 				this.activeProjectID, 
 				this.activeReviewID, 
-				'mindscan-de', 
+				currentUserId, 
 				disussionText).subscribe(
 					data => { 
 						that.retrieveDiscussion();
