@@ -35,11 +35,12 @@ export class ReviewParticipationPanelComponent implements OnInit {
 
 	ngOnChanges(changes: SimpleChanges): void {
 		let reviewDataCandidate:BackendModelReviewData = changes.activeReviewData.currentValue;
+		let currentUserId = this.userDataQueryBackend.getCurrentUserUUID();
 		
 		if(this.currentUiReviewData != reviewDataCandidate) {
 			this.currentUiReviewData = reviewDataCandidate;
 			this.currentReviewers = new Map<string, BackendModelReviewResult>(Object.entries(reviewDataCandidate.reviewReviewersResults));
-			this.isCurrentUserAReviewer = this.currentReviewers.has('mindscan-de');
+			this.isCurrentUserAReviewer = this.currentReviewers.has(currentUserId);
 			this.cdr.detectChanges();
 		}
 	}
