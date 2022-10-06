@@ -93,6 +93,24 @@ export class ReviewParticipationPanelComponent implements OnInit {
 		);
 	}
 	
+	onAddReviewer(projectid:string, reviewId:string) : void {
+		// TODO open dialog and suggest user, by files or so or by search....
+		
+		let currentUser:string = this.userDataQueryBackend.getCurrentUserUUID();
+		
+		// THIS should be the result of a modal dialog selecting a reviewer.
+		// but maybe this have to move to somewhere else....
+		let selectedReviewer: string = "xxx"
+		
+		this.projectDataQueryBackend.addReviewer(projectid, reviewId, selectedReviewer, currentUser).subscribe(
+			data => {
+				this.onReviewStateChanged.emit('revieweradded');
+			},
+			error => {}
+		);
+	}
+	
+	
 	onReviewApprove(projectid:string, reviewId:string): void {
 		let currentUser:string = this.userDataQueryBackend.getCurrentUserUUID();
 		
@@ -115,8 +133,5 @@ export class ReviewParticipationPanelComponent implements OnInit {
 		);
 	}
 	
-	onAddReviewer(projectid:string, reviewId:string) : void {
-		// TODO open dialog and suggest user, by files or so or by search....
-	}
 
 }
