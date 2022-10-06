@@ -307,7 +307,6 @@ export class ProjectDataQueryBackendService {
 				.pipe(first());
 	}
 	
-	// TODO: rework this subscription to once.
 	updateThreadMessageForReview(projectid: string, reviewid: string, threadid:string, authorid:string, messageid:string, newmessage_text:string) : Observable<any> {
 		var url = `/FutureSQR/rest/project/${projectid}/review/${reviewid}/editmessage`;
 		
@@ -317,6 +316,8 @@ export class ProjectDataQueryBackendService {
 		formdata.append('messageid', messageid);
 		formdata.append('newmessage', newmessage_text);
 		
-		return this.httpClient.post<any>(url,formdata);
+		return this.httpClient
+				.post<any>(url,formdata)
+				.pipe(first());
 	}
 }
