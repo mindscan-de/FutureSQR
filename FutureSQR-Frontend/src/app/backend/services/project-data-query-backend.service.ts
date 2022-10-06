@@ -293,7 +293,6 @@ export class ProjectDataQueryBackendService {
 				.pipe(first());
 	}
 	
-	// TODO: rework this subscription to once.
 	replyThreadMessageForReview(projectid: string, reviewid: string, threadid:string, authorid:string, replytoid:string, message:string) : Observable<any> {
 		var url = `/FutureSQR/rest/project/${projectid}/review/${reviewid}/replythread`;
 		
@@ -303,7 +302,9 @@ export class ProjectDataQueryBackendService {
 		formdata.append('replytoid', replytoid);
 		formdata.append('message', message);
 		
-		return this.httpClient.post<any>(url,formdata);
+		return this.httpClient
+				.post<any>(url,formdata)
+				.pipe(first());
 	}
 	
 	// TODO: rework this subscription to once.

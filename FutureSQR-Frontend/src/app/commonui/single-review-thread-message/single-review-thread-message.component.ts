@@ -4,6 +4,7 @@ import { FormControl } from '@angular/forms';
 
 // Services
 import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
+import { UserDataQueryBackendService } from '../../backend/services/user-data-query-backend.service';
 
 // Backend-Model
 import { BackendModelThreadsMessage } from '../../backend/model/backend-model-threads-message'; 
@@ -33,7 +34,11 @@ export class SingleReviewThreadMessageComponent implements OnInit {
 	public isMessageEditMode:boolean = false;
 
 
-	constructor(private projectDataQueryBackend : ProjectDataQueryBackendService, private cdr: ChangeDetectorRef) { }
+	constructor(
+		private projectDataQueryBackend : ProjectDataQueryBackendService, 
+		private userDataQueryBackend : UserDataQueryBackendService,
+		private cdr: ChangeDetectorRef
+	) { }
 
 	ngOnInit(): void {
 	}
@@ -98,12 +103,13 @@ export class SingleReviewThreadMessageComponent implements OnInit {
 	sendReplyMessage(): void {
 		let that = this;
 		let message = that.formAnswerText.value;
+		let authorid = this.userDataQueryBackend.getCurrentUserUUID();
 		
 		this.projectDataQueryBackend.replyThreadMessageForReview(
 			this.activeProjectID, 
 			this.activeReviewID,
 			this.activeMessage.threadId, 
-			"mindscan-de", 
+			authorid, 
 			this.activeMessage.messageId, 
 			message
 		).subscribe(
