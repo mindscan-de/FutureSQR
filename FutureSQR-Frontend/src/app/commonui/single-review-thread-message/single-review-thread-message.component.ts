@@ -60,13 +60,14 @@ export class SingleReviewThreadMessageComponent implements OnInit {
 	
 	saveUpdatedMessage(): void {
 		let that = this; 
+		let editorid = this.userDataQueryBackend.getCurrentUserUUID(); 
 		
 		// save the current message into the backend.
 		this.projectDataQueryBackend.updateThreadMessageForReview(
 			this.activeProjectID,
 			this.activeReviewID,
 			this.activeMessage.threadId,
-			'mindscan-de', 
+			editorid, 
 			this.activeMessage.messageId,
 			this.formMessageText.value
 		).subscribe(
