@@ -114,5 +114,9 @@ export class ReviewParticipationPanelComponent implements OnInit {
 			error => {}
 		);
 	}
+	
+	onAddReviewer(projectid:string, reviewId:string) : void {
+		// TODO open dialog and suggest user, by files or so or by search....
+	}
 
 }
