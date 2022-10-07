@@ -26,6 +26,20 @@ export class TopNavigationBarComponent implements OnInit {
 		//       TopNavigationBar, when a user is logged in / logged out.
 	}
 	
+	onBreadCrumbNavChanged(newBreadCrumbNavData) : void {
+		// update the breadcrumb navigation
+		
+		// TODO handle empty case
+		// TODO handle array case
+	}
+	
+	onUserChanged(userData) : void {
+		// TODO: detect if logged in or logged out
+		// then clear state or update state what to show in the User part of the top navigation 
+	}
+	
+	
+	
 	ngOnChanges(changes: SimpleChanges): void {
 		let newTitle:string = changes.appTitle.currentValue;
 		
