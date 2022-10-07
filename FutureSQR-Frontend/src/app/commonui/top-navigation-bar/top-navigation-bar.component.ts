@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
  
 import { NavigationBarService } from '../../services/navigation-bar.service';
-
+import { UserDataQueryBackendService } from '../../backend/services/user-data-query-backend.service';
 
 
 @Component({
@@ -16,11 +16,14 @@ export class TopNavigationBarComponent implements OnInit {
 	@Input() appTitle:string;
 	
 	constructor (
-		private navigationBarService : NavigationBarService
+		private navigationBarService : NavigationBarService,
+		private userDataService : UserDataQueryBackendService
 	) {}
 
 	ngOnInit(): void {
 		// TODO: we want to subscribe to changes intended for the breadcrumb navigation
+		// TODO: we also want to subscribe to changes of the user, such that we can update 
+		//       TopNavigationBar, when a user is logged in / logged out.
 	}
 	
 	ngOnChanges(changes: SimpleChanges): void {
