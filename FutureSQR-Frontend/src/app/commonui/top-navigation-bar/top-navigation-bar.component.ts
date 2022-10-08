@@ -4,6 +4,8 @@ import { NavigationBarService } from '../../services/navigation-bar.service';
 import { UserDataQueryBackendService } from '../../backend/services/user-data-query-backend.service';
 
 
+import { NavbarBreadcrumbItem } from '../../services/model/navbar-breadcrumb-item';
+
 @Component({
   selector: 'app-top-navigation-bar',
   templateUrl: './top-navigation-bar.component.html',
@@ -21,12 +23,18 @@ export class TopNavigationBarComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		// TODO: we want to subscribe to changes intended for the breadcrumb navigation
+		// we want to subscribe to changes intended for the breadcrumb navigation
+		this.navigationBarService.asObservable().subscribe(
+			navbardata => { 
+				this.onBreadCrumbNavChanged(navbardata);
+			}
+		);
+		
 		// TODO: we also want to subscribe to changes of the user, such that we can update 
 		//       TopNavigationBar, when a user is logged in / logged out.
 	}
 	
-	onBreadCrumbNavChanged(newBreadCrumbNavData) : void {
+	onBreadCrumbNavChanged(newBreadCrumbNavData:NavbarBreadcrumbItem[]) : void {
 		// update the breadcrumb navigation
 		
 		// TODO handle empty case
