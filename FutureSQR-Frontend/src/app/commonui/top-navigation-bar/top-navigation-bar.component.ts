@@ -14,6 +14,8 @@ import { NavbarBreadcrumbItem } from '../../services/model/navbar-breadcrumb-ite
 export class TopNavigationBarComponent implements OnInit {
 
 	public title:String = "APPTITLE";
+	
+	public navItems: NavbarBreadcrumbItem[] = []
 
 	@Input() appTitle:string;
 	
