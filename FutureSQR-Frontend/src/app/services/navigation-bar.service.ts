@@ -26,10 +26,15 @@ export class NavigationBarService {
 		this.currentNavbarSubject = this._currentNavbarSubject.asObservable();
 	}
 
-	setBreadcrumbNavigation(navBarItems:NavbarBreadcrumbItem[]) {
+	public setBreadcrumbNavigation(navBarItems:NavbarBreadcrumbItem[]) {
 		// update the currentNavbarItems / make a copy such that the values can not be tampered with....
 		
 		// update all the subscribed navbar listeners.
 		this._currentNavbarSubject.next(navBarItems);
+	}
+	
+	// todo provide an object for subscription.
+	public asObservable():Observable<NavbarBreadcrumbItem[]> {
+		return this._currentNavbarSubject;
 	}
 }
