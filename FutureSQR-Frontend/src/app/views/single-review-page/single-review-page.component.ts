@@ -76,7 +76,8 @@ export class SingleReviewPageComponent implements OnInit {
 		let x = []
 		let activeProjectRouterLink: string = "/"+this.activeProjectID;
 		x.push(new NavbarBreadcrumbItem( this.activeProjectID, [activeProjectRouterLink], false ));
-		x.push(new NavbarBreadcrumbItem( this.activeReviewID, [activeProjectRouterLink, this.activeReviewID], true ));
+		 
+		x.push(new NavbarBreadcrumbItem( this.activeReviewID, [activeProjectRouterLink, 'review', this.activeReviewID], true ));
 		
 		this.navigationBarService.setBreadcrumbNavigation(x);
 	}
