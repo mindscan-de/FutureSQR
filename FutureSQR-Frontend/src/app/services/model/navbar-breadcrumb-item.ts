@@ -1,10 +1,17 @@
 export class NavbarBreadcrumbItem {
-	public linkText:string = "linkText";
+	
+	// the linktext.
+	public linkText:string = "";
+	
 	// can be string or something else, should actually be string array?
 	public routerLink:any[] = [];
 	
-	constructor(linkText, routerLink) {
+	//  
+	public routerLinkActive: boolean = false;
+	
+	constructor(linkText:string, routerLink:any[], routerLinkActive: boolean) {
 		this.linkText = linkText;
 		this.routerLink = routerLink;
+		this.routerLinkActive = routerLinkActive
 	}
 }
