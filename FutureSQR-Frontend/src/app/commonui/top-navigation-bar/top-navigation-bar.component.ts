@@ -28,8 +28,6 @@ export class TopNavigationBarComponent implements OnInit {
 		// we want to subscribe to changes intended for the breadcrumb navigation
 		this.navigationBarService.asObservable().subscribe(
 			navbardata => { 
-				console.log("we were invoked...")
-				console.log(navbardata)
 				this.onBreadCrumbNavChanged(navbardata);
 			}
 		);
