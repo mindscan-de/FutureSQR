@@ -28,6 +28,8 @@ export class NavigationBarService {
 
 	public setBreadcrumbNavigation(navBarItems:NavbarBreadcrumbItem[]) {
 		// update the currentNavbarItems / make a copy such that the values can not be tampered with....
+		console.log("breadcrumb nevigation set....");
+		console.log(navBarItems);
 		
 		// update all the subscribed navbar listeners.
 		this._currentNavbarSubject.next(navBarItems);
