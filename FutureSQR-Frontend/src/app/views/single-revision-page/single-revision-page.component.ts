@@ -5,6 +5,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 // Services
 import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
+import { NavigationBarService } from '../../services/navigation-bar.service';
+import { NavbarBreadcrumbItem } from '../../services/model/navbar-breadcrumb-item';
+
 
 // BackendModel - should be actually a ui model 
 import { BackendModelSingleCommitFullChangeSet } from '../../backend/model/backend-model-single-commit-full-change-set';
@@ -37,7 +40,8 @@ export class SingleRevisionPageComponent implements OnInit {
 	public uiRevisionData: BackendModelProjectRecentCommitRevision = new BackendModelProjectRecentCommitRevision();
 
     constructor(
-		private projectDataQueryBackend : ProjectDataQueryBackendService, 
+		private projectDataQueryBackend : ProjectDataQueryBackendService,
+		private navigationBarService : NavigationBarService,
 		private route: ActivatedRoute, 
 		private modalService: NgbModal 
 	) { }
@@ -62,6 +66,14 @@ export class SingleRevisionPageComponent implements OnInit {
 			data => this.onRevisionInformationProvided(data),
 			error => console.log(error)
 		);
+		
+		// add navigation
+		let x = []
+		x.push(new NavbarBreadcrumbItem( this.activeProjectID, ['/',this.activeProjectID], false ));
+		x.push(new NavbarBreadcrumbItem( "revision " + this.activeRevisionID.substring(0,7), ['/',this.activeProjectID, 'revision', this.activeRevisionID], true ));
+		
+		this.navigationBarService.setBreadcrumbNavigation(x);
+		
 	}
 
 	onSingeRevisionDiffProvided( diffData: BackendModelSingleCommitFullChangeSet):void {
