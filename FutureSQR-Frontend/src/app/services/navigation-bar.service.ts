@@ -26,6 +26,11 @@ export class NavigationBarService {
 		this.currentNavbarSubject = this._currentNavbarSubject.asObservable();
 	}
 
+	/**
+	 * This should actually be handled by some kind of navigation graph, where we can push and pop and
+     * just mark the transitions and the navigationbar will know what to display. and each component
+     * knows for itself what to add to the navigation bar, currently this is a very rude concept.
+	 */
 	public setBreadcrumbNavigation(navBarItems:NavbarBreadcrumbItem[]):void {
 		// update the currentNavbarItems / make a copy such that the values can not be tampered with....
 		this._currentNavbarItems = navBarItems;
