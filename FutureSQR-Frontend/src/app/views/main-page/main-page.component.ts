@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { NavigationBarService } from '../../services/navigation-bar.service';
+
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor() { }
+	constructor(
+		private navbarService: NavigationBarService
+	) { }
 
-  ngOnInit(): void {
-  }
+	ngOnInit(): void {
+		this.navbarService.clearBreadcrumbNavigation();
+	}
 
 }
