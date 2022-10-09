@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
  
-import { NavigationBarService } from '../../services/navigation-bar.service';
 import { UserDataQueryBackendService } from '../../backend/services/user-data-query-backend.service';
 
-
+import { NavigationBarService } from '../../services/navigation-bar.service';
 import { NavbarBreadcrumbItem } from '../../services/model/navbar-breadcrumb-item';
+
 
 @Component({
   selector: 'app-top-navigation-bar',
@@ -15,7 +15,7 @@ export class TopNavigationBarComponent implements OnInit {
 
 	public title:String = "APPTITLE";
 	
-	public navItems: NavbarBreadcrumbItem[] = []
+	public navItems: Array<NavbarBreadcrumbItem> = new Array<NavbarBreadcrumbItem>();
 
 	@Input() appTitle:string;
 	
@@ -28,6 +28,8 @@ export class TopNavigationBarComponent implements OnInit {
 		// we want to subscribe to changes intended for the breadcrumb navigation
 		this.navigationBarService.asObservable().subscribe(
 			navbardata => { 
+				console.log("we were invoked...")
+				console.log(navbardata)
 				this.onBreadCrumbNavChanged(navbardata);
 			}
 		);
@@ -38,6 +40,11 @@ export class TopNavigationBarComponent implements OnInit {
 	
 	onBreadCrumbNavChanged(newBreadCrumbNavData:NavbarBreadcrumbItem[]) : void {
 		// update the breadcrumb navigation
+		
+		for(let i:number =0;i<newBreadCrumbNavData.length;i++) {
+			let x:NavbarBreadcrumbItem = newBreadCrumbNavData[i];
+			this.navItems.push(x);
+		}
 		
 		// TODO handle empty case
 		// TODO handle array case

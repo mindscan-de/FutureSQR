@@ -6,7 +6,9 @@
 	<!-- Navigation bar, which is controlled by the selected view, flexible until the last items -->
 	<div class="navbar-nav-scroll">
 		<ol class="navbar-nav bd-navbar-nav flex-row">
-			<li class="nav-item"><a class="nav-link" *ngFor="let navitem of navItems" [routerLink]="navitem.routerLink">{{navItem.linkText}}</a></li>
+			<ng-container *ngFor="let navitem of navItems">
+				<li class="nav-item"><a class="nav-link"  [routerLink]="navitem.routerLink">{{navitem.linkText}}</a></li>
+			</ng-container>
 		</ol>
 	</div>
 	<!-- Notification area -->
