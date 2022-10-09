@@ -4,6 +4,9 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 // Services
 import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
+import { NavigationBarService } from '../../services/navigation-bar.service';
+import { NavbarBreadcrumbItem } from '../../services/model/navbar-breadcrumb-item';
+
 
 // BackendModel - should be actually a ui model 
 import { BackendModelProjectRecentCommits } from '../../backend/model/backend-model-project-recent-commits';
@@ -25,7 +28,8 @@ export class ProjectRecentCommitsPageComponent implements OnInit {
 	public activeProjectID: string = '';
 
 	constructor( 
-		private projectDataQueryBackend : ProjectDataQueryBackendService, 
+		private projectDataQueryBackend : ProjectDataQueryBackendService,
+		private navigationBarService : NavigationBarService,
 		private route: ActivatedRoute, 
 		private router: Router
 	) { }
@@ -37,6 +41,11 @@ export class ProjectRecentCommitsPageComponent implements OnInit {
 			data => this.onRecentProjectCommitsProvided(data),
 			error => console.log(error)
 		);
+		
+		// add navigation
+		let x = []
+		x.push(new NavbarBreadcrumbItem( this.activeProjectID, ['/',this.activeProjectID], false ));
+		this.navigationBarService.setBreadcrumbNavigation(x);		
 	}
 
 	onRecentProjectCommitsProvided( recentProjectCommits: BackendModelProjectRecentCommits) : void {
