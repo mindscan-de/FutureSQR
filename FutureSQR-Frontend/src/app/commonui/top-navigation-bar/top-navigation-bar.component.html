@@ -1,13 +1,32 @@
-<header class="navbar navbar-dark bg-dark">
+<header class="navbar navbar-dark navbar-expand bg-dark flex-column flex-md-row bd-navbar">
 	<!-- Home link -->
 	<a class="navbar-brand mr-0 mr-md-2" [routerLink]="['/']">{{title}}</a>
 	<!-- Spacer -->
 	<!-- <div></div> -->
 	<!-- Navigation bar, which is controlled by the selected view, flexible until the last items -->
-	<!-- <div></div> -->
+	<div class="navbar-nav-scroll">
+		<ol class="navbar-nav bd-navbar-nav flex-row">
+			<li class="nav-item"><a class="nav-link" *ngFor="let navitem of navItems" [routerLink]="navitem.routerLink">{{navItem.linkText}}</a></li>
+		</ol>
+	</div>
 	<!-- Notification area -->
-	<!-- <div></div> -->
+	<div class="flex-auto"></div>
 	<!-- User icon area with drop down navigation and indicator? -->
-	<!-- <div>Me</div> -->
+	<div class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+		<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+			<!-- Depending on the login state we want either a login button or a user drop down -->
+			<li class="nav-item dropdown">
+				<a class="nav-item nav-link dropdown-toggle mr-md-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Me</a>
+<!-- 				<div class="dowpdown-menu dropdown-menu-right">
+					<a class="dropdown-item" href="#">test1</a>
+					
+					<a class="dropdown-item" href="#">test2</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="#">logout</a>
+				</div>
+ -->			</li>
+		</ul>
+	</div>
+	
 </header>
 
