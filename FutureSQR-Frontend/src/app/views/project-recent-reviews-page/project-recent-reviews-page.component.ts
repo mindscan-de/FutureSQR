@@ -3,6 +3,8 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 // Services
 import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
+import { NavigationBarService } from '../../services/navigation-bar.service';
+import { NavbarBreadcrumbItem } from '../../services/model/navbar-breadcrumb-item';
 
 
 // backend model -> should be a ui model.
@@ -22,7 +24,11 @@ export class ProjectRecentReviewsPageComponent implements OnInit {
 	public activeProjectID: string = '';
 
 
-	constructor( private projectDataQueryBackend : ProjectDataQueryBackendService, private route: ActivatedRoute ) { }
+	constructor( 
+		private projectDataQueryBackend : ProjectDataQueryBackendService,
+		private navigationBarService : NavigationBarService,
+		private route: ActivatedRoute 
+	) { }
 
 	ngOnInit(): void {
 		this.activeProjectID = this.route.snapshot.paramMap.get('projectid');
@@ -30,7 +36,14 @@ export class ProjectRecentReviewsPageComponent implements OnInit {
 		this.projectDataQueryBackend.getRecentReviewsByProject(this.activeProjectID).subscribe (
 			data => this.onRecentReviewsLoaded(data),
 			error => {}
-		);		
+		);
+		
+		// add navigation
+		let x = []
+		x.push(new NavbarBreadcrumbItem( this.activeProjectID, ['/',this.activeProjectID], false ));
+		x.push(new NavbarBreadcrumbItem( 'Reviews', ['/',this.activeProjectID, 'reviews'], false ));
+		this.navigationBarService.setBreadcrumbNavigation(x);		
+		
 	}
 	
 	onRecentReviewsLoaded(recentReviews:BackendModelProjectRecentReviews) : void {
