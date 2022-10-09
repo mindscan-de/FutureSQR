@@ -38,6 +38,7 @@ export class TopNavigationBarComponent implements OnInit {
 	
 	onBreadCrumbNavChanged(newBreadCrumbNavData:NavbarBreadcrumbItem[]) : void {
 		// update the breadcrumb navigation
+		this.navItems = new Array<NavbarBreadcrumbItem>();
 		
 		for(let i:number =0;i<newBreadCrumbNavData.length;i++) {
 			let x:NavbarBreadcrumbItem = newBreadCrumbNavData[i];
