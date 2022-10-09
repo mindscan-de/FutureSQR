@@ -26,13 +26,17 @@ export class NavigationBarService {
 		this.currentNavbarSubject = this._currentNavbarSubject.asObservable();
 	}
 
-	public setBreadcrumbNavigation(navBarItems:NavbarBreadcrumbItem[]) {
+	public setBreadcrumbNavigation(navBarItems:NavbarBreadcrumbItem[]):void {
 		// update the currentNavbarItems / make a copy such that the values can not be tampered with....
-		console.log("breadcrumb nevigation set....");
-		console.log(navBarItems);
-		
+		this._currentNavbarItems = navBarItems;
+
 		// update all the subscribed navbar listeners.
-		this._currentNavbarSubject.next(navBarItems);
+		this._currentNavbarSubject.next(this._currentNavbarItems);
+	}
+	
+	public clearBreadcrumbNavigation():void {
+		this._currentNavbarItems = [];
+		this._currentNavbarSubject.next(this._currentNavbarItems);
 	}
 	
 	// todo provide an object for subscription.
