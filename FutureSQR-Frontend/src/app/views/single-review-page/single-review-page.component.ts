@@ -6,6 +6,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 // Services
 import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
+import { NavigationBarService } from '../../services/navigation-bar.service';
+import { NavbarBreadcrumbItem } from '../../services/model/navbar-breadcrumb-item';
 
 // Backend Model
 import { BackendModelReviewData } from '../../backend/model/backend-model-review-data';
@@ -39,7 +41,8 @@ export class SingleReviewPageComponent implements OnInit {
 	public activeReviewData: BackendModelReviewData = new BackendModelReviewData();
 
 	constructor( 
-		private projectDataQueryBackend : ProjectDataQueryBackendService, 
+		private projectDataQueryBackend : ProjectDataQueryBackendService,
+		private navigationBarService : NavigationBarService,
 		private route: ActivatedRoute, 
 		private modalService: NgbModal 
 	) { }
@@ -64,12 +67,15 @@ export class SingleReviewPageComponent implements OnInit {
 			error => {}
 		);
 		
-		
 		// query some revision information for this particular review
 		this.projectDataQueryBackend.getReviewSimpleRevisionInformationList(this.activeProjectID,this.activeReviewID).subscribe(
 			data => this.onReviewReviewInformation(data),
 			error => {}
 		);
+		
+		let x = []
+		x.push(new NavbarBreadcrumbItem("XXX", ['/futuresqr']));
+		this.navigationBarService.setBreadcrumbNavigation(x);
 	}
 	
 	onReviewDataReceived(reviewData: BackendModelReviewData):  void {
@@ -95,6 +101,10 @@ export class SingleReviewPageComponent implements OnInit {
 	onRevisionSelectionChanged(eventdata:any):void {
 		console.log("Guess what");
 		console.log(eventdata);
+	}
+	
+	onProjectInformationProvided(projectinformation:any):void {
+		
 	}
 	
 	// open side by side dialog
