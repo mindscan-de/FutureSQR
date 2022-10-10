@@ -24,7 +24,9 @@ export class RevisionParticipationPanelComponent implements OnInit {
 	@Input() reviewRevisions: BackendModelProjectRecentCommitRevision[] = [];
 	@Output() onRevisionStateChanged: EventEmitter<string> = new EventEmitter<string>();
 
-	constructor( private modalService: NgbModal) { }
+	constructor( 
+		private modalService: NgbModal
+	) { }
 
 	ngOnInit(): void {
 	}
@@ -51,7 +53,7 @@ export class RevisionParticipationPanelComponent implements OnInit {
 	
 	openAddRevisionsDialog(reviewData:BackendModelReviewData): void {
 
-		const modalref = this.modalService.open(  AddRevisionToReviewSelectionDialogComponent,  {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'lg'}    )
+		const modalref = this.modalService.open(  AddRevisionToReviewSelectionDialogComponent,  {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'lg'}    );
 
 		let that = this;
 		
@@ -63,6 +65,7 @@ export class RevisionParticipationPanelComponent implements OnInit {
 			);
 		
 		modalref.result.then((result) => {
+			// TODO: check this subscription, whether it sould only be one.
 			result.subscribe(
 				data => {
 					this.onRevisionStateChanged.emit('udpated');
