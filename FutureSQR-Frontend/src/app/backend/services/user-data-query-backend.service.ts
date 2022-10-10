@@ -18,6 +18,10 @@ export class UserDataQueryBackendService {
 
 	// creates a shadow copy of the simple userdatabase for performance reasons.
 	public getSimpleUserDataMap(isReRequest: boolean) {
+		if(isReRequest) {
+			// well we need a blocking read...
+		}
+		
 		// this map should be requested 
 		// check if we already have this database downloaded.
 	}
@@ -54,6 +58,7 @@ export class UserDataQueryBackendService {
 	public getSimpleUserDictionary():Observable<any> {
 	    return this.httpClient
 				.get<any>(UserDataQueryBackendService.URL_GET_ALL_USERS_AS_DICT, {})
+				// todo: use map operator to create a shadow copy of the dictionary. 
 				.pipe(first());
 	}
 
