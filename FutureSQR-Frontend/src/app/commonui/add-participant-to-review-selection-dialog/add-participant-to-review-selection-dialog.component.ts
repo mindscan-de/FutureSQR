@@ -21,7 +21,17 @@ export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
 
 	ngOnInit(): void {
 		// TODO query the user data query Backend for a user list
-		// TODO query a suggestion shortlist for the review (based on file, and other metrics?)
+		this.userDataQueryBackend.getSimpleUserDictionary();
+		
+/*		.subscribe(
+			data => {this.onUserMapProvided(data)},
+			error => {} 
+		);
+*/		// TODO query a suggestion shortlist for the review (based on file, and other metrics?)
+	}
+	
+	onUserMapProvided(userMap:any):void {
+		
 	}
 	
 	// add some on data provided information....
