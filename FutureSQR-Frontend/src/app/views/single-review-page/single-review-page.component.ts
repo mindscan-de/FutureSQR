@@ -72,19 +72,24 @@ export class SingleReviewPageComponent implements OnInit {
 			data => this.onReviewReviewInformation(data),
 			error => {}
 		);
-		
-		// add navigation
-		let x = []
-		
-		x.push(new NavbarBreadcrumbItem( this.activeProjectID, ['/',this.activeProjectID], false ));
-		x.push(new NavbarBreadcrumbItem( 'Reviews', ['/',this.activeProjectID,'reviews'], false ));
-		x.push(new NavbarBreadcrumbItem( this.activeReviewID, ['/',this.activeProjectID, 'review', this.activeReviewID], true ));
-		
-		this.navigationBarService.setBreadcrumbNavigation(x);
 	}
 	
 	onReviewDataReceived(reviewData: BackendModelReviewData):  void {
 		this.activeReviewData = reviewData;
+		this.setNavigationInformation();
+	}
+	
+	setNavigationInformation(): void {
+		// Add navigation only after we received the review title as well.		
+		let x = []
+		// TODO: project display name - must retrieve info from service or backend. 
+		x.push(new NavbarBreadcrumbItem( this.activeProjectID, ['/',this.activeProjectID], false ));
+		// Provide extra reviews link
+		x.push(new NavbarBreadcrumbItem( 'Reviews', ['/',this.activeProjectID,'reviews'], false ));
+		// Provide title
+		x.push(new NavbarBreadcrumbItem( this.activeReviewID+": "+this.activeReviewData.reviewTitle, ['/',this.activeProjectID, 'review', this.activeReviewID], true ));
+		
+		this.navigationBarService.setBreadcrumbNavigation(x);
 	}
 	
 	onDiffDataReceived( diffData: BackendModelSingleCommitFullChangeSet ):void {
