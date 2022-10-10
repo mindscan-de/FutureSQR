@@ -67,13 +67,6 @@ export class SingleRevisionPageComponent implements OnInit {
 			error => console.log(error)
 		);
 		
-		// add navigation
-		let x = []
-		x.push(new NavbarBreadcrumbItem( this.activeProjectID, ['/',this.activeProjectID], false ));
-		x.push(new NavbarBreadcrumbItem( "revision " + this.activeRevisionID.substring(0,7), ['/',this.activeProjectID, 'revision', this.activeRevisionID], true ));
-		
-		this.navigationBarService.setBreadcrumbNavigation(x);
-		
 	}
 
 	onSingeRevisionDiffProvided( diffData: BackendModelSingleCommitFullChangeSet):void {
@@ -81,8 +74,19 @@ export class SingleRevisionPageComponent implements OnInit {
 		this.uiFileChangeSets = diffData.fileChangeSet;
 	}
 	
+	setNavigation(): void {
+		// add navigation
+		let x = []
+		x.push(new NavbarBreadcrumbItem( this.activeProjectID, ['/',this.activeProjectID], false ));
+		x.push(new NavbarBreadcrumbItem( this.uiRevisionData.shortrev, ['/',this.activeProjectID, 'revision', this.activeRevisionID], true ));
+		
+		this.navigationBarService.setBreadcrumbNavigation(x);
+	}
+	
 	onRevisionInformationProvided( revisionData: BackendModelProjectRecentCommitRevision): void {
 		this.uiRevisionData = revisionData;
+		
+		this.setNavigation();
 	}
 	
 	
