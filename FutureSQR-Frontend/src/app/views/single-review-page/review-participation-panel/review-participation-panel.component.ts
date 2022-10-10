@@ -1,5 +1,9 @@
 import { Component, OnInit, Input, Output, SimpleChanges, EventEmitter, ChangeDetectorRef  } from '@angular/core';
 
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+// Used UI Components
+import { AddParticipantToReviewSelectionDialogComponent } from '../../../commonui/add-participant-to-review-selection-dialog/add-participant-to-review-selection-dialog.component';
 
 // Services
 import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
@@ -22,11 +26,13 @@ export class ReviewParticipationPanelComponent implements OnInit {
 	public isCurrentUserAReviewer: Boolean = false;
 	
 	@Input() activeReviewData: BackendModelReviewData = new BackendModelReviewData();
+	// maybe add the current selected reviewers, so these can be filtered?
 	@Output() onReviewStateChanged = new EventEmitter<string>();
 
 	constructor( 
 		private projectDataQueryBackend : ProjectDataQueryBackendService,
-		private userDataQueryBackend : UserDataQueryBackendService, 
+		private userDataQueryBackend : UserDataQueryBackendService,
+		private modalService: NgbModal,   
 		private cdr: ChangeDetectorRef 
 	) { }
 
@@ -94,9 +100,32 @@ export class ReviewParticipationPanelComponent implements OnInit {
 	}
 	
 	onAddReviewer(projectid:string, reviewId:string) : void {
+
 		// TODO open dialog and suggest user, by files or so or by search....
+		// new planned dialog		
+/*		const modalref = this.modalService.open( AddParticipantToReviewSelectionDialogComponent, {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'lg'});
 		
-		let currentUser:string = this.userDataQueryBackend.getCurrentUserUUID();
+		let that = this;
+		
+		modalref.componentInstance.setActiveReviewData(this.currentUiReviewData);
+		modalref.componentInstance.setParticipantConfigurationChangedCallback(
+			function () {
+				that.setParticipantConfigurationChanged();
+			}
+		);
+		
+		modalref.result.then((result)=> {
+			// TODO: check this subscription, whether it shoule only be one
+			result.subscribe(
+				data => {},
+				error => {}
+			)
+		},
+		(reason)=>{});
+*/		
+
+		// This is some POC code, to show that adding a differernt user is doable 		
+/*		let currentUser:string = this.userDataQueryBackend.getCurrentUserUUID();
 		
 		// THIS should be the result of a modal dialog selecting a reviewer.
 		// but maybe this have to move to somewhere else....
@@ -108,8 +137,12 @@ export class ReviewParticipationPanelComponent implements OnInit {
 			},
 			error => {}
 		);
+*/	
 	}
 	
+	setParticipantConfigurationChanged(): void {
+		this.onReviewStateChanged.emit("participants changed.");
+	}
 	
 	onReviewApprove(projectid:string, reviewId:string): void {
 		let currentUser:string = this.userDataQueryBackend.getCurrentUserUUID();
