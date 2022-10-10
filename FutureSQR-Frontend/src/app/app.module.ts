@@ -42,6 +42,7 @@ import { ProjectRecentRevisionComponent } from './views/project-recent-commits-p
 import { OpenReviewItemComponent } from './views/project-recent-reviews-page/open-review-item/open-review-item.component';
 import { ClosedReviewItemComponent } from './views/project-recent-reviews-page/closed-review-item/closed-review-item.component';
 import { TopNavigationBarComponent } from './commonui/top-navigation-bar/top-navigation-bar.component';
+import { AddParticipantToReviewSelectionDialogComponent } from './commonui/add-participant-to-review-selection-dialog/add-participant-to-review-selection-dialog.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { TopNavigationBarComponent } from './commonui/top-navigation-bar/top-nav
     ProjectRecentRevisionComponent,
     OpenReviewItemComponent,
     ClosedReviewItemComponent,
-    TopNavigationBarComponent
+    TopNavigationBarComponent,
+    AddParticipantToReviewSelectionDialogComponent
   ],
   imports: [
     BrowserModule,
