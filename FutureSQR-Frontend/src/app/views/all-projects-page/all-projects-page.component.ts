@@ -4,6 +4,9 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
 import { UserDataQueryBackendService } from '../../backend/services/user-data-query-backend.service';
 
+import { NavigationBarService } from '../../services/navigation-bar.service';
+import { NavbarBreadcrumbItem } from '../../services/model/navbar-breadcrumb-item';
+
 // BackendModel - should be actually 
 import { BackendModelProjectItem } from '../../backend/model/backend-model-project-item';
 
@@ -19,15 +22,21 @@ export class AllProjectsPageComponent implements OnInit {
 
 	constructor( 
 		private projectDataQueryBackend : ProjectDataQueryBackendService, 
+		private navbarService: NavigationBarService,
 		private userDataQueryBackend : UserDataQueryBackendService,
 		private cdr: ChangeDetectorRef
 	) { }
 
-  ngOnInit(): void {
-	this.projectDataQueryBackend.getAllProjects().subscribe( 
-		data => this.onAllProjectsProvided(data),
-		error => console.log(error)
-	);
+	ngOnInit(): void {
+		this.projectDataQueryBackend.getAllProjects().subscribe( 
+			data => this.onAllProjectsProvided(data),
+			error => console.log(error)
+		);
+	
+		// add navigation
+		let x = []
+		x.push(new NavbarBreadcrumbItem( 'all projects', ['/','allprojects'], true ));
+		this.navbarService.setBreadcrumbNavigation(x);		
   }
 
 	onAllProjectsProvided( allProjects: BackendModelProjectItem[]) : void {
@@ -44,6 +53,7 @@ export class AllProjectsPageComponent implements OnInit {
 			},
 			error=>{}
 		);
+		
 	}
 	
 	onUnstarMe(activeProjectId:string): void {
