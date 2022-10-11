@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { map, first } from 'rxjs/operators';
 
+import { BackendModelSimpleUserDictionary } from '../model/backend-model-simple-user-dictionary';
 
 
 @Injectable({
@@ -55,7 +56,7 @@ export class UserDataQueryBackendService {
 	}
 	
 	
-	public getSimpleUserDictionary():Observable<any> {
+	public getSimpleUserDictionary():Observable<BackendModelSimpleUserDictionary> {
 	    return this.httpClient
 				.get<any>(UserDataQueryBackendService.URL_GET_ALL_USERS_AS_DICT, {})
 				// todo: use map operator to create a shadow copy of the dictionary. 
