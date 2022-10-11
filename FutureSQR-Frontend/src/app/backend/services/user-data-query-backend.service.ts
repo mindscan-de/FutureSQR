@@ -58,7 +58,7 @@ export class UserDataQueryBackendService {
 	
 	public getSimpleUserDictionary():Observable<BackendModelSimpleUserDictionary> {
 	    return this.httpClient
-				.get<any>(UserDataQueryBackendService.URL_GET_ALL_USERS_AS_DICT, {})
+				.get<BackendModelSimpleUserDictionary>(UserDataQueryBackendService.URL_GET_ALL_USERS_AS_DICT, {})
 				// todo: use map operator to create a shadow copy of the dictionary. 
 				.pipe(first());
 	}
