@@ -8,9 +8,16 @@
 <div class="modal-body">
 	<ul>
 	<li *ngFor="let userentry of currentUserMap | keyvalue:originalOrder">
+	<!-- TODO: avatar, and name, and button for adding this user -->
 		{{userentry.value.uuid}}, {{userentry.value.displayname}}
 	</li>
 	</ul>
+	
+	TODO: only show recommended userlist instead of all users<br>
+	
+	TODO: and also maybe a userfilter instead of full list.<br>
+	
+	TODO: also do not show banned users
 </div>
 
 <div class="modal-footer">
