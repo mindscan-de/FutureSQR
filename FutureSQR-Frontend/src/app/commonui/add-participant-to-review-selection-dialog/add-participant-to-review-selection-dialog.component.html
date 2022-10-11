@@ -6,7 +6,11 @@
 </div>
 
 <div class="modal-body">
-
+	<ul>
+	<li *ngFor="let userentry of currentUserMap | keyvalue:originalOrder">
+		{{userentry.value.uuid}}, {{userentry.value.displayname}}
+	</li>
+	</ul>
 </div>
 
 <div class="modal-footer">
