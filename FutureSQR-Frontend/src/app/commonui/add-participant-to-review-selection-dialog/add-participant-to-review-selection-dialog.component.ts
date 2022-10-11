@@ -6,6 +6,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 // Services
 import { UserDataQueryBackendService } from '../../backend/services/user-data-query-backend.service';
 
+// Backend Models
+import { BackendModelReviewData } from '../../backend/model/backend-model-review-data';
 
 @Component({
   selector: 'app-add-participant-to-review-selection-dialog',
@@ -13,6 +15,8 @@ import { UserDataQueryBackendService } from '../../backend/services/user-data-qu
   styleUrls: ['./add-participant-to-review-selection-dialog.component.css']
 })
 export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
+
+	public currentUiReviewData : BackendModelReviewData = new BackendModelReviewData();
 
 	constructor(
 		private userDataQueryBackend: UserDataQueryBackendService,
@@ -35,10 +39,14 @@ export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
 	}
 	
 	// add some on data provided information....
+	
 	// for full userdata list (maybe with some filters or so...)
 	// for reviewer shortlist
 	
 	// Add some setters
+	setActiveReviewData(activeReviewData: BackendModelReviewData): void {
+		this.currentUiReviewData = activeReviewData;
+	}
 	
 	
 
