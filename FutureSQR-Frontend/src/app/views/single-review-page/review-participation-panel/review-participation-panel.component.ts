@@ -100,20 +100,19 @@ export class ReviewParticipationPanelComponent implements OnInit {
 	}
 	
 	onAddReviewer(projectid:string, reviewId:string) : void {
-
-		// TODO open dialog and suggest user, by files or so or by search....
+		// open dialog and suggest user, by files or so or by search....
 		// new planned dialog		
-/*		const modalref = this.modalService.open( AddParticipantToReviewSelectionDialogComponent, {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'lg'});
+		const modalref = this.modalService.open( AddParticipantToReviewSelectionDialogComponent, {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'lg'});
 		
 		let that = this;
 		
 		modalref.componentInstance.setActiveReviewData(this.currentUiReviewData);
-		modalref.componentInstance.setParticipantConfigurationChangedCallback(
+/*		modalref.componentInstance.setParticipantConfigurationChangedCallback(
 			function () {
 				that.setParticipantConfigurationChanged();
 			}
 		);
-		
+*/		
 		modalref.result.then((result)=> {
 			// TODO: check this subscription, whether it shoule only be one
 			result.subscribe(
@@ -122,7 +121,7 @@ export class ReviewParticipationPanelComponent implements OnInit {
 			)
 		},
 		(reason)=>{});
-*/		
+		
 
 		// This is some POC code, to show that adding a differernt user is doable 		
 /*		let currentUser:string = this.userDataQueryBackend.getCurrentUserUUID();
