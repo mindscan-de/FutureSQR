@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { KeyValue } from '@angular/common';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -8,6 +9,8 @@ import { UserDataQueryBackendService } from '../../backend/services/user-data-qu
 
 // Backend Models
 import { BackendModelReviewData } from '../../backend/model/backend-model-review-data';
+import { BackendModelSimpleUserEntry } from '../../backend/model/backend-model-simple-user-entry';
+import { BackendModelSimpleUserDictionary } from '../../backend/model/backend-model-simple-user-dictionary';
 
 @Component({
   selector: 'app-add-participant-to-review-selection-dialog',
@@ -17,6 +20,7 @@ import { BackendModelReviewData } from '../../backend/model/backend-model-review
 export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
 
 	public currentUiReviewData : BackendModelReviewData = new BackendModelReviewData();
+	public currentUserMap : Map<String,BackendModelSimpleUserEntry> = new Map<String,BackendModelSimpleUserEntry>();
 
 	constructor(
 		private userDataQueryBackend: UserDataQueryBackendService,
@@ -25,17 +29,17 @@ export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
 
 	ngOnInit(): void {
 		// TODO query the user data query Backend for a user list
-		this.userDataQueryBackend.getSimpleUserDictionary();
-		
-/*		.subscribe(
+		this.userDataQueryBackend.getSimpleUserDictionary().subscribe(
 			data => {this.onUserMapProvided(data)},
 			error => {} 
 		);
-*/		// TODO query a suggestion shortlist for the review (based on file, and other metrics?)
+		
+		// MAYBE do this in order,
+		// TODO query a suggestion shortlist for the review (based on file, and other metrics?)
 	}
 	
-	onUserMapProvided(userMap:any):void {
-		
+	onUserMapProvided(userDictionary:BackendModelSimpleUserDictionary):void {
+		this.currentUserMap = userDictionary.dictionary;
 	}
 	
 	// add some on data provided information....
@@ -48,6 +52,10 @@ export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
 		this.currentUiReviewData = activeReviewData;
 	}
 	
-	
+
+	// used for user map iteration. 	
+	public originalOrder = (a: KeyValue<number,string>, b: KeyValue<number,string>): number => {
+	  return 0;
+	}
 
 }
