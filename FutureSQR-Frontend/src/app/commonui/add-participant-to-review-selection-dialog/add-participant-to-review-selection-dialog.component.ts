@@ -19,8 +19,14 @@ import { BackendModelSimpleUserDictionary } from '../../backend/model/backend-mo
 })
 export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
 
+	
 	public currentUiReviewData : BackendModelReviewData = new BackendModelReviewData();
-	public currentUserMap : Map<String,BackendModelSimpleUserEntry> = new Map<String,BackendModelSimpleUserEntry>();
+	private currentUserMapActive : boolean = false;
+	public currentUserMap : Map<string,BackendModelSimpleUserEntry> = new Map<string,BackendModelSimpleUserEntry>();
+	
+	private userUUIDsInShortList : string[] = [''];
+	public usersInShortList : BackendModelSimpleUserEntry[] = []
+	public usersInFilteredList : BackendModelSimpleUserEntry[] = []
 
 	constructor(
 		private userDataQueryBackend: UserDataQueryBackendService,
@@ -28,6 +34,7 @@ export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
+		this.currentUserMapActive = false;
 		// TODO query the user data query Backend for a user list
 		this.userDataQueryBackend.getSimpleUserDictionary().subscribe(
 			data => {this.onUserMapProvided(data)},
@@ -36,11 +43,33 @@ export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
 		
 		// MAYBE do this in order,
 		// TODO query a suggestion shortlist for the review (based on file, and other metrics?)
+		
+		
 	}
 	
 	onUserMapProvided(userDictionary:BackendModelSimpleUserDictionary):void {
 		this.currentUserMap = userDictionary.dictionary;
+		this.currentUserMapActive = true;
+		
+		this.updateShortList();
+		this.updateFilteredList();
 	}
+	
+	private updateShortList() : void {
+		if(this.currentUserMapActive) {
+			// use the currentUserMap to translate the uuid shortlist to 
+			// a displayable shortlist
+			this.usersInShortList.map( uuid:string => this.currentUserMap.get(uuid))
+		}
+	}
+	
+	private updateFilteredList() : void {
+		if(this.currentUserMapActive) {
+			// TODO if there is empty filter limit it to first 10 elements
+			// map values filter
+		}
+	}
+	
 	
 	// add some on data provided information....
 	
