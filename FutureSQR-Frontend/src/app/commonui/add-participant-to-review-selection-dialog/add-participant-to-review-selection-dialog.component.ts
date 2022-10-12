@@ -59,7 +59,7 @@ export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
 		if(this.currentUserMapActive) {
 			// use the currentUserMap to translate the uuid shortlist to 
 			// a displayable shortlist
-			this.usersInShortList.map( uuid:string => this.currentUserMap.get(uuid))
+			// this.usersInShortList.map( (uuid) => { this.currentUserMap.get(uuid)})
 		}
 	}
 	
