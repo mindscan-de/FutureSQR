@@ -19,8 +19,8 @@ import { BackendModelSimpleUserDictionary } from '../../backend/model/backend-mo
 })
 export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
 
-	
 	public currentUiReviewData : BackendModelReviewData = new BackendModelReviewData();
+	
 	private currentUserMapActive : boolean = false;
 	private currentUserMap : Map<string,BackendModelSimpleUserEntry> = new Map<string,BackendModelSimpleUserEntry>();
 	
@@ -44,6 +44,7 @@ export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
 		
 		// MAYBE do this in order,
 		// TODO query a suggestion shortlist for the review (based on file, and other metrics?)
+		// MAYBE the shortlist should contain a reason?
 		
 		
 	}
