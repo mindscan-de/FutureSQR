@@ -256,10 +256,10 @@ export class ProjectDataQueryBackendService {
 	}
 	
 	// TODO basicaslly we want a list of suggested  uuids of reviewers which we can show to the user.'
-	suggestedReeviewers(projectid:string, reviewid:sstring ): Observable<any> {
+	suggestedReeviewers(projectid:string, reviewid:string ): Observable<any> {
 		var url = `/FutureSQR/rest/project/${projectid}/review/suggestedreviewers`;
 		return this.httpClient
-				.get<an<>(url,{})
+				.get<any>(url,{})
 				.pipe(first());
 	}
 	
