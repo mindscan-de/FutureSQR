@@ -181,6 +181,22 @@ def getReviewRevisionInformation(projectid:str, reviewid:str):
     result = []
     return result
 
+@app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/suggestedreviewers")
+def getSuggestedReviewersForReview(projectid:str, reviewid:str):
+    # TODO query which user might be useful for a given projectid + reviewid
+    # We want to return the uuid's of the users, or we might already resolve them / which makes things in the frontend easier.
+    # maybe a map of uuids, with simple resolved names. 
+
+    # provide two hardcoded suggested users right now.
+    # TODO: implement me better!
+    result = ["b4d1449b-d50e-4c9f-a4cb-dd2230278306", "5f697406-9583-438c-a25c-9f1eb7407917"]
+    
+    # todo: convert into a map?
+    # TODO: also calculate the score and order by score?
+    return result
+    
+
+
 
 @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/threads")
 def getReviewThreadsInformation(projectid:str, reviewid:str):
@@ -353,6 +369,8 @@ def postDeleteReview(projectid:str, reviewid:str = Form(...)):
     
     result = {}
     return result
+
+
 
 @app.post("/FutureSQR/rest/project/{projectid}/review/addreviewer")
 def postAddReviewerToReview(projectid:str, reviewid:str = Form(...), reviewerid:str = Form(...)):
