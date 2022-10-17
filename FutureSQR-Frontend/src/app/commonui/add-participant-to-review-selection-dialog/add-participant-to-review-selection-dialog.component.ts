@@ -6,6 +6,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 // Services
 import { UserDataQueryBackendService } from '../../backend/services/user-data-query-backend.service';
+import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
+
 
 // Backend Models
 import { BackendModelReviewData } from '../../backend/model/backend-model-review-data';
@@ -23,6 +25,7 @@ export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
 	
 	private currentUserMapActive : boolean = false;
 	private currentUserMap : Map<string,BackendModelSimpleUserEntry> = new Map<string,BackendModelSimpleUserEntry>();
+	private suggestedUserMap : Map<string,BackendModelSimpleUserEntry> = new Map<string,BackendModelSimpleUserEntry>();
 	
 	private userUUIDsInShortList : string[] = [''];
 	
@@ -31,6 +34,7 @@ export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
 
 	constructor(
 		private userDataQueryBackend: UserDataQueryBackendService,
+		private projectDataQueryBackend: ProjectDataQueryBackendService,
 		public activeModal: NgbActiveModal
 	) { }
 
@@ -42,6 +46,13 @@ export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
 			error => {} 
 		);
 		
+		this.projectDataQueryBackend.getSuggestedReviewers(
+			this.currentUiReviewData.reviewFkProjectId,
+			this.currentUiReviewData.reviewId
+		).subscribe (
+			data => {},
+			error => {}
+		);
 		// MAYBE do this in order,
 		// TODO query a suggestion shortlist for the review (based on file, and other metrics?)
 		// MAYBE the shortlist should contain a reason?
