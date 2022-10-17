@@ -24,13 +24,14 @@ export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
 	public currentUiReviewData : BackendModelReviewData = new BackendModelReviewData();
 	
 	private currentUserMapActive : boolean = false;
-	private currentUserMap : Map<string,BackendModelSimpleUserEntry> = new Map<string,BackendModelSimpleUserEntry>();
-	private suggestedUserMap : Map<string,BackendModelSimpleUserEntry> = new Map<string,BackendModelSimpleUserEntry>();
+	public currentUserMap : Map<string,BackendModelSimpleUserEntry> = new Map<string,BackendModelSimpleUserEntry>();
+	
 	
 	private userUUIDsInShortList : string[] = [''];
 	
 	public usersInShortList : BackendModelSimpleUserEntry[] = []
 	public usersInFilteredList : BackendModelSimpleUserEntry[] = []
+	public suggestedUserMap : Map<string,BackendModelSimpleUserEntry> = new Map<string,BackendModelSimpleUserEntry>();
 
 	constructor(
 		private userDataQueryBackend: UserDataQueryBackendService,

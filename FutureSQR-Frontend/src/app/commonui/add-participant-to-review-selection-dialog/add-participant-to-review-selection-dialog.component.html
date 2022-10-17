@@ -6,12 +6,21 @@
 </div>
 
 <div class="modal-body">
+
+	<h5 class="h5">Suggested Reviewers</h5>
 	<ul>
-<!-- 	<li *ngFor="let userentry of currentUserMap | keyvalue:originalOrder">
+		<li *ngFor="let suggesteduserentry of suggestedUserMap | keyvalue:originalOrder">
+			{{suggesteduserentry.value.uuid}}, {{suggesteduserentry.value.displayname}}
+		</li>
+	</ul>
+	<h5 class="h5">All Users</h5>
+
 	TODO: avatar, and name, and button for adding this user
+	<ul>
+ 	<li *ngFor="let userentry of currentUserMap | keyvalue:originalOrder">
 		{{userentry.value.uuid}}, {{userentry.value.displayname}}
 	</li>
- -->	</ul>
+ 	</ul>
 	
 	TODO: only show recommended userlist instead of all users<br>
 	
