@@ -16,6 +16,9 @@ import { BackendModelProjectSimpleInformation } from '../model/backend-model-pro
 import { BackendModelProjectRecentCommitRevision } from '../model/backend-model-project-recent-commit-revision';
 import { BackendModelThreadsData } from '../model/backend-model-threads-data';
 
+// ---- user type backend data
+import { BackendModelSimpleUserDictionary } from '../model/backend-model-simple-user-dictionary';
+
 
 /**
  * TODO: rework all subscription and post events to avoid any memory and/or resource leaks.
@@ -256,10 +259,10 @@ export class ProjectDataQueryBackendService {
 	}
 	
 	// TODO basicaslly we want a list of suggested  uuids of reviewers which we can show to the user.'
-	suggestedReeviewers(projectid:string, reviewid:string ): Observable<any> {
+	suggestedReviewers(projectid:string, reviewid:string ): Observable<BackendModelSimpleUserDictionary> {
 		var url = `/FutureSQR/rest/project/${projectid}/review/${reviewid}/suggestedreviewers`;
 		return this.httpClient
-				.get<any>(url,{})
+				.get<BackendModelSimpleUserDictionary>(url,{})
 				.pipe(first());
 	}
 	
