@@ -258,7 +258,7 @@ export class ProjectDataQueryBackendService {
 				
 	}
 	
-	suggestedReviewers(projectid:string, reviewid:string ): Observable<BackendModelSimpleUserDictionary> {
+	getSuggestedReviewers(projectid:string, reviewid:string ): Observable<BackendModelSimpleUserDictionary> {
 		var url = `/FutureSQR/rest/project/${projectid}/review/${reviewid}/suggestedreviewers`;
 		return this.httpClient
 				.get<BackendModelSimpleUserDictionary>(url,{})
