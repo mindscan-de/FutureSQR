@@ -258,7 +258,6 @@ export class ProjectDataQueryBackendService {
 				
 	}
 	
-	// TODO basicaslly we want a list of suggested  uuids of reviewers which we can show to the user.'
 	suggestedReviewers(projectid:string, reviewid:string ): Observable<BackendModelSimpleUserDictionary> {
 		var url = `/FutureSQR/rest/project/${projectid}/review/${reviewid}/suggestedreviewers`;
 		return this.httpClient
