@@ -50,7 +50,7 @@ export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
 			this.currentUiReviewData.reviewFkProjectId,
 			this.currentUiReviewData.reviewId
 		).subscribe (
-			data => {},
+			data => {this.onSuggestedReviewersProvided(data)},
 			error => {}
 		);
 		// MAYBE do this in order,
@@ -66,6 +66,10 @@ export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
 		
 		this.updateShortList();
 		this.updateFilteredList();
+	}
+	
+	onSuggestedReviewersProvided(suggestedUsersDictionary:BackendModelSimpleUserDictionary ):void {
+		this.suggestedUserMap = suggestedUsersDictionary.dictionary;
 	}
 	
 	private updateShortList() : void {
