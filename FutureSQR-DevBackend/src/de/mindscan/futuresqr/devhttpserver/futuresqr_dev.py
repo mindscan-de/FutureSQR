@@ -185,15 +185,27 @@ def getReviewRevisionInformation(projectid:str, reviewid:str):
 def getSuggestedReviewersForReview(projectid:str, reviewid:str):
     # TODO query which user might be useful for a given projectid + reviewid
     # We want to return the uuid's of the users, or we might already resolve them / which makes things in the frontend easier.
-    # maybe a map of uuids, with simple resolved names. 
-
+    # maybe a map of uuids, with simple resolved names.
+    
     # provide two hardcoded suggested users right now.
     # TODO: implement me better!
-    result = ["b4d1449b-d50e-4c9f-a4cb-dd2230278306", "5f697406-9583-438c-a25c-9f1eb7407917"]
+    suggestedreviewers = ["b4d1449b-d50e-4c9f-a4cb-dd2230278306", "5f697406-9583-438c-a25c-9f1eb7407917"]
+
+
+    allusers = usersDB.selectAllUSers()
     
-    # todo: convert into a map?
-    # TODO: also calculate the score and order by score?
-    return result
+    simpleUserMap = { 
+        user[USER_UUID] : {
+                USER_UUID:user[USER_UUID], 
+                USER_DISPLAYNAME:user[USER_DISPLAYNAME],
+                USER_AVATARLOCATION:user[USER_AVATARLOCATION],
+                USER_ISBANNED:user[USER_ISBANNED]
+             } for user in allusers}
+
+    reviewermap = { uuid : simpleUserMap[uuid] for uuid in suggestedreviewers }
+
+    # good enough?    
+    return { 'dictionary' : reviewermap }
     
 
 
