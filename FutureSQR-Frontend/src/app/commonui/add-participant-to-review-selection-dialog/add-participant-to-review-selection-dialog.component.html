@@ -10,7 +10,8 @@
 	<h5 class="h5">Suggested Reviewers</h5>
 	<ul>
 		<li *ngFor="let suggesteduserentry of suggestedUserMap | keyvalue:originalOrder">
-			{{suggesteduserentry.value.uuid}}, {{suggesteduserentry.value.displayname}}
+			<span><span>{{suggesteduserentry.value.displayname}}</span>   <span><a>add</a></span></span>
+			{{suggesteduserentry.value.uuid}}, 
 		</li>
 	</ul>
 	<h5 class="h5">All Users</h5>
