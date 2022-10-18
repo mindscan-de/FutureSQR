@@ -127,7 +127,19 @@ class ReviewDatabase(object):
             
         return None
     
-    # TODO we need also be ableto remove a reviewer from he review and then re-evaluate readyToClose State
+    def deleteReviewerFromReview(self, project_id, review_id, reviewer_id):
+        if not project_id in self.reviewTable:
+            return None
+        if not review_id in self.reviewTable[project_id]:
+            return None 
+
+        currentReviewersMap = self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS]
+        if reviewer_id in currentReviewersMap:
+            self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS].pop(reviewer_id,None)
+            self.reviewTable[project_id][review_id][REVIEW_READY_TO_CLOSE] = self._calcReadyToCloseState(self.reviewTable[project_id][review_id][REVIEW_REVIEWERRESULTS])
+            self.reviewTable[project_id][review_id][REVIEW_UNASSIGNED] = len(currentReviewersMap)==0 
+
+        return None
     
     def __createReviewResult(self, reviewer_id, result):
         return {
