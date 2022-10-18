@@ -94,6 +94,10 @@ export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
 	// for full userdata list (maybe with some filters or so...)
 	// for reviewer shortlist
 	
+	addParticipant(participant_uuid: string) : void {
+		
+	}
+	
 	// Add some setters
 	setActiveReviewData(activeReviewData: BackendModelReviewData): void {
 		this.currentUiReviewData = activeReviewData;
