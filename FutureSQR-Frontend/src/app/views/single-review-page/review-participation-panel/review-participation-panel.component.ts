@@ -139,6 +139,10 @@ export class ReviewParticipationPanelComponent implements OnInit {
 */	
 	}
 	
+	onRemoveReviewer(projectid:string, reviewId:string) : void  {
+		// TODO implement me.
+	}
+	
 	setParticipantConfigurationChanged(): void {
 		this.onReviewStateChanged.emit("participants changed.");
 	}

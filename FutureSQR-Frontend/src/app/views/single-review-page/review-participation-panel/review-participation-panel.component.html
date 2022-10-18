@@ -12,10 +12,10 @@
   	</li>
   	<li class ="list-group-item">
 		<span class="float-right" *ngIf="!isCurrentUserAReviewer">
-			<a class="btn btn-sm m-0 btn-light" title="add me to review" (click)="onAddMeToReview(currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId)">add me</a> 		
+			<a class="btn btn-sm m-0 btn-light" title="add me to review" (click)="onAddMeToReview(currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId)">add me</a>
  		</span>
   	
-  		<p><span class="small text-muted"><b class="mr-2">Reviewer(s):</b><a class="btn btn-sm mr-2 btn-light" title="add a reviewer" (click)="onAddReviewer(currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId)">+</a></span></p>
+  		<p><span class="small text-muted"><b class="mr-2">Reviewer(s):</b><a class="btn btn-sm mr-2 btn-light" title="add a reviewer" (click)="onAddReviewer(currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId)">+</a><a *ngIf="currentReviewers.size>0" class="btn btn-sm mr-2 btn-light" title="remove a reviewer" (click)="onRemoveReviewer(currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId)">&ndash;</a></span></p>
 	
 
 		<p  *ngIf="currentReviewers.size>0">
