@@ -94,8 +94,6 @@ export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
 	// for reviewer shortlist
 	
 	addParticipant(participant_uuid: string) : void {
-		console.log("we were invoked...")
-		
 		let current_user_uuid = this.userDataQueryBackend.getCurrentUserUUID();
 		
 		this.projectDataQueryBackend.addReviewer(
