@@ -255,7 +255,21 @@ export class ProjectDataQueryBackendService {
 		return this.httpClient
 				.post<any>(url,formdata)
 				.pipe(first());
-				
+	}
+	
+	removeReviewer(projectid:string, reviewid:string, reviewerid:string, userid:string): Observable<any> {
+		var url = `/FutureSQR/rest/project/${projectid}/review/removereviewer`;
+	
+		let formdata = new FormData();
+		
+		formdata.append('reviewid',reviewid);
+		formdata.append('reviewerid', reviewerid);
+		// the user who removed the reviewer (might be different from the reviewer.)
+		formdata.append('userid',userid);
+		
+		return this.httpClient
+				.post<any>(url,formdata)
+				.pipe(first());
 	}
 	
 	getSuggestedReviewers(projectid:string, reviewid:string ): Observable<BackendModelSimpleUserDictionary> {
