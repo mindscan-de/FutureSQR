@@ -19,6 +19,7 @@
 	
 
 		<p  *ngIf="currentReviewers.size>0">
+			TODO: resolve user ids, with avatar and displayname / also make clickabe to remove reviewer
 			<ng-container *ngFor="let reviewer_kv of currentReviewers | keyvalue">
 				<span class="m-1"><span class="badge" [ngClass]="{
 					'badge-success':reviewer_kv.value.reviewresult=='approve',
