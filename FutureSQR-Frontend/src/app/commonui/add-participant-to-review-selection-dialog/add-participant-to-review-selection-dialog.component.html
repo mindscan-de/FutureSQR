@@ -10,19 +10,20 @@
 	<h5 class="h5">Suggested Reviewers</h5>
 	<ul>
 		<li *ngFor="let suggesteduserentry of suggestedUserMap | keyvalue:originalOrder">
-			<span><span class="small">{{suggesteduserentry.value.displayname}}</span> <span><a class="btn btn-sm btn-secondary" (onclick)="addParticipant(suggesteduserentry.value.uuid)">add</a></span></span>
+			<span><span class="small">{{suggesteduserentry.value.displayname}}</span> <span><a class="btn btn-sm btn-secondary" (click)="addParticipant(suggesteduserentry.value.uuid)">add</a></span></span>
 		</li>
 	</ul>
 	<h5 class="h5">All Users</h5>
 
 	TODO: avatar, and name, and button for adding this user
+	
+	build a filter / search instead.
+	
 	<ul>
  	<li *ngFor="let userentry of currentUserMap | keyvalue:originalOrder">
 		{{userentry.value.uuid}}, {{userentry.value.displayname}}
 	</li>
  	</ul>
-	
-	TODO: only show recommended userlist instead of all users<br>
 	
 	TODO: and also maybe a userfilter instead of full list.<br>
 	

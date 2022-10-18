@@ -26,7 +26,6 @@ export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
 	private currentUserMapActive : boolean = false;
 	public currentUserMap : Map<string,BackendModelSimpleUserEntry> = new Map<string,BackendModelSimpleUserEntry>();
 	
-	
 	private userUUIDsInShortList : string[] = [''];
 	
 	public usersInShortList : BackendModelSimpleUserEntry[] = []
@@ -95,7 +94,21 @@ export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
 	// for reviewer shortlist
 	
 	addParticipant(participant_uuid: string) : void {
+		console.log("we were invoked...")
 		
+		let current_user_uuid = this.userDataQueryBackend.getCurrentUserUUID();
+		
+		this.projectDataQueryBackend.addReviewer(
+			this.currentUiReviewData.reviewFkProjectId,
+			this.currentUiReviewData.reviewId,
+			participant_uuid,
+			current_user_uuid
+		).subscribe(
+			data=> {
+				// TODO: we actually want to exit this dialog, and inform, that a reviewer was added
+			},
+			error=> {}
+		)
 	}
 	
 	// Add some setters
