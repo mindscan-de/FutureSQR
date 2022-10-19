@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 // Used UI Components
 import { AddParticipantToReviewSelectionDialogComponent } from '../../../commonui/add-participant-to-review-selection-dialog/add-participant-to-review-selection-dialog.component';
+import { RemoveParticipantFromReviewSelectionDialogComponent } from '../../../commonui/remove-participant-from-review-selection-dialog/remove-participant-from-review-selection-dialog.component';
 
 // Services
 import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
@@ -140,7 +141,24 @@ export class ReviewParticipationPanelComponent implements OnInit {
 	}
 	
 	onRemoveReviewer(projectid:string, reviewId:string) : void  {
-		// TODO implement me.
+		// TODO: actually if there is only one to remove, remove directly, 
+		// without selection dialog otherwise present selection dialog
+		
+		const modalref = this.modalService.open( RemoveParticipantFromReviewSelectionDialogComponent, {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'lg'});
+		
+		let that = this;
+		
+		modalref.componentInstance.setActiveReviewData(this.currentUiReviewData);
+		
+		modalref.result.then((result)=> {
+			// TODO: check this subscription, whether it shoule only be one
+			result.subscribe(
+				data => {},
+				error => {}
+			)
+		},
+		(reason)=>{});
+		
 	}
 	
 	setParticipantConfigurationChanged(): void {
