@@ -50,11 +50,9 @@ Anyhow, as the world progresses, there is still demand for a good, simple and ef
 
 Attention: The implementation of a Proof of Concept has been started. 
 
-Also there is a developer backend - but has hard coded values in it and no error handling and such. 
-This developer backend does not persist any of the data, and only provides in-memory-storage. The
+Also there is a developer backend - but it has hard coded values in it and no error handling and such.
+This developer backend doesn't persist any of the data, and only provides in-memory-storage. The 
 current state after 9 weeks of working on it in my spare time can be seen in the [Screenshot Gallery](Gallery/README.md)
-
-
 
 ## Principles of Development
 
@@ -82,6 +80,28 @@ Kuukou (Skyport) - Application
 * Backend Monolith - Configuration App (User Management + Access Control + Application Configuration)
 
 Idea is, that "Kuukou" can be reused for other applications as well, because this is a generic problem this only needs to be solved once.
+
+## Next Points of Action
+
+* User management
+* Rights Management
+* Transition to a non developer Backend
+* Build a SOTA Diff-Algorithm and presentation, which allows to combine multiple singe revisions
+* Present a single revision of a file
+* Present the correct line numbers
+* Attach to review
+* Combine File list if they share the same path / sort by path (m2m transformer)
+----
+* UserFeed 
+  * requires multi user support
+  * requires recent changes log system
+  * requires template system for recent change log messages
+  
+* provide a list of reviewers (on the + button)
+  * requires a user database
+  * requires some logic to select a user (suggestion is hard)
+  * requires a search/select for a user - without providing the user all user entries
+  
 
 ## Scrapped plans
 
