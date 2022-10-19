@@ -46,6 +46,6 @@ export class NavigationBarService {
 	
 	// todo provide an object for subscription.
 	public asObservable():Observable<NavbarBreadcrumbItem[]> {
-		return this._currentNavbarSubject;
+		return this.currentNavbarSubject;
 	}
 }
