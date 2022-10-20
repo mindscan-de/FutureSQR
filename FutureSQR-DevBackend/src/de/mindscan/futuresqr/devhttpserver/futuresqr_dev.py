@@ -39,8 +39,6 @@ from de.mindscan.futuresqr.reviews.review_tables_columns import *  # @UnusedWild
 from de.mindscan.futuresqr.reviewthreads.review_threads_database import ReviewThreadsDatabase
 from de.mindscan.futuresqr.threads.threads_database import ThreadsDatabase
 from de.mindscan.futuresqr.users.users_database import UsersDatabase
-from de.mindscan.futuresqr.users.user_table_columns import USER_UUID, USER_DISPLAYNAME, USER_AVATARLOCATION,\
-    USER_ISBANNED
 
 
 app = FastAPI()
@@ -193,15 +191,7 @@ def getSuggestedReviewersForReview(projectid:str, reviewid:str):
 
 
     allusers = usersDB.selectAllUSers()
-    
-    simpleUserMap = { 
-        user[USER_UUID] : {
-                USER_UUID:user[USER_UUID], 
-                USER_DISPLAYNAME:user[USER_DISPLAYNAME],
-                USER_AVATARLOCATION:user[USER_AVATARLOCATION],
-                USER_ISBANNED:user[USER_ISBANNED]
-             } for user in allusers}
-
+    simpleUserMap = usersDB.getAsSimpleUserMap(allusers)
     reviewermap = { uuid : simpleUserMap[uuid] for uuid in suggestedreviewers }
 
     # good enough?    
@@ -383,7 +373,6 @@ def postDeleteReview(projectid:str, reviewid:str = Form(...)):
     return result
 
 
-
 @app.post("/FutureSQR/rest/project/{projectid}/review/addreviewer")
 def postAddReviewerToReview(projectid:str, reviewid:str = Form(...), reviewerid:str = Form(...)):
     if projectDB.isProjectIdPresent(projectid):
@@ -391,6 +380,7 @@ def postAddReviewerToReview(projectid:str, reviewid:str = Form(...), reviewerid:
             
     result = {}
     return result
+
 
 @app.post("/FutureSQR/rest/project/{projectid}/review/removereviewer")
 def postRemoveReviewerFromReview(projectid:str, reviewid:str = Form(...), reviewerid:str = Form(...)):
@@ -457,14 +447,7 @@ def getSimpleUserDictionary():
     # key (uuid) -> array of [uuid, displayname, avatarlocation, isbanned]
     # this one is loaded by every user to resolve the uuids
     allusers = usersDB.selectAllUSers()
-    
-    simpleUserMap = { 
-        user[USER_UUID] : {
-                USER_UUID:user[USER_UUID], 
-                USER_DISPLAYNAME:user[USER_DISPLAYNAME],
-                USER_AVATARLOCATION:user[USER_AVATARLOCATION],
-                USER_ISBANNED:user[USER_ISBANNED]
-             } for user in allusers }
+    simpleUserMap = usersDB.getAsSimpleUserMap(allusers)
     
     return { 'dictionary' : simpleUserMap }
 
