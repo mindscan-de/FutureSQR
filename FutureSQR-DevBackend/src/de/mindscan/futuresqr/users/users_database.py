@@ -101,6 +101,15 @@ class UsersDatabase(object):
         # TODO sort by some criteria
         return list(self._userMap.values())
     
+    def getAsSimpleUserMap(self, userlist):
+        return {
+            user[USER_UUID] : {
+                USER_UUID:user[USER_UUID], 
+                USER_DISPLAYNAME:user[USER_DISPLAYNAME],
+                USER_AVATARLOCATION:user[USER_AVATARLOCATION],
+                USER_ISBANNED:user[USER_ISBANNED]
+             } for user in userlist }
+    
     def banUser(self, logonname:str):
         for user in self._userMap.values():
             if user[USER_LOGON_NAME] == logonname:
