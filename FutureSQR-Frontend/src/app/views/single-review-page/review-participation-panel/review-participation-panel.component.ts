@@ -141,15 +141,13 @@ export class ReviewParticipationPanelComponent implements OnInit {
 	}
 	
 	onRemoveReviewer(projectid:string, reviewId:string) : void  {
-		// TODO: actually if there is only one to remove, remove directly, 
-		// without selection dialog otherwise present selection dialog
-		
 		if( this.currentUiReviewData.reviewReviewersResults == undefined || this.currentUiReviewData.reviewReviewersResults == null || this.currentUiReviewData.reviewReviewersResults.size==0) {
 			return;
 		}
 		
 		const reviewermap = new Map<string,BackendModelReviewResult>(Object.entries(this.currentUiReviewData.reviewReviewersResults));
 		console.log(reviewermap);
+		let that = this;
 		
 		if(reviewermap.size==1) {
 			let reviewer_uuid:string = reviewermap.entries().next().value[0];
@@ -164,7 +162,7 @@ export class ReviewParticipationPanelComponent implements OnInit {
 				current_user_uuid
 			).subscribe(
 				data => {
-					// TODO: reload der currentConfiguration
+					that.setParticipantConfigurationChanged();
 				},
 				error => {}
 			);
