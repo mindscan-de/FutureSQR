@@ -81,6 +81,12 @@ export class TopNavigationBarComponent implements OnInit {
 
 	// this is a fake login until we have the correct login logic implemented.
 	fakeLoginRemoveMe(): void {
+		/*
+		 * The whole method should not be here and must be removed, when we actually have a real login.
+	     * For the moment i want to develop the top navigation bar, and the ui user service.
+         * This ui user should be set in the currentUserService, by a login mechanism, not from here.
+		 */
+		
 		let newUiUser = new CurrentUiUser();
 		newUiUser.logonName = "mindscan-de";
 		newUiUser.uuid = "b4d1449b-d50e-4c9f-a4cb-dd2230278306";
