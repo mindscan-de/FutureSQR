@@ -144,21 +144,47 @@ export class ReviewParticipationPanelComponent implements OnInit {
 		// TODO: actually if there is only one to remove, remove directly, 
 		// without selection dialog otherwise present selection dialog
 		
-		const modalref = this.modalService.open( RemoveParticipantFromReviewSelectionDialogComponent, {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'lg'});
+		if( this.currentUiReviewData.reviewReviewersResults == undefined || this.currentUiReviewData.reviewReviewersResults == null || this.currentUiReviewData.reviewReviewersResults.size==0) {
+			return;
+		}
 		
-		let that = this;
+		const reviewermap = new Map<string,BackendModelReviewResult>(Object.entries(this.currentUiReviewData.reviewReviewersResults));
+		console.log(reviewermap);
 		
-		modalref.componentInstance.setActiveReviewData(this.currentUiReviewData);
-		
-		modalref.result.then((result)=> {
-			// TODO: check this subscription, whether it shoule only be one
-			result.subscribe(
-				data => {},
+		if(reviewermap.size==1) {
+			let reviewer_uuid:string = reviewermap.entries().next().value[0];
+			console.log(reviewer_uuid);
+			
+			let current_user_uuid:string = this.userDataQueryBackend.getCurrentUserUUID();
+			
+			this.projectDataQueryBackend.removeReviewer(
+				this.activeReviewData.reviewFkProjectId, 
+				this.activeReviewData.reviewId, 
+				reviewer_uuid, 
+				current_user_uuid
+			).subscribe(
+				data => {
+					// TODO: reload der currentConfiguration
+				},
 				error => {}
-			)
-		},
-		(reason)=>{});
-		
+			);
+		}
+		else {
+			const modalref = this.modalService.open( RemoveParticipantFromReviewSelectionDialogComponent, {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'lg'});
+			
+			let that = this;
+			
+			modalref.componentInstance.setActiveReviewData(this.currentUiReviewData);
+			
+			modalref.result.then((result)=> {
+				// TODO: actually it is a promise...
+				result.subscribe(
+					data => {},
+					error => {}
+				)
+			},
+			(reason)=>{});
+		}
 	}
 	
 	setParticipantConfigurationChanged(): void {
