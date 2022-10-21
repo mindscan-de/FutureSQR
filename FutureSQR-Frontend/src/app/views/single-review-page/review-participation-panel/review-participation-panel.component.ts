@@ -103,7 +103,7 @@ export class ReviewParticipationPanelComponent implements OnInit {
 	onAddReviewer(projectid:string, reviewId:string) : void {
 		// open dialog and suggest user, by files or so or by search....
 		// new planned dialog		
-		const modalref = this.modalService.open( AddParticipantToReviewSelectionDialogComponent, {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'lg'});
+		let modalref = this.modalService.open( AddParticipantToReviewSelectionDialogComponent, {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'lg'});
 		
 		let that = this;
 		
@@ -138,7 +138,7 @@ export class ReviewParticipationPanelComponent implements OnInit {
 		
 		let that = this;
 
-		const reviewermap = new Map<string,BackendModelReviewResult>(Object.entries(this.currentUiReviewData.reviewReviewersResults));
+		let reviewermap = new Map<string,BackendModelReviewResult>(Object.entries(this.currentUiReviewData.reviewReviewersResults));
 		
 		if(reviewermap.size==1) {
 			let current_user_uuid:string = this.userDataQueryBackend.getCurrentUserUUID();
@@ -158,7 +158,7 @@ export class ReviewParticipationPanelComponent implements OnInit {
 			);
 		}
 		else {
-			const modalref = this.modalService.open( RemoveParticipantFromReviewSelectionDialogComponent, {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'lg'});
+			let modalref = this.modalService.open( RemoveParticipantFromReviewSelectionDialogComponent, {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'lg'});
 			
 			let that = this;
 			
