@@ -19,16 +19,16 @@ export class CurrentUserService {
 	}
 	
 	
-	setCurrentUser(currentUser):void {
+	setCurrentUiUser(currentUiUser:CurrentUiUser):void {
 		// update the backing item
-		this._currentUserValue = currentUser;
+		this._currentUserValue = currentUiUser;
 		
 		// update all subscribed current user Listeners
 		this._currentUserSubject.next(this._currentUserValue);
 	}
 	
 	
-	clearCurrentUser() : void {
+	clearCurrentUiUser() : void {
 		this._currentUserValue = new CurrentUiUser();
 		this._currentUserSubject.next(this._currentUserValue);
 	}
