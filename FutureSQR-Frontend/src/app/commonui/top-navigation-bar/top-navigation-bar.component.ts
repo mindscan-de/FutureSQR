@@ -79,5 +79,13 @@ export class TopNavigationBarComponent implements OnInit {
 		}
 	}
 
-	
+	// this is a fake login until we have the correct login logic implemented.
+	fakeLoginRemoveMe(): void {
+		let newUiUser = new CurrentUiUser();
+		newUiUser.logonName = "mindscan-de";
+		newUiUser.uuid = "b4d1449b-d50e-4c9f-a4cb-dd2230278306";
+		newUiUser.displayName = "Maxim Gansert";
+		
+		this.currentUserService.setCurrentUiUser(newUiUser);
+	}
 }
