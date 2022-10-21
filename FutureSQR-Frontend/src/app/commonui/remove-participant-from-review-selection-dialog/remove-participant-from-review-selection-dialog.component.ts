@@ -54,4 +54,9 @@ export class RemoveParticipantFromReviewSelectionDialogComponent implements OnIn
 		this.currentReviewers = new Map<string,BackendModelReviewResult>(Object.entries(this.currentUiReviewData.reviewReviewersResults));
 	}
 	
+	// used for user map iteration. 	
+	public originalOrder = (a: KeyValue<number,string>, b: KeyValue<number,string>): number => {
+	  return 0;
+	}
+	
 }
