@@ -9,7 +9,7 @@ import { ProjectDataQueryBackendService } from '../../backend/services/project-d
 
 // Backend Models
 import { BackendModelReviewData } from '../../backend/model/backend-model-review-data';
-
+import { BackendModelReviewResult } from '../../backend/model/backend-model-review-result';
 
 @Component({
   selector: 'app-remove-participant-from-review-selection-dialog',
@@ -19,7 +19,7 @@ import { BackendModelReviewData } from '../../backend/model/backend-model-review
 export class RemoveParticipantFromReviewSelectionDialogComponent implements OnInit {
 	
 	public currentUiReviewData : BackendModelReviewData = new BackendModelReviewData();
-	
+	public currentReviewers: Map<string, BackendModelReviewResult> = new Map<string, BackendModelReviewResult>();
 
 	constructor(
 		private userDataQueryBackend: UserDataQueryBackendService,
@@ -51,6 +51,7 @@ export class RemoveParticipantFromReviewSelectionDialogComponent implements OnIn
 	// Add some setters
 	setActiveReviewData(activeReviewData: BackendModelReviewData): void {
 		this.currentUiReviewData = activeReviewData;
+		this.currentReviewers = new Map<string,BackendModelReviewResult>(Object.entries(this.currentUiReviewData.reviewReviewersResults));
 	}
 	
 }
