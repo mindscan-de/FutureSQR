@@ -17,7 +17,10 @@
 	<div class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
 		<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
 			<!-- Depending on the login state we want either a login button or a user drop down -->
-			<li class="nav-item dropdown">
+			<li *ngIf="currentUserUnknown" class="nav-item">
+				<a class="btn btn-sm btn-secondary">login</a>
+			</li>
+			<li *ngIf="!currentUserUnknown" class="nav-item dropdown" >
 				<a class="nav-item nav-link dropdown-toggle mr-md-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Me</a>
 <!-- 				<div class="dowpdown-menu dropdown-menu-right">
 					<a class="dropdown-item" href="#">test1</a>

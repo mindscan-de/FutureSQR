@@ -17,6 +17,7 @@ import { CurrentUiUser } from '../../services/model/current-ui-user';
 export class TopNavigationBarComponent implements OnInit {
 
 	public title:String = "APPTITLE";
+	public currentUserUnknown:boolean = true;
 	
 	public navItems: Array<NavbarBreadcrumbItem> = new Array<NavbarBreadcrumbItem>();
 
@@ -62,6 +63,7 @@ export class TopNavigationBarComponent implements OnInit {
 	
 	onCurrentUiUserChanged(currentUser:CurrentUiUser) : void {
 		// if current user is anonymous, then the user info ist not present
+		this.currentUserUnknown = currentUser.isAnonymous();
 		
 		// TODO: detect if logged in or logged out
 		// then clear state or update state what to show in the User part of the top navigation 
