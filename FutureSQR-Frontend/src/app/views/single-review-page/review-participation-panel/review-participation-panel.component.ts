@@ -114,30 +114,21 @@ export class ReviewParticipationPanelComponent implements OnInit {
 			}
 		);
 */		
-		modalref.result.then((result)=> {
-			// TODO: check this subscription, whether it shoule only be one
-			result.subscribe(
-				data => {},
-				error => {}
-			)
-		},
-		(reason)=>{});
+		modalref.result.then(
+			(result)=> {
+				result.subscribe(
+					data => {
+						// 
+						// that.setParticipantConfigurationChanged();
+					},
+					error => {}
+				)
+			},
+			(reason)=>{}
+		
+		);
 		
 
-		// This is some POC code, to show that adding a differernt user is doable 		
-/*		let currentUser:string = this.userDataQueryBackend.getCurrentUserUUID();
-		
-		// THIS should be the result of a modal dialog selecting a reviewer.
-		// but maybe this have to move to somewhere else....
-		let selectedReviewer: string = "xxx"
-		
-		this.projectDataQueryBackend.addReviewer(projectid, reviewId, selectedReviewer, currentUser).subscribe(
-			data => {
-				this.onReviewStateChanged.emit('revieweradded');
-			},
-			error => {}
-		);
-*/	
 	}
 	
 	onRemoveReviewer(projectid:string, reviewId:string) : void  {
@@ -145,15 +136,14 @@ export class ReviewParticipationPanelComponent implements OnInit {
 			return;
 		}
 		
-		const reviewermap = new Map<string,BackendModelReviewResult>(Object.entries(this.currentUiReviewData.reviewReviewersResults));
-		console.log(reviewermap);
 		let that = this;
+
+		const reviewermap = new Map<string,BackendModelReviewResult>(Object.entries(this.currentUiReviewData.reviewReviewersResults));
 		
 		if(reviewermap.size==1) {
-			let reviewer_uuid:string = reviewermap.entries().next().value[0];
-			console.log(reviewer_uuid);
-			
 			let current_user_uuid:string = this.userDataQueryBackend.getCurrentUserUUID();
+			
+			let reviewer_uuid:string = reviewermap.entries().next().value[0];
 			
 			this.projectDataQueryBackend.removeReviewer(
 				this.activeReviewData.reviewFkProjectId, 
@@ -175,9 +165,11 @@ export class ReviewParticipationPanelComponent implements OnInit {
 			modalref.componentInstance.setActiveReviewData(this.currentUiReviewData);
 			
 			modalref.result.then((result)=> {
-				// TODO: actually it is a promise...
 				result.subscribe(
-					data => {},
+					data => {
+						// TODO, if participant selected and deleted, then we should here trigger an update.
+						// that.setParticipantConfigurationChanged();
+					},
 					error => {}
 				)
 			},
