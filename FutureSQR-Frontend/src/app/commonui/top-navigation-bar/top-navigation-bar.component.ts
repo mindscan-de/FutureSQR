@@ -5,6 +5,9 @@ import { UserDataQueryBackendService } from '../../backend/services/user-data-qu
 import { NavigationBarService } from '../../services/navigation-bar.service';
 import { NavbarBreadcrumbItem } from '../../services/model/navbar-breadcrumb-item';
 
+import { CurrentUserService } from '../../services/current-user.service';
+import { CurrentUiUser } from '../../services/model/current-ui-user';
+
 
 @Component({
   selector: 'app-top-navigation-bar',
@@ -21,6 +24,7 @@ export class TopNavigationBarComponent implements OnInit {
 	
 	constructor (
 		private navigationBarService : NavigationBarService,
+		private currentUserService : CurrentUserService,
 		private userDataService : UserDataQueryBackendService
 	) {}
 
@@ -32,8 +36,13 @@ export class TopNavigationBarComponent implements OnInit {
 			}
 		);
 		
-		// TODO: we also want to subscribe to changes of the user, such that we can update 
-		//       TopNavigationBar, when a user is logged in / logged out.
+		// we also want to subscribe to changes of the user, such that we can update 
+		// TopNavigationBar, when a user is logged in / logged out
+		this.currentUserService.asObservable().subscribe(
+			currentuser => {
+				this.onCurrentUiUserChanged(currentuser);
+			}
+		);
 	}
 	
 	onBreadCrumbNavChanged(newBreadCrumbNavData:NavbarBreadcrumbItem[]) : void {
@@ -49,7 +58,11 @@ export class TopNavigationBarComponent implements OnInit {
 		// TODO handle array case
 	}
 	
-	onUserChanged(userData) : void {
+	
+	
+	onCurrentUiUserChanged(currentUser:CurrentUiUser) : void {
+		// if current user is anonymous, then the user info ist not present
+		
 		// TODO: detect if logged in or logged out
 		// then clear state or update state what to show in the User part of the top navigation 
 	}
