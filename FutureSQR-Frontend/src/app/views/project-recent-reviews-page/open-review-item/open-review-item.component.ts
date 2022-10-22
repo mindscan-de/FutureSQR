@@ -1,9 +1,11 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { Output, EventEmitter } from '@angular/core';
 
-// Services
+// Backend-Services
 import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
-import { UserDataQueryBackendService } from '../../../backend/services/user-data-query-backend.service';
+
+// Internal-Services
+import { CurrentUserService } from '../../../services/current-user.service';
 
 // Backend-Models
 import { BackendModelReviewData } from '../../../backend/model/backend-model-review-data';
@@ -25,7 +27,7 @@ export class OpenReviewItemComponent implements OnInit {
 	
 	constructor(
 		private projectDataQueryBackend : ProjectDataQueryBackendService,
-		private userDataQueryBackend : UserDataQueryBackendService
+		private currentUserService : CurrentUserService,
 		) { }
 
 	ngOnInit(): void {
@@ -40,7 +42,7 @@ export class OpenReviewItemComponent implements OnInit {
 	
 	onCloseReview():void {
 		if(this.openReview.reviewReadyToClose) {
-			let currentClosingUser = this.userDataQueryBackend.getCurrentUserUUID();
+			let currentClosingUser = this.currentUserService.getCurrentUserUUID();
 			this.projectDataQueryBackend.closeReview(this.openReview.reviewFkProjectId, this.openReview.reviewId, currentClosingUser).subscribe(
 				data => {
 					this.reviewUpdated.emit("review closed");
