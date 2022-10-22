@@ -24,7 +24,7 @@ export class AllProjectsPageComponent implements OnInit {
 	constructor( 
 		private projectDataQueryBackend : ProjectDataQueryBackendService, 
 		private navbarService: NavigationBarService,
-		private currentUserService: CurrentUserServce,
+		private currentUserService: CurrentUserService,
 		private cdr: ChangeDetectorRef
 	) { }
 
