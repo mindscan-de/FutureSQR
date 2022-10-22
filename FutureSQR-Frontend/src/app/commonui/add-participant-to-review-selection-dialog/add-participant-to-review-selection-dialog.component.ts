@@ -4,9 +4,12 @@ import { KeyValue } from '@angular/common';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 
-// Services
-import { UserDataQueryBackendService } from '../../backend/services/user-data-query-backend.service';
+// Backend Services
 import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
+import { UserDataQueryBackendService } from '../../backend/services/user-data-query-backend.service';
+
+// Internal Services
+import { CurrentUserService } from '../../services/current-user.service';
 
 
 // Backend Models
@@ -33,8 +36,9 @@ export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
 	public suggestedUserMap : Map<string,BackendModelSimpleUserEntry> = new Map<string,BackendModelSimpleUserEntry>();
 
 	constructor(
-		private userDataQueryBackend: UserDataQueryBackendService,
 		private projectDataQueryBackend: ProjectDataQueryBackendService,
+		private userDataQueryBackend: UserDataQueryBackendService,
+		private currentUserService: CurrentUserService,
 		public activeModal: NgbActiveModal
 	) { }
 
@@ -94,7 +98,7 @@ export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
 	// for reviewer shortlist
 	
 	addParticipant(participant_uuid: string) : void {
-		let current_user_uuid = this.userDataQueryBackend.getCurrentUserUUID();
+		let current_user_uuid = this.currentUserService.getCurrentUserUUID();
 		
 		this.projectDataQueryBackend.addReviewer(
 			this.currentUiReviewData.reviewFkProjectId,

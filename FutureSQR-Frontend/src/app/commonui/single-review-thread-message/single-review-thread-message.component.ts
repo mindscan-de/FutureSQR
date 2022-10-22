@@ -2,9 +2,11 @@ import { Component, OnInit, Input, Output, SimpleChanges, ChangeDetectorRef , Vi
 import { FormControl } from '@angular/forms';
 
 
-// Services
+// Backend Services
 import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
-import { UserDataQueryBackendService } from '../../backend/services/user-data-query-backend.service';
+
+// Internal Services
+import { CurrentUserService } from '../../services/current-user.service';
 
 // Backend-Model
 import { BackendModelThreadsMessage } from '../../backend/model/backend-model-threads-message'; 
@@ -36,7 +38,7 @@ export class SingleReviewThreadMessageComponent implements OnInit {
 
 	constructor(
 		private projectDataQueryBackend : ProjectDataQueryBackendService, 
-		private userDataQueryBackend : UserDataQueryBackendService,
+		private currentUserService : CurrentUserService,
 		private cdr: ChangeDetectorRef
 	) { }
 
@@ -60,7 +62,7 @@ export class SingleReviewThreadMessageComponent implements OnInit {
 	
 	saveUpdatedMessage(): void {
 		let that = this; 
-		let editorid = this.userDataQueryBackend.getCurrentUserUUID(); 
+		let editorid = this.currentUserService.getCurrentUserUUID(); 
 		
 		// save the current message into the backend.
 		this.projectDataQueryBackend.updateThreadMessageForReview(
@@ -104,7 +106,7 @@ export class SingleReviewThreadMessageComponent implements OnInit {
 	sendReplyMessage(): void {
 		let that = this;
 		let message = that.formAnswerText.value;
-		let authorid = this.userDataQueryBackend.getCurrentUserUUID();
+		let authorid = this.currentUserService.getCurrentUserUUID();
 		
 		this.projectDataQueryBackend.replyThreadMessageForReview(
 			this.activeProjectID, 
