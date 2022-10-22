@@ -1,9 +1,11 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 
-// Services
+// Backend Services
 import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
-import { UserDataQueryBackendService } from '../../../backend/services/user-data-query-backend.service'; 
+
+// Internal Services
+import { CurrentUserService } from '../../../services/current-user.service'; 
 
 // UI Model
 import { UiReviewFileInformation } from '../../../commonui/uimodel/ui-review-file-information';
@@ -28,7 +30,7 @@ export class ProjectRecentRevisionComponent implements OnInit {
 	
 	constructor( 
 		private projectDataQueryBackend : ProjectDataQueryBackendService,
-		private userDataQueryBackend : UserDataQueryBackendService,
+		private currentUserService : CurrentUserService,
 		private router: Router
 	) { }
 
@@ -39,7 +41,7 @@ export class ProjectRecentRevisionComponent implements OnInit {
 	}
 	
 	onCreateReview(projectId: string, revisionId: string) : void {
-		let opening_userid:string = this.userDataQueryBackend.getCurrentUserUUID();
+		let opening_userid:string = this.currentUserService.getCurrentUserUUID();
 		this.projectDataQueryBackend.createNewReview(projectId, revisionId, opening_userid).subscribe (
 			data => {
 				// TODO redirect o review page.
