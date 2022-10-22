@@ -6,6 +6,7 @@ import { UserDataQueryBackendService } from '../../backend/services/user-data-qu
 
 import { NavigationBarService } from '../../services/navigation-bar.service';
 import { NavbarBreadcrumbItem } from '../../services/model/navbar-breadcrumb-item';
+import { CurrentUserService } from '../../services/current-user.service';
 
 // BackendModel - should be actually 
 import { BackendModelProjectItem } from '../../backend/model/backend-model-project-item';
@@ -23,7 +24,7 @@ export class AllProjectsPageComponent implements OnInit {
 	constructor( 
 		private projectDataQueryBackend : ProjectDataQueryBackendService, 
 		private navbarService: NavigationBarService,
-		private userDataQueryBackend : UserDataQueryBackendService,
+		private currentUserService: CurrentUserServce,
 		private cdr: ChangeDetectorRef
 	) { }
 
@@ -44,7 +45,7 @@ export class AllProjectsPageComponent implements OnInit {
 	}
 
 	onStarMe(activeProjectId:string): void {
-		let currentUserUUID:string = this.userDataQueryBackend.getCurrentUserUUID();
+		let currentUserUUID:string = this.currentUserService.getCurrentUserUUID();
 		
 		this.projectDataQueryBackend.starProject(activeProjectId, currentUserUUID).subscribe(
 			data=>{
@@ -57,7 +58,7 @@ export class AllProjectsPageComponent implements OnInit {
 	}
 	
 	onUnstarMe(activeProjectId:string): void {
-		let currentUserUUID:string = this.userDataQueryBackend.getCurrentUserUUID();
+		let currentUserUUID:string = this.currentUserService.getCurrentUserUUID();
 		
 		this.projectDataQueryBackend.unstarProject(activeProjectId, currentUserUUID).subscribe(
 			data =>{

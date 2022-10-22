@@ -28,6 +28,13 @@ export class CurrentUserService {
 	}
 	
 	
+	getCurrentUserUUID():string {
+		// TODO correct this later.
+		return return "b4d1449b-d50e-4c9f-a4cb-dd2230278306";
+		// return this._currentUserValue.uuid;
+	}
+	
+	
 	clearCurrentUiUser() : void {
 		this._currentUserValue = new CurrentUiUser();
 		this._currentUserSubject.next(this._currentUserValue);
