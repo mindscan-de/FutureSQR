@@ -1,9 +1,11 @@
 import { Component, OnInit, Input,  SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 
-// Services
+// Backend Services
 import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
-import { UserDataQueryBackendService } from '../../../backend/services/user-data-query-backend.service';
+
+// Internal Services
+import { CurrentUserService } from '../../../services/current-user.service';
 
 // Backend Model
 import { BackendModelProjectRecentCommitRevision } from '../../../backend/model/backend-model-project-recent-commit-revision';
@@ -21,7 +23,7 @@ export class RevisionActionPanelComponent implements OnInit {
 
 	constructor(
 		private projectDataQueryBackend : ProjectDataQueryBackendService,
-		private userDataQueryBackend : UserDataQueryBackendService,
+		private currentUserService : CurrentUserService,
 		private router: Router 
 	) { }
 
@@ -33,7 +35,7 @@ export class RevisionActionPanelComponent implements OnInit {
 	}
 
 	onCreateReview(projectId: string, revisionId: string) : void {
-		let opening_userid = this.userDataQueryBackend.getCurrentUserUUID();
+		let opening_userid = this.currentUserService.getCurrentUserUUID();
 		
 		this.projectDataQueryBackend.createNewReview(projectId, revisionId, opening_userid).subscribe (
 			data => {
