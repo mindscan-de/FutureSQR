@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-// Services
+// Backend Services
 import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
-import { UserDataQueryBackendService } from '../../../backend/services/user-data-query-backend.service';
+
+// Internal Services
+import { CurrentUserService } from '../../../services/current-user.service';
 
 // BackendModel - should be actually 
 import { BackendModelProjectItem } from '../../../backend/model/backend-model-project-item';
@@ -21,11 +23,11 @@ export class StarredProjectsComponent implements OnInit {
   
 	constructor( 
 		private projectDataQueryBackend : ProjectDataQueryBackendService,
-		private userDataQueryBackend : UserDataQueryBackendService	
+		private currentUserService : CurrentUserService	
 	) { }
 
 	ngOnInit(): void {
-		let currentUserUUID: string = this.userDataQueryBackend.getCurrentUserUUID();
+		let currentUserUUID: string = this.currentUserService.getCurrentUserUUID();
 	
 		this.projectDataQueryBackend.getStarredProjects(currentUserUUID).subscribe( 
 			data => this.onStarredProjectsProvided(data),
