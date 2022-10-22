@@ -6,10 +6,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddParticipantToReviewSelectionDialogComponent } from '../../../commonui/add-participant-to-review-selection-dialog/add-participant-to-review-selection-dialog.component';
 import { RemoveParticipantFromReviewSelectionDialogComponent } from '../../../commonui/remove-participant-from-review-selection-dialog/remove-participant-from-review-selection-dialog.component';
 
-// Services
+// Backend Services
 import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
-import { UserDataQueryBackendService } from '../../../backend/services/user-data-query-backend.service';
 
+// Internal Services
+import { CurrentUserService } from '../../../services/current-user.service';
 
 // should be a uimodel instead of a backend model
 import { BackendModelReviewData } from '../../../backend/model/backend-model-review-data';
@@ -32,7 +33,7 @@ export class ReviewParticipationPanelComponent implements OnInit {
 
 	constructor( 
 		private projectDataQueryBackend : ProjectDataQueryBackendService,
-		private userDataQueryBackend : UserDataQueryBackendService,
+		private currentUserService : CurrentUserService,
 		private modalService: NgbModal,   
 		private cdr: ChangeDetectorRef 
 	) { }
@@ -42,7 +43,7 @@ export class ReviewParticipationPanelComponent implements OnInit {
 
 	ngOnChanges(changes: SimpleChanges): void {
 		let reviewDataCandidate:BackendModelReviewData = changes.activeReviewData.currentValue;
-		let currentUserId = this.userDataQueryBackend.getCurrentUserUUID();
+		let currentUserId = this.currentUserService.getCurrentUserUUID();
 		
 		if(this.currentUiReviewData != reviewDataCandidate) {
 			this.currentUiReviewData = reviewDataCandidate;
@@ -53,7 +54,7 @@ export class ReviewParticipationPanelComponent implements OnInit {
 	}
 	
 	onCloseReview(projectid:string, reviewId:string):void {
-		let currentClosingUser:string = this.userDataQueryBackend.getCurrentUserUUID();
+		let currentClosingUser:string = this.currentUserService.getCurrentUserUUID();
 		
 		// use the backend service to close this review.
 		this.projectDataQueryBackend.closeReview(projectid, reviewId, currentClosingUser).subscribe(
@@ -66,7 +67,7 @@ export class ReviewParticipationPanelComponent implements OnInit {
 	}
 	
 	onReopenReview(projectid:string, reviewId:string):void {
-		let currentReopeningUser:string = this.userDataQueryBackend.getCurrentUserUUID();
+		let currentReopeningUser:string = this.currentUserService.getCurrentUserUUID();
 		
 		// use the backend service to close this review.
 		this.projectDataQueryBackend.reopenReview(projectid, reviewId, currentReopeningUser).subscribe(
@@ -89,7 +90,7 @@ export class ReviewParticipationPanelComponent implements OnInit {
 	}
 	
 	onAddMeToReview(projectid:string, reviewId:string): void {
-		let currentUser:string = this.userDataQueryBackend.getCurrentUserUUID();
+		let currentUser:string = this.currentUserService.getCurrentUserUUID();
 		
 		// use the backend service to add me to review
 		this.projectDataQueryBackend.addReviewer(projectid, reviewId, currentUser, currentUser).subscribe(
@@ -141,7 +142,7 @@ export class ReviewParticipationPanelComponent implements OnInit {
 		let reviewermap = new Map<string,BackendModelReviewResult>(Object.entries(this.currentUiReviewData.reviewReviewersResults));
 		
 		if(reviewermap.size==1) {
-			let current_user_uuid:string = this.userDataQueryBackend.getCurrentUserUUID();
+			let current_user_uuid:string = this.currentUserService.getCurrentUserUUID();
 			
 			let reviewer_uuid:string = reviewermap.entries().next().value[0];
 			
@@ -182,7 +183,7 @@ export class ReviewParticipationPanelComponent implements OnInit {
 	}
 	
 	onReviewApprove(projectid:string, reviewId:string): void {
-		let currentUser:string = this.userDataQueryBackend.getCurrentUserUUID();
+		let currentUser:string = this.currentUserService.getCurrentUserUUID();
 		
 		this.projectDataQueryBackend.approveReview(projectid, reviewId, currentUser).subscribe(
 			data => {
@@ -193,7 +194,7 @@ export class ReviewParticipationPanelComponent implements OnInit {
 	}
 	
 	onReviewConcern(projectid:string, reviewId:string): void {
-		let currentUser:string = this.userDataQueryBackend.getCurrentUserUUID();
+		let currentUser:string = this.currentUserService.getCurrentUserUUID();
 		
 		this.projectDataQueryBackend.concernReview(projectid, reviewId, currentUser).subscribe(
 			data => {

@@ -1,9 +1,11 @@
 import { Component, OnInit, Input,  SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-// Services
+// Backend Services
 import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
-import { UserDataQueryBackendService } from '../../../backend/services/user-data-query-backend.service';
+
+// Internal Services
+import { CurrentUserService } from '../../../services/current-user.service';
 
 
 // Backend-Model
@@ -26,7 +28,7 @@ export class ReviewDiscussionPanelComponent implements OnInit {
 	
 	constructor(
 		private projectDataQueryBackend : ProjectDataQueryBackendService,
-		private userDataQueryBackend : UserDataQueryBackendService
+		private currentUserService : CurrentUserService
 		) { }
 	
 	ngOnInit(): void {
@@ -68,7 +70,7 @@ export class ReviewDiscussionPanelComponent implements OnInit {
 	onCreateThreadClicked(): void {
 		let that = this;
 		let disussionText = this.formDiscussionText.value;
-		let currentUserId = this.userDataQueryBackend.getCurrentUserUUID();
+		let currentUserId = this.currentUserService.getCurrentUserUUID();
 		
 		this.projectDataQueryBackend
 			.createThreadForReview(
