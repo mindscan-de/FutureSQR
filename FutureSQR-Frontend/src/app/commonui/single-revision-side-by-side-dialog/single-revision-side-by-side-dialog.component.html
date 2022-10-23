@@ -6,6 +6,20 @@
 </div>
 
 <div class="modal-body">
+	<div class="col">
+		<div class="row">
+			<span>
+				<button class="btn btn-sm btn-secondary">&lt;</button>
+			</span>
+			<span class="ml-2 mr-2"><span class="mr-1">{{currentShownFileUiIndex}}</span>/<span class="ml-1">{{numberOfFiles}}</span> </span>
+			<span>
+				<button class="btn btn-sm btn-secondary">&gt;</button>
+			</span>
+		</div>
+	</div>  
+</div>
+
+<div class="modal-body">
 	<app-file-change-set-side-by-side-diff [fileChangeSet]="currentUiFileChangeSet"></app-file-change-set-side-by-side-diff>
 </div>
 
