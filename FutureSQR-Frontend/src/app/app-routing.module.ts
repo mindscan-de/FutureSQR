@@ -12,6 +12,9 @@ import { SingleReviewPageComponent } from './views/single-review-page/single-rev
 const routes: Routes = [
 	// show the main Page
 	{ path:'', pathMatch: 'full', component: MainPageComponent },
+
+	// start the admin app.
+	{ path: 'admin', loadChildren: () => import('./adminapp/adminapp.module').then(m => m.AdminappModule) },
 	
 	// show a list of all available projects for a logged on user
 	{ path:'allprojects', pathMatch: 'full', component: AllProjectsPageComponent },	
