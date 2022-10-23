@@ -5,6 +5,7 @@ import { AdminappComponent } from './adminapp.component';
 import { ConfigureProjectComponent } from './views/configure-project/configure-project.component';
 import { ConfigureProjectsComponent } from './views/configure-projects/configure-projects.component';
 import { ConfigureUsersComponent } from './views/configure-users/configure-users.component';
+import { ConfigureGroupComponent } from './views/configure-group/configure-group.component';
 import { ConfigureGroupsComponent } from './views/configure-groups/configure-groups.component';
 
 const routes: Routes = [
@@ -20,7 +21,7 @@ const routes: Routes = [
 	{ path: 'users' , component: ConfigureUsersComponent },
 	
 	// groups
-	// TODO: groups/:groupuuid
+	{ path: 'group/:groupuuid' , component: ConfigureGroupComponent },
 	{ path: 'groups' , component: ConfigureGroupsComponent },
 	
 	// catch all other unknown URLs
