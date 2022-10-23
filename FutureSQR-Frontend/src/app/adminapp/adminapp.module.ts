@@ -6,13 +6,14 @@ import { AdminappComponent } from './adminapp.component';
 import { ConfigureProjectComponent } from './views/configure-project/configure-project.component';
 import { ConfigureProjectsComponent } from './views/configure-projects/configure-projects.component';
 import { ConfigureGroupsComponent } from './views/configure-groups/configure-groups.component';
+import { ConfigureGroupComponent } from './views/configure-group/configure-group.component';
 
 
 @NgModule({
   declarations: [
 	AdminappComponent, 
 	ConfigureProjectComponent, 
-	ConfigureProjectsComponent, ConfigureGroupsComponent
+	ConfigureProjectsComponent, ConfigureGroupsComponent, ConfigureGroupComponent
 	],
   imports: [
     CommonModule,
