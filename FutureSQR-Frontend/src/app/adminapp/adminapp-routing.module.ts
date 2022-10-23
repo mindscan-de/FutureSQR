@@ -8,6 +8,7 @@ const routes: Routes = [
 	{ path: '', component: AdminappComponent },
 	
 	// projects
+	{ path: 'project/:projectid', component: AdminappComponent },
 	
 	// users
 	

@@ -7,7 +7,10 @@ import { ConfigureProjectComponent } from './views/configure-project/configure-p
 
 
 @NgModule({
-  declarations: [AdminappComponent, ConfigureProjectComponent],
+  declarations: [
+	AdminappComponent, 
+	ConfigureProjectComponent
+	],
   imports: [
     CommonModule,
     AdminappRoutingModule
