@@ -16,9 +16,11 @@ const routes: Routes = [
 	{ path: 'projects' , component: ConfigureProjectsComponent },
 	
 	// users
+	// TODO: user/:useruuid
 	{ path: 'users' , component: ConfigureUsersComponent },
 	
 	// groups
+	// TODO: groups/:groupuuid
 	{ path: 'groups' , component: ConfigureGroupsComponent },
 	
 	// catch all other unknown URLs
