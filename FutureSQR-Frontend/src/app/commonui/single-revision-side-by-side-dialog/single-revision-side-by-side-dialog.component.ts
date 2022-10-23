@@ -65,6 +65,8 @@ export class SingleRevisionSideBySideDialogComponent implements OnInit {
 			return;
 		}
 		
+		this.currentUiFileChangeSet = this.allUiFileChangeSets[this.currentShownFileIndex-1];
+		
 		this.updateShownFileIndex();
 	}
 	
@@ -72,6 +74,8 @@ export class SingleRevisionSideBySideDialogComponent implements OnInit {
 		if( this.currentShownFileIndex >= this.numberOfFiles -1) {
 			return;
 		}
+		
+		this.currentUiFileChangeSet = this.allUiFileChangeSets[this.currentShownFileIndex+1];
 		
 		this.updateShownFileIndex();		
 	}
