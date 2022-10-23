@@ -59,6 +59,22 @@ export class SingleRevisionSideBySideDialogComponent implements OnInit {
 			}
 		}
 	}
+	
+	onNavLeftClicked() : void {
+		if( this.currentShownFileIndex <= 0) {
+			return;
+		}
+		
+		this.updateShownFileIndex();
+	}
+	
+	onNavRightClicked() : void {
+		if( this.currentShownFileIndex >= this.numberOfFiles -1) {
+			return;
+		}
+		
+		this.updateShownFileIndex();		
+	}
 
 	ngOnChanges(changes: SimpleChanges): void {
 		let fileChangeSetCandidate:BackendModelSingleCommitFileChangeSet = changes.fileChangeSet.currentValue;
