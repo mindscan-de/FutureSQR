@@ -13,7 +13,12 @@ import { BackendModelSingleCommitFileChangeSet } from '../../backend/model/backe
 export class SingleRevisionSideBySideDialogComponent implements OnInit {
 	
 	private allUiFileChangeSets: BackendModelSingleCommitFileChangeSet[] = [];
-	public currentUiFileChangeSet: BackendModelSingleCommitFileChangeSet = new BackendModelSingleCommitFileChangeSet();
+	private allUiFileChangeSetsProvided: boolean = false;
+	public  currentUiFileChangeSet: BackendModelSingleCommitFileChangeSet = new BackendModelSingleCommitFileChangeSet();
+	private currentUiFileChangeSetProvided: boolean = false;
+	public numberOfFiles: number = 0;
+	private currentShownFileIndex = 0;
+	public currentShownFileUiIndex = 0;
 	
 	constructor(public activeModal: NgbActiveModal) { }
 	
@@ -24,14 +29,36 @@ export class SingleRevisionSideBySideDialogComponent implements OnInit {
 	}
 	
 	setAllChangeSets(allFileChangeSets:BackendModelSingleCommitFileChangeSet[]): void {
+		this.numberOfFiles = allFileChangeSets.length;
 		this.allUiFileChangeSets = allFileChangeSets;
+		this.allUiFileChangeSetsProvided = true;
+		this.updateShownFileIndex();
 	}
 	
 	setSelectedFileChangeSet(newFileChangeSet:BackendModelSingleCommitFileChangeSet) : void {
 		this.currentUiFileChangeSet = newFileChangeSet;
+		this.currentUiFileChangeSetProvided = true;
+		this.updateShownFileIndex();
 	}
 	
-	
+	private updateShownFileIndex() : void {
+		if(!this.allUiFileChangeSetsProvided) {
+			return;
+		}
+		if(!this.currentUiFileChangeSetProvided) {
+			return;
+		}
+		
+		this.currentShownFileIndex = 0;
+		this.currentShownFileUiIndex = 0;
+		for(let i:number=0;i<this.allUiFileChangeSets.length;i++) {
+			if(this.allUiFileChangeSets[i]==this.currentUiFileChangeSet) {
+				this.currentShownFileIndex = i;
+				this.currentShownFileUiIndex = i+1;
+				return;
+			}
+		}
+	}
 
 	ngOnChanges(changes: SimpleChanges): void {
 		let fileChangeSetCandidate:BackendModelSingleCommitFileChangeSet = changes.fileChangeSet.currentValue;
