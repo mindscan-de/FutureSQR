@@ -8,13 +8,14 @@ import { ConfigureProjectsComponent } from './views/configure-projects/configure
 import { ConfigureGroupsComponent } from './views/configure-groups/configure-groups.component';
 import { ConfigureGroupComponent } from './views/configure-group/configure-group.component';
 import { ConfigureUsersComponent } from './views/configure-users/configure-users.component';
+import { ConfigureUserComponent } from './views/configure-user/configure-user.component';
 
 
 @NgModule({
   declarations: [
 	AdminappComponent, 
 	ConfigureProjectComponent, 
-	ConfigureProjectsComponent, ConfigureGroupsComponent, ConfigureGroupComponent, ConfigureUsersComponent
+	ConfigureProjectsComponent, ConfigureGroupsComponent, ConfigureGroupComponent, ConfigureUsersComponent, ConfigureUserComponent
 	],
   imports: [
     CommonModule,
