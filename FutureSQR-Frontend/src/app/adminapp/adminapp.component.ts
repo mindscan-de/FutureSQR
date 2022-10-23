@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-// Ganeral App Services
+// General App Services
 import { NavigationBarService } from '../services/navigation-bar.service';
 import { NavbarBreadcrumbItem } from '../services/model/navbar-breadcrumb-item';
 
@@ -14,7 +14,9 @@ export class AdminappComponent implements OnInit {
 
 	constructor(
 		private navigationBarService : NavigationBarService
-	) { }
+	) { 
+		// TODO: register navigation bar proxy access 		
+	}
 
 	ngOnInit(): void {
 		this.updateNavigationBar();
@@ -23,7 +25,7 @@ export class AdminappComponent implements OnInit {
     updateNavigationBar() {
 		// add navigation
 		let x = []
-		x.push(new NavbarBreadcrumbItem( 'admin configuration', ['/','admin'], true ));
+		x.push(new NavbarBreadcrumbItem( 'configuration', ['/','admin'], true ));
 		this.navigationBarService.setBreadcrumbNavigation(x);		
 
     }
