@@ -9,11 +9,11 @@
 	<div class="col">
 		<div class="row">
 			<span>
-				<button class="btn btn-sm btn-secondary" (click)="onNavLeftClicked()">&lt;</button>
+				<button class="btn btn-sm btn-secondary" [disabled]="!prevEnabled" (click)="onNavLeftClicked()">&lt;</button>
 			</span>
 			<span class="ml-2 mr-2"><span class="mr-1">{{currentShownFileUiIndex}}</span>/<span class="ml-1">{{numberOfFiles}}</span> </span>
 			<span>
-				<button class="btn btn-sm btn-secondary" (click)="onNavRightClicked()">&gt;</button>
+				<button class="btn btn-sm btn-secondary" [disabled]="!nextEnabled" (click)="onNavRightClicked()">&gt;</button>
 			</span>
 		</div>
 	</div>  

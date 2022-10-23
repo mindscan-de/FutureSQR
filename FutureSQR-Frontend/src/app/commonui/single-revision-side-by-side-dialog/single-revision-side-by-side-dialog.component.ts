@@ -19,6 +19,8 @@ export class SingleRevisionSideBySideDialogComponent implements OnInit {
 	public numberOfFiles: number = 0;
 	private currentShownFileIndex = 0;
 	public currentShownFileUiIndex = 0;
+	public nextEnabled = false;
+	public prevEnabled = false;
 	
 	constructor(public activeModal: NgbActiveModal) { }
 	
@@ -55,6 +57,10 @@ export class SingleRevisionSideBySideDialogComponent implements OnInit {
 			if(this.allUiFileChangeSets[i]==this.currentUiFileChangeSet) {
 				this.currentShownFileIndex = i;
 				this.currentShownFileUiIndex = i+1;
+				
+				this.nextEnabled = this.currentShownFileIndex < this.numberOfFiles-1;
+				this.prevEnabled = this.currentShownFileIndex > 0;
+				 
 				return;
 			}
 		}
