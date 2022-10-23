@@ -128,18 +128,10 @@ export class SingleReviewPageComponent implements OnInit {
 	
 	// open side by side dialog
 	openSideBySideDialog( filechangeSet:BackendModelSingleCommitFileChangeSet ):void {
-		
-		// TODO: maybe better, we want the index of the file changeset and provide the index and all current filechangesets
-		//       maybe instead of the index, a file name is even better / also interesting
-		//       then the side by side dialog can then navigate between different files / navigate left or right 
-		
-		
-		// actually we need another viewer? because of different change configuration
 		const modalref = this.modalService.open(  SingleRevisionSideBySideDialogComponent,  {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'fs'}    )
 		
 		modalref.componentInstance.setAllChangeSets(this.uiFileChangeSets);
 		modalref.componentInstance.setSelectedFileChangeSet(filechangeSet);
-		// modalref.componentInstance.setBar
 		
 		modalref.result.then((result) => {
 			result.subscribe(
