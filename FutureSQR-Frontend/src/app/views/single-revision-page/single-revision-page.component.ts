@@ -102,12 +102,11 @@ export class SingleRevisionPageComponent implements OnInit {
 	}
 
 	// open side by side dialog
-	openSideBySideDialog( filechangeSet ):void {
-		
+	openSideBySideDialog( filechangeSet:BackendModelSingleCommitFileChangeSet ):void {
 		const modalref = this.modalService.open(  SingleRevisionSideBySideDialogComponent,  {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'fs'}    )
 		
-		modalref.componentInstance.setFileChangeSet(filechangeSet);
-		// modalref.componentInstance.setBar
+		modalref.componentInstance.setAllChangeSets(this.uiFileChangeSets);
+		modalref.componentInstance.setSelectedFileChangeSet(filechangeSet);
 		
 		modalref.result.then((result) => {
 			result.subscribe(
