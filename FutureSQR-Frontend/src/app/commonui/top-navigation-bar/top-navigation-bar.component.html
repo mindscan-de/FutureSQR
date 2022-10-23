@@ -20,6 +20,9 @@
 			<li *ngIf="currentUserUnknown" class="nav-item">
 				<a class="btn btn-sm btn-secondary" (click)="fakeLoginRemoveMe()">login</a>
 			</li>
+			<li *ngIf="!currentUserUnknown" class="nav-item" >
+				<a class="nav-item nav-link" [routerLink]="['/','admin']">skyport</a>
+			</li>
 			<li *ngIf="!currentUserUnknown" class="nav-item dropdown" >
 				<a class="nav-item nav-link dropdown-toggle mr-md-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Me</a>
 <!-- 				<div class="dowpdown-menu dropdown-menu-right">
