@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+// General App Services
+import { AdminNavigationBarService }  from '../../services/admin-navigation-bar.service';
+
 @Component({
   selector: 'app-configure-projects',
   templateUrl: './configure-projects.component.html',
@@ -7,7 +10,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfigureProjectsComponent implements OnInit {
 
-  constructor() { }
+	constructor(
+ 		private adminNavigationBarService : AdminNavigationBarService	
+	) { }
 
   ngOnInit(): void {
   }
