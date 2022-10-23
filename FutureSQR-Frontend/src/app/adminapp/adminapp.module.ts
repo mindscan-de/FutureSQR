@@ -7,13 +7,14 @@ import { ConfigureProjectComponent } from './views/configure-project/configure-p
 import { ConfigureProjectsComponent } from './views/configure-projects/configure-projects.component';
 import { ConfigureGroupsComponent } from './views/configure-groups/configure-groups.component';
 import { ConfigureGroupComponent } from './views/configure-group/configure-group.component';
+import { ConfigureUsersComponent } from './views/configure-users/configure-users.component';
 
 
 @NgModule({
   declarations: [
 	AdminappComponent, 
 	ConfigureProjectComponent, 
-	ConfigureProjectsComponent, ConfigureGroupsComponent, ConfigureGroupComponent
+	ConfigureProjectsComponent, ConfigureGroupsComponent, ConfigureGroupComponent, ConfigureUsersComponent
 	],
   imports: [
     CommonModule,
