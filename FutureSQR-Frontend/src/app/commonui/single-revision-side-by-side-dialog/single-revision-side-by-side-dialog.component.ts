@@ -12,12 +12,9 @@ import { BackendModelSingleCommitFileChangeSet } from '../../backend/model/backe
 })
 export class SingleRevisionSideBySideDialogComponent implements OnInit {
 	
+	private allUiFileChangeSets: BackendModelSingleCommitFileChangeSet[] = [];
 	public currentUiFileChangeSet: BackendModelSingleCommitFileChangeSet = new BackendModelSingleCommitFileChangeSet();
 	
-		// backed model is an intermediate modul until ui-model for a file changeset got refined.	
-	@Input() fileChangeSet:BackendModelSingleCommitFileChangeSet = new BackendModelSingleCommitFileChangeSet();
-
-
 	constructor(public activeModal: NgbActiveModal) { }
 	
 	ngOnInit() : void { }
@@ -26,9 +23,15 @@ export class SingleRevisionSideBySideDialogComponent implements OnInit {
 		this.activeModal.close(null)
 	}
 	
-	setFileChangeSet(newFileChangeSet) : void {
+	setAllChangeSets(allFileChangeSets:BackendModelSingleCommitFileChangeSet[]): void {
+		this.allUiFileChangeSets = allFileChangeSets;
+	}
+	
+	setSelectedFileChangeSet(newFileChangeSet:BackendModelSingleCommitFileChangeSet) : void {
 		this.currentUiFileChangeSet = newFileChangeSet;
 	}
+	
+	
 
 	ngOnChanges(changes: SimpleChanges): void {
 		let fileChangeSetCandidate:BackendModelSingleCommitFileChangeSet = changes.fileChangeSet.currentValue;

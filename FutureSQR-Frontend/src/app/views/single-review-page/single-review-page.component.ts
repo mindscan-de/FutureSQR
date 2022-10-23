@@ -4,8 +4,10 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
-// Services
+// Backend Services
 import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
+
+// Intermal Services
 import { NavigationBarService } from '../../services/navigation-bar.service';
 import { NavbarBreadcrumbItem } from '../../services/model/navbar-breadcrumb-item';
 
@@ -69,7 +71,7 @@ export class SingleReviewPageComponent implements OnInit {
 		
 		// query some revision information for this particular review
 		this.projectDataQueryBackend.getReviewSimpleRevisionInformationList(this.activeProjectID,this.activeReviewID).subscribe(
-			data => this.onReviewReviewInformation(data),
+			data => this.onReviewRevisionInformation(data),
 			error => {}
 		);
 	}
@@ -111,6 +113,13 @@ export class SingleReviewPageComponent implements OnInit {
 	onRevisionSelectionChanged(eventdata:any):void {
 		console.log("Guess what");
 		console.log(eventdata);
+		
+		// TODO: reload unified diff data from server, depending on the current revision selection.
+		// envdata should be a list of revisions enabled.
+		// the single page has a list of revisions
+		
+		// we must encode the list as a single parameter
+		// we must manipulate the parame parameter map, so in the link can be given a configuration
 	}
 	
 	onProjectInformationProvided(projectinformation:any):void {
@@ -118,12 +127,18 @@ export class SingleReviewPageComponent implements OnInit {
 	}
 	
 	// open side by side dialog
-	openSideBySideDialog( filechangeSet ):void {
+	openSideBySideDialog( filechangeSet:BackendModelSingleCommitFileChangeSet ):void {
+		
+		// TODO: maybe better, we want the index of the file changeset and provide the index and all current filechangesets
+		//       maybe instead of the index, a file name is even better / also interesting
+		//       then the side by side dialog can then navigate between different files / navigate left or right 
+		
 		
 		// actually we need another viewer? because of different change configuration
 		const modalref = this.modalService.open(  SingleRevisionSideBySideDialogComponent,  {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'fs'}    )
 		
-		modalref.componentInstance.setFileChangeSet(filechangeSet);
+		modalref.componentInstance.setAllChangeSets(this.uiFileChangeSets);
+		modalref.componentInstance.setSelectedFileChangeSet(filechangeSet);
 		// modalref.componentInstance.setBar
 		
 		modalref.result.then((result) => {
@@ -136,7 +151,7 @@ export class SingleReviewPageComponent implements OnInit {
 	 	});
 	}
 	
-	onReviewReviewInformation(data): void {
+	onReviewRevisionInformation(data): void {
 		this.uiRevisionInformation = data;
 	}
 	
@@ -156,7 +171,7 @@ export class SingleReviewPageComponent implements OnInit {
 		// TODO: change detector? 
 		 	
 		this.projectDataQueryBackend.getReviewSimpleRevisionInformationList(this.activeProjectID,this.activeReviewID).subscribe(
-			data => this.onReviewReviewInformation(data),
+			data => this.onReviewRevisionInformation(data),
 			error => {}
 		);
 	}
