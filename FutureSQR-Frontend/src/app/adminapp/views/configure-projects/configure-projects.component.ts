@@ -12,7 +12,7 @@ import { AdminNavbarBreadcrumbItem } from '../../services/model/admin-navbar-bre
 export class ConfigureProjectsComponent implements OnInit {
 
 	constructor(
- 		private adminNavigationBarService : AdminNavigationBarService	
+ 		private adminNavigationBarService : AdminNavigationBarService
 	) { }
 
 	ngOnInit(): void {
