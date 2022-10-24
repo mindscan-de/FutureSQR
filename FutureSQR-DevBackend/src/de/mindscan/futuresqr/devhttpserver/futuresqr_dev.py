@@ -452,3 +452,15 @@ def getSimpleUserDictionary():
     return { 'dictionary' : simpleUserMap }
 
 
+### #########################################
+###
+### ADMINSTUFF
+###
+### #########################################
+
+
+@app.get("/FutureSQR/rest/user/adminuserlist")
+def getUserManagementUserList():
+    # this one is meant to be used for administration purposes.
+    return usersDB.selectAllUSers()
+
