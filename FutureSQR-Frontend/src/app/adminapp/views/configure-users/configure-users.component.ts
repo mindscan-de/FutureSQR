@@ -58,6 +58,19 @@ export class ConfigureUsersComponent implements OnInit {
 			error => {}
 		)
 */	}
+
+	onUnbanUser(user:AdminBackendModelSimpleUserItem) : void {
+/*		let that = this;
+		this.accoutService.postUnbanUser(user.loginname).subscribe(
+			data => { 
+				// result entry after baning, refresh user list after baning  
+				that.updateUserList(data);
+				},
+			error => {}
+		)
+*/		
+	}
+
 	
 	updateUserList(user: AdminBackendModelSimpleUserItem):void {
 /*		// currently we simply reload the data, actually we should patch it.

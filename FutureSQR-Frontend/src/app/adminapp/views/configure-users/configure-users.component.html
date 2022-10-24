@@ -11,7 +11,7 @@
 				<li class="list-group-item list-unstyled" *ngFor="let user of uiModelSimpleUserlist">
 					<div class="d-flex flex-row-reverse" >
 						<div class="p-0">
-							<span ><a class="btn btn-light btn-sm ml-2">edit</a></span>
+							<span ><a class="btn btn-light btn-sm ml-2" [routerLink]="['/','admin','user',user.uuid]">edit</a></span>
 						</div>
 						<div class="p-0">
 							<span *ngIf="!user.isbanned"><a class="btn btn-light btn-sm ml-2" (click)="onBanUser(user)">ban</a></span>
