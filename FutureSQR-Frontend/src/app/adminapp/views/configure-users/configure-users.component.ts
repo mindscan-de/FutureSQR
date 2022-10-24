@@ -4,6 +4,9 @@ import { Component, OnInit } from '@angular/core';
 import { AdminNavigationBarService }  from '../../services/admin-navigation-bar.service';
 import { AdminNavbarBreadcrumbItem } from '../../services/model/admin-navbar-breadcrumb-item';
 
+import { AdminDataQueryBackendService } from '../../backend/services/admin-data-query-backend.service';
+import { AdminBackendModelSimpleUserItem } from '../../backend/model/admin-backend-model-simple-user-item';
+
 
 @Component({
   selector: 'app-configure-users',
@@ -12,13 +15,30 @@ import { AdminNavbarBreadcrumbItem } from '../../services/model/admin-navbar-bre
 })
 export class ConfigureUsersComponent implements OnInit {
 
+	public uiModelSimpleUserlist: AdminBackendModelSimpleUserItem[] = [];
+
 	constructor(
- 		private adminNavigationBarService : AdminNavigationBarService
+ 		private adminNavigationBarService : AdminNavigationBarService,
+		private adminDataQueryBackend : AdminDataQueryBackendService,
 	) { }
 
 	ngOnInit(): void {
 		this.updateNavigationBar();
+		
+		this.adminDataQueryBackend.getAdminUserList().subscribe(
+			data => {this.onAccountListProvided(data)},
+			error => {}
+		);
 	}
+	
+	private onAccountListProvided( userlist: AdminBackendModelSimpleUserItem[]): void {
+		this.uiModelSimpleUserlist = this.m2mTransform(userlist);
+	}
+	
+	private m2mTransform(input: AdminBackendModelSimpleUserItem[]): AdminBackendModelSimpleUserItem[] {
+		return input;
+	}
+	
 	
 	updateNavigationBar() : void {
 		let x:AdminNavbarBreadcrumbItem[] = []
@@ -27,5 +47,25 @@ export class ConfigureUsersComponent implements OnInit {
 		 
 		this.adminNavigationBarService.setAdminBreadCrumbNavigation(x);
 	}
+	
+	onBanUser(user: BackendModelSimpleUserItem) : void {
+/*		let that = this;
+		this.accoutService.postBanUser(user.loginname).subscribe(
+			data => { 
+				// result entry after baning, refresh user list after baning 
+				that.updateUserList(data);  
+				},
+			error => {}
+		)
+*/	}
+	
+	updateUserList(user: BackendModelSimpleUserItem):void {
+/*		// currently we simply reload the data, actually we should patch it.
+		this.accoutService.getAdminUserList().subscribe(
+			data => {this.onAccountListProvided(data)},
+			error => {}
+		);
+*/	}
+	
 
 }

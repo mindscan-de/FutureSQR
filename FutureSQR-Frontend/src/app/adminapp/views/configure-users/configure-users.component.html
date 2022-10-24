@@ -1,1 +1,44 @@
-<p>configure-users works!</p>
+<div class="row">
+	<div class="col col-9">
+		<div class="card mt-2">
+			<div class="card-body">
+				<h4 class="header-4">Configure Users</h4>
+			</div>
+			<div class="card-body">
+				(TODO: maybe provide textbox for filtering names)
+			</div>
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item list-unstyled" *ngFor="let user of uiModelSimpleUserlist">
+					<div class="d-flex flex-row-reverse" >
+						<div class="p-0">
+							<span ><a class="btn btn-light btn-sm ml-2">edit</a></span>
+						</div>
+						<div class="p-0">
+							<span *ngIf="!user.isbanned"><a class="btn btn-light btn-sm ml-2" (click)="onBanUser(user)">ban</a></span>
+							<span *ngIf="user.isbanned"><a class="btn btn-light btn-sm ml-2" (click)="onUnbanUser(user)">unban</a></span>
+						</div>
+						<!-- <span class="col-1">{{user.avatarlocation}}</span> -->
+						<div class="mr-auto p-0 col-9" >
+							<div class="row">
+								<span class="ml-2 col-3">{{user.loginname}}</span>
+								<span class="ml-2 col-3"><b>{{user.displayname}}</b></span>
+								<span *ngIf="user.isbanned"><a class="badge badge-danger ml-2" >banned</a>&nbsp;(DATE)</span>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		
+	</div>
+	<div class="col col-3">
+
+		<div class="card mt-2">
+			<div class="card-body">
+				<a class="btn btn-sm btn-secondary" [routerLink]="['add']">Add new User</a>
+			</div>
+		</div>
+		
+	</div>
+</div>
+
