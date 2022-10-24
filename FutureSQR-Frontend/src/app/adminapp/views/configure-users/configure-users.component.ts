@@ -48,7 +48,7 @@ export class ConfigureUsersComponent implements OnInit {
 		this.adminNavigationBarService.setAdminBreadCrumbNavigation(x);
 	}
 	
-	onBanUser(user: BackendModelSimpleUserItem) : void {
+	onBanUser(user: AdminBackendModelSimpleUserItem) : void {
 /*		let that = this;
 		this.accoutService.postBanUser(user.loginname).subscribe(
 			data => { 
@@ -59,7 +59,7 @@ export class ConfigureUsersComponent implements OnInit {
 		)
 */	}
 	
-	updateUserList(user: BackendModelSimpleUserItem):void {
+	updateUserList(user: AdminBackendModelSimpleUserItem):void {
 /*		// currently we simply reload the data, actually we should patch it.
 		this.accoutService.getAdminUserList().subscribe(
 			data => {this.onAccountListProvided(data)},
