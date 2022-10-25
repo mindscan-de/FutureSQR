@@ -1,1 +1,24 @@
-<p>configure-projects works!</p>
+<div class="row">
+	<div class="col-xl-9">
+		<div class="card mt-2 mb-2">
+			<div class="card-body">
+				<h5>All Projects</h5>
+			</div>
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item">TODO: Filter here?</li>
+				<li *ngFor="let project of uiModelAllProjects" class="list-group-item">
+					<span class="float-right">
+						<a class="btn btn-light btn-sm">edit</a>
+					</span>
+					
+					<a [routerLink]="['/',project.project_id]" class="font-weight-bold">{{project.project_display_name}}</a><br/>
+					<span class="small text-muted">{{project.description}}</span>
+				</li> 
+			</ul>
+			
+		</div>
+	</div>
+	<div class="col-xl-3">
+		TODO: Create Project link here
+	</div>
+</div>
