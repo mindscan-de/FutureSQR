@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { AdminappRoutingModule } from './adminapp-routing.module';
 import { AdminappComponent } from './adminapp.component';
 import { ConfigureProjectComponent } from './views/configure-project/configure-project.component';
@@ -20,6 +22,7 @@ import { ConfigureAddUserComponent } from './views/configure-add-user/configure-
 	],
   imports: [
     CommonModule,
+	ReactiveFormsModule,
     AdminappRoutingModule
   ]
 })
