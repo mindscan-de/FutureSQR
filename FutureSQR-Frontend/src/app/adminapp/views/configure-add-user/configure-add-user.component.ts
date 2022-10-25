@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup,  Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+// Admin App Services
+import { AdminNavigationBarService }  from '../../services/admin-navigation-bar.service';
+import { AdminNavbarBreadcrumbItem } from '../../services/model/admin-navbar-breadcrumb-item';
 
+// Backend Services
 import { AdminDataQueryBackendService } from '../../backend/services/admin-data-query-backend.service';
 
 @Component({
@@ -17,13 +21,16 @@ export class ConfigureAddUserComponent implements OnInit {
 	public submitted = false;
 
 	constructor(
+ 		private adminNavigationBarService : AdminNavigationBarService,
 		private formBuilder : FormBuilder,
 		private router: Router,		
-		private accountService: AdminDataQueryBackendService
+		private adminDataQueryBackend : AdminDataQueryBackendService		
 	) { }
 
 
 	ngOnInit(): void {
+		this.updateNavigationBar();
+		
 		this.addForm = this.formBuilder.group( {
 			username: ['', Validators.required],
 			// password field should depend on backed auth method and only then be set as required
@@ -35,6 +42,16 @@ export class ConfigureAddUserComponent implements OnInit {
 			contactemail: ['', Validators.compose([Validators.required, Validators.email])]
 			});
 	}
+	
+	updateNavigationBar() : void {
+		let x:AdminNavbarBreadcrumbItem[] = []
+		
+		x.push(new AdminNavbarBreadcrumbItem('users', ['users'], false));
+		x.push(new AdminNavbarBreadcrumbItem('add', ['users','add'], true));
+		 
+		this.adminNavigationBarService.setAdminBreadCrumbNavigation(x);
+	}
+	
 	
 	// accessor for the form.
 	get f() { return this.addForm.controls; }
@@ -53,7 +70,7 @@ export class ConfigureAddUserComponent implements OnInit {
 
 		this.loading = false;
 				
-/*		this.accountService.postAddUser(
+/*		this.adminDataQueryBackend.postAddUser(
 			this.f.username.value, 
 			this.f.displayname.value,
 			this.f.contactemail.value,
