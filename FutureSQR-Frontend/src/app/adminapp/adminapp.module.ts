@@ -12,13 +12,14 @@ import { ConfigureGroupComponent } from './views/configure-group/configure-group
 import { ConfigureUsersComponent } from './views/configure-users/configure-users.component';
 import { ConfigureUserComponent } from './views/configure-user/configure-user.component';
 import { ConfigureAddUserComponent } from './views/configure-add-user/configure-add-user.component';
+import { ConfigureAddGroupComponent } from './views/configure-add-group/configure-add-group.component';
 
 
 @NgModule({
   declarations: [
 	AdminappComponent, 
 	ConfigureProjectComponent, 
-	ConfigureProjectsComponent, ConfigureGroupsComponent, ConfigureGroupComponent, ConfigureUsersComponent, ConfigureUserComponent, ConfigureAddUserComponent
+	ConfigureProjectsComponent, ConfigureGroupsComponent, ConfigureGroupComponent, ConfigureUsersComponent, ConfigureUserComponent, ConfigureAddUserComponent, ConfigureAddGroupComponent
 	],
   imports: [
     CommonModule,
