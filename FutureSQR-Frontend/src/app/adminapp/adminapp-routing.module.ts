@@ -5,6 +5,7 @@ import { AdminappComponent } from './adminapp.component';
 import { ConfigureProjectComponent } from './views/configure-project/configure-project.component';
 import { ConfigureProjectsComponent } from './views/configure-projects/configure-projects.component';
 import { ConfigureUserComponent } from './views/configure-user/configure-user.component';
+import { ConfigureAddUserComponent } from './views/configure-add-user/configure-add-user.component';
 import { ConfigureUsersComponent } from './views/configure-users/configure-users.component';
 import { ConfigureGroupComponent } from './views/configure-group/configure-group.component';
 import { ConfigureGroupsComponent } from './views/configure-groups/configure-groups.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
 	
 	// users
 	{ path: 'user/:useruuid' , component: ConfigureUserComponent },
+	{ path: 'users/add' , component: ConfigureAddUserComponent },
 	{ path: 'users' , component: ConfigureUsersComponent },
 	
 	// groups
