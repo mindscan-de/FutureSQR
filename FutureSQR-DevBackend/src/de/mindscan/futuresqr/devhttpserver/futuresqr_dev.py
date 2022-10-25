@@ -464,3 +464,35 @@ def getUserManagementUserList():
     # this one is meant to be used for administration purposes.
     return usersDB.selectAllUSers()
 
+@app.post("/FutureSQR/rest/user/ban")
+def banUser(
+        username:str = Form(...)):
+    # TODO check user token, if eligible
+    
+    # TODO check if yourself, you should not be able to ban yourself
+    
+    
+    if usersDB.hasUserByLogonNme(username):
+        user = usersDB.banUser(username)
+        if user is not None:
+            return user
+        
+    # TODO: banned / updated user entry
+    return {}
+
+
+@app.post("/FutureSQR/rest/user/unban")
+def unbanUser(
+        username:str = Form(...)):
+    # TODO check user token, if eligible
+    
+    # TODO check if yourself, you should not be able to unban yourself
+    
+    if usersDB.hasUserByLogonNme(username):
+        user = usersDB.unbanUser(username)
+        if user is not None:
+            return user
+
+    # TODO: unbanned / updated user entry
+    return {}
+
