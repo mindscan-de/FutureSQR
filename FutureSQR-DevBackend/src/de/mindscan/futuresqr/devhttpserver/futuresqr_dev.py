@@ -31,7 +31,6 @@ from fastapi import FastAPI, Form   #, HTTPException
 from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision,\
     calculateFileListForSingleRevision, caluclateSimpleRevisionInformation, calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo,\
     calculateSimpleRevisionInformationForRevisionList, calculateFileListForListOfRevisions, updateProjectCache
-from de.mindscan.futuresqr.assets.hardcoded import getProjectConfigurations
 from de.mindscan.futuresqr.reviews.review_database import ReviewDatabase
 from de.mindscan.futuresqr.projects.project_database import ProjectDatabase
 from de.mindscan.futuresqr.reviews.review_tools import createNewReview
@@ -44,7 +43,7 @@ from de.mindscan.futuresqr.users.users_database import UsersDatabase
 app = FastAPI()
 
 reviewDB = ReviewDatabase({})
-projectDB = ProjectDatabase({'allProjects':getProjectConfigurations()})
+projectDB = ProjectDatabase({'allProjects':{}})
 reviewThreadsDB = ReviewThreadsDatabase({})
 threadsDB = ThreadsDatabase({})
 usersDB = UsersDatabase({'persistenceActive': False});
