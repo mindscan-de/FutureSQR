@@ -56,7 +56,7 @@
   },
   "furiousiron-frontend": {
     "administration": {
-      "localPath": FuriousIron-Frontend"
+      "localPath": "FuriousIron-Frontend"
     },
     "autoIndex": 1,
     "projectBranchName": "master",
