@@ -63,3 +63,12 @@ def _putToTempAssets( data , filename:str ):
     pass
     
 
+def getSystemConfiguration():
+    systemConfigurationMap = {
+            # this should be part of a config file describing the system
+            # this path should be used to prefix the localfolders for the projectdatabase, 
+            # instead of having/holdig these in the current hardcoded projectdatabase.  
+            'scmCacheBaseFolder': "D:\\Temp\\future-square-cache\\"
+        }
+    
+    return systemConfigurationMap

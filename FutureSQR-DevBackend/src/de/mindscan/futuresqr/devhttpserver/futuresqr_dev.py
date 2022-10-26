@@ -74,6 +74,7 @@ def getUserAllAccessibleProjects(user_uuid: str = ""):
 def getProjectRevisions(projectid:str):
     if projectDB.hasProjectLocalPath(projectid):
         # TODO: cache this answer for some time and/or limit the number of results?
+        # TODO: apply system configuration map to repo path...
         revisions = calculateRecentRevisionsForLocalGitRepo(projectDB.getProjectLocalPath(projectid),75)
         # combine revisions with a review list for the revisons and add the revision id to the revision list
 
@@ -93,6 +94,7 @@ def getProjectRevisions(projectid:str):
 @app.get("/FutureSQR/rest/project/{projectid}/recentcommitsfromrevid/{fromrevisionid}")
 def getProjectRevisionsSinceCommitId(projectid: str, fromrevisionid:str):
     if projectDB.hasProjectLocalPath(projectid):
+        # TODO: apply system configuration map to repo path...
         revisions = calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo(projectDB.getProjectLocalPath(projectid), fromrevisionid)
         # combine revisions with a review list for the revisons and add the revision id to the revision list        
 
@@ -122,6 +124,7 @@ def getSimpleProjectInformation(projectid:str):
 @app.get("/FutureSQR/rest/project/{projectid}/revisiondiff/{revisionid}")
 def getProjectRevisionDiffToPrevious(projectid:str, revisionid:str):
     if projectDB.hasProjectLocalPath(projectid):
+        # TODO: apply system configuration map to repo path...
         result = calculateDiffForSingleRevision(projectDB.getProjectLocalPath(projectid), revisionid)
         return result
     
@@ -132,6 +135,7 @@ def getProjectRevisionDiffToPrevious(projectid:str, revisionid:str):
 def getProjectReviewDiff(projectid:str, reviewid:str):
     if projectDB.hasProjectLocalPath(projectid):
         reviewData = getReviewData(projectid, reviewid)
+        # TODO: apply system configuration map to repo path...
         result = calculateDiffForSingleRevision(projectDB.getProjectLocalPath(projectid), reviewData[REVIEW_REVISIONS][0])
         return result
     
@@ -141,6 +145,7 @@ def getProjectReviewDiff(projectid:str, reviewid:str):
 @app.get("/FutureSQR/rest/project/{projectid}/revisionfilelist/{revisionid}")
 def getProjectRevisionFileListDiffToPrevious(projectid:str, revisionid:str):
     if projectDB.hasProjectLocalPath(projectid):
+        # TODO: apply system configuration map to repo path...
         result = calculateFileListForSingleRevision(projectDB.getProjectLocalPath(projectid), revisionid)
         return result
     
@@ -151,6 +156,7 @@ def getProjectRevisionFileListDiffToPrevious(projectid:str, revisionid:str):
 def getProjectReviewFileList(projectid:str, reviewid:str):
     if projectDB.hasProjectLocalPath(projectid):
         reviewData = getReviewData(projectid, reviewid)
+        # TODO: apply system configuration map to repo path...
         result = calculateFileListForListOfRevisions(projectDB.getProjectLocalPath(projectid), reviewData[REVIEW_REVISIONS])
         return result
     
@@ -172,6 +178,7 @@ def getReviewRevisionInformation(projectid:str, reviewid:str):
         # get revison numbers from review
         revisions=reviewDB.selectRevisionsForReview(projectid, reviewid)
         # get revision information from
+        # TODO: apply system configuration map to repo path...
         revisionDetails = calculateSimpleRevisionInformationForRevisionList(projectDB.getProjectLocalPath(projectid),revisions)
         return revisionDetails
     
@@ -224,6 +231,7 @@ def getRecentReviews(projectid:str):
 @app.get("/FutureSQR/rest/project/{projectid}/revision/{revisionid}/information")
 def getSimpleReviewInfomation(projectid:str, revisionid:str):
     if projectDB.hasProjectLocalPath(projectid):
+        # TODO: apply system configuration map to repo path...
         revinfo = caluclateSimpleRevisionInformation(projectDB.getProjectLocalPath(projectid), revisionid)
         
         for revision in revinfo:
@@ -422,6 +430,7 @@ def postUpdateProjectCache(projectid: str):
     if projectDB.hasProjectLocalPath(projectid):
         project_branch_name = projectDB.getProjectBranchName(projectid)
         if project_branch_name is not None:
+            # TODO: apply system configuration map to repo path...
             project_path = projectDB.getProjectLocalPath(projectid)
             updateProjectCache(project_path, project_branch_name)
     result = {}
