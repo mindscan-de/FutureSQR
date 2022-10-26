@@ -63,6 +63,3 @@ def _putToTempAssets( data , filename:str ):
     pass
     
 
-# I think we should continue with a user database for the next features e.g. assigning different persons etc.
-def getUserDatabase():
-    return {}
