@@ -25,6 +25,8 @@ SOFTWARE.
 
 @autor: Maxim Gansert
 '''
+from de.mindscan.futuresqr.assets.hardcoded import _putToTempAssets, _getFromTempAssets
+from importlib_metadata.docs.conf import project
 
 class ProjectDatabase(object):
     '''
@@ -36,7 +38,15 @@ class ProjectDatabase(object):
         '''
         Constructor
         '''
-        self.projectConfigurations = params['allProjects']
+        self.projectConfigurations = {}
+        projectConfigurations = _getFromTempAssets('projectdatabase')
+        
+        if(len(projectConfigurations)==0):
+            self.projectConfigurations = params['allProjects']
+        else:
+            self.projectConfigurations = projectConfigurations
+
+        self.__persistence= True
         
     def getProjectConfiguration(self, projectid):
         return self.projectConfigurations[projectid]
@@ -114,6 +124,7 @@ class ProjectDatabase(object):
         # TODO: this only preliminary until user project relation is implemented
         self.projectConfigurations[projectid]['projectIsStarred'] = True
         # successfully executed - not state 
+        self.__persist_projectdatabase()
         return True
     
     def unstarProject(self, projectid):
@@ -122,4 +133,11 @@ class ProjectDatabase(object):
         # TODO: this only preliminary until user project relation is implemented
         self.projectConfigurations[projectid]['projectIsStarred'] = False
         # successfully executed
+        self.__persist_projectdatabase()
         return True
+    
+    def __persist_projectdatabase(self):
+        if self.__persistence:
+            _putToTempAssets(self.projectConfigurations,'projectdatabase.json')
+            
+        pass
