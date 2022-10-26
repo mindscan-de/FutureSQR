@@ -76,8 +76,8 @@ def getUserAllAccessibleProjects(user_uuid: str = ""):
 def getProjectRevisions(projectid:str):
     if projectDB.hasProjectLocalPath(projectid):
         # TODO: cache this answer for some time and/or limit the number of results?
-        # TODO: apply system configuration map to repo path...
-        revisions = calculateRecentRevisionsForLocalGitRepo(projectDB.getProjectLocalPath(projectid),75)
+        fullScmPath = systemConfiguration.calculateScmCacheFolder(projectDB.getProjectLocalPath(projectid))
+        revisions = calculateRecentRevisionsForLocalGitRepo(fullScmPath,75)
         # combine revisions with a review list for the revisons and add the revision id to the revision list
 
         for revision in revisions['revisions']:
@@ -96,8 +96,8 @@ def getProjectRevisions(projectid:str):
 @app.get("/FutureSQR/rest/project/{projectid}/recentcommitsfromrevid/{fromrevisionid}")
 def getProjectRevisionsSinceCommitId(projectid: str, fromrevisionid:str):
     if projectDB.hasProjectLocalPath(projectid):
-        # TODO: apply system configuration map to repo path...
-        revisions = calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo(projectDB.getProjectLocalPath(projectid), fromrevisionid)
+        fullScmPath = systemConfiguration.calculateScmCacheFolder(projectDB.getProjectLocalPath(projectid))        
+        revisions = calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo(fullScmPath, fromrevisionid)
         # combine revisions with a review list for the revisons and add the revision id to the revision list        
 
         for revision in revisions['revisions']:
@@ -126,8 +126,8 @@ def getSimpleProjectInformation(projectid:str):
 @app.get("/FutureSQR/rest/project/{projectid}/revisiondiff/{revisionid}")
 def getProjectRevisionDiffToPrevious(projectid:str, revisionid:str):
     if projectDB.hasProjectLocalPath(projectid):
-        # TODO: apply system configuration map to repo path...
-        result = calculateDiffForSingleRevision(projectDB.getProjectLocalPath(projectid), revisionid)
+        fullScmPath = systemConfiguration.calculateScmCacheFolder(projectDB.getProjectLocalPath(projectid))
+        result = calculateDiffForSingleRevision(fullScmPath, revisionid)
         return result
     
     result = {}
@@ -137,8 +137,8 @@ def getProjectRevisionDiffToPrevious(projectid:str, revisionid:str):
 def getProjectReviewDiff(projectid:str, reviewid:str):
     if projectDB.hasProjectLocalPath(projectid):
         reviewData = getReviewData(projectid, reviewid)
-        # TODO: apply system configuration map to repo path...
-        result = calculateDiffForSingleRevision(projectDB.getProjectLocalPath(projectid), reviewData[REVIEW_REVISIONS][0])
+        fullScmPath = systemConfiguration.calculateScmCacheFolder(projectDB.getProjectLocalPath(projectid))
+        result = calculateDiffForSingleRevision(fullScmPath, reviewData[REVIEW_REVISIONS][0])
         return result
     
     result = {}
@@ -147,8 +147,8 @@ def getProjectReviewDiff(projectid:str, reviewid:str):
 @app.get("/FutureSQR/rest/project/{projectid}/revisionfilelist/{revisionid}")
 def getProjectRevisionFileListDiffToPrevious(projectid:str, revisionid:str):
     if projectDB.hasProjectLocalPath(projectid):
-        # TODO: apply system configuration map to repo path...
-        result = calculateFileListForSingleRevision(projectDB.getProjectLocalPath(projectid), revisionid)
+        fullScmPath = systemConfiguration.calculateScmCacheFolder(projectDB.getProjectLocalPath(projectid))
+        result = calculateFileListForSingleRevision(fullScmPath, revisionid)
         return result
     
     result = {}
@@ -158,8 +158,8 @@ def getProjectRevisionFileListDiffToPrevious(projectid:str, revisionid:str):
 def getProjectReviewFileList(projectid:str, reviewid:str):
     if projectDB.hasProjectLocalPath(projectid):
         reviewData = getReviewData(projectid, reviewid)
-        # TODO: apply system configuration map to repo path...
-        result = calculateFileListForListOfRevisions(projectDB.getProjectLocalPath(projectid), reviewData[REVIEW_REVISIONS])
+        fullScmPath = systemConfiguration.calculateScmCacheFolder(projectDB.getProjectLocalPath(projectid))
+        result = calculateFileListForListOfRevisions(fullScmPath, reviewData[REVIEW_REVISIONS])
         return result
     
     result = {}
@@ -180,8 +180,8 @@ def getReviewRevisionInformation(projectid:str, reviewid:str):
         # get revison numbers from review
         revisions=reviewDB.selectRevisionsForReview(projectid, reviewid)
         # get revision information from
-        # TODO: apply system configuration map to repo path...
-        revisionDetails = calculateSimpleRevisionInformationForRevisionList(projectDB.getProjectLocalPath(projectid),revisions)
+        fullScmPath = systemConfiguration.calculateScmCacheFolder(projectDB.getProjectLocalPath(projectid))
+        revisionDetails = calculateSimpleRevisionInformationForRevisionList(fullScmPath,revisions)
         return revisionDetails
     
     result = []
@@ -233,8 +233,8 @@ def getRecentReviews(projectid:str):
 @app.get("/FutureSQR/rest/project/{projectid}/revision/{revisionid}/information")
 def getSimpleReviewInfomation(projectid:str, revisionid:str):
     if projectDB.hasProjectLocalPath(projectid):
-        # TODO: apply system configuration map to repo path...
-        revinfo = caluclateSimpleRevisionInformation(projectDB.getProjectLocalPath(projectid), revisionid)
+        fullScmPath = systemConfiguration.calculateScmCacheFolder(projectDB.getProjectLocalPath(projectid))
+        revinfo = caluclateSimpleRevisionInformation(fullScmPath, revisionid)
         
         for revision in revinfo:
             if reviewDB.hasReviewByRevisionId(projectid, revisionid):
@@ -432,9 +432,8 @@ def postUpdateProjectCache(projectid: str):
     if projectDB.hasProjectLocalPath(projectid):
         project_branch_name = projectDB.getProjectBranchName(projectid)
         if project_branch_name is not None:
-            # TODO: apply system configuration map to repo path...
-            project_path = projectDB.getProjectLocalPath(projectid)
-            updateProjectCache(project_path, project_branch_name)
+            fullScmPath = systemConfiguration.calculateScmCacheFolder(projectDB.getProjectLocalPath(projectid))
+            updateProjectCache(fullScmPath, project_branch_name)
     result = {}
     return result
 
