@@ -36,7 +36,7 @@ class SystemConfiguration(object):
         '''
         Constructor
         '''
-        self._configMap = params['SystemConfigMap']
+        self.__configMap = params['SystemConfigMap']
         
     
     def calculateScmCacheFolder(self, scmLocalFolder: str):
