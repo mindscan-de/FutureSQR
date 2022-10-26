@@ -63,7 +63,7 @@ def _putToTempAssets( data , filename:str ):
     pass
     
 
-def getSystemConfiguration():
+def getSystemConfigurationMap():
     systemConfigurationMap = {
             # this should be part of a config file describing the system
             # this path should be used to prefix the localfolders for the projectdatabase, 
