@@ -39,7 +39,7 @@ class ProjectDatabase(object):
         Constructor
         '''
         self.projectConfigurations = {}
-        projectConfigurations = _getFromTempAssets('projectdatabase')
+        projectConfigurations = _getFromTempAssets('projectdatabase.json')
         
         if(len(projectConfigurations)==0):
             self.projectConfigurations = params['allProjects']
