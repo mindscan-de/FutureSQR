@@ -94,4 +94,14 @@ export class TopNavigationBarComponent implements OnInit {
 		
 		this.currentUserService.setCurrentUiUser(newUiUser);
 	}
+	
+	onLogoutClicked():void {
+		// TODO invoke backend logout, and on success of backend logout, the currentUserService receives a new User...
+		// This here is just to satisfy the ui for now and communicate the idea.
+		
+		let newUiUser = new CurrentUiUser();
+		newUiUser.uuid = "b4d1449b-d50e-4c9f-a4cb-dd2230278306";
+		
+		this.currentUserService.setCurrentUiUser(newUiUser);
+	}
 }
