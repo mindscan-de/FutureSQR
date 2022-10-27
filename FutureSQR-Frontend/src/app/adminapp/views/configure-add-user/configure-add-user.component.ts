@@ -70,7 +70,7 @@ export class ConfigureAddUserComponent implements OnInit {
 
 		this.loading = false;
 				
-/*		this.adminDataQueryBackend.postAddUser(
+		this.adminDataQueryBackend.postAddUser(
 			this.f.username.value, 
 			this.f.displayname.value,
 			this.f.contactemail.value,
@@ -85,14 +85,13 @@ export class ConfigureAddUserComponent implements OnInit {
 					// will trigger a navigation and a page reload
 					// where we want to navigate ? to the new user or to the userlist?
 					// actually we want to further configure a created user (like groups, accounts for different SCMs)
-					this.router.navigate(['/','admin','user','uuid']);
+					this.router.navigate(['/','admin','user',data.uuid]);
 				},
 				error : error => { 
 					that.loading = false;
 					}
 				}
 			)
-*/
 		
 	}
 	
