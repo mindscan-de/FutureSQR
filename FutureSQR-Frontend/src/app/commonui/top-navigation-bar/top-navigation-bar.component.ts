@@ -8,6 +8,8 @@ import { NavbarBreadcrumbItem } from '../../services/model/navbar-breadcrumb-ite
 import { CurrentUserService } from '../../services/current-user.service';
 import { CurrentUiUser } from '../../services/model/current-ui-user';
 
+import { AuthZService } from '../../services/auth-z.service';
+import { CurrentAuthorizations } from '../../services/model/current-authorizations';
 
 @Component({
   selector: 'app-top-navigation-bar',
@@ -18,6 +20,7 @@ export class TopNavigationBarComponent implements OnInit {
 
 	public title:String = "APPTITLE";
 	public currentUserUnknown:boolean = true;
+	public currentUserIsAdmin: boolean = false;
 	
 	public navItems: Array<NavbarBreadcrumbItem> = new Array<NavbarBreadcrumbItem>();
 
@@ -26,6 +29,7 @@ export class TopNavigationBarComponent implements OnInit {
 	constructor (
 		private navigationBarService : NavigationBarService,
 		private currentUserService : CurrentUserService,
+		private authZService : AuthZService,
 		private userDataService : UserDataQueryBackendService
 	) {}
 
@@ -44,6 +48,12 @@ export class TopNavigationBarComponent implements OnInit {
 				this.onCurrentUiUserChanged(currentuser);
 			}
 		);
+		
+		this.authZService.asObservable().subscribe(
+			currentAuthZValues => {
+				this.onCurrentAuthZChanged(currentAuthZValues);
+			} 
+		)
 	}
 	
 	onBreadCrumbNavChanged(newBreadCrumbNavData:NavbarBreadcrumbItem[]) : void {
@@ -69,7 +79,9 @@ export class TopNavigationBarComponent implements OnInit {
 		// then clear state or update state what to show in the User part of the top navigation 
 	}
 	
-	
+	onCurrentAuthZChanged(currentAuthZ:CurrentAuthorizations) : void {
+		this.currentUserIsAdmin = currentAuthZ.isAdmin;
+	}
 	
 	ngOnChanges(changes: SimpleChanges): void {
 		let newTitle:string = changes.appTitle.currentValue;

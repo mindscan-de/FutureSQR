@@ -20,8 +20,7 @@
 			<li *ngIf="currentUserUnknown" class="nav-item">
 				<a class="btn btn-sm btn-outline-secondary" (click)="fakeLoginRemoveMe()">login</a>
 			</li>
-			<!-- Actually only show skyport if user is admin. -->
-			<li *ngIf="!currentUserUnknown" class="nav-item" >
+			<li *ngIf="currentIsAdmin" class="nav-item" >
 				<a class="nav-item nav-link" [routerLink]="['/','admin']">skyport</a>
 			</li>
 			<li>
