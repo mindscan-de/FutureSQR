@@ -110,20 +110,33 @@ class UsersDatabase(object):
                 USER_ISBANNED:user[USER_ISBANNED]
              } for user in userlist }
     
-    def banUser(self, logonname:str):
-        for user in self._userMap.values():
-            if user[USER_LOGON_NAME] == logonname:
-                self._userMap[user[USER_PK_USERID]][USER_ISBANNED] = True
-                self.__persist_userdatabase()                
-                return user
+    def banUser(self, userUuid:str):
+        '''
+        Ban a user by UUID.
+        
+        :param userUuid: UUID of the User to be banned.
+        
+        @return: returns either None (if user not present), or the updated user entry
+        '''
+        if userUuid in self._userMap:
+            self._userMap[userUuid][USER_ISBANNED] = True
+            self.__persist_userdatabase()                
+            return self._userMap[userUuid]
         return None
-                
-    def unbanUser(self, logonname: str):
-        for user in self._userMap.values():
-            if user[USER_LOGON_NAME] == logonname:
-                self._userMap[user[USER_PK_USERID]][USER_ISBANNED] = False
-                self.__persist_userdatabase()
-                return user
+    
+    def unbanUser(self, userUuid: str):
+        '''
+        Remove a ban of a user by UUID.
+        
+        :param userUuid: UUID of the User to be unbanned.
+        
+        @return: returns either None (if user not present), or the updated user entry
+        '''
+        
+        if userUuid in self._userMap:
+            self._userMap[userUuid][USER_ISBANNED] = False
+            self.__persist_userdatabase()
+            return self._userMap[userUuid]
         return None
     
     def updateContactEmail(self, logonname:str, contactemail:str):
