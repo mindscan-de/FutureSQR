@@ -47,5 +47,17 @@ export class AdminDataQueryBackendService {
 		return this.httpClient.post<AdminBackendModelSimpleUserItem>( restURL, formdata).pipe( first() );
 	}
 	
+	public postAddUser(username:string, displayname, emailcontact, password): Observable<AdminBackendModelSimpleUserItem> {
+		let restURL = '/FutureSQR/rest/user/add';
+		
+		let formdata = new FormData();
+		formdata.append('userName', username);
+		formdata.append('displayName', displayname);
+		formdata.append('contactEmail', emailcontact);
+		formdata.append('password', password);
+		
+		// make sure we automatically unsubscribe
+		return this.httpClient.post<AdminBackendModelSimpleUserItem>( restURL, formdata).pipe(first());
+	}
 	
 }
