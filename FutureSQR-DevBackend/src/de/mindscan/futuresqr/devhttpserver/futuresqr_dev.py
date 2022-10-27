@@ -45,10 +45,15 @@ from de.mindscan.futuresqr.configuration.system_configuration import SystemConfi
 app = FastAPI()
 
 reviewDB = ReviewDatabase({})
-projectDB = ProjectDatabase({'allProjects':{}})
+projectDB = ProjectDatabase({
+    'allProjects':{},
+    'persistenceActive':False
+    })
 reviewThreadsDB = ReviewThreadsDatabase({})
 threadsDB = ThreadsDatabase({})
-usersDB = UsersDatabase({'persistenceActive': False});
+usersDB = UsersDatabase({
+    'persistenceActive': False
+    });
 
 # TODO: actually we should use some kind of futuresqr-instance, where the instance id is provided by runtime environment.
 systemConfiguration = SystemConfiguration({'SystemConfigMap':getSystemConfigurationMap()})
