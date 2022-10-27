@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
- 
+
 import { UserDataQueryBackendService } from '../../backend/services/user-data-query-backend.service';
 
 import { NavigationBarService } from '../../services/navigation-bar.service';
@@ -20,7 +20,7 @@ export class TopNavigationBarComponent implements OnInit {
 
 	public title:String = "APPTITLE";
 	public currentUserUnknown:boolean = true;
-	public currentUserIsAdmin: boolean = false;
+	public currentUserIsAdmin:boolean = false;
 	
 	public navItems: Array<NavbarBreadcrumbItem> = new Array<NavbarBreadcrumbItem>();
 
@@ -98,13 +98,16 @@ export class TopNavigationBarComponent implements OnInit {
 	     * For the moment i want to develop the top navigation bar, and the ui user service.
          * This ui user should be set in the currentUserService, by a login mechanism, not from here.
 		 */
-		
 		let newUiUser = new CurrentUiUser();
 		newUiUser.logonName = "mindscan-de";
 		newUiUser.uuid = "b4d1449b-d50e-4c9f-a4cb-dd2230278306";
 		newUiUser.displayName = "Maxim Gansert";
 		
 		this.currentUserService.setCurrentUiUser(newUiUser);
+	}
+	
+	fakeAdminRemoveMe(): void {
+		this.authZService.setFakeAdmin();
 	}
 	
 	onLogoutClicked():void {

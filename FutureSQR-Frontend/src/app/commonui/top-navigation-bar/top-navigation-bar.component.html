@@ -20,14 +20,14 @@
 			<li *ngIf="currentUserUnknown" class="nav-item">
 				<a class="btn btn-sm btn-outline-secondary" (click)="fakeLoginRemoveMe()">login</a>
 			</li>
-			<li *ngIf="currentIsAdmin" class="nav-item" >
+			<li *ngIf="currentUserIsAdmin" class="nav-item" >
 				<a class="nav-item nav-link" [routerLink]="['/','admin']">skyport</a>
 			</li>
 			<li>
 				<div *ngIf="!currentUserUnknown" ngbDropdown class="d-inline-block" placement="bottom-right" display="dynamic">
 					<button class="btn btn-sm btn-dark mt-1" id="dropdownBasic1" ngbDropdownToggle>Me</button>
 					<div ngbDropdownMenu>
-					  <button ngbDropdownItem>Action - 1</button>
+					  <button ngbDropdownItem (click)="fakeAdminRemoveMe()">Make me Admin</button>
 					  <button ngbDropdownItem>Another Action</button>
 					  <div class="dropdown-divider"></div>
 					  <button ngbDropdownItem (click)="onLogoutClicked()">logout</button>
