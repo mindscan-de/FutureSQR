@@ -50,7 +50,7 @@ export class ConfigureUsersComponent implements OnInit {
 	
 	onBanUser(user: AdminBackendModelSimpleUserItem) : void {
 		let that = this;
-		this.adminDataQueryBackend.postBanUser(user.loginname).subscribe(
+		this.adminDataQueryBackend.postBanUser(user.uuid).subscribe(
 			data => { 
 				// result entry after baning, refresh user list after baning 
 				that.updateUserList(data);  
@@ -61,7 +61,7 @@ export class ConfigureUsersComponent implements OnInit {
 
 	onUnbanUser(user:AdminBackendModelSimpleUserItem) : void {
 		let that = this;
-		this.adminDataQueryBackend.postUnbanUser(user.loginname).subscribe(
+		this.adminDataQueryBackend.postUnbanUser(user.uuid).subscribe(
 			data => { 
 				// result entry after baning, refresh user list after baning  
 				that.updateUserList(data);

@@ -25,23 +25,23 @@ export class AdminDataQueryBackendService {
 		return this.httpClient.get<AdminBackendModelSimpleUserItem[]>( restURL ).pipe( first() );
 	}
 	
-	public postBanUser(username:string): Observable<AdminBackendModelSimpleUserItem> {
+	public postBanUser(userUuid:string): Observable<AdminBackendModelSimpleUserItem> {
 		let restURL = '/FutureSQR/rest/user/ban';
 		
 		let formdata = new FormData();
 		
-		formdata.append('username',username);
+		formdata.append('userUuid',userUuid);
 		
 		// make sure we automatically unsubscribe / otherwise memory leak
 		return this.httpClient.post<AdminBackendModelSimpleUserItem>( restURL, formdata).pipe( first() );
 	}
 
-	public postUnbanUser(username:string): Observable<AdminBackendModelSimpleUserItem> {
+	public postUnbanUser(userUuid:string): Observable<AdminBackendModelSimpleUserItem> {
 		let restURL = '/FutureSQR/rest/user/unban';
 		
 		let formdata = new FormData();
 		
-		formdata.append('username',username);
+		formdata.append('userUuid',userUuid);
 		
 		// make sure we automatically unsubscribe / otherwise memory leak
 		return this.httpClient.post<AdminBackendModelSimpleUserItem>( restURL, formdata).pipe( first() );

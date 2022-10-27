@@ -49,6 +49,8 @@ projectDB = ProjectDatabase({'allProjects':{}})
 reviewThreadsDB = ReviewThreadsDatabase({})
 threadsDB = ThreadsDatabase({})
 usersDB = UsersDatabase({'persistenceActive': False});
+
+# TODO: actually we should use some kind of futuresqr-instance, where the instance id is provided by runtime environment.
 systemConfiguration = SystemConfiguration({'SystemConfigMap':getSystemConfigurationMap()})
 
 
@@ -474,15 +476,13 @@ def getUserManagementUserList():
     return usersDB.selectAllUSers()
 
 @app.post("/FutureSQR/rest/user/ban")
-def banUser(
-        username:str = Form(...)):
+def banUser(userUuid:str = Form(...)):
     # TODO check user token, if eligible
     
     # TODO check if yourself, you should not be able to ban yourself
     
-    
-    if usersDB.hasUserByLogonNme(username):
-        user = usersDB.banUser(username)
+    if usersDB.hasUserByUUID(userUuid):
+        user = usersDB.banUser(userUuid)
         if user is not None:
             return user
         
@@ -491,14 +491,13 @@ def banUser(
 
 
 @app.post("/FutureSQR/rest/user/unban")
-def unbanUser(
-        username:str = Form(...)):
+def unbanUser(userUuid:str = Form(...)):
     # TODO check user token, if eligible
     
     # TODO check if yourself, you should not be able to unban yourself
     
-    if usersDB.hasUserByLogonNme(username):
-        user = usersDB.unbanUser(username)
+    if usersDB.hasUserByUUID(userUuid):
+        user = usersDB.unbanUser(userUuid)
         if user is not None:
             return user
 
