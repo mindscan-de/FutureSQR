@@ -40,13 +40,14 @@ class ProjectDatabase(object):
         '''
         self.projectConfigurations = {}
         projectConfigurations = _getFromTempAssets('projectdatabase.json')
-        
         if(len(projectConfigurations)==0):
             self.projectConfigurations = params['allProjects']
         else:
             self.projectConfigurations = projectConfigurations
 
-        self.__persistence= True
+        self.__persistence = False
+        if 'persistenceActive' in params:
+            self.__persistence = params['persistenceActive'] 
         
     def getProjectConfiguration(self, projectid):
         return self.projectConfigurations[projectid]
