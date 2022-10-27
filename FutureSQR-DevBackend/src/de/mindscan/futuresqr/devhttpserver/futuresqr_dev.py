@@ -509,3 +509,21 @@ def unbanUser(userUuid:str = Form(...)):
     # TODO: unbanned / updated user entry
     return {}
 
+
+@app.post("/FutureSQR/rest/user/add")
+def addNewUser(
+        userName:str = Form(...), 
+        password:str = Form(...), 
+        displayName:str = Form(...),
+        contactEmail:str = Form(...)):
+    
+    # TODO check user token, if eligible
+    if usersDB.hasUserByLogonNme(userName):
+        return False
+    
+    userrow = usersDB.insertNewUser(userName, displayName, contactEmail)
+    
+    # TODO: assign password to this user.
+    # in case of a different password based backend  (e.g. LDAP), we may not need the password at all.
+    
+    return userrow
