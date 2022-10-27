@@ -28,6 +28,13 @@ export class AuthZService {
 		this._currentAuthorizationsSubject.next(this._currentAuthorizationsValue);
 	}
 	
+	clearFakeAdmin():void {
+		let newAuthorizationValue:CurrentAuthorizations = new CurrentAuthorizations();
+		newAuthorizationValue.isAdmin = false;
+		this._currentAuthorizationsValue = newAuthorizationValue;
+		this._currentAuthorizationsSubject.next(this._currentAuthorizationsValue);
+	}
+	
 	asObservable(): Observable<CurrentAuthorizations> {
 		return this.currentAuthorizationsSubject;
 	}

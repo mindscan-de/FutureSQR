@@ -118,5 +118,6 @@ export class TopNavigationBarComponent implements OnInit {
 		newUiUser.uuid = "b4d1449b-d50e-4c9f-a4cb-dd2230278306";
 		
 		this.currentUserService.setCurrentUiUser(newUiUser);
+		this.authZService.clearFakeAdmin();
 	}
 }
