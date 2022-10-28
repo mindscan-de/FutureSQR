@@ -15,6 +15,8 @@ import { SingleReviewPageComponent } from './views/single-review-page/single-rev
 const routes: Routes = [
 	// show the main Page
 	{ path:'', pathMatch: 'full', component: MainPageComponent, canActivate: [AuthNGuardService] },
+	
+	// TODO: Account pages (login/logout)
 
 	// start the admin app.
 	{ path: 'admin', loadChildren: () => import('./adminapp/adminapp.module').then(m => m.AdminappModule), canActivate: [AuthNGuardService] },
