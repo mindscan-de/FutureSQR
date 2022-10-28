@@ -17,7 +17,6 @@ const routes: Routes = [
 	{ path:'', pathMatch: 'full', component: MainPageComponent, canActivate: [AuthNGuardService] },
 
 	// start the admin app.
-	// WHERE TO AUTHN Guard?
 	{ path: 'admin', loadChildren: () => import('./adminapp/adminapp.module').then(m => m.AdminappModule), canActivate: [AuthNGuardService] },
 	
 	// show a list of all available projects for a logged on user
