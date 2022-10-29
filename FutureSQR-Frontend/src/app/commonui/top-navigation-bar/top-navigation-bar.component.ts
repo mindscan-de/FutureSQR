@@ -8,7 +8,7 @@ import { NavbarBreadcrumbItem } from '../../services/model/navbar-breadcrumb-ite
 import { CurrentUserService } from '../../services/current-user.service';
 import { CurrentUiUser } from '../../services/model/current-ui-user';
 
-import { AuthZService } from '../../services/auth-z.service';
+import { AuthZService } from '../../authz/auth-z.service';
 import { CurrentAuthorizations } from '../../authz/model/current-authorizations';
 
 @Component({
