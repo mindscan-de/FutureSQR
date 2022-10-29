@@ -5,5 +5,10 @@ import { Injectable } from '@angular/core';
 })
 export class AuthNService {
 
-  constructor() { }
+	constructor() { }
+	
+	
+	login( loginname: string, password: string ):void {
+		
+	}
 }
