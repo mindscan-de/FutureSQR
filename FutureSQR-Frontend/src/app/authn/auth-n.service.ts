@@ -21,4 +21,12 @@ export class AuthNService {
 	// on success we deploy userdata
 	// on success we deploy authoritzation data
 	// on success we inform authnguard via callback or so.
+	
+	
+	logout():void {
+		// clear userdata
+		// clear authorizatuin data
+		// autnguard should be informed...?
+		// maybe userdata via subscription?
+	}
 }
