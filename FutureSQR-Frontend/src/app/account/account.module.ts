@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { AccountRoutingModule } from './account-routing.module';
 import { LoginComponent } from './login/login.component';
@@ -7,10 +9,14 @@ import { AccountLayoutComponent } from './account-layout/account-layout.componen
 
 
 @NgModule({
-  declarations: [LoginComponent, AccountLayoutComponent],
+  declarations: [
+	LoginComponent, 
+	AccountLayoutComponent],
   imports: [
     CommonModule,
-    AccountRoutingModule
+    AccountRoutingModule,
+	FormsModule,
+	ReactiveFormsModule
   ]
 })
 export class AccountModule { }
