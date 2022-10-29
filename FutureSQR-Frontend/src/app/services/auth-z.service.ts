@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { CurrentAuthorizations } from './model/current-authorizations';
+// import { CurrentAuthorizations } from './model/current-authorizations';
+import { CurrentAuthorizations } from '../authz/model/current-authorizations';
 
 @Injectable({
   providedIn: 'root'
