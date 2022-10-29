@@ -1,7 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-const routes: Routes = [];
+
+import { AccountLayoutComponent } from './account-layout/account-layout.component';
+import { LoginComponent } from './login/login.component';
+
+const routes: Routes = [
+	{
+		// we have a Account Layout Component, having it's  own router outlet.
+		path: '', component: AccountLayoutComponent,
+
+		children: [
+			{ path: 'login', component: LoginComponent }
+			
+		]
+	}
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
