@@ -16,7 +16,8 @@ const routes: Routes = [
 	// show the main Page
 	{ path:'', pathMatch: 'full', component: MainPageComponent, canActivate: [AuthNGuardService] },
 	
-	// TODO: Account pages (login/logout)
+	// Account pages (login/logout)
+	{ path: 'account', loadChildren: () => import('./account/account.module').then(x => x.AccountModule) },
 
 	// start the admin app.
 	{ path: 'admin', loadChildren: () => import('./adminapp/adminapp.module').then(m => m.AdminappModule), canActivate: [AuthNGuardService] },
