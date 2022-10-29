@@ -38,7 +38,8 @@ export class LoginComponent implements OnInit {
 	
 	constructor(
 		private formBuilder : FormBuilder,
-		private route: ActivatedRoute
+		private route: ActivatedRoute,
+		private router: Router
 	) { }
 
 	ngOnInit(): void {
@@ -54,5 +55,13 @@ export class LoginComponent implements OnInit {
 	get f() { return this.form.controls; }
 	
 	onSubmit() : void {
+	}
+	
+	onSuccessfulAuthentication(): void  {
+		this.router.navigateByUrl(this.returnURL);
+	}
+	
+	onFailedAuthentication(): void {
+		this.loading = false;
 	}
 }
