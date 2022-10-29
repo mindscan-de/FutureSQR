@@ -8,7 +8,7 @@ export class AuthNService {
 	constructor() { }
 	
 	
-	login( loginname: string, password: string ):void {
+	login( loginname: string, password: string, callbacks ):void {
 		
 	}
 }

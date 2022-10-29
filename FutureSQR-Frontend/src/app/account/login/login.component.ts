@@ -5,6 +5,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 
 
+import { AuthNService } from '../../authn/auth-n.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -39,7 +41,8 @@ export class LoginComponent implements OnInit {
 	constructor(
 		private formBuilder : FormBuilder,
 		private route: ActivatedRoute,
-		private router: Router
+		private router: Router,
+		private authnService: AuthNService
 	) { }
 
 	ngOnInit(): void {
@@ -55,6 +58,29 @@ export class LoginComponent implements OnInit {
 	get f() { return this.form.controls; }
 	
 	onSubmit() : void {
+		// mark that a form was submitted
+		this.submitted = true;
+		
+		if (this.form.invalid) {
+			// but keep messages in form
+            return;
+        }
+		
+		// indicate that we are processing this request and this will disable the button and run the spinner
+		this.loading = true;
+		
+		// TODO add a subscription/future/callback for the good and the bad case
+		this.authnService.login( this.f.username.value, this.f.password.value, 
+			{	// if login is successful, we want to redirect the user to the desired page
+				next: ()=>{this.onSuccessfulAuthentication(); },
+				
+				// if failed we want the user to be able to provide new password
+				failed: ()=>{this.onFailedAuthentication();},
+	
+				// if error, we want the user to be able to still act somehow, message would be nice.
+				error: ()=>{this.onFailedAuthentication();}}
+			);
+		
 	}
 	
 	onSuccessfulAuthentication(): void  {
