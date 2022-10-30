@@ -25,7 +25,8 @@ export class AuthNGuardService implements CanActivate {
 		// if javascript lifecycle is new and authentication lifecycle is logged in user
 		// we want to reauthenticate - send the user to a waiting page (return false), and 
 		// if user could be reauthenicated, and send him back to the url he actually wanted 
-		// to go, when the reauthenication was performed successfully.
+		// to go, when the reauthenication was performed successfully. If the reauthenication 
+		// says no, we must send the user to the login page using this current state url.  
 		
 		// if the user lifecycle is not logged in, we return false, and route to the login page, 
 		// when the user is not properly authenticated 
