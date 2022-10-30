@@ -41,8 +41,17 @@ from de.mindscan.futuresqr.users.users_database import UsersDatabase
 from de.mindscan.futuresqr.assets.hardcoded import getSystemConfigurationMap
 from de.mindscan.futuresqr.configuration.system_configuration import SystemConfiguration
 
-
 import de.mindscan.futuresqr.devhttpserver.myconfig as myconfig
+
+### ---------------------------------------------------------------
+### provide general system configuration - for different developers
+### ---------------------------------------------------------------
+
+systemConfiguration = SystemConfiguration({'SystemConfigMap':getSystemConfigurationMap(myconfig.MY_CONFIGNAME)})
+
+### --------------------------
+### Initialize the Applictaion
+### --------------------------
 
 app = FastAPI()
 
@@ -57,8 +66,9 @@ usersDB = UsersDatabase({
     'persistenceActive': False
     });
 
-systemConfiguration = SystemConfiguration({'SystemConfigMap':getSystemConfigurationMap(myconfig.MY_CONFIGNAME)})
-
+### --------------
+### REST Endpoints
+### --------------
 
 @app.get("/")
 def read_root():
