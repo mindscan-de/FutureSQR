@@ -27,8 +27,13 @@ SOFTWARE.
 '''
 
 import json
+import hashlib
+import uuid
 
 TEMP_ASSET_FOLDER = '../../../../../tempassets/'
+
+FUTURESQR_NAMESPACE_OID = uuid.uuid3(uuid.NAMESPACE_OID,'FutureSQR')
+SYSCONFIG_NAMESPACE_OID = uuid.uuid3(FUTURESQR_NAMESPACE_OID,'SystemInstance')
 
 '''
 Purpose of this module:
@@ -42,7 +47,6 @@ need to solve this problem later - but that means we can still go fast, and
 do not need to solve everything by now.
 '''
 
-
 def _getFromTempAssets( filename:str ):
     '''
     Provide an asset stored as a json file in the temp asset folder.
@@ -53,7 +57,7 @@ def _getFromTempAssets( filename:str ):
     
     with open(TEMP_ASSET_FOLDER+str(filename),'r') as inputfile:
         return json.load(inputfile)
-    print("something went wrong with "+str(filename) )
+    print("something went wrong with : " + str(filename) )
     return {}
 
 def _putToTempAssets( data , filename:str ):
@@ -61,14 +65,11 @@ def _putToTempAssets( data , filename:str ):
         return json.dump(data, outputfile, indent=2, sort_keys=True)
     print("something went wrong with "+str(filename) )
     pass
-    
 
-def getSystemConfigurationMap():
-    systemConfigurationMap = {
-            # this should be part of a config file describing the system
-            # this path should be used to prefix the localfolders for the projectdatabase, 
-            # instead of having/holdig these in the current hardcoded projectdatabase.  
-            'scmCacheBaseFolder': "D:\\Temp\\future-square-cache\\"
-        }
+def getSystemConfigurationMap(instanceName:str):
+    instanceUuid = uuid.uuid3(SYSCONFIG_NAMESPACE_OID, instanceName)
+    filename = 'systemInstance.'+str(instanceUuid)+".json"
+
+    print("Loading config instance : " + str(filename))
     
-    return systemConfigurationMap
+    return _getFromTempAssets(filename);

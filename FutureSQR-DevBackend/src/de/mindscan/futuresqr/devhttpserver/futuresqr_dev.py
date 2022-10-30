@@ -42,6 +42,8 @@ from de.mindscan.futuresqr.assets.hardcoded import getSystemConfigurationMap
 from de.mindscan.futuresqr.configuration.system_configuration import SystemConfiguration
 
 
+import de.mindscan.futuresqr.devhttpserver.myconfig as myconfig
+
 app = FastAPI()
 
 reviewDB = ReviewDatabase({})
@@ -55,8 +57,7 @@ usersDB = UsersDatabase({
     'persistenceActive': False
     });
 
-# TODO: actually we should use some kind of futuresqr-instance, where the instance id is provided by runtime environment.
-systemConfiguration = SystemConfiguration({'SystemConfigMap':getSystemConfigurationMap()})
+systemConfiguration = SystemConfiguration({'SystemConfigMap':getSystemConfigurationMap(myconfig.MY_CONFIGNAME)})
 
 
 @app.get("/")
