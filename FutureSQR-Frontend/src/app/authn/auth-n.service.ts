@@ -32,10 +32,10 @@ export class AuthNService {
 	reauthenticate( ): void {
 	}
 	
-	async reAuthenticateAsync() {
+	async reAuthenticateAsync():Promise<any> {
 		let URL = "/rest/account/whoami";
 		
-		return await this.httpClient.get(URL, {}).toPromise();
+		return await this.httpClient.get<any>(URL, {}).toPromise();
 	}
 	
 	
