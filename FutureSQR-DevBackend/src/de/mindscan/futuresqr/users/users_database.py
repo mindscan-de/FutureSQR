@@ -50,6 +50,7 @@ class UsersDatabase(object):
         
         if(len(userdatabase) == 0):
             self.insertNewUser('mindscan-de', 'Maxim Gansert', 'contact@themail.local')
+            self.insertNewUser('mindscan-banned', 'Maxim Gansert Banned Testuser', 'mindscan@local.localhost')
             self.insertNewUser('someoneelsa', 'Elsa Someone', 'contact@elsamail.local')
         else:
             self._userMap = userdatabase
@@ -73,10 +74,7 @@ class UsersDatabase(object):
         return uuid in self._userMap
     
     def hasUserByLogonNme(self, logonname:str):
-        for user in self._userMap.values():
-            if user[USER_LOGON_NAME] == logonname:
-                return True
-        return False
+        return str(self.__uuidFromName(logonname)) in self._userMap
     
     def insertNewUser(self, logonname, displayname, contactemail):
         pk_uuid = str(self.__uuidFromName(logonname))
@@ -142,19 +140,20 @@ class UsersDatabase(object):
         return None
     
     def updateContactEmail(self, logonname:str, contactemail:str):
-        for user in self._userMap.values():
-            if user[USER_LOGON_NAME] == logonname:
-                self._userMap[user[USER_PK_USERID]][USER_CONTACT_EMAIL] = contactemail
-                self.__persist_userdatabase()
-                return user
+        uuid = str(self.__uuidFromName(logonname))
+        if uuid in self._userMap:
+            self._userMap[uuid][USER_CONTACT_EMAIL] = contactemail
+            self.__persist_userdatabase()
+            return self._userMap[uuid]
         return None
     
     def updateDisplayName(self, logonname:str, displayname:str):
-        for user in self._userMap.values():
-            if user[USER_LOGON_NAME] == logonname:
-                self._userMap[user[USER_PK_USERID]][USER_DISPLAYNAME] = displayname
-                self.__persist_userdatabase()
-                return user
+        uuid = str(self.__uuidFromName(logonname))
+        if uuid in self._userMap:
+            self._userMap[uuid][USER_DISPLAYNAME] = displayname
+            self.__persist_userdatabase()
+            return self._userMap[uuid]
+        
         return None
         
     def __persist_userdatabase(self): 
@@ -163,5 +162,4 @@ class UsersDatabase(object):
         pass
     
     def __uuidFromName(self, username):
-        uuid.uuid3(USERNAMES_NAMESPACE_OID, username)
-        return 
+        return uuid.uuid3(USERNAMES_NAMESPACE_OID, username)
