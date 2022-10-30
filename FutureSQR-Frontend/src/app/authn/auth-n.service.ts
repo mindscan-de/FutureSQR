@@ -5,6 +5,11 @@ import { Injectable } from '@angular/core';
 })
 export class AuthNService {
 	
+	// Actually we have to deal with two different life cycles
+	
+	// Javascript lifecycle (e.g. F5 (pagereload) or bookmarks)
+	// Authentication lifecycle, which can span multiple javascript lifecycles
+	
 	constructor() { }
 	
 	// this will do a full login.
@@ -21,6 +26,9 @@ export class AuthNService {
 	// on success we deploy userdata
 	// on success we deploy authoritzation data
 	// on success we inform authnguard via callback or so.
+	reauthenticate( ): void {
+		
+	}
 	
 	
 	logout():void {
@@ -28,5 +36,21 @@ export class AuthNService {
 		// clear authorizatuin data
 		// autnguard should be informed...?
 		// maybe userdata via subscription?
+		
+		// we should persist that the authentication lifecylcle was ""logged out""
+	}
+	
+	isAuthenticatedInCurrentLifecycle() : boolean {
+		// We must answer the question, whether we did an authentication within the current
+		// Java script lifecylce
+		
+		// we return true iff:
+		// * either successful login, 
+		// * or a successful reauthentication
+		// we return false iff:
+		// * the user logged out in this lifecycle
+		
+
+		return true;
 	}
 }
