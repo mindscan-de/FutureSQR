@@ -28,7 +28,7 @@ SOFTWARE.
 
 import uuid
 from de.mindscan.futuresqr.users.user_table_columns import *  # @UnusedWildImport
-from de.mindscan.futuresqr.assets.hardcoded import _getFromTempAssets, _putToTempAssets
+from de.mindscan.futuresqr.assets.hardcoded import _getFromTempAssets, _putToTempAssets, USERNAMES_NAMESPACE_OID
 
 class UsersDatabase(object):
     '''
@@ -79,7 +79,9 @@ class UsersDatabase(object):
         return False
     
     def insertNewUser(self, logonname, displayname, contactemail):
-        pk_uuid = str(uuid.uuid4())
+        pk_uuid = str(self.__uuidFromName(logonname))
+        
+        # TOOD: check if id already known in userdatabase.
         
         userRow = {
                 USER_UUID: pk_uuid,
@@ -160,3 +162,6 @@ class UsersDatabase(object):
             _putToTempAssets(self._userMap, 'userdatabase.json')
         pass
     
+    def __uuidFromName(self, username):
+        uuid.uuid3(USERNAMES_NAMESPACE_OID, username)
+        return 
