@@ -33,7 +33,8 @@ import uuid
 TEMP_ASSET_FOLDER = '../../../../../tempassets/'
 
 FUTURESQR_NAMESPACE_OID = uuid.uuid3(uuid.NAMESPACE_OID,'FutureSQR')
-SYSCONFIG_NAMESPACE_OID = uuid.uuid3(FUTURESQR_NAMESPACE_OID,'SystemInstance')
+SYSCONFIG_NAMESPACE_OID = uuid.uuid3(FUTURESQR_NAMESPACE_OID, 'SystemInstance')
+USERNAMES_NAMESPACE_OID = uuid.uuid3(FUTURESQR_NAMESPACE_OID, 'SystemUsers')
 
 '''
 Purpose of this module:
