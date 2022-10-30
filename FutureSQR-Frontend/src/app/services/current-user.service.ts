@@ -30,7 +30,7 @@ export class CurrentUserService {
 	
 	getCurrentUserUUID():string {
 		// TODO correct this later.
-		return "b4d1449b-d50e-4c9f-a4cb-dd2230278306";
+		return "8ce74ee9-48ff-3dde-b678-58a632887e31";
 		// return this._currentUserValue.uuid;
 	}
 	
