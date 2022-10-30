@@ -513,10 +513,12 @@ def postLoginData(
 
 @app.post("/FutureSQR/rest/user/reauthenticate")
 def postReauthenticateLoginData(
-        username: str = Form(...)
+        assumedusername: str = Form(...)
         ):
+    
+    
     return {
-        'id': username
+        'id': assumedusername
         }
     
 
@@ -526,6 +528,7 @@ def postLogoutData(
         ):
     return {
         }
+
 
 
 ### #########################################
