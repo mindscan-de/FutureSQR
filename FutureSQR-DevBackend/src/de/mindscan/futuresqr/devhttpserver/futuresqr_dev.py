@@ -214,7 +214,7 @@ def getSuggestedReviewersForReview(projectid:str, reviewid:str):
     
     # provide two hardcoded suggested users right now.
     # TODO: implement me better!
-    suggestedreviewers = ["b4d1449b-d50e-4c9f-a4cb-dd2230278306", "5f697406-9583-438c-a25c-9f1eb7407917"]
+    suggestedreviewers = ["8ce74ee9-48ff-3dde-b678-58a632887e31", "f5fc8449-3049-3498-9f6b-ce828515bba2"]
 
 
     allusers = usersDB.selectAllUSers()
@@ -482,7 +482,8 @@ def getSimpleUserDictionary():
 
 ### #########################################
 ###
-### Login / logout / Whoami Stuff
+### login / logout / Whoami Stuff
+### single authenticated entity....
 ###
 ### #########################################
 
@@ -516,6 +517,10 @@ def postReauthenticateLoginData(
         assumedusername: str = Form(...)
         ):
     
+    # TODO: check if things match - in real backend this is more complicated.
+    # we do someting very wild, we compare that with the username, 
+    # who logged on last. dev-backend will only support one single
+    # authenticated user.
     
     return {
         'id': assumedusername
