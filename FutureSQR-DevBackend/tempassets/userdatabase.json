@@ -1,26 +1,26 @@
 {
-  "128b60c3-6b47-4f98-80a8-71ce84fdf8f9": {
-    "avatarlocation": "128b60c3-6b47-4f98-80a8-71ce84fdf8f9.png",
+  "6822a80d-1854-304c-a26d-81acd2c008f3": {
+    "avatarlocation": "6822a80d-1854-304c-a26d-81acd2c008f3.png",
     "displayname": "Maxim Gansert Banned Testuser",
     "email": "mindscan@local.localhost",
     "isbanned": true,
     "loginname": "mindscan-banned",
-    "uuid": "128b60c3-6b47-4f98-80a8-71ce84fdf8f9"
+    "uuid": "6822a80d-1854-304c-a26d-81acd2c008f3"
   },
-  "5f697406-9583-438c-a25c-9f1eb7407917": {
-    "avatarlocation": "5f697406-9583-438c-a25c-9f1eb7407917.png",
-    "displayname": "Elsa Someone",
-    "email": "contact@elsamail.local",
-    "isbanned": false,
-    "loginname": "someoneelsa",
-    "uuid": "5f697406-9583-438c-a25c-9f1eb7407917"
-  },
-  "b4d1449b-d50e-4c9f-a4cb-dd2230278306": {
-    "avatarlocation": "b4d1449b-d50e-4c9f-a4cb-dd2230278306.png",
+  "8ce74ee9-48ff-3dde-b678-58a632887e31": {
+    "avatarlocation": "8ce74ee9-48ff-3dde-b678-58a632887e31.png",
     "displayname": "Maxim Gansert",
     "email": "contact@themail.local",
     "isbanned": false,
     "loginname": "mindscan-de",
-    "uuid": "b4d1449b-d50e-4c9f-a4cb-dd2230278306"
+    "uuid": "8ce74ee9-48ff-3dde-b678-58a632887e31"
+  },
+  "f5fc8449-3049-3498-9f6b-ce828515bba2": {
+    "avatarlocation": "f5fc8449-3049-3498-9f6b-ce828515bba2.png",
+    "displayname": "Elsa Someone",
+    "email": "contact@elsamail.local",
+    "isbanned": false,
+    "loginname": "someoneelsa",
+    "uuid": "f5fc8449-3049-3498-9f6b-ce828515bba2"
   }
 }
