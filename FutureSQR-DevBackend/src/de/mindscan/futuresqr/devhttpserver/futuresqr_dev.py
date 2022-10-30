@@ -26,7 +26,7 @@ SOFTWARE.
 @autor: Maxim Gansert
 '''
 
-from fastapi import FastAPI, Form   #, HTTPException
+from fastapi import FastAPI, Form, HTTPException, status
 
 from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision,\
     calculateFileListForSingleRevision, caluclateSimpleRevisionInformation, calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo,\
@@ -39,6 +39,7 @@ from de.mindscan.futuresqr.reviewthreads.review_threads_database import ReviewTh
 from de.mindscan.futuresqr.threads.threads_database import ThreadsDatabase
 from de.mindscan.futuresqr.users.users_database import UsersDatabase
 from de.mindscan.futuresqr.assets.hardcoded import getSystemConfigurationMap
+from de.mindscan.futuresqr.assets.passwd import getPasswdEntry
 from de.mindscan.futuresqr.configuration.system_configuration import SystemConfiguration
 
 import de.mindscan.futuresqr.devhttpserver.myconfig as myconfig
@@ -477,6 +478,54 @@ def getSimpleUserDictionary():
     simpleUserMap = usersDB.getAsSimpleUserMap(allusers)
     
     return { 'dictionary' : simpleUserMap }
+
+
+### #########################################
+###
+### Login / logout / Whoami Stuff
+###
+### #########################################
+
+@app.post("/FutureSQR/rest/user/authenticate")
+def postLoginData(
+        username:str = Form(...), 
+        password:str = Form(...)):
+
+    # find user by uername in user passwd database
+    pwEntry = getPasswdEntry(username)
+    if pwEntry is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No such user or not authenticated"
+            )
+    # find userentry by username in user database
+    userEntry = usersDB.getUserByLogonName(username);
+
+    # check if user is banned
+    
+    # verify password,
+    # either we generate a valid user dataset response
+    # or we handle the wrong password by how?
+    
+    return {
+        'id': username
+        }
+
+@app.post("/FutureSQR/rest/user/reauthenticate")
+def postReauthenticateLoginData(
+        username: str = Form(...)
+        ):
+    return {
+        'id': username
+        }
+    
+
+@app.post("/FutureSQR/rest/user/logout")
+def postLogoutData(
+        username: str = Form(...)
+        ):
+    return {
+        }
 
 
 ### #########################################
