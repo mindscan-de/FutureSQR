@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,9 @@ export class AuthNService {
 	// Javascript lifecycle (e.g. F5 (pagereload) or bookmarks)
 	// Authentication lifecycle, which can span multiple javascript lifecycles
 	
-	constructor() { }
+	constructor(
+		private httpClient : HttpClient		
+	) { }
 	
 	// this will do a full login.
 	login( loginname: string, password: string, callbacks ):void {
@@ -27,7 +30,12 @@ export class AuthNService {
 	// on success we deploy authoritzation data
 	// on success we inform authnguard via callback or so.
 	reauthenticate( ): void {
+	}
+	
+	async reAuthenticateAsync() {
+		let URL = "/rest/account/whoami";
 		
+		return await this.httpClient.get(URL, {}).toPromise();
 	}
 	
 	
