@@ -6,12 +6,13 @@ import { FormsModule } from '@angular/forms';
 import { AccountRoutingModule } from './account-routing.module';
 import { LoginComponent } from './login/login.component';
 import { AccountLayoutComponent } from './account-layout/account-layout.component';
+import { ReauthWsComponent } from './reauth-ws/reauth-ws.component';
 
 
 @NgModule({
   declarations: [
 	LoginComponent, 
-	AccountLayoutComponent],
+	AccountLayoutComponent, ReauthWsComponent],
   imports: [
     CommonModule,
     AccountRoutingModule,
