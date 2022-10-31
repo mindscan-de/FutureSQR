@@ -6,7 +6,12 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuthNService {
 	
+	private static readonly URL_LOGIN_AUTHENTICATE    = "/FutureSQR/rest/user/authenticate";
+	private static readonly URL_LOGIN_REAUTHENTICATE  = "/FutureSQR/rest/user/reauthenticate";
+	private static readonly URL_LOGOUT                = "/FutureSQR/rest/user/logout";
+	
 	// Actually we have to deal with two different life cycles
+	
 	
 	// Javascript lifecycle (e.g. F5 (pagereload) or bookmarks)
 	// Authentication lifecycle, which can span multiple javascript lifecycles
@@ -33,9 +38,9 @@ export class AuthNService {
 	}
 	
 	async reAuthenticateAsync():Promise<any> {
-		let URL = "/rest/account/whoami";
+		let url = AuthNService.URL_LOGIN_REAUTHENTICATE;
 		
-		return await this.httpClient.get<any>(URL, {}).toPromise();
+		return await this.httpClient.get<any>(url, {}).toPromise();
 	}
 	
 	
