@@ -19,13 +19,12 @@ export class AuthNService {
 	
 	// Actually we have to deal with two different life cycles
 	// this one only lives as a variable in memory
+	// Javascript lifecycle (e.g. F5 (pagereload) or bookmarks)
 	private __currentBrowserAuthLifeCycleState: BrowserAuthLifecycleState;
+	// Authentication lifecycle, which can span multiple javascript lifecycles
 	// this one lives in the localstorage
 	private __currentUserAuthLifecycleState: UserAuthLifecycleState;
 	
-	
-	// Javascript lifecycle (e.g. F5 (pagereload) or bookmarks)
-	// Authentication lifecycle, which can span multiple javascript lifecycles
 	
 	constructor(
 		private httpClient : HttpClient		
