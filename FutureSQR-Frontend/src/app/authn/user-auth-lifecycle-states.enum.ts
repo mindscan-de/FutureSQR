@@ -1,4 +1,7 @@
 export enum UserAuthLifecycleStates {
+	// The current user auth lifecycle state belongs into the local storage, because we want to maintain it
+	// over browser restarts / or lets say longer times.
+	
 	// starting state, without using the username
 	None,
 	
