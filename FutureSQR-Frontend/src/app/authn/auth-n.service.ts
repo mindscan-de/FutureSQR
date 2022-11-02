@@ -18,7 +18,9 @@ export class AuthNService {
 	private static readonly URL_LOGOUT                = "/FutureSQR/rest/user/logout";
 	
 	// Actually we have to deal with two different life cycles
+	// this one only lives as a variable in memory
 	private __currentBrowserAuthLifeCycleState: BrowserAuthLifecycleState;
+	// this one lives in the localstorage
 	private __currentUserAuthLifecycleState: UserAuthLifecycleState;
 	
 	
