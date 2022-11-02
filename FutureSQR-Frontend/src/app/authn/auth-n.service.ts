@@ -8,6 +8,8 @@ import { map, first } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthNService {
+	// URL to visit to retrieve a preauth token, to be able to post to AUTHENTICATE / REAUTHENTICATE
+	private static readonly URL_PREAUTH_TOKEN          = "/FutureSQR/rest/user/preauthtoken";
 	
 	private static readonly URL_LOGIN_AUTHENTICATE    = "/FutureSQR/rest/user/authenticate";
 	private static readonly URL_LOGIN_REAUTHENTICATE  = "/FutureSQR/rest/user/reauthenticate";
@@ -33,24 +35,38 @@ export class AuthNService {
 		
 		formData.set('loginname', loginname);
 		formData.set('password', password);
+		// TODO also present: some kind of pre auth crsf tokens?
+		
+		let that = this;
 		
 		// TDOO: Use Backend to send password and username for authentication
 		this.httpClient.post<any>(AuthNService.URL_LOGIN_AUTHENTICATE, formData).pipe(first()).subscribe(
 			data => {
-				// TODO on logindata received
-				// check the login data
-				// on succewss
-				// deploy userdata
-				// deploy authorization data
-				
-				// parse the userdata for user data and authorization information.  
-				// receive authorization and userdata
+				that.loginOnDataReceived(data);
 			},
 			error => {
-				// TODO on login failed for reasons
+				that.loginOnError();
 			}			
 		);
+	}
+	
+	loginOnDataReceived(data:any):  void {
+		// check the login data		
 		
+		// Okay we got some data,
+		// -- this can say, that the authentication failed for some reason, 
+		//    -- then we reset the present authn and authz data?
+		
+		// or we got some user data, this needs to be set and distributed...
+		// receive authorization and userdata
+		// parse the userdata for user data and authorization information.  
+		// deploy userdata
+		// deploy authorization data
+ 
+	}
+	
+	loginOnError(): void {
+		// we received some error code from the server, so what to do in this case?
 	}
 	
 	// TODO silent reauthentication e.g. on reload of the page, we need to retrieve the authn and authz data again, 
