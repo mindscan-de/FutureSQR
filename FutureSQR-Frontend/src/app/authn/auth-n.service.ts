@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { map, first } from 'rxjs/operators';
 
+import { BrowserAuthLifecycleState } from './browser-auth-lifecycle-state.enum';
+import { UserAuthLifecycleState } from './user-auth-lifecycle-state.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +18,8 @@ export class AuthNService {
 	private static readonly URL_LOGOUT                = "/FutureSQR/rest/user/logout";
 	
 	// Actually we have to deal with two different life cycles
+	private __currentBrowserAuthLifeCycleState: BrowserAuthLifecycleState;
+	private __currentUserAuthLifecycleState: UserAuthLifecycleState;
 	
 	
 	// Javascript lifecycle (e.g. F5 (pagereload) or bookmarks)
@@ -23,12 +27,21 @@ export class AuthNService {
 	
 	constructor(
 		private httpClient : HttpClient		
-	) { }
+	) { 
+		this.__currentBrowserAuthLifeCycleState = BrowserAuthLifecycleState.None;
+		
+		// actually we should retrieve this from localstorage, and if not available then assume None
+		this.__currentUserAuthLifecycleState= UserAuthLifecycleState.None;
+		
+		
+		// TODO: And we should keep this information in a BehaviorSubject, 
+		//       such that these things can be subscribed to if needed 
+	}
 	
 	// this will do a full login using username and password.
 	login( loginname: string, password: string, callbacks ):void {
 		
-		// TODO: maybe we need to aquire a authentication crsf token to send our login
+		// TODO: maybe we need to aquire a pre-auth authentication crsf token to send our login
 		//       maybe later.
 		
 		let formData = new FormData();
@@ -56,17 +69,21 @@ export class AuthNService {
 		// Okay we got some data,
 		// -- this can say, that the authentication failed for some reason, 
 		//    -- then we reset the present authn and authz data?
+		// TODO: set currentUserAuthLifeCycleState to UserAuthLifecycleState.None
 		
 		// or we got some user data, this needs to be set and distributed...
 		// receive authorization and userdata
 		// parse the userdata for user data and authorization information.  
 		// deploy userdata
 		// deploy authorization data
- 
+ 		// TODO: set currentUserAuthLifeCycleState to UserAuthLifecycleState.LoggedIn
+
 	}
 	
 	loginOnError(): void {
 		// we received some error code from the server, so what to do in this case?
+		
+		// TODO: set currentUserAuthLifeCycleState to UserAuthLifecycleState.None
 	}
 	
 	// TODO silent reauthentication e.g. on reload of the page, we need to retrieve the authn and authz data again, 
