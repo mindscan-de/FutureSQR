@@ -1,4 +1,4 @@
-export enum UserAuthLifecycleStates {
+export enum UserAuthLifecycleState {
 	// The current user auth lifecycle state belongs into the local storage, because we want to maintain it
 	// over browser restarts / or lets say longer times.
 	
