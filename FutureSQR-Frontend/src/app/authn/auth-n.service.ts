@@ -113,16 +113,13 @@ export class AuthNService {
 	}
 	
 	isAuthenticatedInCurrentLifecycle() : boolean {
-		// We must answer the question, whether we did an authentication within the current
-		// Java script lifecylce
-		
-		// we return true iff:
-		// * either successful login, 
-		// * or a successful reauthentication
-		// we return false iff:
-		// * the user logged out in this lifecycle
-		
+		if(this.__currentUserAuthLifecycleState == UserAuthLifecycleState.LoggedIn) {
+			if(	(this.__currentBrowserAuthLifeCycleState === BrowserAuthLifecycleState.FullyAuthenticated) ||
+				(this.__currentBrowserAuthLifeCycleState === BrowserAuthLifecycleState.ReAuthenticated) ) {
+				return true;
+			}
+		}
 
-		return true;
+		return false;
 	}
 }
