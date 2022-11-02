@@ -42,8 +42,13 @@ export class AuthNService {
 	// this will do a full login using username and password.
 	login( loginname: string, password: string, callbacks ):void {
 		
+		
 		// TODO: maybe we need to aquire a pre-auth authentication crsf token to send our login
 		//       maybe later.
+		// we only need to aquire this token, if we are in __currentBrowserAuthLifeCycleState None
+		// we have this pre-auth token, if we are at __currentBrowserAuthLifeCycleState PreAuthenticated
+		
+		// TODO: also we should here clear the __currentUserAuthLifecycleState To None if Not set to none.
 		
 		let formData = new FormData();
 		
