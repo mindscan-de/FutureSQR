@@ -11,13 +11,13 @@ import { ReauthWsComponent } from './reauth-ws/reauth-ws.component';
 
 @NgModule({
   declarations: [
-	LoginComponent, 
-	AccountLayoutComponent, ReauthWsComponent],
+    LoginComponent,
+    AccountLayoutComponent, ReauthWsComponent],
   imports: [
     CommonModule,
     AccountRoutingModule,
-	FormsModule,
-	ReactiveFormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class AccountModule { }
