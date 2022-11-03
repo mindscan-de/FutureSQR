@@ -127,4 +127,9 @@ export class AuthNService {
 
 		return false;
 	}
+	
+    isUserLoggedIn() {
+        return this.__currentUserAuthLifecycleState == UserAuthLifecycleState.LoggedIn;
+    }
+	
 }
