@@ -3,6 +3,7 @@ import { HttpClient, HttpEvent, HttpSentEvent } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { map, first, tap } from 'rxjs/operators';
 import { BackendModelSimpleUserEntry } from '../backend/model/backend-model-simple-user-entry';
+import { Observer } from 'rxjs';
 
 
 @Injectable({
@@ -17,6 +18,8 @@ export class AuthNService {
 
 	private lastUpdate?: Date;
 	private userInfo?: AuthUserInfo;
+	private authorizationObserver?: Observer<AuthUserInfo | null>;
+
 
 
 	// Actually we have to deal with two different life cycles
@@ -42,9 +45,18 @@ export class AuthNService {
 		formData.set('password', password);
 
 		// TDOO: Use Backend to send password and username for authentication
-		this.httpClient.post<AuthUserInfo>(AuthNService.URL_LOGIN_AUTHENTICATE, formData).pipe(first()).subscribe(
+		this.httpClient.post<AuthUserInfo | null>(AuthNService.URL_LOGIN_AUTHENTICATE, formData).pipe(first()).subscribe(
 			{
-				next: data => {
+				next: newUser => {
+					console.info("received new user answer")
+					console.info(newUser);
+					this.authorizationObserver?.next(newUser);
+					if (newUser) {
+						callbacks.success(newUser)
+					} else {
+						callbacks.fail();
+						this.logout()
+					}
 					// TODO on logindata received
 					// check the login data
 					// on success
@@ -55,11 +67,26 @@ export class AuthNService {
 					// receive authorization and userdata
 				},
 				error: e => {
-					// TODO on login failed for reasons
+					console.error(e);
+					callbacks.error();
+					this.logout()
 				}
 			}
 		);
 
+	}
+
+	private updateAuthorizationObserver() {
+		this.authorizationObserver?.next(this.userInfo)
+	}
+
+	getAuthorizationObserver(): Observable<AuthUserInfo | null> {
+		this.authorizationObserver?.complete();
+
+		return new Observable((subscriber) => {
+			this.authorizationObserver = subscriber;
+			return { unsubscribe() { } };
+		})
 	}
 
 	// TODO silent reauthentication e.g. on reload of the page, we need to retrieve the authn and authz data again, 
@@ -76,7 +103,11 @@ export class AuthNService {
 		let url = AuthNService.URL_LOGIN_REAUTHENTICATE;
 
 		return this.httpClient.get<AuthUserInfo | null>(url, {}).pipe(first(),
-			tap<AuthUserInfo>({ next: this.processNewUserData, error: console.error, complete: () => console.info("Reauth completed.") }));
+			tap<AuthUserInfo>({
+				next: this.processNewUserData,
+				error: console.error,
+				complete: () => { this.updateAuthorizationObserver(); console.info("Reauth completed.") }
+			}));
 	}
 
 	processNewUserData(user: AuthUserInfo) {
@@ -95,8 +126,10 @@ export class AuthNService {
 		localStorage.clear()
 		// clear authorizatuin data
 		this.lastUpdate = undefined;
+		this.userInfo = undefined;
 		// authz should be informed...?
 		// maybe userdata via subscription?
+		this.authorizationObserver?.next(null);
 		this.httpClient.post(AuthNService.URL_LOGOUT, null)
 		// we should persist that the authentication lifecylcle was ""logged out""
 	}
