@@ -110,7 +110,7 @@ export class AuthNService {
 	
 	logout():void {
 		// clear userdata
-		// clear authorizatuin data
+		// clear authorization data
 		// autnguard should be informed...?
 		// maybe userdata via subscription?
 		
