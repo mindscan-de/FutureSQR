@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map, first } from 'rxjs/operators';
 
 import { BrowserAuthLifecycleState } from './browser-auth-lifecycle-state.enum';
@@ -25,6 +25,11 @@ export class AuthNService {
 	// this one lives in the localstorage
 	private __currentUserAuthLifecycleState: UserAuthLifecycleState;
 	
+	// TODO: Implement proper CurrentBackendUser type...
+	private _currentBackendUserValue = "";
+	private _currentBackendUserSubject: BehaviorSubject<any>;
+	private currentBackendUserSubject: Observable<any>;
+	
 	
 	constructor(
 		private httpClient : HttpClient		
@@ -35,8 +40,8 @@ export class AuthNService {
 		this.__currentUserAuthLifecycleState= UserAuthLifecycleState.None;
 		
 		
-		// TODO: And we should keep this information in a BehaviorSubject, 
-		//       such that these things can be subscribed to if needed 
+		this._currentBackendUserSubject = new BehaviorSubject<any>(this._currentBackendUserValue);
+		this.currentBackendUserSubject = this._currentBackendUserSubject.asObservable();
 	}
 	
 	// this will do a full login using username and password.
@@ -122,7 +127,9 @@ export class AuthNService {
 		formData.set( 'username', 'mindscan-de'); 
 		
 		this.httpClient.post<any>(AuthNService.URL_LOGOUT, formData).pipe(first()).subscribe(
-			data => {},
+			data => {
+				// enforce Navigate 
+			},
 			error => {}
 		);
 		
@@ -150,4 +157,8 @@ export class AuthNService {
         return this.__currentUserAuthLifecycleState == UserAuthLifecycleState.LoggedIn;
     }
 	
+	
+	liveBackendUserData():Observable<any> {
+		return this.currentBackendUserSubject;
+	}
 }
