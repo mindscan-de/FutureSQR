@@ -15,10 +15,8 @@ export class CurrentUserService {
 	private _currentUserSubject: BehaviorSubject<CurrentUiUser>;
 	private currentUserSubject: Observable<CurrentUiUser>;
 
-	// TODO: UI-CurrentUserService must register at AUTHN to retrieve updates, and set / update the CurrentUiUser.
 	constructor(
 		private authNService : AuthNService
-		
 	) {
 		this._currentUserSubject = new BehaviorSubject<CurrentUiUser>(this._currentUserValue);
 		this.currentUserSubject = this._currentUserSubject.asObservable();
