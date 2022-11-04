@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
+import { AuthNService } from '../authn/auth-n.service';
+
 import { CurrentAuthorizations } from './model/current-authorizations';
 
 @Injectable({
@@ -16,9 +18,17 @@ export class AuthZService {
 	private _currentAuthorizationsSubject: BehaviorSubject<CurrentAuthorizations>;
 	private currentAuthorizationsSubject: Observable<CurrentAuthorizations>;
 
-	constructor() { 
+	constructor(
+		private authNService : AuthNService
+	) { 
 		this._currentAuthorizationsSubject = new BehaviorSubject<CurrentAuthorizations>(this._currentAuthorizationsValue);
 		this.currentAuthorizationsSubject = this._currentAuthorizationsSubject.asObservable();
+		
+		this.authNService.liveBackendUserData().subscribe(
+			updatedUserData => {
+				
+			},
+		);
 	}
 	
 	setFakeAdmin():void {
