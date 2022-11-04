@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
+import { AuthNService } from '../authn/auth-n.service';
+
 import { CurrentUiUser } from './model/current-ui-user';
 
 @Injectable({
@@ -14,11 +16,21 @@ export class CurrentUserService {
 	private currentUserSubject: Observable<CurrentUiUser>;
 
 	// TODO: UI-CurrentUserService must register at AUTHN to retrieve updates, and set / update the CurrentUiUser.
-	constructor() {
+	constructor(
+		private authNService : AuthNService
+		
+	) {
 		this._currentUserSubject = new BehaviorSubject<CurrentUiUser>(this._currentUserValue);
 		this.currentUserSubject = this._currentUserSubject.asObservable();
+		
+		this.authNService.liveBackendUserData().subscribe(
+			updatedUserData => {
+				
+			},
+		);
 	}
 	
+		
 	
 	setCurrentUiUser(currentUiUser:CurrentUiUser):void {
 		// update the backing item
