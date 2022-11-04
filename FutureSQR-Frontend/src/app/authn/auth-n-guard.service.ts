@@ -18,7 +18,7 @@ export class AuthNGuardService implements CanActivate {
 		const login = this.authNService.isAuthenticatedInCurrentLifecycle()
 
 		if (login instanceof Promise) {
-
+			console.info("guard promise")
 			return new Promise<boolean | UrlTree>((resolve, reject) => {
 				(login as Promise<boolean>)
 					.then(
@@ -31,6 +31,7 @@ export class AuthNGuardService implements CanActivate {
 
 	private handleBooleanLoginState(isLogin: boolean, returnUrl: string): boolean | UrlTree {
 
+		console.info("isLogin", isLogin);
 		return isLogin ? true : this.router.createUrlTree(["account", "login"], { queryParams: { returnUrl: returnUrl } });
 	}
 }

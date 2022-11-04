@@ -19,6 +19,7 @@ export class AuthNService {
 	private lastUpdate?: Date;
 	private userInfo?: AuthUserInfo;
 	private authorizationObserver?: Observer<AuthUserInfo | null>;
+	private currentSubscription: any | null = null;
 
 
 
@@ -69,7 +70,6 @@ export class AuthNService {
 				error: e => {
 					console.error(e);
 					callbacks.error();
-					this.logout()
 				}
 			}
 		);
@@ -96,7 +96,7 @@ export class AuthNService {
 	// on success we deploy authoritzation data
 	// on success we inform authnguard via callback or so.
 	reauthenticateSilent(): void {
-		this.reAuthenticate().subscribe();
+		this.currentSubscription = this.reAuthenticate().subscribe({ complete: () => { } });
 	}
 
 	reAuthenticate(): Observable<AuthUserInfo | null> {
@@ -106,17 +106,23 @@ export class AuthNService {
 			tap<AuthUserInfo>({
 				next: this.processNewUserData,
 				error: console.error,
-				complete: () => { this.updateAuthorizationObserver(); console.info("Reauth completed.") }
+				complete: () => {
+					this.updateAuthorizationObserver();
+					console.info("Reauth completed.");
+					this.currentSubscription = null;
+				}
 			}));
 	}
 
-	processNewUserData(user: AuthUserInfo) {
-		console.info(user);
-		if (user instanceof AuthUserInfo) {
+	private processNewUserData(user: AuthUserInfo) {
+		if (user) {
+			console.info("set user ...")
 			this.lastUpdate = new Date();
 			this.userInfo = user;
+			console.info(this.userInfo);
 		} else {
 			console.error("Unexpected answer type: ", typeof user)
+			console.error(user)
 		}
 	}
 
@@ -135,16 +141,18 @@ export class AuthNService {
 	}
 
 	isAuthenticatedInCurrentLifecycle(): boolean | Promise<boolean> {
-		// We must answer the question, whether we did an authentication within the current
-		// Java script lifecylce
+		if (this.currentSubscription) {
+			return new Promise<boolean>((resolve, reject) => {
+				console.log("waitingauth set");
+				this.currentSubscription.add(() => {
+					let b = this.userInfo !== undefined;
+					console.info(this.userInfo)
+					resolve(b)
+				})
+			})
+		}
 
-		// we return true iff:
-		// * either successful login, 
-		// * or a successful reauthentication
-		// we return false iff:
-		// * the user logged out in this lifecycle
-
-
+		console.info(this.userInfo)
 		return this.userInfo !== undefined;
 	}
 }
