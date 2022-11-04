@@ -8,6 +8,7 @@ import { NavbarBreadcrumbItem } from '../../services/model/navbar-breadcrumb-ite
 import { CurrentUserService } from '../../services/current-user.service';
 import { CurrentUiUser } from '../../services/model/current-ui-user';
 
+import { AuthNService } from '../../authn/auth-n.service';
 import { AuthZService } from '../../authz/auth-z.service';
 import { CurrentAuthorizations } from '../../authz/model/current-authorizations';
 
@@ -29,6 +30,7 @@ export class TopNavigationBarComponent implements OnInit {
 	constructor (
 		private navigationBarService : NavigationBarService,
 		private currentUserService : CurrentUserService,
+		private authNService : AuthNService,
 		private authZService : AuthZService,
 		private userDataService : UserDataQueryBackendService
 	) {}
@@ -111,8 +113,12 @@ export class TopNavigationBarComponent implements OnInit {
 	}
 	
 	onLogoutClicked():void {
+		// maybe we should navigate to logout router outlet and let the logout router outlet do the magic?
+		
 		// TODO invoke backend logout, and on success of backend logout, the currentUserService receives a new User...
 		// This here is just to satisfy the ui for now and communicate the idea.
+		
+		this.authNService.logout();
 		
 		let newUiUser = new CurrentUiUser();
 		newUiUser.uuid = "b4d1449b-d50e-4c9f-a4cb-dd2230278306";
