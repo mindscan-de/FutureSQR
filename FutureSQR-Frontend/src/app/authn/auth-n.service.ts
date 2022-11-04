@@ -117,12 +117,22 @@ export class AuthNService {
 	
 	
 	logout():void {
-		// clear userdata
-		// clear authorization data
-		// autnguard should be informed...?
-		// maybe userdata via subscription?
+		let formData:FormData = new FormData();
+		// TODO: fixme: Hardcoded username
+		formData.set( 'username', 'mindscan-de'); 
 		
-		// we should persist that the authentication lifecylcle was ""logged out""
+		this.httpClient.post<any>(AuthNService.URL_LOGOUT, formData).pipe(first()).subscribe(
+			data => {},
+			error => {}
+		);
+		
+		this.__currentBrowserAuthLifeCycleState = BrowserAuthLifecycleState.None;
+		this.__currentUserAuthLifecycleState = UserAuthLifecycleState.LoggedOut;
+		
+		// TODO: autnguard should be informed...?
+		// TODO: userdata via subscriptions should be informed?
+		
+		// TODO: we should persist that the user authentication lifecylcle was ""logged out""
 	}
 	
 	isAuthenticatedInCurrentLifecycle() : boolean {
