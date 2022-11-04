@@ -71,7 +71,6 @@ export class LoginComponent implements OnInit {
 		// indicate that we are processing this request and this will disable the button and run the spinner
 		this.loading = true;
 		
-		// TODO add a subscription/future/callback for the good and the bad case
 		this.authnService.login( this.f.username.value, this.f.password.value, 
 			{	// if login is successful, we want to redirect the user to the desired page
 				next: ()=>{this.onSuccessfulAuthentication(); },
