@@ -6,6 +6,8 @@ import { map, first } from 'rxjs/operators';
 import { BrowserAuthLifecycleState } from './browser-auth-lifecycle-state.enum';
 import { UserAuthLifecycleState } from './user-auth-lifecycle-state.enum';
 
+import { CurrentBackendUser } from './model/current-backend-user';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -25,11 +27,10 @@ export class AuthNService {
 	// this one lives in the localstorage
 	private __currentUserAuthLifecycleState: UserAuthLifecycleState;
 	
-	// TODO: Implement proper CurrentBackendUser type...
-	private _currentBackendUserValue = "";
-	private _currentBackendUserSubject: BehaviorSubject<any>;
-	private currentBackendUserSubject: Observable<any>;
-	
+	// We will keep a copy od the current Backend user in AuthNService.
+	private _currentBackendUserValue = new CurrentBackendUser();
+	private _currentBackendUserSubject: BehaviorSubject<CurrentBackendUser>;
+	private currentBackendUserSubject: Observable<CurrentBackendUser>;
 	
 	constructor(
 		private httpClient : HttpClient		
@@ -158,7 +159,7 @@ export class AuthNService {
     }
 	
 	
-	liveBackendUserData():Observable<any> {
+	liveBackendUserData():Observable<CurrentBackendUser> {
 		return this.currentBackendUserSubject;
 	}
 }
