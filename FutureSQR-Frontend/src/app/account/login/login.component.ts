@@ -38,6 +38,8 @@ export class LoginComponent implements OnInit {
 	
 	private returnURL: string;
 	
+	// TODO: we must clear the content of the breadcrumb navigation bar...
+	
 	constructor(
 		private formBuilder : FormBuilder,
 		private route: ActivatedRoute,
@@ -84,6 +86,7 @@ export class LoginComponent implements OnInit {
 	}
 	
 	onSuccessfulAuthentication(): void  {
+		this.loading = false;
 		this.router.navigateByUrl(this.returnURL);
 	}
 	
