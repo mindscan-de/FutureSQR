@@ -43,6 +43,7 @@ from de.mindscan.futuresqr.assets.passwd import getPasswdEntry
 from de.mindscan.futuresqr.configuration.system_configuration import SystemConfiguration
 
 import de.mindscan.futuresqr.devhttpserver.myconfig as myconfig
+from de.mindscan.futuresqr.authnsession.session_database import SessionDatabase
 
 ### ---------------------------------------------------------------
 ### provide general system configuration - for different developers
@@ -66,6 +67,7 @@ threadsDB = ThreadsDatabase({})
 usersDB = UsersDatabase({
     'persistenceActive': False
     });
+sessionDB = SessionDatabase({})
 
 ### --------------
 ### REST Endpoints
@@ -508,6 +510,8 @@ def postLoginData(
     # either we generate a valid user dataset response
     # or we handle the wrong password by how?
     
+    sessionDB.userAuthenticationClear(userEntry)
+    
     return {
         'id': username
         }
@@ -517,13 +521,18 @@ def postReauthenticateLoginData(
         assumedusername: str = Form(...)
         ):
     
+    if sessionDB.isAuthenticationPresent(assumedusername):
+        return {
+            'id': assumedusername
+            }
+        
+    
     # TODO: check if things match - in real backend this is more complicated.
     # we do someting very wild, we compare that with the username, 
     # who logged on last. dev-backend will only support one single
     # authenticated user.
     
     return {
-        'id': assumedusername
         }
     
 
@@ -531,6 +540,9 @@ def postReauthenticateLoginData(
 def postLogoutData(
         username: str = Form(...)
         ):
+    
+    sessionDB.userAuthenticationClear(username)
+    
     return {
         }
 
