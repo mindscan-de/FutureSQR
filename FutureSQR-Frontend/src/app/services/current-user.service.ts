@@ -23,7 +23,9 @@ export class CurrentUserService {
 		
 		this.authNService.liveBackendUserData().subscribe(
 			updatedUserData => {
-				
+				// TODO: transform data to UI Type format 
+				// m2m : CurrentBackendUser -> CurrentUiUser
+				// then send via next...
 			},
 		);
 	}

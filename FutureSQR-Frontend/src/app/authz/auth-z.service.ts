@@ -26,7 +26,9 @@ export class AuthZService {
 		
 		this.authNService.liveBackendUserData().subscribe(
 			updatedUserData => {
-				
+				// TODO: transform data to UI Type format 
+				// m2m : CurrentBackendUser -> CurrentAuthorizations
+				// then send via next...
 			},
 		);
 	}
