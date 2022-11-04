@@ -25,6 +25,7 @@ export class AuthNGuardService implements CanActivate {
 		// check first userlifecycle says that thelast known state was "logged in"
 		if(this.authNService.isUserLoggedIn()) {
 /*			
+
 			// if javascript lifecycle is new and authentication lifecycle is logged in user
 			// we want to reauthenticate - send the user to a waiting page (return false), and 
 			// if user could be reauthenicated, and send him back to the url he actually wanted 
@@ -46,9 +47,10 @@ export class AuthNGuardService implements CanActivate {
 */		}
 		else
 		{
-/*			this.router.navigate(['/','account','login'], { queryParams: {returnUrl : state.url} });
+			// user is not logged in, or is logged out
+			this.router.navigate(['/','account','login'], { queryParams: {returnUrl : state.url} });
 			return false;
-*/		}
+		}
 		
 		
 		// if the user lifecycle is not logged in, we return false, and route to the login page, 
