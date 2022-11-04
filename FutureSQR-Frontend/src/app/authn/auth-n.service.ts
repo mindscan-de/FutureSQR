@@ -52,7 +52,7 @@ export class AuthNService {
 		
 		let formData = new FormData();
 		
-		formData.set('loginname', loginname);
+		formData.set('username', loginname);
 		formData.set('password', password);
 		// TODO also present: some kind of pre auth crsf tokens?
 		
@@ -62,9 +62,15 @@ export class AuthNService {
 		this.httpClient.post<any>(AuthNService.URL_LOGIN_AUTHENTICATE, formData).pipe(first()).subscribe(
 			data => {
 				that.loginOnDataReceived(data);
+				if(callbacks.next != undefined) {
+					callbacks.next();
+				}
 			},
 			error => {
 				that.loginOnError();
+				if(callbacks.error != undefined) {
+					callbacks.error();
+				}
 			}			
 		);
 	}
@@ -76,14 +82,16 @@ export class AuthNService {
 		// -- this can say, that the authentication failed for some reason, 
 		//    -- then we reset the present authn and authz data?
 		// TODO: set currentUserAuthLifeCycleState to UserAuthLifecycleState.None
+
 		
 		// or we got some user data, this needs to be set and distributed...
 		// receive authorization and userdata
 		// parse the userdata for user data and authorization information.  
 		// deploy userdata
 		// deploy authorization data
- 		// TODO: set currentUserAuthLifeCycleState to UserAuthLifecycleState.LoggedIn
-
+	
+		this.__currentUserAuthLifecycleState = UserAuthLifecycleState.LoggedIn;
+		this.__currentBrowserAuthLifeCycleState = BrowserAuthLifecycleState.FullyAuthenticated;
 	}
 	
 	loginOnError(): void {
