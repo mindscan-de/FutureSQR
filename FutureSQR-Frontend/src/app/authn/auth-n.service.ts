@@ -132,10 +132,14 @@ export class AuthNService {
 	reauthenticate( ): void {
 	}
 	
-	async reAuthenticateAsync():Promise<any> {
+	async reAuthenticateAsync():Promise<CurrentBackendUser> {
 		let url = AuthNService.URL_LOGIN_REAUTHENTICATE;
 		
-		return await this.httpClient.get<any>(url, {}).toPromise();
+		let formData = new FormData();
+		// TODO: well we need to preserve the last logged in user, such that we can come with this value
+		formData.set("assumedusername", "mindscan-de");
+		
+		return await this.httpClient.post<CurrentBackendUser>(url, formData).toPromise();
 	}
 	
 	
