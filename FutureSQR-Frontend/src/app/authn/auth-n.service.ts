@@ -5,8 +5,10 @@ import { map, first } from 'rxjs/operators';
 
 import { BrowserAuthLifecycleState } from './browser-auth-lifecycle-state.enum';
 import { UserAuthLifecycleState } from './user-auth-lifecycle-state.enum';
+import { CurrentBackendUserUtils } from './model/current-backend-user-utils';
 
 import { CurrentBackendUser } from './model/current-backend-user';
+
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +41,8 @@ export class AuthNService {
 	private _currentBackendUserValue = new CurrentBackendUser();
 	private _currentBackendUserSubject: BehaviorSubject<CurrentBackendUser>;
 	private currentBackendUserSubject: Observable<CurrentBackendUser>;
+	
+	private backendUserUtils = new CurrentBackendUserUtils();
 	
 	constructor(
 		private httpClient : HttpClient		
@@ -73,8 +77,7 @@ export class AuthNService {
 		
 		let that = this;
 		
-		// TDOO: Use Backend to send password and username for authentication
-		this.httpClient.post<any>(AuthNService.URL_LOGIN_AUTHENTICATE, formData).pipe(first()).subscribe(
+		this.httpClient.post<CurrentBackendUser>(AuthNService.URL_LOGIN_AUTHENTICATE, formData).pipe(first()).subscribe(
 			data => {
 				that.loginOnDataReceived(data);
 				if(callbacks.next != undefined) {
@@ -90,23 +93,26 @@ export class AuthNService {
 		);
 	}
 	
-	loginOnDataReceived(data:any):  void {
-		// check the login data		
-		
-		// Okay we got some data,
-		// -- this can say, that the authentication failed for some reason, 
-		//    -- then we reset the present authn and authz data?
-		// TODO: set currentUserAuthLifeCycleState to UserAuthLifecycleState.None
-
+	loginOnDataReceived(newBackendUser:CurrentBackendUser):  void {
+		if( !this.backendUserUtils.isValid(newBackendUser)) {
+			this.updateUserAuthLifecycleState(UserAuthLifecycleState.None);
+			this.updateBrowserAuthLifecylceState(BrowserAuthLifecycleState.None);
+			
+			// update with empty backend user
+			this.updateCurrentBackendUser(new CurrentBackendUser());
+			
+			return;
+		}
+	
+		this.updateUserAuthLifecycleState(UserAuthLifecycleState.LoggedIn);
+		this.updateBrowserAuthLifecylceState(BrowserAuthLifecycleState.FullyAuthenticated);
 		
 		// or we got some user data, this needs to be set and distributed...
 		// receive authorization and userdata
 		// parse the userdata for user data and authorization information.  
 		// deploy userdata
 		// deploy authorization data
-	
-		this.updateUserAuthLifecycleState(UserAuthLifecycleState.LoggedIn);
-		this.updateBrowserAuthLifecylceState(BrowserAuthLifecycleState.FullyAuthenticated);
+		this.updateCurrentBackendUser(newBackendUser);		
 	}
 	
 	
@@ -146,11 +152,7 @@ export class AuthNService {
 		
 		this.updateBrowserAuthLifecylceState( BrowserAuthLifecycleState.None );
 		this.updateUserAuthLifecycleState( UserAuthLifecycleState.LoggedOut );
-		
-		// TODO: autnguard should be informed...?
-		// TODO: userdata via subscriptions should be informed?
-		
-		// TODO: we should persist that the user authentication lifecylcle was ""logged out""
+		this.updateCurrentBackendUser(new CurrentBackendUser());
 	}
 
 	
@@ -184,6 +186,11 @@ export class AuthNService {
 	
 	private updateBrowserAuthLifecylceState(newState: BrowserAuthLifecycleState) : void {
 		this.__currentBrowserAuthLifeCycleState = newState;
+	}
+	
+	private updateCurrentBackendUser(newUser: CurrentBackendUser): void  {
+		this._currentBackendUserValue = newUser;
+		this._currentBackendUserSubject.next(this._currentBackendUserValue);
 	}
 	
 }
