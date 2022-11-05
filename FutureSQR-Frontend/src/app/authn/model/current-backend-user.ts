@@ -9,15 +9,4 @@ export class CurrentBackendUser {
 	public displayname: string;
 	public avatarlocation: string;
 	public email: string;
-	
-	// TODO provide some is valid methods?
-	
-	isValid() {
-		// TODO combine with other metrics as well..
-		return this.isUUIDValid();
-	}
-	
-	isUUIDValid() {
-		return this.uuid!=undefined && this.uuid!=null && this.uuid != "";
-	}
 }
