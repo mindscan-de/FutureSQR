@@ -12,12 +12,20 @@ import { CurrentBackendUser } from './model/current-backend-user';
   providedIn: 'root'
 })
 export class AuthNService {
+	
 	// URL to visit to retrieve a preauth token, to be able to post to AUTHENTICATE / REAUTHENTICATE
 	private static readonly URL_PREAUTH_TOKEN          = "/FutureSQR/rest/user/preauthtoken";
 	
 	private static readonly URL_LOGIN_AUTHENTICATE    = "/FutureSQR/rest/user/authenticate";
 	private static readonly URL_LOGIN_REAUTHENTICATE  = "/FutureSQR/rest/user/reauthenticate";
 	private static readonly URL_LOGOUT                = "/FutureSQR/rest/user/logout";
+	
+	// LOCALSTORAGE KEY for the current user authentication lifecycle state
+	private static readonly LS_KEY_CURRENT_USER_AUTH_LIFECYCLE_STATE = "currentUserAuthLifecycleState";
+	// TODO: LOCALSTORAGE KEY for the current user authentication lifecylce state
+	private static readonly LS_KEY_CURRENT_BACKEND_USER_VALUE = "currentBackendUserValue";
+	// TODO: LOCALSTORARE KEY for previous user
+	private static readonly LS_KEY_PREVIOUS_BACKEND_USER_VALUE = "previousBackendUserValue";
 	
 	// Actually we have to deal with two different life cycles
 	// this one only lives as a variable in memory
@@ -35,26 +43,27 @@ export class AuthNService {
 	constructor(
 		private httpClient : HttpClient		
 	) { 
-		this.__currentBrowserAuthLifeCycleState = BrowserAuthLifecycleState.None;
-		
-		// actually we should retrieve this from localstorage, and if not available then assume None
-		this.__currentUserAuthLifecycleState= UserAuthLifecycleState.None;
-		
-		
 		this._currentBackendUserSubject = new BehaviorSubject<any>(this._currentBackendUserValue);
 		this.currentBackendUserSubject = this._currentBackendUserSubject.asObservable();
+		
+		this.updateBrowserAuthLifecylceState( BrowserAuthLifecycleState.None);
+		this.updateUserAuthLifecycleState(
+			JSON.parse(localStorage.getItem(AuthNService.LS_KEY_CURRENT_USER_AUTH_LIFECYCLE_STATE)) 
+			|| UserAuthLifecycleState.None);
 	}
 	
 	// this will do a full login using username and password.
 	login( loginname: string, password: string, callbacks ):void {
-		
-		
 		// TODO: maybe we need to aquire a pre-auth authentication crsf token to send our login
 		//       maybe later.
 		// we only need to aquire this token, if we are in __currentBrowserAuthLifeCycleState None
 		// we have this pre-auth token, if we are at __currentBrowserAuthLifeCycleState PreAuthenticated
+
 		
-		// TODO: also we should here clear the __currentUserAuthLifecycleState To None if Not set to none.
+		// a login attempt will kill the previous lifecylce state
+		if(this.isUserLoggedIn()) {
+			this.updateUserAuthLifecycleState(UserAuthLifecycleState.None);
+		}
 		
 		let formData = new FormData();
 		
@@ -96,9 +105,10 @@ export class AuthNService {
 		// deploy userdata
 		// deploy authorization data
 	
-		this.__currentUserAuthLifecycleState = UserAuthLifecycleState.LoggedIn;
-		this.__currentBrowserAuthLifeCycleState = BrowserAuthLifecycleState.FullyAuthenticated;
+		this.updateUserAuthLifecycleState(UserAuthLifecycleState.LoggedIn);
+		this.updateBrowserAuthLifecylceState(BrowserAuthLifecycleState.FullyAuthenticated);
 	}
+	
 	
 	loginOnError(): void {
 		// we received some error code from the server, so what to do in this case?
@@ -134,14 +144,16 @@ export class AuthNService {
 			error => {}
 		);
 		
-		this.__currentBrowserAuthLifeCycleState = BrowserAuthLifecycleState.None;
-		this.__currentUserAuthLifecycleState = UserAuthLifecycleState.LoggedOut;
+		this.updateBrowserAuthLifecylceState( BrowserAuthLifecycleState.None );
+		this.updateUserAuthLifecycleState( UserAuthLifecycleState.LoggedOut );
 		
 		// TODO: autnguard should be informed...?
 		// TODO: userdata via subscriptions should be informed?
 		
 		// TODO: we should persist that the user authentication lifecylcle was ""logged out""
 	}
+
+	
 	
 	isAuthenticatedInCurrentLifecycle() : boolean {
 		if(this.__currentUserAuthLifecycleState == UserAuthLifecycleState.LoggedIn) {
@@ -162,4 +174,16 @@ export class AuthNService {
 	liveBackendUserData():Observable<CurrentBackendUser> {
 		return this.currentBackendUserSubject;
 	}
+	
+	
+	private updateUserAuthLifecycleState(newState: UserAuthLifecycleState): void {
+		this.__currentUserAuthLifecycleState = newState;
+		
+		localStorage.setItem(AuthNService.LS_KEY_CURRENT_USER_AUTH_LIFECYCLE_STATE, JSON.stringify(this.__currentUserAuthLifecycleState))
+	}
+	
+	private updateBrowserAuthLifecylceState(newState: BrowserAuthLifecycleState) : void {
+		this.__currentBrowserAuthLifeCycleState = newState;
+	}
+	
 }
