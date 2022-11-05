@@ -139,16 +139,17 @@ export class AuthNService {
 	
 	
 	logout():void {
-		let formData:FormData = new FormData();
-		// TODO: fixme: Hardcoded username
-		formData.set( 'username', 'mindscan-de'); 
-		
-		this.httpClient.post<any>(AuthNService.URL_LOGOUT, formData).pipe(first()).subscribe(
-			data => {
-				// enforce Navigate 
-			},
-			error => {}
-		);
+		if(this.isUserLoggedIn()) { 
+			let formData:FormData = new FormData();
+			formData.set( 'username', this._currentBackendUserValue.loginname); 
+			
+			this.httpClient.post<any>(AuthNService.URL_LOGOUT, formData).pipe(first()).subscribe(
+				data => {
+					// enforce Navigate 
+				},
+				error => {}
+			);
+		}
 		
 		this.updateBrowserAuthLifecylceState( BrowserAuthLifecycleState.None );
 		this.updateUserAuthLifecycleState( UserAuthLifecycleState.LoggedOut );
