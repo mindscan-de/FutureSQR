@@ -510,7 +510,7 @@ def postLoginData(
     # either we generate a valid user dataset response
     # or we handle the wrong password by how?
     
-    sessionDB.userAuthenticationClear(userEntry)
+    sessionDB.userAuthenticationRegister(userEntry)
     
     return {
         USER_UUID:userEntry[USER_UUID],
@@ -525,7 +525,7 @@ def postLoginData(
 
 @app.post("/FutureSQR/rest/user/reauthenticate")
 def postReauthenticateLoginData(
-        assumedusername: str = Form(...)
+            assumedusername: str = Form(...)
         ):
     
     if sessionDB.isAuthenticationPresent(assumedusername):
