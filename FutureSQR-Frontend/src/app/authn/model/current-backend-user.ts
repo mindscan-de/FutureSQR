@@ -9,4 +9,7 @@ export class CurrentBackendUser {
 	public displayname: string;
 	public avatarlocation: string;
 	public email: string;
+	
+	// something like this.... should be a detailed map with multiple infos like (user, admin, siteadmin, groupadmin, projectadmin) or something similar
+	public capabilities: Array<string>;
 }

@@ -512,12 +512,17 @@ def postLoginData(
     
     sessionDB.userAuthenticationRegister(userEntry)
     
+    capabilities = []
+    if username=='mindscan-de':
+        capabilities.append('admin')
+    
     return {
         USER_UUID:userEntry[USER_UUID],
         USER_LOGON_NAME:userEntry[USER_LOGON_NAME],
         USER_DISPLAYNAME:userEntry[USER_DISPLAYNAME],
         USER_AVATARLOCATION:userEntry[USER_AVATARLOCATION],
         USER_CONTACT_EMAIL:userEntry[USER_CONTACT_EMAIL],
+        'capabilities': capabilities,
         
         # DEPRECATED: for compatibility reasons?
         'id': username
@@ -530,12 +535,18 @@ def postReauthenticateLoginData(
     
     if sessionDB.isAuthenticationPresent(assumedusername):
         userEntry = usersDB.getUserByLogonName(assumedusername);
+        
+        capabilities = []
+        if assumedusername=='mindscan-de':
+            capabilities.append('admin')
+            
         return {
             USER_UUID:userEntry[USER_UUID],
             USER_LOGON_NAME:userEntry[USER_LOGON_NAME],
             USER_DISPLAYNAME:userEntry[USER_DISPLAYNAME],
             USER_AVATARLOCATION:userEntry[USER_AVATARLOCATION],
             USER_CONTACT_EMAIL:userEntry[USER_CONTACT_EMAIL],
+            'capabilities': capabilities,            
             
             # DEPRECATED: for compatibility reasons?
             'id': assumedusername
