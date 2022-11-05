@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 import { AuthNService } from '../authn/auth-n.service';
 
+import { CurrentBackendUser } from '../authn/model/current-backend-user';
 import { CurrentUiUser } from './model/current-ui-user';
 
 @Injectable({
@@ -23,14 +24,20 @@ export class CurrentUserService {
 		
 		this.authNService.liveBackendUserData().subscribe(
 			updatedUserData => {
-				// TODO: transform data to UI Type format 
-				// m2m : CurrentBackendUser -> CurrentUiUser
-				// then send via next...
+				this.setCurrentUiUser(this.m2mUserTransform(updatedUserData));
 			},
 		);
 	}
 	
+	m2mUserTransform(backendUser:CurrentBackendUser): CurrentUiUser {
+		let uiUser = new CurrentUiUser();
 		
+		uiUser.displayName = backendUser.displayname;
+		uiUser.logonName = backendUser.loginname;
+		uiUser.uuid = backendUser.uuid;
+		
+		return uiUser;
+	}
 	
 	setCurrentUiUser(currentUiUser:CurrentUiUser):void {
 		// update the backing item
@@ -40,20 +47,18 @@ export class CurrentUserService {
 		this._currentUserSubject.next(this._currentUserValue);
 	}
 	
-	
 	getCurrentUserUUID():string {
-		// TODO correct this later.
+		// TODO correct this later / for some reason the subscription doesn't work perfectly....'
 		return "8ce74ee9-48ff-3dde-b678-58a632887e31";
 		// return this._currentUserValue.uuid;
 	}
-	
 	
 	clearCurrentUiUser() : void {
 		this._currentUserValue = new CurrentUiUser();
 		this._currentUserSubject.next(this._currentUserValue);
 	}
 	
-	
+	// TODO rename this to liveUiUserData
 	asObservable(): Observable<CurrentUiUser> {
 		return this.currentUserSubject;
 	}
