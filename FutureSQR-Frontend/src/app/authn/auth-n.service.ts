@@ -160,7 +160,9 @@ export class AuthNService {
 												
 												successResult = false;
 												
-												// TODO invoke fail callback.
+												if(callbacks.failed != undefined) {
+													callbacks.failed();
+												}
 											}
 											
 											return successResult;
@@ -168,17 +170,6 @@ export class AuthNService {
 									)).toPromise();
 		return reauthenticateResult;
 	}
-	
-	async reAuthenticateAsync():Promise<CurrentBackendUser> {
-		let url = AuthNService.URL_LOGIN_REAUTHENTICATE;
-		
-		let formData = new FormData();
-		// TODO: well we need to preserve the last logged in user, such that we can come with this value
-		formData.set("assumedusername", "mindscan-de");
-		
-		return await this.httpClient.post<CurrentBackendUser>(url, formData).toPromise();
-	}
-	
 	
 	logout():void {
 		if(this.isUserLoggedIn()) { 
