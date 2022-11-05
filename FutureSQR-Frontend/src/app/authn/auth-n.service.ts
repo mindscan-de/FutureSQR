@@ -130,16 +130,15 @@ export class AuthNService {
 	// on success we deploy authoritzation data
 	// on success we inform authnguard via callback or so.
 	reauthenticate(callbacks): Promise<boolean> {
+		let url = AuthNService.URL_LOGIN_REAUTHENTICATE
 
 		let formData = new FormData();
 		
 		// TODO: well we need to preserve the last logged in user, such that we can come with this value
 		formData.set("assumedusername", "mindscan-de");
 		
-		
-		
 		let reauthenticateResult = this.httpClient
-									.post<CurrentBackendUser>(AuthNService.URL_LOGIN_REAUTHENTICATE, formData)
+									.post<CurrentBackendUser>(url, formData)
 									.pipe(first())
 									.pipe(map( (newBackendUser:CurrentBackendUser) => {
 											let successResult: boolean = false;
