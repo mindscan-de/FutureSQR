@@ -22,11 +22,12 @@ export class CurrentUserService {
 		this._currentUserSubject = new BehaviorSubject<CurrentUiUser>(this._currentUserValue);
 		this.currentUserSubject = this._currentUserSubject.asObservable();
 		
-		this.authNService.liveBackendUserData().subscribe(
-			updatedUserData => {
-				this.setCurrentUiUser(this.m2mUserTransform(updatedUserData));
-			},
-		);
+		this.authNService.liveBackendUserData().subscribe( {
+			next: data => {
+				console.log(data);
+				this.setCurrentUiUser(this.m2mUserTransform(data));
+			}
+		});
 	}
 	
 	m2mUserTransform(backendUser:CurrentBackendUser): CurrentUiUser {
@@ -43,14 +44,18 @@ export class CurrentUserService {
 		// update the backing item
 		this._currentUserValue = currentUiUser;
 		
+		console.log("this user service set a new value");
+		console.log(this);
+		console.log(currentUiUser);
+		
 		// update all subscribed current user Listeners
 		this._currentUserSubject.next(this._currentUserValue);
 	}
 	
 	getCurrentUserUUID():string {
 		// TODO correct this later / for some reason the subscription doesn't work perfectly....'
-		return "8ce74ee9-48ff-3dde-b678-58a632887e31";
-		// return this._currentUserValue.uuid;
+		// return "8ce74ee9-48ff-3dde-b678-58a632887e31";
+		return this._currentUserValue.uuid;
 	}
 	
 	clearCurrentUiUser() : void {
