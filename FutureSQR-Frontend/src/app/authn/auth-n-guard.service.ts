@@ -55,6 +55,7 @@ export class AuthNGuardService implements CanActivate {
 				else
 				{
 					loginResult = false;
+					// TODO: or clear the current user data, becuase the user could not be reauthenticated.
 				}
 			});
 			
@@ -76,12 +77,7 @@ export class AuthNGuardService implements CanActivate {
 			return false;
 		}
 		
-		
-		// if the user lifecycle is not logged in, we return false, and route to the login page, 
-		// when the user is not properly authenticated 
-		//  this.router.navigate(['/','account','login'], { queryParams: {returnUrl : state.url} });
-		// return false;
-		
+		// not reachable from implementation as for now speaking.
 		return true;
 	}
 }
