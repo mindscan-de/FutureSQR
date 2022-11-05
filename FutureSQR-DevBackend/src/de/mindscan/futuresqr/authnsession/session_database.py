@@ -44,8 +44,8 @@ class SessionDatabase(object):
     def userAuthenticationRegister(self, user):
         self.__currentAuthenticatedUsers[user[USER_LOGON_NAME]] = user
         
-    def userAuthenticationClear(self, user):
-        self.__currentAuthenticatedUsers.pop(user[USER_LOGON_NAME], None)
+    def userAuthenticationClear(self, username):
+        self.__currentAuthenticatedUsers.pop(username, None)
 
     def isAuthenticationPresent(self, username):
         return username in self.__currentAuthenticatedUsers

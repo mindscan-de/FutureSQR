@@ -504,7 +504,6 @@ def postLoginData(
             )
     # find userentry by username in user database
     userEntry = usersDB.getUserByLogonName(username);
-
     # check if user is banned
     
     # verify password,
