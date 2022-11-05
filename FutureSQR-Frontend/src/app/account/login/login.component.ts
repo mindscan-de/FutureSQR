@@ -78,13 +78,21 @@ export class LoginComponent implements OnInit {
 		
 		this.authnService.login( this.f.username.value, this.f.password.value, 
 			{	// if login is successful, we want to redirect the user to the desired page
-				next: () => { this.onSuccessfulAuthentication(); },
+				next: () => { 
+					this.onSuccessfulAuthentication(); 
+				},
 				
 				// if failed we want the user to be able to provide new password
-				failed: () => { this.onFailedAuthentication(); },
+				failed: () => {
+					// TODO: also provide message that the previous login was not successful.
+					this.onFailedAuthentication(); 
+				},
 	
 				// if error, we want the user to be able to still act somehow, message would be nice.
-				error: () => { this.onFailedAuthentication(); }
+				error: () => {
+					// TODO: also provide message that the previous login had an error
+					this.onFailedAuthentication(); 
+				}
 			}
 		);
 	}
