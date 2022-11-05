@@ -44,6 +44,7 @@ from de.mindscan.futuresqr.configuration.system_configuration import SystemConfi
 
 import de.mindscan.futuresqr.devhttpserver.myconfig as myconfig
 from de.mindscan.futuresqr.authnsession.session_database import SessionDatabase
+from de.mindscan.futuresqr.users.user_table_columns import *  # @UnusedWildImport
 
 ### ---------------------------------------------------------------
 ### provide general system configuration - for different developers
@@ -513,6 +514,13 @@ def postLoginData(
     sessionDB.userAuthenticationClear(userEntry)
     
     return {
+        USER_UUID:userEntry[USER_UUID],
+        USER_LOGON_NAME:userEntry[USER_LOGON_NAME],
+        USER_DISPLAYNAME:userEntry[USER_DISPLAYNAME],
+        USER_AVATARLOCATION:userEntry[USER_AVATARLOCATION],
+        USER_CONTACT_EMAIL:userEntry[USER_CONTACT_EMAIL],
+        
+        # DEPRECATED: for compatibility reasons?
         'id': username
         }
 
@@ -522,10 +530,17 @@ def postReauthenticateLoginData(
         ):
     
     if sessionDB.isAuthenticationPresent(assumedusername):
+        userEntry = usersDB.getUserByLogonName(assumedusername);
         return {
+            USER_UUID:userEntry[USER_UUID],
+            USER_LOGON_NAME:userEntry[USER_LOGON_NAME],
+            USER_DISPLAYNAME:userEntry[USER_DISPLAYNAME],
+            USER_AVATARLOCATION:userEntry[USER_AVATARLOCATION],
+            USER_CONTACT_EMAIL:userEntry[USER_CONTACT_EMAIL],
+            
+            # DEPRECATED: for compatibility reasons?
             'id': assumedusername
             }
-        
     
     # TODO: check if things match - in real backend this is more complicated.
     # we do someting very wild, we compare that with the username, 
