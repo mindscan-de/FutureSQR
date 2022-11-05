@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup,  Validators } from '@angular/forms';
-
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 
-
+// Application-Services
 import { AuthNService } from '../../authn/auth-n.service';
+
+// Ui-Services
+import { NavigationBarService } from '../../services/navigation-bar.service';
+
 
 @Component({
   selector: 'app-login',
@@ -38,23 +41,25 @@ export class LoginComponent implements OnInit {
 	
 	private returnURL: string;
 	
-	// TODO: we must clear the content of the breadcrumb navigation bar...
-	
 	constructor(
 		private formBuilder : FormBuilder,
 		private route: ActivatedRoute,
 		private router: Router,
-		private authnService: AuthNService
+		private authnService: AuthNService,
+		private navBarService: NavigationBarService
 	) { }
 
 	ngOnInit(): void {
 		this.returnURL = this.route.snapshot.queryParams['returnUrl'] || '/';
 		
+		// TODO: Actually if we have a logged out user, we can prefill the previous user name
+		
 		this.form = this.formBuilder.group(			{
 				username: ['', Validators.required],
 				password: ['', Validators.required]
 		});
-		
+
+		this.navBarService.clearBreadcrumbNavigation();
 	}
 	
 	get f() { return this.form.controls; }
@@ -73,15 +78,15 @@ export class LoginComponent implements OnInit {
 		
 		this.authnService.login( this.f.username.value, this.f.password.value, 
 			{	// if login is successful, we want to redirect the user to the desired page
-				next: ()=>{this.onSuccessfulAuthentication(); },
+				next: () => { this.onSuccessfulAuthentication(); },
 				
 				// if failed we want the user to be able to provide new password
-				failed: ()=>{this.onFailedAuthentication();},
+				failed: () => { this.onFailedAuthentication(); },
 	
 				// if error, we want the user to be able to still act somehow, message would be nice.
-				error: ()=>{this.onFailedAuthentication();}}
-			);
-		
+				error: () => { this.onFailedAuthentication(); }
+			}
+		);
 	}
 	
 	onSuccessfulAuthentication(): void  {
