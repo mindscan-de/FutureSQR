@@ -129,7 +129,45 @@ export class AuthNService {
 	// on success we deploy userdata
 	// on success we deploy authoritzation data
 	// on success we inform authnguard via callback or so.
-	reauthenticate( ): void {
+	reauthenticate(callbacks): Promise<boolean> {
+
+		let formData = new FormData();
+		
+		// TODO: well we need to preserve the last logged in user, such that we can come with this value
+		formData.set("assumedusername", "mindscan-de");
+		
+		
+		
+		let reauthenticateResult = this.httpClient
+									.post<CurrentBackendUser>(AuthNService.URL_LOGIN_REAUTHENTICATE, formData)
+									.pipe(first())
+									.pipe(map( (newBackendUser:CurrentBackendUser) => {
+											let successResult: boolean = false;
+											 
+											// todo if this is good value
+											if(this.backendUserUtils.isValid(newBackendUser)) {
+												this.updateBrowserAuthLifecylceState( BrowserAuthLifecycleState.ReAuthenticated );
+												this.updateUserAuthLifecycleState( UserAuthLifecycleState.LoggedIn );
+												this.updateCurrentBackendUser(newBackendUser);
+												
+												successResult = true;
+												
+												// TODO invoke success callback.
+											} 
+											else {
+												this.updateBrowserAuthLifecylceState( BrowserAuthLifecycleState.PreAuthenicated );
+												this.updateUserAuthLifecycleState( UserAuthLifecycleState.None );
+												this.updateCurrentBackendUser(newBackendUser);
+												
+												successResult = false;
+												
+												// TODO invoke fail callback.
+											}
+											
+											return successResult;
+										}
+									)).toPromise();
+		return reauthenticateResult;
 	}
 	
 	async reAuthenticateAsync():Promise<CurrentBackendUser> {
