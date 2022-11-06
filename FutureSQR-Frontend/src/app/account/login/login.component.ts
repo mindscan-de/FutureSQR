@@ -52,10 +52,8 @@ export class LoginComponent implements OnInit {
 	ngOnInit(): void {
 		this.returnURL = this.route.snapshot.queryParams['returnUrl'] || '/';
 		
-		// TODO: Actually if we have a logged out user, we can prefill the previous user name
-		
 		this.form = this.formBuilder.group(			{
-				username: ['', Validators.required],
+				username: [this.authnService.getLatestLoggedInUser(), Validators.required],
 				password: ['', Validators.required]
 		});
 
