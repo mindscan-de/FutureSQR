@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AccountLayoutComponent } from './account-layout/account-layout.component';
 import { LoginComponent } from './login/login.component';
+import { RedirectComponent } from './redirect/redirect.component';
 import { ReauthWsComponent} from './reauth-ws/reauth-ws.component';
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
 
 		children: [
 			{ path: 'login', component: LoginComponent },
+			{ path: 'redirect', component: RedirectComponent },
 			{ path: 'reauthws', component: ReauthWsComponent}
 		]
 	}
