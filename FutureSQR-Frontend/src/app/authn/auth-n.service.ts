@@ -173,14 +173,21 @@ export class AuthNService {
 		return reauthenticateResult;
 	}
 	
-	logout():void {
+	logout(callback):void {
 		if(this.isUserLoggedIn()) { 
 			let formData:FormData = new FormData();
 			formData.set( 'username', this._currentBackendUserValue.loginname); 
 			
 			this.httpClient.post<any>(AuthNService.URL_LOGOUT, formData).pipe(first()).subscribe(
 				data => {
-					// enforce Navigate ?
+					if(callback.onlogout != undefined) {
+						try {
+							callback.onlogout();
+						}
+						catch(error) {
+							console.error(error);
+						}
+					}
 				},
 				error => {}
 			);
