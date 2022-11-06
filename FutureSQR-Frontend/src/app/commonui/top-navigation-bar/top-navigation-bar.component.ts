@@ -96,10 +96,7 @@ export class TopNavigationBarComponent implements OnInit {
 		this.authNService.logout({
 				onlogout : () => {
 					console.log("do we get called?")
-					// will "flash" the page, because of browser mechanism, but we only want to rerequest rendering 
-					// of the page, including reavaluation of authn guard
-					// THIS IS A QUITE SHITTY thing..., the other way would be to redirect
-					location.reload();
+					this.router.navigate(['/','account','redirect'], { queryParams: {redirectUrl : this.router.routerState.snapshot.url} });
 				}
 			}
 		);
