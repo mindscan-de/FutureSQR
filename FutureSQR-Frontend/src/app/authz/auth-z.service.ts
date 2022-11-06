@@ -45,8 +45,7 @@ export class AuthZService {
 		this._currentAuthorizationsSubject.next(this._currentAuthorizationsValue);
 	}
 	
-	// TODO rename this to liveUserAuthorizations
-	asObservable(): Observable<CurrentAuthorizations> {
+	liveUserAuthorizations(): Observable<CurrentAuthorizations> {
 		return this.currentAuthorizationsSubject;
 	}
 }

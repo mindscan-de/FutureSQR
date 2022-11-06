@@ -51,7 +51,7 @@ export class TopNavigationBarComponent implements OnInit {
 			}
 		);
 		
-		this.authZService.asObservable().subscribe(
+		this.authZService.liveUserAuthorizations().subscribe(
 			currentAuthZValues => {
 				this.onCurrentAuthZChanged(currentAuthZValues);
 			} 
