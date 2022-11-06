@@ -45,7 +45,7 @@ export class TopNavigationBarComponent implements OnInit {
 		
 		// we also want to subscribe to changes of the user, such that we can update 
 		// TopNavigationBar, when a user is logged in / logged out
-		this.currentUserService.asObservable().subscribe(
+		this.currentUserService.liveUiUserData().subscribe(
 			currentuser => {
 				this.onCurrentUiUserChanged(currentuser);
 			}

@@ -60,8 +60,7 @@ export class CurrentUserService {
 		this._currentUserSubject.next(this._currentUserValue);
 	}
 	
-	// TODO rename this to liveUiUserData
-	asObservable(): Observable<CurrentUiUser> {
+	liveUiUserData(): Observable<CurrentUiUser> {
 		return this.currentUserSubject;
 	}
 }
