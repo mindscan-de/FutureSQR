@@ -9,8 +9,7 @@ export class CurrentUiUser {
 	}
 	
 	public isAnonymous():boolean {
-		return this.logonName == "";
+		return this.logonName == undefined || this.logonName == "";
 	}
-	
-	
+
 }
