@@ -496,8 +496,11 @@ def postLoginData(
         password:str = Form(...)):
 
     # find user by uername in user passwd database
-    pwEntry = getPasswdEntry(username)
-    if pwEntry is None:
+    # because we don't have a database, we use the user database, and check for presence 
+    #     pwEntry = getPasswdEntry(username)
+    #     if pwEntry is None:
+    isUserPresent = usersDB.hasUserByLogonNme(username)
+    if not isUserPresent:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="No such user or not authenticated"
