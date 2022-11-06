@@ -18,7 +18,7 @@
 		<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
 			<!-- Depending on the login state we want either a login button or a user drop down -->
 			<li *ngIf="currentUserUnknown" class="nav-item">
-				<a class="btn btn-sm btn-outline-secondary" (click)="fakeLoginRemoveMe()">login</a>
+				<a class="btn btn-sm btn-outline-secondary">login</a>
 			</li>
 			<li *ngIf="currentUserIsAdmin" class="nav-item" >
 				<a class="nav-item nav-link" [routerLink]="['/','admin']">skyport</a>
@@ -27,8 +27,8 @@
 				<div *ngIf="!currentUserUnknown" ngbDropdown class="d-inline-block" placement="bottom-right" display="dynamic">
 					<button class="btn btn-sm btn-dark mt-1" id="dropdownBasic1" ngbDropdownToggle>Me</button>
 					<div ngbDropdownMenu>
-					  <button ngbDropdownItem (click)="fakeAdminRemoveMe()">Make me Admin</button>
-					  <button ngbDropdownItem>Another Action</button>
+					  <button ngbDropdownItem>Action 1</button>
+					  <button ngbDropdownItem>Action 2</button>
 					  <div class="dropdown-divider"></div>
 					  <button ngbDropdownItem (click)="onLogoutClicked()">logout</button>
 					</div>

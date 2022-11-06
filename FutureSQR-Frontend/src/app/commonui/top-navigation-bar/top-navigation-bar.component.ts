@@ -93,37 +93,8 @@ export class TopNavigationBarComponent implements OnInit {
 		}
 	}
 
-	// this is a fake login until we have the correct login logic implemented.
-	fakeLoginRemoveMe(): void {
-		/*
-		 * The whole method should not be here and must be removed, when we actually have a real login.
-	     * For the moment i want to develop the top navigation bar, and the ui user service.
-         * This ui user should be set in the currentUserService, by a login mechanism, not from here.
-		 */
-		let newUiUser = new CurrentUiUser();
-		newUiUser.logonName = "mindscan-de";
-		newUiUser.uuid = "b4d1449b-d50e-4c9f-a4cb-dd2230278306";
-		newUiUser.displayName = "Maxim Gansert";
-		
-		this.currentUserService.setCurrentUiUser(newUiUser);
-	}
-	
-	fakeAdminRemoveMe(): void {
-		this.authZService.setFakeAdmin();
-	}
-	
 	onLogoutClicked():void {
 		// maybe we should navigate to logout router outlet and let the logout router outlet do the magic?
-		
-		// TODO invoke backend logout, and on success of backend logout, the currentUserService receives a new User...
-		// This here is just to satisfy the ui for now and communicate the idea.
-		
 		this.authNService.logout();
-		
-		let newUiUser = new CurrentUiUser();
-		newUiUser.uuid = "b4d1449b-d50e-4c9f-a4cb-dd2230278306";
-		
-		this.currentUserService.setCurrentUiUser(newUiUser);
-		this.authZService.clearFakeAdmin();
 	}
 }
