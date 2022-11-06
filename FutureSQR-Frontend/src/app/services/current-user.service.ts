@@ -24,7 +24,6 @@ export class CurrentUserService {
 		
 		this.authNService.liveBackendUserData().subscribe( {
 			next: data => {
-				console.log(data);
 				this.setCurrentUiUser(this.m2mUserTransform(data));
 			}
 		});
@@ -33,9 +32,9 @@ export class CurrentUserService {
 	m2mUserTransform(backendUser:CurrentBackendUser): CurrentUiUser {
 		let uiUser = new CurrentUiUser();
 		
-		uiUser.displayName = backendUser.displayname;
-		uiUser.logonName = backendUser.loginname;
-		uiUser.uuid = backendUser.uuid;
+		uiUser.displayName = backendUser.displayname || "";
+		uiUser.logonName = backendUser.loginname || "";
+		uiUser.uuid = backendUser.uuid || "";
 		
 		return uiUser;
 	}
@@ -53,8 +52,6 @@ export class CurrentUserService {
 	}
 	
 	getCurrentUserUUID():string {
-		// TODO correct this later / for some reason the subscription doesn't work perfectly....'
-		// return "8ce74ee9-48ff-3dde-b678-58a632887e31";
 		return this._currentUserValue.uuid;
 	}
 	
