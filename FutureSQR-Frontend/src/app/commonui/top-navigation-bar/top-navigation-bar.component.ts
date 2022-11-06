@@ -1,7 +1,5 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 
-import { UserDataQueryBackendService } from '../../backend/services/user-data-query-backend.service';
-
 import { NavigationBarService } from '../../services/navigation-bar.service';
 import { NavbarBreadcrumbItem } from '../../services/model/navbar-breadcrumb-item';
 
@@ -31,8 +29,7 @@ export class TopNavigationBarComponent implements OnInit {
 		private navigationBarService : NavigationBarService,
 		private currentUserService : CurrentUserService,
 		private authNService : AuthNService,
-		private authZService : AuthZService,
-		private userDataService : UserDataQueryBackendService
+		private authZService : AuthZService
 	) {}
 
 	ngOnInit(): void {
@@ -94,7 +91,12 @@ export class TopNavigationBarComponent implements OnInit {
 	}
 
 	onLogoutClicked():void {
-		// maybe we should navigate to logout router outlet and let the logout router outlet do the magic?
-		this.authNService.logout();
+		this.authNService.logout({
+				onlogout : () => {
+					// maybe we should navigate to logout router outlet and let the logout router outlet do the magic?
+					// actually we want to "reload" this current page, the rest will happen automatically...
+				}
+			}
+		);
 	}
 }
