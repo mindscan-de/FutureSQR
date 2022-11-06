@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Router, Route } from '@angular/router';
 
 import { NavigationBarService } from '../../services/navigation-bar.service';
 import { NavbarBreadcrumbItem } from '../../services/model/navbar-breadcrumb-item';
@@ -29,7 +30,8 @@ export class TopNavigationBarComponent implements OnInit {
 		private navigationBarService : NavigationBarService,
 		private currentUserService : CurrentUserService,
 		private authNService : AuthNService,
-		private authZService : AuthZService
+		private authZService : AuthZService,
+		private router: Router
 	) {}
 
 	ngOnInit(): void {
@@ -93,8 +95,11 @@ export class TopNavigationBarComponent implements OnInit {
 	onLogoutClicked():void {
 		this.authNService.logout({
 				onlogout : () => {
-					// maybe we should navigate to logout router outlet and let the logout router outlet do the magic?
-					// actually we want to "reload" this current page, the rest will happen automatically...
+					console.log("do we get called?")
+					// will "flash" the page, because of browser mechanism, but we only want to rerequest rendering 
+					// of the page, including reavaluation of authn guard
+					// THIS IS A QUITE SHITTY thing..., the other way would be to redirect
+					location.reload();
 				}
 			}
 		);

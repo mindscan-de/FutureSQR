@@ -14,6 +14,7 @@ import { CurrentBackendUser } from './model/current-backend-user';
   providedIn: 'root'
 })
 export class AuthNService {
+	private static readonly LS_PREFIX = "futuresquare:ls:";
 	
 	// URL to visit to retrieve a preauth token, to be able to post to AUTHENTICATE / REAUTHENTICATE
 	private static readonly URL_PREAUTH_TOKEN          = "/FutureSQR/rest/user/preauthtoken";
@@ -23,11 +24,11 @@ export class AuthNService {
 	private static readonly URL_LOGOUT                = "/FutureSQR/rest/user/logout";
 	
 	// LOCALSTORAGE KEY for the current user authentication lifecycle state
-	private static readonly LS_KEY_CURRENT_USER_AUTH_LIFECYCLE_STATE = "currentUserAuthLifecycleState";
+	private static readonly LS_KEY_CURRENT_USER_AUTH_LIFECYCLE_STATE = AuthNService.LS_PREFIX + "currentUserAuthLifecycleState";
 	// TODO: LOCALSTORAGE KEY for the current user authentication lifecylce state
-	private static readonly LS_KEY_CURRENT_BACKEND_USER_VALUE = "currentBackendUserValue";
+	private static readonly LS_KEY_CURRENT_BACKEND_USER_VALUE = AuthNService.LS_PREFIX + "currentBackendUserValue";
 	// TODO: LOCALSTORARE KEY for previous user
-	private static readonly LS_KEY_PREVIOUS_BACKEND_USER_VALUE = "previousBackendUserValue";
+	private static readonly LS_KEY_LATEST_LOGGEDIN_USER_VALUE = AuthNService.LS_PREFIX + "previousLoggedInBackendUserValue";
 	
 	// Actually we have to deal with two different life cycles
 	// this one only lives as a variable in memory
@@ -117,7 +118,8 @@ export class AuthNService {
 		this.updateUserAuthLifecycleState(UserAuthLifecycleState.LoggedIn);
 		this.updateBrowserAuthLifecylceState(BrowserAuthLifecycleState.FullyAuthenticated);
 		
-		this.updateCurrentBackendUser(newBackendUser);		
+		this.updateCurrentBackendUser(newBackendUser);
+		this.updateLatestLoggedInUser(newBackendUser);
 	}
 	
 	
@@ -132,8 +134,7 @@ export class AuthNService {
 
 		let formData = new FormData();
 		
-		// TODO: well we need to preserve the last logged in user, such that we can come with this value
-		formData.set("assumedusername", "mindscan-de");
+		formData.set("assumedusername", this.getLatestLoggedInUser());
 		
 		let reauthenticateResult = this.httpClient
 									.post<CurrentBackendUser>(url, formData)
@@ -180,8 +181,11 @@ export class AuthNService {
 			
 			this.httpClient.post<any>(AuthNService.URL_LOGOUT, formData).pipe(first()).subscribe(
 				data => {
+					console.log("logout invoked...");
 					if(callback.onlogout != undefined) {
+						console.log("found callback.");
 						try {
+							console.log("calling callback.");
 							callback.onlogout();
 						}
 						catch(error) {
@@ -236,4 +240,11 @@ export class AuthNService {
 		this._currentBackendUserSubject.next(this._currentBackendUserValue);
 	}
 	
+	private updateLatestLoggedInUser(newUser: CurrentBackendUser): void {
+		localStorage.setItem(AuthNService.LS_KEY_LATEST_LOGGEDIN_USER_VALUE, JSON.stringify(newUser.loginname));
+	}
+	
+	getLatestLoggedInUser(): string {
+		return JSON.parse(localStorage.getItem(AuthNService.LS_KEY_LATEST_LOGGEDIN_USER_VALUE))	|| "";
+	}
 }
