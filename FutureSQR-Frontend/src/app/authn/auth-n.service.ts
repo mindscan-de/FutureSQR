@@ -107,11 +107,6 @@ export class AuthNService {
 		this.updateUserAuthLifecycleState(UserAuthLifecycleState.LoggedIn);
 		this.updateBrowserAuthLifecylceState(BrowserAuthLifecycleState.FullyAuthenticated);
 		
-		// or we got some user data, this needs to be set and distributed...
-		// receive authorization and userdata
-		// parse the userdata for user data and authorization information.  
-		// deploy userdata
-		// deploy authorization data
 		this.updateCurrentBackendUser(newBackendUser);		
 	}
 	
@@ -122,12 +117,6 @@ export class AuthNService {
 		// TODO: set currentUserAuthLifeCycleState to UserAuthLifecycleState.None
 	}
 	
-	// TODO silent reauthentication e.g. on reload of the page, we need to retrieve the authn and authz data again, 
-	// if that fails we have to inform someone, that the silent reauthentication did not worked, and the login page
-	// can be presented instead.
-	// on success we deploy userdata
-	// on success we deploy authoritzation data
-	// on success we inform authnguard via callback or so.
 	reauthenticate(callbacks): Promise<boolean> {
 		let url = AuthNService.URL_LOGIN_REAUTHENTICATE
 
@@ -177,7 +166,7 @@ export class AuthNService {
 			
 			this.httpClient.post<any>(AuthNService.URL_LOGOUT, formData).pipe(first()).subscribe(
 				data => {
-					// enforce Navigate 
+					// enforce Navigate ?
 				},
 				error => {}
 			);
