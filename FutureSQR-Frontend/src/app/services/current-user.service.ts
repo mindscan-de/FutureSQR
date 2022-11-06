@@ -43,10 +43,6 @@ export class CurrentUserService {
 		// update the backing item
 		this._currentUserValue = currentUiUser;
 		
-		console.log("this user service set a new value");
-		console.log(this);
-		console.log(currentUiUser);
-		
 		// update all subscribed current user Listeners
 		this._currentUserSubject.next(this._currentUserValue);
 	}

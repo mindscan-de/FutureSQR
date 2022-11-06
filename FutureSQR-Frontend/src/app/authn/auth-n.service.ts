@@ -99,7 +99,6 @@ export class AuthNService {
 			this.updateBrowserAuthLifecylceState(BrowserAuthLifecycleState.None);
 			
 			// update with empty backend user
-			console.log("loginOnDataRecenved: userata is not valid...");
 			this.updateCurrentBackendUser(new CurrentBackendUser());
 			
 			return;
@@ -223,9 +222,6 @@ export class AuthNService {
 	}
 	
 	private updateCurrentBackendUser(newUser: CurrentBackendUser): void  {
-		console.log("updateCurrentBackendUser:");
-		console.log(newUser);
-		
 		this._currentBackendUserValue = newUser;
 		this._currentBackendUserSubject.next(this._currentBackendUserValue);
 	}
