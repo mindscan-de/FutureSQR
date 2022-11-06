@@ -81,20 +81,30 @@ export class AuthNService {
 			data => {
 				that.loginOnDataReceived(data);
 				if(callbacks.next != undefined) {
-					callbacks.next();
+					try {
+						callbacks.next();
+					}
+					catch(error) {
+						console.error(error);
+					}
 				}
 			},
 			error => {
 				that.loginOnError();
 				if(callbacks.error != undefined) {
-					callbacks.error();
+					try {
+						callbacks.error();
+					}
+					catch(error) {
+						console.error(error);
+					}
 				}
 			}			
 		);
 	}
 	
 	loginOnDataReceived(newBackendUser:CurrentBackendUser):  void {
-		if( !this.backendUserUtils.isValid(newBackendUser)) {
+		if(!this.backendUserUtils.isValid(newBackendUser)) {
 			this.updateUserAuthLifecycleState(UserAuthLifecycleState.None);
 			this.updateBrowserAuthLifecylceState(BrowserAuthLifecycleState.None);
 			
@@ -131,7 +141,6 @@ export class AuthNService {
 									.pipe(map( (newBackendUser:CurrentBackendUser) => {
 											let successResult: boolean = false;
 											 
-											// todo if this is good value
 											if(this.backendUserUtils.isValid(newBackendUser)) {
 												this.updateBrowserAuthLifecylceState( BrowserAuthLifecycleState.ReAuthenticated );
 												this.updateUserAuthLifecycleState( UserAuthLifecycleState.LoggedIn );
@@ -149,7 +158,12 @@ export class AuthNService {
 												successResult = false;
 												
 												if(callbacks.failed != undefined) {
-													callbacks.failed();
+													try {
+														callbacks.failed();
+													}
+													catch(error) {
+														console.error(error);
+													}
 												}
 											}
 											
