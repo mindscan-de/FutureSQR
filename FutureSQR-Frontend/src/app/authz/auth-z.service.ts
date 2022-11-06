@@ -45,22 +45,6 @@ export class AuthZService {
 		this._currentAuthorizationsSubject.next(this._currentAuthorizationsValue);
 	}
 	
-	// TODO: deprecated
-	setFakeAdmin():void {
-		let newAuthorizationValue:CurrentAuthorizations = new CurrentAuthorizations();
-		newAuthorizationValue.isAdmin = true;
-		this._currentAuthorizationsValue = newAuthorizationValue;
-		this._currentAuthorizationsSubject.next(this._currentAuthorizationsValue);
-	}
-	
-	// TODO: deprecated
-	clearFakeAdmin():void {
-		let newAuthorizationValue:CurrentAuthorizations = new CurrentAuthorizations();
-		newAuthorizationValue.isAdmin = false;
-		this._currentAuthorizationsValue = newAuthorizationValue;
-		this._currentAuthorizationsSubject.next(this._currentAuthorizationsValue);
-	}
-	
 	// TODO rename this to liveUserAuthorizations
 	asObservable(): Observable<CurrentAuthorizations> {
 		return this.currentAuthorizationsSubject;
