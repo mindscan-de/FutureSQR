@@ -95,7 +95,6 @@ export class TopNavigationBarComponent implements OnInit {
 	onLogoutClicked():void {
 		this.authNService.logout({
 				onlogout : () => {
-					console.log("do we get called?")
 					this.router.navigate(['/','account','redirect'], { queryParams: {redirectUrl : this.router.routerState.snapshot.url} });
 				}
 			}

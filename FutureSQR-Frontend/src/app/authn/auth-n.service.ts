@@ -181,11 +181,8 @@ export class AuthNService {
 			
 			this.httpClient.post<any>(AuthNService.URL_LOGOUT, formData).pipe(first()).subscribe(
 				data => {
-					console.log("logout invoked...");
 					if(callback.onlogout != undefined) {
-						console.log("found callback.");
 						try {
-							console.log("calling callback.");
 							callback.onlogout();
 						}
 						catch(error) {
