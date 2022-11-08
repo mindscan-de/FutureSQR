@@ -34,8 +34,8 @@ export class AuthZService {
 	
 	m2mUserTransform(backendUser:CurrentBackendUser): CurrentAuthorizations {
 		let newPrivileges = new CurrentAuthorizations();
-		if(backendUser.capabilities != undefined) {
-			newPrivileges.isAdmin = backendUser.capabilities.includes('admin');
+		if(backendUser.roles != undefined) {
+			newPrivileges.isAdmin = backendUser.roles.includes('admin');
 		}
 		return newPrivileges;
 	}
