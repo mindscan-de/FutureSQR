@@ -21,13 +21,7 @@
 	<div class="col-xl-3">
 		<app-revision-action-panel [activeRevisionData]="uiRevisionData" [activeProjectID]="activeProjectID"></app-revision-action-panel>
 		
-		<div class="row mt-2">
-			<div class="col">
-				<h4>Feed Area</h4>
-				
-				TODO: provide useful feeds for current user
-			</div>
-		</div>
+		<app-personal-user-feed></app-personal-user-feed>
 		
 		<app-file-participation-file-list-panel [fileInformations]="uiFileInformations" ></app-file-participation-file-list-panel>
 		
