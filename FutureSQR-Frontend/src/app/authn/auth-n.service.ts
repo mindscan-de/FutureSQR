@@ -72,7 +72,7 @@ export class AuthNService {
 		
 		let formData = new FormData();
 		
-		formData.set('username', loginname);
+		formData.set('loginname', loginname);
 		formData.set('password', password);
 		// TODO also present: some kind of pre auth crsf tokens?
 		
