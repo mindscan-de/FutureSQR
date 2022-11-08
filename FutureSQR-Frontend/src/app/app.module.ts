@@ -45,6 +45,7 @@ import { TopNavigationBarComponent } from './commonui/top-navigation-bar/top-nav
 import { AddParticipantToReviewSelectionDialogComponent } from './commonui/add-participant-to-review-selection-dialog/add-participant-to-review-selection-dialog.component';
 import { RemoveParticipantFromReviewSelectionDialogComponent } from './commonui/remove-participant-from-review-selection-dialog/remove-participant-from-review-selection-dialog.component';
 import { RecentlyContributedProjectsComponent } from './views/main-page/recently-contributed-projects/recently-contributed-projects.component';
+import { RecentlyCreatedProjectsComponent } from './views/main-page/recently-created-projects/recently-created-projects.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { RecentlyContributedProjectsComponent } from './views/main-page/recently
     TopNavigationBarComponent,
     AddParticipantToReviewSelectionDialogComponent,
     RemoveParticipantFromReviewSelectionDialogComponent,
-    RecentlyContributedProjectsComponent
+    RecentlyContributedProjectsComponent,
+    RecentlyCreatedProjectsComponent
   ],
   imports: [
     BrowserModule,
