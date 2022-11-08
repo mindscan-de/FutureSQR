@@ -47,6 +47,7 @@ import { RemoveParticipantFromReviewSelectionDialogComponent } from './commonui/
 import { RecentlyContributedProjectsComponent } from './views/main-page/recently-contributed-projects/recently-contributed-projects.component';
 import { RecentlyCreatedProjectsComponent } from './views/main-page/recently-created-projects/recently-created-projects.component';
 import { PersonalUserFeedComponent } from './commonui/personal-user-feed/personal-user-feed.component';
+import { RecentReviewActionsLogComponent } from './views/single-review-page/recent-review-actions-log/recent-review-actions-log.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { PersonalUserFeedComponent } from './commonui/personal-user-feed/persona
     RemoveParticipantFromReviewSelectionDialogComponent,
     RecentlyContributedProjectsComponent,
     RecentlyCreatedProjectsComponent,
-    PersonalUserFeedComponent
+    PersonalUserFeedComponent,
+    RecentReviewActionsLogComponent
   ],
   imports: [
     BrowserModule,
