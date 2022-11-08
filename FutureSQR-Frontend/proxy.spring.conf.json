@@ -1,0 +1,16 @@
+{
+    "/FutureSQR/rest/user": {
+        "target": "http://localhost:8080",
+        "secure": false,
+        "pathRewrite": {
+            "^/FutureSQR/rest/": "/rest/"
+        }
+    },
+    "/FutureSQR/rest/*": {
+        "target": "http://localhost:8000",
+        "secure": false,
+        "pathRewrite": {
+            "^/FutureSQR/rest/": "/FutureSQR/rest/"
+        }
+    }
+}
