@@ -1,9 +1,10 @@
 <hr>
 <div class="card mt-3 mb-5">
-	<div class="card-body">
+	<div class="card-header">
 		<h4>Discuss Review</h4>
-		<p><span>{{uimodel.allreviewthreads.length}} discussion(s) present.</span></p>
-		
+		<span>{{uimodel.allreviewthreads.length}} discussion(s) present.</span>
+	</div>
+	<div class="card-body">
 		<ng-container *ngIf="uimodel.allreviewthreads.length>0">
 			<ng-container *ngFor="let thread of uimodel.allreviewthreads">
 				<app-single-review-thread-panel [activeProjectID]="activeProjectID" [activeReviewID]="activeReviewID" [activeThread]="thread" (threadUpdated)="onThreadUpdated($event)"></app-single-review-thread-panel>
