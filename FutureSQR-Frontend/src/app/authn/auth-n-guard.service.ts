@@ -22,7 +22,7 @@ export class AuthNGuardService implements CanActivate {
 		}
 
 		// check we have a valid XSRF token for posting
-		if (!this.tokenExtraktor.getToken){
+		if (!this.tokenExtraktor.getToken()){
 			return this.router.createUrlTree(['/','account','reauthws'], { queryParams: {returnUrl : state.url} });
 		}
 
