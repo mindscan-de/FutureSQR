@@ -22,8 +22,7 @@ export class AuthNGuardService implements CanActivate {
 		// check first userlifecycle says that thelast known state was "logged in"
 		if(!this.authNService.isUserLoggedIn()) {
 			// user is not logged in, or is logged out
-			this.router.navigate(['/','account','login'], { queryParams: {returnUrl : state.url} });
-			return false;
+			return this.router.createUrlTree(['/','account','login'], { queryParams: {returnUrl : state.url} });
 		}
 		
 		// let silently reauthenticate
