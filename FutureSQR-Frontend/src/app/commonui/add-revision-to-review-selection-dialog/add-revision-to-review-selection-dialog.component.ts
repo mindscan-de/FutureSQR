@@ -24,7 +24,7 @@ export class AddRevisionToReviewSelectionDialogComponent implements OnInit {
 
 	public uiModelRecentProjectCommitsGroupedByDate: Map<string, BackendModelProjectRecentCommits> = new Map<string, BackendModelProjectRecentCommits>();
 	public currentUiReviewData : BackendModelReviewData = new BackendModelReviewData();
-	public revisionChangedCallbackFkt = null;
+	public revisionChangedCallbackFkt : () => void = null;
 
 	constructor(
 		private projectDataQueryBackend : ProjectDataQueryBackendService,
@@ -48,7 +48,7 @@ export class AddRevisionToReviewSelectionDialogComponent implements OnInit {
 		);
 	}
 	
-	setRevisionConfigurationChangedCallback(fkt): void {
+	setRevisionConfigurationChangedCallback(fkt:() => void): void {
 		this.revisionChangedCallbackFkt = fkt;
 	}
 	
