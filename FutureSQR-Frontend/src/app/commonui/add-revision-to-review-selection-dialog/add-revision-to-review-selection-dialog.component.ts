@@ -65,7 +65,7 @@ export class AddRevisionToReviewSelectionDialogComponent implements OnInit {
 		let currentUserId = this.currentUserService.getCurrentUserUUID();
 		
 		// TODO: lock tthis component until the append was successful
-		this.projectDataQueryBackend.appendReviewWithRevision( projectid, reviewid, revisionid, currentUserId).subscribe(
+		this.projectDataQueryBackend.appendRevisionToReview( projectid, reviewid, revisionid, currentUserId).subscribe(
 			data=>{
 				// todo: unlock this component.				
 				// todo: close dialog?
