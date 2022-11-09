@@ -449,6 +449,13 @@ def postAppendRevisionToReview(projectid:str, reviewid:str = Form(...), revision
     result = {}
     return result
 
+@app.post("/FutureSQR/rest/project/{projectid}/review/removerevision")
+def postRemoveRevisionFromReviw(projectid:str, reviewid:str = Form(...), revisionid: str = Form(...)):
+    if projectDB.isProjectIdPresent(projectid):
+        reviewDB.removeRevisionFromReview(projectid, reviewid, revisionid)
+    result = {}
+    return result
+
 @app.post("/FutureSQR/rest/project/{projectid}/updatecache")
 def postUpdateProjectCache(projectid: str):
     if projectDB.hasProjectLocalPath(projectid):
