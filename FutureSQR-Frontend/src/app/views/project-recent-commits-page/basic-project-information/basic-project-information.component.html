@@ -1,25 +1,26 @@
-<div class="row">
-	<div class="col">
-		<ul class="list-group mt-2 mb-2">
-			<li class="list-group-item">
-				<div class="float-right">
-					<a class="btn btn-sm btn-light" *ngIf="!isStarred" (click)="onStarMe(activeProjectId)" title="Star this project"><span class="text-white">&#9734;</span></a>
-					<a class="btn btn-sm btn-secondary" *ngIf="isStarred" (click)="onUnstarMe(activeProjectId)" title="Unstar this project"><span class="text-warning">&#9733;</span></a>
-				</div>
-				
-				<h4>{{uiProjectInfo.projectDisplayName}}</h4>
-				
-				<p class="text-muted">{{uiProjectInfo.projectDescription}}</p>
-				
-				<div class="float-right">
-					<a class="btn btn-sm btn-secondary" (click)="onUpdateProjectCache(activeProjectId)">update project cache</a>
-				</div>
-				
-				<span class="mr-2"><a [routerLink]="['/',activeProjectId,'reviews']">recent reviews</a></span>
-				<span class="mr-2">|</span>
-					<span class="mr-2 text-muted"><a [routerLink]="['/','admin','project',uiProjectInfo.projectID]">configure</a></span>
-			</li>
-		</ul>
+<div class="card mt-2">
+	<div class="card-header">
+			<div class="float-right">
+				<a class="btn btn-sm btn-light" *ngIf="!isStarred" (click)="onStarMe(activeProjectId)" title="Star this project"><span class="text-white">&#9734;</span></a>
+				<a class="btn btn-sm btn-secondary" *ngIf="isStarred" (click)="onUnstarMe(activeProjectId)" title="Unstar this project"><span class="text-warning">&#9733;</span></a>
+			</div>
+			
+			<h4>{{uiProjectInfo.projectDisplayName}}</h4>
+	
 	</div>
+	<ul class="list-group list-group-flush">
+		<li class="list-group-item">
+			
+			<p class="text-muted">{{uiProjectInfo.projectDescription}}</p>
+			
+			<div class="float-right">
+				<a class="btn btn-sm btn-secondary" (click)="onUpdateProjectCache(activeProjectId)">update project cache</a>
+			</div>
+			
+			<span class="mr-2"><a [routerLink]="['/',activeProjectId,'reviews']">recent reviews</a></span>
+			<span class="mr-2">|</span>
+				<span class="mr-2 text-muted"><a [routerLink]="['/','admin','project',uiProjectInfo.projectID]">configure</a></span>
+		</li>
+	</ul>
 </div>
 
