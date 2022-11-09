@@ -9,7 +9,6 @@ import { ProjectDataQueryBackendService } from '../../backend/services/project-d
 
 // Intermal Services
 import { NavigationBarService } from '../../services/navigation-bar.service';
-import { NavbarBreadcrumbItem } from '../../services/model/navbar-breadcrumb-item';
 
 // Backend Model
 import { BackendModelReviewData } from '../../backend/model/backend-model-review-data';
@@ -85,11 +84,11 @@ export class SingleReviewPageComponent implements OnInit {
 		// Add navigation only after we received the review title as well.		
 		let x = []
 		// TODO: project display name - must retrieve info from service or backend. 
-		x.push(new NavbarBreadcrumbItem( this.activeProjectID, ['/',this.activeProjectID], false ));
+		x.push( this.navigationBarService.createItem( this.activeProjectID, ['/',this.activeProjectID], false ));
 		// Provide extra reviews link
-		x.push(new NavbarBreadcrumbItem( 'Reviews', ['/',this.activeProjectID,'reviews'], false ));
+		x.push( this.navigationBarService.createItem( 'Reviews', ['/',this.activeProjectID,'reviews'], false ));
 		// Provide title
-		x.push(new NavbarBreadcrumbItem( this.activeReviewID+": "+this.activeReviewData.reviewTitle, ['/',this.activeProjectID, 'review', this.activeReviewID], true ));
+		x.push( this.navigationBarService.createItem( this.activeReviewID+": "+this.activeReviewData.reviewTitle, ['/',this.activeProjectID, 'review', this.activeReviewID], true ));
 		
 		this.navigationBarService.setBreadcrumbNavigation(x);
 	}

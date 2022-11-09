@@ -39,6 +39,10 @@ export class NavigationBarService {
 		this._currentNavbarSubject.next(this._currentNavbarItems);
 	}
 	
+	public createItem(linkText:string, routerLink:any[], routerLinkActive: boolean): NavbarBreadcrumbItem {
+		return new NavbarBreadcrumbItem(linkText, routerLink, routerLinkActive);
+	}
+	
 	public clearBreadcrumbNavigation():void {
 		this._currentNavbarItems = [];
 		this._currentNavbarSubject.next(this._currentNavbarItems);
