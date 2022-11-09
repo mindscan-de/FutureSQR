@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 import { AddRevisionToReviewSelectionDialogComponent } from '../../../commonui/add-revision-to-review-selection-dialog/add-revision-to-review-selection-dialog.component';
+import { RemoveRevisionFromReviewSelectionDialogComponent } from '../../../commonui/remove-revision-from-review-selection-dialog/remove-revision-from-review-selection-dialog.component';
 
 // should be a uimodel instead of a backend model
 import { BackendModelReviewData } from '../../../backend/model/backend-model-review-data';
@@ -53,16 +54,14 @@ export class RevisionParticipationPanelComponent implements OnInit {
 	
 	openAddRevisionsDialog(reviewData:BackendModelReviewData): void {
 
-		const modalref = this.modalService.open(  AddRevisionToReviewSelectionDialogComponent,  {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'lg'}    );
+		const modalref = this.modalService.open(  AddRevisionToReviewSelectionDialogComponent,  {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'lg'} );
 
 		let that = this;
 		
 		modalref.componentInstance.setActiveReviewData(this.currentUiReviewData);
 		modalref.componentInstance.setRevisionConfigurationChangedCallback(
-			function() {
-				that.setRevisionConfigurationChanged();
-				}
-			);
+			() => that.setRevisionConfigurationChanged()
+		);
 		
 		modalref.result.then((result) => {
 			// TODO: check this subscription, whether it sould only be one.
@@ -77,10 +76,26 @@ export class RevisionParticipationPanelComponent implements OnInit {
 			)
 		}, (resason) => {
 			
-		})	
+		});	
 	}
 	
 	openRemoveRevisionsDialog(reviewData:BackendModelReviewData): void {
-		// TODO: implement remove dialog.
+		const modalref = this.modalService.open( RemoveRevisionFromReviewSelectionDialogComponent, {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'lg' } );
+		
+		let that = this;
+		
+		modalref.componentInstance.setActiveReviewData( this.currentUiReviewData );
+		modalref.componentInstance.setRevisionConfigurationChangedCallback(
+			() => that.setRevisionConfigurationChanged()
+		);
+		
+		modalref.result.then(
+			(result) => {
+				result.subscribe(
+					data => { },
+					error => { }
+				),
+			(reason) => { }
+		});
 	}
 }
