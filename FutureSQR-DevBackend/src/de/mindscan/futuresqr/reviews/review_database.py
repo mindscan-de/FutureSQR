@@ -209,6 +209,23 @@ class ReviewDatabase(object):
         # TODO: MOVETO: maybe at time of approval include a copy of the current revisions list into the review results.
 
         return None
+    
+    def removeRevisionFromReview(self, project_id, review_id, revision_id):
+        if not project_id in self.reviewTable:
+            return None
+        if not project_id in self.revisionTable:
+            return None
+        if not review_id in self.reviewTable[project_id]:
+            return None
+
+        # test that revision is in the list and if so remove revision id from list
+        if revision_id in self.reviewTable[project_id][review_id][REVIEW_REVISIONS]:
+            self.reviewTable[project_id][review_id][REVIEW_REVISIONS].remove(revision_id)
+        # clear revision_id from the fast access list
+        # self.revisionTable[project_id][revision_id] = review_id
+        if revision_id in self.revisionTable[project_id].keys():
+            self.revisionTable[project_id].pop(revision_id,None)
+        return None
 
     def hasReviewByRevisionId(self, project_id, revision_id):
         if not project_id in self.revisionTable:
