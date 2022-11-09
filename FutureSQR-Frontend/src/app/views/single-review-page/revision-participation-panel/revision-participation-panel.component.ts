@@ -78,6 +78,9 @@ export class RevisionParticipationPanelComponent implements OnInit {
 		}, (resason) => {
 			
 		})	
-		
+	}
+	
+	openRemoveRevisionsDialog(reviewData:BackendModelReviewData): void {
+		// TODO: implement remove dialog.
 	}
 }
