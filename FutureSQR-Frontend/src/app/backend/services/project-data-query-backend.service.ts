@@ -232,6 +232,19 @@ export class ProjectDataQueryBackendService {
 				.pipe(first());
 	}
 	
+	removeRevisionFromReview(projectid: string, reviewid: string, revisionid: string, userid: string): Observable<any> {
+		var url = `/FutureSQR/rest/project/${projectid}/review/removerevision`;
+
+		let formdata = new FormData();
+		formdata.append('reviewid',reviewid);
+		formdata.append('revisionid',revisionid);
+		formdata.append('userid', userid);
+
+		return this.httpClient
+				.post<any>(url, formdata)
+				.pipe(first());		
+	}
+	
 	// TODO: rework this subscription to once.
 	deleteReview(projectid:string, reviewid:string): Observable<any> {
 		var url =`/FutureSQR/rest/project/${projectid}/review/delete`;
