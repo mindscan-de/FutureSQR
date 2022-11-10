@@ -8,7 +8,16 @@
 				(TODO: maybe provide textbox for filtering groups)
 			</div>
 			<ul class="list-group list-group-flush">
-				<li class="list-group-item list-unstyled">A group  - TODO provide editbutton</li>
+				<li class="list-group-item list-unstyled">
+					<div class="d-flex flex-row-reverse" >
+						<div class="p-0">
+							<span ><a class="btn btn-light btn-sm ml-2" [routerLink]="['/','admin','group','xxxxxx-xxx-xxxxxxx-xxxxxxxx-xxxxxxxxxxx']">edit</a></span>
+						</div>
+						<div class="mr-auto p-0 col-9" >
+							A groupndisplayname / some statistics about this group/number of users/ number of projects
+						</div>
+					</div>
+				</li>
 				<li class="list-group-item list-unstyled">Another group  - TODO provide editbutton</li>
 			</ul>			
 		</div>
