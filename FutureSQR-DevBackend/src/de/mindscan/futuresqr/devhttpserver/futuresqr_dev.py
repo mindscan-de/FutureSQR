@@ -536,9 +536,6 @@ def postLoginData(
         USER_AVATARLOCATION:userEntry[USER_AVATARLOCATION],
         USER_CONTACT_EMAIL:userEntry[USER_CONTACT_EMAIL],
         'capabilities': capabilities,
-        
-        # DEPRECATED: for compatibility reasons?
-        'id': username
         }
 
 @app.post("/FutureSQR/rest/user/reauthenticate")
@@ -560,9 +557,6 @@ def postReauthenticateLoginData(
             USER_AVATARLOCATION:userEntry[USER_AVATARLOCATION],
             USER_CONTACT_EMAIL:userEntry[USER_CONTACT_EMAIL],
             'capabilities': capabilities,            
-            
-            # DEPRECATED: for compatibility reasons?
-            'id': assumedusername
             }
     
     # TODO: check if things match - in real backend this is more complicated.
