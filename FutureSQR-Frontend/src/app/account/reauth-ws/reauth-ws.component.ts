@@ -19,11 +19,11 @@ export class ReauthWsComponent implements OnInit {
 	tokenDefinition: CsrfToken | null = null
 
 	constructor(
-		extraktor: HttpXsrfTokenExtractor, 
 		private http: HttpClient, 
-		private router: Router, route: ActivatedRoute,
-		private authNService: AuthNService
-		
+		private router: Router, 
+		private authNService: AuthNService,
+		extraktor: HttpXsrfTokenExtractor, 
+		route: ActivatedRoute
 	) {
 		this.returnUrl = route.snapshot.queryParams['returnUrl'] || '/';
 		this.token = extraktor.getToken()
