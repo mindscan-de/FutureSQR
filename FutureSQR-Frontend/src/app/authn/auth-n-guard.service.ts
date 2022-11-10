@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { AuthNService } from './auth-n.service';
 
@@ -12,7 +11,6 @@ export class AuthNGuardService implements CanActivate {
 	constructor(
 		private authNService: AuthNService,
 		private router: Router,
-		private tokenExtraktor:HttpXsrfTokenExtractor
 	) { }
 	
 	canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ) {
@@ -21,8 +19,8 @@ export class AuthNGuardService implements CanActivate {
 			return true;
 		}
 
-		// check we have a valid XSRF token for posting
-		if (!this.tokenExtraktor.getToken()){
+		// check if preauth token is present - otherwise request preauth state.
+		if (!this.authNService.isUserPreauthenticated()){
 			return this.router.createUrlTree(['/','account','reauthws'], { queryParams: {returnUrl : state.url} });
 		}
 

@@ -236,6 +236,10 @@ export class AuthNService {
 		this.__currentBrowserAuthLifeCycleState = newState;
 	}
 	
+	isUserPreauthenticated() {
+		return this.__currentBrowserAuthLifeCycleState != BrowserAuthLifecycleState.None;
+	}
+	
 	private updateCurrentBackendUser(newUser: CurrentBackendUser): void  {
 		this._currentBackendUserValue = newUser;
 		this._currentBackendUserSubject.next(this._currentBackendUserValue);
