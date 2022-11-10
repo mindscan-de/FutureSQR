@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { NavigationBarService } from '../../services/navigation-bar.service';
+import { NavigationBarService } from '../../uiservices/navigation-bar.service';
 
 @Component({
   selector: 'app-main-page',

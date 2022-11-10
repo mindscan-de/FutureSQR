@@ -4,8 +4,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
 import { UserDataQueryBackendService } from '../../backend/services/user-data-query-backend.service';
 
-import { NavigationBarService } from '../../services/navigation-bar.service';
-import { NavbarBreadcrumbItem } from '../../services/model/navbar-breadcrumb-item';
+import { NavigationBarService } from '../../uiservices/navigation-bar.service';
 import { CurrentUserService } from '../../services/current-user.service';
 
 // BackendModel - should be actually 
@@ -36,7 +35,7 @@ export class AllProjectsPageComponent implements OnInit {
 	
 		// add navigation
 		let x = []
-		x.push(new NavbarBreadcrumbItem( 'all projects', ['/','allprojects'], true ));
+		x.push(this.navbarService.createItem( 'all projects', ['/','allprojects'], true ));
 		this.navbarService.setBreadcrumbNavigation(x);		
   }
 

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
 // proxy to other service.
-import { NavigationBarService} from '../../services/navigation-bar.service'
-import { NavbarBreadcrumbItem } from '../../services/model/navbar-breadcrumb-item';
+import { NavigationBarService} from '../../uiservices/navigation-bar.service'
+import { NavbarBreadcrumbItem } from '../../uiservices/model/navbar-breadcrumb-item';
 
 // 
 import { AdminNavbarBreadcrumbItem } from './model/admin-navbar-breadcrumb-item';

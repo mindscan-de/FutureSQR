@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 // General App Services
-import { NavbarBreadcrumbItem } from '../services/model/navbar-breadcrumb-item';
+import { NavbarBreadcrumbItem } from '../uiservices/model/navbar-breadcrumb-item';
 
 // Admin App services
 import { AdminNavigationBarService } from './services/admin-navigation-bar.service';

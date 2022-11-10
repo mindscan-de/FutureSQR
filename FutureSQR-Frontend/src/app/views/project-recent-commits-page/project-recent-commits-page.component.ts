@@ -4,8 +4,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 // Services
 import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
-import { NavigationBarService } from '../../services/navigation-bar.service';
-import { NavbarBreadcrumbItem } from '../../services/model/navbar-breadcrumb-item';
+import { NavigationBarService } from '../../uiservices/navigation-bar.service';
 
 
 // BackendModel - should be actually a ui model 
@@ -44,7 +43,7 @@ export class ProjectRecentCommitsPageComponent implements OnInit {
 		
 		// add navigation
 		let x = []
-		x.push(new NavbarBreadcrumbItem( this.activeProjectID, ['/',this.activeProjectID], false ));
+		x.push(this.navigationBarService.createItem( this.activeProjectID, ['/',this.activeProjectID], false ));
 		this.navigationBarService.setBreadcrumbNavigation(x);		
 	}
 

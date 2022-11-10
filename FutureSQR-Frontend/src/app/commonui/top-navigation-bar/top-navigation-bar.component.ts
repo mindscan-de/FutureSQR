@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { Router, Route } from '@angular/router';
 
-import { NavigationBarService } from '../../services/navigation-bar.service';
-import { NavbarBreadcrumbItem } from '../../services/model/navbar-breadcrumb-item';
+import { NavigationBarService } from '../../uiservices/navigation-bar.service';
+import { NavbarBreadcrumbItem } from '../../uiservices/model/navbar-breadcrumb-item';
 
 import { CurrentUserService } from '../../services/current-user.service';
 import { CurrentUiUser } from '../../services/model/current-ui-user';

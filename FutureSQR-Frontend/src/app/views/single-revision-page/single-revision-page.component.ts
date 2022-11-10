@@ -5,8 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 // Services
 import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
-import { NavigationBarService } from '../../services/navigation-bar.service';
-import { NavbarBreadcrumbItem } from '../../services/model/navbar-breadcrumb-item';
+import { NavigationBarService } from '../../uiservices/navigation-bar.service';
 
 
 // BackendModel - should be actually a ui model 
@@ -77,8 +76,8 @@ export class SingleRevisionPageComponent implements OnInit {
 	setNavigation(): void {
 		// add navigation
 		let x = []
-		x.push(new NavbarBreadcrumbItem( this.activeProjectID, ['/',this.activeProjectID], false ));
-		x.push(new NavbarBreadcrumbItem( this.uiRevisionData.shortrev, ['/',this.activeProjectID, 'revision', this.activeRevisionID], true ));
+		x.push(this.navigationBarService.createItem( this.activeProjectID, ['/',this.activeProjectID], false ));
+		x.push(this.navigationBarService.createItem( this.uiRevisionData.shortrev, ['/',this.activeProjectID, 'revision', this.activeRevisionID], true ));
 		
 		this.navigationBarService.setBreadcrumbNavigation(x);
 	}

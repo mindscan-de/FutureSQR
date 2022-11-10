@@ -8,7 +8,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
 
 // Intermal Services
-import { NavigationBarService } from '../../services/navigation-bar.service';
+import { NavigationBarService } from '../../uiservices/navigation-bar.service';
 
 // Backend Model
 import { BackendModelReviewData } from '../../backend/model/backend-model-review-data';

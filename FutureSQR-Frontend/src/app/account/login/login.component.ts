@@ -7,7 +7,7 @@ import { first } from 'rxjs/operators';
 import { AuthNService } from '../../authn/auth-n.service';
 
 // Ui-Services
-import { NavigationBarService } from '../../services/navigation-bar.service';
+import { NavigationBarService } from '../../uiservices/navigation-bar.service';
 
 
 @Component({
