@@ -228,6 +228,10 @@ export class AuthNService {
 		localStorage.setItem(AuthNService.LS_KEY_CURRENT_USER_AUTH_LIFECYCLE_STATE, JSON.stringify(this.__currentUserAuthLifecycleState))
 	}
 	
+	updateCurrentBrowserAuthLifecycleToPreauthenticated() : void {
+		this.updateBrowserAuthLifecylceState( BrowserAuthLifecycleState.PreAuthenicated );
+	}
+	
 	private updateBrowserAuthLifecylceState(newState: BrowserAuthLifecycleState) : void {
 		this.__currentBrowserAuthLifeCycleState = newState;
 	}
