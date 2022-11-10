@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
 
 // Internal Services
-import { CurrentUserService } from '../../../services/current-user.service';
+import { CurrentUserService } from '../../../uiservices/current-user.service';
 
 // BackendModel - should be actually 
 import { BackendModelProjectItem } from '../../../backend/model/backend-model-project-item';

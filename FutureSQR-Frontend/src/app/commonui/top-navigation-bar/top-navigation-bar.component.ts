@@ -4,8 +4,8 @@ import { Router, Route } from '@angular/router';
 import { NavigationBarService } from '../../uiservices/navigation-bar.service';
 import { NavbarBreadcrumbItem } from '../../uiservices/model/navbar-breadcrumb-item';
 
-import { CurrentUserService } from '../../services/current-user.service';
-import { CurrentUiUser } from '../../services/model/current-ui-user';
+import { CurrentUserService } from '../../uiservices/current-user.service';
+import { CurrentUiUser } from '../../uiservices/model/current-ui-user';
 
 import { AuthNService } from '../../authn/auth-n.service';
 import { AuthZService } from '../../authz/auth-z.service';

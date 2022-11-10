@@ -6,7 +6,7 @@ import { FormControl } from '@angular/forms';
 import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
 
 // Internal Services
-import { CurrentUserService } from '../../services/current-user.service';
+import { CurrentUserService } from '../../uiservices/current-user.service';
 
 // Backend-Model
 import { BackendModelThreadsMessage } from '../../backend/model/backend-model-threads-message'; 

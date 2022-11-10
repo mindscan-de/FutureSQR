@@ -10,7 +10,7 @@ import { RemoveParticipantFromReviewSelectionDialogComponent } from '../../../co
 import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
 
 // Internal Services
-import { CurrentUserService } from '../../../services/current-user.service';
+import { CurrentUserService } from '../../../uiservices/current-user.service';
 
 // should be a uimodel instead of a backend model
 import { BackendModelReviewData } from '../../../backend/model/backend-model-review-data';

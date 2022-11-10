@@ -4,7 +4,7 @@ import { Component, OnInit, Input, Output, SimpleChanges, ChangeDetectorRef, Eve
 import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
 
 // Internal Services
-import { CurrentUserService } from '../../../services/current-user.service';
+import { CurrentUserService } from '../../../uiservices/current-user.service';
 
 // Backed Model
 import { BackendModelProjectSimpleInformation } from '../../../backend/model/backend-model-project-simple-information';

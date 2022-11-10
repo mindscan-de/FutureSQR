@@ -5,7 +5,7 @@ import { ProjectDataQueryBackendService } from '../../backend/services/project-d
 import { UserDataQueryBackendService } from '../../backend/services/user-data-query-backend.service';
 
 import { NavigationBarService } from '../../uiservices/navigation-bar.service';
-import { CurrentUserService } from '../../services/current-user.service';
+import { CurrentUserService } from '../../uiservices/current-user.service';
 
 // BackendModel - should be actually 
 import { BackendModelProjectItem } from '../../backend/model/backend-model-project-item';

@@ -5,7 +5,7 @@ import { Output, EventEmitter } from '@angular/core';
 import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
 
 // Internal-Services
-import { CurrentUserService } from '../../../services/current-user.service';
+import { CurrentUserService } from '../../../uiservices/current-user.service';
 
 // Backend-Models
 import { BackendModelReviewData } from '../../../backend/model/backend-model-review-data';

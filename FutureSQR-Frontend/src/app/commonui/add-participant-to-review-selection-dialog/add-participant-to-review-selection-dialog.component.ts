@@ -9,7 +9,7 @@ import { ProjectDataQueryBackendService } from '../../backend/services/project-d
 import { UserDataQueryBackendService } from '../../backend/services/user-data-query-backend.service';
 
 // Internal Services
-import { CurrentUserService } from '../../services/current-user.service';
+import { CurrentUserService } from '../../uiservices/current-user.service';
 
 
 // Backend Models

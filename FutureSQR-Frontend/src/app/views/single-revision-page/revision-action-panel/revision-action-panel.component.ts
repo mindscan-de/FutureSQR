@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
 
 // Internal Services
-import { CurrentUserService } from '../../../services/current-user.service';
+import { CurrentUserService } from '../../../uiservices/current-user.service';
 
 // Backend Model
 import { BackendModelProjectRecentCommitRevision } from '../../../backend/model/backend-model-project-recent-commit-revision';
