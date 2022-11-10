@@ -569,6 +569,13 @@ def postReauthenticateLoginData(
     
     return {
         }
+@app.get("/FutureSQR/rest/login/csrf")
+def getCrsfToken():
+    return {
+            'headerName': "HeaderName",
+            'parameterName': "ParameterName",
+            'token': "CRSFTOKEN"
+        }
     
 
 @app.post("/FutureSQR/rest/user/logout")
