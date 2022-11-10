@@ -522,9 +522,12 @@ def postLoginData(
     
     sessionDB.userAuthenticationRegister(userEntry)
     
-    capabilities = []
+    capabilities = {}
+    capabilities['roles'] = []
+    capabilities['featureflags'] = {}
+    
     if username=='mindscan-de':
-        capabilities.append('admin')
+        capabilities['roles'].append('admin')
     
     return {
         USER_UUID:userEntry[USER_UUID],
@@ -569,6 +572,8 @@ def postReauthenticateLoginData(
     
     return {
         }
+
+    
 @app.get("/FutureSQR/rest/login/csrf")
 def getCrsfToken():
     return {

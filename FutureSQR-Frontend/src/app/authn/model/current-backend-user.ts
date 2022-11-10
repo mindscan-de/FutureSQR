@@ -1,3 +1,5 @@
+import { CurrentBackendUserCapabilities } from './current-backend-user-capabilities';
+
 // TODO align format, with user / user rights with all backends
 // python, springboot
 // this type contains the backend user info (login, uuid, displayname, etc. pp) 
@@ -10,6 +12,5 @@ export class CurrentBackendUser {
 	public avatarlocation: string;
 	public email: string;
 	
-	// something like this.... should be a detailed map with multiple infos like (user, admin, siteadmin, groupadmin, projectadmin) or something similar
-	public capabilities: Array<string>;
+	public capabilities: CurrentBackendUserCapabilities;
 }

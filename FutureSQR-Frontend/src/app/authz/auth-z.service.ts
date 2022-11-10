@@ -5,6 +5,7 @@ import { AuthNService } from '../authn/auth-n.service';
 
 import { CurrentAuthorizations } from './model/current-authorizations';
 import { CurrentBackendUser } from '../authn/model/current-backend-user';
+import { CurrentBackendUserCapabilities } from '../authn/model/current-backend-user-capabilities';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +36,7 @@ export class AuthZService {
 	m2mUserTransform(backendUser:CurrentBackendUser): CurrentAuthorizations {
 		let newPrivileges = new CurrentAuthorizations();
 		if(backendUser.capabilities != undefined) {
-			newPrivileges.isAdmin = backendUser.capabilities.includes('admin');
+			newPrivileges.isAdmin = backendUser.capabilities.roles.includes('admin');
 		}
 		return newPrivileges;
 	}
