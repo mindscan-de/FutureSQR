@@ -27,7 +27,7 @@ export class AdminNavigationBarService {
 		let translated:NavbarBreadcrumbItem[] = [];
 		
 		// prepend with admin configuration link...
-		translated.push(new NavbarBreadcrumbItem('configuration',this.admin_link, false));
+		translated.push(this.navigationBarService.createItem('configuration',this.admin_link, false));
 		
 		// translate admin bar items to breadcrumb links
 		for(let i: number = 0; i<adminNavBarItems.length;i++) {
@@ -49,7 +49,7 @@ export class AdminNavigationBarService {
 		navRouterLink = navRouterLink.concat(adminNavBarItem.routerLink);
 		
 		// append original data
-		let translatedLink : NavbarBreadcrumbItem = new NavbarBreadcrumbItem(navLinkText,navRouterLink,navLinkActive ); 
+		let translatedLink : NavbarBreadcrumbItem = this.navigationBarService.createItem(navLinkText,navRouterLink,navLinkActive ); 
 		
 		return translatedLink;
 	}
