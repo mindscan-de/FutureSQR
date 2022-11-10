@@ -546,9 +546,12 @@ def postReauthenticateLoginData(
     if sessionDB.isAuthenticationPresent(assumedusername):
         userEntry = usersDB.getUserByLogonName(assumedusername);
         
-        capabilities = []
+        capabilities = {}
+        capabilities['roles'] = []
+        capabilities['featureflags'] = {}
+        
         if assumedusername=='mindscan-de':
-            capabilities.append('admin')
+            capabilities['roles'].append('admin')
             
         return {
             USER_UUID:userEntry[USER_UUID],
