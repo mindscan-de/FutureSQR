@@ -319,6 +319,19 @@ export class ProjectDataQueryBackendService {
 				.pipe(first());
 	}
 	
+	resetReview(projectid: string, reviewid:string, reviewerid:string) : Observable<any> {
+		var url = `/FutureSQR/rest/project/${projectid}/review/resetreview`;
+
+		let formdata = new FormData();
+		
+		formdata.append('reviewid',reviewid);
+		formdata.append('reviewerid', reviewerid);
+
+		return this.httpClient
+				.post<any>(url,formdata)
+				.pipe(first());
+	}
+	
 	createThreadForReview(projectid: string, reviewid: string, authorid:string, message:string ) : Observable<any> {
 		var url = `/FutureSQR/rest/project/${projectid}/review/${reviewid}/createthread`;
 		

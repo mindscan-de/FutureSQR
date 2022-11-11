@@ -436,6 +436,15 @@ def postReviewConcern(projectid:str, reviewid:str = Form(...), reviewerid:str = 
     result = {}
     return result
 
+@app.post("/FutureSQR/rest/project/{projectid}/review/resetreview")
+def postReviewReset( projectid:str, reviewid:str=Form(...), reviewerid:str = Form(...)):
+    if projectDB.isProjectIdPresent(projectid):
+        # reviewDB.resetReview(projectid, reviewid, reviewerid)
+        pass
+    result = {}
+    return result
+    
+
 @app.post("/FutureSQR/rest/project/{projectid}/review/appendrevision")
 def postAppendRevisionToReview(projectid:str, reviewid:str = Form(...), revisionid:str = Form(...)):
     if projectDB.isProjectIdPresent(projectid):

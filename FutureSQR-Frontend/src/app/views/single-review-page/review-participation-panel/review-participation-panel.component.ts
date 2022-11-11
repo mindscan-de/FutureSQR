@@ -204,5 +204,16 @@ export class ReviewParticipationPanelComponent implements OnInit {
 		);
 	}
 	
+	onReviewReset(project:string, reviewId:string): void {
+		let currentUser:string = this.currentUserService.getCurrentUserUUID();
+		
+		this.projectDataQueryBackend.resetReview(projectid, reviewId, currentUser).subscribe(
+			data => {
+				
+			},
+			error => {}
+		);
+	}
+	
 
 }
