@@ -37,13 +37,15 @@ export class ReauthWsComponent implements OnInit {
 			.subscribe({
 				next: n => { this.tokenDefinition = n },
 				// timeout is only for debugging purpose and may be removed later
-				complete: () => { setTimeout(() => {
-					// set authn service to preauthenticated.
-					this.authNService.updateCurrentBrowserAuthLifecycleToPreauthenticated();
-					// DO we need to store this token somewhere else? 
-					// if yes -> authnservice will have to store this in case of spare use / other solution if permanently required
-					this.router.navigateByUrl(this.returnUrl);
-				}, 3000) }
+				complete: () => { 
+//					setTimeout(() => {
+						// set authn service to preauthenticated.
+						this.authNService.updateCurrentBrowserAuthLifecycleToPreauthenticated();
+						// DO we need to store this token somewhere else? 
+						// if yes -> authnservice will have to store this in case of spare use / other solution if permanently required
+						this.router.navigateByUrl(this.returnUrl);
+//					}, 3000) 
+				}
 			});
 	}
 }
