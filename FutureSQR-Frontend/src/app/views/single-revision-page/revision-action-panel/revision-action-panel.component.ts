@@ -22,8 +22,8 @@ export class RevisionActionPanelComponent implements OnInit {
 	@Input() activeProjectID: string = "";
 	@Input() activeRevisionData: BackendModelProjectRecentCommitRevision = new BackendModelProjectRecentCommitRevision();
 	
-	recentReviews:BackendModelProjectRecentReviews = new BackendModelProjectRecentReviews();
-	isAttachDisabled: boolean = true;
+	public recentReviews:BackendModelProjectRecentReviews = new BackendModelProjectRecentReviews();
+	public isAttachDisabled: boolean = true;
 
 	constructor(
 		private projectDataQueryBackend : ProjectDataQueryBackendService,
@@ -67,6 +67,8 @@ export class RevisionActionPanelComponent implements OnInit {
 		
 		// TODO : open a modal dialog, to and provide all current open reviews
 		// let the user select a review, return with this result.
+		
+		// reuse the add revision to review selection dialog, but configure differently?
 		
 		// Actually ths "attachToReveiw" button should be disabled, if no open reviews exist.
 		
