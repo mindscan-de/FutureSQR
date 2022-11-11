@@ -45,5 +45,25 @@ export class RevisionActionPanelComponent implements OnInit {
 			error => {}
 		);
 	}
+	
+	onAttachToReview(projectId: string, revisionId: string) : void {
+		let userid = this.currentUserService.getCurrentUserUUID();
+		
+		// TODO : open a modal dialog, to and provide all current open reviews
+		// let the user select a review, return with this result.
+		
+		// Actually ths "attachToReveiw" button should be disabled, if no open reviews exist.
+		
+		// then use append revision to review, to add this selected (open) review. 
+/*		this.projectDataQueryBackend.appendRevisionToReview(projectid, reviewid, revisionid, userid).subscribe (
+			data => {
+				// redirect to review page.
+				this.router.navigate(['/', projectId, 'review', data['reviewId']]);
+			},
+			error => {}
+		);
+*/		
+		 
+	}
 
 }

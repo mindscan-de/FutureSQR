@@ -5,7 +5,7 @@
 		</span>
 		<span *ngIf="!activeRevisionData.hasReview">
 			<a class="btn btn-sm btn-secondary mr-2" title="Create a new review from this revision" (click)="onCreateReview(activeProjectID,activeRevisionData.revisionid)">create new review</a>
-			<a class="btn btn-sm btn-secondary mr-2" title="Add this revision to a review">attach to review</a>
+			<a class="btn btn-sm btn-secondary mr-2" title="Add this revision to a review" (click)="onAttachToReview(activeProjectID, activeRevisionData.revisionid)" >attach to review</a>
 		</span>
 	</div>
 </div>
