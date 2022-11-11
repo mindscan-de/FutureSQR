@@ -4,6 +4,7 @@ export class CurrentUiUser {
 	public logonName = "";
 	public displayName = "";
 	public uuid = "";
+	public avatar = "";
 	
 	constructor() {
 	}

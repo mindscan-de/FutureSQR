@@ -35,6 +35,7 @@ export class CurrentUserService {
 		uiUser.displayName = backendUser.displayname || "";
 		uiUser.logonName = backendUser.loginname || "";
 		uiUser.uuid = backendUser.uuid || "";
+		uiUser.avatar = backendUser.avatarlocation || "";
 		
 		return uiUser;
 	}
