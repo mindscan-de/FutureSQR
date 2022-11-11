@@ -9,6 +9,7 @@ import { CurrentUserService } from '../../../uiservices/current-user.service';
 
 // Backend Model
 import { BackendModelProjectRecentCommitRevision } from '../../../backend/model/backend-model-project-recent-commit-revision';
+import { BackendModelProjectRecentReviews } from '../../../backend/model/backend-model-project-recent-reviews';
 
 
 @Component({
@@ -19,7 +20,10 @@ import { BackendModelProjectRecentCommitRevision } from '../../../backend/model/
 export class RevisionActionPanelComponent implements OnInit {
 	
 	@Input() activeProjectID: string = "";
-	@Input() activeRevisionData: BackendModelProjectRecentCommitRevision = new BackendModelProjectRecentCommitRevision();	
+	@Input() activeRevisionData: BackendModelProjectRecentCommitRevision = new BackendModelProjectRecentCommitRevision();
+	
+	recentReviews:BackendModelProjectRecentReviews = new BackendModelProjectRecentReviews();
+	isAttachDisabled: boolean = true;
 
 	constructor(
 		private projectDataQueryBackend : ProjectDataQueryBackendService,
@@ -28,10 +32,22 @@ export class RevisionActionPanelComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
+		 
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
-		
+		if(changes.activeProjectID != undefined) {
+			console.log(changes);
+			let projectid:string = changes.activeProjectID.currentValue;
+
+			this.projectDataQueryBackend.getRecentReviewsByProject(projectid).subscribe(
+				data => {
+					this.recentReviews = data;
+					this.isAttachDisabled = data.openReviews.length == 0;
+				 },
+				error => { }
+			);
+		}
 	}
 
 	onCreateReview(projectId: string, revisionId: string) : void {
