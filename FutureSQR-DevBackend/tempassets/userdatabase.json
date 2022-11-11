@@ -1,6 +1,6 @@
 {
   "6822a80d-1854-304c-a26d-81acd2c008f3": {
-    "avatarlocation": "6822a80d-1854-304c-a26d-81acd2c008f3.png",
+    "avatarlocation": "",
     "displayname": "Maxim Gansert Banned Testuser",
     "email": "mindscan@local.localhost",
     "isbanned": true,
@@ -8,7 +8,7 @@
     "uuid": "6822a80d-1854-304c-a26d-81acd2c008f3"
   },
   "8ce74ee9-48ff-3dde-b678-58a632887e31": {
-    "avatarlocation": "8ce74ee9-48ff-3dde-b678-58a632887e31.png",
+    "avatarlocation": "/assets/avatars/8ce74ee9-48ff-3dde-b678-58a632887e31.256px.jpg",
     "displayname": "Maxim Gansert",
     "email": "contact@themail.local",
     "isbanned": false,
@@ -16,7 +16,7 @@
     "uuid": "8ce74ee9-48ff-3dde-b678-58a632887e31"
   },
   "f5fc8449-3049-3498-9f6b-ce828515bba2": {
-    "avatarlocation": "f5fc8449-3049-3498-9f6b-ce828515bba2.png",
+    "avatarlocation": "",
     "displayname": "Elsa Someone",
     "email": "contact@elsamail.local",
     "isbanned": false,
