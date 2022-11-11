@@ -18,9 +18,10 @@ import { CurrentAuthorizations } from '../../authz/model/current-authorizations'
 })
 export class TopNavigationBarComponent implements OnInit {
 
-	public title:String = "APPTITLE";
+	public title:string = "APPTITLE";
 	public currentUserUnknown:boolean = true;
 	public currentUserIsAdmin:boolean = false;
+	public avatarlocation:string= "";
 	
 	public navItems: Array<NavbarBreadcrumbItem> = new Array<NavbarBreadcrumbItem>();
 
@@ -77,7 +78,9 @@ export class TopNavigationBarComponent implements OnInit {
 		this.currentUserUnknown = currentUser.isAnonymous();
 		
 		// TODO: detect if logged in or logged out
-		// then clear state or update state what to show in the User part of the top navigation 
+		// then clear state or update state what to show in the User part of the top navigation
+		
+		this.avatarlocation = currentUser.avatar;
 	}
 	
 	onCurrentAuthZChanged(currentAuthZ:CurrentAuthorizations) : void {

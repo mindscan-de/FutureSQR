@@ -25,7 +25,7 @@
 			</li>
 			<li>
 				<div *ngIf="!currentUserUnknown" ngbDropdown class="d-inline-block" placement="bottom-right" display="dynamic">
-					<button class="btn btn-sm btn-dark mt-1 text-warning" id="dropdownBasic1" ngbDropdownToggle>Me</button>
+					<button class="btn btn-sm btn-dark mt-1 text-warning" id="dropdownBasic1" ngbDropdownToggle><span *ngIf="avatarlocation!=''"><img class="rounded-sm" width="20" height="20" src="{{avatarlocation}}">&nbsp;</span>Me</button>
 					<div ngbDropdownMenu>
 					  <button ngbDropdownItem>Action 1 (nyi)</button>
 					  <button ngbDropdownItem>Action 2 (nyi)</button>
