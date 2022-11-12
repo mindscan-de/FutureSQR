@@ -4,7 +4,7 @@
 		<span *ngIf="openReview.reviewUnassigned" class="text-danger small"><b>No reviewers assigned</b></span>
 		<div *ngIf="!openReview.reviewUnassigned">
 			<ng-container *ngFor="let reviewer_kv of currentReviewers | keyvalue">
-				<app-review-result [reviewState]="reviewer_kv.value"></app-review-result>
+				<div class="m-1"><app-review-result [reviewState]="reviewer_kv.value"></app-review-result></div>
 			</ng-container>
 		</div>
 	</div>
