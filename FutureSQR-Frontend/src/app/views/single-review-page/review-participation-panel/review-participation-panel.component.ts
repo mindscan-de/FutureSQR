@@ -183,6 +183,8 @@ export class ReviewParticipationPanelComponent implements OnInit {
 	}
 	
 	onReviewApprove(projectid:string, reviewId:string): void {
+		// TODO: actually if it is already approved, then we actually want to reset ... and return
+		
 		let currentUser:string = this.currentUserService.getCurrentUserUUID();
 		
 		this.projectDataQueryBackend.approveReview(projectid, reviewId, currentUser).subscribe(
@@ -194,22 +196,24 @@ export class ReviewParticipationPanelComponent implements OnInit {
 	}
 	
 	onReviewConcern(projectid:string, reviewId:string): void {
+		// TODO: actually if it is already concerned, then we actually want to reset ... and return
+		
 		let currentUser:string = this.currentUserService.getCurrentUserUUID();
 		
 		this.projectDataQueryBackend.concernReview(projectid, reviewId, currentUser).subscribe(
 			data => {
-				this.onReviewStateChanged.emit('reviewapproved');
+				this.onReviewStateChanged.emit('reviewconcerned');
 			},
 			error => {}
 		);
 	}
 	
-	onReviewReset(project:string, reviewId:string): void {
+	onReviewReset(projectid:string, reviewId:string): void {
 		let currentUser:string = this.currentUserService.getCurrentUserUUID();
 		
 		this.projectDataQueryBackend.resetReview(projectid, reviewId, currentUser).subscribe(
 			data => {
-				
+				this.onReviewStateChanged.emit('reviewreset');
 			},
 			error => {}
 		);
