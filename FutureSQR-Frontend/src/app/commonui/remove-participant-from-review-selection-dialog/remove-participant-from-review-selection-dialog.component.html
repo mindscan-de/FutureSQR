@@ -8,9 +8,9 @@
 <div class="modal-body">
 	<h5 class="h5">Current Reviewers</h5>
 	
-	<ul>
+	<ul class="list list-unstyled">
 		<li *ngFor="let reviewer of currentReviewers| keyvalue:originalOrder">
-			<span><span class="small">{{reviewer.key}}</span> <span><a class="btn btn-sm btn-secondary" >remove</a></span></span>
+			<span class="btn btn-secondary mb-1" title="Click to remove this participant from review" (click)="removeParticipant(reviewer.key)"><app-avatar-and-name [uuid]="reviewer.key" ></app-avatar-and-name></span>
 		</li>	
 	</ul>
 
