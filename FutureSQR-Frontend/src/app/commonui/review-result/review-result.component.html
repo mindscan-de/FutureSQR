@@ -1,6 +1,6 @@
-<span class="m-1"><span class="badge" [ngClass]="{
+<span><img class="rounded-sm mr-0" width="28" height="28" src="{{userInfo.avatarLocation}}"><span class="m-1"><span class="badge" [ngClass]="{
 	'badge-success':reviewState.reviewresult=='approve',
 	'badge-info': reviewState.reviewresult=='concern',
 	'badge-light': reviewState.reviewresult==''
-	}" >{{reviewState.reviewer_id}}</span><span class="badge badge-warning badge-default" *ngIf="reviewState.reviewresult=='concern'" title="This user has concerns">!</span></span>
+	}" >{{userInfo.displayName}}</span><span class="badge badge-warning badge-default" *ngIf="reviewState.reviewresult=='concern'" title="This user has concerns">!</span></span></span>
 
