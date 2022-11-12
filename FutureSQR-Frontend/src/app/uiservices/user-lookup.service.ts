@@ -7,7 +7,7 @@ import { UiUser } from './model/ui-user';
 })
 export class UserLookupService {
 	
-	private unknownUser : UiUser = new UiUser('8ce74ee9-48ff-3dde-b678-58a632887e31','Unknown','/assets/avatars/00000000-4000-0000-0000-000000000000.256px.jpg');
+	private unknownUser : UiUser = new UiUser('00000000-4000-0000-0000-000000000000','Unknown','/assets/avatars/00000000-4000-0000-0000-000000000000.256px.jpg');
 	private lookupMap : Map<string, UiUser> = new Map<string, UiUser>();
 
 	constructor() {
@@ -25,5 +25,9 @@ export class UserLookupService {
 		}
 		
 		return new UiUser(useruuid, this.unknownUser.displayName, this.unknownUser.avatarLocation);
+	}
+	
+	unknown(): UiUser {
+		return  this.unknownUser;
 	}
 }
