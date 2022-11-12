@@ -50,6 +50,7 @@ import { PersonalUserFeedComponent } from './commonui/personal-user-feed/persona
 import { RecentReviewActionsLogComponent } from './views/single-review-page/recent-review-actions-log/recent-review-actions-log.component';
 import { RemoveRevisionFromReviewSelectionDialogComponent } from './commonui/remove-revision-from-review-selection-dialog/remove-revision-from-review-selection-dialog.component';
 import { ReviewResultComponent } from './commonui/review-result/review-result.component';
+import { AvatarAndNameComponent } from './commonui/avatar-and-name/avatar-and-name.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { ReviewResultComponent } from './commonui/review-result/review-result.co
     PersonalUserFeedComponent,
     RecentReviewActionsLogComponent,
     RemoveRevisionFromReviewSelectionDialogComponent,
-    ReviewResultComponent
+    ReviewResultComponent,
+    AvatarAndNameComponent
   ],
   imports: [
     BrowserModule,
