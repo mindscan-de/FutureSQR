@@ -19,9 +19,10 @@
 	
 
 		<p  *ngIf="currentReviewers.size>0">
-			TODO: resolve user ids, with avatar and displayname / also make clickabe to remove reviewer
 			<ng-container *ngFor="let reviewer_kv of currentReviewers | keyvalue">
-				<app-review-result [reviewState]="reviewer_kv.value"></app-review-result>
+				<div class="m-1">
+					<app-review-result [reviewState]="reviewer_kv.value"></app-review-result>
+				</div>
 			</ng-container>
 		</p>  		
   		
