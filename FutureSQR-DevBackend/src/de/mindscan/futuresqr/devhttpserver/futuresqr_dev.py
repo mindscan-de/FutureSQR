@@ -39,12 +39,11 @@ from de.mindscan.futuresqr.reviewthreads.review_threads_database import ReviewTh
 from de.mindscan.futuresqr.threads.threads_database import ThreadsDatabase
 from de.mindscan.futuresqr.users.users_database import UsersDatabase
 from de.mindscan.futuresqr.assets.hardcoded import getSystemConfigurationMap
-from de.mindscan.futuresqr.assets.passwd import getPasswdEntry
 from de.mindscan.futuresqr.configuration.system_configuration import SystemConfiguration
-
-import de.mindscan.futuresqr.devhttpserver.myconfig as myconfig
 from de.mindscan.futuresqr.authnsession.session_database import SessionDatabase
 from de.mindscan.futuresqr.users.user_table_columns import *  # @UnusedWildImport
+
+import de.mindscan.futuresqr.devhttpserver.myconfig as myconfig
 
 ### ---------------------------------------------------------------
 ### provide general system configuration - for different developers
