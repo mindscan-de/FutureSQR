@@ -11,15 +11,13 @@
   		</ng-container>
   	</li>
   	<li class ="list-group-item">
-  	
-  		<p><span class="float small text-muted"><b class="mr-2">Reviewer(s):</b></span>
   		<span class="float-right">
- 			<span *ngIf="!isCurrentUserAReviewer">
-				<a class="btn btn-sm mr-2 btn-light" title="add me to review" (click)="onAddMeToReview(currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId)">add me</a>
- 			</span>
-  			<a class="btn btn-sm mr-2 btn-light" title="add a reviewer" (click)="onAddReviewer(currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId)">+</a>
-  			<a *ngIf="currentReviewers.size>0" class="btn btn-sm mr-0 btn-light" title="remove a reviewer" (click)="onRemoveReviewer(currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId)">&ndash;</a>
-		</span></p>
+			<a *ngIf="!isCurrentUserAReviewer" class="btn btn-sm btn-light" title="add me to review" (click)="onAddMeToReview(currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId)">add me</a>
+  			<a class="btn btn-sm ml-2 mr-0 btn-light" title="add a reviewer" (click)="onAddReviewer(currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId)">+</a>
+  			<a *ngIf="currentReviewers.size>0" class="btn btn-sm ml-2 mr-0 btn-light" title="remove a reviewer" (click)="onRemoveReviewer(currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId)">&ndash;</a>
+		</span>  	
+		
+  		<p><span class="float small text-muted"><b class="mr-2">Reviewer(s):</b></span></p>
 	
 
 		<p *ngIf="currentReviewers.size>0">
