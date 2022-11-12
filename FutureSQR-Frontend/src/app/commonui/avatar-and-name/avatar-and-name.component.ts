@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+
+import { UserLookupService }  from '../../uiservices/user-lookup.service';
+import { UiUser } from '../../uiservices/model/ui-user';
+
 
 @Component({
   selector: 'app-avatar-and-name',
@@ -6,10 +10,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./avatar-and-name.component.css']
 })
 export class AvatarAndNameComponent implements OnInit {
+	
+	public userInfo: UiUser;
+	
+	@Input() uuid: string = "";
+	@Input() size: number = 28;
 
-  constructor() { }
+	constructor(
+		private userLookupService : UserLookupService
+	) { 
+		this.userInfo = this.userLookupService.unknown();
+	}
 
-  ngOnInit(): void {
-  }
+	ngOnInit(): void {
+	}
 
+	ngOnChanges(changes: SimpleChanges): void {
+		if(changes.uuid != undefined) {
+			let uuid:string = changes.uuid.currentValue;
+			this.userInfo = this.userLookupService.lookup(uuid)
+		}
+	}
 }
