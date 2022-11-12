@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+
+import { BackendModelReviewResult } from '../../backend/model/backend-model-review-result';
 
 @Component({
   selector: 'app-review-result',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReviewResultComponent implements OnInit {
 
-  constructor() { }
+	@Input() reviewState:BackendModelReviewResult = new BackendModelReviewResult();
 
-  ngOnInit(): void {
-  }
+	constructor() { }
+
+	ngOnInit(): void {
+	}
 
 }

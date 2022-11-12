@@ -1,1 +1,6 @@
-<p>review-result works!</p>
+<span class="m-1"><span class="badge" [ngClass]="{
+	'badge-success':reviewState.reviewresult=='approve',
+	'badge-info': reviewState.reviewresult=='concern',
+	'badge-light': reviewState.reviewresult==''
+	}" >{{reviewState.reviewer_id}}</span><span class="badge badge-warning badge-default" *ngIf="reviewState.reviewresult=='concern'" title="This user has concerns">!</span></span>
+
