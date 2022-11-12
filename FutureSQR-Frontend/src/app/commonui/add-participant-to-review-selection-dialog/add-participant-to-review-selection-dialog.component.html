@@ -8,27 +8,26 @@
 <div class="modal-body">
 
 	<h5 class="h5">Suggested Reviewers</h5>
-	<ul>
+	<ul class="list-unstyled">
 		<li *ngFor="let suggesteduserentry of suggestedUserMap | keyvalue:originalOrder">
-			<span><span class="small">{{suggesteduserentry.value.displayname}}</span> <span><a class="btn btn-sm btn-secondary" (click)="addParticipant(suggesteduserentry.value.uuid)">add</a></span></span>
+			<span class="btn btn-secondary mb-1" title="Click to add this user" (click)="addParticipant(suggesteduserentry.value.uuid)"><app-avatar-and-name [uuid]="suggesteduserentry.value.uuid"></app-avatar-and-name></span>
 		</li>
 	</ul>
-	<h5 class="h5">All Users</h5>
-
-	TODO: avatar, and name, and button for adding this user
 	
-	build a filter / search instead.
+	<h5 class="h5">Find User</h5>
+
+	build a filter / search.
 	
 	<ul>
  	<li *ngFor="let userentry of currentUserMap | keyvalue:originalOrder">
-		{{userentry.value.uuid}}, {{userentry.value.displayname}}
+ 		<span class="btn btn-secondary mb-1" title="Click to add this user" (click)="addParticipant(userentry.value.uuid)"><app-avatar-and-name [uuid]="userentry.value.uuid"></app-avatar-and-name></span>
 	</li>
  	</ul>
 	
 	TODO: and also maybe a userfilter instead of full list.<br>
-	
+
 	TODO: and also maybe sort users by displayname ....<br>
-	
+
 	TODO: also do not show banned users
 </div>
 
