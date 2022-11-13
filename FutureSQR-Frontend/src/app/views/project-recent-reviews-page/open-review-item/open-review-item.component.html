@@ -10,7 +10,7 @@
 	</div>
 	<div class="mr-auto p-1">
 		<p><span><b class="mr-3">{{openReview.reviewId}}:</b><a [routerLink]="['/',activeProjectID,'review',openReview.reviewId]"><b>{{openReview.reviewTitle}}</b></a></span></p>
-		<span class="small text-muted">Authors: <span *ngFor="let author of openReview.reviewAuthors">{{author}}&nbsp;</span> </span> 
+		<span class="small text-muted">Authors: <span *ngFor="let author_uuid of openReview.reviewAuthors"><app-avatar-only [uuid]="author_uuid" [size]="24"></app-avatar-only></span> </span> 
 	</div>
 </div>
 

@@ -1,3 +1,3 @@
 <p><span><b class="mr-3">{{closedReview.reviewId}}:</b><a [routerLink]="['/',activeProjectID,'review',closedReview.reviewId]"><b>{{closedReview.reviewTitle}}</b></a></span></p>
-<span class="small text-muted">authored by: <span *ngFor="let author of closedReview.reviewAuthors">{{author}}&nbsp;</span></span>
+<span class="small text-muted">Authors: <span *ngFor="let author_uuid of closedReview.reviewAuthors"><app-avatar-only [uuid]="author_uuid" [size]="24"></app-avatar-only></span></span>
 
