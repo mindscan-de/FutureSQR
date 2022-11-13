@@ -4,7 +4,7 @@
   </div>
   <ul class="list-group list-group-flush">
   	<li class ="list-group-item">
-  		<p><span class="small text-muted"><b class="mr-2">Author(s):</b>{{currentUiReviewData.reviewAuthors.length}}</span></p>
+  		<p><span class="small text-muted"><b class="mr-2">Author(s):</b></span><span class="badge badge-light text-muted" title="Number of Commit Authors">{{currentUiReviewData.reviewAuthors.length}}</span></p>
   		
   		<span class="ml-1 mr-1" *ngFor="let author_uuid of currentUiReviewData.reviewAuthors">
   			<app-avatar-and-name [uuid]="author_uuid" [size]="24"></app-avatar-and-name>
@@ -17,8 +17,7 @@
   			<a *ngIf="currentReviewers.size>0" class="btn btn-sm ml-2 mr-0 btn-light" title="remove a reviewer" (click)="onRemoveReviewer(currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId)">&ndash;</a>
 		</span>  	
 		
-  		<p><span class="float small text-muted"><b class="mr-2">Reviewer(s):</b></span></p>
-	
+  		<p><span class="float small text-muted"><b class="mr-2">Reviewer(s):</b></span><span class="badge badge-light text-muted" title="Number of Reviewers">{{currentReviewers.size}}</span></p>
 
 		<p *ngIf="currentReviewers.size>0">
 			<ng-container *ngFor="let reviewer_kv of currentReviewers | keyvalue">
