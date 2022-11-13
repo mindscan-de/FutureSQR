@@ -27,6 +27,7 @@ SOFTWARE.
 '''
 
 from de.mindscan.futuresqr.reviews.review_tables_columns import *  # @UnusedWildImport
+from de.mindscan.futuresqr.users.users_lookup import name_to_uuid
 
 def createNewReview(projectDB, projectId, revisionInformation) :
     reviewIdentifier = projectDB.calculateNewReviewIndex(projectId)
@@ -40,8 +41,7 @@ def createNewReview(projectDB, projectId, revisionInformation) :
         REVIEW_ADDITIONAL_DESCRIPTION : "",
         # WHENEVER WE CHANGE THE revision configuration -- WE MUST UPDATE THE AUTHORS LIST
         REVIEW_REVISIONS : [revisionInformation['revisionID']],
-        # Actually this should be a uuid for each author
-        REVIEW_AUTHORS : [revisionInformation['author']],
+        REVIEW_AUTHORS : [name_to_uuid(revisionInformation['author'])],
         REVIEW_READY_TO_CLOSE : False,
         REVIEW_UNASSIGNED : True,
         # This is more complicated i guess.. (right now)
