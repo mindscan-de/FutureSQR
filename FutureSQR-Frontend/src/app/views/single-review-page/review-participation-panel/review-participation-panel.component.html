@@ -6,9 +6,9 @@
   	<li class ="list-group-item">
   		<p><span class="small text-muted"><b class="mr-2">Author(s):</b>{{currentUiReviewData.reviewAuthors.length}}</span></p>
   		
-  		<ng-container *ngFor="let author of currentUiReviewData.reviewAuthors">
-  			<span>{{author}}</span>
-  		</ng-container>
+  		<span class="ml-1 mr-1" *ngFor="let author_uuid of currentUiReviewData.reviewAuthors">
+  			<app-avatar-and-name [uuid]="author_uuid" [size]="24"></app-avatar-and-name>
+  		</span>
   	</li>
   	<li class ="list-group-item">
   		<span class="float-right">
