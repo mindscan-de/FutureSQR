@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
 
 // Internal Services
-import { CurrentUserService } from '../../../uiservices/current-user.service'; 
+import { CurrentUserService } from '../../../uiservices/current-user.service';
+import { UserLookupService } from '../../../uiservices/user-lookup.service'; 
 
 // UI Model
 import { UiReviewFileInformation } from '../../../commonui/uimodel/ui-review-file-information';
@@ -31,6 +32,7 @@ export class ProjectRecentRevisionComponent implements OnInit {
 	constructor( 
 		private projectDataQueryBackend : ProjectDataQueryBackendService,
 		private currentUserService : CurrentUserService,
+		private userLookup : UserLookupService,		
 		private router: Router
 	) { }
 
@@ -38,6 +40,10 @@ export class ProjectRecentRevisionComponent implements OnInit {
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
+	}
+	
+	lookupUUID(authorname:string) : string {
+		return this.userLookup.lookupComitterToUuid(authorname);
 	}
 	
 	onCreateReview(projectId: string, revisionId: string) : void {
