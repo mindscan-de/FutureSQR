@@ -25,6 +25,8 @@ export class RevisionParticipationPanelComponent implements OnInit {
 	@Input() reviewRevisions: BackendModelProjectRecentCommitRevision[] = [];
 	@Output() onRevisionStateChanged: EventEmitter<string> = new EventEmitter<string>();
 
+	// TODO: should provide also the lookup service, until the lookup for the revisions is implemented in backend.
+	// show the author avatars to each revision.
 	constructor( 
 		private modalService: NgbModal
 	) { }

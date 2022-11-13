@@ -26,6 +26,8 @@ export class AddRevisionToReviewSelectionDialogComponent implements OnInit {
 	public currentUiReviewData : BackendModelReviewData = new BackendModelReviewData();
 	public revisionChangedCallbackFkt : () => void = null;
 
+	// TODO: should provide also the lookup service, until the lookup for the revisions is implemented in backend.
+	// show the author avatars to each revision.
 	constructor(
 		private projectDataQueryBackend : ProjectDataQueryBackendService,
 		private currentUserService: CurrentUserService,
