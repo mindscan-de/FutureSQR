@@ -1,4 +1,12 @@
 {
+  "35c94b55-559f-30e4-a2f4-ee16d31fc276": {
+    "avatarlocation": "/assets/avatars/35c94b55-559f-30e4-a2f4-ee16d31fc276.256px.png",
+    "displayname": "Robert Breunung",
+    "email": "rb@localhost",
+    "isbanned": false,
+    "loginname": "rbreunung",
+    "uuid": "35c94b55-559f-30e4-a2f4-ee16d31fc276"
+  },
   "6822a80d-1854-304c-a26d-81acd2c008f3": {
     "avatarlocation": "",
     "displayname": "Maxim Gansert Banned Testuser",
