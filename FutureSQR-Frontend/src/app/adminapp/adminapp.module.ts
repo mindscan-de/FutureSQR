@@ -14,6 +14,7 @@ import { ConfigureUserComponent } from './views/configure-user/configure-user.co
 import { ConfigureAddUserComponent } from './views/configure-add-user/configure-add-user.component';
 import { ConfigureAddGroupComponent } from './views/configure-add-group/configure-add-group.component';
 import { ConfigureAddProjectComponent } from './views/configure-add-project/configure-add-project.component';
+import { AdminappAvatarOnlyComponent } from './commonui/adminapp-avatar-only/adminapp-avatar-only.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { ConfigureAddProjectComponent } from './views/configure-add-project/conf
 	ConfigureUserComponent, 
 	ConfigureAddUserComponent, 
 	ConfigureAddGroupComponent, 
-	ConfigureAddProjectComponent
+	ConfigureAddProjectComponent, AdminappAvatarOnlyComponent
 	],
   imports: [
     CommonModule,
