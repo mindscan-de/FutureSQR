@@ -50,9 +50,11 @@
 			Current Avatar
 			</div>
 			<div class="card-body">
+				<div class="mx-auto" style="width: 256px;">
 				<!-- Problem is that we need to duplicate the ui component stuff for this separate app. We can't just reuse the outer app code.-->
 				<!-- <app-avatar-only [uuid]="test"></app-avatar-only> -->
-				Image with avatar 256px
+					<app-adminapp-avatar-only [size]="256" [uuid]="activeUserID"></app-adminapp-avatar-only>
+				</div>
 			</div>
 		</div>
 		
