@@ -78,7 +78,7 @@ export class RevisionParticipationPanelComponent implements OnInit {
 			)
 		}, (resason) => {
 			
-		});	
+		}).catch(() => {});	
 	}
 	
 	openRemoveRevisionsDialog(reviewData:BackendModelReviewData): void {
@@ -98,6 +98,6 @@ export class RevisionParticipationPanelComponent implements OnInit {
 					error => { }
 				),
 			(reason) => { }
-		});
+		}).catch(() => {});
 	}
 }
