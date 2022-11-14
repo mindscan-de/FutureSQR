@@ -10,7 +10,7 @@
 	<h5 class="h5">Suggested Reviewers</h5>
 	<ul class="list-unstyled">
 		<li *ngFor="let suggesteduserentry of suggestedUserMap | keyvalue:originalOrder">
-			<span class="btn btn-secondary mb-1" title="Click to add this user" (click)="addParticipant(suggesteduserentry.value.uuid)"><app-avatar-and-name [uuid]="suggesteduserentry.value.uuid"></app-avatar-and-name></span>
+			<span class="btn btn-light mb-1" title="Click to add this user" (click)="addParticipant(suggesteduserentry.value.uuid)"><app-avatar-and-name [uuid]="suggesteduserentry.value.uuid"></app-avatar-and-name></span>
 		</li>
 	</ul>
 	
@@ -20,7 +20,7 @@
 	
 	<ul>
  	<li *ngFor="let userentry of currentUserMap | keyvalue:originalOrder">
- 		<span class="btn btn-secondary mb-1" title="Click to add this user" (click)="addParticipant(userentry.value.uuid)"><app-avatar-and-name [uuid]="userentry.value.uuid"></app-avatar-and-name></span>
+ 		<span class="btn btn-light mb-1" title="Click to add this user" (click)="addParticipant(userentry.value.uuid)"><app-avatar-and-name [uuid]="userentry.value.uuid"></app-avatar-and-name></span>
 	</li>
  	</ul>
 	
