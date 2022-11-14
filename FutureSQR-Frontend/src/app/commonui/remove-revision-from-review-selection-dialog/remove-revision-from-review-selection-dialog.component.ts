@@ -21,7 +21,7 @@ import { BackendModelProjectRecentCommitRevision } from '../../backend/model/bac
 export class RemoveRevisionFromReviewSelectionDialogComponent implements OnInit {
 	
 	public currentUiReviewData : BackendModelReviewData = new BackendModelReviewData();
-	public revisionChangedCallbackFkt: () => void = null;
+	public revisionChangedCallbackFkt: () => void = () => {};
 
 	constructor(
 		private projectDataQueryBackend : ProjectDataQueryBackendService,

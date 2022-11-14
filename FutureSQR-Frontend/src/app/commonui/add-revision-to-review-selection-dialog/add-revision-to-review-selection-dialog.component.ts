@@ -24,8 +24,8 @@ export class AddRevisionToReviewSelectionDialogComponent implements OnInit {
 
 	public uiModelRecentProjectCommitsGroupedByDate: Map<string, BackendModelProjectRecentCommits> = new Map<string, BackendModelProjectRecentCommits>();
 	public currentUiReviewData : BackendModelReviewData = new BackendModelReviewData();
-	public revisionChangedCallbackFkt : () => void = null;
-
+	public revisionChangedCallbackFkt : () => void = ()=>{};
+	
 	// TODO: should provide also the lookup service, until the lookup for the revisions is implemented in backend.
 	// show the author avatars to each revision.
 	constructor(
@@ -66,11 +66,12 @@ export class AddRevisionToReviewSelectionDialogComponent implements OnInit {
 		
 		let currentUserId = this.currentUserService.getCurrentUserUUID();
 		
-		// TODO: lock tthis component until the append was successful
+		// TODO: lock this component until the append was successful
 		this.projectDataQueryBackend.appendRevisionToReview( projectid, reviewid, revisionid, currentUserId).subscribe(
 			data=>{
 				// todo: unlock this component.				
 				// todo: close dialog?
+				this.revisionChangedCallbackFkt();
 			},
 			error=> {
 				// todo: unlock this component.
