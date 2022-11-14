@@ -109,12 +109,12 @@ export class ReviewParticipationPanelComponent implements OnInit {
 		let that = this;
 		
 		modalref.componentInstance.setActiveReviewData(this.currentUiReviewData);
-/*		modalref.componentInstance.setParticipantConfigurationChangedCallback(
+		modalref.componentInstance.setParticipantConfigurationChangedCallback(
 			function () {
-				that.setParticipantConfigurationChanged();
+				that.onReviewStateChanged.emit('revieweradded')
 			}
 		);
-*/		
+		
 		modalref.result.then(
 			(result)=> {
 				result.subscribe(
@@ -153,13 +153,19 @@ export class ReviewParticipationPanelComponent implements OnInit {
 				current_user_uuid
 			).subscribe(
 				data => {
-					that.setParticipantConfigurationChanged();
+					// that.onReviewStateChanged.emit('reviewerremoved')
 				},
 				error => {}
 			);
 		}
 		else {
 			let modalref = this.modalService.open( RemoveParticipantFromReviewSelectionDialogComponent, {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'lg'});
+			modalref.componentInstance.setParticipantConfigurationChangedCallback(
+				function () {
+					that.onReviewStateChanged.emit('reviewerremoved')
+				}
+			);
+
 			
 			let that = this;
 			
