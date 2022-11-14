@@ -34,6 +34,8 @@ export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
 	public usersInShortList : BackendModelSimpleUserEntry[] = []
 	public usersInFilteredList : BackendModelSimpleUserEntry[] = []
 	public suggestedUserMap : Map<string,BackendModelSimpleUserEntry> = new Map<string,BackendModelSimpleUserEntry>();
+	
+	private changeCallback: ()=>void = ()=>{};
 
 	constructor(
 		private projectDataQueryBackend: ProjectDataQueryBackendService,
@@ -61,7 +63,10 @@ export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
 		// TODO query a suggestion shortlist for the review (based on file, and other metrics?)
 		// MAYBE the shortlist should contain a reason?
 		
-		
+	}
+	
+	setParticipantConfigurationChangedCallback(callback:()=>void): void {
+		this.changeCallback = callback;
 	}
 	
 	onUserMapProvided(userDictionary:BackendModelSimpleUserDictionary):void {
@@ -107,7 +112,7 @@ export class AddParticipantToReviewSelectionDialogComponent implements OnInit {
 			current_user_uuid
 		).subscribe(
 			data=> {
-				// TODO: we actually want to exit this dialog, and inform, that a reviewer was added
+				this.changeCallback();
 			},
 			error=> {}
 		)

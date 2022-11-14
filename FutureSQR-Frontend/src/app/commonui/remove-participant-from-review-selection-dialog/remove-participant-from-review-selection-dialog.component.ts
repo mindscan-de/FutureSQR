@@ -22,6 +22,8 @@ export class RemoveParticipantFromReviewSelectionDialogComponent implements OnIn
 	
 	public currentUiReviewData : BackendModelReviewData = new BackendModelReviewData();
 	public currentReviewers: Map<string, BackendModelReviewResult> = new Map<string, BackendModelReviewResult>();
+	
+	private changeCallback: ()=>void = ()=>{};	
 
 	constructor(
 		private projectDataQueryBackend: ProjectDataQueryBackendService,
@@ -32,6 +34,11 @@ export class RemoveParticipantFromReviewSelectionDialogComponent implements OnIn
 	ngOnInit(): void {
 		// we use the data 
 	}
+	
+	setParticipantConfigurationChangedCallback(callback:()=>void): void {
+		this.changeCallback = callback;
+	}
+	
 
 	removeParticipant(participant_uuid: string) : void {
 		let current_user_uuid = this.currentUserService.getCurrentUserUUID();
@@ -44,6 +51,7 @@ export class RemoveParticipantFromReviewSelectionDialogComponent implements OnIn
 		).subscribe(
 			data=> {
 				// TODO: we actually want to exit this dialog, and inform, that a reviewer was added
+				this.changeCallback();
 			},
 			error=> {}
 		)
