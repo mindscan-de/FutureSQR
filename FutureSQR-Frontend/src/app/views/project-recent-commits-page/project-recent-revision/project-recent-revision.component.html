@@ -14,7 +14,7 @@
 		<!--  Maybe use the click here and use $event.stopPropagation() -->
 		<div class="p-0 mr-auto">
 			<p>
-				<app-avatar-only [uuid]="lookupUUID(activeRevision.authorname)" [size]="32"></app-avatar-only><a [routerLink]="['/',activeProjectID,'revision',activeRevision.revisionid]"><strong class="ml-2">{{activeRevision.message}}</strong></a>
+				<app-avatar-only [uuid]="activeRevision.authorUuid" [size]="32"></app-avatar-only><a [routerLink]="['/',activeProjectID,'revision',activeRevision.revisionid]"><strong class="ml-2">{{activeRevision.message}}</strong></a>
 			</p>
 			<span><a class="btn btn-sm btn-light mr-2" (click)="onToggleFileList(); $event.stopPropagation();" title="expand touched file list"><span *ngIf="!showFileList">&#9660;</span><span *ngIf="showFileList">&#9650;</span></a></span>
 			<span class="text-muted small">created <b title="{{activeRevision.date}}">{{activeRevision.reldate}}</b> by <b>{{activeRevision.authorname}}</b></span>

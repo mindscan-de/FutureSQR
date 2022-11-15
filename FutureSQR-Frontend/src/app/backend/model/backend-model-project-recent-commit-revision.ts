@@ -11,5 +11,5 @@ export class BackendModelProjectRecentCommitRevision {
 		public parents: string = "";
 		public parentsshort: string ="";
 		public reviewID: string = "";
-		
+		public authorUuid: string = "";
 }
