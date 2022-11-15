@@ -28,6 +28,7 @@ SOFTWARE.
 
 import subprocess
 from de.mindscan.futuresqr.gittools.git_output_parser import parse_log_by_rs_us, parse_log_full_changeset, parse_log_fileListToArray
+from de.mindscan.futuresqr.users.users_lookup import name_to_uuid
 
 GIT_FIELDS = ['shortrev','revisionid','authorname','authorid','date','shortdate','reldate','parents','parentsshort','message']
 GIT_FORMAT_PARAMS = ['%h','%H','%an','%ae','%ad','%as','%ar','%P','%p','%s']
@@ -48,6 +49,18 @@ def __execute_git_command_on_local_repo( local_git_repo, git_parameters):
     full_git_parameters.extend(git_parameters)
     
     return __execute_git_command(full_git_parameters)
+
+
+# This is not nice here...
+def XXX_append_uuid_to_revisionlistitems(revisions):
+    resultlist = []
+    
+    for revision in revisions:
+        revision['authorUuid'] = name_to_uuid(revision['authorname'])
+        resultlist.append(revision)
+
+    return resultlist
+
     
 
 def calculateRecentRevisionsForLocalGitRepo(local_repo_path:str, limit:int = -1):
@@ -77,6 +90,7 @@ def calculateRecentRevisionsForLocalGitRepo(local_repo_path:str, limit:int = -1)
     log = __execute_git_command_on_local_repo(local_repo_path, git_parameters)
 
     revisions = parse_log_by_rs_us(log, GIT_FIELDS)
+    revisions = XXX_append_uuid_to_revisionlistitems(revisions)
     
     recentRevisions = {
         'revisions': revisions
@@ -109,6 +123,7 @@ def calculateNRecentRevisionsForLocalGitRepo(local_repo_path:str, max_revisions:
     log = __execute_git_command_on_local_repo(local_repo_path, git_parameters)
 
     revisions = parse_log_by_rs_us(log, GIT_FIELDS)
+    revisions = XXX_append_uuid_to_revisionlistitems(revisions)
     
     recentRevisions = {
         'revisions': revisions
@@ -129,6 +144,7 @@ def calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo(local_repo_path:st
     log = __execute_git_command_on_local_repo(local_repo_path, git_parameters)
 
     revisions = parse_log_by_rs_us(log, GIT_FIELDS)
+    revisions = XXX_append_uuid_to_revisionlistitems(revisions)
     
     recentRevisions = {
         'revisions': revisions
@@ -149,6 +165,7 @@ def caluclateSimpleRevisionInformation(local_git_repo_path:str, revisionid:str):
 
     log = __execute_git_command_on_local_repo(local_git_repo_path, git_parameters)
     revision = parse_log_by_rs_us(log, GIT_FIELDS)
+    #XXXX
 
     return revision
 
@@ -167,7 +184,9 @@ def calculateSimpleRevisionInformationForRevisionList(local_git_repo_path:str, r
 
     log = __execute_git_command_on_local_repo(local_git_repo_path, git_parameters)
     revisions = parse_log_by_rs_us(log, GIT_FIELDS)
-    revisions = [ revision for revision in revisions if revision['revisionid'] in revisionlist] 
+    revisions = [ revision for revision in revisions if revision['revisionid'] in revisionlist]
+    
+    revisions = XXX_append_uuid_to_revisionlistitems(revisions) 
 
     return revisions
 
