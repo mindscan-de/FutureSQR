@@ -120,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "FutureSQR-Frontend"
+    }
+  },
+  "defaultProject": "FutureSQR-Frontend",
+  "cli": {
+    "analytics": false
+  }
 }
