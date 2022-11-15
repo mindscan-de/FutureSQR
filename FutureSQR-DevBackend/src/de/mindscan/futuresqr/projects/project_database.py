@@ -26,7 +26,7 @@ SOFTWARE.
 @autor: Maxim Gansert
 '''
 from de.mindscan.futuresqr.assets.hardcoded import _putToTempAssets, _getFromTempAssets
-from importlib_metadata.docs.conf import project
+
 
 class ProjectDatabase(object):
     '''
