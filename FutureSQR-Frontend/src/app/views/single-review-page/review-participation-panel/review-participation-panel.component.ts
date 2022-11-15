@@ -153,7 +153,7 @@ export class ReviewParticipationPanelComponent implements OnInit {
 				current_user_uuid
 			).subscribe(
 				data => {
-					// that.onReviewStateChanged.emit('reviewerremoved')
+					that.onReviewStateChanged.emit('reviewerremoved')
 				},
 				error => {}
 			);
