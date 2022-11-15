@@ -2,24 +2,29 @@
 	<div class="col-xl-9">
 		<app-basic-project-information [activeProjectId]="activeProjectID" (revisionHistoryUpdated)="reloadCommitHistory($event)"></app-basic-project-information>
 		
-		<div class="row">
-			<div class="col">
+		<div class="card mt-4">
+			<div class="card-header">
 				<h4>Recent Commits</h4>
-				
+			</div>
+			<div clss="card-body">
 				<ul>
 					<li><b>TODO:</b> the very HEAD is missing.... for some reason.... fix this.</li>
 				</ul>
-				
-				<ng-container *ngFor="let commitsByDate of uiModelRecentProjectCommitsGroupedByDate | keyvalue:originalOrder">
-					<h5 class="mt-3">{{commitsByDate.key}}</h5>
-					<ul class="list-group">
-						<li *ngFor="let revision of commitsByDate.value.revisions" class="list-group-item">
-							<app-project-recent-revision [activeProjectID]="activeProjectID" [activeRevision]="revision"></app-project-recent-revision>
-						</li>
-					</ul>
-				</ng-container>
 			</div>
 		</div>
+		<ng-container *ngFor="let commitsByDate of uiModelRecentProjectCommitsGroupedByDate | keyvalue:originalOrder">
+		<div class="card mt-2">
+			<div class="card-header">
+				<b>{{commitsByDate.key}}</b>
+			</div>
+			<ul class="list-group list-group-flush">
+				<li *ngFor="let revision of commitsByDate.value.revisions" class="list-group-item">
+					<app-project-recent-revision [activeProjectID]="activeProjectID" [activeRevision]="revision"></app-project-recent-revision>
+				</li>
+			</ul>
+		</div>
+		</ng-container>
+					
 	</div>
 	<div class="col-xl-3">
 		<app-personal-user-feed></app-personal-user-feed>
