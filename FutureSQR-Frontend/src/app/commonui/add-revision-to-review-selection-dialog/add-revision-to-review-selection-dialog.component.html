@@ -10,10 +10,11 @@
 		<h5 class="mt-3">{{commitsByDate.key}}</h5>
 		<ul class="list-group">
 			<li *ngFor="let revision of commitsByDate.value.revisions" class="list-group-item ">
+				<app-avatar-only [size]="36" [uuid]="revision.authorUuid"></app-avatar-only>
 				<span class="float-right"><a class="btn btn-sm btn-secondary mr-2" title="Add this revision to the review" *ngIf="!revision.hasReview" (click)="appendRevisionToReview( currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId, revision.revisionid)">add</a><tt class="small">{{revision.shortrev}}</tt></span>
 			
-				<span class="small text-muted"><b>{{revision.message}}</b></span><br/>		
-				<span class="small text-muted">authored by: {{revision.authorname}} on {{revision.date}}({{revision.reldate}})</span>
+				<span class="small text-muted ml-2"><b>{{revision.message}}</b></span><br/>		
+				<span class="small text-muted">authored on {{revision.date}} ({{revision.reldate}})</span>
 			</li>
 		</ul>
 	</ng-container>
@@ -21,7 +22,6 @@
 </div>
 
 <div class="modal-footer">
-  TODO: add avatars to each version<br>
   TODO: add ability to expand file list for each commit
 </div>
 
