@@ -1,4 +1,4 @@
-<div *ngIf="activeUser" class="row">
+<div class="row">
 	<div class="col col-9">
 	
 		<!--  maybe extract later to component -->
@@ -47,7 +47,11 @@
 	<div class="col col-3">
 		<div class="card mt-2">
 			<div class="card-header">
-			Current Avatar
+			<div class="float-right">
+				<span *ngIf="!activeUser.isbanned" class="badge badge-success ">active</span>
+				<span *ngIf="activeUser.isbanned" class="badge badge-danger ">banned</span>
+			</div>
+			{{activeUser.displayname}}
 			</div>
 			<div class="card-body">
 				<div class="mx-auto" style="width: 256px;">
@@ -60,16 +64,10 @@
 		
 		<div class="card mt-2">
 			<div class="card-body">
-				<div class="row">
-					<div class="col">
-						<span *ngIf="!activeUser.isbanned"><a class="badge badge-success align-middle">active</a></span>
-						<span *ngIf="activeUser.isbanned"><a class="badge badge-danger align-middle">banned</a>&nbsp;(DATE)</span>
-					</div>
-					<div class="col d-flex flex-row-reverse">
-						<span *ngIf="!activeUser.isbanned"><a class="btn btn-light btn-sm" (click)="onBanUser()">ban</a></span>
-						<span *ngIf="activeUser.isbanned"><a class="btn btn-light btn-sm" (click)="onUnbanUser()">unban</a></span>
-					</div>
-				</div>
+				<span *ngIf="!activeUser.isbanned"><a class="btn btn-light btn-sm" (click)="onBanUser()">ban</a></span>
+				<span *ngIf="activeUser.isbanned"><a class="btn btn-light btn-sm" (click)="onUnbanUser()">unban</a></span>
+				
+				<br> TODO: maybe also show date and reason of ban here e.g. that user left company.
 			</div>
 		</div>
 		
