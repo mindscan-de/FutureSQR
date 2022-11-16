@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { AdminBackendModelSimpleUserItem } from '../../backend/model/admin-backend-model-simple-user-item';
 import { AdminDataQueryBackendService } from '../../backend/services/admin-data-query-backend.service';
 
 // Admin App Services
@@ -15,6 +16,7 @@ import { AdminNavbarBreadcrumbItem } from '../../services/model/admin-navbar-bre
 export class ConfigureUserComponent implements OnInit {
 	
 	public activeUserID: string = '';
+	public activeUser?: AdminBackendModelSimpleUserItem;
 
 	constructor(
 		private adminNavigationBarService : AdminNavigationBarService,
@@ -27,6 +29,24 @@ export class ConfigureUserComponent implements OnInit {
 		this.activeUserID = this.route.snapshot.paramMap.get('useruuid');
 
 		this.updateNavigationBar(this.activeUserID);
+
+		this.adminDataQueryBackend.getAdminUserList().subscribe(
+			data => {this.onAccountListProvided(data)},
+			error => {}
+		);		
+	}
+
+	private onAccountListProvided( userlist: AdminBackendModelSimpleUserItem[]): void {
+		let uiModelSimpleUserlist = this.m2mTransform(userlist);
+		this.activeUser = uiModelSimpleUserlist.find(user => user.uuid === this.activeUserID)
+
+		if (this.activeUser) {
+			this.updateNavigationBar(this.activeUser.displayname)
+		}
+	}
+	
+	private m2mTransform(input: AdminBackendModelSimpleUserItem[]): AdminBackendModelSimpleUserItem[] {
+		return input;
 	}
 
 	updateNavigationBar(username : string) : void {
