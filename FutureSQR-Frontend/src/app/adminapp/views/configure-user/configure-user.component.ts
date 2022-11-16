@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { AdminDataQueryBackendService } from '../../backend/services/admin-data-query-backend.service';
 
 // Admin App Services
 import { AdminNavigationBarService }  from '../../services/admin-navigation-bar.service';
@@ -17,21 +18,22 @@ export class ConfigureUserComponent implements OnInit {
 
 	constructor(
 		private adminNavigationBarService : AdminNavigationBarService,
+		private adminDataQueryBackend : AdminDataQueryBackendService,
 		private route: ActivatedRoute, 
 		private router: Router
 	) { }
 
 	ngOnInit(): void {
 		this.activeUserID = this.route.snapshot.paramMap.get('useruuid');
-		
-		this.updateNavigationBar();
+
+		this.updateNavigationBar(this.activeUserID);
 	}
 
-	updateNavigationBar() : void {
+	updateNavigationBar(username : string) : void {
 		let x:AdminNavbarBreadcrumbItem[] = []
 		
 		x.push(new AdminNavbarBreadcrumbItem('users', ['users'], false));
-		x.push(new AdminNavbarBreadcrumbItem(this.activeUserID, ['user',this.activeUserID], true));
+		x.push(new AdminNavbarBreadcrumbItem(username, ['user',this.activeUserID], true));
 		 
 		this.adminNavigationBarService.setAdminBreadCrumbNavigation(x);
 	}
