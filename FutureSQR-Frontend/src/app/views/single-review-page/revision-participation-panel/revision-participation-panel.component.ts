@@ -87,6 +87,7 @@ export class RevisionParticipationPanelComponent implements OnInit {
 		let that = this;
 		
 		modalref.componentInstance.setActiveReviewData( this.currentUiReviewData );
+		modalref.componentInstance.setUiReviewRevisions(this.currentUiReviewRevisions);
 		modalref.componentInstance.setRevisionConfigurationChangedCallback(
 			() => that.setRevisionConfigurationChanged()
 		);

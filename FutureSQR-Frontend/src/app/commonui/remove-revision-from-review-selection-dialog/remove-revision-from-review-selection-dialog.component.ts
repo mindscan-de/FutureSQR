@@ -21,6 +21,7 @@ import { BackendModelProjectRecentCommitRevision } from '../../backend/model/bac
 export class RemoveRevisionFromReviewSelectionDialogComponent implements OnInit {
 	
 	public currentUiReviewData : BackendModelReviewData = new BackendModelReviewData();
+	public currentUiReviewRevisions: BackendModelProjectRecentCommitRevision[] = [];
 	public revisionChangedCallbackFkt: () => void = () => {};
 
 	constructor(
@@ -41,6 +42,10 @@ export class RemoveRevisionFromReviewSelectionDialogComponent implements OnInit 
 		
 		
 		// TODO: collect current revisions and display these...
+	}
+	
+	setUiReviewRevisions(reviewRevisions: BackendModelProjectRecentCommitRevision[]) : void {
+		this.currentUiReviewRevisions = reviewRevisions;
 	}
 	
 	setRevisionConfigurationChangedCallback(fkt: () => void): void {
