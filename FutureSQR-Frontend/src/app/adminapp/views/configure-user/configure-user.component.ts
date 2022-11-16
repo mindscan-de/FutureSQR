@@ -16,7 +16,7 @@ import { AdminNavbarBreadcrumbItem } from '../../services/model/admin-navbar-bre
 export class ConfigureUserComponent implements OnInit {
 
 	public activeUserID: string = '';
-	public activeUser?: AdminBackendModelSimpleUserItem;
+	public activeUser: AdminBackendModelSimpleUserItem = new AdminBackendModelSimpleUserItem();
 
 	constructor(
 		private adminNavigationBarService : AdminNavigationBarService,
