@@ -47,11 +47,11 @@
 	<div class="col col-3">
 		<div class="card mt-2">
 			<div class="card-header">
-			<div class="float-right">
-				<span *ngIf="!activeUser.isbanned" class="badge badge-success ">active</span>
-				<span *ngIf="activeUser.isbanned" class="badge badge-danger ">banned</span>
-			</div>
-			{{activeUser.displayname}}
+				<div class="float-right">
+					<span *ngIf="!activeUser.isbanned" class="badge badge-success ">active</span>
+					<span *ngIf="activeUser.isbanned" class="badge badge-danger ">banned</span>
+				</div>
+				{{activeUser.displayname}}
 			</div>
 			<div class="card-body">
 				<div class="mx-auto" style="width: 256px;">
