@@ -1,4 +1,4 @@
-<div class="row">
+<div *ngIf="activeUser" class="row">
 	<div class="col col-9">
 	
 		<!--  maybe extract later to component -->
@@ -60,7 +60,16 @@
 		
 		<div class="card mt-2">
 			<div class="card-body">
-				BAN / UNBAN button
+				<div class="row">
+					<div class="col">
+						<span *ngIf="!activeUser.isbanned"><a class="badge badge-success align-middle">active</a></span>
+						<span *ngIf="activeUser.isbanned"><a class="badge badge-danger align-middle">banned</a>&nbsp;(DATE)</span>
+					</div>
+					<div class="col d-flex flex-row-reverse">
+						<span *ngIf="!activeUser.isbanned"><a class="btn btn-light btn-sm" (click)="onBanUser()">ban</a></span>
+						<span *ngIf="activeUser.isbanned"><a class="btn btn-light btn-sm" (click)="onUnbanUser()">unban</a></span>
+					</div>
+				</div>
 			</div>
 		</div>
 		
