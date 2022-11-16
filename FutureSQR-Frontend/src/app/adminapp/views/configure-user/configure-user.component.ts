@@ -58,4 +58,17 @@ export class ConfigureUserComponent implements OnInit {
 		this.adminNavigationBarService.setAdminBreadCrumbNavigation(x);
 	}
 
+	onBanUser() {
+		let that = this;
+		this.adminDataQueryBackend.postBanUser(this.activeUser.uuid).subscribe(
+			data => { this.activeUser = data; }
+		)
+	}
+
+	onUnbanUser() {
+		let that = this;
+		this.adminDataQueryBackend.postUnbanUser(this.activeUser.uuid).subscribe(
+			data => { this.activeUser = data; }
+		)
+	}
 }
