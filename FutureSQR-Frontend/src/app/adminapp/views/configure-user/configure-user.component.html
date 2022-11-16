@@ -62,8 +62,8 @@
 			<div class="card-body">
 				<div class="row">
 					<div class="col">
-						<span *ngIf="!activeUser.isbanned"><a class="badge badge-success">active</a></span>
-						<span *ngIf="activeUser.isbanned"><a class="badge badge-danger">banned</a>&nbsp;(DATE)</span>
+						<span *ngIf="!activeUser.isbanned"><a class="badge badge-success align-middle">active</a></span>
+						<span *ngIf="activeUser.isbanned"><a class="badge badge-danger align-middle">banned</a>&nbsp;(DATE)</span>
 					</div>
 					<div class="col d-flex flex-row-reverse">
 						<span *ngIf="!activeUser.isbanned"><a class="btn btn-light btn-sm" (click)="onBanUser()">ban</a></span>
