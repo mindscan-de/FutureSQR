@@ -21,7 +21,8 @@
 					</div>
 				</div>
 				<div class="ml-auto p-1">
-					<a class="btn btn-secondary btn-sm" (click)="removeRevisionFromReview( currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId, revision.revisionid)">remove</a>				
+					<a class="btn btn-secondary btn-sm" (click)="removeRevisionFromReview( currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId, revision.revisionid)">remove</a>
+					<tt class="ml-2 small">{{revision.shortrev}}</tt>				
 				</div>
 			</div>
 		</li>
@@ -29,7 +30,6 @@
 
 
 	<ul>
-		<li>TODO: show revisions and buttons to remove revisions</li>
 		<li>TODO: group revisions by date?</li>
 		<li>TODO: add ability to expand file list for each commit</li>
 	</ul>
