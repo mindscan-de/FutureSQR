@@ -8,6 +8,11 @@
 <div class="modal-body">
 	<ul class="list-unstyled ml-2 mr-2">
 		<li class="mb-2" *ngFor="let revision of currentUiReviewRevisions">
+			<!-- 
+					TODO: this should be extracted into a separate component, also this should be more flexible, 
+					such that the button action is handled here, but button is provided in component, haven't don
+					such a thing right now, but useful for add / remove revision and re-use of such a component. 
+			-->
 			<div class="d-flex">
 				<div class="float-left p-1">
 					<app-avatar-only [size]="36" [uuid]="revision.authorUuid"></app-avatar-only>
