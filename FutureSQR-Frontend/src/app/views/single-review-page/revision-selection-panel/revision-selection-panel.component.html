@@ -1,10 +1,11 @@
 <div class="card mt-2">
+	<div class="card-header">
+		Select Revisions
+		<span class="badge badge-secondary ml-2 " title="Number of selected revisions">{{currentUiReviewRevisions.length}}</span> / <span class="badge badge-secondary" title="Number of revisions in review">{{currentUiReviewRevisions.length}}</span>
+	</div>
 	<div class="card-body">
-		<p>
-			Select Revisions <span class="small text-muted">(<span title="Number of revisions">{{currentUiReviewRevisions.length}}</span> included in review)</span> 
-		</p>
-		<a class="btn btn-sm btn-secondary text-warning m-1" title="Show all revisions" (click)="onShowAllRevisions()"><span class="h5">&#x2605;</span> show all</a>
-		<a class="btn btn-sm btn-secondary text-white m-1" title="Hide all revisions" (click)="onHideAllRevisions()"><span class="h5">&#x2605;</span> hide all</a>
+		<a class="btn btn-sm btn-secondary text-warning m-1 small" title="Show all revisions" (click)="onShowAllRevisions()"><span class=""> &#x2605; show all</span></a>
+		<a class="btn btn-sm btn-secondary text-white m-1" title="Hide all revisions" (click)="onHideAllRevisions()"><span class="">&#x2605; hide all</span></a>
 	</div>
 	
 	<ul class="list-group list-group-flush">
@@ -17,8 +18,8 @@
 							<b class="text-secondary" title="direct parent" *ngIf="revision.isDirectChild">&mdash;</b>
 						</li>
 						<li class="list-group-item m-0 p-0  border-0" title="{{revision.message}} - p({{revision.parents}})">
-							<a class="btn btn-sm btn-secondary text-white m-0 p-1"  (click)="onToggleSelection(revision)" *ngIf="!revision.isRevisionSelected"><span class="h5">&#x2605;</span></a>
-							<a class="btn btn-sm btn-secondary text-warning m-0 p-1" (click)="onToggleSelection(revision)" *ngIf="revision.isRevisionSelected"><span class="h5">&#x2605;</span></a>
+							<a class="btn btn-sm btn-secondary text-white m-0 p-1"  (click)="onToggleSelection(revision)" *ngIf="!revision.isRevisionSelected"><span class="">&#x2605;</span></a>
+							<a class="btn btn-sm btn-secondary text-warning m-0 p-1" (click)="onToggleSelection(revision)" *ngIf="revision.isRevisionSelected"><span class="">&#x2605;</span></a>
 						</li>
 					</ng-container>
 				</ul>
