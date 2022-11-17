@@ -33,7 +33,7 @@ export class ReauthWsComponent implements OnInit {
 		// first part is to be moved to authn service later, 
 		// only the router remains here.
 		// this.authnService.preauthenticate(returnURL / callback?)
-		this.http.get<CsrfToken>("/FutureSQR/rest/login/csrf").pipe(first())
+		this.http.get<CsrfToken>("/FutureSQR/rest/user/csrf").pipe(first())
 			.subscribe({
 				next: n => { this.tokenDefinition = n },
 				// timeout is only for debugging purpose and may be removed later
