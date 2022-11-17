@@ -5,6 +5,9 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 // Backend Services
 import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
 
+// Internal Ui Services
+import { CurrentUserService } from '../../uiservices/current-user.service';
+
 
 // should be a uimodel instead of a backend model
 import { BackendModelReviewData } from '../../backend/model/backend-model-review-data';
@@ -26,6 +29,7 @@ export class RemoveRevisionFromReviewSelectionDialogComponent implements OnInit 
 
 	constructor(
 		private projectDataQueryBackend : ProjectDataQueryBackendService,
+		private currentUserService: CurrentUserService,
 		public activeModal: NgbActiveModal
 	) { }
 
@@ -52,11 +56,19 @@ export class RemoveRevisionFromReviewSelectionDialogComponent implements OnInit 
 		this.revisionChangedCallbackFkt = fkt;
 	}
 	
-	removeRevisionFromReview(projectid, reviewid, revisonid): void {
+	removeRevisionFromReview(projectid:string, reviewid:string , revisionid:string ): void {
+		let uuid:string = this.currentUserService.getCurrentUserUUID();
 		console.log("called");
 		
-		// file list was updated, we might want to remove the revision or gray out the box, for this particular revisionid.
-		this.revisionChangedCallbackFkt();
+		this.projectDataQueryBackend.removeRevisionFromReview(projectid, reviewid, revisionid, uuid).subscribe(
+			data => {
+				// file list was updated, we might want to remove the revision or gray out the button, for this particular revisionid.
+				this.revisionChangedCallbackFkt();
+			},
+			error => {
+				
+			}
+		);
 	}
 
 }
