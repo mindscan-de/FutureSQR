@@ -8,15 +8,20 @@
 <div class="modal-body">
 	<ul class="list-unstyled ml-2 mr-2">
 		<li class="mb-2" *ngFor="let revision of currentUiReviewRevisions">
-			<div class="float-left mr-2">
-				<app-avatar-only [size]="36" [uuid]="revision.authorUuid"></app-avatar-only>
-			</div>
-			<div class="small" title="{{revision.shortrev}} -- {{revision.revisionid}}">
-				<div>
-					<b>{{revision.message}}</b>
+			<div class="d-flex">
+				<div class="float-left p-1">
+					<app-avatar-only [size]="36" [uuid]="revision.authorUuid"></app-avatar-only>
 				</div>
-				<div>
-					<span class="text-muted">created <span title="{{revision.date}}">{{revision.shortdate}}</span> by {{revision.authorname}}</span>
+				<div class="p-1 small" title="{{revision.shortrev}} -- {{revision.revisionid}}">
+					<div>
+						<b>{{revision.message}}</b>
+					</div>
+					<div>
+						<span class="text-muted">created <span title="{{revision.date}}">{{revision.shortdate}}</span> by {{revision.authorname}}</span>
+					</div>
+				</div>
+				<div class="ml-auto p-1">
+					<a class="btn btn-secondary btn-sm" (click)="removeRevisionFromReview( currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId, revision.revisionid)">remove</a>				
 				</div>
 			</div>
 		</li>
@@ -26,6 +31,7 @@
 	<ul>
 		<li>TODO: show revisions and buttons to remove revisions</li>
 		<li>TODO: group revisions by date?</li>
+		<li>TODO: add ability to expand file list for each commit</li>
 	</ul>
 </div>
 

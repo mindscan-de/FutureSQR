@@ -52,9 +52,11 @@ export class RemoveRevisionFromReviewSelectionDialogComponent implements OnInit 
 		this.revisionChangedCallbackFkt = fkt;
 	}
 	
-	
 	removeRevisionFromReview(projectid, reviewid, revisonid): void {
+		console.log("called");
 		
+		// file list was updated, we might want to remove the revision or gray out the box, for this particular revisionid.
+		this.revisionChangedCallbackFkt();
 	}
 
 }
