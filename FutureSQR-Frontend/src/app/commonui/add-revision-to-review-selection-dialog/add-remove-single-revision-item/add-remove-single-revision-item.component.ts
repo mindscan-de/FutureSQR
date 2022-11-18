@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, Output, SimpleChanges, EventEmitter } from '@angular/core';
 
 
 import { BackendModelProjectRecentCommitRevision } from '../../../backend/model/backend-model-project-recent-commit-revision';
@@ -13,6 +13,8 @@ export class AddRemoveSingleRevisionItemComponent implements OnInit {
 	@Input() revision: BackendModelProjectRecentCommitRevision = new BackendModelProjectRecentCommitRevision();
 	@Input() btnText: string = "btnText";
 	@Input() title: string = "";
+	
+	@Output() btnClicked: EventEmitter<string> = new EventEmitter<string>();
 
 	constructor() { }
 
@@ -33,5 +35,7 @@ export class AddRemoveSingleRevisionItemComponent implements OnInit {
 		// TODO: emit event.
 		// this should call the outer method.
 		console.log("somthieng...")
+		
+		this.btnClicked.emit(revisionId);
 	}
 }
