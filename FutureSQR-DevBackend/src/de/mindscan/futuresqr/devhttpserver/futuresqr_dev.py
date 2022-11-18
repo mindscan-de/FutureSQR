@@ -579,7 +579,7 @@ def postReauthenticateLoginData(
         }
 
     
-@app.get("/FutureSQR/rest/login/csrf")
+@app.get("/FutureSQR/rest/user/csrf")
 def getCrsfToken():
     return {
             'headerName': "HeaderName",
