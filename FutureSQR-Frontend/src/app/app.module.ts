@@ -52,6 +52,7 @@ import { RemoveRevisionFromReviewSelectionDialogComponent } from './commonui/rem
 import { ReviewResultComponent } from './commonui/review-result/review-result.component';
 import { AvatarAndNameComponent } from './commonui/avatar-and-name/avatar-and-name.component';
 import { AvatarOnlyComponent } from './commonui/avatar-only/avatar-only.component';
+import { AddRemoveSingleRevisionItemComponent } from './commonui/add-revision-to-review-selection-dialog/add-remove-single-revision-item/add-remove-single-revision-item.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { AvatarOnlyComponent } from './commonui/avatar-only/avatar-only.componen
     RemoveRevisionFromReviewSelectionDialogComponent,
     ReviewResultComponent,
     AvatarAndNameComponent,
-    AvatarOnlyComponent
+    AvatarOnlyComponent,
+    AddRemoveSingleRevisionItemComponent
   ],
   imports: [
     BrowserModule,
