@@ -58,7 +58,15 @@ export class AddRevisionToReviewSelectionDialogComponent implements OnInit {
 		this.uiModelRecentProjectCommitsGroupedByDate = this.m2mGroupByDateTransformer(ungrouped);
 	}
 	
-	appendRevisionToReview(projectid, reviewid, revisionid): void {
+	appendRevision(revisionid:string): void {
+		this.appendRevisionToReview(
+			this.currentUiReviewData.reviewFkProjectId, 
+			this.currentUiReviewData.reviewId,
+			revisionid
+			);
+	}
+	
+	appendRevisionToReview(projectid:string, reviewid:string, revisionid:string): void {
 		
 		if(this.revisionChangedCallbackFkt != null) {
 			this.revisionChangedCallbackFkt();
