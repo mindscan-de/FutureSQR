@@ -10,15 +10,7 @@
 		<h5 class="mt-3">{{commitsByDate.key}}</h5>
 		<ul class="list-group">
 			<li *ngFor="let revision of commitsByDate.value.revisions" class="list-group-item ">
- 				<app-avatar-only [size]="36" [uuid]="revision.authorUuid"></app-avatar-only>
-				<span class="float-right"><a class="btn btn-sm btn-secondary mr-2" title="Add this revision to the review" *ngIf="!revision.hasReview" (click)="appendRevision( revision.revisionid)">add</a><tt class="small">{{revision.shortrev}}</tt></span>
-			
-				<span class="small text-muted ml-2"><b>{{revision.message}}</b></span><br/>		
-				<span class="small text-muted">authored on {{revision.date}} ({{revision.reldate}})</span>
-				
-				<!-- NEW  -->
-				<!-- (btnClick)="appendRevision(event)" -->
-				<!-- <app-add-remove-single-revision-item [revision]="revision" [btnText]="'add'" [title]="'Add this revision to the review'"></app-add-remove-single-revision-item> -->
+				<app-add-remove-single-revision-item [revision]="revision" [btnText]="'add'" [title]="'Add this revision to the review'" (btnClicked)="appendRevision($event)"></app-add-remove-single-revision-item>
 			</li>
 		</ul>
 	</ng-container>
