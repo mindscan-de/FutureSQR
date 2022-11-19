@@ -154,16 +154,16 @@ export class SingleReviewPageComponent implements OnInit {
 	}
 	
 	reloadRevisionInformation(event):void {
-		console.log("We now should reload so much data....");
-	
-		// actually this method is called...
-		
-		// TODO: the first call after loading this page will somehow not update this page for some reason...
-		// TODO: change detector? 
-		 	
+		// reload revision list data
 		this.projectDataQueryBackend.getReviewSimpleRevisionInformationList(this.activeProjectID,this.activeReviewID).subscribe(
 			data => this.onReviewRevisionInformation(data),
 			error => {}
+		);
+
+		// we have to query a new file list, when the revisions were changed		
+		this.projectDataQueryBackend.getReviewFilePathsData(this.activeProjectID,this.activeReviewID ).subscribe (
+			data => this.onFileListActionsProvided(data),
+			error => console.log(error)
 		);
 	}
 	
