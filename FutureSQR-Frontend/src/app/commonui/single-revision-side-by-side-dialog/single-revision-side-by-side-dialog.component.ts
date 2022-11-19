@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 // Should be a ui model instead of a backend model...
@@ -85,14 +85,5 @@ export class SingleRevisionSideBySideDialogComponent implements OnInit {
 		
 		this.updateShownFileIndex();		
 	}
-
-	ngOnChanges(changes: SimpleChanges): void {
-		let fileChangeSetCandidate:BackendModelSingleCommitFileChangeSet = changes.fileChangeSet.currentValue;
-		
-		if(this.currentUiFileChangeSet != fileChangeSetCandidate) {
-			this.currentUiFileChangeSet = fileChangeSetCandidate;
-		}
-	}
-
 
 }
