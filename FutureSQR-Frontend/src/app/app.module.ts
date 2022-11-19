@@ -53,6 +53,7 @@ import { ReviewResultComponent } from './commonui/review-result/review-result.co
 import { AvatarAndNameComponent } from './commonui/avatar-and-name/avatar-and-name.component';
 import { AvatarOnlyComponent } from './commonui/avatar-only/avatar-only.component';
 import { AddRemoveSingleRevisionItemComponent } from './commonui/add-revision-to-review-selection-dialog/add-remove-single-revision-item/add-remove-single-revision-item.component';
+import { ExperimentalSingleRevisionSideBySideDialogComponent } from './incubator/experimental-single-revision-side-by-side-dialog/experimental-single-revision-side-by-side-dialog.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { AddRemoveSingleRevisionItemComponent } from './commonui/add-revision-to
     ReviewResultComponent,
     AvatarAndNameComponent,
     AvatarOnlyComponent,
-    AddRemoveSingleRevisionItemComponent
+    AddRemoveSingleRevisionItemComponent,
+    ExperimentalSingleRevisionSideBySideDialogComponent
   ],
   imports: [
     BrowserModule,
