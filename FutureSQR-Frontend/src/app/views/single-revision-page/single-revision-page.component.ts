@@ -124,7 +124,8 @@ export class SingleRevisionPageComponent implements OnInit {
 	openExperimentalSideBySideDialog( filechangeSet:BackendModelSingleCommitFileChangeSet ):void {
 		const modalref = this.modalService.open(  ExperimentalSingleRevisionSideBySideDialogComponent,  {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'fs'}    )
 		
-		// 
+		modalref.componentInstance.setAllChangeSets(this.uiFileChangeSets);
+		modalref.componentInstance.setSelectedFileChangeSet(filechangeSet);
 		
 		modalref.result.then((result) => {
 			result.subscribe(
@@ -134,7 +135,6 @@ export class SingleRevisionPageComponent implements OnInit {
 		}, (reason) => {
 		  // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
 	 	});
-		
 	}
 
 }
