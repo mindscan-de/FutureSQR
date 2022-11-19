@@ -54,6 +54,7 @@ import { AvatarAndNameComponent } from './commonui/avatar-and-name/avatar-and-na
 import { AvatarOnlyComponent } from './commonui/avatar-only/avatar-only.component';
 import { AddRemoveSingleRevisionItemComponent } from './commonui/add-revision-to-review-selection-dialog/add-remove-single-revision-item/add-remove-single-revision-item.component';
 import { ExperimentalSingleRevisionSideBySideDialogComponent } from './incubator/experimental-single-revision-side-by-side-dialog/experimental-single-revision-side-by-side-dialog.component';
+import { ExperimentalFileChangeSetSideBySideDiffComponent } from './incubator/experimental-single-revision-side-by-side-dialog/experimental-file-change-set-side-by-side-diff/experimental-file-change-set-side-by-side-diff.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import { ExperimentalSingleRevisionSideBySideDialogComponent } from './incubator
     AvatarAndNameComponent,
     AvatarOnlyComponent,
     AddRemoveSingleRevisionItemComponent,
-    ExperimentalSingleRevisionSideBySideDialogComponent
+    ExperimentalSingleRevisionSideBySideDialogComponent,
+    ExperimentalFileChangeSetSideBySideDiffComponent
   ],
   imports: [
     BrowserModule,
