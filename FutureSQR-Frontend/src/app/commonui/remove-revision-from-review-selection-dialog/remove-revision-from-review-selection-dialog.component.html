@@ -27,7 +27,7 @@
 				</div>
 				<div class="ml-auto p-1">
 					<a class="btn btn-secondary btn-sm" (click)="removeRevisionFromReview( currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId, revision.revisionid); event.stopPropagation();">remove</a>
-					<tt class="ml-2 small">{{revision.shortrev}}</tt>				
+					<span class="ml-2 small text-monospace">{{revision.shortrev}}</span>				
 				</div>
 			</div>
 		</li>
