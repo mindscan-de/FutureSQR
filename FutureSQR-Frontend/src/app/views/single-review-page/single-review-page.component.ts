@@ -165,6 +165,8 @@ export class SingleReviewPageComponent implements OnInit {
 			data => this.onFileListActionsProvided(data),
 			error => console.log(error)
 		);
+		
+		// TODO: also we should very likely review the file changesets, but only after completion of revision management dialogs.
 	}
 	
 }
