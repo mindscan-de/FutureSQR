@@ -8,7 +8,11 @@
 					<li class="list-group-item" *ngFor="let fileChangeSet of uiFileChangeSets">
 						<div class="row">
 							<div class="col">
-								<span class="float-right"><button type="button" class="btn btn-light btn-sm" (click)="openSideBySideDialog(fileChangeSet)">Side by Side</button></span>				
+								<div class="float-right">
+									<div class="mb-1"><button type="button" class="btn btn-light btn-sm" (click)="openSideBySideDialog(fileChangeSet)">Side by Side</button></div>
+									<div class="mb-1"><button type="button" class="btn btn-danger btn-sm" (click)="openExperimentalSideBySideDialog(fileChangeSet)" title="Open SOTA Side by Side Diff Experimental dialog">try</button></div>
+								</div>
+												
 								<app-file-change-set-single-diff [fileChangeSet]="fileChangeSet"></app-file-change-set-single-diff>
 							</div>
 						</div>

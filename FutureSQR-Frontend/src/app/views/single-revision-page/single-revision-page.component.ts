@@ -21,6 +21,9 @@ import { UiReviewFileInformation } from '../../commonui/uimodel/ui-review-file-i
 // Dialog 
 import { SingleRevisionSideBySideDialogComponent } from '../../commonui/single-revision-side-by-side-dialog/single-revision-side-by-side-dialog.component';
 
+// Incubator
+import { ExperimentalSingleRevisionSideBySideDialogComponent } from '../../incubator/experimental-single-revision-side-by-side-dialog/experimental-single-revision-side-by-side-dialog.component';
+
 
 @Component({
   selector: 'app-single-revision-page',
@@ -106,6 +109,22 @@ export class SingleRevisionPageComponent implements OnInit {
 		
 		modalref.componentInstance.setAllChangeSets(this.uiFileChangeSets);
 		modalref.componentInstance.setSelectedFileChangeSet(filechangeSet);
+		
+		modalref.result.then((result) => {
+			result.subscribe(
+				data => {} ,
+				error => {}
+			)
+		}, (reason) => {
+		  // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+	 	});
+	}
+	
+	// open experimental side by side dialog
+	openExperimentalSideBySideDialog( filechangeSet:BackendModelSingleCommitFileChangeSet ):void {
+		const modalref = this.modalService.open(  ExperimentalSingleRevisionSideBySideDialogComponent,  {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'fs'}    )
+		
+		// 
 		
 		modalref.result.then((result) => {
 			result.subscribe(
