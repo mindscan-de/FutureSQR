@@ -44,6 +44,27 @@ export class SingleRevisionSideBySideDialogComponent implements OnInit {
 		this.updateFileNavigationValues();
 	}
 	
+	
+	onNavLeftClicked() : void {
+		if( this.currentShownFileIndex <= 0) {
+			return;
+		}
+		
+		this.currentUiFileChangeSet = this.allUiFileChangeSets[this.currentShownFileIndex-1];
+		
+		this.updateFileNavigationValues();
+	}
+	
+	onNavRightClicked() : void {
+		if( this.currentShownFileIndex >= this.numberOfFiles -1) {
+			return;
+		}
+		
+		this.currentUiFileChangeSet = this.allUiFileChangeSets[this.currentShownFileIndex+1];
+		
+		this.updateFileNavigationValues();		
+	}
+
 	private updateFileNavigationValues() : void {
 		if(!this.allUiFileChangeSetsProvided) {
 			return;
@@ -66,25 +87,4 @@ export class SingleRevisionSideBySideDialogComponent implements OnInit {
 			}
 		}
 	}
-	
-	onNavLeftClicked() : void {
-		if( this.currentShownFileIndex <= 0) {
-			return;
-		}
-		
-		this.currentUiFileChangeSet = this.allUiFileChangeSets[this.currentShownFileIndex-1];
-		
-		this.updateFileNavigationValues();
-	}
-	
-	onNavRightClicked() : void {
-		if( this.currentShownFileIndex >= this.numberOfFiles -1) {
-			return;
-		}
-		
-		this.currentUiFileChangeSet = this.allUiFileChangeSets[this.currentShownFileIndex+1];
-		
-		this.updateFileNavigationValues();		
-	}
-
 }
