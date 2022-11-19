@@ -16,6 +16,7 @@ export class SingleRevisionSideBySideDialogComponent implements OnInit {
 	private allUiFileChangeSetsProvided: boolean = false;
 	public  currentUiFileChangeSet: BackendModelSingleCommitFileChangeSet = new BackendModelSingleCommitFileChangeSet();
 	private currentUiFileChangeSetProvided: boolean = false;
+	
 	public numberOfFiles: number = 0;
 	private currentShownFileIndex = 0;
 	public currentShownFileUiIndex = 0;
@@ -34,16 +35,16 @@ export class SingleRevisionSideBySideDialogComponent implements OnInit {
 		this.numberOfFiles = allFileChangeSets.length;
 		this.allUiFileChangeSets = allFileChangeSets;
 		this.allUiFileChangeSetsProvided = true;
-		this.updateShownFileIndex();
+		this.updateFileNavigationValues();
 	}
 	
 	setSelectedFileChangeSet(newFileChangeSet:BackendModelSingleCommitFileChangeSet) : void {
 		this.currentUiFileChangeSet = newFileChangeSet;
 		this.currentUiFileChangeSetProvided = true;
-		this.updateShownFileIndex();
+		this.updateFileNavigationValues();
 	}
 	
-	private updateShownFileIndex() : void {
+	private updateFileNavigationValues() : void {
 		if(!this.allUiFileChangeSetsProvided) {
 			return;
 		}
@@ -73,7 +74,7 @@ export class SingleRevisionSideBySideDialogComponent implements OnInit {
 		
 		this.currentUiFileChangeSet = this.allUiFileChangeSets[this.currentShownFileIndex-1];
 		
-		this.updateShownFileIndex();
+		this.updateFileNavigationValues();
 	}
 	
 	onNavRightClicked() : void {
@@ -83,7 +84,7 @@ export class SingleRevisionSideBySideDialogComponent implements OnInit {
 		
 		this.currentUiFileChangeSet = this.allUiFileChangeSets[this.currentShownFileIndex+1];
 		
-		this.updateShownFileIndex();		
+		this.updateFileNavigationValues();		
 	}
 
 }
