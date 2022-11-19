@@ -5,7 +5,7 @@
 		<ul class="list-group">
 			<li class="list-group-item  p-0 m-0" *ngFor="let contentChangeSet of currentUiFileChangeSet.fileContentChangeSet">
 				<p class="text-muted">{{contentChangeSet.line_info}}</p>
-				<app-content-change-set-side-by-side-diff [contentChangeSet]="contentChangeSet.line_diff_data"></app-content-change-set-side-by-side-diff>
+				<app-experimental-content-change-set-side-by-side-diff [contentChangeSet]="contentChangeSet.line_diff_data"></app-experimental-content-change-set-side-by-side-diff>
 			</li>
 		</ul>
 	</div>
