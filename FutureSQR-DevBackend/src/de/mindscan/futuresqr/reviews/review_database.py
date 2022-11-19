@@ -217,7 +217,9 @@ class ReviewDatabase(object):
             return None
         if not review_id in self.reviewTable[project_id]:
             return None
-
+        # todo. something here doesn't work well - but question is, is this important to fix?
+        # the elements aren't properly removed, and lead to problems later in the lookup as a result.
+        
         # test that revision is in the list and if so remove revision id from list
         if revision_id in self.reviewTable[project_id][review_id][REVIEW_REVISIONS]:
             self.reviewTable[project_id][review_id][REVIEW_REVISIONS].remove(revision_id)
