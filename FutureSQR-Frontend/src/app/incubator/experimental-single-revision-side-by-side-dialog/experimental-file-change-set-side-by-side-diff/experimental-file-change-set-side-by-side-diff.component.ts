@@ -24,9 +24,6 @@ export class ExperimentalFileChangeSetSideBySideDiffComponent implements OnInit 
 	ngOnChanges(changes: SimpleChanges): void {
 		if(changes.fileChangeSet != undefined) {
 			
-			console.log("X fcs sbs diff");
-			console.log(changes);
-			
 			let fileChangeSetCandidate:BackendModelSingleCommitFileChangeSet = changes.fileChangeSet.currentValue;
 			this.currentUiFileChangeSet = fileChangeSetCandidate;
 		}
