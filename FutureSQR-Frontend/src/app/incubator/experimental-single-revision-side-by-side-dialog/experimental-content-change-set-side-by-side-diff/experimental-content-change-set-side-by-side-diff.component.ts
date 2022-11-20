@@ -5,11 +5,11 @@ import { UiDiffContentModel } from '../../../commonui/content-change-set-side-by
 
 
 @Component({
-  selector: 'app-experimantal-content-change-set-side-by-side-diff',
-  templateUrl: './experimantal-content-change-set-side-by-side-diff.component.html',
-  styleUrls: ['./experimantal-content-change-set-side-by-side-diff.component.css']
+  selector: 'app-experimental-content-change-set-side-by-side-diff',
+  templateUrl: './experimental-content-change-set-side-by-side-diff.component.html',
+  styleUrls: ['./experimental-content-change-set-side-by-side-diff.component.css']
 })
-export class ExperimantalContentChangeSetSideBySideDiffComponent implements OnInit {
+export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnInit {
 	
 	public leftContent : UiDiffContentModel = new UiDiffContentModel("",1); 
 	public rightContent : UiDiffContentModel = new UiDiffContentModel("",1);
@@ -28,7 +28,8 @@ export class ExperimantalContentChangeSetSideBySideDiffComponent implements OnIn
 	}
 	
  	ngOnChanges(changes: SimpleChanges): void {
-	
+		console.log("X ccs sbs diff")
+		console.log(changes);
 		if(changes.contentChangeSet != undefined) {
 			let contentChangeSetCurrent:string[] = changes.contentChangeSet.currentValue;
 			// This needs to be reworked such that the line numbers are correctly transferred.
@@ -52,7 +53,5 @@ export class ExperimantalContentChangeSetSideBySideDiffComponent implements OnIn
 		
 		return result; 
 	}
-	
-	
 
 }
