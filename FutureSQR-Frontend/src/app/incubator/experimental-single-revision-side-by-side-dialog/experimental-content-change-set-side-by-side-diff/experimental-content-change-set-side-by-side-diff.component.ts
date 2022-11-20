@@ -28,8 +28,6 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 	}
 	
  	ngOnChanges(changes: SimpleChanges): void {
-		console.log("X ccs sbs diff")
-		console.log(changes);
 		if(changes.contentChangeSet != undefined) {
 			let contentChangeSetCurrent:string[] = changes.contentChangeSet.currentValue;
 			// This needs to be reworked such that the line numbers are correctly transferred.
