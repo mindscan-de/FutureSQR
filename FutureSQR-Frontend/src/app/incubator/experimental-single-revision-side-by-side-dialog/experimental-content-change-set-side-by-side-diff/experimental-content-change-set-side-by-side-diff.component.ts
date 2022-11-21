@@ -57,7 +57,7 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
     * No plus on the right side - only deletions done on the left side (may still be to be found in other
       ContentChangesets or File changesets) -> mark each line as removed
 
-	* each line should have a resolve state
+	* each line should have a resolve state (Moved, Added, Deleted, Modified, WSOnly)
 	* each line should have a source info (line, file) / multiple sources possible? / line range
 	* each line should have a destination info (line, file) / multiple destinations possible? / line range
 	
@@ -73,10 +73,11 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 	* Try to explain the diff. e.g where which fragment comes from.
 	* linesplits, line merges are interesting e.g. method arguments, method parameters,
 	* inserts and split/merges
-    * try solving misaligned "close brackets" - git-algorithm problem. - always the "wrong" brackets are aligned
+	* try solving misaligned "close brackets" - git-algorithm problem. - always the "wrong" brackets are aligned
       (git likely tried to solve the merge conflict errors)
-    * try to figure out if only whitespace mismatch / e.g. code was indented / unindented
-    * try to resolve one line and mark one line char by char as added/deleted/modified/unmodified/yet undecided
+	* try to figure out if only whitespace mismatch / e.g. code was indented / unindented
+	* try to resolve one line and mark one line char by char as added/deleted/modified/unmodified/yet undecided
+	* use own changes as source for test cases collect revisions for testcases 
 
 	 */
 
