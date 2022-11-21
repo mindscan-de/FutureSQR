@@ -79,6 +79,11 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 	* try to resolve one line and mark one line char by char as added/deleted/modified/unmodified/yet undecided
 	* use own changes as source for test cases collect revisions for testcases 
 
+
+	* The real question is, can this be trained in an ML model?
+	* maybe something BPE like? BPE is slow, but is it slow when Byte pairs are already available? and if byte pairs
+	* are calculated over time for the given source code?
+	* this maybe will create useful tokens, such that the context can be preserved and the tokens can be grouped.
 	 */
 
 }
