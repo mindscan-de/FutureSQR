@@ -53,9 +53,15 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 	Algorithmic considerations:
 	
 	* No minus on the left side - only additions done on the right side (may still come from some other 
-	  ContentChangeSet or File Changeset)
+	  ContentChangeSet or File Changeset) -> mark each line as added
     * No plus on the right side - only deletions done on the left side (may still be to be found in other
-      ContentChangesets or File changesets)
+      ContentChangesets or File changesets) -> mark each line as removed
+
+	* each line should have a resolve state
+	* each line should have a source info (line, file) / multiple sources possible? / line range
+	* each line should have a destination info (line, file) / multiple destinations possible? / line range
+	
+	* also try to resolve in blocks to reduce complexity
     
     * try to do a line by line match left/right using cooccurence matrix.
     * try to resolve order - maybe just some lines were moved around
