@@ -76,6 +76,7 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
     * try solving misaligned "close brackets" - git-algorithm problem. - always the "wrong" brackets are aligned
       (git likely tried to solve the merge conflict errors)
     * try to figure out if only whitespace mismatch / e.g. code was indented / unindented
+    * try to resolve one line and mark one line char by char as added/deleted/modified/unmodified/yet undecided
 
 	 */
 
