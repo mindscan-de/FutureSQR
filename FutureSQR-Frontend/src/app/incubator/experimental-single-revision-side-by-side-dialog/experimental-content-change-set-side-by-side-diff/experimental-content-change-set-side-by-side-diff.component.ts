@@ -48,6 +48,28 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 		return result; 
 	}
 
+	/**
+	
+	Algorithmic considerations:
+	
+	* No minus on the left side - only additions done on the right side (may still come from some other 
+	  ContentChangeSet or File Changeset)
+    * No plus on the right side - only deletions done on the left side (may still be to be found in other
+      ContentChangesets or File changesets)
+    
+    * try to do a line by line match left/right using cooccurence matrix.
+    * try to resolve order - maybe just some lines were moved around
+	* first solve locally
+	* then solve in file. report which parts could be matched
+	* then resolve in commit. (e.g. extract method / move method to other class)
+	* be whitespace resistant
+	* calculate minimal diff between two matched lines - create left side / create right side highlights 
+	* Try to explain the diff. e.g where which fragment comes from.
+	
+	
+	
+	 */
+
 }
 
 export class ExperimentalUiDiffContentModel {
