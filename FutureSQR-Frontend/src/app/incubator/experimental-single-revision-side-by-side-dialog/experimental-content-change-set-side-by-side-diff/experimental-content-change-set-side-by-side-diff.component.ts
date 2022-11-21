@@ -1,9 +1,5 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 
-// ui model
-import { UiDiffContentModel } from '../../../commonui/content-change-set-side-by-side-diff/uimodel/ui-diff-content-model';
-
-
 @Component({
   selector: 'app-experimental-content-change-set-side-by-side-diff',
   templateUrl: './experimental-content-change-set-side-by-side-diff.component.html',
@@ -11,8 +7,8 @@ import { UiDiffContentModel } from '../../../commonui/content-change-set-side-by
 })
 export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnInit {
 	
-	public leftContent : UiDiffContentModel = new UiDiffContentModel("",1); 
-	public rightContent : UiDiffContentModel = new UiDiffContentModel("",1);
+	public leftContent : ExperimentalUiDiffContentModel = new ExperimentalUiDiffContentModel("",1); 
+	public rightContent : ExperimentalUiDiffContentModel = new ExperimentalUiDiffContentModel("",1);
 	
 	// make the editor readonly
 	public readOnly:boolean = true;
@@ -36,20 +32,30 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 		}
 	}
 	
-	private filterLeftDiff(linediff: string[], left_line_count_start: number) : UiDiffContentModel {
+	private filterLeftDiff(linediff: string[], left_line_count_start: number) : ExperimentalUiDiffContentModel {
 		let leftdiff = linediff.filter(line => !line.startsWith("+")).join("\n");
 		
-		let result:UiDiffContentModel = new UiDiffContentModel(leftdiff, left_line_count_start);
+		let result:ExperimentalUiDiffContentModel = new ExperimentalUiDiffContentModel(leftdiff, left_line_count_start);
 		
 		return result; 
 	}
 	
-	private filterRightDiff(linediff: string[], right_line_count_start: number) : UiDiffContentModel {
+	private filterRightDiff(linediff: string[], right_line_count_start: number) : ExperimentalUiDiffContentModel {
 		let rightdiff = linediff.filter(line => !line.startsWith("-")).join("\n");
 		
-		let result:UiDiffContentModel = new UiDiffContentModel(rightdiff,right_line_count_start);
+		let result:ExperimentalUiDiffContentModel = new ExperimentalUiDiffContentModel(rightdiff,right_line_count_start);
 		
 		return result; 
 	}
 
+}
+
+export class ExperimentalUiDiffContentModel {
+	public diffContent: string = "";
+	public diffLineNumberStart: number = 1;
+	
+	constructor( content:string, start:number) {
+		this.diffContent = content;
+		this.diffLineNumberStart = start;
+	}
 }
