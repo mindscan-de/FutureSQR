@@ -65,9 +65,12 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 	* be whitespace resistant
 	* calculate minimal diff between two matched lines - create left side / create right side highlights 
 	* Try to explain the diff. e.g where which fragment comes from.
-	
-	
-	
+	* linesplits, line merges are interesting e.g. method arguments, method parameters,
+	* inserts and split/merges
+    * try solving misaligned "close brackets" - git-algorithm problem. - always the "wrong" brackets are aligned
+      (git likely tried to solve the merge conflict errors)
+    * try to figure out if only whitespace mismatch / e.g. code was indented / unindented
+
 	 */
 
 }
