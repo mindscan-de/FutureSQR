@@ -1,0 +1,4 @@
+http://localhost:4200/futuresqr/revision/0625f2e99b3385db2978267aa576081f9d2c21dc
+* Example: insert some text in single line
+* Example: insert some text in single line and replace "tt" by "span"
+
