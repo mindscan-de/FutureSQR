@@ -47,16 +47,19 @@ export class SimpleBPEEncoder {
 			return [ this.__bpeEncoderTable.get(textToken) ];
 		}
 		
-		
-		// TODO do the real fun part here.
 		// We spread the string out into strings consisting of one character each.
 		let bpe_text_tokens: string[] = Array.from(textToken);
-		
+
+		// Here we implement Philip Gage's algorithm.
 		while(true) {
-			let indexOfMostFrequentBytePair = SimpleBPEEncoder.OOV_MAX;
+			// actually there should be no reason to repeat the calculation over and over, because only
+			// the values next to the replaced bpe_text tokens change, and require index recalculation.
+			// But I will leave that for another day of runtime improvement.
 			
+			// a bit clumsy, but good enough for now, we search for the mostFrequentBytePair, by comparing the 
+			// indicies of each combined Text token, they are already sorted in terms of priority speaking.
+			let indexOfMostFrequentBytePair = SimpleBPEEncoder.OOV_MAX;
 			let mostFrequentBytePair:string = "";
-			// a bit clumsy, but good enough for now.
 			for(let i:number = 0;i<bpe_text_tokens.length-1;i++){
 				let combinedTextToken = bpe_text_tokens[i] + bpe_text_tokens[i+1];
 				if(this.__bpeEncoderTable.has(combinedTextToken)) {
@@ -68,7 +71,7 @@ export class SimpleBPEEncoder {
 				}
 			}
 			
-			// if we don't have anything to combine, we stop this compression step.
+			// if we didn't found anything to combine, we stop this encoding step.
 			if( indexOfMostFrequentBytePair == SimpleBPEEncoder.OOV_MAX) {
 				break;
 			}
@@ -87,8 +90,9 @@ export class SimpleBPEEncoder {
 					replaced_bpe_text_tokens.push(bpe_text_tokens[i]);
 				}
 
-				// if this is the last position, we must not forget the last element in the list to copy over
-				if(i == bpe_text_tokens.length-2) {
+				// if this is the last position, we must not forget the very last element in the list to copy over
+				// because the for loop only runs until the element before last.
+				if(i >= bpe_text_tokens.length-2) {
 					replaced_bpe_text_tokens.push(bpe_text_tokens[i+1]);
 				}
 			}
@@ -97,7 +101,7 @@ export class SimpleBPEEncoder {
 			bpe_text_tokens = replaced_bpe_text_tokens;
 		}
 		
-
+		
 		// convert from from string tokens to bpe-tokens		
 		let bpe_tokens: number[] = []
 		for(let bpe_text_token of bpe_text_tokens) {
