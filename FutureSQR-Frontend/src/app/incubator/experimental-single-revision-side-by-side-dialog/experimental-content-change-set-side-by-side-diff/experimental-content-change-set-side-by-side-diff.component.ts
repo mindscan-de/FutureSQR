@@ -46,7 +46,7 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 		
 		console.log(__test[0]);
 		console.log(typeof __test[0]);
-		console.log("Stzaring");
+		console.log("Starting encoding");
 		
 		console.log(this.bpeEncoder.encode([__test[0]]));
 		
