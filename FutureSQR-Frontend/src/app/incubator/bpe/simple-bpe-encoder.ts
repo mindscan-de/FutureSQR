@@ -55,6 +55,12 @@ export class SimpleBPEEncoder {
 			// actually there should be no reason to repeat the calculation over and over, because only
 			// the values next to the replaced bpe_text tokens change, and require index recalculation.
 			// But I will leave that for another day of runtime improvement.
+			// also if we don't find a combination, we can skip this index lookup until one of the 
+			// neighbour elements changed. - doing this calculation can still be improved. Also we should
+			// have a list of most probable byte pairs, and if integrity of order is not violated by new 
+			// indicies, we just continue with replacement until we run out of substitutions or until we
+			// violate the order of replacements. (I already implemented this once in the FluentGenesis 
+			// project when building the vocabulary.
 			
 			// a bit clumsy, but good enough for now, we search for the mostFrequentBytePair, by comparing the 
 			// indicies of each combined Text token, they are already sorted in terms of priority speaking.
