@@ -92,7 +92,7 @@ export class SimpleBPEEncoder {
 
 				// if this is the last position, we must not forget the very last element in the list to copy over
 				// because the for loop only runs until the element before last.
-				if(i >= bpe_text_tokens.length-2) {
+				if(i == bpe_text_tokens.length-2) {
 					replaced_bpe_text_tokens.push(bpe_text_tokens[i+1]);
 				}
 			}
