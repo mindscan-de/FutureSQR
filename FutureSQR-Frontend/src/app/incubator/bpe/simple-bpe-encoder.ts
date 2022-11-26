@@ -27,7 +27,10 @@ export class SimpleBPEEncoder {
 	private __bpeEncoderTable:Map<string,number> = new Map<string,number>();
 	
 	constructor() {
-		this.__bpeEncoderTable = new Map<string, number>(Tokens16K.TOKEN_TO_INDEX);
+		this.__bpeEncoderTable = new Map<string, number>();
+		for(const [token,index] of Object.entries(Tokens16K.TOKEN_TO_INDEX)) {
+			this.__bpeEncoderTable.set(token,index);
+		} 
 	}
 
 	public encode( tokens : string[] ):number[] {
