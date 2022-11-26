@@ -46,14 +46,17 @@ export class SimpleBPEEncoder {
 	
 	// Not nice, Not optimized, but maybe good enough?
 	private __buildBpeTokens( textToken:string ): number[] {
+		console.log("__buildBpeTokens called.\n");
 		// we don't' need to transform a token, when it already has an unique encoding in the bpeEncoderTable
 		// then looking up this token is absolutely sufficient
+		
 		if( this.__bpeEncoderTable.has(textToken) ) {
 			return [ this.__bpeEncoderTable.get(textToken) ];
 		}
 		
 		// We spread the string out into strings consisting of one character each.
 		let bpe_text_tokens: string[] = Array.from(textToken);
+		console.log(bpe_text_tokens);
 
 		// Here we implement Philip Gage's algorithm.
 		while(true) {
