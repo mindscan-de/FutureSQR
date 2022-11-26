@@ -19,13 +19,15 @@
  * 
  */
 
+import { Tokens16K } from './tokens16-k'; 
+
 export class SimpleBPEEncoder {
 
 	public static readonly OOV_MAX = 1000000000;
 	private __bpeEncoderTable:Map<string,number> = new Map<string,number>();
 	
 	constructor() {
-		
+		this.__bpeEncoderTable = new Map<string, number>(Tokens16K.TOKEN_TO_INDEX);
 	}
 
 	public encode( tokens : string[] ):number[] {
