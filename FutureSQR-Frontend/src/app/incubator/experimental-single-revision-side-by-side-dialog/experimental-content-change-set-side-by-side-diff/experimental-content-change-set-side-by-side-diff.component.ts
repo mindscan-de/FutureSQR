@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 
+import { SimpleBPEEncoder } from '../../bpe/simple-bpe-encoder';
+
 @Component({
   selector: 'app-experimental-content-change-set-side-by-side-diff',
   templateUrl: './experimental-content-change-set-side-by-side-diff.component.html',
@@ -13,6 +15,8 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 	// make the editor readonly
 	public readOnly:boolean = true;
 	public viewPortMargin:number = 1;
+	
+	private bpeEncoder = new SimpleBPEEncoder();
 	
 	// TODO: create a ui model from it
 	// actually this will an intermediate external model
@@ -36,6 +40,15 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 		let leftdiff = linediff.filter(line => !line.startsWith("+")).join("\n");
 		
 		let result:ExperimentalUiDiffContentModel = new ExperimentalUiDiffContentModel(leftdiff, left_line_count_start);
+		
+		// we are interested in encoding these to ints.
+		let __test = linediff.filter(line => line.startsWith("-"));
+		
+		console.log(__test[0]);
+		console.log(typeof __test[0]);
+		console.log("Stzaring");
+		
+		console.log(this.bpeEncoder.encode([__test[0]]));
 		
 		return result; 
 	}
