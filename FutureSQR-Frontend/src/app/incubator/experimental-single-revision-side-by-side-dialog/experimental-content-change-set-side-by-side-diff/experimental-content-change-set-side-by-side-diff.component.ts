@@ -30,14 +30,19 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 		// Actually i need an encoder..., maybe using a service...
 		provider:BpeEncoderProviderService
 	) {
-		provider.subscribeBPEEncoder().pipe(skipWhile( v => !v )).pipe(first()).subscribe(
-			data => {
-				this.onBPEEncoderAvailable(data);
-				},
-			error => {
-				
-			}
-		);
+		if(provider.hasBPEEncoder()) {
+			this.bpeEncoder = provider.getBPEEncoder();
+		}
+		else {
+			provider.subscribeBPEEncoder().pipe(skipWhile( v => !v )).pipe(first()).subscribe(
+				data => {
+					this.onBPEEncoderAvailable(data);
+					},
+				error => {
+					
+				}
+			);
+		}
 	}
 
 	ngOnInit(): void {
@@ -72,7 +77,6 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 		if(__test && __test.length>0) {
 			console.log(__test[0]);
 			console.log(typeof __test[0]);
-			console.log("Starting encoding");
 			
 			if(this.bpeEncoder) {
 				console.log(this.bpeEncoder.encode([__test[0]]));
