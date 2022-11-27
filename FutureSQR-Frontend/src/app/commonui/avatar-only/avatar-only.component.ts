@@ -27,8 +27,6 @@ export class AvatarOnlyComponent implements OnInit {
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
-		console.log("ngOnchanges");
-		console.log(changes);
 		if(changes.uuid != undefined) {
 			
 			let uuid:string = changes.uuid.currentValue;
