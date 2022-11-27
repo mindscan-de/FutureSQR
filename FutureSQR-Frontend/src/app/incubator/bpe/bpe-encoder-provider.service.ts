@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map, first } from 'rxjs/operators';
 
 import { SimpleBPEEncoder } from './simple-bpe-encoder';
@@ -11,16 +11,22 @@ import { Injectable } from '@angular/core';
 })
 export class BpeEncoderProviderService {
 	
-	private bpeEncoder:SimpleBPEEncoder;
+	private _currentBpeEncoderValue:SimpleBPEEncoder;
+	
+	private _currentBpeEncoderSubject: BehaviorSubject<SimpleBPEEncoder>;
+	private currentBpeEncoderSubject: Observable<SimpleBPEEncoder>;
 
 	constructor(
 		private httpClient : HttpClient	
 	) { 
+		this._currentBpeEncoderSubject = new BehaviorSubject<SimpleBPEEncoder>(undefined);
+		this.currentBpeEncoderSubject = this._currentBpeEncoderSubject.asObservable();
+		
 		this.initialize();
 	}
 	
 	public hasBPEEncoder():boolean {
-		if(this.bpeEncoder == undefined || this.bpeEncoder == null) {
+		if(this._currentBpeEncoderValue == undefined || this._currentBpeEncoderValue == null) {
 			return false;
 		}
 		return true;
@@ -28,7 +34,7 @@ export class BpeEncoderProviderService {
 	
 	public getBPEEncoder():SimpleBPEEncoder {
 		if(this.hasBPEEncoder()) { 
-			return this.bpeEncoder;
+			return this._currentBpeEncoderValue;
 		}
 	}
 	
@@ -41,13 +47,19 @@ export class BpeEncoderProviderService {
 		)
 	}
 	
+	public subscribeBPEEncoder():Observable<SimpleBPEEncoder> {
+		return this.currentBpeEncoderSubject;
+	}
+	
 	private onBPETokenMapProvided(tokenMap: BPETokenMap) : void {
 		console.log(tokenMap.tokens);
 		console.log(typeof(tokenMap.tokens));
 		
 		let test = new Map<string,number>(Object.entries(tokenMap.tokens));
 		console.log(test);
-		this.bpeEncoder = new SimpleBPEEncoder(test);
+		
+		this._currentBpeEncoderValue = new SimpleBPEEncoder(test);
+		this._currentBpeEncoderSubject.next(this._currentBpeEncoderValue); 
 	}
 	
 	private loadTokenMap() : Observable<BPETokenMap> {
