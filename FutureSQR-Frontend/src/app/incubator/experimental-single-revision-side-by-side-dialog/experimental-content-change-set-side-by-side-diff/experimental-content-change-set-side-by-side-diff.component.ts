@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 
 import { SimpleBPEEncoder } from '../../bpe/simple-bpe-encoder';
+import { BPEDiffUtils } from '../../bpe/bpe-diff-utils';
 
 @Component({
   selector: 'app-experimental-content-change-set-side-by-side-diff',
@@ -17,6 +18,7 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 	public viewPortMargin:number = 1;
 	
 	private bpeEncoder = new SimpleBPEEncoder();
+	private bpeDiffUtils = new BPEDiffUtils();
 	
 	// TODO: create a ui model from it
 	// actually this will an intermediate external model
@@ -32,7 +34,7 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 			let contentChangeSetCurrent:string[] = changes.contentChangeSet.currentValue;
 			// This needs to be reworked such that the line numbers are correctly transferred.
 			this.leftContent = this.filterLeftDiff(contentChangeSetCurrent, 12);
-			this.rightContent = this.filterRightDiff(contentChangeSetCurrent, 15)
+			this.rightContent = this.filterRightDiff(contentChangeSetCurrent, 15);
 		}
 	}
 	
