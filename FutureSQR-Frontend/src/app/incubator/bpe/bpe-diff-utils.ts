@@ -10,12 +10,20 @@
 
 export class BPEDiffUtils {
 	
+	public bpeCalculateDiffSyndrome(bpe_left_diff, bpe_right_diff):string[] {
+		let syndrome = [];
+		
+		// TODO: syndrome vector calculation
+		
+		return syndrome;
+	}
+	
 	/*
 	* Actually it is not enough to stretchout one array, but to stretch out both arrays.
 	* This algorithm fails for some cases, where parts of the left and right line are 
 	* moved around.
 	*/
-	public bpeDiffStretchout(bpe_left_diff:number[], bpe_right_diff:number[]):number[][] {
+	public bpeStretchoutDiff(bpe_left_diff:number[], bpe_right_diff:number[]):number[][] {
 		if(bpe_left_diff.length == bpe_right_diff.length) {
 			return [ bpe_left_diff, bpe_right_diff ];
 		}
