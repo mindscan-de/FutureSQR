@@ -10,11 +10,33 @@
 
 export class BPEDiffUtils {
 	
-	public bpeCalculateDiffSyndrome(bpe_left_diff, bpe_right_diff):string[] {
+	public static readonly SYNDROME_UNCHANGED = "_";
+	public static readonly SYNDROME_DELETED   = "D";
+	public static readonly SYNDROME_INSERTED  = "I";
+	public static readonly SYNDROME_REPLACED  = "R";
+	
+	public bpeCalculateDiffSyndrome(bpe_left_diff : number[], bpe_right_diff : number[]):string[] {
+		if (bpe_left_diff.length != bpe_right_diff.length) {
+			throw new Error("can not calculate syndromes for different array lengths");
+		}
+		
 		let syndrome = [];
-		
-		// TODO: syndrome vector calculation
-		
+
+		for(let i:number=0;i<bpe_left_diff.length;i++) {
+			if(bpe_left_diff[i] == bpe_right_diff[i]) {
+				syndrome.push(BPEDiffUtils.SYNDROME_UNCHANGED);
+			}
+			else if( bpe_left_diff[i] == 0 ) {
+				syndrome.push(BPEDiffUtils.SYNDROME_INSERTED);
+			}
+			else if( bpe_right_diff[i] == 0) {
+				syndrome.push(BPEDiffUtils.SYNDROME_DELETED);
+			}
+			else {
+				syndrome.push(BPEDiffUtils.SYNDROME_REPLACED);
+			}
+		}
+
 		return syndrome;
 	}
 	
