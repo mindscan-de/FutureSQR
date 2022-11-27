@@ -37,7 +37,6 @@ export class RevisionActionPanelComponent implements OnInit {
 
 	ngOnChanges(changes: SimpleChanges): void {
 		if(changes.activeProjectID != undefined) {
-			console.log(changes);
 			let projectid:string = changes.activeProjectID.currentValue;
 
 			this.projectDataQueryBackend.getRecentReviewsByProject(projectid).subscribe(
