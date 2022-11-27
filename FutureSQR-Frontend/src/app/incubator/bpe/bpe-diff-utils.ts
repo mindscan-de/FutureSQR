@@ -10,10 +10,12 @@
 
 export class BPEDiffUtils {
 	
-	public static readonly SYNDROME_UNCHANGED = "_";
-	public static readonly SYNDROME_DELETED   = "D";
-	public static readonly SYNDROME_INSERTED  = "I";
-	public static readonly SYNDROME_REPLACED  = "R";
+	public static readonly SYNDROME_UNCHANGED:string = "_";
+	public static readonly SYNDROME_DELETED:string   = "D";
+	public static readonly SYNDROME_INSERTED:string  = "I";
+	public static readonly SYNDROME_REPLACED:string  = "R";
+	
+	public static readonly RELATIVE_POSITION_UNKNOWN:number = undefined; 
 	
 	public bpeCalculateDiffSyndrome(bpe_left_diff : number[], bpe_right_diff : number[]):string[] {
 		if (bpe_left_diff.length != bpe_right_diff.length) {
@@ -61,7 +63,17 @@ export class BPEDiffUtils {
 		return [];
 	}
 	
-	private v1_bpeFindRelative( bpw_short_vector:number[], bpe_longer_vector:number[]): number[] {
-		return [];
+	private v1_bpeFindRelative( bpe_short_vector:number[], bpe_longer_vector:number[]): number[] {
+		let findings:number[] = new Array<number>(bpe_short_vector.length);
+
+		for(let i:number=0; i<bpe_short_vector.length;i++) {
+			let element = bpe_short_vector[i];
+			if(bpe_longer_vector.includes(element)) {
+				let index_inLong = bpe_longer_vector.findIndex(element,i)-i;
+		        findings[i]=index_inLong;
+			}
+		}		 
+		
+		return findings;
 	}
 }
