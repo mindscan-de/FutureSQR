@@ -17,16 +17,23 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 	public readOnly:boolean = true;
 	public viewPortMargin:number = 1;
 	
-	private bpeEncoder = new SimpleBPEEncoder();
+	private bpeEncoder : SimpleBPEEncoder;
 	private bpeDiffUtils = new BPEDiffUtils();
 	
 	// TODO: create a ui model from it
 	// actually this will an intermediate external model
 	@Input() contentChangeSet:string[] =[];
 
-	constructor() { }
+	constructor(
+		// Actually i need an encoder..., maybe using a service...
+	) {
+	}
 
 	ngOnInit(): void {
+	}
+	
+	onBPEEncoderDataReady(map:Map<string,number>):void {
+		this.bpeEncoder = new SimpleBPEEncoder(map);
 	}
 	
  	ngOnChanges(changes: SimpleChanges): void {
@@ -45,13 +52,22 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 		
 		// we are interested in encoding these to ints.
 		let __test = linediff.filter(line => line.startsWith("-"));
+
+		if(__test && __test.length>0) {
+			console.log(__test[0]);
+			console.log(typeof __test[0]);
+			console.log("Starting encoding");
+			
+			if(this.bpeEncoder) {
+				console.log(this.bpeEncoder.encode([__test[0]]));
+			}
+			else
+			{
+				console.log("BPEEncoder not ready.");
+			}
+		}
 		
-		console.log(__test[0]);
-		console.log(typeof __test[0]);
-		console.log("Starting encoding");
-		
-		console.log(this.bpeEncoder.encode([__test[0]]));
-		
+			
 		return result; 
 	}
 	
