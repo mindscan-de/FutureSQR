@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { first, skipWhile } from 'rxjs/operators';
 
 import { SimpleBPEEncoder } from '../../bpe/simple-bpe-encoder';
+import { BpeEncoderProviderService } from '../../bpe/bpe-encoder-provider.service';
 import { BPEDiffUtils } from '../../bpe/bpe-diff-utils';
 
 @Component({
@@ -26,14 +28,26 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 
 	constructor(
 		// Actually i need an encoder..., maybe using a service...
+		provider:BpeEncoderProviderService
 	) {
+		provider.subscribeBPEEncoder().pipe(skipWhile( v => !v )).pipe(first()).subscribe(
+			data => {
+				this.onBPEEncoderAvailable(data);
+				},
+			error => {
+				
+			}
+		);
 	}
 
 	ngOnInit(): void {
 	}
 	
-	onBPEEncoderDataReady(map:Map<string,number>):void {
-		this.bpeEncoder = new SimpleBPEEncoder(map);
+	onBPEEncoderAvailable(encoder:SimpleBPEEncoder):void {
+		console.log ("we got informed....")
+		this.bpeEncoder = encoder;
+		
+		this.updateDiffRendering();
 	}
 	
  	ngOnChanges(changes: SimpleChanges): void {
@@ -42,6 +56,8 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 			// This needs to be reworked such that the line numbers are correctly transferred.
 			this.leftContent = this.filterLeftDiff(contentChangeSetCurrent, 12);
 			this.rightContent = this.filterRightDiff(contentChangeSetCurrent, 15);
+			
+			this.updateDiffRendering();
 		}
 	}
 	
@@ -79,6 +95,9 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 		return result; 
 	}
 
+	private updateDiffRendering():void {
+		
+	}
 	/**
 	
 	Algorithmic considerations:
