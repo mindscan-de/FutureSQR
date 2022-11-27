@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 /*
  * For the diff I would like to test, whether building the diff via 
  * BytePairEncoding is able to provide some readability.  
@@ -19,17 +20,17 @@
  * 
  */
 
-import { Tokens16K } from './tokens16-k'; 
-
 export class SimpleBPEEncoder {
 
 	public static readonly OOV_MAX = 1000000000;
 	private __bpeEncoderTable:Map<string,number> = new Map<string,number>();
 	
-	constructor() {
-		this.__bpeEncoderTable = Tokens16K.getEncoderTokenToIndexMap();
+	constructor(
+		encoderMap: Map<string,number>
+	) {
+		this.__bpeEncoderTable = encoderMap;
 	}
-
+	
 	public encode( tokens : string[]|string ):number[] {
 		if(Array.isArray(tokens)) {
 			let encoded_tokens:number[] = [];
@@ -46,6 +47,10 @@ export class SimpleBPEEncoder {
 	// Not nice, Not optimized, but maybe good enough?
 	private __buildBpeTokens( textToken:string ): number[] {
 		console.log("__buildBpeTokens called.\n");
+		if(!textToken || textToken.length==0) {
+			return [];
+		}
+		
 		// we don't' need to transform a token, when it already has an unique encoding in the bpeEncoderTable
 		// then looking up this token is absolutely sufficient
 		
