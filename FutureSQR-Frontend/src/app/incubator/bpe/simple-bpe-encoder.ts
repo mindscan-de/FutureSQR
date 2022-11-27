@@ -33,15 +33,17 @@ export class SimpleBPEEncoder {
 		} 
 	}
 
-	public encode( tokens : string[] ):number[] {
-		let encoded_tokens:number[] = [];
-		
-		for( let token of tokens ) {
-			let more_tokens: number[] = this.__buildBpeTokens(token)
-			encoded_tokens.push(...more_tokens);
+	public encode( tokens : string[]|string ):number[] {
+		if(Array.isArray(tokens)) {
+			let encoded_tokens:number[] = [];
+			for( let token of tokens ) {
+				let more_tokens: number[] = this.__buildBpeTokens(token)
+				encoded_tokens.push(...more_tokens);
+			}
+			return encoded_tokens;
 		}
 		
-		return encoded_tokens;
+		return this.__buildBpeTokens(tokens);
 	}
 	
 	// Not nice, Not optimized, but maybe good enough?
