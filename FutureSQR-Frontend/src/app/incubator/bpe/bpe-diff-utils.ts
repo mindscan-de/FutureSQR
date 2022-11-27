@@ -69,7 +69,9 @@ export class BPEDiffUtils {
 		for(let i:number=0; i<bpe_short_vector.length;i++) {
 			let element = bpe_short_vector[i];
 			if(bpe_longer_vector.includes(element)) {
-				let index_inLong = bpe_longer_vector.findIndex(element,i)-i;
+				// actually we should consider multiple findings....
+				// But maybe we should consider tracking unique elements first and the build around them...
+				let index_inLong = bpe_longer_vector.indexOf(element,i)-i;
 		        findings[i]=index_inLong;
 			}
 		}		 
