@@ -51,8 +51,6 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 	onBPEEncoderAvailable(encoder:SimpleBPEEncoder):void {
 		console.log ("we got informed....")
 		this.bpeEncoder = encoder;
-		
-		this.updateDiffRendering();
 	}
 	
  	ngOnChanges(changes: SimpleChanges): void {
@@ -62,7 +60,7 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 			this.leftContent = this.filterLeftDiff(contentChangeSetCurrent, 12);
 			this.rightContent = this.filterRightDiff(contentChangeSetCurrent, 15);
 			
-			this.updateDiffRendering();
+			this.updateDiffRendering(contentChangeSetCurrent);
 		}
 	}
 	
@@ -71,23 +69,6 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 		
 		let result:ExperimentalUiDiffContentModel = new ExperimentalUiDiffContentModel(leftdiff, left_line_count_start);
 		
-		// we are interested in encoding these to ints.
-		let __test = linediff.filter(line => line.startsWith("-"));
-
-		if(__test && __test.length>0) {
-			console.log(__test[0]);
-			console.log(typeof __test[0]);
-			
-			if(this.bpeEncoder) {
-				console.log(this.bpeEncoder.encode([__test[0]]));
-			}
-			else
-			{
-				console.log("BPEEncoder not ready.");
-			}
-		}
-		
-			
 		return result; 
 	}
 	
@@ -99,9 +80,47 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 		return result; 
 	}
 
-	private updateDiffRendering():void {
+	private updateDiffRendering(linediff: string[]):void {
+		if(!this.bpeEncoder) {
+			console.warn("Encoder was not ready yet.");
+			return;
+		}
 		
+		// so let's see what we can do here.
+		// we will concentrate on diffs, with a single left line and a single right line
+		let left_minus = linediff.filter(line => line.startsWith("-"));
+		let right_plus = linediff.filter(line => line.startsWith("+"));
+
+		if(left_minus && left_minus.length==1) {
+			if(right_plus && right_plus.length == 1) {
+				// lets process this only candidate
+				
+				// console.log(__test[0]);
+				// console.log(typeof __test[0]);
+				
+				// strip the "-"
+				let left_encoded = this.bpeEncoder.encode(left_minus[0].substr(1));
+				let right_encoded = this.bpeEncoder.encode(right_plus[0].substr(1));
+				
+				console.log("left_encoded");
+				console.log(left_encoded);
+				
+				console.log("right_encoded");
+				console.log(right_encoded);
+				
+				
+	/*			if(this.bpeEncoder) {
+					console.log(this.bpeEncoder.encode([__test[0]]));
+				}
+				else
+				{
+					console.log("BPEEncoder not ready.");
+				}
+	*/
+			}
+		}		
 	}
+
 	/**
 	
 	Algorithmic considerations:
