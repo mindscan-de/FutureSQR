@@ -60,7 +60,28 @@ export class BPEDiffUtils {
 	}
 	
 	private v1_bpeStretchout( bpe_short_vector:number[], bpe_relative_findings:number[]): number[] {
-		return [];
+		let delta_offset = 0;
+		let stretched: number[] = [];
+
+		for(let i:number = 0; i<bpe_short_vector.length;i++) {
+			// actually we always push, so this can be extracted...
+			if(bpe_relative_findings[i]==undefined) {
+				stretched.push(bpe_short_vector[i]);
+			}
+			else if (bpe_relative_findings[i]<delta_offset) {
+				stretched.push(bpe_short_vector[i]);
+			}
+			else {
+				for(let j=0;j<(bpe_relative_findings[i]-delta_offset);i++) {
+					stretched.push(0);
+				}
+				stretched.push(bpe_short_vector[i]);
+	            // this is actually bad in case things were moved around...
+				delta_offset = bpe_relative_findings[i]; 
+			}
+		}		
+		
+		return stretched;
 	}
 	
 	private v1_bpeFindRelative( bpe_short_vector:number[], bpe_longer_vector:number[]): number[] {
