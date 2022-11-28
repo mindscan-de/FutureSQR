@@ -115,6 +115,9 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 				let syndrome = this.bpeDiffUtils.bpeCalculateDiffSyndrome(stretched_left, stretched_right);
 				console.log("diff_syndrome");
 				console.log(syndrome);
+				
+				// TODO: this now needs some proper visualization.
+				// either unified, side by side, or both.
 			}
 		}		
 	}
