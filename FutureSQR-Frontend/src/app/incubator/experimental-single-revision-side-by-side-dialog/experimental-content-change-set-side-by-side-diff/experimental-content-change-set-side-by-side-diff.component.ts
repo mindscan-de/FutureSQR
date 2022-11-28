@@ -118,6 +118,7 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 				
 				// TODO: this now needs some proper visualization.
 				// either unified, side by side, or both.
+				// also we need to initialize and implement the decoder part of the SimpleBPEEncoder.
 			}
 		}		
 	}
