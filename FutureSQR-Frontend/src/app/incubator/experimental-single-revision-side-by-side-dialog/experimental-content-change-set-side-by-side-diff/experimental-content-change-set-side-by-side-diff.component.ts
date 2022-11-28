@@ -20,7 +20,7 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 	public viewPortMargin:number = 1;
 	
 	private bpeEncoder : SimpleBPEEncoder;
-	private bpeDiffUtils = new BPEDiffUtils();
+	private bpeDiffUtils:BPEDiffUtils  = new BPEDiffUtils();
 	
 	// TODO: create a ui model from it
 	// actually this will an intermediate external model
@@ -108,6 +108,13 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 				console.log("right_encoded");
 				console.log(right_encoded);
 				
+				let stretched:number[][] = this.bpeDiffUtils.bpeStretchoutDiff(left_encoded, right_encoded);
+				let stretched_left:number[] = stretched[0];
+				let stretched_right:number[] = stretched[1];
+				
+				let syndrome = this.bpeDiffUtils.bpeCalculateDiffSyndrome(stretched_left, stretched_right);
+				console.log("diff_syndrome");
+				console.log(syndrome);
 				
 	/*			if(this.bpeEncoder) {
 					console.log(this.bpeEncoder.encode([__test[0]]));
