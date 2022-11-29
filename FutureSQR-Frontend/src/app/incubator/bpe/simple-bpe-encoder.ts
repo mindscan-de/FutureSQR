@@ -46,6 +46,18 @@ export class SimpleBPEEncoder {
 		return this.__buildBpeTokens(tokens);
 	}
 	
+	public decodeToArray(tokens: number[]):string[] {
+		let decoded_tokens:string[] =[];
+		for(let token of tokens) {
+			decoded_tokens.push(this.__bpeDecoderTable.get(token));
+		}
+		return decoded_tokens;
+	}
+	
+	public decodeToString(tokens: number[]):string {
+		return this.decodeToArray(tokens).join();		
+	}
+	
 	// Not nice, Not optimized, but maybe good enough?
 	private __buildBpeTokens( textToken:string ): number[] {
 		console.log("__buildBpeTokens called.\n");
