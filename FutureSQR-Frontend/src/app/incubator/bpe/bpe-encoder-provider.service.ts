@@ -52,13 +52,9 @@ export class BpeEncoderProviderService {
 	}
 	
 	private onBPETokenMapProvided(tokenMap: BPETokenMap) : void {
-		console.log(tokenMap.tokens);
-		console.log(typeof(tokenMap.tokens));
+		let encoderTokenMap = new Map<string,number>(Object.entries(tokenMap.tokens));
 		
-		let test = new Map<string,number>(Object.entries(tokenMap.tokens));
-		console.log(test);
-		
-		this._currentBpeEncoderValue = new SimpleBPEEncoder(test);
+		this._currentBpeEncoderValue = new SimpleBPEEncoder(encoderTokenMap);
 		this._currentBpeEncoderSubject.next(this._currentBpeEncoderValue); 
 	}
 	
