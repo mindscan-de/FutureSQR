@@ -24,11 +24,13 @@ export class SimpleBPEEncoder {
 
 	public static readonly OOV_MAX = 1000000000;
 	private __bpeEncoderTable:Map<string,number> = new Map<string,number>();
+	private __bpeDecoderTable:Map<number,string> = new Map<number,string>();
 	
 	constructor(
 		encoderMap: Map<string,number>
 	) {
 		this.__bpeEncoderTable = encoderMap;
+		this.__bpeDecoderTable = new Map<number,string>(Array.from(this.__bpeEncoderTable, entry => [entry[1],entry[0]]));
 	}
 	
 	public encode( tokens : string[]|string ):number[] {
