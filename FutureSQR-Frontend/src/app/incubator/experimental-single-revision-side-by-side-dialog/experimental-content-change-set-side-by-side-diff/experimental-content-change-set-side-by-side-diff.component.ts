@@ -3,7 +3,7 @@ import { first, skipWhile } from 'rxjs/operators';
 
 import { SimpleBPEEncoder } from '../../bpe/simple-bpe-encoder';
 import { BpeEncoderProviderService } from '../../bpe/bpe-encoder-provider.service';
-import { BPEDiffUtils } from '../../bpe/bpe-diff-utils';
+import { BPEDiffUtils, BPEVisualizationEntry } from '../../bpe/bpe-diff-utils';
 
 @Component({
   selector: 'app-experimental-content-change-set-side-by-side-diff',
@@ -21,6 +21,8 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 	
 	private bpeEncoder : SimpleBPEEncoder;
 	private bpeDiffUtils:BPEDiffUtils  = new BPEDiffUtils();
+	
+	public unifiedUiDiff: DiffUIEntry[] = [];
 	
 	// TODO: create a ui model from it
 	// actually this will an intermediate external model
@@ -116,6 +118,9 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 				console.log("diff_syndrome");
 				console.log(syndrome);
 				
+				let unified:BPEVisualizationEntry[] = this.bpeDiffUtils.bpe_prepare_syndrome_unified(syndrome,stretched_left,stretched_right);
+				this.unifiedUiDiff = Array.from(unified).map( e => new DiffUIEntry("bpediff-u-"+e.syndrome.toLowerCase(),this.bpeEncoder.decodeToString(e.tokens)));
+				
 				// TODO: this now needs some proper visualization.
 				// either unified, side by side, or both.
 				// also we need to initialize and implement the decoder part of the SimpleBPEEncoder.
@@ -171,4 +176,14 @@ export class ExperimentalUiDiffContentModel {
 		this.diffContent = content;
 		this.diffLineNumberStart = start;
 	}
+}
+
+export class DiffUIEntry {
+	public uiclass: string = "";
+	public uicontent: string = "";
+	
+	constructor ( uiclass:string, uicontent:string) {
+		this.uiclass = uiclass;
+		this.uicontent = uicontent;
+	} 
 }
