@@ -55,7 +55,7 @@ export class SimpleBPEEncoder {
 	}
 	
 	public decodeToString(tokens: number[]):string {
-		return this.decodeToArray(tokens).join();		
+		return this.decodeToArray(tokens).join("");		
 	}
 	
 	// Not nice, Not optimized, but maybe good enough?
