@@ -53,3 +53,40 @@ body {
 	width:95%;
 	max-width:98%;
 }
+
+/* BPE unified classes */
+.bpediff-u-d {
+	background:#ffa0a0;
+	display:inline;
+	text-decoration: line-through;
+}
+.bpediff-u-i {
+	background:#c0ffc0;
+	display:inline;
+}	
+.bpediff-u-u {
+	background:#eeeeff;
+	display:inline;
+}
+
+/* BPE left (only delete and unchanged) */
+.bpediff-l-d {
+	background:#ffa0a0;
+	display:inline;
+}
+.bpediff-l-u {
+	background:#eeeeff;
+	display:inline;
+}	
+
+/* BPE right (only insert and unchanged) */
+.bpediff-r-i {
+	background:#c0ffc0;
+	display:inline;
+}	
+.bpediff-r-u {
+	background:#eeeeff;
+	display:inline;
+}	
+	
+	
