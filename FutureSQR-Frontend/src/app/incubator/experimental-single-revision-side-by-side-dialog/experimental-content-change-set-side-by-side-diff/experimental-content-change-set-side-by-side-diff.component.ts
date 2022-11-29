@@ -23,6 +23,8 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 	private bpeDiffUtils:BPEDiffUtils  = new BPEDiffUtils();
 	
 	public unifiedUiDiff: DiffUIEntry[] = [];
+	public leftUiDiff: DiffUIEntry[] = [];
+	public rightUiDiff: DiffUIEntry[] = [];
 	
 	// TODO: create a ui model from it
 	// actually this will an intermediate external model
@@ -119,7 +121,10 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 				console.log(syndrome);
 				
 				let unified:BPEVisualizationEntry[] = this.bpeDiffUtils.bpe_prepare_syndrome_unified(syndrome,stretched_left,stretched_right);
-				this.unifiedUiDiff = Array.from(unified).map( e => new DiffUIEntry("bpediff-u-"+e.syndrome.toLowerCase(),this.bpeEncoder.decodeToString(e.tokens)));
+				this.unifiedUiDiff = Array.from(unified).map( e => new DiffUIEntry(e.syndrome.toLowerCase(),this.bpeEncoder.decodeToString(e.tokens)));
+				
+				this.leftUiDiff = Array.from(this.unifiedUiDiff).filter(e => e.uiclass=='u' || e.uiclass=='d' );
+				this.rightUiDiff = Array.from(this.unifiedUiDiff).filter(e => e.uiclass=='u' || e.uiclass=='i' );
 				
 				// TODO: this now needs some proper visualization.
 				// either unified, side by side, or both.
