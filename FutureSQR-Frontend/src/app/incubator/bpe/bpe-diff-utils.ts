@@ -10,10 +10,10 @@
 
 export class BPEDiffUtils {
 	
-	public static readonly SYNDROME_UNCHANGED:string = "_";
+	public static readonly SYNDROME_UNCHANGED:string = "U";
 	public static readonly SYNDROME_DELETED:string   = "D";
 	public static readonly SYNDROME_INSERTED:string  = "I";
-	public static readonly SYNDROME_REPLACED:string  = "R";
+	public static readonly SYNDROME_REPLACED:string  = "X";
 	
 	public static readonly RELATIVE_POSITION_UNKNOWN:number = undefined; 
 	
@@ -111,7 +111,7 @@ export class BPEDiffUtils {
 		for(let i:number = 0;i<syndrome.length;i++) {
 			if(latest_syndrome != syndrome[i]) {
 				switch(latest_syndrome) {
-					case undefined: continue;
+					case undefined: break;
 					case BPEDiffUtils.SYNDROME_UNCHANGED: {
 						unified_visulalization_entry.push(new BPEVisualizationEntry (BPEDiffUtils.SYNDROME_UNCHANGED, stashed_left_tokens ));
 						break;
@@ -136,8 +136,27 @@ export class BPEDiffUtils {
 				stashed_right_tokens = [];
 			}
 			
-			// depending on latest syndrome, we want to handle the different stashes...
-			
+			// depending on current syndrome, we want to handle the different stashes...
+			switch(syndrome[i]) {
+				case undefined: break;
+				case BPEDiffUtils.SYNDROME_UNCHANGED: {
+					stashed_left_tokens.push(left_line_tokens[i]);
+					break;
+				}
+				case BPEDiffUtils.SYNDROME_DELETED: {
+					stashed_left_tokens.push(left_line_tokens[i]);
+					break;
+				}
+				case BPEDiffUtils.SYNDROME_INSERTED: {
+					stashed_right_tokens.push(right_line_tokens[i]);
+					break;
+				}
+				case BPEDiffUtils.SYNDROME_REPLACED: {
+					stashed_left_tokens.push(left_line_tokens[i]);
+					stashed_right_tokens.push(right_line_tokens[i]);
+					break;
+				}
+			}
 		}
 		
 		switch(latest_syndrome) {
