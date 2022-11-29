@@ -99,4 +99,78 @@ export class BPEDiffUtils {
 		
 		return findings;
 	}
+	
+	
+	public bpe_prepare_syndrome_unified(syndrome:string[], left_line_tokens:number[], right_line_tokens:number[]):BPEVisualizationEntry[] {
+		let unified_visulalization_entry:BPEVisualizationEntry[] = []
+
+		let latest_syndrome:string = undefined;
+		let stashed_left_tokens:number[] = [];
+		let stashed_right_tokens:number[] = [];
+		
+		for(let i:number = 0;i<syndrome.length;i++) {
+			if(latest_syndrome != syndrome[i]) {
+				switch(latest_syndrome) {
+					case undefined: continue;
+					case BPEDiffUtils.SYNDROME_UNCHANGED: {
+						unified_visulalization_entry.push(new BPEVisualizationEntry (BPEDiffUtils.SYNDROME_UNCHANGED, stashed_left_tokens ));
+						break;
+					}
+					case BPEDiffUtils.SYNDROME_DELETED: {
+						unified_visulalization_entry.push(new BPEVisualizationEntry (BPEDiffUtils.SYNDROME_DELETED, stashed_left_tokens ));
+						break;
+					}
+					case BPEDiffUtils.SYNDROME_INSERTED: {
+						unified_visulalization_entry.push(new BPEVisualizationEntry (BPEDiffUtils.SYNDROME_INSERTED, stashed_right_tokens ));
+						break;
+					}
+					case BPEDiffUtils.SYNDROME_REPLACED: {
+						unified_visulalization_entry.push(new BPEVisualizationEntry (BPEDiffUtils.SYNDROME_DELETED, stashed_left_tokens ));
+						unified_visulalization_entry.push(new BPEVisualizationEntry (BPEDiffUtils.SYNDROME_INSERTED, stashed_right_tokens ));
+						break;
+					}
+				}
+				
+				latest_syndrome = syndrome[i];
+				stashed_left_tokens = [];
+				stashed_right_tokens = [];
+			}
+			
+			// depending on latest syndrome, we want to handle the different stashes...
+			
+		}
+		
+		switch(latest_syndrome) {
+			case undefined: break;
+			case BPEDiffUtils.SYNDROME_UNCHANGED: {
+				unified_visulalization_entry.push(new BPEVisualizationEntry (BPEDiffUtils.SYNDROME_UNCHANGED, stashed_left_tokens ));
+				break;
+			}
+			case BPEDiffUtils.SYNDROME_DELETED: {
+				unified_visulalization_entry.push(new BPEVisualizationEntry (BPEDiffUtils.SYNDROME_DELETED, stashed_left_tokens ));
+				break;
+			}
+			case BPEDiffUtils.SYNDROME_INSERTED: {
+				unified_visulalization_entry.push(new BPEVisualizationEntry (BPEDiffUtils.SYNDROME_INSERTED, stashed_right_tokens ));
+				break;
+			}
+			case BPEDiffUtils.SYNDROME_REPLACED: {
+				unified_visulalization_entry.push(new BPEVisualizationEntry (BPEDiffUtils.SYNDROME_DELETED, stashed_left_tokens ));
+				unified_visulalization_entry.push(new BPEVisualizationEntry (BPEDiffUtils.SYNDROME_INSERTED, stashed_right_tokens ));
+				break;
+			}
+		}
+		
+		return unified_visulalization_entry;
+	}
+}
+
+export class BPEVisualizationEntry {
+	public syndrome:string;
+	public tokens:number[];
+	
+	constructor(syndrome:string, tokens:number[]) {
+		this.syndrome = syndrome;
+		this.tokens = tokens;
+	}
 }
