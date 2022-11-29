@@ -27,4 +27,8 @@
 		></ngx-codemirror>
 	</div>
 </div>
-
+<div *ngIf ="unifiedUiDiff.length>0" class="row p-0" >
+	<div class="col-xl-12">
+		<pre *ngFor="let diff of unifiedUiDiff" class="{{diff.uiclass}}">{{diff.uicontent}}</pre>
+	</div>
+</div>
