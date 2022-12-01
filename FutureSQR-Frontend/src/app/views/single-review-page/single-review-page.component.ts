@@ -24,6 +24,9 @@ import { UiReviewFileInformation } from '../../commonui/uimodel/ui-review-file-i
 // TODO rework this with a review side by side dialog, which can work with a configured filechangeset and a file paging configuration
 import { SingleRevisionSideBySideDialogComponent } from '../../commonui/single-revision-side-by-side-dialog/single-revision-side-by-side-dialog.component';
 
+// DIRTY HACK - make sure the BPE encode is initialized early....
+import { BpeEncoderProviderService } from '../../incubator/bpe/bpe-encoder-provider.service';
+
 @Component({
   selector: 'app-single-review-page',
   templateUrl: './single-review-page.component.html',
@@ -44,6 +47,8 @@ export class SingleReviewPageComponent implements OnInit {
 	constructor( 
 		private projectDataQueryBackend : ProjectDataQueryBackendService,
 		private navigationBarService : NavigationBarService,
+		// actually this is not nice here, anyhow.... DIRTY HACK.
+		private encoder: BpeEncoderProviderService,
 		private route: ActivatedRoute, 
 		private modalService: NgbModal 
 	) { }

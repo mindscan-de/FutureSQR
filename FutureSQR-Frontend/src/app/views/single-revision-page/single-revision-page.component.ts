@@ -24,6 +24,9 @@ import { SingleRevisionSideBySideDialogComponent } from '../../commonui/single-r
 // Incubator
 import { ExperimentalSingleRevisionSideBySideDialogComponent } from '../../incubator/experimental-single-revision-side-by-side-dialog/experimental-single-revision-side-by-side-dialog.component';
 
+// DIRTY HACK - make sure the BPE encode is initialized early....
+import { BpeEncoderProviderService } from '../../incubator/bpe/bpe-encoder-provider.service';
+
 
 @Component({
   selector: 'app-single-revision-page',
@@ -44,6 +47,8 @@ export class SingleRevisionPageComponent implements OnInit {
     constructor(
 		private projectDataQueryBackend : ProjectDataQueryBackendService,
 		private navigationBarService : NavigationBarService,
+		// actually this is not nice here, anyhow.... DIRTY HACK.
+		private encoder: BpeEncoderProviderService,
 		private route: ActivatedRoute, 
 		private modalService: NgbModal 
 	) { }
