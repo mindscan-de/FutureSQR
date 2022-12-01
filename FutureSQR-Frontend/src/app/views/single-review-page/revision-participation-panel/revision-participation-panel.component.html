@@ -12,15 +12,12 @@
   		<p><span class="small text-muted"><b class="mr-2">Revision(s):</b></span><span class="badge badge-light text-muted" title="Number of revisions in this review">{{currentUiReviewRevisions.length}}</span></p>
   		<ul class="list-unstyled ml-2 mr-2">
 			<li class="mb-2" *ngFor="let revision of currentUiReviewRevisions">
-				<div class="float-left mr-2">
-					<app-avatar-only [size]="36" [uuid]="revision.authorUuid"></app-avatar-only>
-				</div>
 				<div class="small" title="{{revision.shortrev}} -- {{revision.revisionid}}">
 					<div>
 						<b>{{revision.message}}</b>
 					</div>
 					<div>
-						<span class="text-muted">created <span title="{{revision.date}}">{{revision.shortdate}}</span> by {{revision.authorname}}</span>
+						<span class="text-muted"><span class="mr-2"><app-avatar-only [size]="18" [uuid]="revision.authorUuid"></app-avatar-only></span>created <span title="{{revision.date}}">{{revision.shortdate}}</span> by {{revision.authorname}}</span>
 					</div>
 				</div>
 			</li>
