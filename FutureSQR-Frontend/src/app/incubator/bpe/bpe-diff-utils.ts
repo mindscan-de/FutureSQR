@@ -5,6 +5,8 @@
 *
 * Just in case you are offended by this code, I am certainly are, but pease excuse this poor code...
 *
+* Next Challenge is to calculate this diff better.
+* http://localhost:4200/futuresqr/revision/72e55437b8d4ab40c1663ff4ee98b3ddf4937517
 */
 
 
@@ -15,7 +17,7 @@ export class BPEDiffUtils {
 	public static readonly SYNDROME_INSERTED:string  = "I";
 	public static readonly SYNDROME_REPLACED:string  = "X";
 	
-	public static readonly RELATIVE_POSITION_UNKNOWN:number = undefined; 
+	public static readonly RELATIVE_POSITION_UNKNOWN:number = undefined;
 	
 	public bpeCalculateDiffSyndrome(bpe_left_diff : number[], bpe_right_diff : number[]):string[] {
 		if (bpe_left_diff.length != bpe_right_diff.length) {
