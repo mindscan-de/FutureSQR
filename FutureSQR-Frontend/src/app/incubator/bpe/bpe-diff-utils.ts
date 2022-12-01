@@ -19,6 +19,10 @@ export class BPEDiffUtils {
 	
 	public bpeCalculateDiffSyndrome(bpe_left_diff : number[], bpe_right_diff : number[]):string[] {
 		if (bpe_left_diff.length != bpe_right_diff.length) {
+			console.log("left");
+			console.log(bpe_left_diff);
+			console.log("right");
+			console.log(bpe_right_diff);
 			throw new Error("can not calculate syndromes for different array lengths");
 		}
 		
@@ -99,10 +103,10 @@ export class BPEDiffUtils {
 				let index_inLong = bpe_longer_vector.indexOf(element,i)-i;
 		        findings[i]=index_inLong;
 			}
-			else {
+/*			else {
 				findings[i]=undefined;
 			}
-		}
+*/		}
 		
 		console.log(findings);
 		
