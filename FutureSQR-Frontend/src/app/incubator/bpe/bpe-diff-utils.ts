@@ -52,10 +52,14 @@ export class BPEDiffUtils {
 			return [ bpe_left_diff, bpe_right_diff ];
 		}
 		else if(bpe_left_diff.length < bpe_right_diff.length) {
-			return [ this.v1_bpeStretchout(bpe_left_diff, this.v1_bpeFindRelative(bpe_left_diff, bpe_right_diff)) , bpe_right_diff ]
+			let stretched_left:number[] = this.v1_bpeStretchout(bpe_left_diff, this.v1_bpeFindRelative(bpe_left_diff, bpe_right_diff))
+			 
+			return [ stretched_left , bpe_right_diff ]
 		}
 		else {
-			return [ bpe_left_diff, this.v1_bpeStretchout( bpe_right_diff, this.v1_bpeFindRelative(bpe_right_diff, bpe_left_diff)) ]
+			let stretched_right = this.v1_bpeStretchout( bpe_right_diff, this.v1_bpeFindRelative(bpe_right_diff, bpe_left_diff))
+			
+			return [ bpe_left_diff , stretched_right ]
 		}
 	}
 	
@@ -79,7 +83,7 @@ export class BPEDiffUtils {
 	            // this is actually bad in case things were moved around...
 				delta_offset = bpe_relative_findings[i]; 
 			}
-		}		
+		}
 		
 		return stretched;
 	}
@@ -95,7 +99,12 @@ export class BPEDiffUtils {
 				let index_inLong = bpe_longer_vector.indexOf(element,i)-i;
 		        findings[i]=index_inLong;
 			}
-		}		 
+			else {
+				findings[i]=undefined;
+			}
+		}
+		
+		console.log(findings);
 		
 		return findings;
 	}
