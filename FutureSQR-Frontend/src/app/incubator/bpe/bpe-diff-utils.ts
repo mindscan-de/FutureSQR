@@ -105,10 +105,10 @@ export class BPEDiffUtils {
 				let index_inLong = bpe_longer_vector.indexOf(element,i)-i;
 		        findings[i]=index_inLong;
 			}
-/*			else {
+			else {
 				findings[i]=undefined;
 			}
-*/		}
+		}
 		
 		console.log(findings);
 		
