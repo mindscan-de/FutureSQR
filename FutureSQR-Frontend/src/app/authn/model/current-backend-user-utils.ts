@@ -8,7 +8,7 @@ export class CurrentBackendUserUtils {
 	}
 	
 	isUUIDValid(backendUser:CurrentBackendUser):boolean {
-		return backendUser.uuid!=undefined && backendUser.uuid!=null && backendUser.uuid != "";
+		return backendUser?.uuid!=undefined && backendUser.uuid!=null && backendUser.uuid != "";
 	}
 
 }
