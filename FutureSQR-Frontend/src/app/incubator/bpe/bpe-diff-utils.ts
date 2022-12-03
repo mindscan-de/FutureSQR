@@ -1,12 +1,12 @@
 /*
-* This is a very poor implementation of the future bpe diff tools, but it has to start somewhere... 
-* This will be rewritten a few times, whenever i tried another or better idea. I haven't seen this
-* kind of approach anywhere - so the idea needs to be developed as well.
-*
-* Just in case you are offended by this code, I am certainly are, but pease excuse this poor code...
-*
-* Next Challenge is to calculate this diff better.
-* http://localhost:4200/futuresqr/revision/72e55437b8d4ab40c1663ff4ee98b3ddf4937517
+** This is a very poor implementation of the future bpe diff tools, but it has to start somewhere... 
+** This will be rewritten a few times, whenever i tried another or better idea. I haven't seen this
+** kind of approach anywhere - so the idea needs to be developed as well.
+**
+** Just in case you are offended by this code, I am certainly are, but pease excuse this poor code...
+**
+** Next Challenge is to calculate this diff better.
+** http://localhost:4200/futuresqr/revision/72e55437b8d4ab40c1663ff4ee98b3ddf4937517
 */
 
 
@@ -19,6 +19,11 @@ export class BPEDiffUtils {
 	
 	public static readonly RELATIVE_POSITION_UNKNOWN:number = undefined;
 	
+	/*
+	** This calculates the syndrome between two bpe encoded vectors. These two bpe vectors must have the same length
+	** and both vectors must be aligned optimally to each other.
+	**
+	*/
 	public bpeCalculateDiffSyndrome(bpe_left_diff : number[], bpe_right_diff : number[]):string[] {
 		if (bpe_left_diff.length != bpe_right_diff.length) {
 			console.log("left");
@@ -48,6 +53,11 @@ export class BPEDiffUtils {
 		return syndrome;
 	}
 	
+	/*
+	** This calculates a "dot product" between two bpe_encoded vectors.
+	**
+	**
+	*/
 	public bpeSimilarity(bpe_left_diff:number[], bpe_right_diff:number[]):number {
 		let similarity:number = 0;
 		
@@ -61,7 +71,7 @@ export class BPEDiffUtils {
 	}
 	
 	/*
-	** This Co-Occurrence matrix calculation stores basically two calculations, self occurence
+	** This Co-Occurrence matrix calculation stores basically two calculations, self occurrence 
 	** is stored by creating a tuple with Zero for the second element, because the bpe_encoder
 	** doesn't produce the Zero token.
 	*/
@@ -73,7 +83,7 @@ export class BPEDiffUtils {
 		}
 		
 		for(let i:number = 0; i<bpe_encoded.length-1;i++) {
-			// Neigbours
+			// neigbours
 			this.bpeAccumulate([bpe_encoded[i] , bpe_encoded[i+1]],resultMap);
 			// self
 			this.bpeAccumulate([bpe_encoded[i] , 0],resultMap);
@@ -95,9 +105,9 @@ export class BPEDiffUtils {
 	}
 	
 	/*
-	* Actually it is not enough to stretchout one array, but to stretch out both arrays.
-	* This algorithm fails for some cases, where parts of the left and right line are 
-	* moved around.
+	** Actually it is not enough to stretchout one array, but to stretch out both arrays.
+	** This algorithm fails for some cases, where parts of the left and right line are 
+	** moved around.
 	*/
 	public bpeStretchoutDiff(bpe_left_diff:number[], bpe_right_diff:number[]):number[][] {
 		if(bpe_left_diff.length == bpe_right_diff.length) {
