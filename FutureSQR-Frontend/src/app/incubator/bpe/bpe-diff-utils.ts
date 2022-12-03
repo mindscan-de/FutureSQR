@@ -12,10 +12,10 @@
 
 export class BPEDiffUtils {
 	
-	public static readonly SYNDROME_UNCHANGED:string = "U";
-	public static readonly SYNDROME_DELETED:string   = "D";
-	public static readonly SYNDROME_INSERTED:string  = "I";
-	public static readonly SYNDROME_REPLACED:string  = "X";
+	public static readonly SYNDROME_UNCHANGED:string = "u";
+	public static readonly SYNDROME_DELETED:string   = "d";
+	public static readonly SYNDROME_INSERTED:string  = "i";
+	public static readonly SYNDROME_REPLACED:string  = "x";
 	
 	public static readonly RELATIVE_POSITION_UNKNOWN:number = undefined;
 	
