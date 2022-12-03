@@ -74,7 +74,7 @@ export class ConfigureAddUserComponent implements OnInit {
 			this.f.username.value, 
 			this.f.displayname.value,
 			this.f.contactemail.value,
-			this.f.password
+			this.f.password.value
 			).subscribe( {
 				next : (data) => {
 					// TODO navigate to userpage - not part of the backend

@@ -47,7 +47,7 @@ export class AdminDataQueryBackendService {
 		return this.httpClient.post<AdminBackendModelSimpleUserItem>( restURL, formdata).pipe( first() );
 	}
 	
-	public postAddUser(username:string, displayname, emailcontact, password): Observable<AdminBackendModelSimpleUserItem> {
+	public postAddUser(username:string, displayname: string, emailcontact: string, password: string): Observable<AdminBackendModelSimpleUserItem> {
 		let restURL = '/FutureSQR/rest/user/add';
 		
 		let formdata = new FormData();
