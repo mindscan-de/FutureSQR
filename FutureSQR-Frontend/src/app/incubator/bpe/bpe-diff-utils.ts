@@ -48,6 +48,52 @@ export class BPEDiffUtils {
 		return syndrome;
 	}
 	
+	public bpeSimilarity(bpe_left_diff:number[], bpe_right_diff:number[]):number {
+		let similarity:number = 0;
+		
+		let left_map:Map<[number, number], number> = this.bpeCooccurenceMatrix(bpe_left_diff);
+		let right_map:Map<[number, number], number> = this.bpeCooccurenceMatrix(bpe_right_diff);
+		
+		// actually we want to look ehether every pair of the short vector is contained in the longer vector
+		
+		
+		return  similarity
+	}
+	
+	/*
+	** This Co-Occurrence matrix calculation stores basically two calculations, self occurence
+	** is stored by creating a tuple with Zero for the second element, because the bpe_encoder
+	** doesn't produce the Zero token.
+	*/
+	private bpeCooccurenceMatrix (bpe_encoded:number[]) : Map<[number, number], number> {
+		let resultMap:Map<[number, number], number> = new Map<[number,number],number>();
+		
+		if(bpe_encoded.length==0) {
+			return resultMap;
+		}
+		
+		for(let i:number = 0; i<bpe_encoded.length-1;i++) {
+			// Neigbours
+			this.bpeAccumulate([bpe_encoded[i] , bpe_encoded[i+1]],resultMap);
+			// self
+			this.bpeAccumulate([bpe_encoded[i] , 0],resultMap);
+		}
+		
+		// also process last self element here.
+		this.bpeAccumulate([bpe_encoded[bpe_encoded.length-1],0], resultMap);
+		
+		return resultMap
+	}
+	
+	private bpeAccumulate(element:[number,number], accumulatorMap: Map<[number, number], number>) : void {
+		if(accumulatorMap.has(element)) {
+			accumulatorMap.set(element, 1 + accumulatorMap.get(element));
+		}
+		else {
+			accumulatorMap.set(element, 1);
+		}
+	}
+	
 	/*
 	* Actually it is not enough to stretchout one array, but to stretch out both arrays.
 	* This algorithm fails for some cases, where parts of the left and right line are 
