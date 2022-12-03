@@ -6,6 +6,7 @@ import { BackendModelSingleCommitFileContentChangeSet } from '../backend/model/b
 // Frontend
 import { UiFileChangeSetModel } from '../commonui/uimodel/ui-file-change-set-model';
 import { UiContentChangeSetModel } from '../commonui/uimodel/ui-content-change-set-model';
+import { UiSingleSideDiffContentModel, UiSingleSideEnum } from '../commonui/uimodel/ui-single-side-diff-content-model';
 
 export class TransformChangeSet {
 	
@@ -45,4 +46,21 @@ export class TransformChangeSet {
 		
 		return new UiContentChangeSetModel(  diffContent, leftLineStart, rightLineStart );
 	}
+	
+	public static fromUiContentChangeSetToSingleSideDiffContent(ccs:UiContentChangeSetModel, side:UiSingleSideEnum ): UiSingleSideDiffContentModel {
+		switch(side) {
+			case UiSingleSideEnum.Left: {
+				let leftdiff = ccs.diffContent.filter(line => !line.startsWith("+")).join("\n");
+				return new UiSingleSideDiffContentModel(leftdiff, ccs.diffLeftLineCountStart, side);
+			}
+			case UiSingleSideEnum.Right: {
+				let rightdiff = ccs.diffContent.filter(line => !line.startsWith("-")).join("\n");
+				return new UiSingleSideDiffContentModel(rightdiff, ccs.diffRightLineCountStart, side);
+			} 
+			case UiSingleSideEnum.Both: {
+				throw new Error("Expected to be decided for one  side, wither left or right.");
+			}
+		}
+	}
+	
 }
