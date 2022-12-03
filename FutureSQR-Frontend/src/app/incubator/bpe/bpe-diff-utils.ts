@@ -9,13 +9,10 @@
 ** http://localhost:4200/futuresqr/revision/72e55437b8d4ab40c1663ff4ee98b3ddf4937517
 */
 
+import { BpeDiffSyndrome } from './bpe-diff-syndrome.enum';
+
 
 export class BPEDiffUtils {
-	
-	public static readonly SYNDROME_UNCHANGED:string = "u";
-	public static readonly SYNDROME_DELETED:string   = "d";
-	public static readonly SYNDROME_INSERTED:string  = "i";
-	public static readonly SYNDROME_REPLACED:string  = "x";
 	
 	public static readonly RELATIVE_POSITION_UNKNOWN:number = undefined;
 	
@@ -24,7 +21,7 @@ export class BPEDiffUtils {
 	** and both vectors must be aligned optimally to each other.
 	**
 	*/
-	public bpeCalculateDiffSyndrome(bpe_left_diff : number[], bpe_right_diff : number[]):string[] {
+	public bpeCalculateDiffSyndrome(bpe_left_diff : number[], bpe_right_diff : number[]):BpeDiffSyndrome[] {
 		if (bpe_left_diff.length != bpe_right_diff.length) {
 			console.log("left");
 			console.log(bpe_left_diff);
@@ -37,16 +34,16 @@ export class BPEDiffUtils {
 
 		for(let i:number=0;i<bpe_left_diff.length;i++) {
 			if(bpe_left_diff[i] == bpe_right_diff[i]) {
-				syndrome.push(BPEDiffUtils.SYNDROME_UNCHANGED);
+				syndrome.push(BpeDiffSyndrome.Unchanged);
 			}
 			else if( bpe_left_diff[i] == 0 ) {
-				syndrome.push(BPEDiffUtils.SYNDROME_INSERTED);
+				syndrome.push(BpeDiffSyndrome.Inserted);
 			}
 			else if( bpe_right_diff[i] == 0) {
-				syndrome.push(BPEDiffUtils.SYNDROME_DELETED);
+				syndrome.push(BpeDiffSyndrome.Deleted);
 			}
 			else {
-				syndrome.push(BPEDiffUtils.SYNDROME_REPLACED);
+				syndrome.push(BpeDiffSyndrome.Replaced);
 			}
 		}
 
@@ -172,7 +169,7 @@ export class BPEDiffUtils {
 	}
 	
 	
-	public bpe_prepare_syndrome_unified(syndrome:string[], left_line_tokens:number[], right_line_tokens:number[]):BPEVisualizationEntry[] {
+	public bpe_prepare_syndrome_unified(syndrome:BpeDiffSyndrome[], left_line_tokens:number[], right_line_tokens:number[]):BPEVisualizationEntry[] {
 		let unified_visulalization_entry:BPEVisualizationEntry[] = []
 
 		let latest_syndrome:string = undefined;
@@ -182,22 +179,21 @@ export class BPEDiffUtils {
 		for(let i:number = 0;i<syndrome.length;i++) {
 			if(latest_syndrome != syndrome[i]) {
 				switch(latest_syndrome) {
-					case undefined: break;
-					case BPEDiffUtils.SYNDROME_UNCHANGED: {
-						unified_visulalization_entry.push(new BPEVisualizationEntry (BPEDiffUtils.SYNDROME_UNCHANGED, stashed_left_tokens ));
+					case BpeDiffSyndrome.Unchanged: {
+						unified_visulalization_entry.push(new BPEVisualizationEntry (BpeDiffSyndrome.Unchanged, stashed_left_tokens ));
 						break;
 					}
-					case BPEDiffUtils.SYNDROME_DELETED: {
-						unified_visulalization_entry.push(new BPEVisualizationEntry (BPEDiffUtils.SYNDROME_DELETED, stashed_left_tokens ));
+					case BpeDiffSyndrome.Deleted: {
+						unified_visulalization_entry.push(new BPEVisualizationEntry (BpeDiffSyndrome.Deleted, stashed_left_tokens ));
 						break;
 					}
-					case BPEDiffUtils.SYNDROME_INSERTED: {
-						unified_visulalization_entry.push(new BPEVisualizationEntry (BPEDiffUtils.SYNDROME_INSERTED, stashed_right_tokens ));
+					case BpeDiffSyndrome.Inserted: {
+						unified_visulalization_entry.push(new BPEVisualizationEntry (BpeDiffSyndrome.Inserted, stashed_right_tokens ));
 						break;
 					}
-					case BPEDiffUtils.SYNDROME_REPLACED: {
-						unified_visulalization_entry.push(new BPEVisualizationEntry (BPEDiffUtils.SYNDROME_DELETED, stashed_left_tokens ));
-						unified_visulalization_entry.push(new BPEVisualizationEntry (BPEDiffUtils.SYNDROME_INSERTED, stashed_right_tokens ));
+					case BpeDiffSyndrome.Replaced: {
+						unified_visulalization_entry.push(new BPEVisualizationEntry (BpeDiffSyndrome.Deleted, stashed_left_tokens ));
+						unified_visulalization_entry.push(new BPEVisualizationEntry (BpeDiffSyndrome.Inserted, stashed_right_tokens ));
 						break;
 					}
 				}
@@ -209,48 +205,46 @@ export class BPEDiffUtils {
 			
 			// depending on current syndrome, we want to handle the different stashes...
 			switch(syndrome[i]) {
-				case undefined: break;
-				case BPEDiffUtils.SYNDROME_UNCHANGED: {
+				case  BpeDiffSyndrome.Unchanged: {
 					stashed_left_tokens.push(left_line_tokens[i]);
 					break;
 				}
-				case BPEDiffUtils.SYNDROME_DELETED: {
+				case BpeDiffSyndrome.Deleted: {
 					stashed_left_tokens.push(left_line_tokens[i]);
 					break;
 				}
-				case BPEDiffUtils.SYNDROME_INSERTED: {
+				case BpeDiffSyndrome.Inserted: {
 					stashed_right_tokens.push(right_line_tokens[i]);
 					break;
 				}
-				case BPEDiffUtils.SYNDROME_REPLACED: {
+				case BpeDiffSyndrome.Replaced: {
 					stashed_left_tokens.push(left_line_tokens[i]);
 					stashed_right_tokens.push(right_line_tokens[i]);
 					break;
 				}
 			}
 		}
-		
+
 		switch(latest_syndrome) {
-			case undefined: break;
-			case BPEDiffUtils.SYNDROME_UNCHANGED: {
-				unified_visulalization_entry.push(new BPEVisualizationEntry (BPEDiffUtils.SYNDROME_UNCHANGED, stashed_left_tokens ));
+			case BpeDiffSyndrome.Unchanged: {
+				unified_visulalization_entry.push(new BPEVisualizationEntry (BpeDiffSyndrome.Unchanged, stashed_left_tokens ));
 				break;
 			}
-			case BPEDiffUtils.SYNDROME_DELETED: {
-				unified_visulalization_entry.push(new BPEVisualizationEntry (BPEDiffUtils.SYNDROME_DELETED, stashed_left_tokens ));
+			case BpeDiffSyndrome.Deleted: {
+				unified_visulalization_entry.push(new BPEVisualizationEntry (BpeDiffSyndrome.Deleted, stashed_left_tokens ));
 				break;
 			}
-			case BPEDiffUtils.SYNDROME_INSERTED: {
-				unified_visulalization_entry.push(new BPEVisualizationEntry (BPEDiffUtils.SYNDROME_INSERTED, stashed_right_tokens ));
+			case BpeDiffSyndrome.Inserted: {
+				unified_visulalization_entry.push(new BPEVisualizationEntry (BpeDiffSyndrome.Inserted, stashed_right_tokens ));
 				break;
 			}
-			case BPEDiffUtils.SYNDROME_REPLACED: {
-				unified_visulalization_entry.push(new BPEVisualizationEntry (BPEDiffUtils.SYNDROME_DELETED, stashed_left_tokens ));
-				unified_visulalization_entry.push(new BPEVisualizationEntry (BPEDiffUtils.SYNDROME_INSERTED, stashed_right_tokens ));
+			case BpeDiffSyndrome.Replaced: {
+				unified_visulalization_entry.push(new BPEVisualizationEntry (BpeDiffSyndrome.Deleted, stashed_left_tokens ));
+				unified_visulalization_entry.push(new BPEVisualizationEntry (BpeDiffSyndrome.Inserted, stashed_right_tokens ));
 				break;
 			}
 		}
-		
+				
 		return unified_visulalization_entry;
 	}
 }
@@ -259,8 +253,8 @@ export class BPEVisualizationEntry {
 	public syndrome:string;
 	public tokens:number[];
 	
-	constructor(syndrome:string, tokens:number[]) {
-		this.syndrome = syndrome;
+	constructor(syndrome:BpeDiffSyndrome, tokens:number[]) {
+		this.syndrome = syndrome.toString();
 		this.tokens = tokens;
 	}
 }
