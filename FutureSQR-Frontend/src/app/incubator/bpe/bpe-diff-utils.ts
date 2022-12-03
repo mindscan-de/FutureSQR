@@ -175,7 +175,7 @@ export class BPEDiffUtils {
 	public bpe_prepare_syndrome_unified(syndrome:BpeDiffSyndrome[], left_line_tokens:number[], right_line_tokens:number[]):BPEVisualizationEntry[] {
 		let unified_visulalization_entry:BPEVisualizationEntry[] = []
 
-		let latest_syndrome:string = undefined;
+		let latest_syndrome:BpeDiffSyndrome = undefined;
 		let stashed_left_tokens:number[] = [];
 		let stashed_right_tokens:number[] = [];
 		
@@ -201,7 +201,9 @@ export class BPEDiffUtils {
 					}
 				}
 				
+				// update syndrome
 				latest_syndrome = syndrome[i];
+				// cleanup token stashes after emitting
 				stashed_left_tokens = [];
 				stashed_right_tokens = [];
 			}
