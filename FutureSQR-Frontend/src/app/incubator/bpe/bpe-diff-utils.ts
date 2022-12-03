@@ -51,9 +51,10 @@ export class BPEDiffUtils {
 	}
 	
 	/*
-	** This calculates a "dot product" between two bpe_encoded vectors.
-	**
-	**
+	** This calculates a "dot product" between two bpe_encoded vectors. The idea behind this is to provide
+	** a possibility to detect which lines of the left diff match up with the lines in the right diff to
+	** properly detect extract mathod operations and to calculate the difference for an extracted method.
+	** (But this matching (Across ContentChangesets and across FileChangesets) will be calculated later).
 	*/
 	public bpeSimilarity(bpe_left_diff:number[], bpe_right_diff:number[]):number {
 		let similarity:number = 0;
