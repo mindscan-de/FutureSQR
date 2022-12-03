@@ -19,7 +19,7 @@ export class UiSingleSideDiffContentModel {
 	public diffLineNumberStart:number = 1;
 	public diffSide: UiSingleSideEnum = undefined;
 	
-	construcor( content: string, start:number, side:UiSingleSideEnum) {
+	constructor( content: string, start:number, side:UiSingleSideEnum) {
 		this.diffContent = content;
 		this.diffLineNumberStart = start;
 		this.diffSide = side;
