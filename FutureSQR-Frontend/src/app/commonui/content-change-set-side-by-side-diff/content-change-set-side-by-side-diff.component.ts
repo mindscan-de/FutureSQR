@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 
 // ui model
-import { UiDiffContentModel } from './uimodel/ui-diff-content-model';
+
+import { UiSingleSideDiffContentModel, UiSingleSideEnum } from '../uimodel/ui-single-side-diff-content-model';
 
 
 @Component({
@@ -11,8 +12,8 @@ import { UiDiffContentModel } from './uimodel/ui-diff-content-model';
 })
 export class ContentChangeSetSideBySideDiffComponent implements OnInit {
 	
-	public leftContent : UiDiffContentModel = new UiDiffContentModel("",1); 
-	public rightContent : UiDiffContentModel = new UiDiffContentModel("",1);
+	public leftContent : UiSingleSideDiffContentModel = new UiSingleSideDiffContentModel("", 1, UiSingleSideEnum.Left); 
+	public rightContent : UiSingleSideDiffContentModel = new UiSingleSideDiffContentModel("",1, UiSingleSideEnum.Right);
 	
 	// make the editor readonly
 	public readOnly:boolean = true;
@@ -31,26 +32,27 @@ export class ContentChangeSetSideBySideDiffComponent implements OnInit {
  	ngOnChanges(changes: SimpleChanges): void {
 		let contentChangeSetCurrent:string[] = changes.contentChangeSet.currentValue;
 		if(contentChangeSetCurrent) {
+			
 			// This needs to be reworked such that the line numbers are correctly transferred.
-			this.leftContent = this.filterLeftDiff(contentChangeSetCurrent, 12);
-			this.rightContent = this.filterRightDiff(contentChangeSetCurrent, 15)
+			this.leftContent = this.fromUnifiedDiffContentChangeSetToSingleSideDiffContent(contentChangeSetCurrent, 12, UiSingleSideEnum.Left);
+			this.rightContent = this.fromUnifiedDiffContentChangeSetToSingleSideDiffContent(contentChangeSetCurrent, 15, UiSingleSideEnum.Right);
 		}
 	}
 
-	filterLeftDiff(linediff: string[], left_line_count_start: number) : UiDiffContentModel {
-		let leftdiff = linediff.filter(line => !line.startsWith("+")).join("\n");
-		
-		let result:UiDiffContentModel = new UiDiffContentModel(leftdiff, left_line_count_start);
-		
-		return result; 
-	}
-	
-	filterRightDiff(linediff: string[], right_line_count_start: number) : UiDiffContentModel {
-		let rightdiff = linediff.filter(line => !line.startsWith("-")).join("\n");
-		
-		let result:UiDiffContentModel = new UiDiffContentModel(rightdiff,right_line_count_start);
-		
-		return result; 
+	fromUnifiedDiffContentChangeSetToSingleSideDiffContent(linediff:string[], line_count_start:number, side:UiSingleSideEnum ): UiSingleSideDiffContentModel {
+		switch(side) {
+			case UiSingleSideEnum.Left: {
+				let leftdiff = linediff.filter(line => !line.startsWith("+")).join("\n");
+				return new UiSingleSideDiffContentModel(leftdiff, line_count_start, side);
+			}
+			case UiSingleSideEnum.Right: {
+				let rightdiff = linediff.filter(line => !line.startsWith("-")).join("\n");
+				return new UiSingleSideDiffContentModel(rightdiff, line_count_start, side);
+			} 
+			case UiSingleSideEnum.Both: {
+				throw new Error("Expected to be decided for one  side, wither left or right.");
+			}
+		}
 	}
 
 }
