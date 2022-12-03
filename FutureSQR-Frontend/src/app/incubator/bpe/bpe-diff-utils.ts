@@ -62,8 +62,10 @@ export class BPEDiffUtils {
 		let left_map:Map<[number, number], number> = this.bpeCooccurenceMatrix(bpe_left_diff);
 		let right_map:Map<[number, number], number> = this.bpeCooccurenceMatrix(bpe_right_diff);
 		
-		// actually we want to look ehether every pair of the short vector is contained in the longer vector
-		
+		// actually we want to look whether every pair of the short vector is contained in the longer vector
+		// and actually the reverse way too, how much of the longer vector is part of the shorter vector
+		// tokens with a higher index number should have a higher overall weight, because they are 
+		// increasingly rare.
 		
 		return  similarity
 	}
