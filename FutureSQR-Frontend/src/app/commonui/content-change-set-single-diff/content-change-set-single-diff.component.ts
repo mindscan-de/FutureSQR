@@ -1,7 +1,10 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 
+import { TransformChangeSet } from '../../m2m/transform-change-set';
+
 // ui model
-import { UiDiffContentModel } from './uimodel/ui-diff-content-model';
+import { UiContentChangeSetModel  } from '../uimodel/ui-content-change-set-model';
+import { UiUnifiedDiffContentModel } from '../uimodel/ui-unified-diff-content-model';
 
 
 @Component({
@@ -10,15 +13,15 @@ import { UiDiffContentModel } from './uimodel/ui-diff-content-model';
   styleUrls: ['./content-change-set-single-diff.component.css']
 })
 export class ContentChangeSetSingleDiffComponent implements OnInit {
+	
 	// diff content to show
-	public diffContent : UiDiffContentModel = new UiDiffContentModel("",1);
+	public diffContent : UiUnifiedDiffContentModel = new UiUnifiedDiffContentModel("",1,1);
 	
 	// make the editor readonly
 	public readOnly:boolean = true;
 	public viewPortMargin:number = 1;
 	
-	// actually this will an intermediate external model
-	@Input() contentChangeSet:string[] =[];
+	@Input() contentChangeSet:UiContentChangeSetModel = new UiContentChangeSetModel([],1,0,1,0);
 
 	constructor() { }
 
@@ -27,20 +30,12 @@ export class ContentChangeSetSingleDiffComponent implements OnInit {
 
 	// maybe we don't need the update thing but only the setting this value once...
  	ngOnChanges(changes: SimpleChanges): void {
-		let contentChangeSetCurrent:string[] = changes.contentChangeSet.currentValue;
-		if(contentChangeSetCurrent) {
-			this.viewPortMargin = Math.min(Math.max(contentChangeSetCurrent.length,1),30);
-			this.diffContent = this.filterDiff(contentChangeSetCurrent);
+		if(changes.contentChangeSet) {
+			let currentCCS:UiContentChangeSetModel = changes.contentChangeSet.currentValue;
+
+			this.diffContent = TransformChangeSet.fromUiContentChangeSetToUnifiedDiffContent(currentCCS);
+			this.viewPortMargin = Math.min(Math.max(currentCCS.diffContent.length,1),30);
 		}
 	}
-
-	filterDiff(diffLines: string[]) : UiDiffContentModel {
-		let diff = diffLines.join("\n");
-		
-		let result:UiDiffContentModel = new UiDiffContentModel(diff,12);
-		
-		return result; 
-	}
-
 
 }

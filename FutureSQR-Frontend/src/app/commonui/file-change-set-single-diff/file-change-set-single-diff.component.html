@@ -1,8 +1,8 @@
-<h5>{{currentUiFileChangeSet.lazy_diff_line}}</h5>
-<p class="text-muted">{{currentUiFileChangeSet.lazy_index_line}}</p>
+<h5>{{currentUiFileChangeSet.tempLazyDiffLineInfo}}</h5>
+<p class="text-muted">{{currentUiFileChangeSet.tempLayzIndexLineInfo}}</p>
 <ul class="list-group">
-	<li class="list-group-item  p-0 m-0" *ngFor="let contentChangeSet of currentUiFileChangeSet.fileContentChangeSet">
-		<p class="text-muted">{{contentChangeSet.line_info}}</p>
-		<app-content-change-set-single-diff [contentChangeSet]="contentChangeSet.line_diff_data"></app-content-change-set-single-diff>
+	<li class="list-group-item  p-0 m-0" *ngFor="let contentChangeSet of currentUiFileChangeSet.uiContentChangeSet">
+		<p class="text-muted">TODO: use linenumbers in contentChangeSet for something useful here...</p>
+		<app-content-change-set-single-diff [contentChangeSet]="contentChangeSet"></app-content-change-set-single-diff>
 	</li>
 </ul>
