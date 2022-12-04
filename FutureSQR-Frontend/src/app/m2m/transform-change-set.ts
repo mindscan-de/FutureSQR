@@ -7,6 +7,7 @@ import { BackendModelSingleCommitFileContentChangeSet } from '../backend/model/b
 import { UiFileChangeSetModel } from '../commonui/uimodel/ui-file-change-set-model';
 import { UiContentChangeSetModel } from '../commonui/uimodel/ui-content-change-set-model';
 import { UiSingleSideDiffContentModel, UiSingleSideEnum } from '../commonui/uimodel/ui-single-side-diff-content-model';
+import { UiUnifiedDiffContentModel } from '../commonui/uimodel/ui-unified-diff-content-model';
 
 export class TransformChangeSet {
 	
@@ -67,4 +68,8 @@ export class TransformChangeSet {
 		}
 	}
 	
+	public static fromUiContentChangeSetToUnifiedDiffContent(uiccs:UiContentChangeSetModel): UiUnifiedDiffContentModel {
+		let diff = uiccs.diffContent.join("\n");
+		return new UiUnifiedDiffContentModel( diff, uiccs.getLineCountStartLeft(), uiccs.getLineCountStartRight());
+	}
 }
