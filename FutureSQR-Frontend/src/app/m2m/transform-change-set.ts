@@ -27,9 +27,10 @@ export class TransformChangeSet {
 								));
 		
 		// TODO: convert filenames fromFilename / toFilename / move or / renames / may also be cool to highlight.
-		backendModel.lazy_diff_line;
+		converted.setDiffLine( backendModel.lazy_diff_line );
+		
 		// TODO: convert filemode ets fromIndex / toIndex
-		backendModel.lazy_index_line;
+		converted.setIndexLine( backendModel.lazy_index_line );
 		
 		return converted;
 	}
