@@ -81,20 +81,20 @@ Kuukou (Skyport) - Application
 
 Idea is, that "Kuukou" can be reused for other applications as well, because this is a generic problem this only needs to be solved once.
 
-## Next Points of Action
 
+## Next Points of Action
 * User management
 * Rights Management
+* Access Management
 * Transition to a non developer Backend
-* Build a SOTA Diff-Algorithm and presentation, which allows to combine multiple singe revisions
+* Build a SOTA Diff-Algorithm and presentation, which allows to combine multiple singe revisions into one human readable diff - this is the hard part for now
 * Present a single revision of a file
-* Present the correct line numbers
 * Attach to review
 * Combine File list if they share the same path / sort by path (m2m transformer)
 ----
 * UserFeed 
   * requires multi user support
-  * requires recent changes log system
+  * requires recent changes log system (by user or by project, by message type)
   * requires template system for recent change log messages
   
 * provide a list of reviewers (on the + button)
@@ -102,6 +102,9 @@ Idea is, that "Kuukou" can be reused for other applications as well, because thi
   * requires some logic to select a user (suggestion is hard)
   * requires a search/select for a user - without providing the user all user entries
   
+* render markdown for the discussions
+
+* attach discussions to files and track the files and the discussions related to the files.
 
 ## Scrapped plans
 

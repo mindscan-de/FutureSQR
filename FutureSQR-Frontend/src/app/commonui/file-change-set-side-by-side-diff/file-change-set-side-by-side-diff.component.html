@@ -4,7 +4,6 @@
 		<p class="text-muted">{{currentUiFileChangeSet.tempLayzIndexLineInfo}}</p>
 		<ul class="list-group">
 			<li class="list-group-item  p-0 m-0" *ngFor="let contentChangeSet of currentUiFileChangeSet.uiContentChangeSet">
-				<p class="text-muted">{{contentChangeSet.line_info}}</p>
 				<app-content-change-set-side-by-side-diff [contentChangeSet]="contentChangeSet"></app-content-change-set-side-by-side-diff>
 			</li>
 		</ul>

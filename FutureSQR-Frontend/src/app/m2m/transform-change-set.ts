@@ -39,11 +39,15 @@ export class TransformChangeSet {
 						backendModel: BackendModelSingleCommitFileContentChangeSet ): UiContentChangeSetModel {
 		let diffContent = backendModel.line_diff_data;
 
-		// TODO: extract the line numbers from the backend Model.
+		// Well - not exceptionally beautiful..... Extract the line numbers from the backend Model.
 		let lineInfoSplitted:string[] = backendModel.line_info.split("@@");
+		let linedata_splitted:string[] = lineInfoSplitted[1].trim().split(/[,+\-]/u);
+		 
+		let leftLineStart:number = +linedata_splitted[1];
+		let rightLineStart:number = +linedata_splitted[3];
 		
-		let leftLineStart = 12;
-		let rightLineStart = 15;
+		// TODO: left length = linedata_splitted[2]
+		// TODO: right length = linedata_splitted[4]
 		
 		return new UiContentChangeSetModel(  diffContent, leftLineStart, rightLineStart );
 	}
