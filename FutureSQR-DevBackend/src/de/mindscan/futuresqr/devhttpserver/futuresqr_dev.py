@@ -29,7 +29,7 @@ SOFTWARE.
 from fastapi import FastAPI, Form, HTTPException, status
 
 from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision,\
-    calculateFileListForSingleRevision, caluclateSimpleRevisionInformation, calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo,\
+    calculateFileListForSingleRevision, calculateSimpleRevisionInformation, calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo,\
     calculateSimpleRevisionInformationForRevisionList, calculateFileListForListOfRevisions, updateProjectCache
 from de.mindscan.futuresqr.reviews.review_database import ReviewDatabase
 from de.mindscan.futuresqr.projects.project_database import ProjectDatabase
@@ -255,7 +255,7 @@ def getRecentReviews(projectid:str):
 def getSimpleReviewInfomation(projectid:str, revisionid:str):
     if projectDB.hasProjectLocalPath(projectid):
         fullScmPath = systemConfiguration.calculateScmCacheFolder(projectDB.getProjectLocalPath(projectid))
-        revinfo = caluclateSimpleRevisionInformation(fullScmPath, revisionid)
+        revinfo = calculateSimpleRevisionInformation(fullScmPath, revisionid)
         
         for revision in revinfo:
             if reviewDB.hasReviewByRevisionId(projectid, revisionid):

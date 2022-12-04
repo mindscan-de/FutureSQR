@@ -152,7 +152,7 @@ def calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo(local_repo_path:st
     return recentRevisions
     
 
-def caluclateSimpleRevisionInformation(local_git_repo_path:str, revisionid:str):
+def calculateSimpleRevisionInformation(local_git_repo_path:str, revisionid:str):
     formatdetails = '%x1f'.join(GIT_FORMAT_PARAMS)
     
     git_parameters = [
@@ -164,10 +164,10 @@ def caluclateSimpleRevisionInformation(local_git_repo_path:str, revisionid:str):
         ]
 
     log = __execute_git_command_on_local_repo(local_git_repo_path, git_parameters)
-    revision = parse_log_by_rs_us(log, GIT_FIELDS)
-    #XXXX
+    revisions = parse_log_by_rs_us(log, GIT_FIELDS)
+    revisions = XXX_append_uuid_to_revisionlistitems(revisions)
 
-    return revision
+    return revisions
 
 
 def calculateSimpleRevisionInformationForRevisionList(local_git_repo_path:str, revisionlist:list):
