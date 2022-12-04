@@ -47,15 +47,15 @@ export class TransformChangeSet {
 		return new UiContentChangeSetModel(  diffContent, leftLineStart, rightLineStart );
 	}
 	
-	public static fromUiContentChangeSetToSingleSideDiffContent(ccs:UiContentChangeSetModel, side:UiSingleSideEnum ): UiSingleSideDiffContentModel {
+	public static fromUiContentChangeSetToSingleSideDiffContent(uiccs:UiContentChangeSetModel, side:UiSingleSideEnum ): UiSingleSideDiffContentModel {
 		switch(side) {
 			case UiSingleSideEnum.Left: {
-				let leftdiff = ccs.diffContent.filter(line => !line.startsWith("+")).join("\n");
-				return new UiSingleSideDiffContentModel(leftdiff, ccs.diffLeftLineCountStart, side);
+				let leftdiff = uiccs.diffContent.filter(line => !line.startsWith("+")).join("\n");
+				return new UiSingleSideDiffContentModel(leftdiff, uiccs.diffLeftLineCountStart, side);
 			}
 			case UiSingleSideEnum.Right: {
-				let rightdiff = ccs.diffContent.filter(line => !line.startsWith("-")).join("\n");
-				return new UiSingleSideDiffContentModel(rightdiff, ccs.diffRightLineCountStart, side);
+				let rightdiff = uiccs.diffContent.filter(line => !line.startsWith("-")).join("\n");
+				return new UiSingleSideDiffContentModel(rightdiff, uiccs.diffRightLineCountStart, side);
 			} 
 			case UiSingleSideEnum.Both: {
 				throw new Error("Expected to be decided for one  side, wither left or right.");
