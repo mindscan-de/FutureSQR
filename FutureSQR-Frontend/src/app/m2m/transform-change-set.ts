@@ -28,12 +28,35 @@ export class TransformChangeSet {
 								));
 		
 		// TODO: convert filenames fromFilename / toFilename / move or / renames / may also be cool to highlight.
+		// actually this should be part of the scm part (server side, we just do this here to just make it work right now.)
 		converted.setDiffLine( backendModel.lazy_diff_line );
+		
+		let [scmFromPath, scmToPath] = TransformChangeSet.scmGitCalculatePath(backendModel.lazy_diff_line);
+		converted.setScmFromPath(scmFromPath);
+		converted.setScmToPath(scmToPath);
 		
 		// TODO: convert filemode ets fromIndex / toIndex
 		converted.setIndexLine( backendModel.lazy_index_line );
 		
 		return converted;
+	}
+	
+	private static scmGitCalculatePath(diffline:string):[string,string] {
+		if(diffline.startsWith("diff --git")) {
+			let firstIndexASlash = diffline.indexOf(" a/");
+			let lastIndexASlash = diffline.lastIndexOf(" a/");
+			
+			let firstIndexBSlash = diffline.indexOf(" b/");
+			let lastIndexBSlash = diffline.lastIndexOf(" b/");
+
+			let scmFromPath:string = diffline.substring(firstIndexASlash + 3, lastIndexBSlash);
+			let scmToPath:string = diffline.substring(firstIndexBSlash+3);
+			
+			return [ scmFromPath, scmToPath ]
+		}
+		else {
+			return ["",""];
+		}
 	}
 	
 	public static fromBackendFileToUiContentChangeSetModel(
