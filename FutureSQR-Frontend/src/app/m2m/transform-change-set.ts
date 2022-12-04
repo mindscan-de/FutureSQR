@@ -44,12 +44,11 @@ export class TransformChangeSet {
 		let linedata_splitted:string[] = lineInfoSplitted[1].trim().split(/[,+\-]/u);
 		 
 		let leftLineStart:number = +linedata_splitted[1];
+		let leftLineCount:number = +linedata_splitted[2];
 		let rightLineStart:number = +linedata_splitted[3];
+		let rightLineCount:number = +linedata_splitted[4];
 		
-		// TODO: left length = linedata_splitted[2]
-		// TODO: right length = linedata_splitted[4]
-		
-		return new UiContentChangeSetModel(  diffContent, leftLineStart, rightLineStart );
+		return new UiContentChangeSetModel(  diffContent, leftLineStart, leftLineCount, rightLineStart, rightLineCount );
 	}
 	
 	public static fromUiContentChangeSetToSingleSideDiffContent(uiccs:UiContentChangeSetModel, side:UiSingleSideEnum ): UiSingleSideDiffContentModel {

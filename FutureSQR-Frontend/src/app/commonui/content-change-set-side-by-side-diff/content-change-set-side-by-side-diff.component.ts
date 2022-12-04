@@ -21,7 +21,7 @@ export class ContentChangeSetSideBySideDiffComponent implements OnInit {
 	public readOnly:boolean = true;
 	public viewPortMargin:number = 1;
 
-	@Input() contentChangeSet:UiContentChangeSetModel = new UiContentChangeSetModel([],1,1);
+	@Input() contentChangeSet:UiContentChangeSetModel = new UiContentChangeSetModel([],1,0,1,0);
 	
 
 	constructor() { }
