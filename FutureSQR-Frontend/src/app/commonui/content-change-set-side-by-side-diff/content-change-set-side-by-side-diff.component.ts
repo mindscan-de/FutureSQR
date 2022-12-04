@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 
-// ui model
+import { TransformChangeSet } from '../../m2m/transform-change-set';
 
+// ui model
+import { UiContentChangeSetModel  } from '../uimodel/ui-content-change-set-model';
 import { UiSingleSideDiffContentModel, UiSingleSideEnum } from '../uimodel/ui-single-side-diff-content-model';
 
 
@@ -19,9 +21,7 @@ export class ContentChangeSetSideBySideDiffComponent implements OnInit {
 	public readOnly:boolean = true;
 	public viewPortMargin:number = 1;
 
-	// TODO: create a ui model from it
-	// actually this will an intermediate external model
-	@Input() contentChangeSet:string[] =[];
+	@Input() contentChangeSet:UiContentChangeSetModel = new UiContentChangeSetModel([],1,1);
 	
 
 	constructor() { }
@@ -30,28 +30,12 @@ export class ContentChangeSetSideBySideDiffComponent implements OnInit {
 	}
 	
  	ngOnChanges(changes: SimpleChanges): void {
-		let contentChangeSetCurrent:string[] = changes.contentChangeSet.currentValue;
-		if(contentChangeSetCurrent) {
+	
+		if(changes.contentChangeSet) {
+			let currentCCS:UiContentChangeSetModel = changes.contentChangeSet.currentValue;
 			
-			// This needs to be reworked such that the line numbers are correctly transferred.
-			this.leftContent = this.fromUnifiedDiffContentChangeSetToSingleSideDiffContent(contentChangeSetCurrent, 12, UiSingleSideEnum.Left);
-			this.rightContent = this.fromUnifiedDiffContentChangeSetToSingleSideDiffContent(contentChangeSetCurrent, 15, UiSingleSideEnum.Right);
-		}
-	}
-
-	fromUnifiedDiffContentChangeSetToSingleSideDiffContent(linediff:string[], line_count_start:number, side:UiSingleSideEnum ): UiSingleSideDiffContentModel {
-		switch(side) {
-			case UiSingleSideEnum.Left: {
-				let leftdiff = linediff.filter(line => !line.startsWith("+")).join("\n");
-				return new UiSingleSideDiffContentModel(leftdiff, line_count_start, side);
-			}
-			case UiSingleSideEnum.Right: {
-				let rightdiff = linediff.filter(line => !line.startsWith("-")).join("\n");
-				return new UiSingleSideDiffContentModel(rightdiff, line_count_start, side);
-			} 
-			case UiSingleSideEnum.Both: {
-				throw new Error("Expected to be decided for one  side, wither left or right.");
-			}
+			this.leftContent = TransformChangeSet.fromUiContentChangeSetToSingleSideDiffContent(currentCCS, UiSingleSideEnum.Left);
+			this.rightContent = TransformChangeSet.fromUiContentChangeSetToSingleSideDiffContent(currentCCS, UiSingleSideEnum.Right);
 		}
 	}
 
