@@ -124,6 +124,15 @@ class ProjectDatabase(object):
             return False
         return True
     
+    def hasScmBackend(self, projectid):
+        if not self.isProjectIdPresent(projectid):
+            return False
+        if not self.projectConfigurations[projectid]['administration']:
+            return False
+        if not self.projectConfigurations[projectid]['administration']['scmBackend']:
+            return False
+        return True
+    
     def starProject(self, projectid):
         if not self.isProjectIdPresent(projectid):
             return False
