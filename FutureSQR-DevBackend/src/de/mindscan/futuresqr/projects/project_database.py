@@ -103,6 +103,11 @@ class ProjectDatabase(object):
             return self.projectConfigurations[projectid]['administration']['localPath']
         return None
     
+    def getScmBackend(self, projectid):
+        if self.isProjectIdPresent(projectid):
+            return self.projectConfigurations[projectid]['administration']['scmBackend']
+        return None
+    
     def getProjectBranchName(self, projectid):
         if self.isProjectIdPresent(projectid):
             if 'projectBranchName' not in self.projectConfigurations[projectid]:
