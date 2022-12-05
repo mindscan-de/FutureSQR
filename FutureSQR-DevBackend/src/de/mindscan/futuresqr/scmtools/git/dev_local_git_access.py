@@ -27,7 +27,7 @@ SOFTWARE.
 '''
 
 import subprocess
-from de.mindscan.futuresqr.gittools.git_output_parser import parse_log_by_rs_us, parse_log_full_changeset, parse_log_fileListToArray
+from de.mindscan.futuresqr.scmtools.git.git_output_parser import parse_log_by_rs_us, parse_log_full_changeset, parse_log_fileListToArray
 from de.mindscan.futuresqr.users.users_lookup import name_to_uuid
 
 GIT_FIELDS = ['shortrev','revisionid','authorname','authorid','date','shortdate','reldate','parents','parentsshort','message']

@@ -28,7 +28,7 @@ SOFTWARE.
 
 from fastapi import FastAPI, Form, HTTPException, status
 
-from de.mindscan.futuresqr.gittools.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision,\
+from de.mindscan.futuresqr.scmtools.git.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision,\
     calculateFileListForSingleRevision, calculateSimpleRevisionInformation, calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo,\
     calculateSimpleRevisionInformationForRevisionList, calculateFileListForListOfRevisions, updateProjectCache
 from de.mindscan.futuresqr.reviews.review_database import ReviewDatabase
