@@ -123,7 +123,7 @@
     },
     "autoIndex": 100,
     "projectBranchName": "main",
-    "projectDescription": "Future Source Quality Review -- Code Review Tool for Trunk-Based-Development",
+    "projectDescription": "Future Source Quality Review -- Code Review Tool for Trunk-Based-Development -- https://github.com/mindscan-de/FutureSQR.git/trunk",
     "projectDisplayName": "FutureSQR (SVN)",
     "projectID": "futuresqr-svn-trunk",
     "projectIsStarred": true,
