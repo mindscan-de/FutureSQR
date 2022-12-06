@@ -10,7 +10,17 @@ import org.junit.jupiter.api.Test;
 public class UuidUtilTest {
 
     @Test
-    public void testBuildUUIDByNamespace() throws Exception {
+    public void testNAMESPACEOID_static_equalsRfcOIDNamespaceOID() throws Exception {
+        // arrange
+        // act
+        UUID result = UuidUtil.NAMESPACE_OID;
+
+        // assert
+        assertThat( result.toString(), Matchers.equalTo( "6ba7b812-9dad-11d1-80b4-00c04fd430c8" ) );
+    }
+
+    @Test
+    public void testBuildUUIDByNamespace_StringFutureSQR_isEqualToPythonProjectFutureSqrNamespaceUuid() throws Exception {
         // arrange
         // act
         UUID result = UuidUtil.buildUUIDByNamespace( UuidUtil.NAMESPACE_OID, "FutureSQR" );
