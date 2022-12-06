@@ -7,20 +7,13 @@ Because the more features we can remove, the earlier this tool becomes usable.
 
 ## Main Page and All Projects Page
 
-Main Page with selected favorites. 
-
-![Main Page with selected favorites](screen_main_page_60p.png)
-
-The allprojects page, with some selected favorites.
-
-![All Projects Page with selected favorites](screen_all_projects_with_favorites_60p.png)
-
-## Main Page and All Projects Page (Test)
-
-Main Page with selected favorites. 
+Main Page with some selected favorites. 
 
 ![Main Page with selected favorites](screen_main_page_100p.png)
 
+This represents the allprojects page, with some selected favorites.
+
+![All Projects Page with selected favorites](screen_all_projects_with_favorites_100p.png)
 
 ## Project Page
 
