@@ -1,7 +1,7 @@
 # FutureSQR
 Code Review Tool - Future Source Quality Review
 
-![Startig with some basic functionality - Here is an open Review](Gallery/screen_review_open_no_reviewers_60p.png)
+![Startig with some basic functionality - Here is an open Review](Gallery/screen_review_open_no_reviewers_100p.png)
 
 For more screen shots please visit the [Screenshot Gallery](Gallery/README.md)
 
