@@ -19,15 +19,15 @@ This represents the allprojects page, with some selected favorites.
 
 Recent commits page
 
-![Recent commits page](screen_project_recent_commits_page_60p.png)
+![Recent commits page](screen_project_recent_commits_page_100p.png)
 
-Recent commits page with some open reviews
+Recent commits page with some open reviews and some expanded file lists with deleted files, modified files and added files.
 
-![Recent commits page with some open reviews](screen_project_recent_commits_page_with_open_reviews_60p.png)
+![Recent commits page with some open reviews](screen_project_recent_commits_page_with_open_reviews_100p.png)
 
-Recent reviews page
+Recent reviews page which shows some unassigned reviews.
 
-![Recent reviews page](screen_project_recent_reviews_page_60p.png)
+![Recent reviews page](screen_project_recent_reviews_page_100p.png)
 
 ## Review Page
 
