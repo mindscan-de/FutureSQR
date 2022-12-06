@@ -29,6 +29,10 @@ Recent reviews page which shows some unassigned reviews.
 
 ![Recent reviews page](screen_project_recent_reviews_page_100p.png)
 
+Recent reviews page which shows some assigned and also completed reviews.
+
+![Recent reviews page with assigned reviewers to reviews](screen_project_recent_reviews_page_assigned_reviews_100p.png)
+
 ## Review Page
 
 ### State - Open review
