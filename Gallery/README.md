@@ -63,11 +63,11 @@ Open review with two assigned reviewers, one has concerns and the other approved
 
 ![Open Review with one Reviewer approved and one has concerns](screen_review_open_approvd_concerns_100p.png)
 
-### State - Closed review (TODO: re screenshot it)
+### State - Closed review
 
 A closed review looks like this right now
 
-![A closed review looks like this right now](screen_review_approved_closed_60p.png)
+![A closed review looks like this right now](screen_review_approved_closed_100p.png)
 
 ## Revision Page (TODO: re screenshot it)
 
@@ -78,3 +78,10 @@ A revision which is already part of a review
 A revision which is not part of a review
 
 ![A revision which is not part of a review](screen_revision_page_revision_not_part_of_a_review_60p.png)
+
+
+## More Features...
+
+* remove revision from review - (not yet screenshotted)
+* some beginnings of an admin interface - not worth screenshotting it right now
+* some beginning  and test code for better human readable diffs - currently work in progress - too bad to show right now
