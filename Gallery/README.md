@@ -45,17 +45,17 @@ Open review with myself assigned as reviewer
 
 ![Open review with myself assigned as reviewer](screen_review_open_myself_reviewer_100p.png)
 
-### Add revisions to review (TODO: re screenshot it)
+### Add revisions to review
 
 Add revisions to a review
 
-![Add revisions to a review](screen_review_add_revisions_60p.png)
+![Add revisions to a review](screen_review_add_revisions_100p.png)
 
-### (very simple) Side by Side comparison (TODO: re screenshot it)
+### (very simple) Side by Side comparison
 
-Actually this feature will take some time to be good enough. But for now it looks like this. Side-By-Side view of a change
+Actually this feature will take some time to be good enough. But for now it looks like this. Side-By-Side view of a change. 
 
-![Side by Side view of a change](screen_review_side_by_side_60p.png)
+![Side by Side view of a change](screen_review_side_by_side_100p.png)
 
 ### State - Approved / Concerns
 
