@@ -5,10 +5,13 @@ export class UiFileChangeSetModel {
 	public uiContentChangeSet: UiContentChangeSetModel[] = [];
 	
 	public scmFromFilePath: string = "";
+	public scmFromParentPath: string = "";
 	public scmFromFileName: string = "";
 	
 	public scmToFilePath: string = "";
+	public scmToParentPath: string = "";
 	public scmToFileName: string = "";
+	
 	
 	// ATTN: This will be replaced by fromFilename, toFileName, InfoWhether we have moves etc.
 	public tempLazyDiffLineInfo: string = "";
@@ -36,6 +39,7 @@ export class UiFileChangeSetModel {
 		} 
 		else {
 			this.scmFromFileName = scmPath.substring(lastindex);
+			this.scmFromParentPath = scmPath.substring(0,lastindex);
 		}
 	}
 	
@@ -47,6 +51,7 @@ export class UiFileChangeSetModel {
 		} 
 		else {
 			this.scmToFileName = scmPath.substring(lastindex);
+			this.scmToParentPath = scmPath.substring(0,lastindex);
 		}
 	}
 	
