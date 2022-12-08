@@ -9,3 +9,9 @@
 
 * contains some deletions
 ** http://localhost:4200/futuresqr/revision/fa7cd0b2ae4057f8a0b2acdf057082ffa997a268
+
+* contains deleted binary files
+** http://localhost:4200/futuresqr/revision/ce0a59f3635ade74969709f59aa517e7adbc846e
+
+* contains binary added files.
+** http://localhost:4200/futuresqr/revision/dec95d157e4df48bd1c112d9b69630ed96c38a88
