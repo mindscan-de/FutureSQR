@@ -38,8 +38,8 @@ export class UiFileChangeSetModel {
 			this.scmFromFileName = scmPath;
 		} 
 		else {
-			this.scmFromFileName = scmPath.substring(lastindex);
-			this.scmFromParentPath = scmPath.substring(0,lastindex);
+			this.scmFromFileName = scmPath.substring(lastindex+1);
+			this.scmFromParentPath = scmPath.substring(0,lastindex+1);
 		}
 	}
 	
@@ -50,8 +50,8 @@ export class UiFileChangeSetModel {
 			this.scmToFileName = scmPath;
 		} 
 		else {
-			this.scmToFileName = scmPath.substring(lastindex);
-			this.scmToParentPath = scmPath.substring(0,lastindex);
+			this.scmToFileName = scmPath.substring(lastindex+1);
+			this.scmToParentPath = scmPath.substring(0,lastindex+1);
 		}
 	}
 	
