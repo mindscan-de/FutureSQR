@@ -1,7 +1,11 @@
-<div class="m-0 p-0">
+<div class="m-0 p-0" (click)="onToggleFileList()">
 	<app-avatar-only [size]="36" [uuid]="revision.authorUuid"></app-avatar-only>
-	<span class="float-right"><a class="btn btn-sm btn-secondary mr-2" title="{{title}}" *ngIf="!revision.hasReview" (click)="onButtonClicked(revision.revisionid)">{{btnText}}</a><span class="small text-monospace">{{revision.shortrev}}</span></span>
+	<span class="float-right"><a class="btn btn-sm btn-secondary mr-2" title="{{title}}" *ngIf="!revision.hasReview" (click)="onButtonClicked(revision.revisionid); $event.stopPropagation();">{{btnText}}</a><span class="small text-monospace">{{revision.shortrev}}</span></span>
 	
 	<span class="small text-muted ml-2"><b>{{revision.message}}</b></span><br/>		
 	<span class="small text-muted">authored on {{revision.date}} ({{revision.reldate}})</span>
+	
+	<div *ngIf="showFileList" class="ml-3 mt-2">
+		Come on let's see that list.
+	</div>
 </div>

@@ -3,6 +3,12 @@ import { Component, Input, OnInit, Output, SimpleChanges, EventEmitter } from '@
 
 import { BackendModelProjectRecentCommitRevision } from '../../../backend/model/backend-model-project-recent-commit-revision';
 
+
+// UI Model
+import { UiReviewFileInformation } from '../../../commonui/uimodel/ui-review-file-information';
+
+
+
 @Component({
   selector: 'app-add-remove-single-revision-item',
   templateUrl: './add-remove-single-revision-item.component.html',
@@ -16,6 +22,9 @@ export class AddRemoveSingleRevisionItemComponent implements OnInit {
 	
 	@Output() btnClicked: EventEmitter<string> = new EventEmitter<string>();
 
+	public uiFileInformations: UiReviewFileInformation[] = undefined;
+	public showFileList: boolean = false;
+	
 	constructor() { }
 
 	ngOnInit(): void {
@@ -37,5 +46,17 @@ export class AddRemoveSingleRevisionItemComponent implements OnInit {
 		console.log("somthieng...")
 		
 		this.btnClicked.emit(revisionId);
+	}
+	
+	onToggleFileList() : void {
+		// if we already have the file information, we just toggle it.
+		if(true) {
+			this.showFileList = !this.showFileList;
+			return
+		}
+	}
+	
+	onFileListActionsProvided() : void {
+		this.showFileList = !this.showFileList;
 	}
 }
