@@ -6,6 +6,16 @@
 	<span class="small text-muted">authored on {{revision.date}} ({{revision.reldate}})</span>
 	
 	<div *ngIf="showFileList" class="ml-3 mt-2">
-		Come on let's see that list.
+		<ul class="list-unstyled">
+			<li class="list-unstyled" *ngFor="let file of uiFileInformations">
+			<span class="mr-2 badge ml-3" [ngClass]="{
+				 'badge-primary': file.fileAction=='M', 
+				 'badge-secondary': file.fileAction=='R100',
+				 'badge-danger': file.fileAction=='D',
+				 'badge-success': file.fileAction=='A'
+				  } ">{{file.fileAction}}</span>
+				  <span class="small"><span class="text-black"><b>{{file.simpleFileName}}</b></span><span class="small text-muted ml-3">{{file.parentFilePath}}/</span></span>
+			</li>
+		</ul>
 	</div>
 </div>
