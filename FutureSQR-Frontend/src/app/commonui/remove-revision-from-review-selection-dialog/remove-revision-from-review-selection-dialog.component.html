@@ -6,31 +6,16 @@
 </div>
 
 <div class="modal-body">
-	<ul class="list-unstyled ml-2 mr-2">
-		<li class="mb-2" *ngFor="let revision of currentUiReviewRevisions">
-			<!-- 
-					TODO: this should be extracted into a separate component, also this should be more flexible, 
-					such that the button action is handled here, but button is provided in component, haven't don
-					such a thing right now, but useful for add / remove revision and re-use of such a component. 
-			-->
-			<div class="d-flex">
-				<div class="float-left p-1">
-					<app-avatar-only [size]="36" [uuid]="revision.authorUuid"></app-avatar-only>
-				</div>
-				<div class="p-1 small" title="{{revision.shortrev}} -- {{revision.revisionid}}">
-					<div>
-						<b>{{revision.message}}</b>
-					</div>
-					<div>
-						<span class="text-muted">created <span title="{{revision.date}}">{{revision.shortdate}}</span> by {{revision.authorname}}</span>
-					</div>
-				</div>
-				<div class="ml-auto p-1">
-					<a class="btn btn-secondary btn-sm" (click)="removeRevisionFromReview( currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId, revision.revisionid); event.stopPropagation();">remove</a>
-					<span class="ml-2 small text-monospace">{{revision.shortrev}}</span>				
-				</div>
-			</div>
+	<ul class="list-group ml-0 mr-0">
+		<li *ngFor="let revision of currentUiReviewRevisions" class="list-group-item ">
+			<app-add-remove-single-revision-item 
+				[revision]="revision" 
+				[btnText]="'remove'" 
+				[title]="'Remove this revision from review'" 
+				[activeProjectID]="currentUiReviewData.reviewFkProjectId"
+				(btnClicked)="removeRevision($event)"></app-add-remove-single-revision-item>
 		</li>
+		
 	</ul>
 
 	<ul>
