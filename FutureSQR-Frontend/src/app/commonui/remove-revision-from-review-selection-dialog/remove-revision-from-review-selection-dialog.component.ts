@@ -56,6 +56,14 @@ export class RemoveRevisionFromReviewSelectionDialogComponent implements OnInit 
 		this.revisionChangedCallbackFkt = fkt;
 	}
 	
+	removeRevision(revisionid:string):void {
+		this.removeRevisionFromReview(
+			this.currentUiReviewData.reviewFkProjectId,
+			this.currentUiReviewData.reviewId,
+			revisionid
+		);
+	}
+	
 	removeRevisionFromReview(projectid:string, reviewid:string , revisionid:string ): void {
 		let uuid:string = this.currentUserService.getCurrentUserUUID();
 		console.log("called");
