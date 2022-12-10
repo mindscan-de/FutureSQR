@@ -1,18 +1,18 @@
 import { Component, Input, OnInit, Output, SimpleChanges, EventEmitter } from '@angular/core';
 
 // Backend Services
-import { ProjectDataQueryBackendService } from '../../../backend/services/project-data-query-backend.service';
+import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
 
 // Internal Services
-import { CurrentUserService } from '../../../uiservices/current-user.service';
+import { CurrentUserService } from '../../uiservices/current-user.service';
 
 // backend model
-import { BackendModelSingleCommitFileActionsInfo } from '../../../backend/model/backend-model-single-commit-file-actions-info';
-import { BackendModelProjectRecentCommitRevision } from '../../../backend/model/backend-model-project-recent-commit-revision';
+import { BackendModelSingleCommitFileActionsInfo } from '../../backend/model/backend-model-single-commit-file-actions-info';
+import { BackendModelProjectRecentCommitRevision } from '../../backend/model/backend-model-project-recent-commit-revision';
 
 
 // UI Model
-import { UiReviewFileInformation } from '../../../commonui/uimodel/ui-review-file-information';
+import { UiReviewFileInformation } from '../../commonui/uimodel/ui-review-file-information';
 
 
 
