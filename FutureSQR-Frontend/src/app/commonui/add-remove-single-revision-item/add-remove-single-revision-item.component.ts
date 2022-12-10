@@ -3,9 +3,6 @@ import { Component, Input, OnInit, Output, SimpleChanges, EventEmitter } from '@
 // Backend Services
 import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
 
-// Internal Services
-import { CurrentUserService } from '../../uiservices/current-user.service';
-
 // m2m
 import { TransformCommitRevision } from '../../m2m/transform-commit-revision';
 
@@ -35,8 +32,7 @@ export class AddRemoveSingleRevisionItemComponent implements OnInit {
 	public showFileList: boolean = false;
 	
 	constructor(
-		private projectDataQueryBackend : ProjectDataQueryBackendService,
-		private currentUserService : CurrentUserService
+		private projectDataQueryBackend : ProjectDataQueryBackendService
 	) { }
 
 	ngOnInit(): void {
@@ -49,14 +45,7 @@ export class AddRemoveSingleRevisionItemComponent implements OnInit {
 	}
 
 	onButtonClicked( revisionId: string ): void  {
-		// currentUiReviewData.reviewFkProjectId, currentUiReviewData.reviewId, revision.revisionid)
-		
 		// send the revison id to the hosting component.
-		
-		// TODO: emit event.
-		// this should call the outer method.
-		console.log("somthieng...")
-		
 		this.btnClicked.emit(revisionId);
 	}
 	
@@ -64,7 +53,7 @@ export class AddRemoveSingleRevisionItemComponent implements OnInit {
 		// if we already have the file information, we just toggle it.
 		if(this.uiFileInformations != undefined) {
 			this.showFileList = !this.showFileList;
-			return
+			return;
 		}
 		
 		// otherwise retrieve the list and then show the list.
