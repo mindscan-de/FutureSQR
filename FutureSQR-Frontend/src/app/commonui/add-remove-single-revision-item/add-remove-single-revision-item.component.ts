@@ -66,25 +66,26 @@ export class AddRemoveSingleRevisionItemComponent implements OnInit {
 			return
 		}
 		
-		let that = this;
-
 		// otherwise retrieve the list and then show the list.
-		
 		this.projectDataQueryBackend.getRecentProjectRevisionFilePathsData(this.activeProjectID,this.revision.revisionid).subscribe(
-			data =>  this.onFileListActionsProvided(data),
+			data =>  this.onFileListActionsProvided(AddRemoveSingleRevisionItemComponent.convertToUiReviewFileinformationArray(data)),
 			error => console.log(error)
 		);
 	}
 	
-	// TODO: put this logic into m2m transformation.
-	onFileListActionsProvided(fileChanges: BackendModelSingleCommitFileActionsInfo) : void {
-		let fileInformations : UiReviewFileInformation[] = [];
-		
+	public static convertToUiReviewFileinformationArray(fileChanges: BackendModelSingleCommitFileActionsInfo):  UiReviewFileInformation[] {
 		let map = fileChanges.fileActionMap;
+		
+		let fileInformations : UiReviewFileInformation[] = [];
 		for(let i: number = 0;i<map.length;i++) {
 			let fileInfo: UiReviewFileInformation = new UiReviewFileInformation( map[i][1], map[i][0], true );
 			fileInformations.push(fileInfo);
 		}
+
+		return fileInformations;		
+	}
+	
+	onFileListActionsProvided(fileInformations:UiReviewFileInformation[]) : void {
 		this.uiFileInformations = fileInformations;
 		
 		this.showFileList = !this.showFileList;
