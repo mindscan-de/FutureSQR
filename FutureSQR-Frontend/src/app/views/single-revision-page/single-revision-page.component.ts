@@ -3,20 +3,22 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-// Services
+// backend services
 import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
+
+// internal services
 import { NavigationBarService } from '../../uiservices/navigation-bar.service';
 
+// M2M Transformation
+import { TransformCommitRevision } from '../../m2m/transform-commit-revision';
 
 // BackendModel - should be actually a ui model 
 import { BackendModelSingleCommitFullChangeSet } from '../../backend/model/backend-model-single-commit-full-change-set';
 import { BackendModelSingleCommitFileChangeSet } from '../../backend/model/backend-model-single-commit-file-change-set';
-import { BackendModelSingleCommitFileActionsInfo } from '../../backend/model/backend-model-single-commit-file-actions-info';
 import { BackendModelProjectRecentCommitRevision } from '../../backend/model/backend-model-project-recent-commit-revision';
 
 // UI Model
 import { UiReviewFileInformation } from '../../commonui/uimodel/ui-review-file-information';
-
 
 // Dialog 
 import { SingleRevisionSideBySideDialogComponent } from '../../commonui/single-revision-side-by-side-dialog/single-revision-side-by-side-dialog.component';
@@ -64,7 +66,7 @@ export class SingleRevisionPageComponent implements OnInit {
 		);
 		
 		this.projectDataQueryBackend.getRecentProjectRevisionFilePathsData(this.activeProjectID,this.activeRevisionID).subscribe(
-			data => this.onFileListActionsProvided(data),
+			data => this.onFileListActionsProvided(TransformCommitRevision.convertToUiReviewFileinformationArray(data)),
 			error => console.log(error)
 		);
 		
@@ -97,14 +99,7 @@ export class SingleRevisionPageComponent implements OnInit {
 	}
 	
 	
-	onFileListActionsProvided( fileChanges: BackendModelSingleCommitFileActionsInfo) : void {
-		let fileInformations : UiReviewFileInformation[] = [];
-		
-		let map = fileChanges.fileActionMap;
-		for(let i: number = 0;i<map.length;i++) {
-			let fileInfo: UiReviewFileInformation = new UiReviewFileInformation( map[i][1], map[i][0], true );
-			fileInformations.push(fileInfo);
-		}
+	onFileListActionsProvided( fileInformations : UiReviewFileInformation[]) : void {
 		this.uiFileInformations = fileInformations;
 	}
 

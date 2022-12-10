@@ -3,18 +3,19 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-
 // Backend Services
 import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
 
 // Intermal Services
 import { NavigationBarService } from '../../uiservices/navigation-bar.service';
 
+// M2M Transformation
+import { TransformCommitRevision } from '../../m2m/transform-commit-revision';
+
 // Backend Model
 import { BackendModelReviewData } from '../../backend/model/backend-model-review-data';
 import { BackendModelSingleCommitFullChangeSet } from '../../backend/model/backend-model-single-commit-full-change-set';
 import { BackendModelSingleCommitFileChangeSet } from '../../backend/model/backend-model-single-commit-file-change-set';
-import { BackendModelSingleCommitFileActionsInfo } from '../../backend/model/backend-model-single-commit-file-actions-info';
 import { BackendModelProjectRecentCommitRevision } from '../../backend/model/backend-model-project-recent-commit-revision';
 
 // UI Model
@@ -64,7 +65,7 @@ export class SingleReviewPageComponent implements OnInit {
 		
 		// query the filelist for this review
 		this.projectDataQueryBackend.getReviewFilePathsData(this.activeProjectID,this.activeReviewID ).subscribe (
-			data => this.onFileListActionsProvided(data),
+			data => this.onFileListActionsProvided(TransformCommitRevision.convertToUiReviewFileinformationArray(data)),
 			error => console.log(error)
 		);
 
@@ -103,14 +104,7 @@ export class SingleReviewPageComponent implements OnInit {
 		this.uiFileChangeSets = diffData.fileChangeSet;
 	}
 
-	onFileListActionsProvided( fileChanges: BackendModelSingleCommitFileActionsInfo) : void {
-		let fileInformations : UiReviewFileInformation[] = [];
-		
-		let map = fileChanges.fileActionMap;
-		for(let i: number = 0;i<map.length;i++) {
-			let fileInfo: UiReviewFileInformation = new UiReviewFileInformation( map[i][1], map[i][0], true );
-			fileInformations.push(fileInfo);
-		}
+	onFileListActionsProvided( fileInformations : UiReviewFileInformation[]) : void {
 		this.uiFileInformations = fileInformations;
 	}
 	
@@ -167,7 +161,7 @@ export class SingleReviewPageComponent implements OnInit {
 
 		// we have to query a new file list, when the revisions were changed		
 		this.projectDataQueryBackend.getReviewFilePathsData(this.activeProjectID,this.activeReviewID ).subscribe (
-			data => this.onFileListActionsProvided(data),
+			data => this.onFileListActionsProvided(TransformCommitRevision.convertToUiReviewFileinformationArray(data)),
 			error => console.log(error)
 		);
 		

@@ -7,11 +7,13 @@ import { ProjectDataQueryBackendService } from '../../../backend/services/projec
 // Internal Services
 import { CurrentUserService } from '../../../uiservices/current-user.service';
 
+// M2M Transformation
+import { TransformCommitRevision } from '../../../m2m/transform-commit-revision';
+
 // UI Model
 import { UiReviewFileInformation } from '../../../commonui/uimodel/ui-review-file-information';
 
 // Backend Model
-import { BackendModelSingleCommitFileActionsInfo } from '../../../backend/model/backend-model-single-commit-file-actions-info';
 import { BackendModelProjectRecentCommitRevision } from '../../../backend/model/backend-model-project-recent-commit-revision';
 
 @Component({
@@ -44,7 +46,7 @@ export class ProjectRecentRevisionComponent implements OnInit {
 		let opening_userid:string = this.currentUserService.getCurrentUserUUID();
 		this.projectDataQueryBackend.createNewReview(projectId, revisionId, opening_userid).subscribe (
 			data => {
-				// TODO redirect o review page.
+				// TODO redirect to review page.
 				this.router.navigate(['/', projectId, 'review', data['reviewId']]);
 			},
 			error => {}
@@ -54,32 +56,20 @@ export class ProjectRecentRevisionComponent implements OnInit {
 	// Open Close filelist
 	onToggleFileList(): void {
 		// if file list is known/received, then just toggle to show
-		
 		if(this.uiFileInformations != undefined) {
 			this.showFileList = !this.showFileList;
 			return;
 		}
 		
-		let that = this;
-		
 		// otherwise retrieve the list and then show the list.
-		
 		this.projectDataQueryBackend.getRecentProjectRevisionFilePathsData(this.activeProjectID,this.activeRevision.revisionid).subscribe(
-			data =>  this.onFileListActionsProvided(data),
+			data =>  this.onFileListActionsProvided(TransformCommitRevision.convertToUiReviewFileinformationArray(data)),
 			error => console.log(error)
 		);
 	}
 	
-	onFileListActionsProvided( fileChanges: BackendModelSingleCommitFileActionsInfo) : void {
-		let fileInformations : UiReviewFileInformation[] = [];
-		
-		let map = fileChanges.fileActionMap;
-		for(let i: number = 0;i<map.length;i++) {
-			let fileInfo: UiReviewFileInformation = new UiReviewFileInformation( map[i][1], map[i][0], true );
-			fileInformations.push(fileInfo);
-		}
+	onFileListActionsProvided( fileInformations : UiReviewFileInformation[]) : void {
 		this.uiFileInformations = fileInformations;
-		
 		this.showFileList = !this.showFileList;
 	}
 	
