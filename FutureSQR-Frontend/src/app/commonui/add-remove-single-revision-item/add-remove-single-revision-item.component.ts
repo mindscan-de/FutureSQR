@@ -6,10 +6,11 @@ import { ProjectDataQueryBackendService } from '../../backend/services/project-d
 // Internal Services
 import { CurrentUserService } from '../../uiservices/current-user.service';
 
-// backend model
-import { BackendModelSingleCommitFileActionsInfo } from '../../backend/model/backend-model-single-commit-file-actions-info';
-import { BackendModelProjectRecentCommitRevision } from '../../backend/model/backend-model-project-recent-commit-revision';
+// m2m
+import { TransformCommitRevision } from '../../m2m/transform-commit-revision';
 
+// backend model
+import { BackendModelProjectRecentCommitRevision } from '../../backend/model/backend-model-project-recent-commit-revision';
 
 // UI Model
 import { UiReviewFileInformation } from '../../commonui/uimodel/ui-review-file-information';
@@ -68,21 +69,9 @@ export class AddRemoveSingleRevisionItemComponent implements OnInit {
 		
 		// otherwise retrieve the list and then show the list.
 		this.projectDataQueryBackend.getRecentProjectRevisionFilePathsData(this.activeProjectID,this.revision.revisionid).subscribe(
-			data =>  this.onFileListActionsProvided(AddRemoveSingleRevisionItemComponent.convertToUiReviewFileinformationArray(data)),
+			data =>  this.onFileListActionsProvided(TransformCommitRevision.convertToUiReviewFileinformationArray(data)),
 			error => console.log(error)
 		);
-	}
-	
-	public static convertToUiReviewFileinformationArray(fileChanges: BackendModelSingleCommitFileActionsInfo):  UiReviewFileInformation[] {
-		let map = fileChanges.fileActionMap;
-		
-		let fileInformations : UiReviewFileInformation[] = [];
-		for(let i: number = 0;i<map.length;i++) {
-			let fileInfo: UiReviewFileInformation = new UiReviewFileInformation( map[i][1], map[i][0], true );
-			fileInformations.push(fileInfo);
-		}
-
-		return fileInformations;		
 	}
 	
 	onFileListActionsProvided(fileInformations:UiReviewFileInformation[]) : void {
