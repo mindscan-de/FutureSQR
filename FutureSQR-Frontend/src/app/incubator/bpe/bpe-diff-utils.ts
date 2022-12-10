@@ -109,22 +109,51 @@ export class BPEDiffUtils {
 	** This algorithm fails for some cases, where parts of the left and right line are 
 	** moved around.
 	*/
-	public bpeStretchoutDiff(bpe_left_diff:number[], bpe_right_diff:number[]):number[][] {
+	public bpeStretchoutDiff(bpe_left_diff:number[], bpe_right_diff:number[]):[number[],number[]] {
 		if(bpe_left_diff.length == bpe_right_diff.length) {
 			return [ bpe_left_diff, bpe_right_diff ];
 		}
 		else if(bpe_left_diff.length < bpe_right_diff.length) {
 			let stretched_left:number[] = this.v1_bpeStretchout(bpe_left_diff, this.v1_bpeFindRelative(bpe_left_diff, bpe_right_diff))
-			 
-			return [ stretched_left , bpe_right_diff ]
+			// after stretching these may still not be same length: so we must adapt either of these
+			return this.bpeExtendToMax(stretched_left , bpe_right_diff)
 		}
 		else {
 			let stretched_right = this.v1_bpeStretchout( bpe_right_diff, this.v1_bpeFindRelative(bpe_right_diff, bpe_left_diff))
-			
-			return [ bpe_left_diff , stretched_right ]
+			// after stretching these may still not be same length: so we must adapt either of these
+			return this.bpeExtendToMax( bpe_left_diff , stretched_right )
 		}
 	}
 	
+	private bpeExtendToMax(left:number[], right:number[]):[number[], number[]] {
+		if(left.length == right.length) {
+			return [left, right]
+		}
+		
+		let maxSize = Math.max(left.length, right.length);
+		
+		if(left.length!=maxSize) {
+			return [this.extendArray(left, maxSize),right];
+		}
+		else {
+			return [left, this.extendArray(right, maxSize)]
+		}
+	}
+	
+	private extendArray(input:number[], newLength:number):number[] {
+		let extended = new Array<number>(...input);
+		
+		for(let i:number=newLength-extended.length; i>0;i--) {
+			extended.push(0);
+		}
+		
+		return extended;
+	}
+	
+	// FIXME:
+	// http://localhost:4200/futuresqr/revision/b0e78defefa20dbeff09c83907a7c0d766e4295e
+	// shows that this algorithm is not working very wellright now
+	// "data" and ")," is not properly recognized as unchanged at the end of the input 
 	private v1_bpeStretchout( bpe_short_vector:number[], bpe_relative_findings:number[]): number[] {
 		let delta_offset = 0;
 		let stretched: number[] = [];
