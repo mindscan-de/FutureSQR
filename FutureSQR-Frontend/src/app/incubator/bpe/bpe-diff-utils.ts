@@ -33,22 +33,27 @@ export class BPEDiffUtils {
 		let syndrome = [];
 
 		for(let i:number=0;i<bpe_left_diff.length;i++) {
-			if(bpe_left_diff[i] == bpe_right_diff[i]) {
-				syndrome.push(BpeDiffSyndrome.Unchanged);
-			}
-			else if( bpe_left_diff[i] == 0 ) {
-				syndrome.push(BpeDiffSyndrome.Inserted);
-			}
-			else if( bpe_right_diff[i] == 0) {
-				syndrome.push(BpeDiffSyndrome.Deleted);
-			}
-			else {
-				syndrome.push(BpeDiffSyndrome.Replaced);
-			}
+			syndrome.push(this.calculateElementDiffSyndrome(bpe_left_diff[i],bpe_right_diff[i]));
 		}
 
 		return syndrome;
 	}
+	
+	private calculateElementDiffSyndrome(leftelement:number, rightelement:number):BpeDiffSyndrome {
+		if(leftelement == rightelement) {
+			return BpeDiffSyndrome.Unchanged;
+		}
+		
+		if(leftelement == 0) {
+			return BpeDiffSyndrome.Inserted;
+		}
+		
+		if(rightelement == 0) {
+			return BpeDiffSyndrome.Deleted;
+		}
+		
+		return BpeDiffSyndrome.Replaced;
+	} 
 	
 	/*
 	** This calculates a "dot product" between two bpe_encoded vectors. The idea behind this is to provide
