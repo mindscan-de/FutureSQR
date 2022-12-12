@@ -150,10 +150,6 @@ export class BPEDiffUtils {
 		return extended;
 	}
 	
-	// FIXME:
-	// http://localhost:4200/futuresqr/revision/b0e78defefa20dbeff09c83907a7c0d766e4295e
-	// shows that this algorithm is not working very wellright now
-	// "data" and ")," is not properly recognized as unchanged at the end of the input 
 	private v1_bpeStretchout( bpe_short_vector:number[], bpe_relative_findings:number[]): number[] {
 		let delta_offset = 0;
 		let stretched: number[] = [];
@@ -167,7 +163,7 @@ export class BPEDiffUtils {
 				stretched.push(bpe_short_vector[i]);
 			}
 			else {
-				for(let j=0;j<(bpe_relative_findings[i]-delta_offset);i++) {
+				for(let j=0;j<(bpe_relative_findings[i]-delta_offset);j++) {
 					stretched.push(0);
 				}
 				stretched.push(bpe_short_vector[i]);
