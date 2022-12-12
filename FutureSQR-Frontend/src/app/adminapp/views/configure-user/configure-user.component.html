@@ -7,7 +7,33 @@
 				Edit
 			</div>
 			<div class="card-body">
-				provide editable details of this user from admin perspective.
+				<div class="form-group">
+					<label for="inputDisplayName">Name</label>
+					<input type="text" class="form-control" id="inputDisplayName" aria-describedby="displayNameHelp">
+					<small id="displayNameHelp" class="form-text text-muted">This name will appear on you commits.</small>
+				</div>
+				<div class="form-group">
+					<label for="inputEmail">Email</label>
+					<input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" readonly>
+					<small id="emailHelp" class="form-text text-muted">For notification purpose.</small>
+				</div>
+
+				<div>
+					<label>Features</label>
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" value="" id="featureCheck1">
+						<label class="form-check-label" for="featureCheck1">
+							Feature 1
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" value="" id="featureCheck2">
+						<label class="form-check-label" for="featureCheck2">
+							Feature 2
+						</label>
+					</div>
+				</div>
+
 			</div>
 			<div class="card-body">
 				maybe we also want to provide some last/latest activities of the user, e.g. to decide whether 
