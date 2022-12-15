@@ -1,17 +1,17 @@
 * rename / move of files - doesn't get properly parsed by backend.
 ** http://localhost:4200/futuresqr/revision/8516e0496845798b09ebda5623d0371ce5afbe69
 
-* delete files and folder - doesn't get properly parsed by backend.
+* delete files and folder - doesn't get properly parsed by backend -- (done)
 ** http://localhost:4200/futuresqr/revision/f9b185c819c43e8180550603ec9bb7b56c5b184d
 
-* three empty new files
+* three empty new files -- (done)
 ** http://localhost:4200/futuresqr/revision/a33ce773920ad08d74cc8bdda0cdafe66fe5f2a8
 
-* contains some deletions
+* contains some deletions -- (done)
 ** http://localhost:4200/futuresqr/revision/fa7cd0b2ae4057f8a0b2acdf057082ffa997a268
 
-* contains deleted binary files
+* contains deleted binary files -- (done)
 ** http://localhost:4200/futuresqr/revision/ce0a59f3635ade74969709f59aa517e7adbc846e
 
-* contains binary added files.
+* contains binary added files -- (done)
 ** http://localhost:4200/futuresqr/revision/dec95d157e4df48bd1c112d9b69630ed96c38a88

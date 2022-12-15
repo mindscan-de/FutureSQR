@@ -46,12 +46,15 @@ def parse_log_full_changeset(log):
     
     lines = log.split('\n')
     
+    binary_file_mode = False
     linecounter = 0;
     while linecounter< len(lines):
         line:str = lines[linecounter]
         
         if line.startswith('diff --git '):
             singleFileChangeSet = {}
+            
+            print(lines[linecounter:linecounter+5])
             
             # found a new file change
             # TODO: exract filenames from  line
@@ -61,11 +64,22 @@ def parse_log_full_changeset(log):
             if lines[linecounter].startswith('new file mode'):
                 linecounter+=1
             
+            if lines[linecounter].startswith('deleted file mode'):
+                singleFileChangeSet['lazy_deleted_file_line'] = lines[linecounter]
+                linecounter+=1
+                
+            
             # parse index line if present
             singleFileChangeSet['lazy_index_line']= "(empty)"
             if lines[linecounter].startswith('index'):
                 singleFileChangeSet['lazy_index_line']=lines[linecounter]
                 linecounter+=1
+                
+            if lines[linecounter].startswith('Binary files'):
+                singleFileChangeSet['binary_file_info_line'] = lines[linecounter]
+                binary_file_mode = True
+                linecounter+=1
+                
                 
             # parse ---
             if lines[linecounter].startswith('---'):
@@ -87,18 +101,24 @@ def parse_log_full_changeset(log):
                 fileChangeSets.append(singleFileChangeSet)
                 break;
             
-            # calculate from filenames, whether add, remove, rename or move
-            while linecounter<len(lines) and not lines[linecounter].startswith('diff --git')  :
-                if lines[linecounter].startswith("@@ "):
-                    singleContentChangeset = {'line_info':lines[linecounter], 'line_diff_data':[]}
-                    singleFileChangeSet['fileContentChangeSet'].append(singleContentChangeset)                    
-                elif lines[linecounter].startswith("\\ No newline at end of file"):
-                    pass
-                else:
-                    singleContentChangeset['line_diff_data'].append(lines[linecounter])
-                linecounter+=1
+            if not binary_file_mode:
+                if(lines[linecounter]==''):
+                    singleContentChangeset={'line_diff_data':[]}
+                                
+                # calculate from filenames, whether add, remove, rename or move
+                while linecounter<len(lines) and not lines[linecounter].startswith('diff --git') :
+                    print(lines[linecounter])                
+                    if lines[linecounter].startswith("@@ "):
+                        singleContentChangeset = {'line_info':lines[linecounter], 'line_diff_data':[]}
+                        singleFileChangeSet['fileContentChangeSet'].append(singleContentChangeset)                    
+                    elif lines[linecounter].startswith("\\ No newline at end of file"):
+                        pass
+                    else:
+                        singleContentChangeset['line_diff_data'].append(lines[linecounter])
+                    linecounter+=1
             
             fileChangeSets.append(singleFileChangeSet)
+            binary_file_mode = False;
         else:
             linecounter+=1
         
