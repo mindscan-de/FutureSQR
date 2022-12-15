@@ -35,10 +35,10 @@
 	</div>
 	<div  class="row p-0" >
 		<div class="col-xl-6">
-			<pre *ngFor="let diff of leftUiDiff" class="bpediff-l-{{diff.uiclass}}">{{diff.uicontent}}</pre>
+			<pre *ngFor="let diff of leftUiDiff" class="small bpediff-l-{{diff.uiclass}}">{{diff.uicontent}}</pre>
 		</div>
 		<div class="col-xl-6">
-			<pre *ngFor="let diff of rightUiDiff" class="bpediff-r-{{diff.uiclass}}">{{diff.uicontent}}</pre>
+			<pre *ngFor="let diff of rightUiDiff" class="small bpediff-r-{{diff.uiclass}}">{{diff.uicontent}}</pre>
 		</div>
 	</div>
 </ng-container>
@@ -52,7 +52,7 @@
 
 	<div  class="row p-0" >
 		<div class="col-xl-12">
-			<pre *ngFor="let diff of unifiedUiDiff" class="bpediff-u-{{diff.uiclass}}">{{diff.uicontent}}</pre>
+			<pre *ngFor="let diff of unifiedUiDiff" class="small bpediff-u-{{diff.uiclass}}">{{diff.uicontent}}</pre>
 		</div>
 	</div>
 </ng-container>
