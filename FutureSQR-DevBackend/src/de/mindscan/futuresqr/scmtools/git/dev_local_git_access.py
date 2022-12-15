@@ -317,7 +317,6 @@ def getParticularFileHistory(local_git_repo_path:str, filepath:str):
 
 # This will be interesting such that the file can be received and shown in the tool.
 def getParticularRevisionContentForFile(local_git_repo_path:str, revisionid:str, filepath:str):
-    formatdetails = '%x1f'.join(GIT_FORMAT_PARAMS)
     
     git_parameters = [
         '--no-pager'
@@ -328,5 +327,9 @@ def getParticularRevisionContentForFile(local_git_repo_path:str, revisionid:str,
     revisionFileContent = __execute_git_command_on_local_repo(local_git_repo_path, git_parameters)
     print(revisionFileContent)
     
-    pass
+    ## actually we should also provide some more info - like date and committer and commitcomment?
+    ## should we combine these here or should that be combined at a higher layer?
+    return {
+        'fileContent':revisionFileContent
+        }
     
