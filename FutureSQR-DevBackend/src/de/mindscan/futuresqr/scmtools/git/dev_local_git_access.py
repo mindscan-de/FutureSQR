@@ -313,5 +313,20 @@ def getParticularFileHistory(local_git_repo_path:str, filepath:str):
     
     print(revisions)
     
+    pass
+
+# This will be interesting such that the file can be received and shown in the tool.
+def getParticularRevisionContentForFile(local_git_repo_path:str, revisionid:str, filepath:str):
+    formatdetails = '%x1f'.join(GIT_FORMAT_PARAMS)
+    
+    git_parameters = [
+        '--no-pager'
+        'show',
+        revisionid+':'+filepath
+        ]
+    
+    revisionFileContent = __execute_git_command_on_local_repo(local_git_repo_path, git_parameters)
+    print(revisionFileContent)
     
     pass
+    
