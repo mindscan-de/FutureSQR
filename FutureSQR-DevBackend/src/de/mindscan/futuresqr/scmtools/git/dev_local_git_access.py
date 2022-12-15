@@ -316,6 +316,7 @@ def getParticularFileHistory(local_git_repo_path:str, filepath:str):
     pass
 
 # This will be interesting such that the file can be received and shown in the tool.
+# the revision id can be from the commit/revision id (??todo: test if also the file hash can be given??) 
 def getParticularRevisionContentForFile(local_git_repo_path:str, revisionid:str, filepath:str):
     
     git_parameters = [
