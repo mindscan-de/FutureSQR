@@ -54,7 +54,8 @@ def parse_log_full_changeset(log):
         if line.startswith('diff --git '):
             singleFileChangeSet = {}
             
-            print(lines[linecounter:linecounter+5])
+            # debug output
+            # print(lines[linecounter:linecounter+5])
             
             # found a new file change
             # TODO: exract filenames from  line
@@ -117,7 +118,8 @@ def parse_log_full_changeset(log):
                                 
                 # calculate from filenames, whether add, remove, rename or move
                 while linecounter<len(lines) and not lines[linecounter].startswith('diff --git') :
-                    print(lines[linecounter])                
+                    # debug output
+                    # print(lines[linecounter])                
                     if lines[linecounter].startswith("@@ "):
                         singleContentChangeset = {'line_info':lines[linecounter], 'line_diff_data':[]}
                         singleFileChangeSet['fileContentChangeSet'].append(singleContentChangeset)                    
