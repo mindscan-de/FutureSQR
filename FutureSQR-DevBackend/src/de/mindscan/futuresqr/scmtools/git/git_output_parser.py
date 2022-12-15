@@ -68,6 +68,16 @@ def parse_log_full_changeset(log):
                 singleFileChangeSet['lazy_deleted_file_line'] = lines[linecounter]
                 linecounter+=1
                 
+            # simularity index / rename_from / rename_to
+            if lines[linecounter].startswith('similarity index'):
+                singleFileChangeSet['similarity_info_line'] = lines[linecounter]
+                linecounter+=1
+            if lines[linecounter].startswith('rename from'):
+                singleFileChangeSet['renamed_from'] = lines[linecounter]
+                linecounter+=1
+            if lines[linecounter].startswith('rename to'):
+                singleFileChangeSet['renamed_to'] = lines[linecounter]
+                linecounter+=1
             
             # parse index line if present
             singleFileChangeSet['lazy_index_line']= "(empty)"

@@ -1,4 +1,4 @@
-* rename / move of files - doesn't get properly parsed by backend.
+* rename / move of files - doesn't get properly parsed by backend. -- (done)
 ** http://localhost:4200/futuresqr/revision/8516e0496845798b09ebda5623d0371ce5afbe69
 
 * delete files and folder - doesn't get properly parsed by backend -- (done)
