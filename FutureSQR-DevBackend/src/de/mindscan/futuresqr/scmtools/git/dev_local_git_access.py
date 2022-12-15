@@ -290,3 +290,28 @@ def updateProjectCache(local_git_repo_path:str, branch_name:str):
     __execute_git_command_on_local_repo(local_git_repo_path, git_parameters)
     
     pass
+
+# This is not yet used in the software, but this would be the way to handle this -- this just serves as a reminder,
+# how to do this operation. 
+# Maybe this will be useful to calculate the diff for a file in case of particular selected versions?
+def getParticularFileHistory(local_git_repo_path:str, filepath:str):
+    formatdetails = '%x1f'.join(GIT_FORMAT_PARAMS)
+    
+    git_parameters = [
+        'log',
+        '--follow'
+        '--pretty=format:%x1f'+formatdetails+'%x1e',
+        '--',
+        filepath
+        ]
+    
+    log = __execute_git_command_on_local_repo(local_git_repo_path, git_parameters)
+    print(log)
+    
+    revisions = parse_log_by_rs_us(log, GIT_FIELDS)
+    revisions = XXX_append_uuid_to_revisionlistitems(revisions)
+    
+    print(revisions)
+    
+    
+    pass
