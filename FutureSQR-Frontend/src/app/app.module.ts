@@ -56,6 +56,7 @@ import { AddRemoveSingleRevisionItemComponent } from './commonui/add-remove-sing
 import { ExperimentalSingleRevisionSideBySideDialogComponent } from './incubator/experimental-single-revision-side-by-side-dialog/experimental-single-revision-side-by-side-dialog.component';
 import { ExperimentalFileChangeSetSideBySideDiffComponent } from './incubator/experimental-single-revision-side-by-side-dialog/experimental-file-change-set-side-by-side-diff/experimental-file-change-set-side-by-side-diff.component';
 import { ExperimentalContentChangeSetSideBySideDiffComponent } from './incubator/experimental-single-revision-side-by-side-dialog/experimental-content-change-set-side-by-side-diff/experimental-content-change-set-side-by-side-diff.component';
+import { SingleFileRevisionPageComponent } from './views/single-file-revision-page/single-file-revision-page.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +103,8 @@ import { ExperimentalContentChangeSetSideBySideDiffComponent } from './incubator
     AddRemoveSingleRevisionItemComponent,
     ExperimentalSingleRevisionSideBySideDialogComponent,
     ExperimentalFileChangeSetSideBySideDiffComponent,
-    ExperimentalContentChangeSetSideBySideDiffComponent
+    ExperimentalContentChangeSetSideBySideDiffComponent,
+    SingleFileRevisionPageComponent
   ],
   imports: [
     BrowserModule,
