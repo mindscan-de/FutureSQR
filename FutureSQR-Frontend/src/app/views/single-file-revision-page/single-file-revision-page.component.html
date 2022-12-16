@@ -1,1 +1,16 @@
-<p>single-file-revision-page works!</p>
+<div class="row">
+	<div class="col-xl-9">
+		<app-basic-revision-information [activeRevisionData]="uiRevisionData" [activeProjectID]="activeProjectID" [activeRevisionID]="activeRevisionID" ></app-basic-revision-information>
+
+		<div class="row mt-2" >
+			<div class="col">
+				Active File name: <pre>{{activeFilePath}}</pre>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-xl-3">
+		<app-revision-action-panel [activeRevisionData]="uiRevisionData" [activeProjectID]="activeProjectID"></app-revision-action-panel>
+	</div>
+</div>	
+	
