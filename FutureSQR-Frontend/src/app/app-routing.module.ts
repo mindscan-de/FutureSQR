@@ -10,7 +10,7 @@ import { ProjectRecentCommitsPageComponent } from './views/project-recent-commit
 import { ProjectRecentReviewsPageComponent }  from './views/project-recent-reviews-page/project-recent-reviews-page.component';
 import { SingleRevisionPageComponent } from './views/single-revision-page/single-revision-page.component';
 import { SingleReviewPageComponent } from './views/single-review-page/single-review-page.component';
-
+import { SingleFileRevisionPageComponent } from './views/single-file-revision-page/single-file-revision-page.component';
 
 const routes: Routes = [
 	// show the main Page
@@ -30,6 +30,9 @@ const routes: Routes = [
 	
 	// show a review for a certain project
 	{ path:':projectid/review/:reviewid', component:SingleReviewPageComponent, canActivate: [AuthNGuardService] },
+
+	// show a particular file revision
+	{ path:':projectid/revision/:revisionid/file', component: SingleFileRevisionPageComponent, canActivate: [AuthNGuardService] }, 
 	
 	// show a list of files which were changed for a single revision, and their diffs
 	// the action area should include some actions related to this particular revision
