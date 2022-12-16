@@ -30,6 +30,8 @@ import { ExperimentalSingleRevisionSideBySideDialogComponent } from '../../incub
 // DIRTY HACK - make sure the BPE encode is initialized early....
 import { BpeEncoderProviderService } from '../../incubator/bpe/bpe-encoder-provider.service';
 
+// TODO: FIXME: BUGGY URL WHY? ( some UI PROBLEM... let's see another day)
+// http://localhost:4200/futuresqr/revision/f01dbd17d5e68f47ec42c4bdd2b923bcc13dce7d
 
 @Component({
   selector: 'app-single-revision-page',
