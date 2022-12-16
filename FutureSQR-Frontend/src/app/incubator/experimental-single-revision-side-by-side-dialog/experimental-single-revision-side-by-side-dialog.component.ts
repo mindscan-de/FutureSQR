@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-// Should be a ui model instead of a backend model...
-import { BackendModelSingleCommitFileChangeSet } from '../../backend/model/backend-model-single-commit-file-change-set';
+// ui-model
+import { UiFileChangeSetModel } from '../../commonui/uimodel/ui-file-change-set-model';
 
 
 @Component({
@@ -12,10 +12,10 @@ import { BackendModelSingleCommitFileChangeSet } from '../../backend/model/backe
 })
 export class ExperimentalSingleRevisionSideBySideDialogComponent implements OnInit {
 	
-	private allUiFileChangeSets: BackendModelSingleCommitFileChangeSet[] = [];
+	private allUiFileChangeSets: UiFileChangeSetModel[] = [];
 	private allUiFileChangeSetsProvided: boolean = false;
 	
-	public  currentUiFileChangeSet: BackendModelSingleCommitFileChangeSet = new BackendModelSingleCommitFileChangeSet();
+	public  currentUiFileChangeSet: UiFileChangeSetModel = new UiFileChangeSetModel();
 	private currentUiFileChangeSetProvided: boolean = false;
 	
 	public numberOfFiles: number = 0;
@@ -36,14 +36,14 @@ export class ExperimentalSingleRevisionSideBySideDialogComponent implements OnIn
 		this.activeModal.close(null)
 	}
 
-	setAllChangeSets(allFileChangeSets:BackendModelSingleCommitFileChangeSet[]): void {
+	setAllChangeSets(allFileChangeSets:UiFileChangeSetModel[]): void {
 		this.numberOfFiles = allFileChangeSets.length;
 		this.allUiFileChangeSets = allFileChangeSets;
 		this.allUiFileChangeSetsProvided = true;
 		this.updateFileNavigationValues();
 	}
 	
-	setSelectedFileChangeSet(newFileChangeSet:BackendModelSingleCommitFileChangeSet) : void {
+	setSelectedFileChangeSet(newFileChangeSet:UiFileChangeSetModel) : void {
 		this.currentUiFileChangeSet = newFileChangeSet;
 		this.currentUiFileChangeSetProvided = true;
 		this.updateFileNavigationValues();

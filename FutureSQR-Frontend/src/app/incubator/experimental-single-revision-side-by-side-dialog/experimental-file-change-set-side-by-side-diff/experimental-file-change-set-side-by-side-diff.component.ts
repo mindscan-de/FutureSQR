@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 
-// Should be a ui model instead of a backend model...
-import { BackendModelSingleCommitFileChangeSet } from '../../../backend/model/backend-model-single-commit-file-change-set';
-
+// ui-model
+import { UiFileChangeSetModel } from '../../../commonui/uimodel/ui-file-change-set-model';
 
 @Component({
   selector: 'app-experimental-file-change-set-side-by-side-diff',
@@ -11,10 +10,9 @@ import { BackendModelSingleCommitFileChangeSet } from '../../../backend/model/ba
 })
 export class ExperimentalFileChangeSetSideBySideDiffComponent implements OnInit {
 
-	public currentUiFileChangeSet: BackendModelSingleCommitFileChangeSet = new BackendModelSingleCommitFileChangeSet();	
+	public currentUiFileChangeSet: UiFileChangeSetModel = new UiFileChangeSetModel();	
 
-	// backed model is an intermediate modul until ui-model for a file changeset got refined.	
-	@Input() fileChangeSet:BackendModelSingleCommitFileChangeSet = new BackendModelSingleCommitFileChangeSet();
+	@Input() fileChangeSet:UiFileChangeSetModel = new UiFileChangeSetModel();
 
 	constructor() { }
 
@@ -23,8 +21,7 @@ export class ExperimentalFileChangeSetSideBySideDiffComponent implements OnInit 
 
 	ngOnChanges(changes: SimpleChanges): void {
 		if(changes.fileChangeSet != undefined) {
-			
-			let fileChangeSetCandidate:BackendModelSingleCommitFileChangeSet = changes.fileChangeSet.currentValue;
+			let fileChangeSetCandidate:UiFileChangeSetModel = changes.fileChangeSet.currentValue;
 			this.currentUiFileChangeSet = fileChangeSetCandidate;
 		}
 	}
