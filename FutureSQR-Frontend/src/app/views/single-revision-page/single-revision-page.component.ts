@@ -41,6 +41,8 @@ export class SingleRevisionPageComponent implements OnInit {
 	public activeRevisionID: string = '';
 	public uiFileInformations: UiReviewFileInformation[] = [];
     public uiModelSingleRevisionDiffs: BackendModelSingleCommitFullChangeSet = new BackendModelSingleCommitFullChangeSet();
+
+	// TODO: we need the filepath here.... we should convert this to a reasonable array of ui modeldata.
 	public uiFileChangeSets: BackendModelSingleCommitFileChangeSet[] = [];
 	
 	
