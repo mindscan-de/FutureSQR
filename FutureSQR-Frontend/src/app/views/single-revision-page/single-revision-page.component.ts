@@ -15,7 +15,6 @@ import { TransformChangeSet } from '../../m2m/transform-change-set';
 
 // BackendModel - should be actually a ui model 
 import { BackendModelSingleCommitFullChangeSet } from '../../backend/model/backend-model-single-commit-full-change-set';
-import { BackendModelSingleCommitFileChangeSet } from '../../backend/model/backend-model-single-commit-file-change-set';
 import { BackendModelProjectRecentCommitRevision } from '../../backend/model/backend-model-project-recent-commit-revision';
 
 // UI Model
@@ -44,8 +43,6 @@ export class SingleRevisionPageComponent implements OnInit {
 	public uiFileInformations: UiReviewFileInformation[] = [];
     public uiModelSingleRevisionDiffs: BackendModelSingleCommitFullChangeSet = new BackendModelSingleCommitFullChangeSet();
 
-	// TODO: we need the filepath here.... we should convert this to a reasonable array of ui modeldata.
-	public uiFileChangeSets: BackendModelSingleCommitFileChangeSet[] = [];
 	public uiFileChangeSetsNew: UiFileChangeSetModel[] = [];
 	
 	
@@ -86,7 +83,6 @@ export class SingleRevisionPageComponent implements OnInit {
 
 	onSingeRevisionDiffProvided( diffData: BackendModelSingleCommitFullChangeSet):void {
 		this.uiModelSingleRevisionDiffs = diffData;
-		this.uiFileChangeSets = diffData.fileChangeSet;
 		
 		this.uiFileChangeSetsNew=diffData.fileChangeSet.map(
 				(item)=> TransformChangeSet.fromBackendFileChangeSetToUiFileChangeSet(item)
@@ -114,10 +110,10 @@ export class SingleRevisionPageComponent implements OnInit {
 	}
 
 	// open side by side dialog
-	openSideBySideDialog( filechangeSet:BackendModelSingleCommitFileChangeSet ):void {
+	openSideBySideDialog( filechangeSet:UiFileChangeSetModel ):void {
 		const modalref = this.modalService.open(  SingleRevisionSideBySideDialogComponent,  {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'fs'}    )
 		
-		modalref.componentInstance.setAllChangeSets(this.uiFileChangeSets);
+		modalref.componentInstance.setAllChangeSets(this.uiFileChangeSetsNew);
 		modalref.componentInstance.setSelectedFileChangeSet(filechangeSet);
 		
 		modalref.result.then((result) => {
@@ -131,10 +127,10 @@ export class SingleRevisionPageComponent implements OnInit {
 	}
 	
 	// open experimental side by side dialog
-	openExperimentalSideBySideDialog( filechangeSet:BackendModelSingleCommitFileChangeSet ):void {
+	openExperimentalSideBySideDialog( filechangeSet:UiFileChangeSetModel ):void {
 		const modalref = this.modalService.open(  ExperimentalSingleRevisionSideBySideDialogComponent,  {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'fs'}    )
 		
-		modalref.componentInstance.setAllChangeSets(this.uiFileChangeSets);
+		modalref.componentInstance.setAllChangeSets(this.uiFileChangeSetsNew);
 		modalref.componentInstance.setSelectedFileChangeSet(filechangeSet);
 		
 		modalref.result.then((result) => {

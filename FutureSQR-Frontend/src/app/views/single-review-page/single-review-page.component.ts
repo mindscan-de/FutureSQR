@@ -11,18 +11,18 @@ import { NavigationBarService } from '../../uiservices/navigation-bar.service';
 
 // M2M Transformation
 import { TransformCommitRevision } from '../../m2m/transform-commit-revision';
+import { TransformChangeSet } from '../../m2m/transform-change-set';
 
 // Backend Model
 import { BackendModelReviewData } from '../../backend/model/backend-model-review-data';
 import { BackendModelSingleCommitFullChangeSet } from '../../backend/model/backend-model-single-commit-full-change-set';
-import { BackendModelSingleCommitFileChangeSet } from '../../backend/model/backend-model-single-commit-file-change-set';
 import { BackendModelProjectRecentCommitRevision } from '../../backend/model/backend-model-project-recent-commit-revision';
 
 // UI Model
 import { UiReviewFileInformation } from '../../commonui/uimodel/ui-review-file-information';
+import { UiFileChangeSetModel } from '../../commonui/uimodel/ui-file-change-set-model';
 
-
-// TODO rework this with a review side by side dialog, which can work with a configured filechangeset and a file paging configuration
+// UI-Dialog
 import { SingleRevisionSideBySideDialogComponent } from '../../commonui/single-revision-side-by-side-dialog/single-revision-side-by-side-dialog.component';
 
 // DIRTY HACK - make sure the BPE encode is initialized early....
@@ -40,7 +40,8 @@ export class SingleReviewPageComponent implements OnInit {
 	public uiFileInformations: UiReviewFileInformation[] = [];  
 
     public uiModelSingleRevisionDiffs: BackendModelSingleCommitFullChangeSet = new BackendModelSingleCommitFullChangeSet();
-	public uiFileChangeSets: BackendModelSingleCommitFileChangeSet[] = [];
+	public uiFileChangeSetsNew: UiFileChangeSetModel[] = [];
+		
 	public uiRevisionInformation: BackendModelProjectRecentCommitRevision[] = [];
 	
 	public activeReviewData: BackendModelReviewData = new BackendModelReviewData();
@@ -101,7 +102,11 @@ export class SingleReviewPageComponent implements OnInit {
 	
 	onDiffDataReceived( diffData: BackendModelSingleCommitFullChangeSet ):void {
 		this.uiModelSingleRevisionDiffs = diffData;
-		this.uiFileChangeSets = diffData.fileChangeSet;
+		
+		this.uiFileChangeSetsNew=diffData.fileChangeSet.map(
+				(item)=> TransformChangeSet.fromBackendFileChangeSetToUiFileChangeSet(item)
+			);
+		
 	}
 
 	onFileListActionsProvided( fileInformations : UiReviewFileInformation[]) : void {
@@ -125,10 +130,10 @@ export class SingleReviewPageComponent implements OnInit {
 	}
 	
 	// open side by side dialog
-	openSideBySideDialog( filechangeSet:BackendModelSingleCommitFileChangeSet ):void {
+	openSideBySideDialog( filechangeSet:UiFileChangeSetModel ):void {
 		const modalref = this.modalService.open(  SingleRevisionSideBySideDialogComponent,  {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'fs'}    )
 		
-		modalref.componentInstance.setAllChangeSets(this.uiFileChangeSets);
+		modalref.componentInstance.setAllChangeSets(this.uiFileChangeSetsNew);
 		modalref.componentInstance.setSelectedFileChangeSet(filechangeSet);
 		
 		modalref.result.then((result) => {

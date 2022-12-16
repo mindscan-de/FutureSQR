@@ -5,13 +5,13 @@
 		<div class="row mt-2" >
 			<div class="col">
 				<ul class="list-group">
-					<li class="list-group-item" *ngFor="let fileChangeSet of uiFileChangeSets">
+					<li class="list-group-item" *ngFor="let fileChangeSet of uiFileChangeSetsNew">
 						<div class="row">
 							<div class="col">
 								<div class="float-right">
 									<div class="mb-1 ml-2"><button type="button" class="btn btn-light btn-sm" (click)="openSideBySideDialog(fileChangeSet)">Side by Side</button></div>
 									<div class="mb-1 ml-2"><a class="btn btn-light btn-sm" [routerLink]="['/', activeProjectID,'revision',activeRevisionID,'viewfile']" [queryParams]="{p:'todo_extract_this_filepath.java'}">view full file</a></div>
-									<!-- refactor this to the real uiFileChangeSet - Type -->
+									<!-- TODO: refactor this to the real uiFileChangeSet - Type -->
 									<div class="mb-1 ml-2"><button type="button" class="btn btn-danger btn-sm" (click)="openExperimentalSideBySideDialog(fileChangeSet)" title="Open SOTA Side by Side Diff Experimental dialog">try</button></div>
 								</div>
 								<!-- refactor this to the real uiFileChangeSet -->
