@@ -10,6 +10,7 @@
 							<div class="col">
 								<div class="float-right">
 									<div class="mb-1"><button type="button" class="btn btn-light btn-sm" (click)="openSideBySideDialog(fileChangeSet)">Side by Side</button></div>
+									<div class="mb-1"><a class="btn btn-light btn-sm" [routerLink]="['/', activeProjectID,'revision',activeRevisionID,'viewfile']" [queryParams]="{p:'todo_extract_this_filepath.java'}">full file</a></div>
 									<div class="mb-1"><button type="button" class="btn btn-danger btn-sm" (click)="openExperimentalSideBySideDialog(fileChangeSet)" title="Open SOTA Side by Side Diff Experimental dialog">try</button></div>
 								</div>
 												
