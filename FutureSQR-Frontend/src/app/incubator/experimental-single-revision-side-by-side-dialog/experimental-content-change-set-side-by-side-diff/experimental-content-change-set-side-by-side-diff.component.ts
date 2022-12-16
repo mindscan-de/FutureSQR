@@ -5,6 +5,8 @@ import { SimpleBPEEncoder } from '../../bpe/simple-bpe-encoder';
 import { BpeEncoderProviderService } from '../../bpe/bpe-encoder-provider.service';
 import { BPEDiffUtils, BPEVisualizationEntry } from '../../bpe/bpe-diff-utils';
 
+import { UiContentChangeSetModel } from '../../../commonui/uimodel/ui-content-change-set-model';
+
 @Component({
   selector: 'app-experimental-content-change-set-side-by-side-diff',
   templateUrl: './experimental-content-change-set-side-by-side-diff.component.html',
@@ -28,7 +30,7 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 	
 	// TODO: create a ui model from it
 	// actually this will an intermediate external model
-	@Input() contentChangeSet:string[] =[];
+	@Input() contentChangeSet:UiContentChangeSetModel = new UiContentChangeSetModel([],0,1,0,1);
 
 	constructor(
 		// Actually i need an encoder..., maybe using a service...
@@ -59,12 +61,13 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 	
  	ngOnChanges(changes: SimpleChanges): void {
 		if(changes.contentChangeSet != undefined) {
-			let contentChangeSetCurrent:string[] = changes.contentChangeSet.currentValue;
+			let contentChangeSetCurrent:UiContentChangeSetModel = changes.contentChangeSet.currentValue;
+			let contentChangeSetCurrentData:string[] = contentChangeSetCurrent.diffContent;
 			// This needs to be reworked such that the line numbers are correctly transferred.
-			this.leftContent = this.filterLeftDiff(contentChangeSetCurrent, 12);
-			this.rightContent = this.filterRightDiff(contentChangeSetCurrent, 15);
+			this.leftContent = this.filterLeftDiff(contentChangeSetCurrentData, contentChangeSetCurrent.getLineCountStartLeft());
+			this.rightContent = this.filterRightDiff(contentChangeSetCurrentData, contentChangeSetCurrent.getLineCountStartRight());
 			
-			this.updateDiffRendering(contentChangeSetCurrent);
+			this.updateDiffRendering(contentChangeSetCurrentData);
 		}
 	}
 	
