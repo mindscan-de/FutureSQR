@@ -11,6 +11,7 @@ import { NavigationBarService } from '../../uiservices/navigation-bar.service';
 
 // M2M Transformation
 import { TransformCommitRevision } from '../../m2m/transform-commit-revision';
+import { TransformChangeSet } from '../../m2m/transform-change-set';
 
 // BackendModel - should be actually a ui model 
 import { BackendModelSingleCommitFullChangeSet } from '../../backend/model/backend-model-single-commit-full-change-set';
@@ -19,6 +20,7 @@ import { BackendModelProjectRecentCommitRevision } from '../../backend/model/bac
 
 // UI Model
 import { UiReviewFileInformation } from '../../commonui/uimodel/ui-review-file-information';
+import { UiFileChangeSetModel } from '../../commonui/uimodel/ui-file-change-set-model';
 
 // Dialog 
 import { SingleRevisionSideBySideDialogComponent } from '../../commonui/single-revision-side-by-side-dialog/single-revision-side-by-side-dialog.component';
@@ -44,9 +46,11 @@ export class SingleRevisionPageComponent implements OnInit {
 
 	// TODO: we need the filepath here.... we should convert this to a reasonable array of ui modeldata.
 	public uiFileChangeSets: BackendModelSingleCommitFileChangeSet[] = [];
+	public uiFileChangeSetsNew: UiFileChangeSetModel[] = [];
 	
 	
 	public uiRevisionData: BackendModelProjectRecentCommitRevision = new BackendModelProjectRecentCommitRevision();
+	
 
     constructor(
 		private projectDataQueryBackend : ProjectDataQueryBackendService,
@@ -83,6 +87,10 @@ export class SingleRevisionPageComponent implements OnInit {
 	onSingeRevisionDiffProvided( diffData: BackendModelSingleCommitFullChangeSet):void {
 		this.uiModelSingleRevisionDiffs = diffData;
 		this.uiFileChangeSets = diffData.fileChangeSet;
+		
+		this.uiFileChangeSetsNew=diffData.fileChangeSet.map(
+				(item)=> TransformChangeSet.fromBackendFileChangeSetToUiFileChangeSet(item)
+			);
 	}
 	
 	setNavigation(): void {

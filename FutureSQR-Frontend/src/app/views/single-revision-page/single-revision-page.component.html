@@ -9,11 +9,12 @@
 						<div class="row">
 							<div class="col">
 								<div class="float-right">
-									<div class="mb-1"><button type="button" class="btn btn-light btn-sm" (click)="openSideBySideDialog(fileChangeSet)">Side by Side</button></div>
-									<div class="mb-1"><a class="btn btn-light btn-sm" [routerLink]="['/', activeProjectID,'revision',activeRevisionID,'viewfile']" [queryParams]="{p:'todo_extract_this_filepath.java'}">full file</a></div>
-									<div class="mb-1"><button type="button" class="btn btn-danger btn-sm" (click)="openExperimentalSideBySideDialog(fileChangeSet)" title="Open SOTA Side by Side Diff Experimental dialog">try</button></div>
+									<div class="mb-1 ml-2"><button type="button" class="btn btn-light btn-sm" (click)="openSideBySideDialog(fileChangeSet)">Side by Side</button></div>
+									<div class="mb-1 ml-2"><a class="btn btn-light btn-sm" [routerLink]="['/', activeProjectID,'revision',activeRevisionID,'viewfile']" [queryParams]="{p:'todo_extract_this_filepath.java'}">view full file</a></div>
+									<!-- refactor this to the real uiFileChangeSet - Type -->
+									<div class="mb-1 ml-2"><button type="button" class="btn btn-danger btn-sm" (click)="openExperimentalSideBySideDialog(fileChangeSet)" title="Open SOTA Side by Side Diff Experimental dialog">try</button></div>
 								</div>
-												
+								<!-- refactor this to the real uiFileChangeSet -->
 								<app-file-change-set-single-diff [fileChangeSet]="fileChangeSet"></app-file-change-set-single-diff>
 							</div>
 						</div>
