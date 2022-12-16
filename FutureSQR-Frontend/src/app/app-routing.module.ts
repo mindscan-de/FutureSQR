@@ -32,7 +32,7 @@ const routes: Routes = [
 	{ path:':projectid/review/:reviewid', component:SingleReviewPageComponent, canActivate: [AuthNGuardService] },
 
 	// show a particular file revision
-	{ path:':projectid/revision/:revisionid/file', component: SingleFileRevisionPageComponent, canActivate: [AuthNGuardService] }, 
+	{ path:':projectid/revision/:revisionid/viewfile', component: SingleFileRevisionPageComponent, canActivate: [AuthNGuardService] }, 
 	
 	// show a list of files which were changed for a single revision, and their diffs
 	// the action area should include some actions related to this particular revision
