@@ -13,10 +13,20 @@ export class FileContentViewerComponent implements OnInit {
 
 	public viewPortMargin:number = 1;
 	public readOnly:boolean = true;
+	public cmMode: string = "text";
 	
 	public uiRevisionFileContent: BackendModelRevisionFileContent = new BackendModelRevisionFileContent();
 	public uiActiveFileInformation: UiReviewFileInformation = new UiReviewFileInformation("","",true);
-
+	
+	public toCodeMirror = {
+		'md':'markdown',
+		'html':'htmlmixed',
+		'htm':'htmlmixed',
+		'MD':'markdown',
+		'py':'python',
+		'java':'clike',
+		'ts':'javascript'
+	};
 	@Input() revisionFileContent: BackendModelRevisionFileContent = new BackendModelRevisionFileContent();
 
 	constructor(
@@ -25,11 +35,13 @@ export class FileContentViewerComponent implements OnInit {
 
 	ngOnInit(): void {
 	}
+	
 
 	ngOnChanges(changes: SimpleChanges): void {
 		if(changes.revisionFileContent != undefined) {
 			this.uiRevisionFileContent = changes.revisionFileContent.currentValue;
 			this.uiActiveFileInformation = new UiReviewFileInformation(this.uiRevisionFileContent.filePath, "", true);
+			this.cmMode = this.toCodeMirror[this.uiActiveFileInformation.fileExtension];
 		}
 	}
 
