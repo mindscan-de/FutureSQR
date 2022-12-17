@@ -30,7 +30,8 @@ from fastapi import FastAPI, Form, HTTPException, status
 
 from de.mindscan.futuresqr.scmtools.git.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision,\
     calculateFileListForSingleRevision, calculateSimpleRevisionInformation, calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo,\
-    calculateSimpleRevisionInformationForRevisionList, calculateFileListForListOfRevisions, updateProjectCache
+    calculateSimpleRevisionInformationForRevisionList, calculateFileListForListOfRevisions, updateProjectCache,\
+    getParticularRevisionContentForFile
 from de.mindscan.futuresqr.reviews.review_database import ReviewDatabase
 from de.mindscan.futuresqr.projects.project_database import ProjectDatabase
 from de.mindscan.futuresqr.reviews.review_tools import createNewReview
@@ -150,6 +151,16 @@ def getProjectRevisionDiffToPrevious(projectid:str, revisionid:str):
         fullScmPath = systemConfiguration.calculateScmCacheFolder(projectDB.getProjectLocalPath(projectid))
         result = calculateDiffForSingleRevision(fullScmPath, revisionid)
         return result
+    
+    result = {}
+    return result
+
+@app.get("/FutureSQR/rest/project/{projectid}/revisioncontent/{revisionid}")
+def getParticularFileRevisionContent(projectid:str, revisionid:str, filepath:str):
+    if(projectDB.hasProjectLocalPath(projectid)):
+        fullScmPath = systemConfiguration.calculateScmCacheFolder(projectDB.getProjectLocalPath(projectid))
+        result = getParticularRevisionContentForFile(fullScmPath, revisionid, filepath)
+        return result;
     
     result = {}
     return result
