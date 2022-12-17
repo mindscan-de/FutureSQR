@@ -8,6 +8,8 @@ import { BackendModelRevisionFileContent } from '../../backend/model/backend-mod
   styleUrls: ['./file-content-viewer.component.css']
 })
 export class FileContentViewerComponent implements OnInit {
+	
+	public uiRevisionFileContent: BackendModelRevisionFileContent = new BackendModelRevisionFileContent();
 
 	@Input() revisionFileContent: BackendModelRevisionFileContent = new BackendModelRevisionFileContent();
 
@@ -20,6 +22,7 @@ export class FileContentViewerComponent implements OnInit {
 
 	ngOnChanges(changes: SimpleChanges): void {
 		if(changes.revisionFileContent != undefined) {
+			this.uiRevisionFileContent = changes.revisionFileContent.currentValue;
 		}
 	}
 
