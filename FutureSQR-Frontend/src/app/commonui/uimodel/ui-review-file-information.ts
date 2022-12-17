@@ -2,6 +2,7 @@ export class UiReviewFileInformation {
 	public fileAction: string = "";
 	public fullFilePath: string = "";
 	public simpleFileName: string = "";
+	public fileExtension: string = "";
 	public parentFilePath: string = "";
 	
 	public isFile: boolean = true;
@@ -36,6 +37,9 @@ export class UiReviewFileInformation {
 		if(lastIndex !== -1) {
 			this.parentFilePath = filepath.slice(0,lastIndex);
 		}
+		
+		let lastIndexExt = this.simpleFileName.lastIndexOf('.');
+		this.fileExtension = this.simpleFileName.slice(lastIndexExt+1);
 		
 		this.isFile = isFile;
 		this.isDirectory = !isFile;
