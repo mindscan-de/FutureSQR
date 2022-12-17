@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { map, first } from 'rxjs/operators';
 
@@ -15,6 +15,7 @@ import { BackendModelReviewData } from '../model/backend-model-review-data';
 import { BackendModelProjectSimpleInformation } from '../model/backend-model-project-simple-information';
 import { BackendModelProjectRecentCommitRevision } from '../model/backend-model-project-recent-commit-revision';
 import { BackendModelThreadsData } from '../model/backend-model-threads-data';
+import { BackendModelRevisionFileContent } from '../model/backend-model-revision-file-content';
 
 // ---- user type backend data
 import { BackendModelSimpleUserDictionary } from '../model/backend-model-simple-user-dictionary';
@@ -108,6 +109,17 @@ export class ProjectDataQueryBackendService {
 		return this.httpClient
 				.get<BackendModelSingleCommitFullChangeSet>(url, {})
 				.pipe(first());
+	}
+	
+	getParticularFileRevisionContent(projectid:string, revisionid:string, filepath:string): Observable<BackendModelRevisionFileContent> {
+		var url = `/FutureSQR/rest/project/${projectid}/revisionfilecontent/${revisionid}`;
+		
+		let params = new HttpParams().set('filepath',filepath);
+		
+		return this.httpClient
+				.get<BackendModelRevisionFileContent>(url, { params: params })
+				.pipe(first());
+		
 	}
 	
 	getReviewRevisionDiffFullChangeSet(projectid:string, reviewid:string) : Observable<BackendModelSingleCommitFullChangeSet> {
