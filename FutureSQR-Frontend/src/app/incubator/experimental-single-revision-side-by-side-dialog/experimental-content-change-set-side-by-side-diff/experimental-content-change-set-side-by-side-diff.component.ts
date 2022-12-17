@@ -28,8 +28,6 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 	public leftUiDiff: DiffUIEntry[] = [];
 	public rightUiDiff: DiffUIEntry[] = [];
 	
-	// TODO: create a ui model from it
-	// actually this will an intermediate external model
 	@Input() contentChangeSet:UiContentChangeSetModel = new UiContentChangeSetModel([],0,1,0,1);
 
 	constructor(
@@ -63,7 +61,7 @@ export class ExperimentalContentChangeSetSideBySideDiffComponent implements OnIn
 		if(changes.contentChangeSet != undefined) {
 			let contentChangeSetCurrent:UiContentChangeSetModel = changes.contentChangeSet.currentValue;
 			let contentChangeSetCurrentData:string[] = contentChangeSetCurrent.diffContent;
-			// This needs to be reworked such that the line numbers are correctly transferred.
+			
 			this.leftContent = this.filterLeftDiff(contentChangeSetCurrentData, contentChangeSetCurrent.getLineCountStartLeft());
 			this.rightContent = this.filterRightDiff(contentChangeSetCurrentData, contentChangeSetCurrent.getLineCountStartRight());
 			
