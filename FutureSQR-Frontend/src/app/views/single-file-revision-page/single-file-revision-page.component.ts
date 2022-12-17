@@ -11,6 +11,9 @@ import { NavigationBarService } from '../../uiservices/navigation-bar.service';
 import { BackendModelProjectRecentCommitRevision } from '../../backend/model/backend-model-project-recent-commit-revision';
 import { BackendModelRevisionFileContent } from '../../backend/model/backend-model-revision-file-content';
 
+// ui Model
+import { UiReviewFileInformation } from '../../commonui/uimodel/ui-review-file-information';
+
 @Component({
   selector: 'app-single-file-revision-page',
   templateUrl: './single-file-revision-page.component.html',
@@ -21,6 +24,8 @@ export class SingleFileRevisionPageComponent implements OnInit {
 	public activeProjectID: string = '';
 	public activeRevisionID: string = '';
 	public activeFilePath: string = '';
+	public uiActiveFileInformation: UiReviewFileInformation = new UiReviewFileInformation(".html","",true);
+	 
 	
 	// TODO: make this a ui model in future.
 	public uiRevisionData: BackendModelProjectRecentCommitRevision = new BackendModelProjectRecentCommitRevision();
@@ -36,8 +41,8 @@ export class SingleFileRevisionPageComponent implements OnInit {
 	ngOnInit(): void {
 		this.activeProjectID = this.route.snapshot.paramMap.get('projectid');
 		this.activeRevisionID = this.route.snapshot.paramMap.get('revisionid');
-		
 		this.activeFilePath = this.route.snapshot.queryParamMap.get('p');
+		this.uiActiveFileInformation = new UiReviewFileInformation(this.activeFilePath, "", true);
 		
 		// should i request the "getRecentProjectRevisionFilePathsData" - so that the other file contents can be retrieved...
 		
@@ -60,6 +65,7 @@ export class SingleFileRevisionPageComponent implements OnInit {
 	
 	onFileContentForRevisionProvided( revisionFileContent: BackendModelRevisionFileContent): void {
 		this.uiRevisionFileContent = revisionFileContent;
+		
 	}
 	
 	setNavigation(): void {
@@ -69,7 +75,7 @@ export class SingleFileRevisionPageComponent implements OnInit {
 		x.push(this.navigationBarService.createItem( this.uiRevisionData.shortrev, ['/',this.activeProjectID, 'revision', this.activeRevisionID], false ));
 		
 		// ['/',this.activeProjectID, 'revision', this.activeRevisionID, 'viewfile'] - problem with this approach is the url query parameter.
-		x.push(this.navigationBarService.createItem( 'todo:filename',['/',this.activeProjectID, 'revision', this.activeRevisionID, 'viewfile'], true));
+		x.push(this.navigationBarService.createItem( this.activeFilePath,['/',this.activeProjectID, 'revision', this.activeRevisionID, 'viewfile'], true));
 		
 		this.navigationBarService.setBreadcrumbNavigation(x);
 	}
