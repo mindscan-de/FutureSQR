@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+
+import { BackendModelRevisionFileContent } from '../../backend/model/backend-model-revision-file-content';
 
 @Component({
   selector: 'app-file-content-viewer',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FileContentViewerComponent implements OnInit {
 
-  constructor() { }
+	@Input() revisionFileContent: BackendModelRevisionFileContent = new BackendModelRevisionFileContent();
 
-  ngOnInit(): void {
-  }
+	constructor(
+		
+	) { }
+
+	ngOnInit(): void {
+	}
+
+	ngOnChanges(changes: SimpleChanges): void {
+		if(changes.revisionFileContent != undefined) {
+		}
+	}
 
 }

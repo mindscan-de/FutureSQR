@@ -2,6 +2,7 @@
 	<div class="col-xl-9">
 		<app-basic-revision-information [activeRevisionData]="uiRevisionData" [activeProjectID]="activeProjectID" [activeRevisionID]="activeRevisionID" ></app-basic-revision-information>
 
+		<app-file-content-viewer [revisionFileContent]="uiRevisionFileContent"></app-file-content-viewer>
 		<div class="row mt-2" >
 			<div class="col">
 				Active File name: <pre>{{activeFilePath}}</pre>
@@ -11,6 +12,8 @@
 	
 	<div class="col-xl-3">
 		<app-revision-action-panel [activeRevisionData]="uiRevisionData" [activeProjectID]="activeProjectID"></app-revision-action-panel>
+		
+		<!-- TODO: maybe provide a file history for this particular file... maybe with links to previous versions.-->
 	</div>
 </div>	
 	

@@ -9,6 +9,7 @@ import { NavigationBarService } from '../../uiservices/navigation-bar.service';
 
 // BackendModel - should be actually a ui model
 import { BackendModelProjectRecentCommitRevision } from '../../backend/model/backend-model-project-recent-commit-revision';
+import { BackendModelRevisionFileContent } from '../../backend/model/backend-model-revision-file-content';
 
 @Component({
   selector: 'app-single-file-revision-page',
@@ -23,6 +24,8 @@ export class SingleFileRevisionPageComponent implements OnInit {
 	
 	// TODO: make this a ui model in future.
 	public uiRevisionData: BackendModelProjectRecentCommitRevision = new BackendModelProjectRecentCommitRevision();
+	public uiRevisionFileContent: BackendModelRevisionFileContent = new BackendModelRevisionFileContent(); 
+	
 
 	constructor(
 		private projectDataQueryBackend : ProjectDataQueryBackendService,
@@ -42,12 +45,21 @@ export class SingleFileRevisionPageComponent implements OnInit {
 			data => this.onRevisionInformationProvided(data),
 			error => console.log(error)
 		);
+		
+		this.projectDataQueryBackend.getParticularFileRevisionContent(this.activeProjectID, this.activeRevisionID, this.activeFilePath).subscribe(
+			data => this.onFileContentForRevisionProvided(data),
+			error => console.log(error)
+		);
 	}
 	
 	onRevisionInformationProvided( revisionData: BackendModelProjectRecentCommitRevision): void {
 		this.uiRevisionData = revisionData;
 		
 		this.setNavigation();
+	}
+	
+	onFileContentForRevisionProvided( revisionFileContent: BackendModelRevisionFileContent): void {
+		this.uiRevisionFileContent = revisionFileContent;
 	}
 	
 	setNavigation(): void {
