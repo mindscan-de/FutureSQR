@@ -323,7 +323,6 @@ def getParticularRevisionContentForFile(local_git_repo_path:str, revisionid:str,
         ]
     
     revisionFileContent = __execute_git_command_on_local_repo(local_git_repo_path, git_parameters)
-    print(revisionFileContent)
     
     ## actually we should also provide some more info - like date and committer and commitcomment?
     ## should we combine these here or should that be combined at a higher layer?
