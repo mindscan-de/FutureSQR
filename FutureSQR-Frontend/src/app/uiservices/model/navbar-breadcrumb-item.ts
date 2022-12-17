@@ -5,6 +5,8 @@ export class NavbarBreadcrumbItem {
 	
 	// can be string or something else, should actually be string array?
 	public routerLink:any[] = [];
+	public hasQueryData: boolean= false;
+	public queryData = {};
 	
 	//  
 	public routerLinkActive: boolean = false;
@@ -13,5 +15,10 @@ export class NavbarBreadcrumbItem {
 		this.linkText = linkText;
 		this.routerLink = routerLink;
 		this.routerLinkActive = routerLinkActive
+	}
+	
+	public appendQueryData(data):void  {
+		this.queryData = data;
+		this.hasQueryData = true;
 	}
 }

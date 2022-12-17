@@ -7,7 +7,10 @@
 	<div class="navbar-nav-scroll">
 		<ol class="navbar-nav bd-navbar-nav flex-row">
 			<ng-container *ngFor="let navitem of navItems">
-				<li class="nav-item"><a class="nav-link small"  [routerLink]="navitem.routerLink">{{navitem.linkText}}</a></li>
+				<li class="nav-item">
+					<a *ngIf="!navitem.hasQueryData" class="nav-link small"  [routerLink]="navitem.routerLink">{{navitem.linkText}}</a>
+					<a *ngIf="navitem.hasQueryData" class="nav-link small"  [routerLink]="navitem.routerLink" [queryParams]="navitem.queryData">{{navitem.linkText}}</a>
+				</li>
 			</ng-container>
 		</ol>
 	</div>

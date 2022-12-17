@@ -43,6 +43,12 @@ export class NavigationBarService {
 		return new NavbarBreadcrumbItem(linkText, routerLink, routerLinkActive);
 	}
 	
+	public createItemWithQueryParameters(linkText:string, routerLink:any[], queryData, routerLinkActive: boolean) {
+		let navbarItem = new NavbarBreadcrumbItem(linkText, routerLink, routerLinkActive);
+		navbarItem.appendQueryData(queryData)
+		return navbarItem;
+	}
+	
 	public clearBreadcrumbNavigation():void {
 		this._currentNavbarItems = [];
 		this._currentNavbarSubject.next(this._currentNavbarItems);
