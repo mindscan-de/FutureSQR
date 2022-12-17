@@ -155,7 +155,7 @@ def getProjectRevisionDiffToPrevious(projectid:str, revisionid:str):
     result = {}
     return result
 
-@app.get("/FutureSQR/rest/project/{projectid}/revisioncontent/{revisionid}")
+@app.get("/FutureSQR/rest/project/{projectid}/revisionfilecontent/{revisionid}")
 def getParticularFileRevisionContent(projectid:str, revisionid:str, filepath:str):
     if(projectDB.hasProjectLocalPath(projectid)):
         fullScmPath = systemConfiguration.calculateScmCacheFolder(projectDB.getProjectLocalPath(projectid))
