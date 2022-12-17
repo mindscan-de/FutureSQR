@@ -1,10 +1,20 @@
 <div class="card mt-2">
 	<div class="card-header">
-		<h5>{{uiRevisionFileContent.filePath}}</h5>		
+		<h5>{{uiActiveFileInformation.simpleFileName}}<span class="ml-4 small">{{uiActiveFileInformation.parentFilePath}}</span></h5>		
 	</div>
 	<div class="card-body">
-		TODO: use codemirror and provide syntax highlighting for the content. 
-		<pre>{{uiRevisionFileContent.fileContent}}</pre>
+ 		<ngx-codemirror
+		  [(ngModel)]="uiRevisionFileContent.fileContent"
+		  [disabled]="readOnly"
+		  [options]="{
+		    lineNumbers: true,
+		    firstLineNumber: 1,
+		    viewportMargin: viewPortMargin,
+		    theme: 'eclipse',
+		    mode: 'html'
+		  }"
+		></ngx-codemirror>
+		
 	</div>
 </div>
 
