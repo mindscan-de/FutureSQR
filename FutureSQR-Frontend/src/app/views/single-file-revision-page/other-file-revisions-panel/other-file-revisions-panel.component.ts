@@ -1,0 +1,15 @@
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-other-file-revisions-panel',
+  templateUrl: './other-file-revisions-panel.component.html',
+  styleUrls: ['./other-file-revisions-panel.component.css']
+})
+export class OtherFileRevisionsPanelComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+}
