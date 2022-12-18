@@ -59,6 +59,7 @@ import { ExperimentalContentChangeSetSideBySideDiffComponent } from './incubator
 import { SingleFileRevisionPageComponent } from './views/single-file-revision-page/single-file-revision-page.component';
 import { FileContentViewerComponent } from './commonui/file-content-viewer/file-content-viewer.component';
 import { OtherFileRevisionsPanelComponent } from './views/single-file-revision-page/other-file-revisions-panel/other-file-revisions-panel.component';
+import { OtherFilesInRevisionPanelComponent } from './views/single-file-revision-page/other-files-in-revision-panel/other-files-in-revision-panel.component';
 
 @NgModule({
   declarations: [
@@ -108,7 +109,8 @@ import { OtherFileRevisionsPanelComponent } from './views/single-file-revision-p
     ExperimentalContentChangeSetSideBySideDiffComponent,
     SingleFileRevisionPageComponent,
     FileContentViewerComponent,
-    OtherFileRevisionsPanelComponent
+    OtherFileRevisionsPanelComponent,
+    OtherFilesInRevisionPanelComponent
   ],
   imports: [
     BrowserModule,
