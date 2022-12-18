@@ -4,5 +4,11 @@
 	</div>
 	<div class="card-body">
 		<p>other-file-revisions-panel works!</p>
+		<ul>
+			<!-- set to list-item-active in case it is the list item which is uiActiveRevisionID -->
+			<li *ngFor="let revision of uiOtherRevisions">
+				revision
+			</li>
+		</ul>
 	</div>
 </div>

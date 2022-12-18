@@ -25,7 +25,7 @@ export class SingleFileRevisionPageComponent implements OnInit {
 	public activeRevisionID: string = '';
 	public activeFilePath: string = '';
 	public uiActiveFileInformation: UiReviewFileInformation = new UiReviewFileInformation(".html","",true);
-	 
+	public uiOtherFileRevisions: BackendModelProjectRecentCommitRevision[] = [];
 	
 	// TODO: make this a ui model in future.
 	public uiRevisionData: BackendModelProjectRecentCommitRevision = new BackendModelProjectRecentCommitRevision();
