@@ -7,6 +7,10 @@ import { ProjectDataQueryBackendService } from '../../backend/services/project-d
 // internal services
 import { NavigationBarService } from '../../uiservices/navigation-bar.service';
 
+// M2M Transformation
+import { TransformCommitRevision } from '../../m2m/transform-commit-revision';
+
+
 // BackendModel - should be actually a ui model
 import { BackendModelProjectRecentCommitRevision } from '../../backend/model/backend-model-project-recent-commit-revision';
 import { BackendModelRevisionFileContent } from '../../backend/model/backend-model-revision-file-content';
@@ -26,6 +30,7 @@ export class SingleFileRevisionPageComponent implements OnInit {
 	public activeFilePath: string = '';
 	public uiActiveFileInformation: UiReviewFileInformation = new UiReviewFileInformation(".html","",true);
 	public uiOtherFileRevisions: BackendModelProjectRecentCommitRevision[] = [];
+	public uiFileInformations: UiReviewFileInformation[] = [];
 	
 	// TODO: make this a ui model in future.
 	public uiRevisionData: BackendModelProjectRecentCommitRevision = new BackendModelProjectRecentCommitRevision();
@@ -44,18 +49,29 @@ export class SingleFileRevisionPageComponent implements OnInit {
 		this.activeFilePath = this.route.snapshot.queryParamMap.get('p');
 		this.uiActiveFileInformation = new UiReviewFileInformation(this.activeFilePath, "", true);
 		
-		// should i request the "getRecentProjectRevisionFilePathsData" - so that the other file contents can be retrieved...
+		// provide info for "other changed files in revision" panel 
+		this.projectDataQueryBackend.getRecentProjectRevisionFilePathsData(this.activeProjectID,this.activeRevisionID).subscribe(
+			data => this.onFileListActionsProvided(TransformCommitRevision.convertToUiReviewFileinformationArray(data)),
+			error => console.log(error)
+		);
 		
+		// provide commit details
 		this.projectDataQueryBackend.getRecentProjectRevisionInformation(this.activeProjectID,this.activeRevisionID).subscribe(
 			data => this.onRevisionInformationProvided(data),
 			error => console.log(error)
 		);
-		
+
+		// provide file content
 		this.projectDataQueryBackend.getParticularFileRevisionContent(this.activeProjectID, this.activeRevisionID, this.activeFilePath).subscribe(
 			data => this.onFileContentForRevisionProvided(data),
 			error => console.log(error)
 		);
 	}
+	
+	onFileListActionsProvided( fileInformations : UiReviewFileInformation[]) : void {
+		this.uiFileInformations = fileInformations;
+	}
+	
 	
 	onRevisionInformationProvided( revisionData: BackendModelProjectRecentCommitRevision): void {
 		this.uiRevisionData = revisionData;
