@@ -40,8 +40,11 @@ export class SingleFileRevisionPageComponent implements OnInit {
 	constructor(
 		private projectDataQueryBackend : ProjectDataQueryBackendService,
 		private navigationBarService : NavigationBarService,
-		private route: ActivatedRoute, 
-	) { }
+		private route: ActivatedRoute
+	) { 
+		
+		
+	}
 
 	ngOnInit(): void {
 		this.activeProjectID = this.route.snapshot.paramMap.get('projectid');
@@ -66,6 +69,8 @@ export class SingleFileRevisionPageComponent implements OnInit {
 			data => this.onFileContentForRevisionProvided(data),
 			error => console.log(error)
 		);
+		
+		this.route.queryParams.subscribe(p => this.onUpdateQuery(p.p));
 	}
 	
 	onFileListActionsProvided( fileInformations : UiReviewFileInformation[]) : void {
@@ -82,6 +87,15 @@ export class SingleFileRevisionPageComponent implements OnInit {
 	onFileContentForRevisionProvided( revisionFileContent: BackendModelRevisionFileContent): void {
 		this.uiRevisionFileContent = revisionFileContent;
 		
+		this.activeFilePath = revisionFileContent.filePath;
+		this.uiActiveFileInformation = new UiReviewFileInformation(this.activeFilePath, "", true);
+	}
+	
+	onUpdateQuery(newPath:string): void {
+		this.projectDataQueryBackend.getParticularFileRevisionContent(this.activeProjectID, this.activeRevisionID, newPath).subscribe(
+			data => this.onFileContentForRevisionProvided(data),
+			error => console.log(error)
+		);
 	}
 	
 	setNavigation(): void {
