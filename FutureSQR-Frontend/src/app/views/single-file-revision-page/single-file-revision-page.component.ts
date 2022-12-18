@@ -89,6 +89,8 @@ export class SingleFileRevisionPageComponent implements OnInit {
 		
 		this.activeFilePath = revisionFileContent.filePath;
 		this.uiActiveFileInformation = new UiReviewFileInformation(this.activeFilePath, "", true);
+		
+		this.setNavigation();
 	}
 	
 	onUpdateQuery(newPath:string): void {
