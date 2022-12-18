@@ -13,12 +13,16 @@ export class OtherFilesInRevisionPanelComponent implements OnInit {
 	public uiActiveProjectID: string = "";
 	// needed for the links
 	public uiActiveRevisionID: string = "";
+	// needed for the links
+	public uiFileInformations:UiReviewFileInformation[] = [];
 	
 	
 	@Input() activeProjectID: string = "";
 	private activeProjectIDProvided = false;
 	@Input() activeRevisionID: string = "";
 	private activeRevisionIDProvided = false;
+	@Input() activeFilePath: string = "";
+	private activeFilePathProvided = false;
 	@Input() fileInformations:UiReviewFileInformation[] = [];
 
 	constructor() { }
@@ -40,7 +44,9 @@ export class OtherFilesInRevisionPanelComponent implements OnInit {
 		
 		if(changes.fileInformations != undefined) {
 			// TODO: filter/gray out the deleted files, since they can not be inspected any more.
+			this.uiFileInformations = changes.fileInformations.currentValue;
 		}
 	}
+	
 
 }

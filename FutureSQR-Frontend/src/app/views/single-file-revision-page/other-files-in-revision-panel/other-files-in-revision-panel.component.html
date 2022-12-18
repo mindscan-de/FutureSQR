@@ -2,8 +2,11 @@
 	<div class="card-header">
 		Other Changed Files in Revision
 	</div>
-	<div class="card-body">
-		<p>other-files-in-revision-panel works!</p>
-		<p>here we will provide a navigation to the other files changed in this same revision, such that they can be viewed in full context. (navigate same revision but other files)</p>
+	<div class="list-group list-group-flush">
+		<a *ngFor="let file of uiFileInformations" class="list-group-item list-unstyled small" 
+				[routerLink]="[]" 
+				[queryParams]="{p:file.fullFilePath}" 
+				[ngClass]="{'active':file.fullFilePath == activeFilePath}"
+			><b class="mr-3">{{file.simpleFileName}}</b>{{file.parentFilePath}}</a>
 	</div>
 </div>
