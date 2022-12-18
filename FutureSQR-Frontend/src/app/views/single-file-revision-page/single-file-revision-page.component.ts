@@ -73,8 +73,6 @@ export class SingleFileRevisionPageComponent implements OnInit {
 		let x = []
 		x.push(this.navigationBarService.createItem( this.activeProjectID, ['/',this.activeProjectID], false ));
 		x.push(this.navigationBarService.createItem( this.uiRevisionData.shortrev, ['/',this.activeProjectID, 'revision', this.activeRevisionID], false ));
-		
-		// ['/',this.activeProjectID, 'revision', this.activeRevisionID, 'viewfile'] - problem with this approach is the url query parameter.
 		x.push(this.navigationBarService.createItemWithQueryParameters( this.activeFilePath,['/',this.activeProjectID, 'revision', this.activeRevisionID, 'viewfile'], {'p':this.activeFilePath}, true));
 		
 		this.navigationBarService.setBreadcrumbNavigation(x);
