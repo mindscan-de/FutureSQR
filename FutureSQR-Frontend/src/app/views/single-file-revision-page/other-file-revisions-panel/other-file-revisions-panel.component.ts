@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-other-file-revisions-panel',
@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OtherFileRevisionsPanelComponent implements OnInit {
 
-  constructor() { }
+	@Input() activeProjectID: string = '';
+	@Input() activeRevisionID: string = '';
+	@Input() activeFilePath: string = '';
 
-  ngOnInit(): void {
-  }
+	constructor() { }
+	
+	
+
+	ngOnInit(): void {
+	}
 
 }

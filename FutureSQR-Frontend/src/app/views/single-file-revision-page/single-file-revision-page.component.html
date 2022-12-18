@@ -8,7 +8,7 @@
 	<div class="col-xl-3">
 		<app-revision-action-panel [activeRevisionData]="uiRevisionData" [activeProjectID]="activeProjectID"></app-revision-action-panel>
 		
-		<!-- TODO: maybe provide a file history for this particular file... maybe with links to previous versions.-->
+		<app-other-file-revisions-panel  [activeProjectID]="activeProjectID" [activeRevisionID]="activeRevisionID" [activeFilePath]="activeFilePath"></app-other-file-revisions-panel>
 	</div>
 </div>	
 	
