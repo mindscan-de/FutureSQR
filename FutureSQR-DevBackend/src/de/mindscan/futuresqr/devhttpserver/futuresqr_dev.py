@@ -27,6 +27,7 @@ SOFTWARE.
 '''
 
 from fastapi import FastAPI, Form, HTTPException, status
+from fastapi.responses import JSONResponse ## TODO HTMLResponse
 
 from de.mindscan.futuresqr.scmtools.git.dev_local_git_access import calculateRecentRevisionsForLocalGitRepo, calculateDiffForSingleRevision,\
     calculateFileListForSingleRevision, calculateSimpleRevisionInformation, calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo,\
@@ -74,11 +75,11 @@ sessionDB = SessionDatabase({})
 ### REST Endpoints
 ### --------------
 
-@app.get("/")
+@app.get("/", response_class=JSONResponse)
 def read_root():
     return {"message":"Hello World! It works! But now, go away!"}
 
-@app.get("/FutureSQR/rest/user/starredprojects")
+@app.get("/FutureSQR/rest/user/starredprojects", response_class=JSONResponse)
 def getUserStarredProjects(user_uuid:str = ""):
     # Either get the user_UUID from the session or from the URL
     # if from the  URL, does it need protection, eg validation against current user in session?
@@ -86,7 +87,7 @@ def getUserStarredProjects(user_uuid:str = ""):
     result = projectDB.getAllStarredUserProjects(user_uuid)
     return result
 
-@app.get("/FutureSQR/rest/user/allaccessibleprojetcs")
+@app.get("/FutureSQR/rest/user/allaccessibleprojetcs", response_class=JSONResponse)
 def getUserAllAccessibleProjects(user_uuid: str = ""):
     # this userid needs to be checked. the user id mus come from the authorized session
     # for some time it would be acceptable to hava a get url parameter for this, but for
@@ -94,7 +95,7 @@ def getUserAllAccessibleProjects(user_uuid: str = ""):
     result = projectDB.getAllUserProjects(user_uuid)
     return result
 
-@app.get("/FutureSQR/rest/project/{projectid}/recentcommits")
+@app.get("/FutureSQR/rest/project/{projectid}/recentcommits", response_class=JSONResponse)
 def getProjectRevisions(projectid:str):
     if projectDB.hasProjectLocalPath(projectid):
         # TODO: cache this answer for some time and/or limit the number of results?
@@ -115,7 +116,7 @@ def getProjectRevisions(projectid:str):
     result = {'revisions':[]}
     return result
 
-@app.get("/FutureSQR/rest/project/{projectid}/recentcommitsfromrevid/{fromrevisionid}")
+@app.get("/FutureSQR/rest/project/{projectid}/recentcommitsfromrevid/{fromrevisionid}", response_class=JSONResponse)
 def getProjectRevisionsSinceCommitId(projectid: str, fromrevisionid:str):
     if projectDB.hasProjectLocalPath(projectid):
         fullScmPath = systemConfiguration.calculateScmCacheFolder(projectDB.getProjectLocalPath(projectid))        
@@ -135,7 +136,7 @@ def getProjectRevisionsSinceCommitId(projectid: str, fromrevisionid:str):
     return result
 
 
-@app.get("/FutureSQR/rest/project/{projectid}/information")
+@app.get("/FutureSQR/rest/project/{projectid}/information", response_class=JSONResponse)
 def getSimpleProjectInformation(projectid:str):
     if projectDB.isProjectIdPresent(projectid):
         projectInfo = projectDB.getProjectConfiguration(projectid)
@@ -145,7 +146,7 @@ def getSimpleProjectInformation(projectid:str):
     return rseult
     
 
-@app.get("/FutureSQR/rest/project/{projectid}/revisiondiff/{revisionid}")
+@app.get("/FutureSQR/rest/project/{projectid}/revisiondiff/{revisionid}", response_class=JSONResponse)
 def getProjectRevisionDiffToPrevious(projectid:str, revisionid:str):
     if projectDB.hasProjectLocalPath(projectid):
         fullScmPath = systemConfiguration.calculateScmCacheFolder(projectDB.getProjectLocalPath(projectid))
@@ -155,7 +156,7 @@ def getProjectRevisionDiffToPrevious(projectid:str, revisionid:str):
     result = {}
     return result
 
-@app.get("/FutureSQR/rest/project/{projectid}/revisionfilecontent/{revisionid}")
+@app.get("/FutureSQR/rest/project/{projectid}/revisionfilecontent/{revisionid}", response_class=JSONResponse)
 def getParticularFileRevisionContent(projectid:str, revisionid:str, filepath:str):
     if(projectDB.hasProjectLocalPath(projectid)):
         fullScmPath = systemConfiguration.calculateScmCacheFolder(projectDB.getProjectLocalPath(projectid))
@@ -165,7 +166,7 @@ def getParticularFileRevisionContent(projectid:str, revisionid:str, filepath:str
     result = {}
     return result
 
-@app.get("/FutureSQR/rest/project/{projectid}/filehistory")
+@app.get("/FutureSQR/rest/project/{projectid}/filehistory", response_class=JSONResponse)
 def getParticularRevisionsForFile(projectid:str, filepath:str):
     if(projectDB.hasProjectLocalPath(projectid)):
         fullScmPath = systemConfiguration.calculateScmCacheFolder(projectDB.getProjectLocalPath(projectid))
@@ -175,7 +176,7 @@ def getParticularRevisionsForFile(projectid:str, filepath:str):
     result = {}
     return result
 
-@app.get("/FutureSQR/rest/project/{projectid}/reviewdiff/{reviewid}")
+@app.get("/FutureSQR/rest/project/{projectid}/reviewdiff/{reviewid}", response_class=JSONResponse)
 def getProjectReviewDiff(projectid:str, reviewid:str):
     if projectDB.hasProjectLocalPath(projectid):
         reviewData = getReviewData(projectid, reviewid)
@@ -186,7 +187,7 @@ def getProjectReviewDiff(projectid:str, reviewid:str):
     result = {}
     return result
 
-@app.get("/FutureSQR/rest/project/{projectid}/revisionfilelist/{revisionid}")
+@app.get("/FutureSQR/rest/project/{projectid}/revisionfilelist/{revisionid}", response_class=JSONResponse)
 def getProjectRevisionFileListDiffToPrevious(projectid:str, revisionid:str):
     if projectDB.hasProjectLocalPath(projectid):
         fullScmPath = systemConfiguration.calculateScmCacheFolder(projectDB.getProjectLocalPath(projectid))
@@ -196,7 +197,7 @@ def getProjectRevisionFileListDiffToPrevious(projectid:str, revisionid:str):
     result = {}
     return result
 
-@app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/filelist")
+@app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/filelist", response_class=JSONResponse)
 def getProjectReviewFileList(projectid:str, reviewid:str):
     if projectDB.hasProjectLocalPath(projectid):
         reviewData = getReviewData(projectid, reviewid)
@@ -208,7 +209,7 @@ def getProjectReviewFileList(projectid:str, reviewid:str):
     return result
 
 
-@app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/information")
+@app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/information", response_class=JSONResponse)
 def getReviewData(projectid:str, reviewid:str):
     if projectDB.isProjectIdPresent(projectid):
         return reviewDB.selectReviewByReviewId(projectid, reviewid);
@@ -216,7 +217,7 @@ def getReviewData(projectid:str, reviewid:str):
     result = {}
     return result
 
-@app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/revisiondetails")
+@app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/revisiondetails", response_class=JSONResponse)
 def getReviewRevisionInformation(projectid:str, reviewid:str):
     if projectDB.isProjectIdPresent(projectid):
         # get revison numbers from review
@@ -229,7 +230,7 @@ def getReviewRevisionInformation(projectid:str, reviewid:str):
     result = []
     return result
 
-@app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/suggestedreviewers")
+@app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/suggestedreviewers", response_class=JSONResponse)
 def getSuggestedReviewersForReview(projectid:str, reviewid:str):
     # TODO query which user might be useful for a given projectid + reviewid
     # We want to return the uuid's of the users, or we might already resolve them / which makes things in the frontend easier.
@@ -250,7 +251,7 @@ def getSuggestedReviewersForReview(projectid:str, reviewid:str):
 
 
 
-@app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/threads")
+@app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/threads", response_class=JSONResponse)
 def getReviewThreadsInformation(projectid:str, reviewid:str):
     threadlist = reviewThreadsDB.selectThreadsForReview(projectid, reviewid)
     if len(threadlist) is 0:
@@ -260,7 +261,7 @@ def getReviewThreadsInformation(projectid:str, reviewid:str):
     return {'allreviewthreads': result} 
     
     
-@app.get("/FutureSQR/rest/project/{projectid}/recentreviews")    
+@app.get("/FutureSQR/rest/project/{projectid}/recentreviews", response_class=JSONResponse)    
 def getRecentReviews(projectid:str):
     if projectDB.isProjectIdPresent(projectid):
         result = {
@@ -272,7 +273,7 @@ def getRecentReviews(projectid:str):
     rseult = {}
     return rseult
 
-@app.get("/FutureSQR/rest/project/{projectid}/revision/{revisionid}/information")
+@app.get("/FutureSQR/rest/project/{projectid}/revision/{revisionid}/information", response_class=JSONResponse)
 def getSimpleReviewInfomation(projectid:str, revisionid:str):
     if projectDB.hasProjectLocalPath(projectid):
         fullScmPath = systemConfiguration.calculateScmCacheFolder(projectDB.getProjectLocalPath(projectid))
@@ -297,7 +298,7 @@ def getSimpleReviewInfomation(projectid:str, revisionid:str):
 ###
 ### #########################################
         
-@app.post("/FutureSQR/rest/project/{projectid}/star")
+@app.post("/FutureSQR/rest/project/{projectid}/star", response_class=JSONResponse)
 def postStarProjectForUser(projectid:str, userid:str=Form(...)):
     if not projectDB.isProjectIdPresent(projectid):
         return {} 
@@ -308,7 +309,7 @@ def postStarProjectForUser(projectid:str, userid:str=Form(...)):
     
     return {}
 
-@app.post("/FutureSQR/rest/project/{projectid}/unstar")
+@app.post("/FutureSQR/rest/project/{projectid}/unstar", response_class=JSONResponse)
 def postUnstarProjectForUser(projectid:str, userid:str=Form(...)):
     if not projectDB.isProjectIdPresent(projectid):
         return {} 
@@ -326,21 +327,21 @@ def postUnstarProjectForUser(projectid:str, userid:str=Form(...)):
 ###
 ### #################################################
 
-@app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/createthread")
+@app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/createthread", response_class=JSONResponse)
 def postCreateNewReviewThread(projectid:str, reviewid:str, authorid:str = Form(...), message:str =Form(...) ):
     # todo, we need some privileges check here in future....
     newthreaduuid=threadsDB.createNewThread(message, authorid)
     reviewThreadsDB.addThreadToReview(projectid, reviewid, newthreaduuid)
     return {}
 
-@app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/replythread")
+@app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/replythread", response_class=JSONResponse)
 def postReplyToReviewThread(projectid:str, reviewid:str, threadid:str =Form(...), replytoid:str = Form(...), authorid:str = Form(...), message:str =Form(...) ):
     # we actually don't need project id and reviewid here, but we need this for privileges check,
     # and also checks that the id's all exists properly
     messageuuid = threadsDB.createMessageResponse(threadid, replytoid, message, authorid)
     return {}
 
-@app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/editmessage")
+@app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/editmessage", response_class=JSONResponse)
 def updateThreadMessage(projectid:str, reviewid:str, threadid:str=Form(...), messageid:str = Form(...), authorid:str = Form(...), newmessage:str=Form(...)):
     # we want the project id and the review id, threadid here for privilege checks
     # also we want to make sure that the projectid the reviewid and the threadid, authorid is checked before the update
@@ -354,7 +355,7 @@ def updateThreadMessage(projectid:str, reviewid:str, threadid:str=Form(...), mes
 ### #########################################
 
 # to create a new review from a revision
-@app.post("/FutureSQR/rest/project/{projectid}/review/create")
+@app.post("/FutureSQR/rest/project/{projectid}/review/create", response_class=JSONResponse)
 def postCreateNewReview(projectid:str, revisionid:str = Form(...)):
     if not projectDB.isProjectIdPresent(projectid):
         return {} 
@@ -397,7 +398,7 @@ def postCreateNewReview(projectid:str, revisionid:str = Form(...)):
     
     
     
-@app.post("/FutureSQR/rest/project/{projectid}/review/close")
+@app.post("/FutureSQR/rest/project/{projectid}/review/close", response_class=JSONResponse)
 def postCloseReview(projectid:str, reviewid:str = Form(...)):
     if projectDB.isProjectIdPresent(projectid):
         reviewDB.updateCloseReviewByReviewId(projectid, reviewid)
@@ -406,16 +407,16 @@ def postCloseReview(projectid:str, reviewid:str = Form(...)):
     return result
     
     
-@app.post("/FutureSQR/rest/project/{projectid}/review/reopen")
+@app.post("/FutureSQR/rest/project/{projectid}/review/reopen", response_class=JSONResponse)
 def postReopenReview(projectid:str, reviewid:str=Form(...)):
     if projectDB.isProjectIdPresent(projectid):
-        reviewDB.updateReopenReviewByReviewId(projectid, reviewid)
+        reviewDB.updateReopenReviewByReviewId(projectid, reviewid, response_class=JSONResponse)
     
     result = {}
     return result
     
 
-@app.post("/FutureSQR/rest/project/{projectid}/review/delete")
+@app.post("/FutureSQR/rest/project/{projectid}/review/delete", response_class=JSONResponse)
 def postDeleteReview(projectid:str, reviewid:str = Form(...)):
     if projectDB.isProjectIdPresent(projectid):
         reviewDB.updateDeleteReviewByReviewId(projectid, reviewid)
@@ -424,7 +425,7 @@ def postDeleteReview(projectid:str, reviewid:str = Form(...)):
     return result
 
 
-@app.post("/FutureSQR/rest/project/{projectid}/review/addreviewer")
+@app.post("/FutureSQR/rest/project/{projectid}/review/addreviewer", response_class=JSONResponse)
 def postAddReviewerToReview(projectid:str, reviewid:str = Form(...), reviewerid:str = Form(...)):
     if projectDB.isProjectIdPresent(projectid):
         reviewDB.insertReviewerToReview(projectid, reviewid, reviewerid)
@@ -433,7 +434,7 @@ def postAddReviewerToReview(projectid:str, reviewid:str = Form(...), reviewerid:
     return result
 
 
-@app.post("/FutureSQR/rest/project/{projectid}/review/removereviewer")
+@app.post("/FutureSQR/rest/project/{projectid}/review/removereviewer", response_class=JSONResponse)
 def postRemoveReviewerFromReview(projectid:str, reviewid:str = Form(...), reviewerid:str = Form(...)):
     if projectDB.isProjectIdPresent(projectid):
         reviewDB.deleteReviewerFromReview(projectid, reviewid, reviewerid)
@@ -442,21 +443,21 @@ def postRemoveReviewerFromReview(projectid:str, reviewid:str = Form(...), review
     return result
     
 
-@app.post("/FutureSQR/rest/project/{projectid}/review/approvereview")
+@app.post("/FutureSQR/rest/project/{projectid}/review/approvereview", response_class=JSONResponse)
 def postReviewApprove(projectid:str, reviewid:str = Form(...), reviewerid:str = Form(...)):
     if projectDB.isProjectIdPresent(projectid):
         reviewDB.approveReview(projectid, reviewid, reviewerid)
     result = {}
     return result
 
-@app.post("/FutureSQR/rest/project/{projectid}/review/concernreview")
+@app.post("/FutureSQR/rest/project/{projectid}/review/concernreview", response_class=JSONResponse)
 def postReviewConcern(projectid:str, reviewid:str = Form(...), reviewerid:str = Form(...)):
     if projectDB.isProjectIdPresent(projectid):
         reviewDB.concernReview(projectid, reviewid, reviewerid)
     result = {}
     return result
 
-@app.post("/FutureSQR/rest/project/{projectid}/review/resetreview")
+@app.post("/FutureSQR/rest/project/{projectid}/review/resetreview", response_class=JSONResponse)
 def postReviewReset( projectid:str, reviewid:str=Form(...), reviewerid:str = Form(...)):
     if projectDB.isProjectIdPresent(projectid):
         # reviewDB.resetReview(projectid, reviewid, reviewerid)
@@ -465,7 +466,7 @@ def postReviewReset( projectid:str, reviewid:str=Form(...), reviewerid:str = For
     return result
     
 
-@app.post("/FutureSQR/rest/project/{projectid}/review/appendrevision")
+@app.post("/FutureSQR/rest/project/{projectid}/review/appendrevision", response_class=JSONResponse)
 def postAppendRevisionToReview(projectid:str, reviewid:str = Form(...), revisionid:str = Form(...)):
     if projectDB.isProjectIdPresent(projectid):
         # get all revisions since first revision no previous revision can be addded 
@@ -478,14 +479,14 @@ def postAppendRevisionToReview(projectid:str, reviewid:str = Form(...), revision
     result = {}
     return result
 
-@app.post("/FutureSQR/rest/project/{projectid}/review/removerevision")
+@app.post("/FutureSQR/rest/project/{projectid}/review/removerevision", response_class=JSONResponse)
 def postRemoveRevisionFromReviw(projectid:str, reviewid:str = Form(...), revisionid: str = Form(...)):
     if projectDB.isProjectIdPresent(projectid):
         reviewDB.removeRevisionFromReview(projectid, reviewid, revisionid)
     result = {}
     return result
 
-@app.post("/FutureSQR/rest/project/{projectid}/updatecache")
+@app.post("/FutureSQR/rest/project/{projectid}/updatecache", response_class=JSONResponse)
 def postUpdateProjectCache(projectid: str):
     if projectDB.hasProjectLocalPath(projectid):
         project_branch_name = projectDB.getProjectBranchName(projectid)
@@ -508,7 +509,7 @@ def postUpdateProjectCache(projectid: str):
 ###
 ### #########################################
 
-@app.get("/FutureSQR/rest/user/userdictionary")
+@app.get("/FutureSQR/rest/user/userdictionary", response_class=JSONResponse)
 def getSimpleUserDictionary():
     # this one should be reduced to a map
     # key (uuid) -> array of [uuid, displayname, avatarlocation, isbanned]
@@ -526,7 +527,7 @@ def getSimpleUserDictionary():
 ###
 ### #########################################
 
-@app.post("/FutureSQR/rest/user/authenticate")
+@app.post("/FutureSQR/rest/user/authenticate", response_class=JSONResponse)
 def postLoginData(
         username:str = Form(...), 
         password:str = Form(...)):
@@ -567,7 +568,7 @@ def postLoginData(
         'capabilities': capabilities,
         }
 
-@app.post("/FutureSQR/rest/user/reauthenticate")
+@app.post("/FutureSQR/rest/user/reauthenticate", response_class=JSONResponse)
 def postReauthenticateLoginData(
             assumedusername: str = Form(...)
         ):
@@ -600,7 +601,7 @@ def postReauthenticateLoginData(
         }
 
     
-@app.get("/FutureSQR/rest/user/csrf")
+@app.get("/FutureSQR/rest/user/csrf", response_class=JSONResponse)
 def getCrsfToken():
     return {
             'headerName': "HeaderName",
@@ -609,7 +610,7 @@ def getCrsfToken():
         }
     
 
-@app.post("/FutureSQR/rest/user/logout")
+@app.post("/FutureSQR/rest/user/logout", response_class=JSONResponse)
 def postLogoutData(
         username: str = Form(...)
         ):
@@ -628,12 +629,12 @@ def postLogoutData(
 ### #########################################
 
 
-@app.get("/FutureSQR/rest/user/adminuserlist")
+@app.get("/FutureSQR/rest/user/adminuserlist", response_class=JSONResponse)
 def getUserManagementUserList():
     # this one is meant to be used for administration purposes.
     return usersDB.selectAllUSers()
 
-@app.post("/FutureSQR/rest/user/ban")
+@app.post("/FutureSQR/rest/user/ban", response_class=JSONResponse)
 def banUser(userUuid:str = Form(...)):
     # TODO check user token, if eligible
     
@@ -648,7 +649,7 @@ def banUser(userUuid:str = Form(...)):
     return {}
 
 
-@app.post("/FutureSQR/rest/user/unban")
+@app.post("/FutureSQR/rest/user/unban", response_class=JSONResponse)
 def unbanUser(userUuid:str = Form(...)):
     # TODO check user token, if eligible
     
@@ -663,7 +664,7 @@ def unbanUser(userUuid:str = Form(...)):
     return {}
 
 
-@app.post("/FutureSQR/rest/user/add")
+@app.post("/FutureSQR/rest/user/add", response_class=JSONResponse)
 def addNewUser(
         userName:str = Form(...), 
         password:str = Form(...), 
