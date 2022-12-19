@@ -16,6 +16,7 @@ import { BackendModelProjectSimpleInformation } from '../model/backend-model-pro
 import { BackendModelProjectRecentCommitRevision } from '../model/backend-model-project-recent-commit-revision';
 import { BackendModelThreadsData } from '../model/backend-model-threads-data';
 import { BackendModelRevisionFileContent } from '../model/backend-model-revision-file-content';
+import { BackendModelSingleFileCommitHistory } from '../model/backend-model-single-file-commit-history';
 
 // ---- user type backend data
 import { BackendModelSimpleUserDictionary } from '../model/backend-model-simple-user-dictionary';
@@ -119,7 +120,15 @@ export class ProjectDataQueryBackendService {
 		return this.httpClient
 				.get<BackendModelRevisionFileContent>(url, { params: params })
 				.pipe(first());
+	}
+	
+	getParticularFileCommitHistory(projectid:string, filepath:string): Observable<BackendModelSingleFileCommitHistory> {
+		var url = `/FutureSQR/rest/project/${projectid}/filehistory`;
+		let params = new HttpParams().set('filepath',filepath);
 		
+		return this.httpClient
+				.get<BackendModelSingleFileCommitHistory>(url, { params: params })
+				.pipe(first());
 	}
 	
 	getReviewRevisionDiffFullChangeSet(projectid:string, reviewid:string) : Observable<BackendModelSingleCommitFullChangeSet> {

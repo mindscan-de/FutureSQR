@@ -14,6 +14,7 @@ import { TransformCommitRevision } from '../../m2m/transform-commit-revision';
 // BackendModel - should be actually a ui model
 import { BackendModelProjectRecentCommitRevision } from '../../backend/model/backend-model-project-recent-commit-revision';
 import { BackendModelRevisionFileContent } from '../../backend/model/backend-model-revision-file-content';
+import { BackendModelSingleFileCommitHistory } from '../../backend/model/backend-model-single-file-commit-history';
 
 // ui Model
 import { UiReviewFileInformation } from '../../commonui/uimodel/ui-review-file-information';
@@ -29,7 +30,10 @@ export class SingleFileRevisionPageComponent implements OnInit {
 	public activeRevisionID: string = '';
 	public activeFilePath: string = '';
 	public uiActiveFileInformation: UiReviewFileInformation = new UiReviewFileInformation(".html","",true);
+	// TODO: make this a ui model in future
 	public uiOtherFileRevisions: BackendModelProjectRecentCommitRevision[] = [];
+	// TODO: make this a ui model in future
+	public uiOtherFileCommits: BackendModelSingleFileCommitHistory = new BackendModelSingleFileCommitHistory();
 	public uiFileInformations: UiReviewFileInformation[] = [];
 	
 	// TODO: make this a ui model in future.
@@ -70,7 +74,16 @@ export class SingleFileRevisionPageComponent implements OnInit {
 			error => console.log(error)
 		);
 		
-		this.route.queryParams.subscribe(p => this.onUpdateQuery(p.p));
+		// provide file history
+		this.projectDataQueryBackend.getParticularFileCommitHistory(this.activeProjectID, this.activeFilePath).subscribe(
+			data => this.onFileHistoryProvided(data),
+			error => console.log(error)
+		);
+		
+		// subscription when filepath changes - so we can load a different file.
+		this.route.queryParams.subscribe(queryParams => this.onUpdateQuery(queryParams.p));
+		
+		// TODO? subscription when paramMap changes - so we can load a different revision and revision content.
 	}
 	
 	onFileListActionsProvided( fileInformations : UiReviewFileInformation[]) : void {
@@ -91,6 +104,11 @@ export class SingleFileRevisionPageComponent implements OnInit {
 		this.uiActiveFileInformation = new UiReviewFileInformation(this.activeFilePath, "", true);
 		
 		this.setNavigation();
+	}
+	
+	onFileHistoryProvided( fileCommitHistory: BackendModelSingleFileCommitHistory): void {
+		// TODO: transform to uiModel.
+		this.uiOtherFileCommits = fileCommitHistory;
 	}
 	
 	onUpdateQuery(newPath:string): void {
