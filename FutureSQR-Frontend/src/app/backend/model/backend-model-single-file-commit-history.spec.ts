@@ -2,6 +2,6 @@ import { BackendModelSingleFileCommitHistory } from './backend-model-single-file
 
 describe('BackendModelSingeFileCommitHistory', () => {
   it('should create an instance', () => {
-    expect(new BackendModelSingeFileCommitHistory()).toBeTruthy();
+    expect(new BackendModelSingleFileCommitHistory()).toBeTruthy();
   });
 });
