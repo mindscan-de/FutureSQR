@@ -1,4 +1,4 @@
-import { BackendModelSingeFileCommitHistory } from './backend-model-singe-file-commit-history';
+import { BackendModelSingleFileCommitHistory } from './backend-model-single-file-commit-history';
 
 describe('BackendModelSingeFileCommitHistory', () => {
   it('should create an instance', () => {
