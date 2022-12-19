@@ -108,7 +108,7 @@ export class SingleFileRevisionPageComponent implements OnInit {
 	
 	onFileHistoryProvided( fileCommitHistory: BackendModelSingleFileCommitHistory): void {
 		// TODO: transform to uiModel.
-		this.uiOtherFileCommits = fileCommitHistory;
+		this.uiOtherFileRevisions = fileCommitHistory.revisions;
 	}
 	
 	onUpdateQuery(newPath:string): void {

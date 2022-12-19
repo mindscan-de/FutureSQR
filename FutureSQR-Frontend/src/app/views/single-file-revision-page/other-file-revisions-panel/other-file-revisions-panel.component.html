@@ -1,15 +1,21 @@
 <div class="card mt-2">
 	<div class="card-header">
-		Other File Revisions
+		<span class="small text-muted"><b class="mr-2">Other File Revision(s):</b></span><span class="badge badge-light text-muted" title="Number of revisions for this file">{{uiOtherRevisions.length}}</span>
 	</div>
-	<div class="card-body">
-		<p>other-file-revisions-panel works!</p>
-		<p>here we provide the navigation for other revisons of the same file. link to revision and link to file.</p>
-		<ul>
-			<!-- set to list-item-active in case it is the list item which is uiActiveRevisionID -->
-			<li *ngFor="let revision of uiOtherRevisions">
-				revision
-			</li>
-		</ul>
-	</div>
+	<ul class="list-group list-group-flush">
+ 	<li class ="list-group-item">
+ 		<ul class="list-unstyled ml-2 mr-2">
+		<li class="mb-2" *ngFor="let revision of uiOtherRevisions" [ngClass]="{'bg-light':revision.revisionid==uiActiveRevisionID}">
+			<div class="small" title="{{revision.shortrev}} -- {{revision.revisionid}}" >
+				<div>
+					<b>{{revision.message}}</b>
+				</div>
+				<div >
+					<span class="text-muted"><span class="mr-2"><app-avatar-only [size]="18" [uuid]="revision.authorUuid"></app-avatar-only></span>created <span title="{{revision.date}}">{{revision.shortdate}}</span> by {{revision.authorname}}</span>
+				</div>
+			</div>
+		</li>
+ 		</ul>
+	</li>
+	</ul>
 </div>
