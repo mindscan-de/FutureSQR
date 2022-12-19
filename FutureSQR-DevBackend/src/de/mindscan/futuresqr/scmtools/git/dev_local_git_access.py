@@ -299,7 +299,7 @@ def getParticularFileHistory(local_git_repo_path:str, filepath:str):
     
     git_parameters = [
         'log',
-        '--follow'
+        '--follow', ## Problem with renames, actually we need both with and without follow. to determine, where a file was renamed.
         '--pretty=format:%x1f'+formatdetails+'%x1e',
         '--',
         filepath
@@ -310,10 +310,11 @@ def getParticularFileHistory(local_git_repo_path:str, filepath:str):
     revisions = parse_log_by_rs_us(log, GIT_FIELDS)
     revisions = XXX_append_uuid_to_revisionlistitems(revisions)
     
-    pass
+    return {
+        'filePath':filepath,
+        'revisions':revisions
+        }
 
-# This will be interesting such that the file can be received and shown in the tool.
-# the revision id can be from the commit/revision id (??todo: test if also the file hash can be given??) 
 def getParticularRevisionContentForFile(local_git_repo_path:str, revisionid:str, filepath:str):
     
     git_parameters = [
@@ -324,8 +325,6 @@ def getParticularRevisionContentForFile(local_git_repo_path:str, revisionid:str,
     
     revisionFileContent = __execute_git_command_on_local_repo(local_git_repo_path, git_parameters)
     
-    ## actually we should also provide some more info - like date and committer and commitcomment?
-    ## should we combine these here or should that be combined at a higher layer?
     return {
         'filePath':filepath,
         'fileRevision':revisionid,
