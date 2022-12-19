@@ -113,7 +113,7 @@ export class SingleFileRevisionPageComponent implements OnInit {
 	
 	onUpdateQuery(newPath:string): void {
 		// we actually need to update the file history also, when we access a different file.
-		this.projectDataQueryBackend.getParticularFileCommitHistory(this.activeProjectID, this.activeFilePath).subscribe(
+		this.projectDataQueryBackend.getParticularFileCommitHistory(this.activeProjectID, newPath).subscribe(
 			data => this.onFileHistoryProvided(data),
 			error => console.log(error)
 		);
