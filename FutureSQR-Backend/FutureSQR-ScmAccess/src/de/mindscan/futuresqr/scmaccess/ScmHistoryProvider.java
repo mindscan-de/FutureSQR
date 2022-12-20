@@ -25,18 +25,23 @@
  */
 package de.mindscan.futuresqr.scmaccess;
 
+import de.mindscan.futuresqr.scmaccess.types.ScmFileHistory;
+import de.mindscan.futuresqr.scmaccess.types.ScmPath;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
 /**
+ * Provides the history of 
+ * - files, 
+ * - repositories, 
+ * - branches, 
+ * - paths
  * 
+ * It handles more or less the meta data surrounding the files and the commits.
  */
-public interface ScmAccess {
+public interface ScmHistoryProvider {
 
-    // for the most part the meta information of the files and their history is the main entry point to understand
-    // the changes.
-    ScmHistoryProvider getHistoryProvider( ScmRepository repository );
-
-    // this is the part where we want to retrieve the content of the files
-    ScmContentProvider getContentProvider( ScmRepository repository );
+    // see getParticularFileHistory for context of this method.
+    // some modifications should be prossible: full history, limit (number of revisions in History, cut off date), until last copy / rename operation,   
+    ScmFileHistory getFilePathHistory( ScmRepository repository, ScmPath filePath );
 
 }

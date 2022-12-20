@@ -25,18 +25,19 @@
  */
 package de.mindscan.futuresqr.scmaccess;
 
+import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
+import de.mindscan.futuresqr.scmaccess.types.ScmPath;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
 /**
+ * This handles information related to the content of the files.
  * 
+ * - file content for a particular revision
+ * - maybe also the diffs - but maybe this should be part of a different scmProvider?
  */
-public interface ScmAccess {
+public interface ScmContentProvider {
 
-    // for the most part the meta information of the files and their history is the main entry point to understand
-    // the changes.
-    ScmHistoryProvider getHistoryProvider( ScmRepository repository );
-
-    // this is the part where we want to retrieve the content of the files
-    ScmContentProvider getContentProvider( ScmRepository repository );
+    // see getParticularRevisionContentForFile for context of this method
+    ScmFileContent getFileContentForRevision( ScmRepository repository, String revisionId, ScmPath filePath );
 
 }
