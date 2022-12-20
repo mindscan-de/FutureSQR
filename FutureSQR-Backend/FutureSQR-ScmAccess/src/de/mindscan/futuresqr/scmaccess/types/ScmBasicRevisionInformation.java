@@ -25,9 +25,31 @@
  */
 package de.mindscan.futuresqr.scmaccess.types;
 
+import java.util.List;
+
 /**
- * 
+ * For context: backend-model-project-recent-commit-revision.ts
  */
 public class ScmBasicRevisionInformation {
+
+    String shortRevisionId = "";
+    String revisionId = "";
+
+    String authorName = "";
+    String authorId = "";
+    String authorUuid = ""; // maybe this is actually part of the review system and should be handled by the review system
+
+    String date = ""; // this should be a long - timestamp (UTC), to be more efficient - Java and dates are a pain ...
+    String shortDate = "";
+    String relDate = "";
+
+    String message = "";
+
+    List<String> parentIds;
+    List<String> shortParentIds;
+
+    // Should not be part of the basic SCM Information, but something the review system provides as extra data.
+    boolean hasReview = false;
+    String reviewID = "";
 
 }
