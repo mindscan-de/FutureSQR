@@ -25,30 +25,16 @@
  */
 package de.mindscan.futuresqr.scmaccess.git;
 
-import de.mindscan.futuresqr.scmaccess.ScmContentProvider;
-import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
+import de.mindscan.futuresqr.scmaccess.git.command.GetFileContentForRevisionCommand;
 import de.mindscan.futuresqr.scmaccess.types.ScmPath;
-import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
 /**
  * 
  */
-public class GitScmContentProvider implements ScmContentProvider {
+public class GitCommandFactory {
 
-    private GitCLICommandExecutor executor = new GitCLICommandExecutor();
-
-    // Okay let's say we have a local repository for git
-    // lets say we have a configuration for
-
-    /** 
-     * {@inheritDoc}
-     */
-    @Override
-    public ScmFileContent getFileContentForRevision( ScmRepository repository, String revisionId, ScmPath filePath ) {
-
-        executor.execute( repository, GitCommandFactory.createGetFileContentForRevisionCommand( revisionId, filePath ) );
-
-        return null;
+    public static GitCommand createGetFileContentForRevisionCommand( String revisionId, ScmPath filePath ) {
+        return new GetFileContentForRevisionCommand( revisionId, filePath.getPath() );
     }
 
 }
