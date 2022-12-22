@@ -33,6 +33,15 @@ import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
  */
 public class ScmFileContentOutputProcessor {
 
+    /**
+     * 
+     */
+    public ScmFileContentOutputProcessor() {
+        // TODO filename, fileRevision, repository, content
+        // TODO: interessant wäre, diese informationen gewissermaßen vom GitCliCommandOutput zu bekommen, bspw. 
+        //       wir das Gitcommand loggen lassen und das Repo und so und das alles wie zufällig im GitCLICommandOutput stehen würde.
+    }
+
     public ScmFileContent parse( GitCLICommandOutput output ) {
         ScmFileContent scmFileContent = new ScmFileContent();
 
