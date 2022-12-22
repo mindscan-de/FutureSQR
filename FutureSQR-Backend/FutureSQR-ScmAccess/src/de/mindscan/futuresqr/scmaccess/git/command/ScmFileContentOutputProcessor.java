@@ -23,26 +23,20 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.scmaccess.git;
+package de.mindscan.futuresqr.scmaccess.git.command;
 
-import de.mindscan.futuresqr.scmaccess.git.command.ScmFileContentOutputProcessor;
+import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutput;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
 
 /**
  * 
  */
-public class GitCLICommandOutput {
+public class ScmFileContentOutputProcessor {
 
-    private byte[] byteArray = new byte[0];
+    public ScmFileContent parse( GitCLICommandOutput output ) {
+        ScmFileContent scmFileContent = new ScmFileContent();
 
-    /**
-     * @param byteArray
-     */
-    public void setProcessOutput( byte[] byteArray ) {
-        this.byteArray = byteArray;
+        return scmFileContent;
     }
 
-    public ScmFileContent collect( ScmFileContentOutputProcessor processor ) {
-        return processor.parse( this );
-    }
 }
