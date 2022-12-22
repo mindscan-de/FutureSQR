@@ -23,18 +23,41 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.scmaccess.git;
+package de.mindscan.futuresqr.scmaccess.git.command;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import de.mindscan.futuresqr.scmaccess.git.GitCommand;
 
 /**
  * 
  */
-public abstract class GitCommand {
+public class GetFileContentForRevisionCommand extends GitCommand {
+
+    private String revisionId;
+    private String filePath;
 
     /**
-     * @return
+     * TODO: revisionId and filePath must be sanitized. 
      */
-    public abstract List<String> getArguments();
+    public GetFileContentForRevisionCommand( String revisionId, String filePath ) {
+        this.revisionId = revisionId;
+        this.filePath = filePath;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public List<String> getArguments() {
+        List<String> args = new ArrayList<String>();
+
+        args.add( "--no-pager" );
+        args.add( "show" );
+        args.add( revisionId + ":" + filePath );
+
+        return args;
+    }
 
 }
