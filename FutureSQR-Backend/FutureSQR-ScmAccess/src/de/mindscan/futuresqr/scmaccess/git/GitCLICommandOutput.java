@@ -25,7 +25,7 @@
  */
 package de.mindscan.futuresqr.scmaccess.git;
 
-import de.mindscan.futuresqr.scmaccess.git.command.ScmFileContentOutputProcessor;
+import de.mindscan.futuresqr.scmaccess.git.processor.ScmFileContentOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
 
 /**
