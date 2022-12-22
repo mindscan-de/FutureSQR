@@ -25,9 +25,58 @@
  */
 package de.mindscan.futuresqr.scmaccess.git;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
+import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
+
 /**
- * 
+ * Actually this needs to be executed from a queue and should use promises.
+ * Also we should think about thread switching and such.... otherwise the
+ * webserver will stall for each command. But this can be done later.
+ * this might be problematic if 100 users actually want to access the
+ * repositories for content.
  */
 public class GitCLICommandExecutor {
 
+    // start with hard coded git executable to make things work.
+    public static final String GIT_EXECUTABLE_PATH = "C:\\Program Files\\Git\\cmd\\git.exe";
+
+    public void execute( ScmRepository repository, GitCommand command ) {
+        List<String> gitCliCommand = buildCliCommand( repository, command );
+
+        try {
+            // use WaitFor()?
+            Process process = new ProcessBuilder( gitCliCommand ).start();
+            InputStream is = process.getInputStream();
+            InputStreamReader isr = new InputStreamReader( is );
+            BufferedReader br = new BufferedReader( isr );
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println( line );
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private List<String> buildCliCommand( ScmRepository repository, GitCommand command ) {
+        List<String> gitCliCommand = new ArrayList<String>();
+        gitCliCommand.add( GIT_EXECUTABLE_PATH );
+
+        // actually depends on repository and repository type
+        gitCliCommand.add( "-C" );
+        gitCliCommand.add( "D:\\Temp\\future-square-cache\\FutureSQR" );
+
+        gitCliCommand.addAll( command.getArguments() );
+
+        return gitCliCommand;
+    }
 }
