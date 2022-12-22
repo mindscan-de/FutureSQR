@@ -25,15 +25,8 @@
  */
 package de.mindscan.futuresqr.scmaccess.git;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import de.mindscan.futuresqr.scmaccess.ScmContentProvider;
+import de.mindscan.futuresqr.scmaccess.git.command.GetFileContentForRevisionCommand;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
 import de.mindscan.futuresqr.scmaccess.types.ScmPath;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
@@ -43,41 +36,18 @@ import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
  */
 public class GitScmContentProvider implements ScmContentProvider {
 
+    private GitCLICommandExecutor executor = new GitCLICommandExecutor();
+
     // Okay let's say we have a local repository for git
     // lets say we have a configuration for
-
-    // start with hard coded git executable to make things work.
-    public static final String GIT_EXECUTABLE_PATH = "C:\\Program Files\\Git\\cmd\\git.exe";
-
-    private void executeGitCommand( String[] parameters ) {
-        List<String> gitCommand = new ArrayList<String>();
-        gitCommand.add( GIT_EXECUTABLE_PATH );
-        gitCommand.addAll( Arrays.asList( parameters ) );
-
-        try {
-            Process process = new ProcessBuilder( gitCommand ).start();
-            InputStream is = process.getInputStream();
-            InputStreamReader isr = new InputStreamReader( is );
-            BufferedReader br = new BufferedReader( isr );
-
-            String line;
-            while ((line = br.readLine()) != null) {
-                System.out.println( line );
-            }
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     /** 
      * {@inheritDoc}
      */
     @Override
     public ScmFileContent getFileContentForRevision( ScmRepository repository, String revisionId, ScmPath filePath ) {
-        String[] parameters = { "-C", "D:\\Temp\\future-square-cache\\FutureSQR", "--no-pager", "show", revisionId + ":" + filePath.getPath() };
 
-        executeGitCommand( parameters );
+        executor.execute( repository, new GetFileContentForRevisionCommand( revisionId, filePath.getPath() ) );
 
         return null;
     }
