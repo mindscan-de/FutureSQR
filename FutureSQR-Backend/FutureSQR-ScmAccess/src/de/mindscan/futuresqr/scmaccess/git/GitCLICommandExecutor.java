@@ -25,10 +25,9 @@
  */
 package de.mindscan.futuresqr.scmaccess.git;
 
-import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,28 +45,34 @@ public class GitCLICommandExecutor {
     // start with hard coded git executable to make things work.
     public static final String GIT_EXECUTABLE_PATH = "C:\\Program Files\\Git\\cmd\\git.exe";
 
-    public void execute( ScmRepository repository, GitCommand command ) {
-        List<String> gitCliCommand = buildCliCommand( repository, command );
+    public GitCLICommandOutput execute( ScmRepository repository, GitCommand command ) {
+        List<String> gitCliCommand = buildCommandLine( repository, command );
+        GitCLICommandOutput gitCLICommandOutput = new GitCLICommandOutput();
 
-        try {
+        try (ByteArrayOutputStream os = new ByteArrayOutputStream()) {
             // use WaitFor()?
             Process process = new ProcessBuilder( gitCliCommand ).start();
             InputStream is = process.getInputStream();
-            InputStreamReader isr = new InputStreamReader( is );
-            BufferedReader br = new BufferedReader( isr );
+            byte buffer[] = new byte[1024];
+            int len;
 
-            String line;
-            while ((line = br.readLine()) != null) {
-                System.out.println( line );
+            // TODO: limit the output if necessary, but for now good enough
+            while ((len = is.read( buffer )) != -1) {
+                os.write( buffer, 0, len );
             }
+
+            gitCLICommandOutput.setProcessOutput( os.toByteArray() );
+
+            is.close();
         }
         catch (IOException e) {
             e.printStackTrace();
         }
 
+        return gitCLICommandOutput;
     }
 
-    private List<String> buildCliCommand( ScmRepository repository, GitCommand command ) {
+    private List<String> buildCommandLine( ScmRepository repository, GitCommand command ) {
         List<String> gitCliCommand = new ArrayList<String>();
         gitCliCommand.add( GIT_EXECUTABLE_PATH );
 
