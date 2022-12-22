@@ -45,7 +45,8 @@ public class GitScmContentProvider implements ScmContentProvider {
      */
     @Override
     public ScmFileContent getFileContentForRevision( ScmRepository repository, String revisionId, ScmPath filePath ) {
-
+        // TODO: record content and serve as file using a collector pattern
+        // e.g.  execute().collect(GitCollectors.toScmFileContent(repository, filePath));
         executor.execute( repository, GitCommandFactory.createGetFileContentForRevisionCommand( revisionId, filePath ) );
 
         return null;
