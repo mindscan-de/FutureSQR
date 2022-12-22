@@ -25,9 +25,16 @@
  */
 package de.mindscan.futuresqr.scmaccess.git;
 
+import java.util.List;
+
 /**
  * 
  */
-public class GitCommand {
+public abstract class GitCommand {
+
+    /**
+     * @return
+     */
+    public abstract List<? extends String> getArguments();
 
 }
