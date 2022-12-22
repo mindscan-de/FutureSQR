@@ -37,4 +37,10 @@ public abstract class GitCommand {
      */
     public abstract List<String> getArguments();
 
+    /**
+     * This command on a certain repositoy is either cachable or not cachable. It is assumed to be cacheable, 
+     * if under normal circumstances the result of executing this command will result in the same data.
+     * @return <code>true</code> if cacheable, <code>false</code> otherwise.
+     */
+    public abstract boolean isCacheable();
 }

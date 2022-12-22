@@ -60,4 +60,12 @@ public class GetFileContentForRevisionCommand extends GitCommand {
         return args;
     }
 
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isCacheable() {
+        return true;
+    }
+
 }
