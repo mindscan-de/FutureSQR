@@ -27,22 +27,61 @@ package de.mindscan.futuresqr.scmaccess.git;
 
 import de.mindscan.futuresqr.scmaccess.git.processor.ScmFileContentOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
+import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
 /**
  * 
  */
 public class GitCLICommandOutput {
 
-    private byte[] byteArray = new byte[0];
+    private byte[] outputBuffer = new byte[0];
+    private ScmRepository repository;
+    private GitCommand command;
 
     /**
-     * @param byteArray
+     * 
      */
-    public void setProcessOutput( byte[] byteArray ) {
-        this.byteArray = byteArray;
+    public GitCLICommandOutput( ScmRepository repositoy, GitCommand command ) {
+        this.repository = repositoy;
+        this.command = command;
+    }
+
+    /**
+     * @param processOutput
+     */
+    public void setProcessOutput( byte[] processOutput ) {
+        this.outputBuffer = processOutput;
     }
 
     public ScmFileContent collect( ScmFileContentOutputProcessor processor ) {
         return processor.parse( this );
+    }
+
+    /**
+     * @param repository
+     */
+    public void setRepository( ScmRepository repository ) {
+        this.repository = repository;
+    }
+
+    /**
+     * @return the repository
+     */
+    public ScmRepository getRepository() {
+        return this.repository;
+    }
+
+    /**
+     * @param command
+     */
+    public void setCommand( GitCommand command ) {
+        this.command = command;
+    }
+
+    /**
+     * @return the command
+     */
+    public GitCommand getCommand() {
+        return command;
     }
 }

@@ -47,7 +47,7 @@ public class GitCLICommandExecutor {
 
     public GitCLICommandOutput execute( ScmRepository repository, GitCommand command ) {
         List<String> gitCliCommand = buildCommandLine( repository, command );
-        GitCLICommandOutput gitCLICommandOutput = new GitCLICommandOutput();
+        GitCLICommandOutput gitCommandOutput = new GitCLICommandOutput( repository, command );
 
         try (ByteArrayOutputStream os = new ByteArrayOutputStream()) {
             // use WaitFor()?
@@ -61,7 +61,7 @@ public class GitCLICommandExecutor {
                 os.write( buffer, 0, len );
             }
 
-            gitCLICommandOutput.setProcessOutput( os.toByteArray() );
+            gitCommandOutput.setProcessOutput( os.toByteArray() );
 
             is.close();
         }
@@ -69,7 +69,7 @@ public class GitCLICommandExecutor {
             e.printStackTrace();
         }
 
-        return gitCLICommandOutput;
+        return gitCommandOutput;
     }
 
     private List<String> buildCommandLine( ScmRepository repository, GitCommand command ) {
