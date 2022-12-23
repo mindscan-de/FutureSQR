@@ -52,11 +52,14 @@ public class ScmFileContentOutputProcessor implements GitCLICommandOutputProcess
 
         scmFileContent.scmRepository = output.getRepository();
         // actually the charset should be determined, like cp-1252 and such, so it can be properly converted to UTF-8
+        // using some useful tables, 
         scmFileContent.fileContent = new String( output.getProcessOutput(), StandardCharsets.UTF_8 );
 
-        // TODO: filename, fileRevision?
+        // TODO: extract this info from gitCommand / use some kind of accessor...
+        // GitCommand gitCommand = output.getCommand();
+        scmFileContent.filePath = "unkonwn@ScmFileContentOutputProcessor";
+        scmFileContent.fileRevisionId = "unknown@ScmFileContentOutputProcessor";
 
-        // 
         return scmFileContent;
     }
 
