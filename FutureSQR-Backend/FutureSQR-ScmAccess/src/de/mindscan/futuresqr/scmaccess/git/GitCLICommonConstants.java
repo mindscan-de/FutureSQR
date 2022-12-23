@@ -23,50 +23,21 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.scmaccess.git.command;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import de.mindscan.futuresqr.scmaccess.git.GitCLICommonConstants;
-import de.mindscan.futuresqr.scmaccess.git.GitCommand;
+package de.mindscan.futuresqr.scmaccess.git;
 
 /**
  * 
  */
-public class GetFileContentForRevisionCommand extends GitCommand {
-
-    private String revisionId;
-    private String filePath;
+public class GitCLICommonConstants {
 
     /**
-     * TODO: revisionId and filePath must be sanitized. 
+     * git "show" command
      */
-    public GetFileContentForRevisionCommand( String revisionId, String filePath ) {
-        this.revisionId = revisionId;
-        this.filePath = filePath;
-    }
+    public static final String GIT_COMMAND_SHOW = "show";
 
-    /** 
-     * {@inheritDoc}
+    /**
+     * Constant to avoid paging in git command line tool
      */
-    @Override
-    public List<String> getArguments() {
-        List<String> args = new ArrayList<String>();
-
-        args.add( GitCLICommonConstants.NO_PAGER );
-        args.add( GitCLICommonConstants.GIT_COMMAND_SHOW );
-        args.add( revisionId + ":" + filePath );
-
-        return args;
-    }
-
-    /** 
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isCacheable() {
-        return true;
-    }
+    public static final String NO_PAGER = "--no-pager";
 
 }
