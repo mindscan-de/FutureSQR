@@ -30,10 +30,26 @@ package de.mindscan.futuresqr.scmaccess.git;
  */
 public class GitCLICommonConstants {
 
-    /**
+    /** 
      * git "show" command
      */
     public static final String GIT_COMMAND_SHOW = "show";
+
+    /** 
+     * git "log" command
+     */
+    public static final String GIT_COMMAND_LOG = "log";
+
+    /**
+     * This list contains the meanings of the List in GitCLICommonConstants.GIT_FORMAT_PARAMS.
+     */
+    public static final String[] GIT_FORMAT_FIELDS = { "shortrev", "revisionid", "authorname", "authorid", "date", "shortdate", "reldate", "parents",
+                    "parentsshort", "message" };
+    /**
+     * This list contains the identifiers for the git --pretty=format:xyz arguments. This Array is liked to GitCLICommonConstants.GIT_FORMAT_FIELDS}
+     * This list is used for multiple instances of the --pretty formatter syntax 
+     */
+    public static final String[] GIT_FORMAT_PARAMS = { "%h", "%H", "%an", "%ae", "%ad", "%as", "%ar", "%P", "%p", "%s" };
 
     /**
      * Constant to avoid paging in git command line tool
