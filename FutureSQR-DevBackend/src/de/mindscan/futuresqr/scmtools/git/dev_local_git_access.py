@@ -315,6 +315,7 @@ def getParticularFileHistory(local_git_repo_path:str, filepath:str):
         'revisions':revisions
         }
 
+# Java:implementation :: GitScmContentProvider.getFileContentForRevision
 def getParticularRevisionContentForFile(local_git_repo_path:str, revisionid:str, filepath:str):
     
     git_parameters = [
@@ -327,7 +328,7 @@ def getParticularRevisionContentForFile(local_git_repo_path:str, revisionid:str,
     
     return {
         'filePath':filepath,
-        'fileRevision':revisionid,
+        'fileRevisionId':revisionid,
         'fileContent':revisionFileContent
         }
     
