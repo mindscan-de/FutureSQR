@@ -29,8 +29,10 @@ package de.mindscan.futuresqr.scmaccess.types;
  * 
  */
 public class ScmFileContent {
+    public ScmRepository scmRepository;
+
     // filepath
-    // scmRepository
     // fileRevisionid
-    // fileContent
+
+    public String fileContent;
 }

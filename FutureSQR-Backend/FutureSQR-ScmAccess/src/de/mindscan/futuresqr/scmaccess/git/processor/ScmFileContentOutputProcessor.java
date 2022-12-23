@@ -25,6 +25,8 @@
  */
 package de.mindscan.futuresqr.scmaccess.git.processor;
 
+import java.nio.charset.StandardCharsets;
+
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutput;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
 
@@ -44,8 +46,8 @@ public class ScmFileContentOutputProcessor {
 
     public ScmFileContent parse( GitCLICommandOutput output ) {
         ScmFileContent scmFileContent = new ScmFileContent();
-        // output.getRepository();
-        // output.getCommand();
+        scmFileContent.scmRepository = output.getRepository();
+        scmFileContent.fileContent = new String( output.getProcessOutput(), StandardCharsets.UTF_8 );
 
         return scmFileContent;
     }

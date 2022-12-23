@@ -26,6 +26,7 @@
 package de.mindscan.futuresqr.scmaccess.git;
 
 import de.mindscan.futuresqr.scmaccess.ScmContentProvider;
+import de.mindscan.futuresqr.scmaccess.git.processor.ScmFileContentOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
 import de.mindscan.futuresqr.scmaccess.types.ScmPath;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
@@ -49,9 +50,11 @@ public class GitScmContentProvider implements ScmContentProvider {
         // e.g.  execute().collect(GitCollectors.toScmFileContent(repository, filePath));
         // more simple, add a collector to the execute command directly and return Type T of the Collector
         // even more simple: add different executeCommands with different return types until a nice solution emerges.
-        executor.execute( repository, GitCommandFactory.createGetFileContentForRevisionCommand( revisionId, filePath ) );
+        ScmFileContent scmFileContent = executor // 
+                        .execute( repository, GitCommandFactory.createGetFileContentForRevisionCommand( revisionId, filePath ) )
+                        .collect( new ScmFileContentOutputProcessor() );
 
-        return null;
+        return scmFileContent;
     }
 
 }
