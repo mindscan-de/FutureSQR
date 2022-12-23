@@ -52,7 +52,7 @@ public class GitScmContentProvider implements ScmContentProvider {
         // even more simple: add different executeCommands with different return types until a nice solution emerges.
         ScmFileContent scmFileContent = executor // 
                         .execute( repository, GitCommandFactory.createGetFileContentForRevisionCommand( revisionId, filePath ) )
-                        .collect( new ScmFileContentOutputProcessor() );
+                        .transform( new ScmFileContentOutputProcessor() );
 
         return scmFileContent;
     }

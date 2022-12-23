@@ -23,40 +23,11 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.scmaccess.git.processor;
-
-import java.nio.charset.StandardCharsets;
-
-import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutput;
-import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutputProcessor;
-import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
+package de.mindscan.futuresqr.scmaccess.git;
 
 /**
- * 
+ * R Result Type of transformation.
  */
-public class ScmFileContentOutputProcessor implements GitCLICommandOutputProcessor<ScmFileContent> {
-
-    /**
-     * 
-     */
-    public ScmFileContentOutputProcessor() {
-        // intentionally left blank.
-    }
-
-    /** 
-     * {@inheritDoc}
-     */
-    @Override
-    public <R> R transform( GitCLICommandOutput output ) {
-        ScmFileContent scmFileContent = new ScmFileContent();
-
-        scmFileContent.scmRepository = output.getRepository();
-        scmFileContent.fileContent = new String( output.getProcessOutput(), StandardCharsets.UTF_8 );
-
-        // TODO: filename, fileRevision?
-
-        // 
-        return (R) scmFileContent;
-    }
-
+public interface GitCLICommandOutputProcessor<R> {
+    <R> R transform( GitCLICommandOutput output );
 }

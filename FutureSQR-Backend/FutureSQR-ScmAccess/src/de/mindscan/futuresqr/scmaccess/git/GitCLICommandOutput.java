@@ -25,8 +25,6 @@
  */
 package de.mindscan.futuresqr.scmaccess.git;
 
-import de.mindscan.futuresqr.scmaccess.git.processor.ScmFileContentOutputProcessor;
-import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
 /**
@@ -60,8 +58,14 @@ public class GitCLICommandOutput {
         return outputBuffer;
     }
 
-    public ScmFileContent collect( ScmFileContentOutputProcessor processor ) {
-        return processor.parse( this );
+    /**
+     * 
+     * @param <R> ResultType of the output processor 
+     * @param processor the processor which to use to create the result from the GitCliCommandOutput
+     * @return the transformed result.
+     */
+    public <R> R transform( GitCLICommandOutputProcessor<R> processor ) {
+        return processor.transform( this );
     }
 
     /**
