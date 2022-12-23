@@ -35,17 +35,14 @@ import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
  */
 public class GitScmContentProvider implements ScmContentProvider {
 
-    private GitCLICommandExecutor executor = new GitCLICommandExecutor();
-
-    // Okay let's say we have a local repository for git
-    // lets say we have a configuration for
+    private GitCLICommandExecutor gitCliExecutor = new GitCLICommandExecutor();
 
     /** 
      * {@inheritDoc}
      */
     @Override
     public ScmFileContent getFileContentForRevision( ScmRepository repository, String revisionId, ScmPath filePath ) {
-        ScmFileContent scmFileContent = executor // 
+        ScmFileContent scmFileContent = gitCliExecutor // 
                         .execute( repository, GitCommandFactory.createGetFileContentForRevisionCommand( revisionId, filePath ) )
                         .transform( GitOutputProcessors.toScmFileContent() );
 
