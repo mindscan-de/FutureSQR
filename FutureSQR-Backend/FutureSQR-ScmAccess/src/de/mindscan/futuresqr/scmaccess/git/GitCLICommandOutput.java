@@ -53,6 +53,13 @@ public class GitCLICommandOutput {
         this.outputBuffer = processOutput;
     }
 
+    /**
+     * @return the outputBuffer
+     */
+    public byte[] getProcessOutput() {
+        return outputBuffer;
+    }
+
     public ScmFileContent collect( ScmFileContentOutputProcessor processor ) {
         return processor.parse( this );
     }
@@ -84,4 +91,5 @@ public class GitCLICommandOutput {
     public GitCommand getCommand() {
         return command;
     }
+
 }
