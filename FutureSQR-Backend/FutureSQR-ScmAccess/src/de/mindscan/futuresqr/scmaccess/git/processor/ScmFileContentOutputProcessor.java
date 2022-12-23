@@ -29,6 +29,9 @@ import java.nio.charset.StandardCharsets;
 
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutput;
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutputProcessor;
+import de.mindscan.futuresqr.scmaccess.git.GitCommand;
+import de.mindscan.futuresqr.scmaccess.git.command.GitCommandWithFilePath;
+import de.mindscan.futuresqr.scmaccess.git.command.GitCommandWithRevisionId;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
 
 /**
@@ -55,10 +58,15 @@ public class ScmFileContentOutputProcessor implements GitCLICommandOutputProcess
         // using some useful tables, 
         scmFileContent.fileContent = new String( output.getProcessOutput(), StandardCharsets.UTF_8 );
 
-        // TODO: extract this info from gitCommand / use some kind of accessor...
-        // GitCommand gitCommand = output.getCommand();
-        scmFileContent.filePath = "unkonwn@ScmFileContentOutputProcessor";
-        scmFileContent.fileRevisionId = "unknown@ScmFileContentOutputProcessor";
+        GitCommand gitCommand = output.getCommand();
+
+        if (gitCommand instanceof GitCommandWithFilePath) {
+            scmFileContent.filePath = ((GitCommandWithFilePath) gitCommand).getFilePath();
+        }
+
+        if (gitCommand instanceof GitCommandWithRevisionId) {
+            scmFileContent.fileRevisionId = ((GitCommandWithRevisionId) gitCommand).getRevisionId();
+        }
 
         return scmFileContent;
     }

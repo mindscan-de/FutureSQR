@@ -34,7 +34,7 @@ import de.mindscan.futuresqr.scmaccess.git.GitCommand;
 /**
  * 
  */
-public class GetFileContentForRevisionCommand extends GitCommand {
+public class GetFileContentForRevisionCommand extends GitCommand implements GitCommandWithFilePath, GitCommandWithRevisionId {
 
     private String revisionId;
     private String filePath;
@@ -69,4 +69,19 @@ public class GetFileContentForRevisionCommand extends GitCommand {
         return true;
     }
 
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public String getFilePath() {
+        return filePath;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public String getRevisionId() {
+        return revisionId;
+    }
 }
