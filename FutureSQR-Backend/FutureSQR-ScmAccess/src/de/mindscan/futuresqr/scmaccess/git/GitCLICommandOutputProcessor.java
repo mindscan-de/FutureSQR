@@ -29,5 +29,5 @@ package de.mindscan.futuresqr.scmaccess.git;
  * R Result Type of transformation.
  */
 public interface GitCLICommandOutputProcessor<R> {
-    <R> R transform( GitCLICommandOutput output );
+    R transform( GitCLICommandOutput output );
 }

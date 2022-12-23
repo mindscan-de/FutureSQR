@@ -47,7 +47,7 @@ public class ScmFileContentOutputProcessor implements GitCLICommandOutputProcess
      * {@inheritDoc}
      */
     @Override
-    public <R> R transform( GitCLICommandOutput output ) {
+    public ScmFileContent transform( GitCLICommandOutput output ) {
         ScmFileContent scmFileContent = new ScmFileContent();
 
         scmFileContent.scmRepository = output.getRepository();
@@ -56,7 +56,7 @@ public class ScmFileContentOutputProcessor implements GitCLICommandOutputProcess
         // TODO: filename, fileRevision?
 
         // 
-        return (R) scmFileContent;
+        return scmFileContent;
     }
 
 }
