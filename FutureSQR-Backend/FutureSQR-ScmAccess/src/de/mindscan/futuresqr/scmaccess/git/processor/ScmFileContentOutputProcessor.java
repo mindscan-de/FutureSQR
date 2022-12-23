@@ -44,6 +44,8 @@ public class ScmFileContentOutputProcessor {
 
     public ScmFileContent parse( GitCLICommandOutput output ) {
         ScmFileContent scmFileContent = new ScmFileContent();
+        // output.getRepository();
+        // output.getCommand();
 
         return scmFileContent;
     }

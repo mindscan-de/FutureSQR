@@ -30,7 +30,7 @@ import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
 /**
- * 
+ * TOOD: maybe we want to track errors in execution? and abort other steps?
  */
 public class GitCLICommandOutput {
 

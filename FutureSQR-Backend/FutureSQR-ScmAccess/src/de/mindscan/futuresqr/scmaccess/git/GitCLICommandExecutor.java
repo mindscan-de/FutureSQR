@@ -42,7 +42,8 @@ import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
  */
 public class GitCLICommandExecutor {
 
-    // start with hard coded git executable to make things work.
+    // FIXME: make the GitExecutablePath Configurable, and initialize instance with this configuration 
+    // start with hard coded git executable to make things work first
     public static final String GIT_EXECUTABLE_PATH = "C:\\Program Files\\Git\\cmd\\git.exe";
 
     public GitCLICommandOutput execute( ScmRepository repository, GitCommand command ) {
@@ -54,11 +55,11 @@ public class GitCLICommandExecutor {
             Process process = new ProcessBuilder( gitCliCommand ).start();
             InputStream is = process.getInputStream();
             byte buffer[] = new byte[1024];
-            int len;
+            int readLength;
 
-            // TODO: limit the output if necessary, but for now good enough
-            while ((len = is.read( buffer )) != -1) {
-                os.write( buffer, 0, len );
+            // TODO: limit the output if necessary, but for now good enough e.g. 4 MB or so?
+            while ((readLength = is.read( buffer )) != -1) {
+                os.write( buffer, 0, readLength );
             }
 
             gitCommandOutput.setProcessOutput( os.toByteArray() );
