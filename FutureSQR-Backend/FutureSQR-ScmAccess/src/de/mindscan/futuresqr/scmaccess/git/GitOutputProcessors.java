@@ -25,31 +25,15 @@
  */
 package de.mindscan.futuresqr.scmaccess.git;
 
-import de.mindscan.futuresqr.scmaccess.ScmContentProvider;
+import de.mindscan.futuresqr.scmaccess.git.processor.ScmFileContentOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
-import de.mindscan.futuresqr.scmaccess.types.ScmPath;
-import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
 /**
  * 
  */
-public class GitScmContentProvider implements ScmContentProvider {
+public class GitOutputProcessors {
 
-    private GitCLICommandExecutor executor = new GitCLICommandExecutor();
-
-    // Okay let's say we have a local repository for git
-    // lets say we have a configuration for
-
-    /** 
-     * {@inheritDoc}
-     */
-    @Override
-    public ScmFileContent getFileContentForRevision( ScmRepository repository, String revisionId, ScmPath filePath ) {
-        ScmFileContent scmFileContent = executor // 
-                        .execute( repository, GitCommandFactory.createGetFileContentForRevisionCommand( revisionId, filePath ) )
-                        .transform( GitOutputProcessors.toScmFileContent() );
-
-        return scmFileContent;
+    public static GitCLICommandOutputProcessor<ScmFileContent> toScmFileContent() {
+        return new ScmFileContentOutputProcessor();
     }
-
 }
