@@ -39,15 +39,16 @@ public class ScmFileContentOutputProcessor {
      * 
      */
     public ScmFileContentOutputProcessor() {
-        // TODO filename, fileRevision, repository, content
-        // TODO: interessant wäre, diese informationen gewissermaßen vom GitCliCommandOutput zu bekommen, bspw. 
-        //       wir das Gitcommand loggen lassen und das Repo und so und das alles wie zufällig im GitCLICommandOutput stehen würde.
+        // intentionally left blank.
     }
 
     public ScmFileContent parse( GitCLICommandOutput output ) {
         ScmFileContent scmFileContent = new ScmFileContent();
+
         scmFileContent.scmRepository = output.getRepository();
         scmFileContent.fileContent = new String( output.getProcessOutput(), StandardCharsets.UTF_8 );
+
+        // TODO: filename, fileRevision?
 
         return scmFileContent;
     }
