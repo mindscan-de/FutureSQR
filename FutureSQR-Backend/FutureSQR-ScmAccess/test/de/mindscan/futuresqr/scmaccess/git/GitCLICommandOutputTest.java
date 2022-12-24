@@ -3,6 +3,7 @@ package de.mindscan.futuresqr.scmaccess.git;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.sameInstance;
+import static org.mockito.Mockito.times;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -122,6 +123,19 @@ public class GitCLICommandOutputTest {
 
         // assert
         assertThat( result, is( sameInstance( expectedProcessOutput ) ) );
+    }
+
+    @Test
+    public void testTransform__processorTransformIsInvokedWithOutputObject() throws Exception {
+        // arrange
+        GitCLICommandOutput commandOutput = new GitCLICommandOutput( null, null );
+        GitCLICommandOutputProcessor<String> processor = (GitCLICommandOutputProcessor<String>) Mockito.mock( GitCLICommandOutputProcessor.class, "processor" );
+
+        // act
+        commandOutput.transform( processor );
+
+        // assert
+        Mockito.verify( processor, times( 1 ) ).transform( Mockito.eq( commandOutput ) );
     }
 
 }
