@@ -96,4 +96,32 @@ public class GitCLICommandOutputTest {
         assertThat( result, is( sameInstance( expectedCommand ) ) );
     }
 
+    @Test
+    public void testSetProcessOutput_SetThenGet_expectSameInstance() throws Exception {
+        // arrange
+        GitCLICommandOutput commandOutput = new GitCLICommandOutput( null, null );
+        byte[] expectedProcessOutput = new byte[3];
+
+        // act
+        commandOutput.setProcessOutput( expectedProcessOutput );
+
+        // assert
+        byte[] result = commandOutput.getProcessOutput();
+        assertThat( result, is( sameInstance( expectedProcessOutput ) ) );
+    }
+
+    @Test
+    public void testGetProcessOutput_SetThenGet_expectSameInstance() throws Exception {
+        // arrange
+        GitCLICommandOutput commandOutput = new GitCLICommandOutput( null, null );
+        byte[] expectedProcessOutput = new byte[5];
+        commandOutput.setProcessOutput( expectedProcessOutput );
+
+        // act
+        byte[] result = commandOutput.getProcessOutput();
+
+        // assert
+        assertThat( result, is( sameInstance( expectedProcessOutput ) ) );
+    }
+
 }
