@@ -113,4 +113,23 @@ public class FakeGitCLICommandExecutor extends GitCLICommandExecutor {
 
     }
 
+//    void foo() {
+//
+//        // access the test resource 
+//        String resourcename = "foo.foo";
+//        ClassLoader classLoader = getClass().getClassLoader();
+//        File file = new File( classLoader.getResource( resourcename ).getFile() );
+//
+//        // actually this will point to a compiled version of the class path resource /target/test-classes .... etc.
+//    }
+
+//  void foo2() {
+//
+//      // access the test resource 
+
+//      Path testResourceDirectory = Paths.get("test-resources")
+//      File file = testResourceDirectoy.toFile();
+//
+//  }
+
 }
