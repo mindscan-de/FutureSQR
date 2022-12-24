@@ -32,6 +32,12 @@
   
   <build>
     <sourceDirectory>src</sourceDirectory>
+    <testSourceDirectory>test</testSourceDirectory>
+	<testResources>  
+	  <testResource>
+	    <directory>${project.basedir}/test-resources</directory>
+	  </testResource>
+	</testResources>    
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
