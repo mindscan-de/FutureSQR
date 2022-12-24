@@ -23,28 +23,47 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.scmaccess.git;
+package de.mindscan.futuresqr.scmaccess.git.command;
 
-import de.mindscan.futuresqr.scmaccess.git.command.GetFileContentForRevisionCommand;
-import de.mindscan.futuresqr.scmaccess.git.command.GetFileHistoryCommand;
-import de.mindscan.futuresqr.scmaccess.git.command.UpdateLocalRepositoryCommand;
-import de.mindscan.futuresqr.scmaccess.types.ScmPath;
+import java.util.ArrayList;
+import java.util.List;
+
+import de.mindscan.futuresqr.scmaccess.git.GitCommand;
 
 /**
  * 
  */
-public class GitCommands {
+public class UpdateLocalRepositoryCommand extends GitCommand {
 
-    public static GitCommand createGetFileContentForRevisionCommand( String revisionId, ScmPath filePath ) {
-        return new GetFileContentForRevisionCommand( revisionId, filePath.getPath() );
+    private String branchName;
+
+    /**
+     * 
+     */
+    public UpdateLocalRepositoryCommand( String branchName ) {
+        this.branchName = branchName;
     }
 
-    public static GitCommand createGetFileHistoryCommand( ScmPath filePath ) {
-        return new GetFileHistoryCommand( filePath.getPath() );
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public List<String> getArguments() {
+        List<String> args = new ArrayList<String>();
+
+        args.add( "pull" );
+        args.add( "origin" );
+        args.add( this.branchName );
+
+        return args;
     }
 
-    public static GitCommand createUpdateLocalRepositoryCommand( String branchName ) {
-        return new UpdateLocalRepositoryCommand( branchName );
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isCacheable() {
+        return false;
     }
 
 }
