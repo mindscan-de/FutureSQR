@@ -25,9 +25,15 @@
  */
 package de.mindscan.futuresqr.scmaccess.git.processor;
 
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutput;
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.git.command.GitCommandWithFilePath;
+import de.mindscan.futuresqr.scmaccess.types.ScmBasicRevisionInformation;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileHistory;
 
 /**
@@ -41,16 +47,49 @@ public class ScmFileHistoryOutputProcessor implements GitCLICommandOutputProcess
     @Override
     public ScmFileHistory transform( GitCLICommandOutput output ) {
         ScmFileHistory scmFileHistory = new ScmFileHistory();
+        List<ScmBasicRevisionInformation> revisions = new ArrayList<>();
+
+        parseRecordAndUnitSeparator( new String( output.getProcessOutput(), StandardCharsets.UTF_8 ), revisions::add );
 
         scmFileHistory.scmRepository = output.getRepository();
-
-        // TODO process the input for the particular file history.
+        scmFileHistory.revisions = revisions;
 
         if (output instanceof GitCommandWithFilePath) {
             scmFileHistory.filePath = ((GitCommandWithFilePath) output).getFilePath();
         }
 
         return scmFileHistory;
+    }
+
+    private void parseRecordAndUnitSeparator( String inputstring, Consumer<ScmBasicRevisionInformation> consumer ) {
+        String[] records = inputstring.split( "\\x1e" );
+
+        for (int i = 0; i < records.length; i++) {
+            // actually we want a ltrim only...
+            String[] elements = records[i].trim().split( "\\x1f" );
+            consumer.accept( buildBasicRevisionInfo( elements ) );
+        }
+    }
+
+    private ScmBasicRevisionInformation buildBasicRevisionInfo( String[] record ) {
+        ScmBasicRevisionInformation result = new ScmBasicRevisionInformation();
+
+        result.shortRevisionId = record[0];
+        result.revisionId = record[1];
+        result.authorName = record[2];
+        result.authorId = record[3];
+        result.date = record[4];
+        result.shortDate = record[5];
+        result.relDate = record[6];
+        result.parentIds = new ArrayList<>();
+        // TODO needs to be split
+        result.parentIds.add( record[7] );
+        result.shortParentIds = new ArrayList<>();
+        // TODO needs to be split
+        result.shortParentIds.add( record[8] );
+        result.message = record[9];
+
+        return result;
     }
 
 }

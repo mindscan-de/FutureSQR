@@ -78,6 +78,6 @@ public class GitCLICommonConstants {
     /**
      * 
      */
-    public static final String GIT_PRETTY_FORMAT_WITH_PARAMETERS = "--pretty=format:%x1f" + String.join( "%x1f", GIT_FORMAT_PARAMS ) + "%x1e";
+    public static final String GIT_PRETTY_FORMAT_WITH_PARAMETERS = "--pretty=format:" + String.join( "%x1f", GIT_FORMAT_PARAMS ) + "%x1e";
 
 }
