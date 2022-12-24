@@ -27,6 +27,7 @@ package de.mindscan.futuresqr.scmaccess.git.processor;
 
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutput;
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutputProcessor;
+import de.mindscan.futuresqr.scmaccess.git.command.GitCommandWithFilePath;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileHistory;
 
 /**
@@ -39,8 +40,17 @@ public class ScmFileHistoryOutputProcessor implements GitCLICommandOutputProcess
      */
     @Override
     public ScmFileHistory transform( GitCLICommandOutput output ) {
-        // TODO Auto-generated method stub
-        return null;
+        ScmFileHistory scmFileHistory = new ScmFileHistory();
+
+        scmFileHistory.scmRepository = output.getRepository();
+
+        // TODO process the input for the particular file history.
+
+        if (output instanceof GitCommandWithFilePath) {
+            scmFileHistory.filePath = ((GitCommandWithFilePath) output).getFilePath();
+        }
+
+        return scmFileHistory;
     }
 
 }

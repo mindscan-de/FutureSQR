@@ -25,7 +25,6 @@
  */
 package de.mindscan.futuresqr.scmaccess.types;
 
-import java.nio.file.Path;
 import java.util.List;
 
 /**
@@ -38,7 +37,7 @@ public class ScmFileHistory {
     public ScmRepository scmRepository;
 
     // the filePath for which this file history is valid
-    public Path filePath;
+    public String filePath;
 
     //
     public List<ScmBasicRevisionInformation> revisionInformationList;
