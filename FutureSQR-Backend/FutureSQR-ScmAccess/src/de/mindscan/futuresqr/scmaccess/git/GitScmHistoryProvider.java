@@ -25,21 +25,28 @@
  */
 package de.mindscan.futuresqr.scmaccess.git;
 
-import de.mindscan.futuresqr.scmaccess.git.processor.ScmFileContentOutputProcessor;
-import de.mindscan.futuresqr.scmaccess.git.processor.ScmFileHistoryOutputProcessor;
-import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
+import de.mindscan.futuresqr.scmaccess.ScmHistoryProvider;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileHistory;
+import de.mindscan.futuresqr.scmaccess.types.ScmPath;
+import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
 /**
  * 
  */
-public class GitOutputProcessors {
+public class GitScmHistoryProvider implements ScmHistoryProvider {
 
-    public static GitCLICommandOutputProcessor<ScmFileContent> toScmFileContent() {
-        return new ScmFileContentOutputProcessor();
+    private GitCLICommandExecutor gitCliExecutor = new GitCLICommandExecutor();
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public ScmFileHistory getFilePathHistory( ScmRepository repository, ScmPath filePath ) {
+        ScmFileHistory scmFileHistory = gitCliExecutor//
+                        .execute( repository, GitCommandFactory.createGetFileHistoryCommand( filePath ) )//
+                        .transform( GitOutputProcessors.toScmFileHistory() );
+
+        return scmFileHistory;
     }
 
-    public static GitCLICommandOutputProcessor<ScmFileHistory> toScmFileHistory() {
-        return new ScmFileHistoryOutputProcessor();
-    }
 }
