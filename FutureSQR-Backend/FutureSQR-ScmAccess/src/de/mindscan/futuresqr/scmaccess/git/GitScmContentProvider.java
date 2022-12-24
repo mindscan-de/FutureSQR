@@ -43,7 +43,7 @@ public class GitScmContentProvider implements ScmContentProvider {
     @Override
     public ScmFileContent getFileContentForRevision( ScmRepository repository, String revisionId, ScmPath filePath ) {
         ScmFileContent scmFileContent = gitCliExecutor // 
-                        .execute( repository, GitCommandFactory.createGetFileContentForRevisionCommand( revisionId, filePath ) )
+                        .execute( repository, GitCommands.createGetFileContentForRevisionCommand( revisionId, filePath ) )
                         .transform( GitOutputProcessors.toScmFileContent() );
 
         return scmFileContent;

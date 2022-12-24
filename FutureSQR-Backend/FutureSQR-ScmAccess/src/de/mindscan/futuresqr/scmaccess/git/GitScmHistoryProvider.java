@@ -43,7 +43,7 @@ public class GitScmHistoryProvider implements ScmHistoryProvider {
     @Override
     public ScmFileHistory getFilePathHistory( ScmRepository repository, ScmPath filePath ) {
         ScmFileHistory scmFileHistory = gitCliExecutor//
-                        .execute( repository, GitCommandFactory.createGetFileHistoryCommand( filePath ) )//
+                        .execute( repository, GitCommands.createGetFileHistoryCommand( filePath ) )//
                         .transform( GitOutputProcessors.toScmFileHistory() );
 
         return scmFileHistory;

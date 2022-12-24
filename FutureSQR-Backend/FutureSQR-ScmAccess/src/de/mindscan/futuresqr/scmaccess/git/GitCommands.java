@@ -32,7 +32,7 @@ import de.mindscan.futuresqr.scmaccess.types.ScmPath;
 /**
  * 
  */
-public class GitCommandFactory {
+public class GitCommands {
 
     public static GitCommand createGetFileContentForRevisionCommand( String revisionId, ScmPath filePath ) {
         return new GetFileContentForRevisionCommand( revisionId, filePath.getPath() );
