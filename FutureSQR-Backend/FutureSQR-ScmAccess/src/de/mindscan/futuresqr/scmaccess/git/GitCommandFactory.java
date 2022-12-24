@@ -26,6 +26,7 @@
 package de.mindscan.futuresqr.scmaccess.git;
 
 import de.mindscan.futuresqr.scmaccess.git.command.GetFileContentForRevisionCommand;
+import de.mindscan.futuresqr.scmaccess.git.command.GetFileHistoryCommand;
 import de.mindscan.futuresqr.scmaccess.types.ScmPath;
 
 /**
@@ -35,6 +36,10 @@ public class GitCommandFactory {
 
     public static GitCommand createGetFileContentForRevisionCommand( String revisionId, ScmPath filePath ) {
         return new GetFileContentForRevisionCommand( revisionId, filePath.getPath() );
+    }
+
+    public static GitCommand createGetFileHistoryCommand( ScmPath filePath ) {
+        return new GetFileHistoryCommand( filePath.getPath() );
     }
 
 }

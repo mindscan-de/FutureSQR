@@ -56,4 +56,25 @@ public class GitCLICommonConstants {
      */
     public static final String NO_PAGER = "--no-pager";
 
+    /**
+     * Follow if renames of files should be included in the file history.
+     */
+    public static final String FOLLOW = "--follow";
+
+    /**
+     * Makes GIT to change the mode such that the following argument is interpreted as a file name.
+     */
+    public static final String MINUSMINUS = "--";
+
+    /*
+     * %1c - File separator
+     * %1d - Group Separator
+     * %1f - Unit Separator
+     * %1e - Record Separator
+     */
+    /**
+     * 
+     */
+    public static final String GIT_PRETTY_FORMAT_WITH_PARAMETERS = "--pretty=format:%x1f" + String.join( "%1f", GIT_FORMAT_PARAMS ) + "%1e";
+
 }
