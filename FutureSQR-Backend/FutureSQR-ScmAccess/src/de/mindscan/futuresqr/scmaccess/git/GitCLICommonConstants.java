@@ -25,6 +25,15 @@
  */
 package de.mindscan.futuresqr.scmaccess.git;
 
+/*
+ * Choice for the special chars for the formatting of the git command.
+ *  
+ * %x1c - File separator
+ * %x1d - Group Separator
+ * %x1e - Record Separator
+ * %x1f - Unit Separator
+ */
+
 /**
  * 
  */
@@ -66,15 +75,9 @@ public class GitCLICommonConstants {
      */
     public static final String MINUSMINUS = "--";
 
-    /*
-     * %1c - File separator
-     * %1d - Group Separator
-     * %1f - Unit Separator
-     * %1e - Record Separator
-     */
     /**
      * 
      */
-    public static final String GIT_PRETTY_FORMAT_WITH_PARAMETERS = "--pretty=format:%x1f" + String.join( "%1f", GIT_FORMAT_PARAMS ) + "%1e";
+    public static final String GIT_PRETTY_FORMAT_WITH_PARAMETERS = "--pretty=format:%x1f" + String.join( "%x1f", GIT_FORMAT_PARAMS ) + "%x1e";
 
 }
