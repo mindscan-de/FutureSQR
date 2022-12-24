@@ -32,24 +32,24 @@ import java.util.List;
  */
 public class ScmBasicRevisionInformation {
 
-    String shortRevisionId = "";
-    String revisionId = "";
+    public String revisionId = "";
+    public String shortRevisionId = "";
 
-    String authorName = "";
-    String authorId = "";
-    String authorUuid = ""; // maybe this is actually part of the review system and should be handled by the review system
+    public String authorName = "";
+    public String authorId = "";
+    public String authorUuid = ""; // maybe this is actually part of the review system and should be handled by the review system
 
-    String date = ""; // this should be a long - timestamp (UTC), to be more efficient - Java and dates are a pain ...
-    String shortDate = "";
-    String relDate = "";
+    public String date = ""; // this should be a long - timestamp (UTC), to be more efficient - Java and dates are a pain ...
+    public String shortDate = "";
+    public String relDate = "";
 
-    String message = "";
+    public String message = "";
 
-    List<String> parentIds;
-    List<String> shortParentIds;
+    public List<String> parentIds;
+    public List<String> shortParentIds;
 
     // Should not be part of the basic SCM Information, but something the review system provides as extra data.
-    boolean hasReview = false;
-    String reviewID = "";
+    public boolean hasReview = false;
+    public String reviewID = "";
 
 }

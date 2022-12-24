@@ -40,5 +40,5 @@ public class ScmFileHistory {
     public String filePath;
 
     //
-    public List<ScmBasicRevisionInformation> revisionInformationList;
+    public List<ScmBasicRevisionInformation> revisions;
 }
