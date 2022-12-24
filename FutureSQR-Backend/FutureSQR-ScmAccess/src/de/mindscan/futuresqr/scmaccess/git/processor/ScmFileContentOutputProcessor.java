@@ -54,8 +54,10 @@ public class ScmFileContentOutputProcessor implements GitCLICommandOutputProcess
         ScmFileContent scmFileContent = new ScmFileContent();
 
         scmFileContent.scmRepository = output.getRepository();
+        // FIXME?
         // actually the charset should be determined, like cp-1252 and such, so it can be properly converted to UTF-8
-        // using some useful tables, 
+        // using some useful tables, BUt in case of downloads, we actually don't want to alter the truth. but the UTF-8
+        // decoder may change the truth, actually we should probably use bytes, instead of a string.
         scmFileContent.fileContent = new String( output.getProcessOutput(), StandardCharsets.UTF_8 );
 
         GitCommand gitCommand = output.getCommand();
