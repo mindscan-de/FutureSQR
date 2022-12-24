@@ -291,9 +291,7 @@ def updateProjectCache(local_git_repo_path:str, branch_name:str):
     
     pass
 
-# This is not yet used in the software, but this would be the way to handle this -- this just serves as a reminder,
-# how to do this operation. 
-# Maybe this will be useful to calculate the diff for a file in case of particular selected versions?
+# Java:implementation :: GetFileHistoryCommand // GitScmHistoryProvider.getFilePathHistory
 def getParticularFileHistory(local_git_repo_path:str, filepath:str):
     formatdetails = '%x1f'.join(GIT_FORMAT_PARAMS)
     
@@ -314,8 +312,8 @@ def getParticularFileHistory(local_git_repo_path:str, filepath:str):
         'filePath':filepath,
         'revisions':revisions
         }
-
-# Java:implementation :: GitScmContentProvider.getFileContentForRevision
+ 
+# Java:implementation :: GetFileContentForRevisionCommand // GitScmContentProvider.getFileContentForRevision
 def getParticularRevisionContentForFile(local_git_repo_path:str, revisionid:str, filepath:str):
     
     git_parameters = [

@@ -23,23 +23,24 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.scmaccess.types;
+package de.mindscan.futuresqr.scmaccess.git.processor;
 
-import java.nio.file.Path;
-import java.util.List;
+import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutput;
+import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutputProcessor;
+import de.mindscan.futuresqr.scmaccess.types.ScmFileHistory;
 
 /**
- * See getParticularFileHistory for the context for this type.
+ * 
  */
-public class ScmFileHistory {
+public class ScmFileHistoryOutputProcessor implements GitCLICommandOutputProcessor<ScmFileHistory> {
 
-    // Keep a reference for the Repository for *internal* use.
-    // it can be a internal (on disk / checked out ) or external repository...
-    public ScmRepository scmRepository;
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public ScmFileHistory transform( GitCLICommandOutput output ) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-    // the filePath for which this file history is valid
-    public Path filePath;
-
-    //
-    public List<ScmBasicRevisionInformation> revisionInformationList;
 }
