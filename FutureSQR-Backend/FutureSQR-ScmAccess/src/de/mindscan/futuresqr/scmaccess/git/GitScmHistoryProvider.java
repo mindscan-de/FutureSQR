@@ -37,6 +37,16 @@ public class GitScmHistoryProvider implements ScmHistoryProvider {
 
     private GitCLICommandExecutor gitCliExecutor = new GitCLICommandExecutor();
 
+    /**
+     * This method is available to replace the default GitCLUCommandExecutor with a different one, e.g. for tests
+     * or with other configurations later.
+     * 
+     * @param alternateExecutor
+     */
+    void setGitCLICommandExecutor( GitCLICommandExecutor alternateExecutor ) {
+        this.gitCliExecutor = alternateExecutor;
+    }
+
     /** 
      * {@inheritDoc}
      */

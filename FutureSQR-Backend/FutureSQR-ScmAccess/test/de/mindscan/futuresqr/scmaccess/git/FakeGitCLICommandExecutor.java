@@ -33,11 +33,20 @@ import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
  * the unit tests with the output which a real invocation would have produced. We actually do not want to spin
  * up System-Process-Git executions, like updates and such on a repository just for the sake of running unit tests.
  * 
- * the recorded data should be put into a resource directory for tests like "test-resources". 
+ * the recorded data should be put into a resource directory for tests like "test-resources".
+ * 
+ * this Fake executor is injectable into the test process, e.g. by initializing the providers with this executor.
  */
 public class FakeGitCLICommandExecutor extends GitCLICommandExecutor {
 
     private boolean neverInvokeSuperOnExecute;
+
+    /**
+     * 
+     */
+    public FakeGitCLICommandExecutor() {
+        this( true );
+    }
 
     /**
      * 
@@ -53,12 +62,55 @@ public class FakeGitCLICommandExecutor extends GitCLICommandExecutor {
      */
     @Override
     public GitCLICommandOutput execute( ScmRepository repository, GitCommand command ) {
+        if (isRecordingPresent( repository, command )) {
+            GitCLICommandOutput result = new GitCLICommandOutput( repository, command );
+
+            result.setProcessOutput( buildCliCommandProcessOutputFromRecording( repository, command ) );
+
+            return result;
+        }
+
+        if (neverInvokeSuperOnExecute) {
+            throw new RuntimeException( "There is no recording for this repository and command available." );
+        }
+
         // TODO we can either record the output and store it
         // or we can replay the output generated previously for the repository and the given command.
         // we can do both in case we encounter a new combination, which we don't know.
 
         GitCLICommandOutput recordedEntryData = super.execute( repository, command );
 
+        // create a new record in the test-resources folder for this request. and then return 
+        buildRecordingFromCliCommandProcessOutput( recordedEntryData );
+
         return recordedEntryData;
     }
+
+    /**
+     * returns if a recording for this particular combination of command and repository is available.
+     */
+    private boolean isRecordingPresent( ScmRepository repository, GitCommand command ) {
+        return false;
+    }
+
+    /**
+     * @param repository
+     * @param command
+     * @return
+     */
+    private byte[] buildCliCommandProcessOutputFromRecording( ScmRepository repository, GitCommand command ) {
+
+        // read and return the byte array from the recording.
+
+        return new byte[0];
+    }
+
+    /**
+     * @param recordedEntryData
+     */
+    private void buildRecordingFromCliCommandProcessOutput( GitCLICommandOutput recordedEntryData ) {
+        // TODO Auto-generated method stub
+
+    }
+
 }
