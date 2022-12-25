@@ -36,6 +36,11 @@ import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
  * the recorded data should be put into a resource directory for tests like "test-resources".
  * 
  * this Fake executor is injectable into the test process, e.g. by initializing the providers with this executor.
+ * 
+ * This same mechanism implemented here can be used to implement a fast in-memory-cache for accessing the repository, 
+ * where different cache strategies can be adopted. Also the cache mechanism can be used to combine it with this 
+ * FakeGitCLICommandExecutor, to speed up tests with a cache.
+ *  
  */
 public class FakeGitCLICommandExecutor extends GitCLICommandExecutor {
 
