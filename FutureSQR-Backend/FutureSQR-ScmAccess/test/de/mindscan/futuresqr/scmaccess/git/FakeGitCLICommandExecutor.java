@@ -25,6 +25,14 @@
  */
 package de.mindscan.futuresqr.scmaccess.git;
 
+import java.io.IOException;
+import java.math.BigInteger;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
 /**
@@ -65,12 +73,15 @@ public class FakeGitCLICommandExecutor extends GitCLICommandExecutor {
     /** 
      * {@inheritDoc}
      */
+    // TODO we can either record the output and store it
+    // or we can replay the output generated previously for the repository and the given command.
+    // we can do both in case we encounter a new combination, which we don't know.
     @Override
     public GitCLICommandOutput execute( ScmRepository repository, GitCommand command ) {
         if (isRecordingPresent( repository, command )) {
             GitCLICommandOutput result = new GitCLICommandOutput( repository, command );
 
-            result.setProcessOutput( buildCliCommandProcessOutputFromRecording( repository, command ) );
+            result.setProcessOutput( loadRecordingProcessOutput( repository, command ) );
 
             return result;
         }
@@ -79,14 +90,10 @@ public class FakeGitCLICommandExecutor extends GitCLICommandExecutor {
             throw new RuntimeException( "There is no recording for this repository and command available." );
         }
 
-        // TODO we can either record the output and store it
-        // or we can replay the output generated previously for the repository and the given command.
-        // we can do both in case we encounter a new combination, which we don't know.
-
         GitCLICommandOutput recordedEntryData = super.execute( repository, command );
 
         // create a new record in the test-resources folder for this request. and then return 
-        buildRecordingFromCliCommandProcessOutput( recordedEntryData );
+        saveRecording( recordedEntryData );
 
         return recordedEntryData;
     }
@@ -94,8 +101,75 @@ public class FakeGitCLICommandExecutor extends GitCLICommandExecutor {
     /**
      * returns if a recording for this particular combination of command and repository is available.
      */
-    private boolean isRecordingPresent( ScmRepository repository, GitCommand command ) {
+    private boolean isRecordingPresent( ScmRepository scmRepository, GitCommand command ) {
+        String respositorySignature = calculateRepositorySignature( scmRepository );
+        if (hasFakeRepositoryPath( respositorySignature )) {
+            String commandSignature = calculateCommandSignature( command );
+            if (hasGitCommandSignatureInRepo( respositorySignature, commandSignature )) {
+                return true;
+            }
+        }
+        else {
+            if (!neverInvokeSuperOnExecute) {
+                Path path = getFakeRepositoryPath( respositorySignature );
+                try {
+                    Files.createDirectories( path.toAbsolutePath() );
+                }
+                catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }
+
         return false;
+    }
+
+    private String calculateRepositorySignature( ScmRepository scmRepository ) {
+        byte[] repoDigest = { (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff };
+
+        try {
+            repoDigest = MessageDigest.getInstance( "MD5" ).digest( scmRepository.getLocalRepositoryPath().getBytes() );
+        }
+        catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        // convert to hex and only use first 7 hex nibbles
+        return new BigInteger( 1, repoDigest ).toString( 16 ).substring( 0, 7 );
+    }
+
+    private boolean hasFakeRepositoryPath( String reposignature ) {
+        Path testResourceDirectory = getFakeRepositoryPath( reposignature );
+        System.out.println( testResourceDirectory.toAbsolutePath().toString() );
+        return Files.isDirectory( testResourceDirectory );
+    }
+
+    private Path getFakeRepositoryPath( String respositorySignature ) {
+        return Paths.get( "test-resources/repo." + respositorySignature );
+    }
+
+    private boolean hasGitCommandSignatureInRepo( String respositorySignature, String commandSignature ) {
+        Path commandFilePath = getCommandPathInFakeRepoPath( respositorySignature, commandSignature );
+        return Files.isRegularFile( commandFilePath );
+    }
+
+    private Path getCommandPathInFakeRepoPath( String respositorySignature, String commandSignature ) {
+        return getFakeRepositoryPath( respositorySignature ).resolve( "cmd." + commandSignature + ".json" );
+    }
+
+    private String calculateCommandSignature( GitCommand command ) {
+        byte[] commandDigest = { (byte) 0xfe, (byte) 0xfe, (byte) 0xfe, (byte) 0xfe, (byte) 0xfe, (byte) 0xfe };
+
+        try {
+            commandDigest = MessageDigest.getInstance( "MD5" ).digest( String.join( "|", command.getArguments() ).getBytes() );
+        }
+        catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        // convert to hex and only use first 12 hex nibbles
+        return new BigInteger( 1, commandDigest ).toString( 16 ).substring( 0, 12 );
     }
 
     /**
@@ -103,9 +177,13 @@ public class FakeGitCLICommandExecutor extends GitCLICommandExecutor {
      * @param command
      * @return
      */
-    private byte[] buildCliCommandProcessOutputFromRecording( ScmRepository repository, GitCommand command ) {
+    private byte[] loadRecordingProcessOutput( ScmRepository scmRepository, GitCommand command ) {
+        String repositorySignature = calculateRepositorySignature( scmRepository );
+        String commandSignature = calculateCommandSignature( command );
 
-        // read and return the byte array from the recording.
+        Path inputFile = getCommandPathInFakeRepoPath( repositorySignature, commandSignature );
+
+        // read and but only return the byte array from the recording.
 
         return new byte[0];
     }
@@ -113,28 +191,13 @@ public class FakeGitCLICommandExecutor extends GitCLICommandExecutor {
     /**
      * @param recordedEntryData
      */
-    private void buildRecordingFromCliCommandProcessOutput( GitCLICommandOutput recordedEntryData ) {
-        // TODO Auto-generated method stub
+    private void saveRecording( GitCLICommandOutput recordedEntryData ) {
+        String repositorySignature = calculateRepositorySignature( recordedEntryData.getRepository() );
+        String commandSignature = calculateCommandSignature( recordedEntryData.getCommand() );
 
+        Path outputFile = getCommandPathInFakeRepoPath( repositorySignature, commandSignature );
+
+        // save the recorded entry data to file.
     }
-
-//    void foo() {
-//
-//        // access the test resource 
-//        String resourcename = "foo.foo";
-//        ClassLoader classLoader = getClass().getClassLoader();
-//        File file = new File( classLoader.getResource( resourcename ).getFile() );
-//
-//        // actually this will point to a compiled version of the class path resource /target/test-classes .... etc.
-//    }
-
-//  void foo2() {
-//
-//      // access the test resource 
-
-//      Path testResourceDirectory = Paths.get("test-resources")
-//      File file = testResourceDirectoy.toFile();
-//
-//  }
 
 }
