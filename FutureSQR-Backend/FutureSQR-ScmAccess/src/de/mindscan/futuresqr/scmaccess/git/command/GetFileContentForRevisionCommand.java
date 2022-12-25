@@ -56,7 +56,7 @@ public class GetFileContentForRevisionCommand extends GitCommand implements GitC
 
         args.add( GitCLICommonConstants.NO_PAGER );
         args.add( GitCLICommonConstants.GIT_COMMAND_SHOW );
-        args.add( revisionId + ":" + filePath );
+        args.add( this.getRevisionId() + ":" + this.getFilePath() );
 
         return args;
     }

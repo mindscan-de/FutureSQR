@@ -56,7 +56,7 @@ public class GetFileHistoryCommand extends GitCommand implements GitCommandWithF
         args.add( GitCLICommonConstants.FOLLOW );
         args.add( GitCLICommonConstants.GIT_PRETTY_FORMAT_WITH_PARAMETERS );
         args.add( GitCLICommonConstants.MINUSMINUS );
-        args.add( this.filePath );
+        args.add( this.getFilePath() );
 
         return args;
     }
