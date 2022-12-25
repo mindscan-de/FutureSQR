@@ -25,22 +25,30 @@
  */
 package de.mindscan.futuresqr.scmaccess.git;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 
  */
-public abstract class GitCommand {
+public class GitCommand {
+
+    public GitCommand() {
+    }
 
     /**
      * @return
      */
-    public abstract List<String> getArguments();
+    public List<String> getArguments() {
+        return new ArrayList<>();
+    };
 
     /**
      * This command on a certain repositoy is either cachable or not cachable. It is assumed to be cacheable, 
      * if under normal circumstances the result of executing this command will result in the same data.
      * @return <code>true</code> if cacheable, <code>false</code> otherwise.
      */
-    public abstract boolean isCacheable();
+    public boolean isCacheable() {
+        return false;
+    }
 }

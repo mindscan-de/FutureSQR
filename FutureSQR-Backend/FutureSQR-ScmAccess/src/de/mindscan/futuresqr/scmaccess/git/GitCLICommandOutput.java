@@ -37,6 +37,13 @@ public class GitCLICommandOutput {
     private GitCommand command;
 
     /**
+     * available for GSON, not intended for external API use.
+     */
+    GitCLICommandOutput() {
+        this( null, null );
+    }
+
+    /**
      * 
      */
     public GitCLICommandOutput( ScmRepository repositoy, GitCommand command ) {

@@ -32,6 +32,11 @@ public class ScmRepository {
 
     private String localRepositoryPath;
 
+    // Available for GSON
+    ScmRepository() {
+        this( "" );
+    }
+
     /**
      * 
      */

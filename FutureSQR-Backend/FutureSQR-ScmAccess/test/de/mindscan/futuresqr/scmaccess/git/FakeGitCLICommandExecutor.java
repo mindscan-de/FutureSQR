@@ -25,13 +25,20 @@
  */
 package de.mindscan.futuresqr.scmaccess.git;
 
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
+import com.google.gson.reflect.TypeToken;
 
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
@@ -52,7 +59,11 @@ import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
  */
 public class FakeGitCLICommandExecutor extends GitCLICommandExecutor {
 
+    private Gson gson = new Gson();
     private boolean neverInvokeSuperOnExecute;
+
+    private Type gitCLICommandOutputType = new TypeToken<GitCLICommandOutput>() {
+    }.getType();
 
     /**
      * 
@@ -92,7 +103,6 @@ public class FakeGitCLICommandExecutor extends GitCLICommandExecutor {
 
         GitCLICommandOutput recordedEntryData = super.execute( repository, command );
 
-        // create a new record in the test-resources folder for this request. and then return 
         saveRecording( recordedEntryData );
 
         return recordedEntryData;
@@ -172,11 +182,6 @@ public class FakeGitCLICommandExecutor extends GitCLICommandExecutor {
         return new BigInteger( 1, commandDigest ).toString( 16 ).substring( 0, 12 );
     }
 
-    /**
-     * @param repository
-     * @param command
-     * @return
-     */
     private byte[] loadRecordingProcessOutput( ScmRepository scmRepository, GitCommand command ) {
         String repositorySignature = calculateRepositorySignature( scmRepository );
         String commandSignature = calculateCommandSignature( command );
@@ -184,13 +189,19 @@ public class FakeGitCLICommandExecutor extends GitCLICommandExecutor {
         Path inputFile = getCommandPathInFakeRepoPath( repositorySignature, commandSignature );
 
         // read and but only return the byte array from the recording.
+        GitCLICommandOutput result;
+
+        try (FileReader fileReader = new FileReader( inputFile.toAbsolutePath().toString() )) {
+            result = (GitCLICommandOutput) gson.fromJson( fileReader, gitCLICommandOutputType );
+            return result.getProcessOutput();
+        }
+        catch (IOException e1) {
+            e1.printStackTrace();
+        }
 
         return new byte[0];
     }
 
-    /**
-     * @param recordedEntryData
-     */
     private void saveRecording( GitCLICommandOutput recordedEntryData ) {
         String repositorySignature = calculateRepositorySignature( recordedEntryData.getRepository() );
         String commandSignature = calculateCommandSignature( recordedEntryData.getCommand() );
@@ -198,6 +209,22 @@ public class FakeGitCLICommandExecutor extends GitCLICommandExecutor {
         Path outputFile = getCommandPathInFakeRepoPath( repositorySignature, commandSignature );
 
         // save the recorded entry data to file.
+        try {
+            String jsonString = gson.toJson( recordedEntryData );
+
+            System.out.println( "GSON" );
+            System.out.println( jsonString );
+
+            try (FileWriter writer = new FileWriter( outputFile.toString() )) {
+                writer.write( jsonString );
+            }
+        }
+        catch (JsonIOException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

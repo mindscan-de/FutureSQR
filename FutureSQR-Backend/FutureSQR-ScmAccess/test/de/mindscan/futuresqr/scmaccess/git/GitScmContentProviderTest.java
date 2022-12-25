@@ -12,7 +12,7 @@ public class GitScmContentProviderTest {
     public void testGetFileContentForRevision() throws Exception {
         // arrange
         GitScmContentProvider provider = new GitScmContentProvider();
-        provider.setGitCLICommandExecutor( new GitCLICommandExecutor() );
+        provider.setGitCLICommandExecutor( new FakeGitCLICommandExecutor() );
 
         // act
         ScmFileContent result = provider.getFileContentForRevision( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ),
