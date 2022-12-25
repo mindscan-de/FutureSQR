@@ -190,7 +190,7 @@ def calculateSimpleRevisionInformationForRevisionList(local_git_repo_path:str, r
 
     return revisions
 
-
+# Java:implementation :: GetDiffForRevisionCommand // None yet.
 def calculateDiffForSingleRevision(local_git_repo_path:str, revisionid:str):
     
     git_parameters = [
