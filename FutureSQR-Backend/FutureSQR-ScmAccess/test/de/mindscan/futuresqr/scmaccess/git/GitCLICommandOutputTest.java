@@ -16,7 +16,7 @@ public class GitCLICommandOutputTest {
     public void testSetRepository_CtorNullsSetThenGet_expectSameInstance() throws Exception {
         // arrange
         GitCLICommandOutput commandOutput = new GitCLICommandOutput( null, null );
-        ScmRepository expectedRepository = new ScmRepository();
+        ScmRepository expectedRepository = createScmRepositiryObject();
 
         // act
         commandOutput.setRepository( expectedRepository );
@@ -30,7 +30,7 @@ public class GitCLICommandOutputTest {
     public void testGetRepository_CtorNullsSetThenGet_expectSameInstance() throws Exception {
         // arrange
         GitCLICommandOutput commandOutput = new GitCLICommandOutput( null, null );
-        ScmRepository expectedRepository = new ScmRepository();
+        ScmRepository expectedRepository = createScmRepositiryObject();
         commandOutput.setRepository( expectedRepository );
 
         // act
@@ -43,7 +43,7 @@ public class GitCLICommandOutputTest {
     @Test
     public void testGetRepository_CtorSetExpectedRepo_expectSameInstance() throws Exception {
         // arrange
-        ScmRepository expectedRepository = new ScmRepository();
+        ScmRepository expectedRepository = createScmRepositiryObject();
         GitCLICommandOutput commandOutput = new GitCLICommandOutput( expectedRepository, null );
 
         // act
@@ -136,6 +136,10 @@ public class GitCLICommandOutputTest {
 
         // assert
         Mockito.verify( processor, times( 1 ) ).transform( Mockito.eq( commandOutput ) );
+    }
+
+    private ScmRepository createScmRepositiryObject() {
+        return new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" );
     }
 
 }

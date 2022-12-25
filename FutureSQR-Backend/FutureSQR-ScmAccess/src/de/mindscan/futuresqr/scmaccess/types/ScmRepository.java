@@ -30,4 +30,20 @@ package de.mindscan.futuresqr.scmaccess.types;
  */
 public class ScmRepository {
 
+    private String localRepositoryPath;
+
+    /**
+     * 
+     */
+    public ScmRepository( String localRepositoryPath ) {
+        this.localRepositoryPath = localRepositoryPath;
+    }
+
+    public boolean hasLocalRepositoryPath() {
+        return true;
+    }
+
+    public String getLocalRepositoryPath() {
+        return localRepositoryPath;
+    }
 }

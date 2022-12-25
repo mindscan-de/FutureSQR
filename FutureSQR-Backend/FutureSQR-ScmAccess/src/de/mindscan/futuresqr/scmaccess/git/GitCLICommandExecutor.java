@@ -82,8 +82,10 @@ public class GitCLICommandExecutor {
         gitCliCommand.add( GIT_EXECUTABLE_PATH );
 
         // actually depends on repository and repository type
-        gitCliCommand.add( "-C" );
-        gitCliCommand.add( "D:\\Temp\\future-square-cache\\FutureSQR" );
+        if (repository.hasLocalRepositoryPath()) {
+            gitCliCommand.add( "-C" );
+            gitCliCommand.add( repository.getLocalRepositoryPath() );
+        }
 
         gitCliCommand.addAll( command.getArguments() );
 
