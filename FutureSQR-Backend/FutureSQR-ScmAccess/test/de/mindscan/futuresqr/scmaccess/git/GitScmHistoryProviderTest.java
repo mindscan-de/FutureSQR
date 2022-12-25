@@ -12,9 +12,10 @@ public class GitScmHistoryProviderTest {
     public void testGetFilePathHistory() throws Exception {
         // arrange
         GitScmHistoryProvider provider = new GitScmHistoryProvider();
+        provider.setGitCLICommandExecutor( new GitCLICommandExecutor() );
 
         // act
-        ScmFileHistory result = provider.getFilePathHistory( (ScmRepository) null, new ScmPath(
+        ScmFileHistory result = provider.getFilePathHistory( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ), new ScmPath(
                         "FutureSQR-Frontend/src/app/views/single-file-revision-page/other-file-revisions-panel/other-file-revisions-panel.component.html" ) );
 
         // assert

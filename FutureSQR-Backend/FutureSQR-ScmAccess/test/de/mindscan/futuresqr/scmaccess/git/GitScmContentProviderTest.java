@@ -12,10 +12,12 @@ public class GitScmContentProviderTest {
     public void testGetFileContentForRevision() throws Exception {
         // arrange
         GitScmContentProvider provider = new GitScmContentProvider();
+        provider.setGitCLICommandExecutor( new GitCLICommandExecutor() );
 
         // act
-        ScmFileContent result = provider.getFileContentForRevision( (ScmRepository) null, "3c6666b2bc5a868baa802d8879781e4acca1d7c6", new ScmPath(
-                        "FutureSQR-Frontend/src/app/views/single-file-revision-page/other-file-revisions-panel/other-file-revisions-panel.component.html" ) );
+        ScmFileContent result = provider.getFileContentForRevision( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ),
+                        "3c6666b2bc5a868baa802d8879781e4acca1d7c6",
+                        new ScmPath( "FutureSQR-Frontend/src/app/views/single-file-revision-page/other-file-revisions-panel/other-file-revisions-panel.component.html" ) );
 
         // assert
         System.out.println( result.fileContent );
