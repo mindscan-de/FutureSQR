@@ -151,13 +151,12 @@ def calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo(local_repo_path:st
     }
     return recentRevisions
     
-
+# Java:implementation :: GetSimpleCommitInformationForRevisionCommand // None yet.
 def calculateSimpleRevisionInformation(local_git_repo_path:str, revisionid:str):
     formatdetails = '%x1f'.join(GIT_FORMAT_PARAMS)
     
     git_parameters = [
         'log',
-        #'-u',
         '--pretty=format:%x1f'+formatdetails+'%x1e',
         '-1',
         revisionid
