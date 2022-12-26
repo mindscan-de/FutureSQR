@@ -23,25 +23,29 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.scmaccess.git.command;
+package de.mindscan.futuresqr.scmaccess.git.command.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommonConstants;
 import de.mindscan.futuresqr.scmaccess.git.GitCommand;
+import de.mindscan.futuresqr.scmaccess.git.command.GitCommandWithFilePath;
+import de.mindscan.futuresqr.scmaccess.git.command.GitCommandWithRevisionId;
 
 /**
- * Implementation of "getParticularFileHistory"
+ * 
  */
-public class GetFileHistoryCommand extends GitCommand implements GitCommandWithFilePath {
+public class GetFileContentForRevisionCommand extends GitCommand implements GitCommandWithFilePath, GitCommandWithRevisionId {
 
+    private String revisionId;
     private String filePath;
 
     /**
-     * 
+     * TODO: revisionId and filePath must be sanitized. 
      */
-    public GetFileHistoryCommand( String filePath ) {
+    public GetFileContentForRevisionCommand( String revisionId, String filePath ) {
+        this.revisionId = revisionId;
         this.filePath = filePath;
     }
 
@@ -52,11 +56,9 @@ public class GetFileHistoryCommand extends GitCommand implements GitCommandWithF
     public List<String> getArguments() {
         List<String> args = new ArrayList<String>();
 
-        args.add( GitCLICommonConstants.GIT_COMMAND_LOG );
-        args.add( GitCLICommonConstants.FOLLOW );
-        args.add( GitCLICommonConstants.GIT_PRETTY_FORMAT_WITH_PARAMETERS );
-        args.add( GitCLICommonConstants.MINUSMINUS );
-        args.add( this.getFilePath() );
+        args.add( GitCLICommonConstants.NO_PAGER );
+        args.add( GitCLICommonConstants.GIT_COMMAND_SHOW );
+        args.add( this.getRevisionId() + ":" + this.getFilePath() );
 
         return args;
     }
@@ -66,9 +68,7 @@ public class GetFileHistoryCommand extends GitCommand implements GitCommandWithF
      */
     @Override
     public boolean isCacheable() {
-        // Actually this result can be used as long as the head did not change for this file.
-        // Actually it should return a kind of policy. Like ALWAYS,UNTIL HEAD ...
-        return false;
+        return true;
     }
 
     /** 
@@ -79,4 +79,11 @@ public class GetFileHistoryCommand extends GitCommand implements GitCommandWithF
         return filePath;
     }
 
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public String getRevisionId() {
+        return revisionId;
+    }
 }

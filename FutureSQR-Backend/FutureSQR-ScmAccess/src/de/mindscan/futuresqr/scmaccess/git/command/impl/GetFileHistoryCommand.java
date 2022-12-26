@@ -23,27 +23,26 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.scmaccess.git.command;
+package de.mindscan.futuresqr.scmaccess.git.command.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommonConstants;
 import de.mindscan.futuresqr.scmaccess.git.GitCommand;
+import de.mindscan.futuresqr.scmaccess.git.command.GitCommandWithFilePath;
 
 /**
- * 
+ * Implementation of "getParticularFileHistory"
  */
-public class GetFileContentForRevisionCommand extends GitCommand implements GitCommandWithFilePath, GitCommandWithRevisionId {
+public class GetFileHistoryCommand extends GitCommand implements GitCommandWithFilePath {
 
-    private String revisionId;
     private String filePath;
 
     /**
-     * TODO: revisionId and filePath must be sanitized. 
+     * 
      */
-    public GetFileContentForRevisionCommand( String revisionId, String filePath ) {
-        this.revisionId = revisionId;
+    public GetFileHistoryCommand( String filePath ) {
         this.filePath = filePath;
     }
 
@@ -54,9 +53,11 @@ public class GetFileContentForRevisionCommand extends GitCommand implements GitC
     public List<String> getArguments() {
         List<String> args = new ArrayList<String>();
 
-        args.add( GitCLICommonConstants.NO_PAGER );
-        args.add( GitCLICommonConstants.GIT_COMMAND_SHOW );
-        args.add( this.getRevisionId() + ":" + this.getFilePath() );
+        args.add( GitCLICommonConstants.GIT_COMMAND_LOG );
+        args.add( GitCLICommonConstants.FOLLOW );
+        args.add( GitCLICommonConstants.GIT_PRETTY_FORMAT_WITH_PARAMETERS );
+        args.add( GitCLICommonConstants.MINUSMINUS );
+        args.add( this.getFilePath() );
 
         return args;
     }
@@ -66,7 +67,9 @@ public class GetFileContentForRevisionCommand extends GitCommand implements GitC
      */
     @Override
     public boolean isCacheable() {
-        return true;
+        // Actually this result can be used as long as the head did not change for this file.
+        // Actually it should return a kind of policy. Like ALWAYS,UNTIL HEAD ...
+        return false;
     }
 
     /** 
@@ -77,11 +80,4 @@ public class GetFileContentForRevisionCommand extends GitCommand implements GitC
         return filePath;
     }
 
-    /** 
-     * {@inheritDoc}
-     */
-    @Override
-    public String getRevisionId() {
-        return revisionId;
-    }
 }
