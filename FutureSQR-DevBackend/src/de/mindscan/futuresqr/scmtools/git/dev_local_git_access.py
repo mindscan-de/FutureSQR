@@ -62,7 +62,7 @@ def XXX_append_uuid_to_revisionlistitems(revisions):
     return resultlist
 
     
-
+# java:implementation :: GetRecentRevisionsCommand //  GitScmHistoryProvider.getRecentRevisions
 def calculateRecentRevisionsForLocalGitRepo(local_repo_path:str, limit:int = -1):
     '''
     This method provides a list of all revisions for a given local git repository.
@@ -97,7 +97,7 @@ def calculateRecentRevisionsForLocalGitRepo(local_repo_path:str, limit:int = -1)
     }
     return recentRevisions
 
-
+# java:implementation :: GetNRecentRevisionCommand // GitScmHistoryProvider.getNRecentRevisions
 def calculateNRecentRevisionsForLocalGitRepo(local_repo_path:str, max_revisions:int):
     '''
     This method provides a list of a limited number of revisions for a given local git repository.

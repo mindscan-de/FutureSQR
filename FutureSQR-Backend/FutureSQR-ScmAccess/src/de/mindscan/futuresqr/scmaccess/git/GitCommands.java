@@ -27,6 +27,8 @@ package de.mindscan.futuresqr.scmaccess.git;
 
 import de.mindscan.futuresqr.scmaccess.git.command.GetFileContentForRevisionCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.GetFileHistoryCommand;
+import de.mindscan.futuresqr.scmaccess.git.command.GetNRecentRevisionsCommand;
+import de.mindscan.futuresqr.scmaccess.git.command.GetRecentRevisionsCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.UpdateLocalRepositoryCommand;
 import de.mindscan.futuresqr.scmaccess.types.ScmPath;
 
@@ -45,6 +47,14 @@ public class GitCommands {
 
     public static GitCommand createUpdateLocalRepositoryCommand( String branchName ) {
         return new UpdateLocalRepositoryCommand( branchName );
+    }
+
+    public static GitCommand createGetRecentRevisionsCommand() {
+        return new GetRecentRevisionsCommand();
+    }
+
+    public static GitCommand createGetNRecentRevisionsCommand( int limit ) {
+        return new GetNRecentRevisionsCommand( limit );
     }
 
 }
