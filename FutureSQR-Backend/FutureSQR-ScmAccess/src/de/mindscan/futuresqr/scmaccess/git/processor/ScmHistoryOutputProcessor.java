@@ -23,29 +23,45 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.scmaccess.git;
+package de.mindscan.futuresqr.scmaccess.git.processor;
 
-import de.mindscan.futuresqr.scmaccess.git.processor.ScmFileContentOutputProcessor;
-import de.mindscan.futuresqr.scmaccess.git.processor.ScmFileHistoryOutputProcessor;
-import de.mindscan.futuresqr.scmaccess.git.processor.ScmHistoryOutputProcessor;
-import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
-import de.mindscan.futuresqr.scmaccess.types.ScmFileHistory;
+import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutput;
+import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutputProcessor;
+import de.mindscan.futuresqr.scmaccess.git.GitCommand;
+import de.mindscan.futuresqr.scmaccess.git.command.GitCommandWithLimit;
 import de.mindscan.futuresqr.scmaccess.types.ScmHistory;
 
 /**
  * 
  */
-public class GitOutputProcessors {
+public class ScmHistoryOutputProcessor implements GitCLICommandOutputProcessor<ScmHistory> {
 
-    public static GitCLICommandOutputProcessor<ScmFileContent> toScmFileContent() {
-        return new ScmFileContentOutputProcessor();
+    /**
+     * 
+     */
+    public ScmHistoryOutputProcessor() {
+        // intentionally left blank.
     }
 
-    public static GitCLICommandOutputProcessor<ScmFileHistory> toScmFileHistory() {
-        return new ScmFileHistoryOutputProcessor();
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public ScmHistory transform( GitCLICommandOutput output ) {
+        ScmHistory scmHistory = new ScmHistory();
+
+        scmHistory.scmRepository = output.getRepository();
+
+        // TODO: read
+
+        GitCommand gitCommand = output.getCommand();
+
+        if (gitCommand instanceof GitCommandWithLimit) {
+            scmHistory.hasLimit = true;
+            scmHistory.limit = ((GitCommandWithLimit) gitCommand).getLimit();
+        }
+
+        return scmHistory;
     }
 
-    public static GitCLICommandOutputProcessor<ScmHistory> toScmHistory() {
-        return new ScmHistoryOutputProcessor();
-    }
 }

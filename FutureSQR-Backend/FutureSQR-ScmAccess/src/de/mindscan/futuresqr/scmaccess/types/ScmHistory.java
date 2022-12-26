@@ -23,29 +23,20 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.scmaccess.git;
+package de.mindscan.futuresqr.scmaccess.types;
 
-import de.mindscan.futuresqr.scmaccess.git.processor.ScmFileContentOutputProcessor;
-import de.mindscan.futuresqr.scmaccess.git.processor.ScmFileHistoryOutputProcessor;
-import de.mindscan.futuresqr.scmaccess.git.processor.ScmHistoryOutputProcessor;
-import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
-import de.mindscan.futuresqr.scmaccess.types.ScmFileHistory;
-import de.mindscan.futuresqr.scmaccess.types.ScmHistory;
+import java.util.List;
 
 /**
  * 
  */
-public class GitOutputProcessors {
+public class ScmHistory {
 
-    public static GitCLICommandOutputProcessor<ScmFileContent> toScmFileContent() {
-        return new ScmFileContentOutputProcessor();
-    }
+    public ScmRepository scmRepository;
 
-    public static GitCLICommandOutputProcessor<ScmFileHistory> toScmFileHistory() {
-        return new ScmFileHistoryOutputProcessor();
-    }
+    public List<ScmBasicRevisionInformation> revisions;
 
-    public static GitCLICommandOutputProcessor<ScmHistory> toScmHistory() {
-        return new ScmHistoryOutputProcessor();
-    }
+    public boolean hasLimit = false;
+    public int limit = -1;
+
 }
