@@ -27,6 +27,7 @@ package de.mindscan.futuresqr.scmaccess.git;
 
 import de.mindscan.futuresqr.scmaccess.ScmHistoryProvider;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileHistory;
+import de.mindscan.futuresqr.scmaccess.types.ScmHistory;
 import de.mindscan.futuresqr.scmaccess.types.ScmPath;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
@@ -59,4 +60,27 @@ public class GitScmHistoryProvider implements ScmHistoryProvider {
         return scmFileHistory;
     }
 
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public ScmHistory getRecentRevisions( ScmRepository repository ) {
+        ScmHistory scmHistory = gitCliExecutor //
+                        .execute( repository, GitCommands.createGetRecentRevisionsCommand() ) //
+                        .transform( GitOutputProcessors.toScmHistory() );
+
+        return scmHistory;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public ScmHistory getNRecentRevisions( ScmRepository repository, int limit ) {
+        ScmHistory scmHistory = gitCliExecutor //
+                        .execute( repository, GitCommands.createGetNRecentRevisionsCommand( limit ) ) //
+                        .transform( GitOutputProcessors.toScmHistory() );
+
+        return scmHistory;
+    }
 }

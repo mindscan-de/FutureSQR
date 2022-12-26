@@ -26,6 +26,7 @@
 package de.mindscan.futuresqr.scmaccess;
 
 import de.mindscan.futuresqr.scmaccess.types.ScmFileHistory;
+import de.mindscan.futuresqr.scmaccess.types.ScmHistory;
 import de.mindscan.futuresqr.scmaccess.types.ScmPath;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
@@ -44,4 +45,7 @@ public interface ScmHistoryProvider {
     // some modifications should be prossible: full history, limit (number of revisions in History, cut off date), until last copy / rename operation,   
     ScmFileHistory getFilePathHistory( ScmRepository repository, ScmPath filePath );
 
+    ScmHistory getRecentRevisions( ScmRepository repository );
+
+    ScmHistory getNRecentRevisions( ScmRepository repository, int limit );
 }
