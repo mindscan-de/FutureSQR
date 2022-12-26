@@ -32,6 +32,7 @@ import java.util.function.Consumer;
 
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutput;
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutputProcessor;
+import de.mindscan.futuresqr.scmaccess.git.GitCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.GitCommandWithFilePath;
 import de.mindscan.futuresqr.scmaccess.types.ScmBasicRevisionInformation;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileHistory;
@@ -54,7 +55,9 @@ public class ScmFileHistoryOutputProcessor implements GitCLICommandOutputProcess
         scmFileHistory.scmRepository = output.getRepository();
         scmFileHistory.revisions = revisions;
 
-        if (output instanceof GitCommandWithFilePath) {
+        GitCommand gitCommand = output.getCommand();
+
+        if (gitCommand instanceof GitCommandWithFilePath) {
             scmFileHistory.filePath = ((GitCommandWithFilePath) output).getFilePath();
         }
 
