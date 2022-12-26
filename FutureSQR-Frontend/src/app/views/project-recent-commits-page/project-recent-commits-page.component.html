@@ -1,19 +1,18 @@
 <div class="row">
-	<div class="col-xl-9">
+	<div class="col-xl-9 mb-4">
 		<app-basic-project-information [activeProjectId]="activeProjectID" (revisionHistoryUpdated)="reloadCommitHistory($event)"></app-basic-project-information>
 		
-		<div class="card mt-4">
+<!-- 		<div class="card mt-4">
 			<div class="card-header">
 				<h4>Recent Commits</h4>
 			</div>
-			<div clss="card-body">
-				<ul>
-					<li><b>TODO:</b> the very HEAD is missing.... for some reason.... either python or typescript (But is not on the git command)</li>
-				</ul>
+			<div class="card-body">
+				&nbsp;TODO: intensity map of the latest changes.
 			</div>
 		</div>
-		<ng-container *ngFor="let commitsByDate of uiModelRecentProjectCommitsGroupedByDate | keyvalue:originalOrder">
-		<div class="card mt-2">
+ -->
+ 		<ng-container *ngFor="let commitsByDate of uiModelRecentProjectCommitsGroupedByDate | keyvalue:originalOrder">
+		<div class="card mt-3">
 			<div class="card-header">
 				<b>{{commitsByDate.key}}</b>
 			</div>
