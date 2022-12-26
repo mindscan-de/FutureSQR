@@ -37,25 +37,32 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonIOException;
 import com.google.gson.reflect.TypeToken;
 
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
 /**
- * The Idea of this fake executor is to be able to record test cases and to replay the output. such that it can be
- * used to create stable tests and to provide tests without access to a repository, but still be able to execute 
- * the unit tests with the output which a real invocation would have produced. We actually do not want to spin
- * up System-Process-Git executions, like updates and such on a repository just for the sake of running unit tests.
+ * The {@link FakeGitCLICommandExecutor} serves multiple purposes. It can record the output for a particular
+ * command and a particular repository and save the result to the test-resources folder, such that the recorded
+ * output can be captured once and replayed again, whenever it is required.
  * 
- * the recorded data should be put into a resource directory for tests like "test-resources".
+ * Think in cases of repository operations, a call on a git repository may alter future requests. The basic idea
+ * is to provide the same test-cases and replay results, such that regression tests can be implemented. This 
+ * will create a possibility to provide all sorts of test cases, and the test cases will be executable and 
+ * running correctly, even if they run them on a different machine or with no repositories at all.
  * 
- * this Fake executor is injectable into the test process, e.g. by initializing the providers with this executor.
+ * We are now able to still execute unit tests, with output from a former real invocation. While executing unit
+ * tests we neither want to execute system processes, nor do we want to alter the results. This whole class 
+ * replaces a system-call to "git", with a read operation on the test-resources folder and with de-serializing 
+ * the results. 
+ *
+ * This GitCLICommandExecutor can be injected into the provider(s) using a setter.
  * 
- * This same mechanism implemented here can be used to implement a fast in-memory-cache for accessing the repository, 
- * where different cache strategies can be adopted. Also the cache mechanism can be used to combine it with this 
- * FakeGitCLICommandExecutor, to speed up tests with a cache.
- *  
+ * Also this seems to be a nice proof-of-concept, for a fast in-memory-cache for accessing scm repositories,
+ * because this class already is essentially a cache for scm executions, even if they took a quite long time. 
+ * Such a system will be necessary for scm's which require internet access, which might not be feasible for 
+ * tests or at the rate, which the server would query them. 
+ * 
  */
 public class FakeGitCLICommandExecutor extends GitCLICommandExecutor {
 
@@ -84,9 +91,6 @@ public class FakeGitCLICommandExecutor extends GitCLICommandExecutor {
     /** 
      * {@inheritDoc}
      */
-    // TODO we can either record the output and store it
-    // or we can replay the output generated previously for the repository and the given command.
-    // we can do both in case we encounter a new combination, which we don't know.
     @Override
     public GitCLICommandOutput execute( ScmRepository repository, GitCommand command ) {
         if (isRecordingPresent( repository, command )) {
@@ -126,7 +130,6 @@ public class FakeGitCLICommandExecutor extends GitCLICommandExecutor {
                     Files.createDirectories( path.toAbsolutePath() );
                 }
                 catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
@@ -145,7 +148,6 @@ public class FakeGitCLICommandExecutor extends GitCLICommandExecutor {
             e.printStackTrace();
         }
 
-        // convert to hex and only use first 7 hex nibbles
         return new BigInteger( 1, repoDigest ).toString( 16 ).substring( 0, 7 );
     }
 
@@ -178,7 +180,6 @@ public class FakeGitCLICommandExecutor extends GitCLICommandExecutor {
             e.printStackTrace();
         }
 
-        // convert to hex and only use first 12 hex nibbles
         return new BigInteger( 1, commandDigest ).toString( 16 ).substring( 0, 12 );
     }
 
@@ -188,15 +189,12 @@ public class FakeGitCLICommandExecutor extends GitCLICommandExecutor {
 
         Path inputFile = getCommandPathInFakeRepoPath( repositorySignature, commandSignature );
 
-        // read and but only return the byte array from the recording.
-        GitCLICommandOutput result;
-
         try (FileReader fileReader = new FileReader( inputFile.toAbsolutePath().toString() )) {
-            result = (GitCLICommandOutput) gson.fromJson( fileReader, gitCLICommandOutputType );
+            GitCLICommandOutput result = (GitCLICommandOutput) gson.fromJson( fileReader, gitCLICommandOutputType );
             return result.getProcessOutput();
         }
-        catch (IOException e1) {
-            e1.printStackTrace();
+        catch (IOException e) {
+            e.printStackTrace();
         }
 
         return new byte[0];
@@ -208,19 +206,9 @@ public class FakeGitCLICommandExecutor extends GitCLICommandExecutor {
 
         Path outputFile = getCommandPathInFakeRepoPath( repositorySignature, commandSignature );
 
-        // save the recorded entry data to file.
-        try {
+        try (FileWriter writer = new FileWriter( outputFile.toString() )) {
             String jsonString = gson.toJson( recordedEntryData );
-
-            System.out.println( "GSON" );
-            System.out.println( jsonString );
-
-            try (FileWriter writer = new FileWriter( outputFile.toString() )) {
-                writer.write( jsonString );
-            }
-        }
-        catch (JsonIOException e) {
-            e.printStackTrace();
+            writer.write( jsonString );
         }
         catch (IOException e) {
             e.printStackTrace();
