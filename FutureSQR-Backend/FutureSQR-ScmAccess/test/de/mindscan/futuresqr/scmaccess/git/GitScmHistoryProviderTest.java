@@ -1,8 +1,12 @@
 package de.mindscan.futuresqr.scmaccess.git;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
+import de.mindscan.futuresqr.scmaccess.types.ScmBasicRevisionInformation;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileHistory;
+import de.mindscan.futuresqr.scmaccess.types.ScmHistory;
 import de.mindscan.futuresqr.scmaccess.types.ScmPath;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
@@ -20,6 +24,23 @@ public class GitScmHistoryProviderTest {
 
         // assert
 
+    }
+
+    @Test
+    public void testGetNRecentRevisions() throws Exception {
+        // arrange
+        GitScmHistoryProvider provider = new GitScmHistoryProvider();
+        provider.setGitCLICommandExecutor( new FakeGitCLICommandExecutor() );
+
+        // act
+        ScmHistory result = provider.getNRecentRevisions( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ), 8 );
+
+        // assert
+        List<ScmBasicRevisionInformation> revisions = result.revisions;
+
+        for (ScmBasicRevisionInformation revision : revisions) {
+            System.out.println( revision.message );
+        }
     }
 
 }
