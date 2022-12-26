@@ -45,7 +45,9 @@ public interface ScmHistoryProvider {
     // some modifications should be prossible: full history, limit (number of revisions in History, cut off date), until last copy / rename operation,   
     ScmFileHistory getFilePathHistory( ScmRepository repository, ScmPath filePath );
 
+    // see calculateRecentRevisionsForLocalGitRepo for context of this method.
     ScmHistory getRecentRevisions( ScmRepository repository );
 
+    // see calculateNRecentRevisionsForLocalGitRepo for context of this method.
     ScmHistory getNRecentRevisions( ScmRepository repository, int limit );
 }

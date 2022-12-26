@@ -67,6 +67,7 @@ public class GetFileHistoryCommand extends GitCommand implements GitCommandWithF
     @Override
     public boolean isCacheable() {
         // Actually this result can be used as long as the head did not change for this file.
+        // Actually it should return a kind of policy. Like ALWAYS,UNTIL HEAD ...
         return false;
     }
 
