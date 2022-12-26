@@ -23,7 +23,7 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.scmaccess.git.command;
+package de.mindscan.futuresqr.scmaccess.git.command.impl;
 
 import java.util.ArrayList;
 import java.util.List;

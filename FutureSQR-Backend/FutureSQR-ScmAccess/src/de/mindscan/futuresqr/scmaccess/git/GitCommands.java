@@ -27,9 +27,9 @@ package de.mindscan.futuresqr.scmaccess.git;
 
 import de.mindscan.futuresqr.scmaccess.git.command.GetFileContentForRevisionCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.GetFileHistoryCommand;
-import de.mindscan.futuresqr.scmaccess.git.command.GetNRecentRevisionsCommand;
-import de.mindscan.futuresqr.scmaccess.git.command.GetRecentRevisionsCommand;
-import de.mindscan.futuresqr.scmaccess.git.command.UpdateLocalRepositoryCommand;
+import de.mindscan.futuresqr.scmaccess.git.command.impl.GetNRecentRevisionsCommand;
+import de.mindscan.futuresqr.scmaccess.git.command.impl.GetRecentRevisionsCommand;
+import de.mindscan.futuresqr.scmaccess.git.command.impl.UpdateLocalRepositoryCommand;
 import de.mindscan.futuresqr.scmaccess.types.ScmPath;
 
 /**
