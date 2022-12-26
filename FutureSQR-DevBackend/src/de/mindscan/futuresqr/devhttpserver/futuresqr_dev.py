@@ -410,7 +410,7 @@ def postCloseReview(projectid:str, reviewid:str = Form(...)):
 @app.post("/FutureSQR/rest/project/{projectid}/review/reopen", response_class=JSONResponse)
 def postReopenReview(projectid:str, reviewid:str=Form(...)):
     if projectDB.isProjectIdPresent(projectid):
-        reviewDB.updateReopenReviewByReviewId(projectid, reviewid, response_class=JSONResponse)
+        reviewDB.updateReopenReviewByReviewId(projectid, reviewid)
     
     result = {}
     return result
