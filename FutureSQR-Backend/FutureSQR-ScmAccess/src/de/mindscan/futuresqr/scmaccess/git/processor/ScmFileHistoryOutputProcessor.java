@@ -58,7 +58,7 @@ public class ScmFileHistoryOutputProcessor implements GitCLICommandOutputProcess
         GitCommand gitCommand = output.getCommand();
 
         if (gitCommand instanceof GitCommandWithFilePath) {
-            scmFileHistory.filePath = ((GitCommandWithFilePath) output).getFilePath();
+            scmFileHistory.filePath = ((GitCommandWithFilePath) gitCommand).getFilePath();
         }
 
         return scmFileHistory;
