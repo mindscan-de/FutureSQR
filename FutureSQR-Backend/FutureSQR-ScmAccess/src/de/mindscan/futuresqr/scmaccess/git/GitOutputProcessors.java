@@ -28,9 +28,11 @@ package de.mindscan.futuresqr.scmaccess.git;
 import de.mindscan.futuresqr.scmaccess.git.processor.ScmFileContentOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.git.processor.ScmFileHistoryOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.git.processor.ScmHistoryOutputProcessor;
+import de.mindscan.futuresqr.scmaccess.git.processor.impl.ScmSingleRevisionFileChangeListOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileHistory;
 import de.mindscan.futuresqr.scmaccess.types.ScmHistory;
+import de.mindscan.futuresqr.scmaccess.types.ScmSingleRevisionFileChangeList;
 
 /**
  * 
@@ -47,5 +49,9 @@ public class GitOutputProcessors {
 
     public static GitCLICommandOutputProcessor<ScmHistory> toScmHistory() {
         return new ScmHistoryOutputProcessor();
+    }
+
+    public static GitCLICommandOutputProcessor<ScmSingleRevisionFileChangeList> toScmSingleRevisionFileChangeList() {
+        return new ScmSingleRevisionFileChangeListOutputProcessor();
     }
 }

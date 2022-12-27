@@ -23,7 +23,7 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.scmaccess.git.processor;
+package de.mindscan.futuresqr.scmaccess.git.processor.impl;
 
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutput;
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutputProcessor;
