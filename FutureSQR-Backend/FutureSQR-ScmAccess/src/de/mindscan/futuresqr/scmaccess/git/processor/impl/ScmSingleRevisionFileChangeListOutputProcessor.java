@@ -27,6 +27,8 @@ package de.mindscan.futuresqr.scmaccess.git.processor.impl;
 
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutput;
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutputProcessor;
+import de.mindscan.futuresqr.scmaccess.git.GitCommand;
+import de.mindscan.futuresqr.scmaccess.git.command.GitCommandWithRevisionId;
 import de.mindscan.futuresqr.scmaccess.types.ScmSingleRevisionFileChangeList;
 
 /**
@@ -46,10 +48,26 @@ public class ScmSingleRevisionFileChangeListOutputProcessor implements GitCLICom
      */
     @Override
     public ScmSingleRevisionFileChangeList transform( GitCLICommandOutput output ) {
+        ScmSingleRevisionFileChangeList fileChangeList = new ScmSingleRevisionFileChangeList();
 
+        fileChangeList.scmRepository = output.getRepository();
+
+        // first line contains some more commit details... do we need them?
+        // revisionId
+        // committer
+        // relDate
+
+        // TODO: collect file change info which is new line separated, then tab separated. 
+        // fileChangeList.fileChangeInformation
         System.out.println( new String( output.getProcessOutput() ) );
 
-        return null;
+        GitCommand gitCommand = output.getCommand();
+
+        if (gitCommand instanceof GitCommandWithRevisionId) {
+            fileChangeList.revisionId = ((GitCommandWithRevisionId) gitCommand).getRevisionId();
+        }
+
+        return fileChangeList;
     }
 
 }
