@@ -29,6 +29,7 @@ import de.mindscan.futuresqr.scmaccess.types.ScmFileHistory;
 import de.mindscan.futuresqr.scmaccess.types.ScmHistory;
 import de.mindscan.futuresqr.scmaccess.types.ScmPath;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
+import de.mindscan.futuresqr.scmaccess.types.ScmSingleRevisionFileChangeList;
 
 /**
  * Provides the history of 
@@ -50,4 +51,6 @@ public interface ScmHistoryProvider {
 
     // see calculateNRecentRevisionsForLocalGitRepo for context of this method.
     ScmHistory getNRecentRevisions( ScmRepository repository, int limit );
+
+    ScmSingleRevisionFileChangeList getFileChangeListForRevision( ScmRepository repository, String revisionId );
 }

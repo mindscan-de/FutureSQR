@@ -30,6 +30,7 @@ import de.mindscan.futuresqr.scmaccess.types.ScmFileHistory;
 import de.mindscan.futuresqr.scmaccess.types.ScmHistory;
 import de.mindscan.futuresqr.scmaccess.types.ScmPath;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
+import de.mindscan.futuresqr.scmaccess.types.ScmSingleRevisionFileChangeList;
 
 /**
  * 
@@ -82,5 +83,17 @@ public class GitScmHistoryProvider implements ScmHistoryProvider {
                         .transform( GitOutputProcessors.toScmHistory() );
 
         return scmHistory;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public ScmSingleRevisionFileChangeList getFileChangeListForRevision( ScmRepository repository, String revisionId ) {
+        ScmSingleRevisionFileChangeList scmFileChangesList = gitCliExecutor// 
+                        .execute( repository, GitCommands.createGetFileChangesListForRevisionCommand( revisionId ) ) //
+                        .transform( GitOutputProcessors.toScmSingleRevisionFileChangeList() );
+
+        return scmFileChangesList;
     }
 }
