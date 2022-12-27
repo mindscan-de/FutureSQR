@@ -43,4 +43,17 @@ public class GitScmHistoryProviderTest {
         }
     }
 
+    @Test
+    public void testGetFileChangeListForRevision_FileChangesListContainsModificationsAndRenames_() throws Exception {
+        // arrange
+        GitScmHistoryProvider provider = new GitScmHistoryProvider();
+        provider.setGitCLICommandExecutor( new FakeGitCLICommandExecutor( false ) );
+
+        // act
+        provider.getFileChangeListForRevision( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ), "fbf54da649b05f3cdd372e08543435c7d0d30356" );
+
+        // assert
+
+    }
+
 }
