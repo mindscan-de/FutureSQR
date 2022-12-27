@@ -9,7 +9,7 @@
 			<ng-container *ngFor="let navitem of navItems">
 				<li class="nav-item">
 					<a *ngIf="!navitem.hasQueryData" class="nav-link small" [ngClass]="{'active':navitem.routerLinkActive}" [routerLink]="navitem.routerLink">{{navitem.linkText}}</a>
-					<a *ngIf="navitem.hasQueryData"  class="nav-link small" [ngClass}="{'active':navitem.routerLinkActive}" [routerLink]="navitem.routerLink" [queryParams]="navitem.queryData">{{navitem.linkText}}</a>
+					<a *ngIf="navitem.hasQueryData"  class="nav-link small" [ngClass]="{'active':navitem.routerLinkActive}" [routerLink]="navitem.routerLink" [queryParams]="navitem.queryData">{{navitem.linkText}}</a>
 				</li>
 			</ng-container>
 		</ol>
