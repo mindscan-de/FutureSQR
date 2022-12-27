@@ -32,12 +32,15 @@ export class AllProjectsPageComponent implements OnInit {
 			data => this.onAllProjectsProvided(data),
 			error => console.log(error)
 		);
+
+		this.setTopNavigation();	
+	}
 	
-		// add navigation
+	setTopNavigation() : void {
 		let x = []
 		x.push(this.navbarService.createItem( 'all projects', ['/','allprojects'], true ));
 		this.navbarService.setBreadcrumbNavigation(x);		
-  }
+	}
 
 	onAllProjectsProvided( allProjects: BackendModelProjectItem[]) : void {
 		this.uiModelAllProjects = allProjects;
@@ -48,7 +51,6 @@ export class AllProjectsPageComponent implements OnInit {
 		
 		this.projectDataQueryBackend.starProject(activeProjectId, currentUserUUID).subscribe(
 			data=>{
-				// TODO react -> update local listitem for projectid and current new state.
 				this.ui_update_star(activeProjectId, true);
 			},
 			error=>{}
@@ -61,7 +63,6 @@ export class AllProjectsPageComponent implements OnInit {
 		
 		this.projectDataQueryBackend.unstarProject(activeProjectId, currentUserUUID).subscribe(
 			data =>{
-				// TODO react -> update local listitem for projectid and current new state.
 				this.ui_update_star(activeProjectId, false); 
 			},
 			error=>{},
