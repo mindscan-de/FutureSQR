@@ -25,6 +25,10 @@
  */
 package de.mindscan.futuresqr.scmaccess.git.processor.impl;
 
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.function.Consumer;
+
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutput;
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.git.GitCommand;
@@ -35,6 +39,8 @@ import de.mindscan.futuresqr.scmaccess.types.ScmSingleRevisionFileChangeList;
  * 
  */
 public class ScmSingleRevisionFileChangeListOutputProcessor implements GitCLICommandOutputProcessor<ScmSingleRevisionFileChangeList> {
+
+    private final static String ASCII_RECORD_SEPARATOR_REGEX = "\\x1e";
 
     /**
      * 
@@ -50,16 +56,30 @@ public class ScmSingleRevisionFileChangeListOutputProcessor implements GitCLICom
     public ScmSingleRevisionFileChangeList transform( GitCLICommandOutput output ) {
         ScmSingleRevisionFileChangeList fileChangeList = new ScmSingleRevisionFileChangeList();
 
+        // TODO: remove me after implementation - collect file change info which is new line separated, then tab separated. 
+        System.out.println( new String( output.getProcessOutput() ) );
+
         fileChangeList.scmRepository = output.getRepository();
+        fileChangeList.fileChangeInformation = new ArrayList<>();
 
         // first line contains some more commit details... do we need them?
         // revisionId
         // committer
         // relDate
 
-        // TODO: collect file change info which is new line separated, then tab separated. 
+        // use the recordseparator \\x1e to split first line from fileinfo
+        String processOutput = new String( output.getProcessOutput(), StandardCharsets.UTF_8 );
+        String[] processOutputSplitted = processOutput.split( ASCII_RECORD_SEPARATOR_REGEX );
+
+        if (processOutputSplitted.length != 2) {
+            throw new RuntimeException( "Unexpected Format found." );
+        }
+
+        // commit details.
+        parseCommitDetails( processOutputSplitted[0] );
+
         // fileChangeList.fileChangeInformation
-        System.out.println( new String( output.getProcessOutput() ) );
+        parseFileListDetails( processOutputSplitted[1], fileChangeList.fileChangeInformation::add );
 
         GitCommand gitCommand = output.getCommand();
 
@@ -70,4 +90,11 @@ public class ScmSingleRevisionFileChangeListOutputProcessor implements GitCLICom
         return fileChangeList;
     }
 
+    private void parseCommitDetails( String string ) {
+        // intentionally left blank
+    }
+
+    private void parseFileListDetails( String string, Consumer<String[]> collector ) {
+
+    }
 }
