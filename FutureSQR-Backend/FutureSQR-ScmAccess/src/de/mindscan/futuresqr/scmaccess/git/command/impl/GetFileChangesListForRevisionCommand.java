@@ -23,12 +23,13 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.scmaccess.git.command;
+package de.mindscan.futuresqr.scmaccess.git.command.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import de.mindscan.futuresqr.scmaccess.git.GitCommand;
+import de.mindscan.futuresqr.scmaccess.git.command.GitCommandWithRevisionId;
 
 /**
  * A parser for this data is missing rigght now. 
@@ -59,7 +60,7 @@ public class GetFileChangesListForRevisionCommand extends GitCommand implements 
         args.add( "log" );
         args.add( "--find-renames" );
         args.add( "--name-status" );
-        args.add( "--pretty=format:%x1f" + formatdetails + "%x1e" );
+        args.add( "--pretty=format:" + formatdetails + "%x1e" );
         args.add( "-1" );
         args.add( this.getRevisionId() );
 

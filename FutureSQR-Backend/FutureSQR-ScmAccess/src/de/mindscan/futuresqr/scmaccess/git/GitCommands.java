@@ -25,6 +25,7 @@
  */
 package de.mindscan.futuresqr.scmaccess.git;
 
+import de.mindscan.futuresqr.scmaccess.git.command.impl.GetFileChangesListForRevisionCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.impl.GetFileContentForRevisionCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.impl.GetFileHistoryCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.impl.GetNRecentRevisionsCommand;
@@ -57,4 +58,7 @@ public class GitCommands {
         return new GetNRecentRevisionsCommand( limit );
     }
 
+    public static GitCommand createGetFileChangesListForRevisionCommand( String revisionId ) {
+        return new GetFileChangesListForRevisionCommand( revisionId );
+    }
 }
