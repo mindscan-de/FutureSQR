@@ -25,9 +25,22 @@
  */
 package de.mindscan.futuresqr.scmaccess.types;
 
+import java.util.List;
+
 /**
  * 
  */
 public class ScmSingleRevisionFileChangeList {
+
+    public ScmRepository scmRepository;
+
+    public String revisionId;
+
+    // TODO file changes List of tupel tripel?
+    // M name
+    // A ??
+    // D ??
+    // R ddd name1 name2
+    public List<String[]> fileChangeInformation;
 
 }
