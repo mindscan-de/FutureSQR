@@ -139,7 +139,15 @@ def parse_log_full_changeset(log):
 
 def parse_log_fileListToArray(log):
     lines = log.split('\n')
-    lines_with_rows = [ line.strip().split('\t',2) for line in lines ]
+    lines_with_rows = [ handle_renames(line.strip().split('\t',3)) for line in lines ]
+    
     file_list = [ row for row in lines_with_rows if len(row)==2 ]
     
     return file_list
+
+def handle_renames(row):
+    if(len(row) == 2):
+        return row;
+    if(len(row) == 3):
+        return [row[0], row[2]];
+    return row
