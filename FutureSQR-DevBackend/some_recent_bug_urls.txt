@@ -15,3 +15,12 @@
 
 * contains binary added files -- (done)
 ** http://localhost:4200/futuresqr/revision/dec95d157e4df48bd1c112d9b69630ed96c38a88
+
+---- 2022-12-27 ---- 
+
+* Missing the Renamed files in the simple file list on the right side - these should be shown.
+** http://localhost:4200/futuresqr/revision/fbf54da649b05f3cdd372e08543435c7d0d30356
+** python backend problem - fileActionMap doesn't contain the renamed files - but should.
+*** see http://localhost:8000/docs#/default/getProjectRevisionFileListDiffToPrevious_FutureSQR_rest_project__projectid__revisionfilelist__revisionid__get
+*** futuresqr   fbf54da649b05f3cdd372e08543435c7d0d30356
+* These files are also missing in the file lists, which can be retrieved when clicking on a revision to expand.
