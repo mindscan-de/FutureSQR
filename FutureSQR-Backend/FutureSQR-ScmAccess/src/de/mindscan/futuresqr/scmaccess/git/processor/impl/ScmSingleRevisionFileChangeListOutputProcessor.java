@@ -46,7 +46,9 @@ public class ScmSingleRevisionFileChangeListOutputProcessor implements GitCLICom
      */
     @Override
     public ScmSingleRevisionFileChangeList transform( GitCLICommandOutput output ) {
-        // TODO Auto-generated method stub
+
+        System.out.println( new String( output.getProcessOutput() ) );
+
         return null;
     }
 
