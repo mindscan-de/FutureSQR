@@ -88,13 +88,10 @@ export class SingleReviewPageComponent implements OnInit {
 	}
 	
 	setNavigationInformation(): void {
-		// Add navigation only after we received the review title as well.		
 		let x = []
-		// TODO: project display name - must retrieve info from service or backend. 
+
 		x.push( this.navigationBarService.createItem( this.activeProjectID, ['/',this.activeProjectID], false ));
-		// Provide extra reviews link
 		x.push( this.navigationBarService.createItem( 'Reviews', ['/',this.activeProjectID,'reviews'], false ));
-		// Provide title
 		x.push( this.navigationBarService.createItem( this.activeReviewID+": "+this.activeReviewData.reviewTitle, ['/',this.activeProjectID, 'review', this.activeReviewID], true ));
 		
 		this.navigationBarService.setBreadcrumbNavigation(x);

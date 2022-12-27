@@ -36,13 +36,17 @@ export class ProjectRecentReviewsPageComponent implements OnInit {
 			data => this.onRecentReviewsLoaded(data),
 			error => {}
 		);
-		
-		// add navigation
+
+		this.setTopNavigation();
+	}
+	
+	setTopNavigation() : void {
 		let x = []
-		x.push(this.navigationBarService.createItem( this.activeProjectID, ['/',this.activeProjectID], false ));
-		x.push(this.navigationBarService.createItem( 'Reviews', ['/',this.activeProjectID, 'reviews'], false ));
-		this.navigationBarService.setBreadcrumbNavigation(x);		
 		
+		x.push(this.navigationBarService.createItem( this.activeProjectID, ['/',this.activeProjectID], false ));
+		x.push(this.navigationBarService.createItem( 'Reviews', ['/',this.activeProjectID, 'reviews'], true ));
+		
+		this.navigationBarService.setBreadcrumbNavigation(x);		
 	}
 	
 	onRecentReviewsLoaded(recentReviews:BackendModelProjectRecentReviews) : void {

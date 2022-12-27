@@ -38,7 +38,9 @@ export class AllProjectsPageComponent implements OnInit {
 	
 	setTopNavigation() : void {
 		let x = []
+		
 		x.push(this.navbarService.createItem( 'all projects', ['/','allprojects'], true ));
+		
 		this.navbarService.setBreadcrumbNavigation(x);		
 	}
 

@@ -126,8 +126,8 @@ export class SingleFileRevisionPageComponent implements OnInit {
 	}
 	
 	setNavigation(): void {
-		// add navigation
 		let x = []
+		
 		x.push(this.navigationBarService.createItem( this.activeProjectID, ['/',this.activeProjectID], false ));
 		x.push(this.navigationBarService.createItem( this.uiRevisionData.shortrev, ['/',this.activeProjectID, 'revision', this.activeRevisionID], false ));
 		x.push(this.navigationBarService.createItemWithQueryParameters( this.activeFilePath,['/',this.activeProjectID, 'revision', this.activeRevisionID, 'viewfile'], {'p':this.activeFilePath}, true));

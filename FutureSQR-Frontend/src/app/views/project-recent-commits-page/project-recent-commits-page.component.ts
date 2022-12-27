@@ -41,9 +41,15 @@ export class ProjectRecentCommitsPageComponent implements OnInit {
 			error => console.log(error)
 		);
 		
-		// add navigation
+		this.setTopNavigation();
+	}
+	
+	setTopNavigation() : void {
 		let x = []
-		x.push(this.navigationBarService.createItem( this.activeProjectID, ['/',this.activeProjectID], false ));
+		
+		x.push(this.navigationBarService.createItem( this.activeProjectID, ['/',this.activeProjectID], true ));
+		x.push(this.navigationBarService.createItem( 'Reviews', ['/', this.activeProjectID, 'reviews'], false));
+		
 		this.navigationBarService.setBreadcrumbNavigation(x);		
 	}
 

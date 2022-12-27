@@ -92,8 +92,8 @@ export class SingleRevisionPageComponent implements OnInit {
 	}
 	
 	setNavigation(): void {
-		// add navigation
 		let x = []
+		
 		x.push(this.navigationBarService.createItem( this.activeProjectID, ['/',this.activeProjectID], false ));
 		x.push(this.navigationBarService.createItem( this.uiRevisionData.shortrev, ['/',this.activeProjectID, 'revision', this.activeRevisionID], true ));
 		

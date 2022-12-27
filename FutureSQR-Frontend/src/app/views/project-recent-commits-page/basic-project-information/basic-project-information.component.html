@@ -17,9 +17,7 @@
 				<a class="btn btn-sm btn-secondary" (click)="onUpdateProjectCache(activeProjectId)">update project cache</a>
 			</div>
 			
-			<span class="mr-2"><a [routerLink]="['/',activeProjectId,'reviews']">recent reviews</a></span>
-			<span class="mr-2">|</span>
-				<span class="mr-2 text-muted"><a [routerLink]="['/','admin','project',uiProjectInfo.projectID]">configure</a></span>
+			<span class="mr-2 text-muted"><a [routerLink]="['/','admin','project',uiProjectInfo.projectID]">configure</a></span>
 		</li>
 	</ul>
 </div>
