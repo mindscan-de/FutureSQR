@@ -3,6 +3,8 @@
 	<name>FutureSQR-ReviewSystem-Core</name>
 	<comment></comment>
 	<projects>
+		<project>FutureSQR-Core</project>
+		<project>FutureSQR-ScmAccess</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
