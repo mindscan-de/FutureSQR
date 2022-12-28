@@ -1,0 +1,8 @@
+eclipse.preferences.version=1
+org.moreunit.preferences.version=2
+org.moreunit.test.test_methodDefaultContent=\    cpxuaaa
+org.moreunit.testClassNameTemplate=${srcFile}*Test
+org.moreunit.test_annotation=BY_CALL_AND_BY_NAME
+org.moreunit.test_type=junit5
+org.moreunit.unitsourcefolder=FutureSQR-ReviewSystem-Core\:src\:FutureSQR-ReviewSystem-Core\:test
+org.moreunit.useprojectsettings=true
