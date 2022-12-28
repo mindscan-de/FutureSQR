@@ -225,6 +225,8 @@ export class BPEDiffUtils {
 						break;
 					}
 					case BpeDiffSyndrome.Replaced: {
+						// actually this is not cool in case the next syndrome is adjacent to a deletion or insertion
+						// for readability. - anyways it is like it is now.
 						unified_visulalization_entry.push(new BPEVisualizationEntry (BpeDiffSyndrome.Deleted, stashed_left_tokens ));
 						unified_visulalization_entry.push(new BPEVisualizationEntry (BpeDiffSyndrome.Inserted, stashed_right_tokens ));
 						break;
