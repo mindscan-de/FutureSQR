@@ -23,7 +23,7 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.scmaccess.git.processor;
+package de.mindscan.futuresqr.scmaccess.git.processor.impl;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
