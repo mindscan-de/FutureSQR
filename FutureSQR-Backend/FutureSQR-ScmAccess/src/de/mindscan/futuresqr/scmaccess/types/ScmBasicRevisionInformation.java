@@ -37,7 +37,6 @@ public class ScmBasicRevisionInformation {
 
     public String authorName = "";
     public String authorId = "";
-    public String authorUuid = ""; // maybe this is actually part of the review system and should be handled by the review system
 
     public String date = ""; // this should be a long - timestamp (UTC), to be more efficient - Java and dates are a pain ...
     public String shortDate = "";
@@ -47,9 +46,5 @@ public class ScmBasicRevisionInformation {
 
     public List<String> parentIds;
     public List<String> shortParentIds;
-
-    // Should not be part of the basic SCM Information, but something the review system provides as extra data.
-    public boolean hasReview = false;
-    public String reviewID = "";
 
 }
