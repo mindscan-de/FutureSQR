@@ -26,10 +26,15 @@
 package de.mindscan.futuresqr.domainmodel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This is the model used for the CodeReview Model.
+ * 
+ * A Code Review is only kept in memory as long as it is used / requested. It is a model for a code review, but there
+ * is a different life cycle according to the data linked is present in the memory.  
  */
 public class FSqrCodeReview {
 
@@ -59,9 +64,9 @@ public class FSqrCodeReview {
     // remove reviewer ( userid reviewer, userid whoremoved ) 
     // approveReview ( userid who )
     // concernReview ( userid who )
-    private List<FSqrReviewResult> reviewerResults = new ArrayList<>();
+    private Map<String, FSqrReviewResult> reviewerResults = new HashMap<>();
 
-    // TODO derive boolean (unassigned state) from reviwerlist
+    // TODO derive boolean (unassigned state) from reviewerlist
     // TODO derive boolean (ready_to_close state) from reviewerlist
 
     // closeReview ( userid who )

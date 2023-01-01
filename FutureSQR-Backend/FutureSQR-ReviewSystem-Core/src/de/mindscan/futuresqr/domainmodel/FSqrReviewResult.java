@@ -38,8 +38,11 @@ public class FSqrReviewResult {
     private long userAddedTS;
     // TODO added by whom? -> maybe just use a logging table for this detail?
 
-    private long userDecidedTS;
     // when was a decision made.
+    private long userDecidedTS;
+
+    // when last modification was made to result(e.g. when a revision was added) the result must be updated
+    private long resultModifiedTS;
 
     // TODO: 
     // - actually it should be stored, what was reviewed (eg.list of revisionIds) by whom and when, (e.g. for tracability, e.g aspice requirements)
