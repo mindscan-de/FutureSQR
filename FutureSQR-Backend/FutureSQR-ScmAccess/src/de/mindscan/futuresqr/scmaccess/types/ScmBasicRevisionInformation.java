@@ -47,4 +47,6 @@ public class ScmBasicRevisionInformation {
     public List<String> parentIds;
     public List<String> shortParentIds;
 
+    // TODO: basic file list for review, with file state?
+    // or just leave it at the minumum.
 }
