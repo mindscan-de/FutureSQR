@@ -30,14 +30,16 @@ package de.mindscan.futuresqr.domainmodel;
  */
 public class FSqrReviewResult {
 
-    private String reviewerUuid = "";
+    private String reviewerId = "";
 
     private FSqrReviewResultState result;
 
     // when was this user added
-    private long addedTS;
-
+    private long userAddedTS;
     // TODO added by whom? -> maybe just use a logging table for this detail?
+
+    private long userDecidedTS;
+    // when was a decision made.
 
     // TODO: 
     // - actually it should be stored, what was reviewed (eg.list of revisionIds) by whom and when, (e.g. for tracability, e.g aspice requirements)
