@@ -32,6 +32,13 @@ import java.util.List;
  */
 public class FSqrRevision {
 
+    // ATTENTION: 
+    // some of these information can be recovered from the SCM, but some are only known by and part of the code review system
+    // so some of these information can be dynamically indexed and be temporarily saved. But what should be done, if the
+    // information is slow to retrieve like via SVN?
+    // maybe just save/use a reference to the ScmBasicRevisionInformation, to distinguish these?
+    // so not every information should be stored in a database entry 
+
     // revision identifier according to the configured scm for a project
     private String revisionId = "";
 
