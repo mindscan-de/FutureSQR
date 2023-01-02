@@ -48,16 +48,20 @@ Anyhow, as the world progresses, there is still demand for a good, simple and ef
 
 ## Current State of this Project
 
-Attention: The implementation of a Proof of Concept has been started. 
+Attention: The implementation of a Proof of Concept has been started.
 
-Also there is a developer backend - but it has hard coded values in it and no error handling and such.
-This developer backend doesn't persist any of the data, and only provides in-memory-storage. The 
-current state after 9 weeks of working on it in my spare time can be seen in the [Screenshot Gallery](Gallery/README.md)
+Also there is a python based developer backend - but it has all issues like hard coded values in it and has no error handling and such.
+This particular python developer backend doesn't persist any of the data, and only provides in-memory-storage until service restart. 
+The current state after about 26 weeks of working on it in my spare time, can be seen in the [Screenshot Gallery](Gallery/README.md)
+
+As for now speaking I currently in the process to develop some java code base to access git and implement a domain model and its logic 
+for the code reviews. Such that a future java based web server can then use the core domain model to provide the content for the UI.
 
 ## Principles of Development
 
 * Useful from Day One
 * My three other principles (won't tell them here...)
+* Bottom-Up Development
 
 ## Split in actually two different Applications+Services
 
@@ -88,7 +92,6 @@ Idea is, that "Kuukou" can be reused for other applications as well, because thi
 * Access Management
 * Transition to a non developer Backend
 * Build a SOTA Diff-Algorithm and presentation, which allows to combine multiple singe revisions into one human readable diff - this is the hard part for now
-* Present a single revision of a file
 * Attach to review
 * Combine File list if they share the same path / sort by path (m2m transformer)
 ----
@@ -106,7 +109,7 @@ Idea is, that "Kuukou" can be reused for other applications as well, because thi
 
 * attach discussions to files and track the files and the discussions related to the files.
 
-## Scrapped plans
+## Scrapped plans - Top-Down
 
 * Description of what we want to reach (some green/white paper like description) ((**The current phase**)) 
   * [You may want to have a look here first](FutureSQR-Architecture/documents/README.md)
