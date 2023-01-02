@@ -52,7 +52,7 @@ public class FSqrReviewResult extends FSqrReviewResultValue {
         updateResultLastModifiedTS( decisionTimestamp );
     }
 
-    public void concernsOnReview( long decisionTimestamp ) {
+    public void concernOnReview( long decisionTimestamp ) {
         setResult( FSqrReviewResultState.Concerns );
 
         this.userLastDecidedTS = decisionTimestamp;
