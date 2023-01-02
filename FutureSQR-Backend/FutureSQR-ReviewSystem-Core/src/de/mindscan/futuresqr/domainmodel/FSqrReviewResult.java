@@ -26,7 +26,8 @@
 package de.mindscan.futuresqr.domainmodel;
 
 /**
- * This represents a ReviewResult for each Reviewer. 
+ * This represents a ReviewResult for each reviewer participating in a code
+ * review and implements behavior for operations on the reviewResult.  
  */
 public class FSqrReviewResult extends FSqrReviewResultValue {
 
@@ -43,10 +44,6 @@ public class FSqrReviewResult extends FSqrReviewResultValue {
     public FSqrReviewResult( FSqrReviewResultValue value ) {
         super( value );
     }
-
-    // TODO: 
-    // - actually it should be stored, what was reviewed (eg.list of revisionIds) by whom and when, (e.g. for tracability, e.g aspice requirements)
-    // - this is needed to figure out to whom to present what needs to be reviewed since last reviewresult (usability)
 
     public void approveReview( long decisionTimestamp ) {
         setResult( FSqrReviewResultState.Approved );

@@ -33,6 +33,11 @@ public class FSqrReviewResultValue {
     protected String reviewerId = null;
     protected FSqrReviewResultState result = FSqrReviewResultState.Incomplete;
     protected long userAssignedTS = -1L;
+
+    // TODO: 
+    // - actually it should be stored, what was reviewed (eg.list of revisionIds) by whom and when, (e.g. for tracability, e.g aspice requirements)
+    // - this is needed to figure out to whom to present what needs to be reviewed since last reviewresult (usability)
+    // so maybe this needs to be revisited once more.
     protected long userLastDecidedTS = -1L;
     protected long resultLastModifiedTS = -1L;
 
