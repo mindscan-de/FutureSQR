@@ -26,7 +26,7 @@
 package de.mindscan.futuresqr.domainmodel;
 
 /**
- * 
+ * This is the value object, which contains the review result of a reviewer.
  */
 public class FSqrReviewResultValue {
 
@@ -35,6 +35,25 @@ public class FSqrReviewResultValue {
     protected long userAssignedTS = -1L;
     protected long userLastDecidedTS = -1L;
     protected long resultLastModifiedTS = -1L;
+
+    /**
+     * 
+     */
+    public FSqrReviewResultValue() {
+        // intentionally left blank. Typically this constructor should only be used by unserializers
+    }
+
+    public FSqrReviewResultValue( String reviewerId ) {
+        this.reviewerId = reviewerId;
+    }
+
+    public FSqrReviewResultValue( FSqrReviewResultValue otherValue ) {
+        this.reviewerId = otherValue.reviewerId;
+        this.result = otherValue.result;
+        this.userAssignedTS = otherValue.userAssignedTS;
+        this.userLastDecidedTS = otherValue.userLastDecidedTS;
+        this.resultLastModifiedTS = otherValue.resultLastModifiedTS;
+    }
 
     public String getReviewerId() {
         return reviewerId;
@@ -50,6 +69,10 @@ public class FSqrReviewResultValue {
 
     public long getResultLastModifiedTS() {
         return resultLastModifiedTS;
+    }
+
+    protected void updateResultLastModifiedTS( long decisionTimestamp ) {
+        this.resultLastModifiedTS = decisionTimestamp;
     }
 
     public long getUserAssignedTS() {

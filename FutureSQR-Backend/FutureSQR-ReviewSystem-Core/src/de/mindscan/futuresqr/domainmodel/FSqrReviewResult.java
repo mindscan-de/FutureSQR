@@ -42,11 +42,7 @@ public class FSqrReviewResult extends FSqrReviewResultValue {
      * 
      */
     public FSqrReviewResult( FSqrReviewResultValue value ) {
-        this.reviewerId = value.reviewerId;
-        this.result = value.result;
-        this.userAssignedTS = value.userAssignedTS;
-        this.userLastDecidedTS = value.userLastDecidedTS;
-        this.resultLastModifiedTS = value.resultLastModifiedTS;
+        super( value );
     }
 
     // TODO: 
@@ -57,26 +53,27 @@ public class FSqrReviewResult extends FSqrReviewResultValue {
         setResult( FSqrReviewResultState.Approved );
 
         this.userLastDecidedTS = decisionTimestamp;
-        this.resultLastModifiedTS = decisionTimestamp;
+        updateResultLastModifiedTS( decisionTimestamp );
     }
 
-    public void concernsOnRrview( long decisionTimestamp ) {
+    public void concernsOnReview( long decisionTimestamp ) {
         setResult( FSqrReviewResultState.Concerns );
 
         this.userLastDecidedTS = decisionTimestamp;
-        this.resultLastModifiedTS = decisionTimestamp;
+        updateResultLastModifiedTS( decisionTimestamp );
     }
 
     public void rollbackReview( long decisionTimestamp ) {
         setResult( FSqrReviewResultState.Incomplete );
 
         this.userLastDecidedTS = decisionTimestamp;
-        this.resultLastModifiedTS = decisionTimestamp;
+        updateResultLastModifiedTS( decisionTimestamp );
     }
 
     public void assignReview( long reviewAssignedTimestamp ) {
         this.userAssignedTS = reviewAssignedTimestamp;
-        this.resultLastModifiedTS = reviewAssignedTimestamp;
+
+        updateResultLastModifiedTS( reviewAssignedTimestamp );
     }
 
 }
