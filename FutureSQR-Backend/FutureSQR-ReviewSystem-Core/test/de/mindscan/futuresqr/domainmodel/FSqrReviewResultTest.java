@@ -98,6 +98,34 @@ public class FSqrReviewResultTest {
     }
 
     @Test
+    public void testFSqrReviewResultFSqrReviewResultValue_InitializeWithReviewer1_expectReviewer1() throws Exception {
+        // arrange
+        FSqrReviewResult reviewResult = new FSqrReviewResult( REVIEWER_1_UUID );
+        FSqrReviewResultValue persistedReviewResultValue = (FSqrReviewResultValue) reviewResult;
+
+        // act
+        FSqrReviewResult preinitialized = new FSqrReviewResult( persistedReviewResultValue );
+
+        // assert
+        String result = preinitialized.getReviewerId();
+        assertThat( result, equalTo( REVIEWER_1_UUID ) );
+    }
+
+    @Test
+    public void testFSqrReviewResultFSqrReviewResultValue_InitializeWithReviewer2_expectReviewer2() throws Exception {
+        // arrange
+        FSqrReviewResult reviewResult = new FSqrReviewResult( REVIEWER_2_UUID );
+        FSqrReviewResultValue persistedReviewResultValue = (FSqrReviewResultValue) reviewResult;
+
+        // act
+        FSqrReviewResult preinitialized = new FSqrReviewResult( persistedReviewResultValue );
+
+        // assert
+        String result = preinitialized.getReviewerId();
+        assertThat( result, equalTo( REVIEWER_2_UUID ) );
+    }
+
+    @Test
     public void testFSqrReviewResultFSqrReviewResultValue_InitializeWithApprovedReviewState_expectReviewResultApproved() throws Exception {
         // arrange
         FSqrReviewResult reviewResult = new FSqrReviewResult( REVIEWER_1_UUID );
@@ -110,7 +138,21 @@ public class FSqrReviewResultTest {
         // assert
         FSqrReviewResultState result = preinitialized.getResult();
         assertThat( result, equalTo( FSqrReviewResultState.Approved ) );
+    }
 
+    @Test
+    public void testFSqrReviewResultFSqrReviewResultValue_InitializeWithConcernsReviewState_expectReviewResultConcerns() throws Exception {
+        // arrange
+        FSqrReviewResult reviewResult = new FSqrReviewResult( REVIEWER_1_UUID );
+        reviewResult.concernOnReview( 0L );
+        FSqrReviewResultValue persistedReviewResultValue = (FSqrReviewResultValue) reviewResult;
+
+        // act
+        FSqrReviewResult preinitialized = new FSqrReviewResult( persistedReviewResultValue );
+
+        // assert
+        FSqrReviewResultState result = preinitialized.getResult();
+        assertThat( result, equalTo( FSqrReviewResultState.Concerns ) );
     }
 
 }
