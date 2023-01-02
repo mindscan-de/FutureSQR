@@ -97,4 +97,20 @@ public class FSqrReviewResultTest {
         assertThat( result, equalTo( FSqrReviewResultState.Incomplete ) );
     }
 
+    @Test
+    public void testFSqrReviewResultFSqrReviewResultValue_InitializeWithApprovedReviewState_expectReviewResultApproved() throws Exception {
+        // arrange
+        FSqrReviewResult reviewResult = new FSqrReviewResult( REVIEWER_1_UUID );
+        reviewResult.approveReview( 0L );
+        FSqrReviewResultValue persistedReviewResultValue = (FSqrReviewResultValue) reviewResult;
+
+        // act
+        FSqrReviewResult preinitialized = new FSqrReviewResult( persistedReviewResultValue );
+
+        // assert
+        FSqrReviewResultState result = preinitialized.getResult();
+        assertThat( result, equalTo( FSqrReviewResultState.Approved ) );
+
+    }
+
 }
