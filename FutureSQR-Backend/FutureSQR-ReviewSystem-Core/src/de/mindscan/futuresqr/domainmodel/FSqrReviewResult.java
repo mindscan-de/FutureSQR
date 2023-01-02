@@ -34,8 +34,7 @@ public class FSqrReviewResult extends FSqrReviewResultValue {
      * 
      */
     public FSqrReviewResult( String reviewerId ) {
-        this.reviewerId = reviewerId;
-        this.result = FSqrReviewResultState.Incomplete;
+        super( reviewerId );
     }
 
     /**
