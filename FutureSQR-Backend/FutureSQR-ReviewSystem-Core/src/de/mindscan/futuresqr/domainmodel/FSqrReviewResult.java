@@ -26,26 +26,57 @@
 package de.mindscan.futuresqr.domainmodel;
 
 /**
- * 
+ * This represents a ReviewResult for each Reviewer. 
  */
-public class FSqrReviewResult {
+public class FSqrReviewResult extends FSqrReviewResultValue {
 
-    private String reviewerId = "";
+    /**
+     * 
+     */
+    public FSqrReviewResult( String reviewerId ) {
+        this.reviewerId = reviewerId;
+        this.result = FSqrReviewResultState.Incomplete;
+    }
 
-    private FSqrReviewResultState result;
-
-    // when was this user added
-    private long userAddedTS;
-    // TODO added by whom? -> maybe just use a logging table for this detail?
-
-    // when was a decision made. -> this could be converted into a map, where the timestamps are the keys and the
-    // values are the revisionlists
-    private long userLastDecidedTS;
-
-    // when last modification was made to result(e.g. when a revision was added) the result must be updated
-    private long resultLastModifiedTS;
+    /**
+     * 
+     */
+    public FSqrReviewResult( FSqrReviewResultValue value ) {
+        this.reviewerId = value.reviewerId;
+        this.result = value.result;
+        this.userAssignedTS = value.userAssignedTS;
+        this.userLastDecidedTS = value.userLastDecidedTS;
+        this.resultLastModifiedTS = value.resultLastModifiedTS;
+    }
 
     // TODO: 
     // - actually it should be stored, what was reviewed (eg.list of revisionIds) by whom and when, (e.g. for tracability, e.g aspice requirements)
     // - this is needed to figure out to whom to present what needs to be reviewed since last reviewresult (usability)
+
+    public void approveReview( long decisionTimestamp ) {
+        setResult( FSqrReviewResultState.Approved );
+
+        this.userLastDecidedTS = decisionTimestamp;
+        this.resultLastModifiedTS = decisionTimestamp;
+    }
+
+    public void concernsOnRrview( long decisionTimestamp ) {
+        setResult( FSqrReviewResultState.Concerns );
+
+        this.userLastDecidedTS = decisionTimestamp;
+        this.resultLastModifiedTS = decisionTimestamp;
+    }
+
+    public void rollbackReview( long decisionTimestamp ) {
+        setResult( FSqrReviewResultState.Incomplete );
+
+        this.userLastDecidedTS = decisionTimestamp;
+        this.resultLastModifiedTS = decisionTimestamp;
+    }
+
+    public void assignReview( long reviewAssignedTimestamp ) {
+        this.userAssignedTS = reviewAssignedTimestamp;
+        this.resultLastModifiedTS = reviewAssignedTimestamp;
+    }
+
 }
