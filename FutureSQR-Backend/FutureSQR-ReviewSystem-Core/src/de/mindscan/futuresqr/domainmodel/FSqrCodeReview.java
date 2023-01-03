@@ -37,15 +37,6 @@ import java.util.List;
  */
 public class FSqrCodeReview extends FSqrCodeReviewValue {
 
-    // the short name of the project - for administrative reasons we should also have a project uuid.
-    private String projectId;
-
-    // each review has a id - uuid? with translation to a review identifier?
-    private String reviewId;
-
-    // each review has a current review state.
-    private FSqrCodeReviewLifecycleState state;
-
     private String reviewTitle = "";
     private String reviewDescription = "";
 

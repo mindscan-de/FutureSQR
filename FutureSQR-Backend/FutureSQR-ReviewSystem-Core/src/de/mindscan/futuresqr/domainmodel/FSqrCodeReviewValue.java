@@ -33,10 +33,31 @@ import java.util.Map;
  */
 public class FSqrCodeReviewValue {
 
+    // the short name of the project - for administrative reasons we should also have a project uuid.
+    private String projectId;
+
+    // each review has a id - uuid? with translation to a review identifier?
+    // should this be simply a number...
+    private String reviewId;
+
+    // each review has a current review state.
+    private FSqrCodeReviewLifecycleState state;
+
     private Map<String, FSqrReviewResult> reviewerResults = new HashMap<>();
 
     protected Map<String, FSqrReviewResult> getReviewerResultsMap() {
         return reviewerResults;
     }
 
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public String getReviewId() {
+        return reviewId;
+    }
+
+    FSqrCodeReviewLifecycleState getCurrentReviewState() {
+        return state;
+    }
 }
