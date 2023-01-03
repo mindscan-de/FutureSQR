@@ -76,4 +76,29 @@ public class FSqrCodeReviewTest {
         assertThat( result, equalTo( FSqrCodeReviewLifecycleState.Open ) );
     }
 
+    @Test
+    public void testIsUnassigned_CtorOnly_expectReviewIsUnassigned() throws Exception {
+        // arrange
+        FSqrCodeReview review = new FSqrCodeReview();
+
+        // act
+        boolean result = review.isUnassigned();
+
+        // assert
+        assertThat( result, equalTo( true ) );
+    }
+
+    @Test
+    public void testIsUnassigned_CtorThenAddReviewer_expectReviewIsAssignedToSomeone() throws Exception {
+        // arrange
+        FSqrCodeReview review = new FSqrCodeReview();
+        review.addReviewer( REVIEWER_2_UUID, REVIEWER_2_UUID );
+
+        // act
+        boolean result = review.isUnassigned();
+
+        // assert
+        assertThat( result, equalTo( false ) );
+    }
+
 }
