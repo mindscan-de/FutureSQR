@@ -25,9 +25,18 @@
  */
 package de.mindscan.futuresqr.domainmodel;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 
  */
 public class FSqrCodeReviewValue {
+
+    private Map<String, FSqrReviewResult> reviewerResults = new HashMap<>();
+
+    protected Map<String, FSqrReviewResult> getReviewerResultsMap() {
+        return reviewerResults;
+    }
 
 }

@@ -26,9 +26,7 @@
 package de.mindscan.futuresqr.domainmodel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * This is the model used for the CodeReview Model.
@@ -63,30 +61,51 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
 
     // add reviewer ( userid reviewer, userid whoadded ) 
     public void addReviewer( String reviewerId, String whoAdded ) {
-
+        if (!hasReviewer( reviewerId )) {
+            FSqrReviewResult reviewResult = new FSqrReviewResult( reviewerId );
+            long now = 0L;
+            reviewResult.assignReview( now );
+            this.getReviewerResultsMap().put( reviewerId, reviewResult );
+        }
     }
 
     // remove reviewer ( userid reviewer, userid whoremoved ) 
     public void removeReviewer( String reviewerId, String whoRemoved ) {
-
+        if (hasReviewer( reviewerId )) {
+            this.getReviewerResultsMap().remove( reviewerId );
+        }
     }
 
     // approveReview ( userid who )
     public void approveReview( String reviewerId ) {
-
+        if (hasReviewer( reviewerId )) {
+            // TODO: calculate correct current timestamp;
+            long now = 0L;
+            this.getReviewerResultsMap().get( reviewerId ).approveReview( now );
+        }
     }
 
     // concernReview ( userid who )
     public void concernReview( String reviewerId ) {
-
+        if (hasReviewer( reviewerId )) {
+            // TODO: calculate correct current timestamp;
+            long now = 0L;
+            this.getReviewerResultsMap().get( reviewerId ).concernOnReview( now );
+        }
     }
 
     // rollbackReview
     public void rollbackReview( String reviewerId ) {
-
+        if (hasReviewer( reviewerId )) {
+            // TODO: calculate correct current timestamp;
+            long now = 0L;
+            this.getReviewerResultsMap().get( reviewerId ).rollbackReview( now );
+        }
     }
 
-    private Map<String, FSqrReviewResult> reviewerResults = new HashMap<>();
+    boolean hasReviewer( String reviewerId ) {
+        return getReviewerResultsMap().containsKey( reviewerId );
+    }
 
     // TODO derive boolean (unassigned state) from reviewerlist
     // TODO derive boolean (ready_to_close state) from reviewerlist
