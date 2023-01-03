@@ -41,7 +41,7 @@ public class FSqrCodeReviewValue {
     private String reviewId;
 
     // each review has a current review state.
-    private FSqrCodeReviewLifecycleState state;
+    private FSqrCodeReviewLifecycleState state = FSqrCodeReviewLifecycleState.Open;
 
     private Map<String, FSqrReviewResult> reviewerResults = new HashMap<>();
 
@@ -59,5 +59,9 @@ public class FSqrCodeReviewValue {
 
     FSqrCodeReviewLifecycleState getCurrentReviewState() {
         return state;
+    }
+
+    protected void updateCurrenReviewState( FSqrCodeReviewLifecycleState newState ) {
+        this.state = newState;
     }
 }

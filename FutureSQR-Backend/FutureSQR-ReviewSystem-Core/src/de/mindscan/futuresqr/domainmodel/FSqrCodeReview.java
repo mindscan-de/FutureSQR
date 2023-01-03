@@ -102,8 +102,19 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
     // TODO derive boolean (ready_to_close state) from reviewerlist
 
     // closeReview ( userid who )
+    public void closeReview( String whoClosed ) {
+        this.updateCurrenReviewState( FSqrCodeReviewLifecycleState.Closed );
+    }
+
     // reopenReview( userid who )
-    // getReviewState
+    public void reopenReview( String whoReopened ) {
+        this.updateCurrenReviewState( FSqrCodeReviewLifecycleState.Open );
+    }
+
+    public void deleteReview( String whoDeleted ) {
+        // TODO: clear revisions from review, clear reviewers, clear authors, etc.
+        this.updateCurrenReviewState( FSqrCodeReviewLifecycleState.Deleted );
+    }
 
     // getDiscussionThreads
     // discussionthreadids?
