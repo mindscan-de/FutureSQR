@@ -39,7 +39,7 @@ public class FSqrReviewResultValue {
     // - this is needed to figure out to whom to present what needs to be reviewed since last reviewresult (usability)
     // so maybe this needs to be revisited once more.
     protected long userLastDecidedTS = -1L;
-    protected long resultLastModifiedTS = -1L;
+    protected long lastModifiedTS = -1L;
 
     /**
      * 
@@ -57,7 +57,7 @@ public class FSqrReviewResultValue {
         this.result = otherValue.result;
         this.userAssignedTS = otherValue.userAssignedTS;
         this.userLastDecidedTS = otherValue.userLastDecidedTS;
-        this.resultLastModifiedTS = otherValue.resultLastModifiedTS;
+        this.lastModifiedTS = otherValue.lastModifiedTS;
     }
 
     public String getReviewerId() {
@@ -72,12 +72,12 @@ public class FSqrReviewResultValue {
         this.result = result;
     }
 
-    public long getResultLastModifiedTS() {
-        return resultLastModifiedTS;
+    public long getLastModifiedTS() {
+        return lastModifiedTS;
     }
 
-    protected void updateResultLastModifiedTS( long decisionTimestamp ) {
-        this.resultLastModifiedTS = decisionTimestamp;
+    protected void updateLastModifiedTS( long decisionTimestamp ) {
+        this.lastModifiedTS = decisionTimestamp;
     }
 
     public long getUserAssignedTS() {
@@ -86,6 +86,10 @@ public class FSqrReviewResultValue {
 
     public long getUserLastDecidedTS() {
         return userLastDecidedTS;
+    }
+
+    protected void updateUserLastDecidedTS( long decisionTimestamp ) {
+        this.userLastDecidedTS = decisionTimestamp;
     }
 
 }

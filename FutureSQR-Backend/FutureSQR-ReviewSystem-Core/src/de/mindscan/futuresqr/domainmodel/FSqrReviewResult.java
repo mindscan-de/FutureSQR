@@ -48,28 +48,28 @@ public class FSqrReviewResult extends FSqrReviewResultValue {
     public void approveReview( long decisionTimestamp ) {
         setResult( FSqrReviewResultState.Approved );
 
-        this.userLastDecidedTS = decisionTimestamp;
-        updateResultLastModifiedTS( decisionTimestamp );
+        updateUserLastDecidedTS( decisionTimestamp );
+        updateLastModifiedTS( decisionTimestamp );
     }
 
     public void concernOnReview( long decisionTimestamp ) {
         setResult( FSqrReviewResultState.Concerns );
 
-        this.userLastDecidedTS = decisionTimestamp;
-        updateResultLastModifiedTS( decisionTimestamp );
+        updateUserLastDecidedTS( decisionTimestamp );
+        updateLastModifiedTS( decisionTimestamp );
     }
 
     public void rollbackReview( long decisionTimestamp ) {
         setResult( FSqrReviewResultState.Incomplete );
 
-        this.userLastDecidedTS = decisionTimestamp;
-        updateResultLastModifiedTS( decisionTimestamp );
+        updateUserLastDecidedTS( decisionTimestamp );
+        updateLastModifiedTS( decisionTimestamp );
     }
 
     public void assignReview( long reviewAssignedTimestamp ) {
         this.userAssignedTS = reviewAssignedTimestamp;
 
-        updateResultLastModifiedTS( reviewAssignedTimestamp );
+        updateLastModifiedTS( reviewAssignedTimestamp );
     }
 
 }
