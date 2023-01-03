@@ -49,4 +49,31 @@ public class FSqrCodeReviewTest {
         assertThat( result, equalTo( FSqrCodeReviewLifecycleState.Open ) );
     }
 
+    @Test
+    public void testDeleteReview_CtorThenDelete_expectReviewStateIsDeleted() throws Exception {
+        // arrange
+        FSqrCodeReview review = new FSqrCodeReview();
+
+        // act
+        review.deleteReview( REVIEWER_1_UUID );
+
+        // assert
+        FSqrCodeReviewLifecycleState result = review.getCurrentReviewState();
+        assertThat( result, equalTo( FSqrCodeReviewLifecycleState.Deleted ) );
+    }
+
+    @Test
+    public void testReopenReview_CtorThenDeleteThenReopen_expectReviewStateIsOpen() throws Exception {
+        // arrange
+        FSqrCodeReview review = new FSqrCodeReview();
+        review.deleteReview( REVIEWER_1_UUID );
+
+        // act
+        review.reopenReview( REVIEWER_2_UUID );
+
+        // assert
+        FSqrCodeReviewLifecycleState result = review.getCurrentReviewState();
+        assertThat( result, equalTo( FSqrCodeReviewLifecycleState.Open ) );
+    }
+
 }
