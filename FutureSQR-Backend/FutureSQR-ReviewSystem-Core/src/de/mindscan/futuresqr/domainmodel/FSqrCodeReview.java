@@ -98,8 +98,15 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
         return getReviewerResultsMap().containsKey( reviewerId );
     }
 
-    // TODO derive boolean (unassigned state) from reviewerlist
-    // TODO derive boolean (ready_to_close state) from reviewerlist
+    // derive boolean (unassigned state) from reviewerlist
+    boolean isUnassigned() {
+        return true;
+    }
+
+    // derive boolean (ready_to_close state) from reviewerlist
+    boolean isReadyToClose() {
+        return false;
+    }
 
     // closeReview ( userid who )
     public void closeReview( String whoClosed ) {
