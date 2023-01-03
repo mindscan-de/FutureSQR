@@ -37,7 +37,7 @@ import java.util.Map;
  * is a different life cycle according to the data linked is present in the memory. There is no need to keep a code
  * review in memory which is not accessed any more. 
  */
-public class FSqrCodeReview {
+public class FSqrCodeReview extends FSqrCodeReviewValue {
 
     // the short name of the project - for administrative reasons we should also have a project uuid.
     private String projectId;
@@ -62,9 +62,30 @@ public class FSqrCodeReview {
     private List<String> revisionAuthorUUIDs = new ArrayList<>();
 
     // add reviewer ( userid reviewer, userid whoadded ) 
+    public void addReviewer( String reviewerId, String whoAdded ) {
+
+    }
+
     // remove reviewer ( userid reviewer, userid whoremoved ) 
+    public void removeReviewer( String reviewerId, String whoRemoved ) {
+
+    }
+
     // approveReview ( userid who )
+    public void approveReview( String reviewerId ) {
+
+    }
+
     // concernReview ( userid who )
+    public void concernReview( String reviewerId ) {
+
+    }
+
+    // rollbackReview
+    public void rollbackReview( String reviewerId ) {
+
+    }
+
     private Map<String, FSqrReviewResult> reviewerResults = new HashMap<>();
 
     // TODO derive boolean (unassigned state) from reviewerlist
