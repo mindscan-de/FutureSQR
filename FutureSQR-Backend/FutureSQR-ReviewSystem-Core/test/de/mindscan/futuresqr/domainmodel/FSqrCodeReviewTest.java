@@ -101,4 +101,33 @@ public class FSqrCodeReviewTest {
         assertThat( result, equalTo( false ) );
     }
 
+    @Test
+    public void testIsUnassigned_CtorThenAddReviewerOnceThenRemoveSameReviewer_expectReviewIsNotAssigned() throws Exception {
+        // arrange
+        FSqrCodeReview review = new FSqrCodeReview();
+        review.addReviewer( REVIEWER_2_UUID, REVIEWER_2_UUID );
+        review.removeReviewer( REVIEWER_2_UUID, REVIEWER_2_UUID );
+
+        // act
+        boolean result = review.isUnassigned();
+
+        // assert
+        assertThat( result, equalTo( true ) );
+    }
+
+    @Test
+    public void testIsUnassigned_CtorThenAddReviewerTwiceThenRemoveSameReviewer_expectReviewIsNotAssigned() throws Exception {
+        // arrange
+        FSqrCodeReview review = new FSqrCodeReview();
+        review.addReviewer( REVIEWER_2_UUID, REVIEWER_2_UUID );
+        review.addReviewer( REVIEWER_2_UUID, REVIEWER_2_UUID );
+        review.removeReviewer( REVIEWER_2_UUID, REVIEWER_2_UUID );
+
+        // act
+        boolean result = review.isUnassigned();
+
+        // assert
+        assertThat( result, equalTo( true ) );
+    }
+
 }
