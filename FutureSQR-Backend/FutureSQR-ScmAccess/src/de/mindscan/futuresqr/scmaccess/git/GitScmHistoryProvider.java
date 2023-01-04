@@ -26,6 +26,7 @@
 package de.mindscan.futuresqr.scmaccess.git;
 
 import de.mindscan.futuresqr.scmaccess.ScmHistoryProvider;
+import de.mindscan.futuresqr.scmaccess.git.processor.GitOutputProcessors;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileHistory;
 import de.mindscan.futuresqr.scmaccess.types.ScmHistory;
 import de.mindscan.futuresqr.scmaccess.types.ScmPath;
