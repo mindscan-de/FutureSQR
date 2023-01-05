@@ -13,8 +13,10 @@ on a certain webserver architecture.
 ## Basic Idea
 
 Replicate the basic developer python backend as java. Why replicate all what i did again for java instead of
-python? Well, i intended to use python for a rapid prototype development (a.k.a. tracer-bullet) see:  
-https://growsmethod.com/practices/TracerBullets.html
+python? Well, I intended to use python for a rapid prototype development (a.k.a. tracer-bullet) see:  
+
+* https://growsmethod.com/practices/TracerBullets.html 
+* The Pragmatic Programmer (20th Anniversary Edition) - David Thomas, Andrew Hunt. in Chapter 2, Topic 12. 2020.
 
 The python backend practically outlived it's usefulness to learn and proof that a code review system is 
 possible. Now we know more about the system, what needs to be done and how it can be done, such that we 
