@@ -33,8 +33,10 @@ import java.util.List;
  * 
  * A Code Review is only kept in memory as long as it is used / requested. It is a model for a code review, but there
  * is a different life cycle according to the data linked is present in the memory. There is no need to keep a code
- * review in memory which is not accessed any more. 
+ * review in memory which is not accessed any more.
+ * 
  */
+// TODO: think about composition over inheritance, so we can have observable ValueObjects  
 public class FSqrCodeReview extends FSqrCodeReviewValue {
 
     private String reviewTitle = "";
