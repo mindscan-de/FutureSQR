@@ -96,22 +96,23 @@
 		    <artifactId>mockito-all</artifactId>
 		    <version>1.10.19</version>
 		    <scope>test</scope>
-		</dependency>  </dependencies>
-  <build>
-    <finalName>FutureSQR-TomcatDevWebServer</finalName>
-    
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<finalName>FutureSQR-TomcatDevWebServer</finalName>
 		<plugins>
 			<plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
                 <configuration>
-                    <path>/SearchBackend</path>
+                    <path>/FutureSQR</path>
                     <port>8000</port>
                 </configuration>
             </plugin>
         </plugins>    
-    
-  </build>
+	</build>
   
 </project>
