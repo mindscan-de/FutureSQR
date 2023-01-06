@@ -31,3 +31,5 @@ I needed the python backend for a rapid develop of the typescript/angular fronte
 is actually required from such a system. Think of an experimental prototype to explore the components and
 their interactions - with this a more educated guess can be made about the other components and their
 behavior.
+
+This currently doesn't work....

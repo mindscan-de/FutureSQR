@@ -9,12 +9,20 @@
   <url>http://maven.apache.org</url>
   
   <properties>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>  
   
-  
   <dependencies>
+  
+  		<!-- Dependendies for FutureSQR-TomecatDevWebServer -->
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+<!-- 		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.8.9</version>
+		</dependency>  
+ -->  		
   
   
   		<!-- Dependencies for the Tomcat instace -->
@@ -32,6 +40,14 @@
             <artifactId>asm</artifactId>
             <version>3.3.1</version>
         </dependency>
+        
+ 		<!-- https://mvnrepository.com/artifact/org.ow2.asm/asm -->
+<!-- 		<dependency>
+		    <groupId>org.ow2.asm</groupId>
+		    <artifactId>asm</artifactId>
+		    <version>7.3.1</version>
+		</dependency>
+ -->        
 
         <!-- https://mvnrepository.com/artifact/com.sun.jersey/jersey-bundle -->
         <dependency>
