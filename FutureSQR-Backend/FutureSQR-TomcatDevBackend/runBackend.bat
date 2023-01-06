@@ -1,1 +1,1 @@
-mvn clean tomcat7:run
+mvn tomcat7:run
