@@ -54,8 +54,8 @@ Also there is a python based developer backend - but it has all issues like hard
 This particular python developer backend doesn't persist any of the data, and only provides in-memory-storage until service restart. 
 The current state after about 26 weeks of working on it in my spare time, can be seen in the [Screenshot Gallery](Gallery/README.md)
 
-As for now speaking I currently in the process to develop some java code base to access git and implement a domain model and its logic 
-for the code reviews. Such that a future java based web server can then use the core domain model to provide the content for the UI.
+As for now speaking I'm currently in the process to develop a java code base to access git and to implement a domain model and its logic 
+for the code reviews. Such that a future java based web server can then use this core domain model to provide the content for the UI.
 
 ## Principles of Development
 
