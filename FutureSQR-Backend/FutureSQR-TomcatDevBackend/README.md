@@ -46,3 +46,7 @@ Run the command ```runBackend.bat```.
 This URL should provide a hello world JSON entry: 
 
 * http://localhost:8000/FutureSQR/rest/project/testme
+
+After build and depolyment from the frontend project, you should be able to access this URL and see the login screen 
+
+* http://localhost:8000/FutureSQR/
