@@ -30,6 +30,10 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
 
+import com.google.gson.Gson;
+
+import de.mindscan.futuresqr.devbackend.httpresponse.OutputLoginDataModel;
+
 /**
  * 
  */
@@ -43,8 +47,19 @@ public class LazyImplUserRESTfulService {
                     @FormParam( "username" ) String userName, //
                     @FormParam( "password" ) String password ) {
         // TODO: reimplement python #postLoginData
+        // #1 check if user is present in the userdatabase
+        // #2 get user entry using the username
 
-        return "";
+        // #3 register the user as an authenticated user
+        // #4 figure out the roles and featureflags for this user
+        // #5 if admin, add admin role to capabilities
+
+        // #6 return
+
+        OutputLoginDataModel response = new OutputLoginDataModel();
+
+        Gson gson = new Gson();
+        return gson.toJson( response );
     }
 
     @javax.ws.rs.Path( "/reauthenticate" )
@@ -52,9 +67,12 @@ public class LazyImplUserRESTfulService {
     @Produces( "application/json" )
     public String postReauthenticationLoginData( //
                     @FormParam( "assumedusername" ) String assumedUserName ) {
-        // TODO: reimplement python #postReauthenticateLoginData        
+        // TODO: reimplement python #postReauthenticateLoginData   
 
-        return "";
+        OutputLoginDataModel response = new OutputLoginDataModel();
+
+        Gson gson = new Gson();
+        return gson.toJson( response );
     }
 
     @javax.ws.rs.Path( "/crsf" )
