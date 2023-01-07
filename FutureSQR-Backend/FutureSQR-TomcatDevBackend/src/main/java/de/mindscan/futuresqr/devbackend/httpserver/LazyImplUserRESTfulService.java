@@ -25,6 +25,7 @@
  */
 package de.mindscan.futuresqr.devbackend.httpserver;
 
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
@@ -38,14 +39,21 @@ public class LazyImplUserRESTfulService {
     @javax.ws.rs.Path( "/authenticate" )
     @POST
     @Produces( "application/json" )
-    public String postLoginDataForAuthentication() {
+    public String postLoginDataForAuthentication( //
+                    @FormParam( "username" ) String userName, //
+                    @FormParam( "password" ) String password ) {
+        // TODO: reimplement python #postLoginData
+
         return "";
     }
 
     @javax.ws.rs.Path( "/reauthenticate" )
     @POST
     @Produces( "application/json" )
-    public String postReauthenticationLoginData() {
+    public String postReauthenticationLoginData( //
+                    @FormParam( "assumedusername" ) String assumedUserName ) {
+        // TODO: reimplement python #postReauthenticateLoginData        
+
         return "";
     }
 
@@ -53,13 +61,23 @@ public class LazyImplUserRESTfulService {
     @GET
     @Produces( "application/json" )
     public String getCrsfToken() {
+        // TODO: reimplement python #getCrsfToken
         return "";
     }
 
     @javax.ws.rs.Path( "/logout" )
     @POST
     @Produces( "application/json" )
-    public String postLogoutData() {
-        return "";
+    public String postLogoutData( //
+                    @FormParam( "username" ) String userName ) {
+        // TODO: reimplement python #postLogoutData
+
+        return "{}";
     }
+
+    // TODO: /ban
+    // TODO: /unban
+    // TODO: /add
+    // TODO: /adminuserlist
+    // TODO: /userdictionary
 }
