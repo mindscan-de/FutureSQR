@@ -57,9 +57,12 @@ After build and depolyment from the frontend project, you should be able to acce
 * the configured rewrite valve doesn't work because it is tomcat 7.0.49 it is also not available in 7.0.109...
 * the valve is definitely avail in 8.5.9 (also in 8.0.8)
 * so maybe i need a tomcat 8 runner ....
+* https://stackoverflow.com/questions/25873406/urlrewrite-in-tomcat-7
 
 * why is that rewrite important?
 ** Well the angular web application has it's own parser for the file structure
 ** but if a user makes a request, the full url is sent to the webserver - since the path structure is unknown to the server it will answer with a 404 instead of serving the base index.html. Therefore deep url's into the applictaion will not end in the application but rather relayed to the server, which should only provide the index.html in the folder for the base application.
+
+
 
 This can be circumvented, by using a nodejs frontend via ngserve on 4200 and only use the REST interface this solution is robust enough to not deal with updating to other tomcat configuration for development.
