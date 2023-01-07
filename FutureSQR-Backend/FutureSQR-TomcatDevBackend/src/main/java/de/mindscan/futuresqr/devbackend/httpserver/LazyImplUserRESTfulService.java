@@ -34,6 +34,7 @@ import com.google.gson.Gson;
 
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputCrsfTokenModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputLoginDataModel;
+import de.mindscan.futuresqr.devbackend.httpresponse.OutputStatusOkayModel;
 
 /**
  * 
@@ -93,7 +94,10 @@ public class LazyImplUserRESTfulService {
                     @FormParam( "username" ) String userName ) {
         // TODO: reimplement python #postLogoutData
 
-        return "{}";
+        OutputStatusOkayModel response = new OutputStatusOkayModel();
+
+        Gson gson = new Gson();
+        return gson.toJson( response );
     }
 
     // TODO: /ban
