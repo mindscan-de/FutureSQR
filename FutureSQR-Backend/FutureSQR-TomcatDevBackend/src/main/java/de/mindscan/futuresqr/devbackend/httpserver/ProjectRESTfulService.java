@@ -23,7 +23,7 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.devbackend;
+package de.mindscan.futuresqr.devbackend.httpserver;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
