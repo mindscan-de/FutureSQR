@@ -61,3 +61,5 @@ After build and depolyment from the frontend project, you should be able to acce
 * why is that rewrite important?
 ** Well the angular web application has it's own parser for the file structure
 ** but if a user makes a request, the full url is sent to the webserver - since the path structure is unknown to the server it will answer with a 404 instead of serving the base index.html. Therefore deep url's into the applictaion will not end in the application but rather relayed to the server, which should only provide the index.html in the folder for the base application.
+
+This can be circumvented, by using a nodejs frontend via ngserve on 4200 and only use the REST interface this solution is robust enough to not deal with updating to other tomcat configuration for development.
