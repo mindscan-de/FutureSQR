@@ -32,7 +32,7 @@ import javax.ws.rs.Produces;
 
 import com.google.gson.Gson;
 
-import de.mindscan.futuresqr.devbackend.httpresponse.OutputCrsfTokenModel;
+import de.mindscan.futuresqr.devbackend.httpresponse.OutputCsrfTokenModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputLoginDataModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputStatusOkayModel;
 
@@ -77,11 +77,11 @@ public class LazyImplUserRESTfulService {
         return gson.toJson( response );
     }
 
-    @javax.ws.rs.Path( "/crsf" )
+    @javax.ws.rs.Path( "/csrf" )
     @GET
     @Produces( "application/json" )
     public String getCrsfToken() {
-        OutputCrsfTokenModel response = new OutputCrsfTokenModel();
+        OutputCsrfTokenModel response = new OutputCsrfTokenModel();
 
         Gson gson = new Gson();
         return gson.toJson( response );

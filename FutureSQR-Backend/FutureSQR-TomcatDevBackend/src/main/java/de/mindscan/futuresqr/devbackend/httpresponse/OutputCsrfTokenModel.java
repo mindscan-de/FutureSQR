@@ -28,7 +28,7 @@ package de.mindscan.futuresqr.devbackend.httpresponse;
 /**
  * 
  */
-public class OutputCrsfTokenModel {
+public class OutputCsrfTokenModel {
     public String headerName = "HeaderName";
     public String parameterName = "ParameterName";
     public String token = "CRSFTOKEN";
