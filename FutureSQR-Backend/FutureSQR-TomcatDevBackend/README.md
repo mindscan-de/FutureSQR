@@ -50,3 +50,14 @@ This URL should provide a hello world JSON entry:
 After build and depolyment from the frontend project, you should be able to access this URL and see the login screen 
 
 * http://localhost:8000/FutureSQR/
+
+
+## Some Infos about the application - and why Tomcat 7 is a pain...
+
+* the configured rewrite valve doesn't work because it is tomcat 7.0.49 it is also not available in 7.0.109...
+* the valve is definitely avail in 8.5.9 (also in 8.0.8)
+* so maybe i need a tomcat 8 runner ....
+
+* why is that rewrite important?
+** Well the angular web application has it's own parser for the file structure
+** but if a user makes a request, the full url is sent to the webserver - since the path structure is unknown to the server it will answer with a 404 instead of serving the base index.html. Therefore deep url's into the applictaion will not end in the application but rather relayed to the server, which should only provide the index.html in the folder for the base application.
