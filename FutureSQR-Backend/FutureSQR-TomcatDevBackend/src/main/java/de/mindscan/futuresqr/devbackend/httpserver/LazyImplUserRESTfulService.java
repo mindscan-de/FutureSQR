@@ -32,6 +32,7 @@ import javax.ws.rs.Produces;
 
 import com.google.gson.Gson;
 
+import de.mindscan.futuresqr.devbackend.httpresponse.OutputCrsfTokenModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputLoginDataModel;
 
 /**
@@ -79,8 +80,10 @@ public class LazyImplUserRESTfulService {
     @GET
     @Produces( "application/json" )
     public String getCrsfToken() {
-        // TODO: reimplement python #getCrsfToken
-        return "";
+        OutputCrsfTokenModel response = new OutputCrsfTokenModel();
+
+        Gson gson = new Gson();
+        return gson.toJson( response );
     }
 
     @javax.ws.rs.Path( "/logout" )
