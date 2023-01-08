@@ -28,7 +28,7 @@ package de.mindscan.futuresqr.devbackend.userdb;
 /**
  * Temporary backend model to read the entries from the resource /userdb/userdatabase.json
  */
-public class FSqrUserDBEntry {
+public class FSqrLazyUserDBEntry {
     public String avatarlocation = "";
     public String displayname = "";
     public String email = "";

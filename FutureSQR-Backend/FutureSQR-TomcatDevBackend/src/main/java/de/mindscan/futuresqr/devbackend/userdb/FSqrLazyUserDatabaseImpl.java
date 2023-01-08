@@ -43,9 +43,9 @@ public class FSqrLazyUserDatabaseImpl {
 
     private Gson gson = new Gson();
 
-    private HashMap<String, FSqrUserDBEntry> userDatabaseMap = new HashMap<>();
+    private HashMap<String, FSqrLazyUserDBEntry> userDatabaseMap = new HashMap<>();
 
-    private Type userDatabaseMapType = new TypeToken<HashMap<String, FSqrUserDBEntry>>() {
+    private Type userDatabaseMapType = new TypeToken<HashMap<String, FSqrLazyUserDBEntry>>() {
     }.getType();
 
     /**
@@ -56,9 +56,9 @@ public class FSqrLazyUserDatabaseImpl {
     }
 
     public boolean hasUser( String username ) {
-        Collection<FSqrUserDBEntry> values = userDatabaseMap.values();
+        Collection<FSqrLazyUserDBEntry> values = userDatabaseMap.values();
 
-        for (FSqrUserDBEntry fSqrUserDBEntry : values) {
+        for (FSqrLazyUserDBEntry fSqrUserDBEntry : values) {
             if (fSqrUserDBEntry.loginname.equals( username )) {
                 return true;
             }
