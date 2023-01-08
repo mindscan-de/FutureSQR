@@ -35,6 +35,7 @@ import com.google.gson.Gson;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputCsrfTokenModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputLoginDataModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputStatusOkayModel;
+import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserDBEntry;
 import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserDatabaseImpl;
 
 /**
@@ -52,6 +53,7 @@ public class LazyImplUserRESTfulService {
                     @FormParam( "username" ) String userName, //
                     @FormParam( "password" ) String password ) {
         // TODO: reimplement python #postLoginData
+
         // #1 check if user is present in the userdatabase
         if (!userDB.hasUser( userName )) {
             // todo provide a 404 and a good response
@@ -59,15 +61,21 @@ public class LazyImplUserRESTfulService {
         }
 
         // #2 get user entry using the username
+        FSqrLazyUserDBEntry userEntry = userDB.getUserEntryByLogonName( userName );
 
-        // #3 register the user as an authenticated user
+        // #3 TODO: register the user as an authenticated user
+
+        OutputLoginDataModel response = new OutputLoginDataModel();
+        response.uuid = userEntry.uuid;
+        response.loginname = userEntry.loginname;
+        response.displayname = userEntry.displayname;
+        response.avatarlocation = userEntry.avatarlocation;
+        response.email = userEntry.email;
+
         // #4 figure out the roles and featureflags for this user
         // #5 if admin, add admin role to capabilities
 
         // #6 return
-
-        OutputLoginDataModel response = new OutputLoginDataModel();
-
         if ("mindscan-de".equals( userName )) {
             response.capabilities.roles.add( "admin" );
         }
