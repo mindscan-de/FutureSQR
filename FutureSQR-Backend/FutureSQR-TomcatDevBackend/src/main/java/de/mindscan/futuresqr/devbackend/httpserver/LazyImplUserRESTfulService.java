@@ -35,12 +35,15 @@ import com.google.gson.Gson;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputCsrfTokenModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputLoginDataModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputStatusOkayModel;
+import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserDatabaseImpl;
 
 /**
  * 
  */
 @javax.ws.rs.Path( "/user" )
 public class LazyImplUserRESTfulService {
+
+    private FSqrLazyUserDatabaseImpl userDB = new FSqrLazyUserDatabaseImpl();
 
     @javax.ws.rs.Path( "/authenticate" )
     @POST
@@ -50,6 +53,11 @@ public class LazyImplUserRESTfulService {
                     @FormParam( "password" ) String password ) {
         // TODO: reimplement python #postLoginData
         // #1 check if user is present in the userdatabase
+        if (!userDB.hasUser( userName )) {
+            // todo provide a 404 and a good response
+            throw new RuntimeException( "No such user or not authenticated." );
+        }
+
         // #2 get user entry using the username
 
         // #3 register the user as an authenticated user
@@ -59,6 +67,10 @@ public class LazyImplUserRESTfulService {
         // #6 return
 
         OutputLoginDataModel response = new OutputLoginDataModel();
+
+        if ("mindscan-de".equals( userName )) {
+            response.capabilities.roles.add( "admin" );
+        }
 
         Gson gson = new Gson();
         return gson.toJson( response );
