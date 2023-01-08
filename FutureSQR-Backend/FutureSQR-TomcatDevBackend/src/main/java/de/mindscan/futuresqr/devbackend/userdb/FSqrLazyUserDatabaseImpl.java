@@ -30,7 +30,6 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collection;
 import java.util.HashMap;
 
 import com.google.gson.Gson;
@@ -55,18 +54,6 @@ public class FSqrLazyUserDatabaseImpl {
         this.loadUserDatabaseFromResource();
     }
 
-    public boolean hasUser( String username ) {
-        Collection<FSqrLazyUserDBEntry> values = userDatabaseMap.values();
-
-        for (FSqrLazyUserDBEntry fSqrUserDBEntry : values) {
-            if (fSqrUserDBEntry.loginname.equals( username )) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     /**
      * 
      */
@@ -81,6 +68,35 @@ public class FSqrLazyUserDatabaseImpl {
             e.printStackTrace();
         }
 
+    }
+
+    public boolean hasUser( String username ) {
+        for (FSqrLazyUserDBEntry fSqrUserDBEntry : userDatabaseMap.values()) {
+            if (fSqrUserDBEntry.loginname.equals( username )) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public FSqrLazyUserDBEntry getUserEntryByLogonName( String username ) {
+        for (FSqrLazyUserDBEntry fSqrUserDBEntry : userDatabaseMap.values()) {
+            if (fSqrUserDBEntry.loginname.equals( username )) {
+                return fSqrUserDBEntry;
+            }
+        }
+        return null;
+    }
+
+    public FSqrLazyUserDBEntry getUserEntryByUUID( String uuid ) {
+        if (hasUserEntryByUUID( uuid )) {
+            return userDatabaseMap.get( uuid );
+        }
+        return null;
+    }
+
+    private boolean hasUserEntryByUUID( String uuid ) {
+        return userDatabaseMap.containsKey( uuid );
     }
 
 }
