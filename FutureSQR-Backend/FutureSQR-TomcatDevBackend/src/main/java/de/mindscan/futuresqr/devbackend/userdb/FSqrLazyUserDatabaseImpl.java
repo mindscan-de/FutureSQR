@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collection;
 import java.util.HashMap;
 
 import com.google.gson.Gson;
@@ -54,11 +55,24 @@ public class FSqrLazyUserDatabaseImpl {
         this.loadUserDatabaseFromResource();
     }
 
+    public boolean hasUser( String username ) {
+        Collection<FSqrUserDBEntry> values = userDatabaseMap.values();
+
+        for (FSqrUserDBEntry fSqrUserDBEntry : values) {
+            if (fSqrUserDBEntry.loginname.equals( username )) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * 
      */
     private void loadUserDatabaseFromResource() {
-        Path userdbPath = Paths.get( "userdb/userdatabase.json" );
+        // actually we should use the class loader to access and deal with this resource
+        Path userdbPath = Paths.get( "src/main/resources/userdb/userdatabase.json" );
 
         try (FileReader fileReader = new FileReader( userdbPath.toAbsolutePath().toString() )) {
             this.userDatabaseMap = gson.fromJson( fileReader, userDatabaseMapType );
