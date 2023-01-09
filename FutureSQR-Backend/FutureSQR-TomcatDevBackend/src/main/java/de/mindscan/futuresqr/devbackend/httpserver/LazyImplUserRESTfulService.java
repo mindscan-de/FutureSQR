@@ -25,6 +25,7 @@
  */
 package de.mindscan.futuresqr.devbackend.httpserver;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -44,24 +45,26 @@ import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserDatabaseImpl;
 @javax.ws.rs.Path( "/user" )
 public class LazyImplUserRESTfulService {
 
-    private FSqrLazyUserDatabaseImpl userDB = new FSqrLazyUserDatabaseImpl();
+    private static FSqrLazyUserDatabaseImpl userDB = new FSqrLazyUserDatabaseImpl();
 
     @javax.ws.rs.Path( "/authenticate" )
     @POST
     @Produces( "application/json" )
+    @Consumes( "multipart/form-data" )
     public String postLoginDataForAuthentication( //
-                    @FormParam( "username" ) String userName, //
+                    // EFF this shit - won't properly value is null for some effing reason.....
+                    @FormParam( "username" ) String username, //
                     @FormParam( "password" ) String password ) {
         // TODO: reimplement python #postLoginData
 
         // #1 check if user is present in the userdatabase
-        if (!userDB.hasUser( userName )) {
+        if (!userDB.hasUser( username )) {
             // todo provide a 404 and a good response
-            throw new RuntimeException( "No such user or not authenticated." );
+            throw new RuntimeException( "No such user or not authenticated. " + " username:'" + username + "'; password:'" + password + "'" );
         }
 
         // #2 get user entry using the username
-        FSqrLazyUserDBEntry userEntry = userDB.getUserEntryByLogonName( userName );
+        FSqrLazyUserDBEntry userEntry = userDB.getUserEntryByLogonName( username );
 
         // #3 TODO: register the user as an authenticated user
 
@@ -76,12 +79,14 @@ public class LazyImplUserRESTfulService {
         // #5 if admin, add admin role to capabilities
 
         // #6 return
-        if ("mindscan-de".equals( userName )) {
+        if ("mindscan-de".equals( username )) {
             response.capabilities.roles.add( "admin" );
         }
 
-        Gson gson = new Gson();
-        return gson.toJson( response );
+        throw new RuntimeException( "found: out:" + " username:'" + username + "'; password:'" + password + "'" );
+
+//        Gson gson = new Gson();
+//        return gson.toJson( response );
     }
 
     @javax.ws.rs.Path( "/reauthenticate" )
