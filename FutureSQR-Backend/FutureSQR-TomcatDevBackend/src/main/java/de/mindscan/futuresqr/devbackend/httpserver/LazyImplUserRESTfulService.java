@@ -89,12 +89,45 @@ public class LazyImplUserRESTfulService {
     @Produces( "application/json" )
     public String postReauthenticationLoginData( //
                     @FormParam( "assumedusername" ) String assumedUserName ) {
-        // TODO: reimplement python #postReauthenticateLoginData   
 
+        // TODO: reimplement python #postReauthenticateLoginData
+
+        // #1 session handling and session checking for this alleged account.
+        if (isAuthSession( assumedUserName )) {
+
+            // #2 get user entry using the username
+            FSqrLazyUserDBEntry userEntry = userDB.getUserEntryByLogonName( assumedUserName );
+
+            // #3 TODO: register the user as an authenticated user
+
+            OutputLoginDataModel response = new OutputLoginDataModel();
+            response.uuid = userEntry.uuid;
+            response.loginname = userEntry.loginname;
+            response.displayname = userEntry.displayname;
+            response.avatarlocation = userEntry.avatarlocation;
+            response.email = userEntry.email;
+
+            // #4 figure out the roles and featureflags for this user
+            // #5 if admin, add admin role to capabilities
+
+            // #6 return
+            if ("mindscan-de".equals( assumedUserName )) {
+                response.capabilities.roles.add( "admin" );
+            }
+
+            Gson gson = new Gson();
+            return gson.toJson( response );
+
+        }
         OutputLoginDataModel response = new OutputLoginDataModel();
 
         Gson gson = new Gson();
         return gson.toJson( response );
+    }
+
+    private boolean isAuthSession( String assumedUserName ) {
+        // TODO implement a real session handling
+        return true;
     }
 
     @javax.ws.rs.Path( "/csrf" )
