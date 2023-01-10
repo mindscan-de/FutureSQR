@@ -27,6 +27,9 @@ package de.mindscan.futuresqr.devbackend.userdb;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.lang.reflect.Type;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -65,7 +68,18 @@ public class FSqrLazyUserDatabaseImpl {
             this.userDatabaseMap = gson.fromJson( fileReader, userDatabaseMapType );
         }
         catch (IOException e) {
+            System.err.println( "could not find userdatabase..." );
             e.printStackTrace();
+
+            ClassLoader cl = this.getClass().getClassLoader();
+            System.err.println( cl.getResource( "userdb/userdatabase.json" ) );
+            try (InputStream is = cl.getResourceAsStream( "userdb/userdatabase.json" ); Reader isr = new InputStreamReader( is )) {
+                this.userDatabaseMap = gson.fromJson( isr, userDatabaseMapType );
+            }
+            catch (Exception ex) {
+                System.err.println( "yould not access alternate userdatabase" );
+                ex.printStackTrace();
+            }
         }
 
     }
