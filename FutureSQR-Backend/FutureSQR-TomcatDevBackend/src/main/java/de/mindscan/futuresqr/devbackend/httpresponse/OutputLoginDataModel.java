@@ -34,6 +34,6 @@ public class OutputLoginDataModel {
     public String displayname;
     public String avatarlocation;
     public String email;
-    public OutputLoginDataCapabilitiesModel capabilities;
+    public OutputLoginDataCapabilitiesModel capabilities = new OutputLoginDataCapabilitiesModel();
 
 }
