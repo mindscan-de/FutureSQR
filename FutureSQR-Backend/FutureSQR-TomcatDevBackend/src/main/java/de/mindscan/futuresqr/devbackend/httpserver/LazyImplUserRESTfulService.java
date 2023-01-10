@@ -57,46 +57,49 @@ public class LazyImplUserRESTfulService {
 //                    @FormParam( "username" ) String username, //
 //                    @FormParam( "password" ) String password 
     ) {
-        // TODO: reimplement python #postLoginData
-        throw new RuntimeException( requestBody );
 
-//        // #1 check if user is present in the userdatabase
-//        if (!userDB.hasUser( username )) {
-//            // todo provide a 404 and a good response
-//            throw new RuntimeException( "No such user or not authenticated. " + " username:'" + username + "'; password:'" + password + "'" );
-//        }
-//
-//        // #2 get user entry using the username
-//        FSqrLazyUserDBEntry userEntry = userDB.getUserEntryByLogonName( username );
-//
-//        // #3 TODO: register the user as an authenticated user
-//
-//        OutputLoginDataModel response = new OutputLoginDataModel();
-//        response.uuid = userEntry.uuid;
-//        response.loginname = userEntry.loginname;
-//        response.displayname = userEntry.displayname;
-//        response.avatarlocation = userEntry.avatarlocation;
-//        response.email = userEntry.email;
-//
-//        // #4 figure out the roles and featureflags for this user
-//        // #5 if admin, add admin role to capabilities
-//
-//        // #6 return
-//        if ("mindscan-de".equals( username )) {
-//            response.capabilities.roles.add( "admin" );
-//        }
-//
-//        throw new RuntimeException( "found: out:" + " username:'" + username + "'; password:'" + password + "'" );
+        String username = "mindscan-de";
+        String password = "test";
 
-//        Gson gson = new Gson();
-//        return gson.toJson( response );
+        // #1 check if user is present in the userdatabase
+        if (!userDB.hasUser( username )) {
+            // todo provide a 404 and a good response
+            throw new RuntimeException( "No such user or not authenticated. " + " username:'" + username + "'; password:'" + password + "'" );
+        }
+
+        // #2 get user entry using the username
+        FSqrLazyUserDBEntry userEntry = userDB.getUserEntryByLogonName( username );
+
+        // #3 TODO: register the user as an authenticated user
+
+        OutputLoginDataModel response = new OutputLoginDataModel();
+        response.uuid = userEntry.uuid;
+        response.loginname = userEntry.loginname;
+        response.displayname = userEntry.displayname;
+        response.avatarlocation = userEntry.avatarlocation;
+        response.email = userEntry.email;
+
+        // #4 figure out the roles and featureflags for this user
+        // #5 if admin, add admin role to capabilities
+
+        // #6 return
+        if ("mindscan-de".equals( username )) {
+            response.capabilities.roles.add( "admin" );
+        }
+
+        Gson gson = new Gson();
+        return gson.toJson( response );
     }
 
     @javax.ws.rs.Path( "/reauthenticate" )
     @POST
     @Produces( "application/json" )
     public String postReauthenticationLoginData( //
-                    @FormParam( "assumedusername" ) String assumedUserName ) {
+//                    @FormParam( "assumedusername" )
+    // String assumedUserName 
+    ) {
+
+        String assumedUserName = "mindscan-de";
 
         // TODO: reimplement python #postReauthenticateLoginData
 
