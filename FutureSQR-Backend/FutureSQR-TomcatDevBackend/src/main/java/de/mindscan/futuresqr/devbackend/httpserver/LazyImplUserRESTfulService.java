@@ -58,6 +58,8 @@ public class LazyImplUserRESTfulService {
 //                    @FormParam( "password" ) String password 
     ) {
 
+        // XXX: this is bad but i really don't want to deal with the multipart formdata right now.
+        //      bad enough this sh*t is not solved once and for all in tomcat 7 - eff this.
         String username = "mindscan-de";
         String password = "test";
 
@@ -99,6 +101,8 @@ public class LazyImplUserRESTfulService {
     // String assumedUserName 
     ) {
 
+        // XXX: this is bad but i really don't want to deal with the multipart formdata right now.
+        //      bad enough this sh*t is not solved once and for all in tomcat 7 - eff this.
         String assumedUserName = "mindscan-de";
 
         // TODO: reimplement python #postReauthenticateLoginData
