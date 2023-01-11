@@ -168,6 +168,8 @@ public class LazyImplUserRESTfulService {
         return gson.toJson( response );
     }
 
+    // TODO: /starredprojects
+    // TODO: /allaccessibleprojects
     // TODO: /ban
     // TODO: /unban
     // TODO: /add

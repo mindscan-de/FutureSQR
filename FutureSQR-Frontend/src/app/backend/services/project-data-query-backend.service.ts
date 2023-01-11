@@ -31,7 +31,7 @@ import { BackendModelSimpleUserDictionary } from '../model/backend-model-simple-
 })
 export class ProjectDataQueryBackendService {
 	
-	private static readonly URL_GET_ALL_PROJECTS:string           = "/FutureSQR/rest/user/allaccessibleprojetcs";
+	private static readonly URL_GET_ALL_PROJECTS:string           = "/FutureSQR/rest/user/allaccessibleprojects";
 	private static readonly URL_GET_MY_STARRED_PROJECTS:string    = "/FutureSQR/rest/user/starredprojects";
 	// TODO: this should be cooler
 	private static readonly URL_GET_RECENT_PROJECT_COMMITS:string = "/FutureSQR/rest/project/${projectid}/recentcommits";

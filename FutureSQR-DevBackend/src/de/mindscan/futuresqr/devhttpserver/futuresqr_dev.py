@@ -87,7 +87,7 @@ def getUserStarredProjects(user_uuid:str = ""):
     result = projectDB.getAllStarredUserProjects(user_uuid)
     return result
 
-@app.get("/FutureSQR/rest/user/allaccessibleprojetcs", response_class=JSONResponse)
+@app.get("/FutureSQR/rest/user/allaccessibleprojects", response_class=JSONResponse)
 def getUserAllAccessibleProjects(user_uuid: str = ""):
     # this userid needs to be checked. the user id mus come from the authorized session
     # for some time it would be acceptable to hava a get url parameter for this, but for
