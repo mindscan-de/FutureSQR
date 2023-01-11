@@ -33,6 +33,7 @@ public class FSqrLazyProjectDBEntry {
     public int autoIndex;
     public String projectDescription;
     public String projectDisplayName;
+    public String projectBranchName;
     public String projectId;
     public String projectUuid;
     public boolean projectIsStarred;
