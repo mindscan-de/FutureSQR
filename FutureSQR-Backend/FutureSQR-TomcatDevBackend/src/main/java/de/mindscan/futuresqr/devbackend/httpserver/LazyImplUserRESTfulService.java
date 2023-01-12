@@ -181,13 +181,29 @@ public class LazyImplUserRESTfulService {
     @javax.ws.rs.Path( "/starredprojects" )
     @GET
     @Produces( MediaType.APPLICATION_JSON )
-    public String getUserStarredProjectsForUser( @QueryParam( "userid" ) String userUUID ) {
+    public String getUserStarredProjects( @QueryParam( "userid" ) String userUUID ) {
         Collection<FSqrLazyProjectDBEntry> allProjects = projectDB.getAllProjects();
 
         // TODO actually also filter the accessible projects, since they could be starred, before
         //      user lost access.
         List<OutputUserProjectEntry> response = allProjects.stream()//
                         .filter( x -> x.projectIsStarred == true )//
+                        .map( this::transform ) //
+                        .collect( Collectors.toList() );
+
+        Gson gson = new Gson();
+        return gson.toJson( response );
+    }
+
+    @javax.ws.rs.Path( "/allaccessibleprojects" )
+    @GET
+    @Produces( MediaType.APPLICATION_JSON )
+    public String getUserAccessibleProjects( @QueryParam( "userid" ) String userUUID ) {
+        Collection<FSqrLazyProjectDBEntry> allProjects = projectDB.getAllProjects();
+
+        // TODO actually also filter the accessible projects, since they could be starred, before
+        //      user lost access.
+        List<OutputUserProjectEntry> response = allProjects.stream()//
                         .map( this::transform ) //
                         .collect( Collectors.toList() );
 
@@ -204,7 +220,6 @@ public class LazyImplUserRESTfulService {
         return transformed;
     }
 
-    // TODO: /allaccessibleprojects
     // TODO: /ban
     // TODO: /unban
     // TODO: /add
