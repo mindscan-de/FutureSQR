@@ -26,6 +26,7 @@
 package de.mindscan.futuresqr.devbackend.httpserver;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -190,6 +191,12 @@ public class LazyImplUserRESTfulService {
                         .filter( x -> x.projectIsStarred == true )//
                         .map( this::transform ) //
                         .collect( Collectors.toList() );
+        response.sort( new Comparator<OutputUserProjectEntry>() {
+            @Override
+            public int compare( OutputUserProjectEntry o1, OutputUserProjectEntry o2 ) {
+                return o1.project_display_name.compareTo( o2.project_display_name );
+            }
+        } );
 
         Gson gson = new Gson();
         return gson.toJson( response );
@@ -198,7 +205,7 @@ public class LazyImplUserRESTfulService {
     @javax.ws.rs.Path( "/allaccessibleprojects" )
     @GET
     @Produces( MediaType.APPLICATION_JSON )
-    public String getUserAccessibleProjects( @QueryParam( "userid" ) String userUUID ) {
+    public <T> String getUserAccessibleProjects( @QueryParam( "userid" ) String userUUID ) {
         Collection<FSqrLazyProjectDBEntry> allProjects = projectDB.getAllProjects();
 
         // TODO actually also filter the accessible projects, since they could be starred, before
@@ -206,7 +213,12 @@ public class LazyImplUserRESTfulService {
         List<OutputUserProjectEntry> response = allProjects.stream()//
                         .map( this::transform ) //
                         .collect( Collectors.toList() );
-
+        response.sort( new Comparator<OutputUserProjectEntry>() {
+            @Override
+            public int compare( OutputUserProjectEntry o1, OutputUserProjectEntry o2 ) {
+                return o1.project_display_name.compareTo( o2.project_display_name );
+            }
+        } );
         Gson gson = new Gson();
         return gson.toJson( response );
     }
