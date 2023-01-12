@@ -32,6 +32,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
 
+import de.mindscan.futuresqr.devbackend.httpresponse.OutputSimpleProjectInformation;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDBEntry;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 
@@ -56,7 +57,22 @@ public class ProjectRESTfulService {
     public String getSimpleProjectInformation( @PathParam( "projectid" ) String projectId ) {
         FSqrLazyProjectDBEntry projectConfiguration = projectDB.getProjectConfiguration( projectId );
 
+        OutputSimpleProjectInformation response = transform( projectConfiguration );
+
         Gson gson = new Gson();
-        return gson.toJson( projectConfiguration );
+        return gson.toJson( response );
+    }
+
+    private OutputSimpleProjectInformation transform( FSqrLazyProjectDBEntry configuration ) {
+        OutputSimpleProjectInformation transformed = new OutputSimpleProjectInformation();
+
+        transformed.projectID = configuration.projectID;
+        transformed.projectDisplayName = configuration.projectDisplayName;
+        transformed.projectDescription = configuration.projectDescription;
+        transformed.projectIsStarred = configuration.projectIsStarred;
+        // This needs to be filled.
+        transformed.projectUuid = configuration.projectUuid;
+
+        return transformed;
     }
 }
