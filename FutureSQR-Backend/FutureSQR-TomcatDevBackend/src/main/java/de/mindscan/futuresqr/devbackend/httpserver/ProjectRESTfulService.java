@@ -26,7 +26,14 @@
 package de.mindscan.futuresqr.devbackend.httpserver;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import com.google.gson.Gson;
+
+import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDBEntry;
+import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 
 /**
  * 
@@ -34,10 +41,22 @@ import javax.ws.rs.Produces;
 @javax.ws.rs.Path( "/project" )
 public class ProjectRESTfulService {
 
+    private static FSqrLazyProjectDatabaseImpl projectDB = new FSqrLazyProjectDatabaseImpl();
+
     @javax.ws.rs.Path( "/testme" )
     @GET
     @Produces( "application/json" )
     public String getTest_JSON() {
         return "{\"hello\":\"world\"}";
+    }
+
+    @javax.ws.rs.Path( "{projectid}/information" )
+    @GET
+    @Produces( MediaType.APPLICATION_JSON )
+    public String getSimpleProjectInformation( @PathParam( "projectid" ) String projectId ) {
+        FSqrLazyProjectDBEntry projectConfiguration = projectDB.getProjectConfiguration( projectId );
+
+        Gson gson = new Gson();
+        return gson.toJson( projectConfiguration );
     }
 }
