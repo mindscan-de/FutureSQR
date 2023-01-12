@@ -25,16 +25,25 @@
  */
 package de.mindscan.futuresqr.devbackend.httpserver;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
 
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputCsrfTokenModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputLoginDataModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputStatusOkayModel;
+import de.mindscan.futuresqr.devbackend.httpresponse.OutputUserProjectEntry;
+import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDBEntry;
+import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserDBEntry;
 import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserDatabaseImpl;
 
@@ -45,6 +54,7 @@ import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserDatabaseImpl;
 public class LazyImplUserRESTfulService {
 
     private static FSqrLazyUserDatabaseImpl userDB = new FSqrLazyUserDatabaseImpl();
+    private static FSqrLazyProjectDatabaseImpl projectDB = new FSqrLazyProjectDatabaseImpl();
 
     @javax.ws.rs.Path( "/authenticate" )
     @POST
@@ -168,7 +178,32 @@ public class LazyImplUserRESTfulService {
         return gson.toJson( response );
     }
 
-    // TODO: /starredprojects
+    @javax.ws.rs.Path( "/starredprojects" )
+    @GET
+    @Produces( MediaType.APPLICATION_JSON )
+    public String getUserStarredProjectsForUser( @QueryParam( "userid" ) String userUUID ) {
+        Collection<FSqrLazyProjectDBEntry> allProjects = projectDB.getAllProjects();
+
+        // TODO actually also filter the accessible projects, since they could be starred, before
+        //      user lost access.
+        List<OutputUserProjectEntry> response = allProjects.stream()//
+                        .filter( x -> x.projectIsStarred == true )//
+                        .map( this::transform ) //
+                        .collect( Collectors.toList() );
+
+        Gson gson = new Gson();
+        return gson.toJson( response );
+    }
+
+    private OutputUserProjectEntry transform( FSqrLazyProjectDBEntry data ) {
+        OutputUserProjectEntry transformed = new OutputUserProjectEntry();
+        transformed.project_id = data.projectId;
+        transformed.project_display_name = data.projectDisplayName;
+        transformed.description = data.projectDescription;
+        transformed.is_starred = data.projectIsStarred;
+        return transformed;
+    }
+
     // TODO: /allaccessibleprojects
     // TODO: /ban
     // TODO: /unban
