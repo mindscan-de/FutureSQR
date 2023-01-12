@@ -34,7 +34,7 @@ public class FSqrLazyProjectDBEntry {
     public String projectDescription;
     public String projectDisplayName;
     public String projectBranchName;
-    public String projectId;
+    public String projectID;
     public String projectUuid;
     public boolean projectIsStarred;
     public String reviewPrefix;

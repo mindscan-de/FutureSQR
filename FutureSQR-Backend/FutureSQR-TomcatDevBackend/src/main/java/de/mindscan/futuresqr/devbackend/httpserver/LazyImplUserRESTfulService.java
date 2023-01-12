@@ -223,12 +223,12 @@ public class LazyImplUserRESTfulService {
         return gson.toJson( response );
     }
 
-    private OutputUserProjectEntry transform( FSqrLazyProjectDBEntry data ) {
+    private OutputUserProjectEntry transform( FSqrLazyProjectDBEntry project ) {
         OutputUserProjectEntry transformed = new OutputUserProjectEntry();
-        transformed.project_id = data.projectId;
-        transformed.project_display_name = data.projectDisplayName;
-        transformed.description = data.projectDescription;
-        transformed.is_starred = data.projectIsStarred;
+        transformed.project_id = project.projectID;
+        transformed.project_display_name = project.projectDisplayName;
+        transformed.description = project.projectDescription;
+        transformed.is_starred = project.projectIsStarred;
         return transformed;
     }
 
