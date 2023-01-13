@@ -82,13 +82,15 @@ public class ProjectRESTfulService {
     @Produces( MediaType.APPLICATION_JSON )
     public String getProjectRevisions( @PathParam( "projectid" ) String projectId ) {
         if (projectDB.hasProjectLocalPath( projectId )) {
+            OutputProjectRevisionsModel response = new OutputProjectRevisionsModel();
 
             // TODO get systemConfiguration / systemInstance
             // TODO calculate the ScmRevisionsForLocalGitRepo - should be figured out, whether GIT or SVN repo.
             // TODO convert from SCMRevisionModel to OoutputProjectRevisionsRevisionEntry
             // TODO calculate, whether a revision id in given projectid has been assigned to a review.
 
-            return "{}";
+            Gson gson = new Gson();
+            return gson.toJson( response );
         }
 
         // return empty revision.
