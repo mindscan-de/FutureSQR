@@ -83,6 +83,11 @@ public class ProjectRESTfulService {
     public String getProjectRevisions( @PathParam( "projectid" ) String projectId ) {
         if (projectDB.hasProjectLocalPath( projectId )) {
 
+            // TODO get systemConfiguration / systemInstance
+            // TODO calculate the ScmRevisionsForLocalGitRepo - should be figured out, whether GIT or SVN repo.
+            // TODO convert from SCMRevisionModel to OoutputProjectRevisionsRevisionEntry
+            // TODO calculate, whether a revision id in given projectid has been assigned to a review.
+
             return "{}";
         }
 
