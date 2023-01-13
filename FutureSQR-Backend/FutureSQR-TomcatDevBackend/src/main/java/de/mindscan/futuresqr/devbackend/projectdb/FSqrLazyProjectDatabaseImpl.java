@@ -89,4 +89,22 @@ public class FSqrLazyProjectDatabaseImpl {
         return projectConfigurationMap.values();
     }
 
+    private boolean isProjectIdPresent( String projectId ) {
+        return this.projectConfigurationMap.containsKey( projectId );
+    }
+
+    public boolean hasProjectLocalPath( String projectId ) {
+        if (!isProjectIdPresent( projectId )) {
+            return false;
+        }
+
+        FSqrLazyProjectDBEntry configuration = getProjectConfiguration( projectId );
+
+        if (!configuration.hasAdministrationData()) {
+            return false;
+        }
+
+        return configuration.administration.hasLocalPath();
+    }
+
 }
