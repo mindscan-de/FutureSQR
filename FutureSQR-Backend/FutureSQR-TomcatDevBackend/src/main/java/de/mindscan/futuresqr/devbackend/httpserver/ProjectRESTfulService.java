@@ -32,6 +32,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
 
+import de.mindscan.futuresqr.devbackend.httpresponse.OutputProjectRevisionsModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputSimpleProjectInformation;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDBEntry;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
@@ -80,6 +81,14 @@ public class ProjectRESTfulService {
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public String getProjectRevisions( @PathParam( "projectid" ) String projectId ) {
-        return "{}";
+        if (projectDB.hasProjectLocalPath( projectId )) {
+
+            return "{}";
+        }
+
+        // return empty revision.
+        OutputProjectRevisionsModel response = new OutputProjectRevisionsModel();
+        Gson gson = new Gson();
+        return gson.toJson( response );
     }
 }
