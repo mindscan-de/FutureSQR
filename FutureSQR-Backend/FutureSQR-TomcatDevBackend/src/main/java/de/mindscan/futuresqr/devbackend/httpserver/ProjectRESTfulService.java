@@ -75,4 +75,11 @@ public class ProjectRESTfulService {
 
         return transformed;
     }
+
+    @javax.ws.rs.Path( "{projectid}/recentcommits" )
+    @GET
+    @Produces( MediaType.APPLICATION_JSON )
+    public String getProjectRevisions( @PathParam( "projectid" ) String projectId ) {
+        return "{}";
+    }
 }
