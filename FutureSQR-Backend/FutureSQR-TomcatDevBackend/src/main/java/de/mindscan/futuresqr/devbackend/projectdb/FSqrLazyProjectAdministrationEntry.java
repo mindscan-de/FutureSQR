@@ -31,4 +31,8 @@ package de.mindscan.futuresqr.devbackend.projectdb;
 public class FSqrLazyProjectAdministrationEntry {
     public String localPath = null;
     public String scmBackend = null;
+
+    public boolean hasLocalPath() {
+        return localPath != null;
+    }
 }

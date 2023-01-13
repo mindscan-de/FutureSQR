@@ -40,4 +40,8 @@ public class FSqrLazyProjectDBEntry {
     public String reviewPrefix;
 
     public FSqrLazyProjectAdministrationEntry administration;
+
+    public boolean hasAdministrationData() {
+        return administration != null;
+    }
 }
