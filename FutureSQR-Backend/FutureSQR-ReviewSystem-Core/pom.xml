@@ -4,6 +4,13 @@
   <artifactId>FutureSQR-ReviewSystem-Core</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   
+	<!-- Set such that this project can be used as a dependency for the tomcat project -->  
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>  
+  
+  
 	<dependencies>
 		
 		<!-- dependency to provide basic infrastructure, e.g. uuids, threadqueues, futures and promises, etc. -->
@@ -55,7 +62,7 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
         <configuration>
-          <release>11</release>
+          <release>8</release>
         </configuration>
       </plugin>
     </plugins>
