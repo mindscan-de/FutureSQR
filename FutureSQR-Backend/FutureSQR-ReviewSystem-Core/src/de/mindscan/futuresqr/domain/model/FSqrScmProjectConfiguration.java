@@ -25,6 +25,8 @@
  */
 package de.mindscan.futuresqr.domain.model;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * This thing/entity contains information about the configuration of a scm project. This thin 
  * has a name and identifiers. Etc.
@@ -33,5 +35,35 @@ package de.mindscan.futuresqr.domain.model;
  * and so on...
  */
 public class FSqrScmProjectConfiguration {
+    private AtomicInteger autoIndex = new AtomicInteger( 1 );
 
+    // lowercase alphanumeric string including minus chars, 
+    // must be unique for the installed fsqr instance.
+    private String projectId;
+
+    private String projectDisplayName;
+    private String projectDescription = "";
+
+    private String projectUuid;
+    private String projectReviewPrefix = "CR-";
+
+    private FSqrScmProjectType scmProjectType;
+
+    public FSqrScmProjectConfiguration() {
+        this.projectId = null;
+        this.projectDisplayName = null;
+        this.projectUuid = null;
+        this.scmProjectType = FSqrScmProjectType.none;
+    }
+
+    // TODO: some details, like ownership (who created, when created, when modified)
+    // i guess this is not yet important, and can alo be kept in a kind of journal or so....
+
+    public int createNewReviewIndex() {
+        int newReviewIndex = autoIndex.getAndIncrement();
+
+        // TODO: some listener should be informed, that a new autoIndex is set.
+
+        return newReviewIndex;
+    }
 }
