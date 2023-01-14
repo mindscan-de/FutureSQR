@@ -15,12 +15,26 @@
   
   
   <dependencies>
-  		<!-- dependencies for a code review system -->
+  		<!-- dependencies for this code review system -->
   		<dependency>
+  			<!-- direct -->
   			<groupId>de.mindscan.futuresqr</groupId>
-  			<artifactId>FutureSQR-ScmAccess</artifactId>
+  			<artifactId>FutureSQR-ReviewSystem-Core</artifactId>
   			<version>0.0.1-SNAPSHOT</version>
   		</dependency>
+
+  			<dependency>
+  				<!-- transitive -->
+	  			<groupId>de.mindscan.futuresqr</groupId>
+	  			<artifactId>FutureSQR-Core</artifactId>
+	  			<version>0.0.1-SNAPSHOT</version>
+  			</dependency>
+	  		<dependency>
+	  			<!-- transitive -->
+	  			<groupId>de.mindscan.futuresqr</groupId>
+	  			<artifactId>FutureSQR-ScmAccess</artifactId>
+	  			<version>0.0.1-SNAPSHOT</version>
+	  		</dependency>
   
   		<!-- dependencies for future sqr development backend -->
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
