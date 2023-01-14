@@ -44,20 +44,31 @@ public class FSqrScmProjectConfiguration {
     private String projectDisplayName;
     private String projectDescription = "";
 
-    private String projectUuid;
+    private final String projectUuid;
     private String projectReviewPrefix = "CR-";
 
     private FSqrScmProjectType scmProjectType;
 
-    public FSqrScmProjectConfiguration() {
-        this.projectId = null;
-        this.projectDisplayName = null;
-        this.projectUuid = null;
-        this.scmProjectType = FSqrScmProjectType.none;
-    }
-
     // TODO: some details, like ownership (who created, when created, when modified)
     // i guess this is not yet important, and can alo be kept in a kind of journal or so....
+
+//    public FSqrScmProjectConfiguration() {
+//        this.projectId = null;
+//        this.projectDisplayName = null;
+//        this.projectUuid = null;
+//        this.scmProjectType = FSqrScmProjectType.none;
+//    }
+
+    public FSqrScmProjectConfiguration( String projectId, String projectDisplayName, String projectUuid, int autoIndexStart ) {
+        this.autoIndex = new AtomicInteger( autoIndexStart );
+        this.projectId = projectId;
+        this.projectDisplayName = projectDisplayName;
+        // this id is unique for the whole lifetime of the review system - server lifetime.
+        this.projectUuid = projectUuid;
+
+        // TODO: if we provide an scm admin / scm detail configuration, then we replace this. 
+        this.scmProjectType = FSqrScmProjectType.none;
+    }
 
     public int createNewReviewIndex() {
         int newReviewIndex = autoIndex.getAndIncrement();
