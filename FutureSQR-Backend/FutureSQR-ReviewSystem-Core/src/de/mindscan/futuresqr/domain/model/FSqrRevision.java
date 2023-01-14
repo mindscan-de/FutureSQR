@@ -23,7 +23,7 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.domainmodel;
+package de.mindscan.futuresqr.domain.model;
 
 import java.util.List;
 

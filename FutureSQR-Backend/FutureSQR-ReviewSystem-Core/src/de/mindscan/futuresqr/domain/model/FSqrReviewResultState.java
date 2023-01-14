@@ -2,7 +2,7 @@
  * 
  * MIT License
  *
- * Copyright (c) 2022 Maxim Gansert, Mindscan
+ * Copyright (c) 2023 Maxim Gansert, Mindscan
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,15 +23,17 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.domainmodel;
+package de.mindscan.futuresqr.domain.model;
 
 /**
- * This represents the current lifecycle state of a code review.
+ * 
  */
-public enum FSqrCodeReviewLifecycleState {
-    Open,
+public enum FSqrReviewResultState {
 
-    Closed,
+    Incomplete,
 
-    Deleted
+    Approved,
+
+    Concerns
+
 }

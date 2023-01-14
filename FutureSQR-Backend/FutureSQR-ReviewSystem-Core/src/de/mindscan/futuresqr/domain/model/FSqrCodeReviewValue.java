@@ -23,17 +23,45 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.domainmodel;
+package de.mindscan.futuresqr.domain.model;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 
  */
-public enum FSqrReviewResultState {
+public class FSqrCodeReviewValue {
 
-    Incomplete,
+    // the short name of the project - for administrative reasons we should also have a project uuid.
+    private String projectId;
 
-    Approved,
+    // each review has a id - uuid? with translation to a review identifier?
+    // should this be simply a number...
+    private String reviewId;
 
-    Concerns
+    // each review has a current review state.
+    private FSqrCodeReviewLifecycleState state = FSqrCodeReviewLifecycleState.Open;
 
+    private Map<String, FSqrReviewResult> reviewerResults = new HashMap<>();
+
+    protected Map<String, FSqrReviewResult> getReviewerResultsMap() {
+        return reviewerResults;
+    }
+
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public String getReviewId() {
+        return reviewId;
+    }
+
+    FSqrCodeReviewLifecycleState getCurrentReviewState() {
+        return state;
+    }
+
+    protected void updateCurrenReviewState( FSqrCodeReviewLifecycleState newState ) {
+        this.state = newState;
+    }
 }

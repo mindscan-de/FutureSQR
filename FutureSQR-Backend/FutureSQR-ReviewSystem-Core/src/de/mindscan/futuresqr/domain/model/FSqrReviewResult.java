@@ -23,7 +23,7 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.domainmodel;
+package de.mindscan.futuresqr.domain.model;
 
 /**
  * This represents a ReviewResult for each reviewer participating in a code

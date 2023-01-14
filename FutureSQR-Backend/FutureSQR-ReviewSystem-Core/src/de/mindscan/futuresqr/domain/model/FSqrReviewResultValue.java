@@ -23,7 +23,7 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.domainmodel;
+package de.mindscan.futuresqr.domain.model;
 
 /**
  * This is the value object, which contains the review result of a reviewer.

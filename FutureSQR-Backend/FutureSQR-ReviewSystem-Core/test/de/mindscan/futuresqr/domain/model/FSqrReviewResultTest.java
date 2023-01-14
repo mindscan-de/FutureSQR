@@ -1,9 +1,13 @@
-package de.mindscan.futuresqr.domainmodel;
+package de.mindscan.futuresqr.domain.model;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 import org.junit.jupiter.api.Test;
+
+import de.mindscan.futuresqr.domain.model.FSqrReviewResult;
+import de.mindscan.futuresqr.domain.model.FSqrReviewResultState;
+import de.mindscan.futuresqr.domain.model.FSqrReviewResultValue;
 
 public class FSqrReviewResultTest {
 
