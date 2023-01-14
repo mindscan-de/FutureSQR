@@ -28,12 +28,15 @@ package de.mindscan.futuresqr.domain.databases;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 
 /**
- * This provides the in-memory database repository for the Source Code Management Project 
- * Configurations.
+ * This provides the in-memory repository for the Source Code Management Project Configurations.
+ * 
+ * For performance reasons, we should load these once, because they are used the whole tiem, and 
+ * use the initially provided project configurations.
  * 
  * This is where we store all the Project configurations and their type of SCM associated 
  * with this particular scm project. It provides an index of all projects and such.
@@ -42,7 +45,7 @@ import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
  */
 public class FSqrScmProjectConfigurationRepositoryImpl {
 
-    private Map<String, FSqrScmProjectConfiguration> allScmProjectConfigurations = new HashMap<>();
+    private Map<String, FSqrScmProjectConfiguration> scmProjectConfigurationsByProjectId = new HashMap<>();
 
     /**
      * 
@@ -55,11 +58,24 @@ public class FSqrScmProjectConfigurationRepositoryImpl {
     //      provides the configurations, when this class is initialized
 
     public Collection<FSqrScmProjectConfiguration> getAllProjectConfigurations() {
-        return allScmProjectConfigurations.values();
+        return scmProjectConfigurationsByProjectId.values();
+    }
+
+    public FSqrScmProjectConfiguration getProjectConfiguration( String projectId ) {
+        return null;
+    }
+
+    public boolean hasProjectConfiguration( String projectId ) {
+        return false;
+    }
+
+    public FSqrScmProjectConfiguration getProjectConfiguration( UUID projectUUID ) {
+        return null;
     }
 
     public void addScmProjectConfiguration( FSqrScmProjectConfiguration projectConfiguration ) {
-
+        // TODO: get the project identifier, which is the readable one and then insert into map.
+        // maybe we should provide an information, whether we inserted this.
     }
 
 }
