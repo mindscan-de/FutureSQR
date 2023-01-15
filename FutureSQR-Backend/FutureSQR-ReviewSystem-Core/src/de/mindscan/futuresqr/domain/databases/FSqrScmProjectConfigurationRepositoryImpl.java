@@ -66,7 +66,7 @@ public class FSqrScmProjectConfigurationRepositoryImpl {
     }
 
     public boolean hasProjectConfiguration( String projectId ) {
-        return false;
+        return scmProjectConfigurationsByProjectId.containsKey( projectId );
     }
 
     public FSqrScmProjectConfiguration getProjectConfiguration( UUID projectUUID ) {

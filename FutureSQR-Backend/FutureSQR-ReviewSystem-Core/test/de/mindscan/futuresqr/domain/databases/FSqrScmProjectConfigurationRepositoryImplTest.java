@@ -42,13 +42,31 @@ public class FSqrScmProjectConfigurationRepositoryImplTest {
 
     @Test
     public void testHasProjectConfiguration_CtorTestForUnknownProjectConfiguration_expectHasNoSuchProject() throws Exception {
+        // arrange
+        String unknownProjectIdentifier = "unknown-project";
         FSqrScmProjectConfigurationRepositoryImpl repository = new FSqrScmProjectConfigurationRepositoryImpl();
-        String unknownProjectName = "unknown-project";
 
         // act
-        boolean result = repository.hasProjectConfiguration( unknownProjectName );
+        boolean result = repository.hasProjectConfiguration( unknownProjectIdentifier );
 
+        // assert
         assertThat( result, equalTo( false ) );
+    }
+
+    @Test
+    public void testHasProjectConfiguration_CtorAddKnownProjectId_expectThatHasSuchProject() throws Exception {
+        // arrange
+        String knownProjectIdentifier = "known-project";
+
+        FSqrScmProjectConfigurationRepositoryImpl repository = new FSqrScmProjectConfigurationRepositoryImpl();
+        FSqrScmProjectConfiguration projectConfiguration = new FSqrScmProjectConfiguration( knownProjectIdentifier, "Test DisplayName", "11111-1111-11111", 1 );
+        repository.addScmProjectConfiguration( projectConfiguration );
+
+        // act
+        boolean result = repository.hasProjectConfiguration( knownProjectIdentifier );
+
+        // assert
+        assertThat( result, equalTo( true ) );
     }
 
 }
