@@ -74,8 +74,13 @@ public class FSqrScmProjectConfigurationRepositoryImpl {
     }
 
     public void addScmProjectConfiguration( FSqrScmProjectConfiguration projectConfiguration ) {
-        // TODO: get the project identifier, which is the readable one and then insert into map.
-        // maybe we should provide an information, whether we inserted this.
+        String projectId = projectConfiguration.getProjectId();
+
+        if (projectId == null || projectId.trim().isEmpty()) {
+            return;
+        }
+
+        scmProjectConfigurationsByProjectId.put( projectId, projectConfiguration );
     }
 
 }
