@@ -65,12 +65,12 @@ public class FSqrScmProjectConfigurationRepositoryImpl {
         return null;
     }
 
-    public boolean hasProjectConfiguration( String projectId ) {
-        return scmProjectConfigurationsByProjectId.containsKey( projectId );
-    }
-
     public FSqrScmProjectConfiguration getProjectConfiguration( UUID projectUUID ) {
         return null;
+    }
+
+    public boolean hasProjectConfiguration( String projectId ) {
+        return scmProjectConfigurationsByProjectId.containsKey( projectId );
     }
 
     public void addScmProjectConfiguration( FSqrScmProjectConfiguration projectConfiguration ) {
