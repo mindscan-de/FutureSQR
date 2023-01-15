@@ -77,4 +77,14 @@ public class FSqrScmProjectConfiguration {
 
         return newReviewIndex;
     }
+
+    public String createNewReviewIdentifierWithPrefix() {
+        int newReviewIndex = this.createNewReviewIndex();
+
+        return projectReviewPrefix + Integer.toString( newReviewIndex );
+    }
+
+    public FSqrScmProjectType getScmProjectType() {
+        return scmProjectType;
+    }
 }
