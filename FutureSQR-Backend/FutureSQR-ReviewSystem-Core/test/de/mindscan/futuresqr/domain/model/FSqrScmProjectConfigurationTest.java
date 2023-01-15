@@ -2,6 +2,8 @@ package de.mindscan.futuresqr.domain.model;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.sameInstance;
 
 import org.junit.jupiter.api.Test;
 
@@ -116,7 +118,7 @@ public class FSqrScmProjectConfigurationTest {
         String result = configuration.getProjectId();
 
         // assert
-        assertThat( result, equalTo( expectedValueTestProjectId ) );
+        assertThat( result, is( sameInstance( expectedValueTestProjectId ) ) );
     }
 
 }
