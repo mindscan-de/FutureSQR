@@ -35,6 +35,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  * and so on...
  */
 public class FSqrScmProjectConfiguration {
+    public static final String DEFAULT_CODEREVIEW_PREFIX = "CR-";
+
     private AtomicInteger autoIndex = new AtomicInteger( 1 );
 
     // lowercase alphanumeric string including minus chars, 
@@ -45,7 +47,7 @@ public class FSqrScmProjectConfiguration {
     private String projectDescription = "";
 
     private final String projectUuid;
-    private String projectReviewPrefix = "CR-";
+    private String projectReviewPrefix = DEFAULT_CODEREVIEW_PREFIX;
 
     private FSqrScmProjectType scmProjectType;
 
@@ -86,5 +88,13 @@ public class FSqrScmProjectConfiguration {
 
     public FSqrScmProjectType getScmProjectType() {
         return scmProjectType;
+    }
+
+    public void setProjectReviewPrefix( String projectReviewPrefix ) {
+        this.projectReviewPrefix = projectReviewPrefix;
+    }
+
+    public String getProjectReviewPrefix() {
+        return projectReviewPrefix;
     }
 }

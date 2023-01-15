@@ -80,4 +80,30 @@ public class FSqrScmProjectConfigurationTest {
         assertThat( result, equalTo( FSqrScmProjectType.none ) );
     }
 
+    @Test
+    public void testGetProjectReviewPrefix_CtorOnly_returnsDefaultCodeReviewPrefix() throws Exception {
+        // arrange
+        FSqrScmProjectConfiguration configuration = new FSqrScmProjectConfiguration( "test", "Test DisplayName", "11111-1111-11111", 1 );
+
+        // act
+        String result = configuration.getProjectReviewPrefix();
+
+        // assert
+        assertThat( result, equalTo( FSqrScmProjectConfiguration.DEFAULT_CODEREVIEW_PREFIX ) );
+    }
+
+    @Test
+    public void testSetProjectReviewPrefix_CTorThenSetToCORE() throws Exception {
+        // arrange
+        String expectedValueCORE = "CORE-";
+        FSqrScmProjectConfiguration configuration = new FSqrScmProjectConfiguration( "test", "Test DisplayName", "11111-1111-11111", 1 );
+
+        // act
+        configuration.setProjectReviewPrefix( expectedValueCORE );
+
+        // assert
+        String result = configuration.getProjectReviewPrefix();
+        assertThat( result, equalTo( expectedValueCORE ) );
+    }
+
 }
