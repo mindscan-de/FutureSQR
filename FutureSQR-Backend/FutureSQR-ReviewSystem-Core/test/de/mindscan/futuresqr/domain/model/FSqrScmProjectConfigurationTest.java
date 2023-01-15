@@ -106,4 +106,17 @@ public class FSqrScmProjectConfigurationTest {
         assertThat( result, equalTo( expectedValueCORE ) );
     }
 
+    @Test
+    public void testGetProjectId_CtorWithTestProject_expectSameTestProjectIdentifier() throws Exception {
+        // arrange
+        String expectedValueTestProjectId = "test-project";
+        FSqrScmProjectConfiguration configuration = new FSqrScmProjectConfiguration( expectedValueTestProjectId, "Test DisplayName", "11111-1111-11111", 1 );
+
+        // act
+        String result = configuration.getProjectId();
+
+        // assert
+        assertThat( result, equalTo( expectedValueTestProjectId ) );
+    }
+
 }

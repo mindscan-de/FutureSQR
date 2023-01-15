@@ -97,4 +97,8 @@ public class FSqrScmProjectConfiguration {
     public String getProjectReviewPrefix() {
         return projectReviewPrefix;
     }
+
+    public String getProjectId() {
+        return projectId;
+    }
 }
