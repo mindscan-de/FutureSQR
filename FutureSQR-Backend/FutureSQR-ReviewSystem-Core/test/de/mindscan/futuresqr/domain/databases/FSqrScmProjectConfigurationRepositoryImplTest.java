@@ -2,7 +2,9 @@ package de.mindscan.futuresqr.domain.databases;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.sameInstance;
 import static org.hamcrest.collection.IsEmptyCollection.empty;
 
 import java.util.Collection;
@@ -67,6 +69,23 @@ public class FSqrScmProjectConfigurationRepositoryImplTest {
 
         // assert
         assertThat( result, equalTo( true ) );
+    }
+
+    @Test
+    public void testGetProjectConfigurationString_CtorAddKnownProjectIdGetKnownProjectId_expectSameInstance() throws Exception {
+        // arrange
+        String knownProjectIdentifier = "known-project";
+
+        FSqrScmProjectConfigurationRepositoryImpl repository = new FSqrScmProjectConfigurationRepositoryImpl();
+        FSqrScmProjectConfiguration expectedProjectConfiguration = new FSqrScmProjectConfiguration( knownProjectIdentifier, "Test DisplayName",
+                        "11111-1111-11111", 1 );
+        repository.addScmProjectConfiguration( expectedProjectConfiguration );
+
+        // act
+        FSqrScmProjectConfiguration result = repository.getProjectConfiguration( knownProjectIdentifier );
+
+        // assert
+        assertThat( result, is( sameInstance( expectedProjectConfiguration ) ) );
     }
 
 }

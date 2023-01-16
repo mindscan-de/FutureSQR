@@ -62,7 +62,7 @@ public class FSqrScmProjectConfigurationRepositoryImpl {
     }
 
     public FSqrScmProjectConfiguration getProjectConfiguration( String projectId ) {
-        return null;
+        return scmProjectConfigurationsByProjectId.getOrDefault( projectId, null );
     }
 
     public FSqrScmProjectConfiguration getProjectConfiguration( UUID projectUUID ) {
