@@ -100,6 +100,8 @@ public class FSqrLazyProjectDatabaseImpl {
             scmProjectConfig.setProjectReviewPrefix( projectEntry.reviewPrefix );
             scmProjectConfig.setProjectDescription( projectEntry.projectDescription );
 
+            // TODO: read git configuration and prepare the GIT SCM configuration / later also SVN SCM configuration
+
             configurationRepository.addScmProjectConfiguration( scmProjectConfig );
         }
     }
