@@ -54,13 +54,6 @@ public class FSqrScmProjectConfiguration {
     // TODO: some details, like ownership (who created, when created, when modified)
     // i guess this is not yet important, and can alo be kept in a kind of journal or so....
 
-//    public FSqrScmProjectConfiguration() {
-//        this.projectId = null;
-//        this.projectDisplayName = null;
-//        this.projectUuid = null;
-//        this.scmProjectType = FSqrScmProjectType.none;
-//    }
-
     public FSqrScmProjectConfiguration( String projectId, String projectDisplayName, String projectUuid, int autoIndexStart ) {
         this.autoIndex = new AtomicInteger( autoIndexStart );
         this.projectId = projectId;
