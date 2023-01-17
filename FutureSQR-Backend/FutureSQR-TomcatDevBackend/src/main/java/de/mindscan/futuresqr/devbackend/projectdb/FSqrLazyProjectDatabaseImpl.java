@@ -39,6 +39,9 @@ import java.util.HashMap;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import de.mindscan.futuresqr.domain.databases.FSqrScmProjectConfigurationRepositoryImpl;
+import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
+
 /**
  * 
  */
@@ -50,6 +53,8 @@ public class FSqrLazyProjectDatabaseImpl {
 
     private Type projectConfigurationMapType = new TypeToken<HashMap<String, FSqrLazyProjectDBEntry>>() {
     }.getType();
+
+    private FSqrScmProjectConfigurationRepositoryImpl configurationRepository = new FSqrScmProjectConfigurationRepositoryImpl();
 
     /**
      * 
@@ -78,6 +83,24 @@ public class FSqrLazyProjectDatabaseImpl {
                 System.err.println( "yould not access alternate project database" );
                 ex.printStackTrace();
             }
+        }
+
+        this.initializeScmProjectConfigurationRepository( this.projectConfigurationMap.values() );
+    }
+
+    private void initializeScmProjectConfigurationRepository( Collection<FSqrLazyProjectDBEntry> collection ) {
+        for (FSqrLazyProjectDBEntry projectEntry : collection) {
+
+            String projectId = projectEntry.projectID;
+            String displayName = projectEntry.projectDisplayName;
+            String projectuuid = projectEntry.projectUuid;
+            int autoindexstart = projectEntry.autoIndex;
+
+            FSqrScmProjectConfiguration scmProjectConfig = new FSqrScmProjectConfiguration( projectId, displayName, projectuuid, autoindexstart );
+            scmProjectConfig.setProjectReviewPrefix( projectEntry.reviewPrefix );
+            scmProjectConfig.setProjectDescription( projectEntry.projectDescription );
+
+            configurationRepository.addScmProjectConfiguration( scmProjectConfig );
         }
     }
 
