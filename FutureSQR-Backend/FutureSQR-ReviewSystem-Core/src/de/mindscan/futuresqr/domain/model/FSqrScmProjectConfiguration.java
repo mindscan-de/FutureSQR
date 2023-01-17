@@ -101,4 +101,20 @@ public class FSqrScmProjectConfiguration {
     public String getProjectId() {
         return projectId;
     }
+
+    public void setProjectDescription( String projectDescription ) {
+        this.projectDescription = projectDescription;
+    }
+
+    public String getProjectDescription() {
+        return projectDescription;
+    }
+
+    public String getProjectDisplayName() {
+        return projectDisplayName;
+    }
+
+    public String getProjectUuid() {
+        return projectUuid;
+    }
 }
