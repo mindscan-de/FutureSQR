@@ -106,10 +106,12 @@ public class FSqrLazyProjectDatabaseImpl {
         }
     }
 
+    // TODO: refactor this to configurationRepository
     public FSqrLazyProjectDBEntry getProjectConfiguration( String projectId ) {
         return this.projectConfigurationMap.get( projectId );
     }
 
+    // TODO: refactor this to configurationRepository
     public Collection<FSqrLazyProjectDBEntry> getAllProjects() {
         return projectConfigurationMap.values();
     }
@@ -118,6 +120,7 @@ public class FSqrLazyProjectDatabaseImpl {
         return this.configurationRepository.hasProjectConfiguration( projectId );
     }
 
+    // TODO: refactor this to configurationRepository    
     public boolean hasProjectLocalPath( String projectId ) {
         if (!isProjectIdPresent( projectId )) {
             return false;
