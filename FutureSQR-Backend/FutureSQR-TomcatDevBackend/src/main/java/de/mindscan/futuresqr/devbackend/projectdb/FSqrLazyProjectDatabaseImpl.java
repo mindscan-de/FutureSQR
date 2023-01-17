@@ -115,7 +115,7 @@ public class FSqrLazyProjectDatabaseImpl {
     }
 
     private boolean isProjectIdPresent( String projectId ) {
-        return this.projectConfigurationMap.containsKey( projectId );
+        return this.configurationRepository.hasProjectConfiguration( projectId );
     }
 
     public boolean hasProjectLocalPath( String projectId ) {
