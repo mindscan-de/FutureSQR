@@ -27,6 +27,7 @@ package de.mindscan.futuresqr.devbackend.httpserver;
 
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,6 +48,7 @@ import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDBEntry;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserDBEntry;
 import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserDatabaseImpl;
+import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 
 /**
  * 
@@ -56,6 +58,16 @@ public class LazyImplUserRESTfulService {
 
     private static FSqrLazyUserDatabaseImpl userDB = new FSqrLazyUserDatabaseImpl();
     private static FSqrLazyProjectDatabaseImpl projectDB = new FSqrLazyProjectDatabaseImpl();
+
+    // TODO: only temporary.
+    private static Collection<String> projectStarredByUser = new HashSet<>();
+
+    {
+        projectStarredByUser.add( "furiousiron-frontend" );
+        projectStarredByUser.add( "furiousiron-hfb" );
+        projectStarredByUser.add( "futuresqr" );
+        projectStarredByUser.add( "futuresqr-svn-trunk" );
+    }
 
     @javax.ws.rs.Path( "/authenticate" )
     @POST
@@ -206,7 +218,7 @@ public class LazyImplUserRESTfulService {
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public <T> String getUserAccessibleProjects( @QueryParam( "userid" ) String userUUID ) {
-        Collection<FSqrLazyProjectDBEntry> allProjects = projectDB.getAllProjectsLazy();
+        Collection<FSqrScmProjectConfiguration> allProjects = projectDB.getAllProjects();
 
         // TODO actually also filter the accessible projects, since they could be starred, before
         //      user lost access.
@@ -229,6 +241,18 @@ public class LazyImplUserRESTfulService {
         transformed.project_display_name = project.projectDisplayName;
         transformed.description = project.projectDescription;
         transformed.is_starred = project.projectIsStarred;
+        return transformed;
+    }
+
+    private OutputUserProjectEntry transform( FSqrScmProjectConfiguration configuration ) {
+        OutputUserProjectEntry transformed = new OutputUserProjectEntry();
+        transformed.project_id = configuration.getProjectId();
+        transformed.project_display_name = configuration.getProjectDisplayName();
+        transformed.description = configuration.getProjectDescription();
+
+        // TODO calculate whether project is starred by user, by separate repository.
+        transformed.is_starred = projectStarredByUser.contains( configuration.getProjectId() );
+
         return transformed;
     }
 
