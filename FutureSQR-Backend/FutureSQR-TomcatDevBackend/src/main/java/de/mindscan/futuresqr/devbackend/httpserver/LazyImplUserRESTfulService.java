@@ -183,7 +183,7 @@ public class LazyImplUserRESTfulService {
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public String getUserStarredProjects( @QueryParam( "userid" ) String userUUID ) {
-        Collection<FSqrLazyProjectDBEntry> allProjects = projectDB.getAllProjects();
+        Collection<FSqrLazyProjectDBEntry> allProjects = projectDB.getAllProjectsLazy();
 
         // TODO actually also filter the accessible projects, since they could be starred, before
         //      user lost access.
@@ -206,7 +206,7 @@ public class LazyImplUserRESTfulService {
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public <T> String getUserAccessibleProjects( @QueryParam( "userid" ) String userUUID ) {
-        Collection<FSqrLazyProjectDBEntry> allProjects = projectDB.getAllProjects();
+        Collection<FSqrLazyProjectDBEntry> allProjects = projectDB.getAllProjectsLazy();
 
         // TODO actually also filter the accessible projects, since they could be starred, before
         //      user lost access.

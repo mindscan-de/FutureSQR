@@ -112,7 +112,7 @@ public class FSqrLazyProjectDatabaseImpl {
     }
 
     // TODO: refactor this to configurationRepository
-    public Collection<FSqrLazyProjectDBEntry> getAllProjects() {
+    public Collection<FSqrLazyProjectDBEntry> getAllProjectsLazy() {
         return projectConfigurationMap.values();
     }
 
