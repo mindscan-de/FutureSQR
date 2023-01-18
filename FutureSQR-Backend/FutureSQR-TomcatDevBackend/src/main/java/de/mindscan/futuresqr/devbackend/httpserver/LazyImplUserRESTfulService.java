@@ -195,12 +195,12 @@ public class LazyImplUserRESTfulService {
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public String getUserStarredProjects( @QueryParam( "userid" ) String userUUID ) {
-        Collection<FSqrLazyProjectDBEntry> allProjects = projectDB.getAllProjectsLazy();
+        Collection<FSqrScmProjectConfiguration> allProjects = projectDB.getAllProjects();
 
         // TODO actually also filter the accessible projects, since they could be starred, before
         //      user lost access.
         List<OutputUserProjectEntry> response = allProjects.stream()//
-                        .filter( x -> x.projectIsStarred == true )//
+                        .filter( x -> projectStarredByUser.contains( x.getProjectId() ) )//
                         .map( this::transform ) //
                         .collect( Collectors.toList() );
         response.sort( new Comparator<OutputUserProjectEntry>() {
