@@ -44,7 +44,6 @@ import de.mindscan.futuresqr.devbackend.httpresponse.OutputCsrfTokenModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputLoginDataModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputStatusOkayModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputUserProjectEntry;
-import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDBEntry;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserDBEntry;
 import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserDatabaseImpl;
@@ -233,15 +232,6 @@ public class LazyImplUserRESTfulService {
         } );
         Gson gson = new Gson();
         return gson.toJson( response );
-    }
-
-    private OutputUserProjectEntry transform( FSqrLazyProjectDBEntry project ) {
-        OutputUserProjectEntry transformed = new OutputUserProjectEntry();
-        transformed.project_id = project.projectID;
-        transformed.project_display_name = project.projectDisplayName;
-        transformed.description = project.projectDescription;
-        transformed.is_starred = project.projectIsStarred;
-        return transformed;
     }
 
     private OutputUserProjectEntry transform( FSqrScmProjectConfiguration configuration ) {

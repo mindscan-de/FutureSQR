@@ -115,11 +115,6 @@ public class FSqrLazyProjectDatabaseImpl {
         return configurationRepository.getAllProjectConfigurations();
     }
 
-    // TODO: refactor this to configurationRepository
-    public Collection<FSqrLazyProjectDBEntry> getAllProjectsLazy() {
-        return projectConfigurationMap.values();
-    }
-
     private boolean isProjectIdPresent( String projectId ) {
         return configurationRepository.hasProjectConfiguration( projectId );
     }
