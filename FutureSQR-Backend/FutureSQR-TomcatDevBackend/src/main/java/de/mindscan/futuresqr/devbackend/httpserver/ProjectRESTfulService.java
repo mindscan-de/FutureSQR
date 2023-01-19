@@ -56,7 +56,7 @@ public class ProjectRESTfulService {
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public String getSimpleProjectInformation( @PathParam( "projectid" ) String projectId ) {
-        FSqrLazyProjectDBEntry projectConfiguration = projectDB.getProjectConfiguration( projectId );
+        FSqrLazyProjectDBEntry projectConfiguration = projectDB.getProjectConfigurationOld( projectId );
 
         OutputSimpleProjectInformation response = transform( projectConfiguration );
 
