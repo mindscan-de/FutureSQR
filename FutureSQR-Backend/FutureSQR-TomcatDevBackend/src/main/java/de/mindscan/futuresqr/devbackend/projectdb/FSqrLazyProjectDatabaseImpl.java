@@ -49,11 +49,6 @@ public class FSqrLazyProjectDatabaseImpl {
 
     private Gson gson = new Gson();
 
-    private HashMap<String, FSqrLazyProjectDBEntry> projectConfigurationMap = new HashMap<>();
-
-    private Type projectConfigurationMapType = new TypeToken<HashMap<String, FSqrLazyProjectDBEntry>>() {
-    }.getType();
-
     private FSqrScmProjectConfigurationRepositoryImpl configurationRepository = new FSqrScmProjectConfigurationRepositoryImpl();
 
     /**
@@ -64,11 +59,17 @@ public class FSqrLazyProjectDatabaseImpl {
     }
 
     private void loadProjectDatabaseFromResource() {
+
+        HashMap<String, FSqrLazyProjectDBEntry> projectConfigurationMap = new HashMap<>();
+
+        Type projectConfigurationMapType = new TypeToken<HashMap<String, FSqrLazyProjectDBEntry>>() {
+        }.getType();
+
         // actually we should use the class loader to access and deal with this resource
         Path userdbPath = Paths.get( "src/main/resources/projectdb/projectdatabase.json" );
 
         try (FileReader fileReader = new FileReader( userdbPath.toAbsolutePath().toString() )) {
-            this.projectConfigurationMap = gson.fromJson( fileReader, projectConfigurationMapType );
+            projectConfigurationMap = gson.fromJson( fileReader, projectConfigurationMapType );
         }
         catch (IOException e) {
             System.err.println( "could not find project database..." );
@@ -77,7 +78,7 @@ public class FSqrLazyProjectDatabaseImpl {
             ClassLoader cl = this.getClass().getClassLoader();
             System.err.println( cl.getResource( "projectdb/projectdatabase.json" ) );
             try (InputStream is = cl.getResourceAsStream( "userdb/userdatabase.json" ); Reader isr = new InputStreamReader( is )) {
-                this.projectConfigurationMap = gson.fromJson( isr, projectConfigurationMapType );
+                projectConfigurationMap = gson.fromJson( isr, projectConfigurationMapType );
             }
             catch (Exception ex) {
                 System.err.println( "yould not access alternate project database" );
@@ -85,7 +86,7 @@ public class FSqrLazyProjectDatabaseImpl {
             }
         }
 
-        this.initializeScmProjectConfigurationRepository( this.projectConfigurationMap.values() );
+        this.initializeScmProjectConfigurationRepository( projectConfigurationMap.values() );
     }
 
     private void initializeScmProjectConfigurationRepository( Collection<FSqrLazyProjectDBEntry> collection ) {
