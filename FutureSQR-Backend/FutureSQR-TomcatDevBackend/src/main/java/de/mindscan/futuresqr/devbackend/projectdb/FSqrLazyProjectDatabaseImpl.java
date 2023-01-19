@@ -106,9 +106,8 @@ public class FSqrLazyProjectDatabaseImpl {
         }
     }
 
-    // TODO: refactor this to configurationRepository
-    public FSqrLazyProjectDBEntry getProjectConfigurationOld( String projectId ) {
-        return this.projectConfigurationMap.get( projectId );
+    public FSqrScmProjectConfiguration getProjectConfiguration( String projectId ) {
+        return configurationRepository.getProjectConfiguration( projectId );
     }
 
     public Collection<FSqrScmProjectConfiguration> getAllProjects() {
@@ -125,7 +124,7 @@ public class FSqrLazyProjectDatabaseImpl {
             return false;
         }
 
-        FSqrLazyProjectDBEntry configuration = getProjectConfigurationOld( projectId );
+        FSqrLazyProjectDBEntry configuration = this.projectConfigurationMap.get( projectId );
 
         if (!configuration.hasAdministrationData()) {
             return false;

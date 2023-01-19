@@ -34,8 +34,8 @@ import com.google.gson.Gson;
 
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputProjectRevisionsModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputSimpleProjectInformation;
-import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDBEntry;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
+import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 
 /**
  * 
@@ -56,7 +56,7 @@ public class ProjectRESTfulService {
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public String getSimpleProjectInformation( @PathParam( "projectid" ) String projectId ) {
-        FSqrLazyProjectDBEntry projectConfiguration = projectDB.getProjectConfigurationOld( projectId );
+        FSqrScmProjectConfiguration projectConfiguration = projectDB.getProjectConfiguration( projectId );
 
         OutputSimpleProjectInformation response = transform( projectConfiguration );
 
@@ -64,15 +64,14 @@ public class ProjectRESTfulService {
         return gson.toJson( response );
     }
 
-    private OutputSimpleProjectInformation transform( FSqrLazyProjectDBEntry configuration ) {
+    private OutputSimpleProjectInformation transform( FSqrScmProjectConfiguration projectConfiguration ) {
         OutputSimpleProjectInformation transformed = new OutputSimpleProjectInformation();
 
-        transformed.projectID = configuration.projectID;
-        transformed.projectDisplayName = configuration.projectDisplayName;
-        transformed.projectDescription = configuration.projectDescription;
-        transformed.projectIsStarred = configuration.projectIsStarred;
-        // This needs to be filled.
-        transformed.projectUuid = configuration.projectUuid;
+        transformed.projectID = projectConfiguration.getProjectId();
+        transformed.projectDisplayName = projectConfiguration.getProjectDisplayName();
+        transformed.projectDescription = projectConfiguration.getProjectDescription();
+        transformed.projectIsStarred = LazyImplUserRESTfulService.isStarred( projectConfiguration.getProjectId() );
+        transformed.projectUuid = projectConfiguration.getProjectUuid();
 
         return transformed;
     }
