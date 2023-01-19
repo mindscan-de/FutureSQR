@@ -27,7 +27,6 @@ package de.mindscan.futuresqr.devbackend.httpserver;
 
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,6 +46,7 @@ import de.mindscan.futuresqr.devbackend.httpresponse.OutputUserProjectEntry;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserDBEntry;
 import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserDatabaseImpl;
+import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserToProjectDatabaseImpl;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 
 /**
@@ -57,16 +57,6 @@ public class LazyImplUserRESTfulService {
 
     private static FSqrLazyUserDatabaseImpl userDB = new FSqrLazyUserDatabaseImpl();
     private static FSqrLazyProjectDatabaseImpl projectDB = new FSqrLazyProjectDatabaseImpl();
-
-    // TODO: only temporary.
-    private static Collection<String> projectStarredByUser = new HashSet<>();
-
-    {
-        projectStarredByUser.add( "furiousiron-frontend" );
-        projectStarredByUser.add( "furiousiron-hfb" );
-        projectStarredByUser.add( "futuresqr" );
-        projectStarredByUser.add( "futuresqr-svn-trunk" );
-    }
 
     @javax.ws.rs.Path( "/authenticate" )
     @POST
@@ -199,7 +189,7 @@ public class LazyImplUserRESTfulService {
         // TODO actually also filter the accessible projects, since they could be starred, before
         //      user lost access.
         List<OutputUserProjectEntry> response = allProjects.stream()//
-                        .filter( x -> isStarred( x.getProjectId() ) )//
+                        .filter( x -> FSqrLazyUserToProjectDatabaseImpl.isStarred( x.getProjectId() ) )//
                         .map( this::transform ) //
                         .collect( Collectors.toList() );
         response.sort( new Comparator<OutputUserProjectEntry>() {
@@ -242,13 +232,9 @@ public class LazyImplUserRESTfulService {
         transformed.description = configuration.getProjectDescription();
 
         // TODO calculate whether project is starred by user, by separate repository.
-        transformed.is_starred = isStarred( projectId );
+        transformed.is_starred = FSqrLazyUserToProjectDatabaseImpl.isStarred( projectId );
 
         return transformed;
-    }
-
-    public static boolean isStarred( String projectId ) {
-        return projectStarredByUser.contains( projectId );
     }
 
     // TODO: /ban

@@ -35,6 +35,7 @@ import com.google.gson.Gson;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputProjectRevisionsModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputSimpleProjectInformation;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
+import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserToProjectDatabaseImpl;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 
 /**
@@ -70,7 +71,7 @@ public class ProjectRESTfulService {
         transformed.projectID = projectConfiguration.getProjectId();
         transformed.projectDisplayName = projectConfiguration.getProjectDisplayName();
         transformed.projectDescription = projectConfiguration.getProjectDescription();
-        transformed.projectIsStarred = LazyImplUserRESTfulService.isStarred( projectConfiguration.getProjectId() );
+        transformed.projectIsStarred = FSqrLazyUserToProjectDatabaseImpl.isStarred( projectConfiguration.getProjectId() );
         transformed.projectUuid = projectConfiguration.getProjectUuid();
 
         return transformed;
