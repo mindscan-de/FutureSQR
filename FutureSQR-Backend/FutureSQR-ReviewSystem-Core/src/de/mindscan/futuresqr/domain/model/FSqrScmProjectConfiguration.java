@@ -110,4 +110,13 @@ public class FSqrScmProjectConfiguration {
     public String getProjectUuid() {
         return projectUuid;
     }
+
+    public boolean hasLocalRepoPath() {
+        if (scmProjectType == FSqrScmProjectType.none) {
+            return false;
+        }
+
+        // TODO implement the test for the local repository copy.
+        return false;
+    }
 }
