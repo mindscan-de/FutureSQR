@@ -199,7 +199,7 @@ public class LazyImplUserRESTfulService {
         // TODO actually also filter the accessible projects, since they could be starred, before
         //      user lost access.
         List<OutputUserProjectEntry> response = allProjects.stream()//
-                        .filter( x -> projectStarredByUser.contains( x.getProjectId() ) )//
+                        .filter( x -> isStarred( x.getProjectId() ) )//
                         .map( this::transform ) //
                         .collect( Collectors.toList() );
         response.sort( new Comparator<OutputUserProjectEntry>() {
@@ -236,14 +236,19 @@ public class LazyImplUserRESTfulService {
 
     private OutputUserProjectEntry transform( FSqrScmProjectConfiguration configuration ) {
         OutputUserProjectEntry transformed = new OutputUserProjectEntry();
-        transformed.project_id = configuration.getProjectId();
+        String projectId = configuration.getProjectId();
+        transformed.project_id = projectId;
         transformed.project_display_name = configuration.getProjectDisplayName();
         transformed.description = configuration.getProjectDescription();
 
         // TODO calculate whether project is starred by user, by separate repository.
-        transformed.is_starred = projectStarredByUser.contains( configuration.getProjectId() );
+        transformed.is_starred = isStarred( projectId );
 
         return transformed;
+    }
+
+    public static boolean isStarred( String projectId ) {
+        return projectStarredByUser.contains( projectId );
     }
 
     // TODO: /ban
