@@ -118,19 +118,12 @@ public class FSqrLazyProjectDatabaseImpl {
         return configurationRepository.hasProjectConfiguration( projectId );
     }
 
-    // TODO: refactor this to configurationRepository    
     public boolean hasProjectLocalPath( String projectId ) {
         if (!isProjectIdPresent( projectId )) {
             return false;
         }
 
-        FSqrLazyProjectDBEntry configuration = this.projectConfigurationMap.get( projectId );
-
-        if (!configuration.hasAdministrationData()) {
-            return false;
-        }
-
-        return configuration.administration.hasLocalPath();
+        return getProjectConfiguration( projectId ).hasLocalRepoPath();
     }
 
 }
