@@ -46,10 +46,18 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
         // we need to boot the instance
         // and then we actually need a way to provide some data from externalproviders, and then
         // finalize the boot of this application somehow.
-        // initializeServiceInstances(this);
+        initializeServiceInstances( this );
 
         // we don't want to deal with the internals of this Review system from the outside e.g. the Web servers
     }
+
+    void initializeServiceInstances( FSqrApplicationServices services ) {
+        this.revisionRepository.setApplicationServices( services );
+    }
+
+    // TODO we want to provide some dataprovider ability, the application can ask, e.g. on restart or on demand, 
+    //      when the data is not yet in memory (e.g. not cached)
+    // TODO when we provide a data provider, and a data provider is not set, it will invoke the initial/essential data
 
     /** 
      * {@inheritDoc}
