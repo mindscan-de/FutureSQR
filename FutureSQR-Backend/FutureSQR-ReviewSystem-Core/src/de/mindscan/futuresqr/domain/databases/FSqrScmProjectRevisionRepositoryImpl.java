@@ -26,6 +26,7 @@
 package de.mindscan.futuresqr.domain.databases;
 
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
+import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.model.FSqrScmHistory;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectType;
@@ -43,6 +44,7 @@ public class FSqrScmProjectRevisionRepositoryImpl {
 
     public FSqrScmProjectRevisionRepositoryImpl() {
         this.gitHistoryProvider = new GitScmHistoryProvider();
+        this.applicationServices = new FSqrApplicationServicesUnitialized();
     }
 
     public void setApplicationServices( FSqrApplicationServices services ) {
