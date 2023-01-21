@@ -44,7 +44,9 @@ import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 @javax.ws.rs.Path( "/project" )
 public class ProjectRESTfulService {
 
+    // this should be provided by a web-application instance, instead of a new instance each time.
     private static FSqrLazyProjectDatabaseImpl projectDB = new FSqrLazyProjectDatabaseImpl();
+    private static FSqrLazyUserToProjectDatabaseImpl userToProjectDB = new FSqrLazyUserToProjectDatabaseImpl();
 
     @javax.ws.rs.Path( "/testme" )
     @GET
@@ -71,7 +73,7 @@ public class ProjectRESTfulService {
         transformed.projectID = projectConfiguration.getProjectId();
         transformed.projectDisplayName = projectConfiguration.getProjectDisplayName();
         transformed.projectDescription = projectConfiguration.getProjectDescription();
-        transformed.projectIsStarred = FSqrLazyUserToProjectDatabaseImpl.isStarred( projectConfiguration.getProjectId() );
+        transformed.projectIsStarred = userToProjectDB.isStarred( projectConfiguration.getProjectId() );
         transformed.projectUuid = projectConfiguration.getProjectUuid();
 
         return transformed;

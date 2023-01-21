@@ -33,17 +33,20 @@ import java.util.HashSet;
  */
 public class FSqrLazyUserToProjectDatabaseImpl {
 
-    // TODO: only temporary.
-    private static Collection<String> projectStarredByUser = new HashSet<>();
+    private Collection<String> projectStarredByUser;
 
-    {
+    /**
+     * 
+     */
+    public FSqrLazyUserToProjectDatabaseImpl() {
+        projectStarredByUser = new HashSet<>();
         projectStarredByUser.add( "furiousiron-frontend" );
         projectStarredByUser.add( "furiousiron-hfb" );
         projectStarredByUser.add( "futuresqr" );
         projectStarredByUser.add( "futuresqr-svn-trunk" );
     }
 
-    public static boolean isStarred( String projectId ) {
+    public boolean isStarred( String projectId ) {
         return projectStarredByUser.contains( projectId );
     }
 

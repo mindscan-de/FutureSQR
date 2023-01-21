@@ -57,6 +57,7 @@ public class LazyImplUserRESTfulService {
 
     private static FSqrLazyUserDatabaseImpl userDB = new FSqrLazyUserDatabaseImpl();
     private static FSqrLazyProjectDatabaseImpl projectDB = new FSqrLazyProjectDatabaseImpl();
+    private static FSqrLazyUserToProjectDatabaseImpl userToProjectDB = new FSqrLazyUserToProjectDatabaseImpl();
 
     @javax.ws.rs.Path( "/authenticate" )
     @POST
@@ -189,7 +190,7 @@ public class LazyImplUserRESTfulService {
         // TODO actually also filter the accessible projects, since they could be starred, before
         //      user lost access.
         List<OutputUserProjectEntry> response = allProjects.stream()//
-                        .filter( x -> FSqrLazyUserToProjectDatabaseImpl.isStarred( x.getProjectId() ) )//
+                        .filter( x -> userToProjectDB.isStarred( x.getProjectId() ) )//
                         .map( this::transform ) //
                         .collect( Collectors.toList() );
         response.sort( new Comparator<OutputUserProjectEntry>() {
@@ -232,7 +233,7 @@ public class LazyImplUserRESTfulService {
         transformed.description = configuration.getProjectDescription();
 
         // TODO calculate whether project is starred by user, by separate repository.
-        transformed.is_starred = FSqrLazyUserToProjectDatabaseImpl.isStarred( projectId );
+        transformed.is_starred = userToProjectDB.isStarred( projectId );
 
         return transformed;
     }
