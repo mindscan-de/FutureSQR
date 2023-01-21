@@ -85,8 +85,16 @@ public class ProjectRESTfulService {
             OutputProjectRevisionsModel response = new OutputProjectRevisionsModel();
 
             // TODO get systemConfiguration / systemInstance
+
+            // should this be done here? - I don't think so... Can always be refactored later ....
+            // FSqrScmProjectConfiguration scmConfiguration = projectDB.getProjectConfiguration( projectId ).getScmConfiguration();
+
             // TODO calculate the ScmRevisionsForLocalGitRepo - should be figured out, whether GIT or SVN repo.
-            // TODO convert from SCMRevisionModel to OoutputProjectRevisionsRevisionEntry
+            // FSqrScmProjectRevisionRepositoryImpl revisionProvider = new FSqrScmProjectRevisionRepositoryImpl();
+            // FSqrScmHistory scmHistory = revisionProvider.getRecentRevisionHistory( scmConfiguration, projectId );
+
+            // TODO convert from SCMRevisionModel to OutputProjectRevisionsRevisionEntry
+
             // TODO calculate, whether a revision id in given projectid has been assigned to a review.
 
             Gson gson = new Gson();
