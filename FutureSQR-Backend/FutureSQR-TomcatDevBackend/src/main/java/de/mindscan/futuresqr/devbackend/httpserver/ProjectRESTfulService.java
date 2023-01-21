@@ -94,7 +94,8 @@ public class ProjectRESTfulService {
 
             // TODO convert from SCMRevisionModel to OutputProjectRevisionsRevisionEntry
 
-            // TODO calculate, whether a revision id in given projectid has been assigned to a review.
+            // TODO: calculate, whether a revision id in given projectid has been assigned to a review.
+            // TODO: actually it should be part of the backend to provide this information??
 
             Gson gson = new Gson();
             return gson.toJson( response );
