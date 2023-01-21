@@ -25,9 +25,40 @@
  */
 package de.mindscan.futuresqr.domain.application;
 
+import de.mindscan.futuresqr.domain.databases.FSqrScmProjectConfigurationRepositoryImpl;
+import de.mindscan.futuresqr.domain.databases.FSqrScmProjectRevisionRepositoryImpl;
+
 /**
  * 
  */
 public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
 
+    private FSqrScmProjectConfigurationRepositoryImpl configurationRepository;
+    private FSqrScmProjectRevisionRepositoryImpl revisionRepository;
+
+    /**
+     * 
+     */
+    public FSqrApplicationServicesImpl() {
+        this.configurationRepository = new FSqrScmProjectConfigurationRepositoryImpl();
+        this.revisionRepository = new FSqrScmProjectRevisionRepositoryImpl();
+
+        // initializeServiceInstances();
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public FSqrScmProjectConfigurationRepositoryImpl getConfigurationRepository() {
+        return this.configurationRepository;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public FSqrScmProjectRevisionRepositoryImpl getRevisionRepository() {
+        return this.revisionRepository;
+    }
 }

@@ -25,9 +25,14 @@
  */
 package de.mindscan.futuresqr.domain.application;
 
+import de.mindscan.futuresqr.domain.databases.FSqrScmProjectConfigurationRepositoryImpl;
+import de.mindscan.futuresqr.domain.databases.FSqrScmProjectRevisionRepositoryImpl;
+
 /**
  * 
  */
 public interface FSqrApplicationServices {
+    FSqrScmProjectConfigurationRepositoryImpl getConfigurationRepository();
 
+    FSqrScmProjectRevisionRepositoryImpl getRevisionRepository();
 }
