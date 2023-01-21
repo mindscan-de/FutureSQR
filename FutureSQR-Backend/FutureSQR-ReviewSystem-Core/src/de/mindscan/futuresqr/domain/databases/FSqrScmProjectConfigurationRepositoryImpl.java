@@ -80,6 +80,11 @@ public class FSqrScmProjectConfigurationRepositoryImpl {
             return;
         }
 
+        // do not add a second time - for now.
+        if (hasProjectConfiguration( projectConfiguration.getProjectId() )) {
+            return;
+        }
+
         scmProjectConfigurationsByProjectId.put( projectId, projectConfiguration );
     }
 
