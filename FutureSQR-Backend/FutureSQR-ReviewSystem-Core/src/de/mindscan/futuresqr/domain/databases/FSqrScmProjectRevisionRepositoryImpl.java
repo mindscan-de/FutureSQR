@@ -25,13 +25,11 @@
  */
 package de.mindscan.futuresqr.domain.databases;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import de.mindscan.futuresqr.domain.model.FSqrRevision;
+import de.mindscan.futuresqr.domain.model.FSqrScmHistory;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectType;
 import de.mindscan.futuresqr.scmaccess.git.GitScmHistoryProvider;
+import de.mindscan.futuresqr.scmaccess.types.ScmHistory;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
 /**
@@ -41,15 +39,25 @@ public class FSqrScmProjectRevisionRepositoryImpl {
 
     private GitScmHistoryProvider gitHistoryProvider = new GitScmHistoryProvider();
 
-    public List<FSqrRevision> getRecentRevisions( FSqrScmProjectConfiguration scmConfiguration, String projectId ) {
+    public FSqrScmHistory getRecentRevisionHistory( FSqrScmProjectConfiguration scmConfiguration, String projectId ) {
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
 
-            gitHistoryProvider.getNRecentRevisions( translate( scmConfiguration ), 75 );
+            ScmHistory nRecentHistory = gitHistoryProvider.getNRecentRevisions( translate( scmConfiguration ), 75 );
+            return translate( nRecentHistory );
         }
 
-        List<FSqrRevision> result = new ArrayList<>();
+        FSqrScmHistory result = new FSqrScmHistory();
 
         return result;
+    }
+
+    /**
+     * @param nRecentHistory
+     * @return
+     */
+    private FSqrScmHistory translate( ScmHistory nRecentHistory ) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     private ScmRepository translate( FSqrScmProjectConfiguration scmConfiguration ) {
