@@ -34,6 +34,19 @@ public class FSqrApplication {
         public static FSqrApplication instance = new FSqrApplication();
     }
 
+    public static FSqrApplication getInstance() {
+        return Holder.instance;
+    }
+
+    // available for testing purposes only.
+    static void setInstance( FSqrApplication alternateApplicationInstance ) {
+        Holder.instance = alternateApplicationInstance;
+    }
+
+    // ==========================
+    // Start of Application here.
+    // ==========================
+
     private FSqrApplicationServices applicationServices;
 
     FSqrApplication() {
@@ -41,15 +54,13 @@ public class FSqrApplication {
         this.applicationServices = new FSqrApplicationServicesImpl();
     }
 
-    public static FSqrApplication getInstance() {
-        return Holder.instance;
-    }
-
-    static void setInstance( FSqrApplication alternateApplicationInstance ) {
-        Holder.instance = alternateApplicationInstance;
-    }
-
     public FSqrApplicationServices getServices() {
         return applicationServices;
     }
+
+    // available for testing purposes only.
+    void setServices( FSqrApplicationServicesImpl alternateServices ) {
+        this.applicationServices = alternateServices;
+    }
+
 }
