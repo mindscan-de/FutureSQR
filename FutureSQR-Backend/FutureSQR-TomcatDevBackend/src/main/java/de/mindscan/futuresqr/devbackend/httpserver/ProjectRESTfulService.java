@@ -36,6 +36,9 @@ import de.mindscan.futuresqr.devbackend.httpresponse.OutputProjectRevisionsModel
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputSimpleProjectInformation;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserToProjectDatabaseImpl;
+import de.mindscan.futuresqr.domain.application.FSqrApplication;
+import de.mindscan.futuresqr.domain.databases.FSqrScmProjectRevisionRepositoryImpl;
+import de.mindscan.futuresqr.domain.model.FSqrScmHistory;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 
 /**
@@ -86,14 +89,8 @@ public class ProjectRESTfulService {
         if (projectDB.hasProjectLocalPath( projectId )) {
             OutputProjectRevisionsModel response = new OutputProjectRevisionsModel();
 
-            // TODO get systemConfiguration / systemInstance
-
-            // should this be done here? - I don't think so... Can always be refactored later ....
-            // FSqrScmProjectConfiguration scmConfiguration = projectDB.getProjectConfiguration( projectId ).getScmConfiguration();
-
-            // TODO calculate the ScmRevisionsForLocalGitRepo - should be figured out, whether GIT or SVN repo.
-            // FSqrScmProjectRevisionRepositoryImpl revisionProvider = new FSqrScmProjectRevisionRepositoryImpl();
-            // FSqrScmHistory scmHistory = revisionProvider.getRecentRevisionHistory( scmConfiguration, projectId );
+            FSqrScmProjectRevisionRepositoryImpl revisionProvider = FSqrApplication.getInstance().getServices().getRevisionRepository();
+            FSqrScmHistory scmHistory = revisionProvider.getRecentRevisionHistory( projectId );
 
             // TODO convert from SCMRevisionModel to OutputProjectRevisionsRevisionEntry
 
