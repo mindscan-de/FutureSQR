@@ -43,7 +43,12 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
         this.configurationRepository = new FSqrScmProjectConfigurationRepositoryImpl();
         this.revisionRepository = new FSqrScmProjectRevisionRepositoryImpl();
 
-        // initializeServiceInstances();
+        // we need to boot the instance
+        // and then we actually need a way to provide some data from externalproviders, and then
+        // finalize the boot of this application somehow.
+        // initializeServiceInstances(this);
+
+        // we don't want to deal with the internals of this Review system from the outside e.g. the Web servers
     }
 
     /** 
