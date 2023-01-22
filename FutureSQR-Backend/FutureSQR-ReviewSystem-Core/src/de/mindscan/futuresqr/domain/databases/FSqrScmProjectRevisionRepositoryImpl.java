@@ -93,6 +93,7 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         return result;
     }
 
+    // TODO: calculate the correct system path from scmConfiguration.
     private ScmRepository translate( FSqrScmProjectConfiguration scmConfiguration ) {
         ScmRepository result = new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" );
 
