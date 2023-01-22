@@ -27,10 +27,12 @@ package de.mindscan.futuresqr.domain.databases;
 
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
+import de.mindscan.futuresqr.domain.model.FSqrRevision;
 import de.mindscan.futuresqr.domain.model.FSqrScmHistory;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectType;
 import de.mindscan.futuresqr.scmaccess.git.GitScmHistoryProvider;
+import de.mindscan.futuresqr.scmaccess.types.ScmBasicRevisionInformation;
 import de.mindscan.futuresqr.scmaccess.types.ScmHistory;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
@@ -67,17 +69,23 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         return getRecentRevisionHistory( applicationServices.getConfigurationRepository().getProjectConfiguration( projectId ), projectId );
     }
 
-    /**
-     * @param nRecentHistory
-     * @return
-     */
     private FSqrScmHistory translate( ScmHistory nRecentHistory ) {
-        // TODO Auto-generated method stub
-        return null;
+        FSqrScmHistory result = new FSqrScmHistory();
+
+        nRecentHistory.revisions.stream().forEach( x -> result.addRevision( translate( x ) ) );
+
+        return result;
+    }
+
+    private FSqrRevision translate( ScmBasicRevisionInformation x ) {
+        FSqrRevision result = new FSqrRevision();
+
+        return result;
     }
 
     private ScmRepository translate( FSqrScmProjectConfiguration scmConfiguration ) {
-        // TODO: convert or read from translation map. 
-        return null;
+        ScmRepository result = new ScmRepository( "D:\\Temp\\future-square-cache\\FuriousIron-Frontend" );
+
+        return result;
     }
 }
