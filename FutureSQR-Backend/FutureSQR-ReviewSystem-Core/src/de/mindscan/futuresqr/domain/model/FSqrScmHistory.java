@@ -47,4 +47,8 @@ public class FSqrScmHistory {
         return revisions.size();
     }
 
+    public void addRevision( FSqrRevision revision ) {
+        this.revisions.add( revision );
+    }
+
 }
