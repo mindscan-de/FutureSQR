@@ -25,7 +25,10 @@
  */
 package de.mindscan.futuresqr.domain.model;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import de.mindscan.futuresqr.scmaccess.types.ScmBasicRevisionInformation;
 
 /**
  * 
@@ -64,8 +67,8 @@ public class FSqrRevision {
     // only first line of commitMessage
     private String commitMessageHead = "";
 
-    private List<String> parentIds;
-    private List<String> shortParentIds;
+    private List<String> parentIds = new ArrayList<>();
+    private List<String> shortParentIds = new ArrayList<>();
 
     private boolean hasAttachedReview = false; // dynamic?, check for empty string?
     private String reviewId = "";
@@ -74,4 +77,217 @@ public class FSqrRevision {
     // or ci-references? Are those references from the ci table to the revision?
     // or should they be part of the ui joining this information, because here it is only creating overhead? 
     // actually the buildstate is nice, but not yet in focus.
+
+    /**
+     * 
+     */
+    public FSqrRevision() {
+        // intentionally left blank.
+    }
+
+    /**
+     * 
+     */
+    public FSqrRevision( ScmBasicRevisionInformation scmbasicInfo ) {
+        this.revisionId = scmbasicInfo.revisionId;
+        this.shortRevisionId = scmbasicInfo.shortRevisionId;
+        this.authorName = scmbasicInfo.authorName;
+        this.authorId = scmbasicInfo.authorId;
+        this.revisionDate = scmbasicInfo.date;
+        this.revisionRelativeDate = scmbasicInfo.relDate;
+        this.commitMessageFull = scmbasicInfo.message;
+        this.commitMessageHead = scmbasicInfo.message;
+        this.parentIds = scmbasicInfo.parentIds;
+        this.shortParentIds = scmbasicInfo.shortParentIds;
+    }
+
+    /**
+     * @param authorId the authorId to set
+     */
+    public void setAuthorId( String authorId ) {
+        this.authorId = authorId;
+    }
+
+    /**
+     * @param authorName the authorName to set
+     */
+    public void setAuthorName( String authorName ) {
+        this.authorName = authorName;
+    }
+
+    /**
+     * @param authorUuid the authorUuid to set
+     */
+    public void setAuthorUuid( String authorUuid ) {
+        this.authorUuid = authorUuid;
+    }
+
+    /**
+     * @param commitMessageFull the commitMessageFull to set
+     */
+    public void setCommitMessageFull( String commitMessageFull ) {
+        this.commitMessageFull = commitMessageFull;
+    }
+
+    /**
+     * @param commitMessageHead the commitMessageHead to set
+     */
+    public void setCommitMessageHead( String commitMessageHead ) {
+        this.commitMessageHead = commitMessageHead;
+    }
+
+    /**
+    * @param hasAttachedReview the hasAttachedReview to set
+    */
+    public void setHasAttachedReview( boolean hasAttachedReview ) {
+        this.hasAttachedReview = hasAttachedReview;
+    }
+
+    /**
+     * @param parentIds the parentIds to set
+     */
+    public void setParentIds( List<String> parentIds ) {
+        this.parentIds = parentIds;
+    }
+
+    /**
+     * @param shortParentIds the shortParentIds to set
+     */
+    public void setShortParentIds( List<String> shortParentIds ) {
+        this.shortParentIds = shortParentIds;
+    }
+
+    /**
+     * @param reviewId the reviewId to set
+     */
+    public void setReviewId( String reviewId ) {
+        this.reviewId = reviewId;
+    }
+
+    /**
+     * @param revisionDate the revisionDate to set
+     */
+    public void setRevisionDate( String revisionDate ) {
+        this.revisionDate = revisionDate;
+    }
+
+    /**
+     * @param revisionId the revisionId to set
+     */
+    public void setRevisionId( String revisionId ) {
+        this.revisionId = revisionId;
+    }
+
+    /**
+     * @param revisionRelativeDate the revisionRelativeDate to set
+     */
+    public void setRevisionRelativeDate( String revisionRelativeDate ) {
+        this.revisionRelativeDate = revisionRelativeDate;
+    }
+
+    /**
+     * @param revisionTimestamp the revisionTimestamp to set
+     */
+    public void setRevisionTimestamp( long revisionTimestamp ) {
+        this.revisionTimestamp = revisionTimestamp;
+    }
+
+    /**
+     * @param shortRevisionId the shortRevisionId to set
+     */
+    public void setShortRevisionId( String shortRevisionId ) {
+        this.shortRevisionId = shortRevisionId;
+    }
+
+    /**
+     * @return the authorId
+     */
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    /**
+     * @return the authorName
+     */
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    /**
+     * @return the authorUuid
+     */
+    public String getAuthorUuid() {
+        return authorUuid;
+    }
+
+    /**
+     * @return the commitMessageFull
+     */
+    public String getCommitMessageFull() {
+        return commitMessageFull;
+    }
+
+    /**
+     * @return the commitMessageHead
+     */
+    public String getCommitMessageHead() {
+        return commitMessageHead;
+    }
+
+    /**
+     * @return the parentIds
+     */
+    public List<String> getParentIds() {
+        return parentIds;
+    }
+
+    /**
+     * @return the reviewId
+     */
+    public String getReviewId() {
+        return reviewId;
+    }
+
+    /**
+     * @return the revisionDate
+     */
+    public String getRevisionDate() {
+        return revisionDate;
+    }
+
+    /**
+     * @return the revisionId
+     */
+    public String getRevisionId() {
+        return revisionId;
+    }
+
+    /**
+     * @return the revisionRelativeDate
+     */
+    public String getRevisionRelativeDate() {
+        return revisionRelativeDate;
+    }
+
+    /**
+     * @return the revisionTimestamp
+     */
+    public long getRevisionTimestamp() {
+        return revisionTimestamp;
+    }
+
+    /**
+     * @return the shortParentIds
+     */
+    public List<String> getShortParentIds() {
+        return shortParentIds;
+    }
+
+    /**
+     * @return the shortRevisionId
+     */
+    public String getShortRevisionId() {
+        return shortRevisionId;
+    }
+
 }
