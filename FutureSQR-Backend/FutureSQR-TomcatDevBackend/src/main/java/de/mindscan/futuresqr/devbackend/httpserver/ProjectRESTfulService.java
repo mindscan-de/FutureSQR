@@ -33,11 +33,13 @@ import javax.ws.rs.core.MediaType;
 import com.google.gson.Gson;
 
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputProjectRevisionsModel;
+import de.mindscan.futuresqr.devbackend.httpresponse.OutputProjectRevisionsRevisionEntry;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputSimpleProjectInformation;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserToProjectDatabaseImpl;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
 import de.mindscan.futuresqr.domain.databases.FSqrScmProjectRevisionRepositoryImpl;
+import de.mindscan.futuresqr.domain.model.FSqrRevision;
 import de.mindscan.futuresqr.domain.model.FSqrScmHistory;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 
@@ -93,6 +95,7 @@ public class ProjectRESTfulService {
             FSqrScmHistory scmHistory = revisionProvider.getRecentRevisionHistory( projectId );
 
             // TODO convert from SCMRevisionModel to OutputProjectRevisionsRevisionEntry
+            scmHistory.getRevisions().stream().forEach( rev -> response.revisions.add( translate( rev ) ) );
 
             // TODO: calculate, whether a revision id in given projectid has been assigned to a review.
             // TODO: actually it should be part of the backend to provide this information??
@@ -106,4 +109,9 @@ public class ProjectRESTfulService {
         Gson gson = new Gson();
         return gson.toJson( response );
     }
+
+    private OutputProjectRevisionsRevisionEntry translate( FSqrRevision rev ) {
+        return new OutputProjectRevisionsRevisionEntry( rev );
+    }
+
 }
