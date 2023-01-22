@@ -117,6 +117,15 @@ public class FSqrScmProjectConfiguration {
         }
 
         // TODO implement the test for the local repository copy.
+        if (scmProjectType == FSqrScmProjectType.git) {
+            return true;
+        }
+
         return false;
+    }
+
+    // TODO: just make things work in the full pipeline. We will have to add a proper git configuration.
+    public void addGitConfiguration() {
+        this.scmProjectType = FSqrScmProjectType.git;
     }
 }
