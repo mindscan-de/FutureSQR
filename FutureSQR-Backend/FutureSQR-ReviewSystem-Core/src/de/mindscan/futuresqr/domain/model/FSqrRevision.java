@@ -59,6 +59,7 @@ public class FSqrRevision {
 
     private long revisionTimestamp = 0L;
     private String revisionDate = "";
+    private String revisionShortDate = "";
     private String revisionRelativeDate = ""; // dynamic?
 
     // full commit message, or just stripped of head?
@@ -94,6 +95,7 @@ public class FSqrRevision {
         this.authorName = scmbasicInfo.authorName;
         this.authorId = scmbasicInfo.authorId;
         this.revisionDate = scmbasicInfo.date;
+        this.revisionShortDate = scmbasicInfo.shortDate;
         this.revisionRelativeDate = scmbasicInfo.relDate;
         this.commitMessageFull = scmbasicInfo.message;
         this.commitMessageHead = scmbasicInfo.message;
@@ -288,6 +290,20 @@ public class FSqrRevision {
      */
     public String getShortRevisionId() {
         return shortRevisionId;
+    }
+
+    /**
+     * @return the revisionShortDate
+     */
+    public String getRevisionShortDate() {
+        return revisionShortDate;
+    }
+
+    /**
+     * @return
+     */
+    public boolean hasReview() {
+        return hasAttachedReview;
     }
 
 }
