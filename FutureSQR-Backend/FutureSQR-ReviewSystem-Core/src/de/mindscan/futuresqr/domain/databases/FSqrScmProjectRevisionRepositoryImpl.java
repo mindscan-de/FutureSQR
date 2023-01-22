@@ -78,9 +78,17 @@ public class FSqrScmProjectRevisionRepositoryImpl {
     }
 
     private FSqrRevision translate( ScmBasicRevisionInformation x ) {
-        FSqrRevision result = new FSqrRevision();
+        FSqrRevision result = new FSqrRevision( x );
 
-        System.out.println( x.revisionId );
+        // TODO: calculate the author id / lookup author uuid
+        // result.setAuthorUuid( x.auth );
+
+        // TODO: shorten message for message head (max until first newline) 
+        // result.setCommitMessageHead( x.message );
+
+        // TODO: calculate whether a review is known for this 
+        // result.setHasAttachedReview( false );
+        // result.setReviewId( reviewId );
 
         return result;
     }
