@@ -29,9 +29,23 @@ package de.mindscan.futuresqr.devbackend.httpresponse;
  * 
  */
 public class OutputProjectRevisionsRevisionEntry {
-    public String revisionid;
-    // TODO: add here some extra from the scm/core model
+    public String shortrev = "";
+    public String revisionid = "";
+
+    public String authorname = "";
+    public String authorid = "";
+    public String date = "";
+    public String shortdate = "";
+    public String reldate = "";
+    public String message = "";
+
+    // TODO: must be reworked in frontend, such that this becomes a list
+    public String parents = "";
+    // TODO: must be reworked in frontend, such that this becomes a list         
+    public String parentsshort = "";
+
+    public String authorUuid = "";
 
     public boolean hasReview = false;
-    public String reviewID;
+    public String reviewID = "";
 }
