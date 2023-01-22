@@ -80,11 +80,13 @@ public class FSqrScmProjectRevisionRepositoryImpl {
     private FSqrRevision translate( ScmBasicRevisionInformation x ) {
         FSqrRevision result = new FSqrRevision();
 
+        System.out.println( x.revisionId );
+
         return result;
     }
 
     private ScmRepository translate( FSqrScmProjectConfiguration scmConfiguration ) {
-        ScmRepository result = new ScmRepository( "D:\\Temp\\future-square-cache\\FuriousIron-Frontend" );
+        ScmRepository result = new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" );
 
         return result;
     }
