@@ -25,6 +25,8 @@
  */
 package de.mindscan.futuresqr.devbackend.httpresponse;
 
+import de.mindscan.futuresqr.domain.model.FSqrRevision;
+
 /**
  * 
  */
@@ -48,4 +50,31 @@ public class OutputProjectRevisionsRevisionEntry {
 
     public boolean hasReview = false;
     public String reviewID = "";
+
+    /**
+     * 
+     */
+    public OutputProjectRevisionsRevisionEntry() {
+        // intentionally left blank;
+    }
+
+    public OutputProjectRevisionsRevisionEntry( FSqrRevision rev ) {
+        this.shortrev = rev.getShortRevisionId();
+        this.revisionid = rev.getRevisionId();
+        this.authorname = rev.getAuthorName();
+        this.authorid = rev.getAuthorId();
+        this.authorUuid = rev.getAuthorUuid();
+
+        this.date = rev.getRevisionDate();
+        this.shortdate = rev.getRevisionShortDate();
+        this.reldate = rev.getRevisionRelativeDate();
+
+        this.message = rev.getCommitMessageFull();
+        this.parents = String.join( ",", rev.getParentIds() );
+        this.parentsshort = String.join( ",", rev.getShortParentIds() );
+
+        this.hasReview = rev.hasReview();
+        this.reviewID = rev.getReviewId();
+    }
+
 }
