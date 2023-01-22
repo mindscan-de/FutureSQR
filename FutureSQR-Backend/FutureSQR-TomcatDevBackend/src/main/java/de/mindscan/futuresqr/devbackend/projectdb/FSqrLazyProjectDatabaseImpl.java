@@ -103,6 +103,9 @@ public class FSqrLazyProjectDatabaseImpl {
             scmProjectConfig.setProjectDescription( projectEntry.projectDescription );
 
             // TODO: read git configuration and prepare the GIT SCM configuration / later also SVN SCM configuration
+            if (projectEntry.hasAdministrationData()) {
+                scmProjectConfig.addGitConfiguration();
+            }
 
             configurationRepository.addScmProjectConfiguration( scmProjectConfig );
         }
