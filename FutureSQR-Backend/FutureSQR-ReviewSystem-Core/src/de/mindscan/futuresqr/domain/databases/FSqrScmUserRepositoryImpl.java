@@ -46,4 +46,12 @@ public class FSqrScmUserRepositoryImpl {
         this.applicationServices = services;
     }
 
+    /**
+     * @param authorId
+     */
+    public String getUserUUID( String authorId ) {
+        // TODO: correct the hard coded uuid with something from a hard coded database.
+        return "8ce74ee9-48ff-3dde-b678-58a632887e31";
+    }
+
 }
