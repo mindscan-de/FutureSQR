@@ -42,6 +42,7 @@ import com.google.gson.reflect.TypeToken;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
 import de.mindscan.futuresqr.domain.databases.FSqrScmProjectConfigurationRepositoryImpl;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
+import de.mindscan.futuresqr.domain.model.FSqrScmProjectGitAdminConfiguration;
 
 /**
  * 
@@ -104,7 +105,22 @@ public class FSqrLazyProjectDatabaseImpl {
 
             // TODO: read git configuration and prepare the GIT SCM configuration / later also SVN SCM configuration
             if (projectEntry.hasAdministrationData()) {
-                scmProjectConfig.addGitConfiguration();
+                FSqrLazyProjectAdministrationEntry adminentry = projectEntry.administration;
+                if (adminentry.hasLocalPath()) {
+                    if ("svn".equals( adminentry.scmBackend )) {
+                        // 
+                        // scmProjectConfig.addSvnConfiguration();
+                    }
+                    else {
+                        FSqrScmProjectGitAdminConfiguration gitAdminConfig = new FSqrScmProjectGitAdminConfiguration();
+
+                        gitAdminConfig.localPath = adminentry.localPath;
+                        gitAdminConfig.defaultBranchName = projectEntry.projectBranchName;
+
+                        scmProjectConfig.addGitConfiguration( gitAdminConfig );
+                    }
+
+                }
             }
 
             configurationRepository.addScmProjectConfiguration( scmProjectConfig );
