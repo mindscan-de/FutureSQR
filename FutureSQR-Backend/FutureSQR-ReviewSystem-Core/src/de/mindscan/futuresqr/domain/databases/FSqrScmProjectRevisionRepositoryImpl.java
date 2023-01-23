@@ -95,7 +95,15 @@ public class FSqrScmProjectRevisionRepositoryImpl {
 
     // TODO: calculate the correct system path from scmConfiguration.
     private ScmRepository translate( FSqrScmProjectConfiguration scmConfiguration ) {
-        ScmRepository result = new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" );
+
+        if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
+            if (scmConfiguration.hasLocalRepoPath()) {
+                return new ScmRepository( "D:\\Temp\\future-square-cache\\" + scmConfiguration.getScmGitAdminConfiguration().localPath );
+            }
+        }
+
+        // TODO: this has to be fixed soon...
+        ScmRepository result = new ScmRepository( "D:\\Temp\\future-square-cache\\" + "FutureSQR" );
 
         return result;
     }
