@@ -81,7 +81,7 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         FSqrRevision result = new FSqrRevision( x );
 
         // TODO: calculate the author id / lookup author uuid
-        // result.setAuthorUuid( x.auth );
+        result.setAuthorUuid( applicationServices.getUserRepository().getUserUUID( x.authorId ) );
 
         // TODO: shorten message for message head (max until first newline) 
         // result.setCommitMessageHead( x.message );
