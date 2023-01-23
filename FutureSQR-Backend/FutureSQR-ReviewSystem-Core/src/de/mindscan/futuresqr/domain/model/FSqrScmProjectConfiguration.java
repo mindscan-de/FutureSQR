@@ -53,6 +53,7 @@ public class FSqrScmProjectConfiguration {
 
     // TODO: some details, like ownership (who created, when created, when modified)
     // i guess this is not yet important, and can alo be kept in a kind of journal or so....
+    private FSqrScmProjectGitAdminConfiguration scmGitAdminConfiguration;
 
     public FSqrScmProjectConfiguration( String projectId, String projectDisplayName, String projectUuid, int autoIndexStart ) {
         this.autoIndex = new AtomicInteger( autoIndexStart );
@@ -116,16 +117,22 @@ public class FSqrScmProjectConfiguration {
             return false;
         }
 
-        // TODO implement the test for the local repository copy.
         if (scmProjectType == FSqrScmProjectType.git) {
-            return true;
+            if (this.scmGitAdminConfiguration != null) {
+                return this.scmGitAdminConfiguration.hasLocalPath();
+            }
+            return false;
         }
 
         return false;
     }
 
-    // TODO: just make things work in the full pipeline. We will have to add a proper git configuration.
-    public void addGitConfiguration() {
+    public void addGitConfiguration( FSqrScmProjectGitAdminConfiguration gitAdminConfig ) {
         this.scmProjectType = FSqrScmProjectType.git;
+        this.scmGitAdminConfiguration = gitAdminConfig;
+    }
+
+    public FSqrScmProjectGitAdminConfiguration getScmGitAdminConfiguration() {
+        return scmGitAdminConfiguration;
     }
 }
