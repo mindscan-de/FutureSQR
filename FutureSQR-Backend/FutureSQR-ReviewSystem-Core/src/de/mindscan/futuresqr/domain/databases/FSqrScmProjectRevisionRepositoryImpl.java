@@ -98,6 +98,7 @@ public class FSqrScmProjectRevisionRepositoryImpl {
 
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
             if (scmConfiguration.hasLocalRepoPath()) {
+                // TODO: the cache part should be part of the system instance configuration.
                 return new ScmRepository( "D:\\Temp\\future-square-cache\\" + scmConfiguration.getScmGitAdminConfiguration().localPath );
             }
         }
