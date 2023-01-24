@@ -25,6 +25,7 @@
  */
 package de.mindscan.futuresqr.domain.application;
 
+import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrScmProjectConfigurationRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrScmProjectRevisionRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrScmUserRepositoryImpl;
@@ -37,6 +38,7 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
     private FSqrScmProjectConfigurationRepositoryImpl configurationRepository;
     private FSqrScmProjectRevisionRepositoryImpl revisionRepository;
     private FSqrScmUserRepositoryImpl userRepository;
+    private FSqrCodeReviewRepositoryImpl reviewRepository;
 
     /**
      * 
@@ -45,6 +47,7 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
         this.configurationRepository = new FSqrScmProjectConfigurationRepositoryImpl();
         this.revisionRepository = new FSqrScmProjectRevisionRepositoryImpl();
         this.userRepository = new FSqrScmUserRepositoryImpl();
+        this.reviewRepository = new FSqrCodeReviewRepositoryImpl();
 
         // we need to boot the instance
         // and then we actually need a way to provide some data from externalproviders, and then
@@ -57,6 +60,7 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
     void initializeServiceInstances( FSqrApplicationServices services ) {
         this.revisionRepository.setApplicationServices( services );
         this.userRepository.setApplicationServices( services );
+        this.reviewRepository.setApplicationServices( services );
     }
 
     // TODO we want to provide some dataprovider ability, the application can ask, e.g. on restart or on demand, 
@@ -85,5 +89,12 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
     @Override
     public FSqrScmUserRepositoryImpl getUserRepository() {
         return this.userRepository;
+    }
+
+    /**
+     * @return the reviewRepository
+     */
+    public FSqrCodeReviewRepositoryImpl getReviewRepository() {
+        return reviewRepository;
     }
 }
