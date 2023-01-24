@@ -53,7 +53,10 @@ public class FSqrCodeReviewRepositoryImpl {
     // selectOpenReviews( projectid )
     // selectClosedReviews( projectid )
 
-    // hasProjectAndRevisionAReview( projectid, reivisionid )
-    // getProjectAndRevisionToReview( projectid, revisionid)
+    // hasProjectAndRevisionAReview( projectid, revisionid )
+    // getProjectAndRevisionToReview( projectid, revisionid )
+
+    // add revision to review
+    // remove revision from review
 
 }
