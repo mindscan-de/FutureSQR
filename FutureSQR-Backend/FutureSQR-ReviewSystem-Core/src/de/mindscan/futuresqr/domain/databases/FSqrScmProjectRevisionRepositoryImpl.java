@@ -83,6 +83,10 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         // TODO: calculate the author id / lookup author uuid
         result.setAuthorUuid( applicationServices.getUserRepository().getUserUUID( x.authorId ) );
 
+        // actually not only set the autor uuid but also provide a set of ui authors.
+        // goal is to remove the uiautor database on the frontend side, and provide all authors for the revision result.
+        // result.addAuthor( author.uuid );
+
         // TODO: shorten message for message head (max until first newline) 
         // result.setCommitMessageHead( x.message );
 
