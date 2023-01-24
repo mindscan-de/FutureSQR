@@ -25,10 +25,27 @@
  */
 package de.mindscan.futuresqr.domain.databases;
 
+import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
+import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
+
 /**
  * 
  */
+
 public class FSqrCodeReviewRepositoryImpl {
+
+    private FSqrApplicationServices applicationServices;
+
+    /**
+     * 
+     */
+    public FSqrCodeReviewRepositoryImpl() {
+        this.applicationServices = new FSqrApplicationServicesUnitialized();
+    }
+
+    public void setApplicationServices( FSqrApplicationServices services ) {
+        this.applicationServices = services;
+    }
 
     // insertReview( projectid, review )
     // selectReview( projectid, reviewid )
