@@ -52,7 +52,7 @@ public class FSqrScmUserRepositoryImpl {
     }
 
     public String getUserUUID( String authorId ) {
-        return userHandleToUUID.get( authorId );
+        return userHandleToUUID.getOrDefault( authorId, authorId );
     }
 
     public void addUserHandle( String authorHandle, String authorUUID ) {

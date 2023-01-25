@@ -74,9 +74,11 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
         // TODO: remove these hard coded user handles, 
         // just make sure they work for some time until we improve user handling
         this.userRepository.addUserHandle( "mindscan-de", "8ce74ee9-48ff-3dde-b678-58a632887e31" );
+        this.userRepository.addUserHandle( "Maxim Gansert", "8ce74ee9-48ff-3dde-b678-58a632887e31" );
         this.userRepository.addUserHandle( "someoneelsa", "f5fc8449-3049-3498-9f6b-ce828515bba2" );
         this.userRepository.addUserHandle( "mindscan-banned", "6822a80d-1854-304c-a26d-81acd2c008f3" );
         this.userRepository.addUserHandle( "rbreunung", "35c94b55-559f-30e4-a2f4-ee16d31fc276" );
+        this.userRepository.addUserHandle( "Robert Breunung", "35c94b55-559f-30e4-a2f4-ee16d31fc276" );
     }
 
     // TODO we want to provide some dataprovider ability, the application can ask, e.g. on restart or on demand, 
