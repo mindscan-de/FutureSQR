@@ -25,6 +25,7 @@
  */
 package de.mindscan.futuresqr.domain.application;
 
+import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrScmProjectConfigurationRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrScmProjectRevisionRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrScmUserRepositoryImpl;
@@ -58,4 +59,11 @@ public class FSqrApplicationServicesUnitialized implements FSqrApplicationServic
         throw new RuntimeException( "Please initialize Application Services first before using this method. See Stack." );
     }
 
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public FSqrCodeReviewRepositoryImpl getReviewRepository() {
+        throw new RuntimeException( "Please initialize Application Services first before using this method. See Stack." );
+    }
 }
