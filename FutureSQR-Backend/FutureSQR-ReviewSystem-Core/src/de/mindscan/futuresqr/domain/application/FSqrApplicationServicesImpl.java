@@ -25,6 +25,7 @@
  */
 package de.mindscan.futuresqr.domain.application;
 
+import de.mindscan.futuresqr.domain.configuration.FSqrSystemInstanceConfigurationImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrScmProjectConfigurationRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrScmProjectRevisionRepositoryImpl;
@@ -39,11 +40,13 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
     private FSqrScmProjectRevisionRepositoryImpl revisionRepository;
     private FSqrScmUserRepositoryImpl userRepository;
     private FSqrCodeReviewRepositoryImpl reviewRepository;
+    private FSqrSystemInstanceConfigurationImpl systemConfiguration;
 
     /**
      * 
      */
     public FSqrApplicationServicesImpl() {
+        this.systemConfiguration = new FSqrSystemInstanceConfigurationImpl();
         this.configurationRepository = new FSqrScmProjectConfigurationRepositoryImpl();
         this.revisionRepository = new FSqrScmProjectRevisionRepositoryImpl();
         this.userRepository = new FSqrScmUserRepositoryImpl();
@@ -58,6 +61,9 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
     }
 
     void initializeServiceInstances( FSqrApplicationServices services ) {
+        this.systemConfiguration.setApplicationServices( services );
+        // TODO: implement the initializer for the configuration repository.
+        // this.configurationRepository.set
         this.revisionRepository.setApplicationServices( services );
         this.userRepository.setApplicationServices( services );
         this.reviewRepository.setApplicationServices( services );
