@@ -102,16 +102,17 @@ public class FSqrScmProjectRevisionRepositoryImpl {
 
     // TODO: calculate the correct system path from scmConfiguration.
     private ScmRepository translate( FSqrScmProjectConfiguration scmConfiguration ) {
+        String repoCachePath = applicationServices.getSystemConfiguration().getSystemRepoCachePath();
 
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
             if (scmConfiguration.hasLocalRepoPath()) {
-                // TODO: the cache part should be part of the system instance configuration.
-                return new ScmRepository( "D:\\Temp\\future-square-cache\\" + scmConfiguration.getScmGitAdminConfiguration().localPath );
+                // not yet nice but better than before.
+                return new ScmRepository( repoCachePath + scmConfiguration.getScmGitAdminConfiguration().localPath );
             }
         }
 
         // TODO: this has to be fixed soon...
-        ScmRepository result = new ScmRepository( "D:\\Temp\\future-square-cache\\" + "FutureSQR" );
+        ScmRepository result = new ScmRepository( repoCachePath + "FutureSQR" );
 
         return result;
     }

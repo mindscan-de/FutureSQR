@@ -46,4 +46,8 @@ public class FSqrSystemInstanceConfigurationImpl {
         this.applicationServices = services;
     }
 
+    public String getSystemRepoCachePath() {
+        return "D:\\Temp\\future-square-cache\\";
+    }
+
 }
