@@ -25,6 +25,9 @@
  */
 package de.mindscan.futuresqr.domain.databases;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 
@@ -34,12 +37,14 @@ import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitializ
 public class FSqrScmUserRepositoryImpl {
 
     private FSqrApplicationServices applicationServices;
+    private Map<String, String> userHandleToUUID;
 
     /**
      * 
      */
     public FSqrScmUserRepositoryImpl() {
         this.applicationServices = new FSqrApplicationServicesUnitialized();
+        this.userHandleToUUID = new HashMap<>();
     }
 
     public void setApplicationServices( FSqrApplicationServices services ) {
@@ -47,8 +52,11 @@ public class FSqrScmUserRepositoryImpl {
     }
 
     public String getUserUUID( String authorId ) {
-        // TODO: correct the hard coded uuid with something from a hard coded database.
-        return "8ce74ee9-48ff-3dde-b678-58a632887e31";
+        return userHandleToUUID.get( authorId );
+    }
+
+    public void addUserHandle( String authorHandle, String authorUUID ) {
+        this.userHandleToUUID.putIfAbsent( authorHandle, authorUUID );
     }
 
 }
