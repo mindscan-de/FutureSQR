@@ -104,4 +104,12 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
     public FSqrCodeReviewRepositoryImpl getReviewRepository() {
         return reviewRepository;
     }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public FSqrSystemInstanceConfigurationImpl getSystemConfiguration() {
+        return systemConfiguration;
+    }
 }
