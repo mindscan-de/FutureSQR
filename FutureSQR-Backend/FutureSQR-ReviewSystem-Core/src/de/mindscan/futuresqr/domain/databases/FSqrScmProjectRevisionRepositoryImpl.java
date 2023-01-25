@@ -57,7 +57,7 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
 
             ScmHistory nRecentHistory = gitHistoryProvider.getNRecentRevisions( translate( scmConfiguration ), 75 );
-            return translate( nRecentHistory );
+            return translate( nRecentHistory, projectId );
         }
 
         FSqrScmHistory result = new FSqrScmHistory();
@@ -69,15 +69,15 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         return getRecentRevisionHistory( applicationServices.getConfigurationRepository().getProjectConfiguration( projectId ), projectId );
     }
 
-    private FSqrScmHistory translate( ScmHistory nRecentHistory ) {
+    private FSqrScmHistory translate( ScmHistory nRecentHistory, String projectId ) {
         FSqrScmHistory result = new FSqrScmHistory();
 
-        nRecentHistory.revisions.stream().forEach( x -> result.addRevision( translate( x ) ) );
+        nRecentHistory.revisions.stream().forEach( x -> result.addRevision( translate( x, projectId ) ) );
 
         return result;
     }
 
-    private FSqrRevision translate( ScmBasicRevisionInformation x ) {
+    private FSqrRevision translate( ScmBasicRevisionInformation x, String projectId ) {
         FSqrRevision result = new FSqrRevision( x );
 
         // TODO: calculate the author id / lookup author uuid
@@ -91,9 +91,10 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         // result.setCommitMessageHead( x.message );
 
         // TODO: calculate whether a review is known for this 
-        // result.setHasAttachedReview( false );
-        // result.setReviewId( reviewId );
-
+        if (applicationServices.getReviewRepository().hasReviewForProjectAndRevision( projectId, x.revisionId )) {
+            result.setHasAttachedReview( true );
+            result.setReviewId( applicationServices.getReviewRepository().getReviewIdForProjectAndRevision( projectId, x.revisionId ) );
+        }
         return result;
     }
 
