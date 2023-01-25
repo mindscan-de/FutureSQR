@@ -90,7 +90,7 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         // TODO: shorten message for message head (max until first newline) 
         // result.setCommitMessageHead( x.message );
 
-        // TODO: calculate whether a review is known for this 
+        // calculate whether a review is known for this 
         if (applicationServices.getReviewRepository().hasReviewForProjectAndRevision( projectId, x.revisionId )) {
             result.setHasAttachedReview( true );
             result.setReviewId( applicationServices.getReviewRepository().getReviewIdForProjectAndRevision( projectId, x.revisionId ) );
