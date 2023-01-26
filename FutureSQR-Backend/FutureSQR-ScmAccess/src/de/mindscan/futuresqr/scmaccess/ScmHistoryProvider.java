@@ -53,4 +53,6 @@ public interface ScmHistoryProvider {
     ScmHistory getNRecentRevisions( ScmRepository repository, int limit );
 
     ScmSingleRevisionFileChangeList getFileChangeListForRevision( ScmRepository repository, String revisionId );
+
+    ScmHistory getSimpleRevisionInformation( ScmRepository repository, String revisionId );
 }

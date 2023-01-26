@@ -97,4 +97,16 @@ public class GitScmHistoryProvider implements ScmHistoryProvider {
 
         return scmFileChangesList;
     }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public ScmHistory getSimpleRevisionInformation( ScmRepository repository, String revisionId ) {
+        ScmHistory scmHistory = gitCliExecutor //
+                        .execute( repository, GitCommands.createGetSimpleCommitInfoForRevisionCommand( revisionId ) ) //
+                        .transform( GitOutputProcessors.toScmHistory() );
+
+        return scmHistory;
+    }
 }
