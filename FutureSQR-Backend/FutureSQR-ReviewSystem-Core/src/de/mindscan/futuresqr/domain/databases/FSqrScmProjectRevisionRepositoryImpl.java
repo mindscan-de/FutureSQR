@@ -54,10 +54,10 @@ public class FSqrScmProjectRevisionRepositoryImpl {
     }
 
     public FSqrScmHistory getRecentRevisionHistory( String projectId ) {
-        return getRecentRevisionHistory( getScmConfigForProject( projectId ), projectId );
+        return getRecentRevisionHistory( toScmConfiguration( projectId ), projectId );
     }
 
-    private FSqrScmProjectConfiguration getScmConfigForProject( String projectId ) {
+    private FSqrScmProjectConfiguration toScmConfiguration( String projectId ) {
         return applicationServices.getConfigurationRepository().getProjectConfiguration( projectId );
     }
 
