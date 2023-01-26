@@ -85,7 +85,7 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         FSqrRevision result = new FSqrRevision( x );
 
         // calculate the author id / lookup author uuid
-        String authorUUID = applicationServices.getUserRepository().getUserUUID( x.authorId );
+        String authorUUID = applicationServices.getUserRepository().getUserUUID( x.authorName );
         result.setAuthorUuid( authorUUID );
 
         // actually not only set the autor uuid but also provide a set of ui authors.
