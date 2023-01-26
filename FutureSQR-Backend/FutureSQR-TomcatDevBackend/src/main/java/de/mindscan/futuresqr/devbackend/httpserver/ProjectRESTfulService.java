@@ -146,4 +146,12 @@ public class ProjectRESTfulService {
 //      return gson.toJson( response );
 //  }
 
+    //@javax.ws.rs.Path( "{projectid}/revisiondiff/{revisionid}" )
+    //@GET
+    //@Produces( MediaType.APPLICATION_JSON )
+
+    //@javax.ws.rs.Path( "{projectid}/revisionfilelist/{revisionid}" )
+    //@GET
+    //@Produces( MediaType.APPLICATION_JSON )
+
 }
