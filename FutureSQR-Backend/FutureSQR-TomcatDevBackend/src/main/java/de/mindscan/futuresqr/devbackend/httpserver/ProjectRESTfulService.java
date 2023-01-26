@@ -114,4 +114,28 @@ public class ProjectRESTfulService {
         return new OutputProjectRevisionsRevisionEntry( rev );
     }
 
+    @javax.ws.rs.Path( "{projectid}/revision/{revisionid}/information" )
+    @GET
+    @Produces( MediaType.APPLICATION_JSON )
+    public String getRevisionInformation( @PathParam( "projectid" ) String projectId, @PathParam( "revisionid" ) String revisionId ) {
+        // TODO: implement me
+
+        Object response = null;
+
+        Gson gson = new Gson();
+        return gson.toJson( response );
+    }
+
+    @javax.ws.rs.Path( "{projectid}/recentreviews" )
+    @GET
+    @Produces( MediaType.APPLICATION_JSON )
+    public String getRecentReviews( @PathParam( "projectid" ) String projectId ) {
+        // TODO: implement me
+
+        Object response = null;
+
+        Gson gson = new Gson();
+        return gson.toJson( response );
+    }
+
 }
