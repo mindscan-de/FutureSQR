@@ -126,9 +126,9 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
             ScmRepository scmRepository = toScmRepository( scmConfiguration );
             ScmHistory scmHistory = gitHistoryProvider.getSimpleRevisionInformation( scmRepository, revisionId );
-            FSqrRevision result = translate( scmHistory.revisions.get( 0 ), projectId );
+            FSqrScmHistory result = translate( scmHistory, projectId );
 
-            return result;
+            return result.getRevisions().get( 0 );
         }
 
         return new FSqrRevision();
