@@ -121,4 +121,17 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         return result;
     }
 
+    public FSqrRevision getSimpleRevisionInformation( String projectId, String revisionId ) {
+        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
+        if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
+            ScmRepository scmRepository = toScmRepository( scmConfiguration );
+            ScmHistory scmHistory = gitHistoryProvider.getSimpleRevisionInformation( scmRepository, revisionId );
+            FSqrRevision result = translate( scmHistory.revisions.get( 0 ), projectId );
+
+            return result;
+        }
+
+        return new FSqrRevision();
+    }
+
 }

@@ -119,6 +119,14 @@ public class ProjectRESTfulService {
     @Produces( MediaType.APPLICATION_JSON )
     public String getRevisionInformation( @PathParam( "projectid" ) String projectId, @PathParam( "revisionid" ) String revisionId ) {
         // TODO: implement me
+        if (projectDB.hasProjectLocalPath( projectId )) {
+            Object response = null;
+            FSqrScmProjectRevisionRepositoryImpl revisionProvider = FSqrApplication.getInstance().getServices().getRevisionRepository();
+            FSqrRevision revisionInfo = revisionProvider.getSimpleRevisionInformation( projectId, revisionId );
+
+            Gson gson = new Gson();
+            return gson.toJson( response );
+        }
 
         Object response = null;
 
