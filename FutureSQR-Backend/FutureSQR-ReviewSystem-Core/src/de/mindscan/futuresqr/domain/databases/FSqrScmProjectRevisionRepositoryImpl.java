@@ -64,7 +64,7 @@ public class FSqrScmProjectRevisionRepositoryImpl {
     private FSqrScmHistory getRecentRevisionHistory( FSqrScmProjectConfiguration scmConfiguration, String projectId ) {
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
 
-            ScmHistory nRecentHistory = gitHistoryProvider.getNRecentRevisions( translate( scmConfiguration ), 75 );
+            ScmHistory nRecentHistory = gitHistoryProvider.getNRecentRevisions( toScmRepository( scmConfiguration ), 75 );
             return translate( nRecentHistory, projectId );
         }
 
@@ -105,7 +105,7 @@ public class FSqrScmProjectRevisionRepositoryImpl {
     }
 
     // TODO: calculate the correct system path from scmConfiguration.
-    private ScmRepository translate( FSqrScmProjectConfiguration scmConfiguration ) {
+    private ScmRepository toScmRepository( FSqrScmProjectConfiguration scmConfiguration ) {
         String repoCachePath = applicationServices.getSystemConfiguration().getSystemRepoCachePath();
 
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
