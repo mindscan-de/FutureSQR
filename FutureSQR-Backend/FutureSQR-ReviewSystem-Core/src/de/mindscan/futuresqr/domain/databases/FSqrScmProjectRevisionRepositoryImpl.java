@@ -53,7 +53,15 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         this.applicationServices = services;
     }
 
-    public FSqrScmHistory getRecentRevisionHistory( FSqrScmProjectConfiguration scmConfiguration, String projectId ) {
+    public FSqrScmHistory getRecentRevisionHistory( String projectId ) {
+        return getRecentRevisionHistory( getScmConfigForProject( projectId ), projectId );
+    }
+
+    private FSqrScmProjectConfiguration getScmConfigForProject( String projectId ) {
+        return applicationServices.getConfigurationRepository().getProjectConfiguration( projectId );
+    }
+
+    private FSqrScmHistory getRecentRevisionHistory( FSqrScmProjectConfiguration scmConfiguration, String projectId ) {
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
 
             ScmHistory nRecentHistory = gitHistoryProvider.getNRecentRevisions( translate( scmConfiguration ), 75 );
@@ -63,10 +71,6 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         FSqrScmHistory result = new FSqrScmHistory();
 
         return result;
-    }
-
-    public FSqrScmHistory getRecentRevisionHistory( String projectId ) {
-        return getRecentRevisionHistory( applicationServices.getConfigurationRepository().getProjectConfiguration( projectId ), projectId );
     }
 
     private FSqrScmHistory translate( ScmHistory nRecentHistory, String projectId ) {
@@ -116,4 +120,5 @@ public class FSqrScmProjectRevisionRepositoryImpl {
 
         return result;
     }
+
 }
