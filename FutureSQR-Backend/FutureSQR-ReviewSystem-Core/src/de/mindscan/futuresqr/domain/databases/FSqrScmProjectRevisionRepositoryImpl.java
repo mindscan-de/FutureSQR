@@ -149,8 +149,7 @@ public class FSqrScmProjectRevisionRepositoryImpl {
     }
 
     private FSqrRevisionFileChangeList translate( ScmSingleRevisionFileChangeList fileChangeList, String projectId ) {
-        // TODO implement translation
-        return null;
+        return new FSqrRevisionFileChangeList( fileChangeList );
     }
 
 }

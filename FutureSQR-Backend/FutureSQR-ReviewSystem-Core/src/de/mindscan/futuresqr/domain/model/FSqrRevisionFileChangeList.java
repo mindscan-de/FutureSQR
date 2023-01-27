@@ -25,9 +25,27 @@
  */
 package de.mindscan.futuresqr.domain.model;
 
+import de.mindscan.futuresqr.scmaccess.types.ScmSingleRevisionFileChangeList;
+
 /**
  * 
  */
 public class FSqrRevisionFileChangeList {
 
+    public String revisionId = "";
+
+    /**
+     * 
+     */
+    public FSqrRevisionFileChangeList() {
+        // intentionally left blank
+    }
+
+    /**
+     * 
+     */
+    public FSqrRevisionFileChangeList( ScmSingleRevisionFileChangeList scmfileChangeList ) {
+        this.revisionId = scmfileChangeList.revisionId;
+        // TODO: the file list should be implemented
+    }
 }
