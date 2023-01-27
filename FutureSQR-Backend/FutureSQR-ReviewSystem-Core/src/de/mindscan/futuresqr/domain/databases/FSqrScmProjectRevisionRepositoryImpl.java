@@ -28,6 +28,7 @@ package de.mindscan.futuresqr.domain.databases;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.model.FSqrRevision;
+import de.mindscan.futuresqr.domain.model.FSqrRevisionFileChangeList;
 import de.mindscan.futuresqr.domain.model.FSqrScmHistory;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectType;
@@ -35,6 +36,7 @@ import de.mindscan.futuresqr.scmaccess.git.GitScmHistoryProvider;
 import de.mindscan.futuresqr.scmaccess.types.ScmBasicRevisionInformation;
 import de.mindscan.futuresqr.scmaccess.types.ScmHistory;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
+import de.mindscan.futuresqr.scmaccess.types.ScmSingleRevisionFileChangeList;
 
 /**
  * 
@@ -132,6 +134,23 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         }
 
         return new FSqrRevision();
+    }
+
+    public FSqrRevisionFileChangeList getRevisionFileChangeList( String projectId, String revisionId ) {
+        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
+        if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
+            ScmRepository scmRepository = toScmRepository( scmConfiguration );
+            ScmSingleRevisionFileChangeList fileChangeList = gitHistoryProvider.getFileChangeListForRevision( scmRepository, revisionId );
+
+            return translate( fileChangeList, projectId );
+        }
+
+        return new FSqrRevisionFileChangeList();
+    }
+
+    private FSqrRevisionFileChangeList translate( ScmSingleRevisionFileChangeList fileChangeList, String projectId ) {
+        // TODO implement translation
+        return null;
     }
 
 }
