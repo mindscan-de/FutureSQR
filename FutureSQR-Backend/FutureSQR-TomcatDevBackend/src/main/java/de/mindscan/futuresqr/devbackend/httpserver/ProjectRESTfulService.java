@@ -98,11 +98,7 @@ public class ProjectRESTfulService {
             FSqrScmProjectRevisionRepositoryImpl revisionProvider = FSqrApplication.getInstance().getServices().getRevisionRepository();
             FSqrScmHistory scmHistory = revisionProvider.getRecentRevisionHistory( projectId );
 
-            // TODO convert from SCMRevisionModel to OutputProjectRevisionsRevisionEntry
             scmHistory.getRevisions().stream().forEach( rev -> response.revisions.add( translate( rev ) ) );
-
-            // TODO: calculate, whether a revision id in given projectid has been assigned to a review.
-            // TODO: actually it should be part of the backend to provide this information??
 
             Gson gson = new Gson();
             return gson.toJson( response );
