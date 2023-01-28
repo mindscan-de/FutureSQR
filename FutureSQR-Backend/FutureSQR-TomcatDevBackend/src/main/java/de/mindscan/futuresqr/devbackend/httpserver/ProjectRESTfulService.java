@@ -154,18 +154,6 @@ public class ProjectRESTfulService {
         return gson.toJson( response );
     }
 
-//    @javax.ws.rs.Path( "{projectid}/recentreviews" )
-//    @GET
-//    @Produces( MediaType.APPLICATION_JSON )
-//    public String getRecentReviews( @PathParam( "projectid" ) String projectId ) {
-//        // TODO: implement me
-//
-//      Object response = null;
-//
-//        Gson gson = new Gson();
-//        return gson.toJson( response );
-//    }
-
     @javax.ws.rs.Path( "{projectid}/revisiondiff/{revisionid}" )
     @GET
     @Produces( MediaType.APPLICATION_JSON )
@@ -186,5 +174,17 @@ public class ProjectRESTfulService {
         Gson gson = new Gson();
         return gson.toJson( response );
     }
+
+//  @javax.ws.rs.Path( "{projectid}/recentreviews" )
+//  @GET
+//  @Produces( MediaType.APPLICATION_JSON )
+//  public String getRecentReviews( @PathParam( "projectid" ) String projectId ) {
+//      // TODO: implement me
+//
+//    Object response = null;
+//
+//      Gson gson = new Gson();
+//      return gson.toJson( response );
+//  }
 
 }
