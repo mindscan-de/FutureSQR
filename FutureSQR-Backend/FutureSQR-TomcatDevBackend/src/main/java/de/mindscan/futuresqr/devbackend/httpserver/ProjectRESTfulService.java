@@ -32,6 +32,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
 
+import de.mindscan.futuresqr.devbackend.httpresponse.OutputFileChangeInformation;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputProjectRevisionsModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputProjectRevisionsRevisionEntry;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputSimpleProjectInformation;
@@ -40,6 +41,7 @@ import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserToProjectDatabaseImpl
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
 import de.mindscan.futuresqr.domain.databases.FSqrScmProjectRevisionRepositoryImpl;
 import de.mindscan.futuresqr.domain.model.FSqrRevision;
+import de.mindscan.futuresqr.domain.model.FSqrRevisionFileChangeList;
 import de.mindscan.futuresqr.domain.model.FSqrScmHistory;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 
@@ -118,7 +120,6 @@ public class ProjectRESTfulService {
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public String getRevisionInformation( @PathParam( "projectid" ) String projectId, @PathParam( "revisionid" ) String revisionId ) {
-        // TODO: implement me
         if (projectDB.hasProjectLocalPath( projectId )) {
             FSqrScmProjectRevisionRepositoryImpl revisionProvider = FSqrApplication.getInstance().getServices().getRevisionRepository();
             FSqrRevision revisionInfo = revisionProvider.getSimpleRevisionInformation( projectId, revisionId );
@@ -130,6 +131,24 @@ public class ProjectRESTfulService {
 
         OutputProjectRevisionsRevisionEntry response = new OutputProjectRevisionsRevisionEntry();
 
+        Gson gson = new Gson();
+        return gson.toJson( response );
+    }
+
+    @javax.ws.rs.Path( "{projectid}/revisionfilelist/{revisionid}" )
+    @GET
+    @Produces( MediaType.APPLICATION_JSON )
+    public String getRevisionFileList( @PathParam( "projectid" ) String projectId, @PathParam( "revisionid" ) String revisionId ) {
+        if (projectDB.hasProjectLocalPath( projectId )) {
+            FSqrScmProjectRevisionRepositoryImpl revisionProvider = FSqrApplication.getInstance().getServices().getRevisionRepository();
+            FSqrRevisionFileChangeList fileChangeList = revisionProvider.getRevisionFileChangeList( projectId, revisionId );
+
+            OutputFileChangeInformation response = new OutputFileChangeInformation( fileChangeList );
+            Gson gson = new Gson();
+            return gson.toJson( response );
+        }
+
+        OutputFileChangeInformation response = new OutputFileChangeInformation();
         Gson gson = new Gson();
         return gson.toJson( response );
     }
@@ -147,10 +166,6 @@ public class ProjectRESTfulService {
 //  }
 
     //@javax.ws.rs.Path( "{projectid}/revisiondiff/{revisionid}" )
-    //@GET
-    //@Produces( MediaType.APPLICATION_JSON )
-
-    //@javax.ws.rs.Path( "{projectid}/revisionfilelist/{revisionid}" )
     //@GET
     //@Produces( MediaType.APPLICATION_JSON )
 
