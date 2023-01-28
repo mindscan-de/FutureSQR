@@ -41,6 +41,7 @@ import de.mindscan.futuresqr.scmaccess.types.ScmSingleRevisionFileChangeList;
 public class ScmSingleRevisionFileChangeListOutputProcessor implements GitCLICommandOutputProcessor<ScmSingleRevisionFileChangeList> {
 
     private final static String ASCII_RECORD_SEPARATOR_REGEX = "\\x1e";
+    private final static String ASCII_UNIT_SEPARATOR_REGEX = "\\x1f";
 
     /**
      * 
@@ -76,7 +77,7 @@ public class ScmSingleRevisionFileChangeListOutputProcessor implements GitCLICom
         }
 
         // commit details.
-        parseCommitDetails( processOutputSplitted[0] );
+        parseCommitDetails( processOutputSplitted[0], fileChangeList );
 
         // fileChangeList.fileChangeInformation
         parseFileListDetails( processOutputSplitted[1], fileChangeList.fileChangeInformation::add );
@@ -90,11 +91,24 @@ public class ScmSingleRevisionFileChangeListOutputProcessor implements GitCLICom
         return fileChangeList;
     }
 
-    private void parseCommitDetails( String string ) {
-        // intentionally left blank
+    private void parseCommitDetails( String string, ScmSingleRevisionFileChangeList target ) {
+        // e.g.
+        // 8485a4abffce885376bebb7d1d788a0b10aa9ff6<US>mindscan-de<US>5 weeks ago<RS>
+        // split by unit separator and assign to correct fields.
+        String[] splitted = string.trim().split( ASCII_UNIT_SEPARATOR_REGEX );
+
+        target.revisionId = splitted[0];
+        // authorname = splitted[1]
+        // reldate    = splitted[2]
     }
 
     private void parseFileListDetails( String string, Consumer<String[]> collector ) {
+        String[] fileRecords = string.trim().split( "\\R" );
 
+        // for each line separate by tab, or more sophisticated by first element in line and parse accordingly. 
+        for (String fileRecordLine : fileRecords) {
+            String[] record = fileRecordLine.trim().split( "\t" );
+            collector.accept( record );
+        }
     }
 }
