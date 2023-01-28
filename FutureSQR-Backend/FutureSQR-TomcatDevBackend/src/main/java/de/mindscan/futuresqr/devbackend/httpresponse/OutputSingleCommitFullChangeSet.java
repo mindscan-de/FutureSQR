@@ -25,11 +25,12 @@
  */
 package de.mindscan.futuresqr.devbackend.httpresponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ * see BackendModelSingleCommitFullChangeSet
  */
 public class OutputSingleCommitFullChangeSet {
-    public List<OutputSingleCommitFileChangeSet> fileChangeSet = ArrayList<>();
+    public List<OutputSingleCommitFileChangeSet> fileChangeSet = new ArrayList<>();
 }

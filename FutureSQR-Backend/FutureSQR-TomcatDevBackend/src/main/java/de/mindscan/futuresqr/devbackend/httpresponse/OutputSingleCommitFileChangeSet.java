@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ * See: BackendModelSingleCommitFileChangeSet
  */
 public class OutputSingleCommitFileChangeSet {
     public String lazy_diff_line = "";
