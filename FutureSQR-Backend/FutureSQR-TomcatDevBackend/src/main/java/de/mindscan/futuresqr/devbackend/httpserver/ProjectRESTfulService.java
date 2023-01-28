@@ -36,6 +36,7 @@ import de.mindscan.futuresqr.devbackend.httpresponse.OutputFileChangeInformation
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputProjectRevisionsModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputProjectRevisionsRevisionEntry;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputSimpleProjectInformation;
+import de.mindscan.futuresqr.devbackend.httpresponse.OutputSingleCommitFullChangeSet;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserToProjectDatabaseImpl;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
@@ -153,20 +154,37 @@ public class ProjectRESTfulService {
         return gson.toJson( response );
     }
 
-//  @javax.ws.rs.Path( "{projectid}/recentreviews" )
-//  @GET
-//  @Produces( MediaType.APPLICATION_JSON )
-//  public String getRecentReviews( @PathParam( "projectid" ) String projectId ) {
-//      // TODO: implement me
+//    @javax.ws.rs.Path( "{projectid}/recentreviews" )
+//    @GET
+//    @Produces( MediaType.APPLICATION_JSON )
+//    public String getRecentReviews( @PathParam( "projectid" ) String projectId ) {
+//        // TODO: implement me
 //
 //      Object response = null;
 //
-//      Gson gson = new Gson();
-//      return gson.toJson( response );
-//  }
+//        Gson gson = new Gson();
+//        return gson.toJson( response );
+//    }
 
-    //@javax.ws.rs.Path( "{projectid}/revisiondiff/{revisionid}" )
-    //@GET
-    //@Produces( MediaType.APPLICATION_JSON )
+    @javax.ws.rs.Path( "{projectid}/revisiondiff/{revisionid}" )
+    @GET
+    @Produces( MediaType.APPLICATION_JSON )
+    public String getRevisionFullChangeset( @PathParam( "projectid" ) String projectId, @PathParam( "revisionid" ) String revisionId ) {
+        if (projectDB.hasProjectLocalPath( projectId )) {
+            // TODO: implement me
+            FSqrScmProjectRevisionRepositoryImpl revisionRepository = FSqrApplication.getInstance().getServices().getRevisionRepository();
+            // revisionRepository.getRevisionFullChangeSet( projectId, revisionId );
+
+            OutputSingleCommitFullChangeSet response = new OutputSingleCommitFullChangeSet();
+
+            Gson gson = new Gson();
+            return gson.toJson( response );
+        }
+
+        OutputSingleCommitFullChangeSet response = new OutputSingleCommitFullChangeSet();
+
+        Gson gson = new Gson();
+        return gson.toJson( response );
+    }
 
 }
