@@ -26,6 +26,7 @@
 package de.mindscan.futuresqr.scmaccess;
 
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
+import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
 import de.mindscan.futuresqr.scmaccess.types.ScmPath;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
@@ -40,4 +41,6 @@ public interface ScmContentProvider {
     // see getParticularRevisionContentForFile for context of this method
     ScmFileContent getFileContentForRevision( ScmRepository repository, String revisionId, ScmPath filePath );
 
+    // see getProjectRevisionDiffToPrevious for context of this method
+    ScmFullChangeSet getFullChangeSetForRevision( ScmRepository repository, String revisionId );
 }

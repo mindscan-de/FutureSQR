@@ -28,6 +28,7 @@ package de.mindscan.futuresqr.scmaccess.git;
 import de.mindscan.futuresqr.scmaccess.ScmContentProvider;
 import de.mindscan.futuresqr.scmaccess.git.processor.GitOutputProcessors;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
+import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
 import de.mindscan.futuresqr.scmaccess.types.ScmPath;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
@@ -58,6 +59,18 @@ public class GitScmContentProvider implements ScmContentProvider {
                         .transform( GitOutputProcessors.toScmFileContent() );
 
         return scmFileContent;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public ScmFullChangeSet getFullChangeSetForRevision( ScmRepository repository, String revisionId ) {
+        ScmFullChangeSet fullChangeSet = gitCliExecutor //
+                        .execute( repository, GitCommands.createGetDiffForRevisionCommand( revisionId ) )// 
+                        .transform( GitOutputProcessors.toScmFullChangeSet() );
+
+        return fullChangeSet;
     }
 
 }
