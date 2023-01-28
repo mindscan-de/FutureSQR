@@ -42,6 +42,8 @@ public class ScmSingleRevisionFileChangeListOutputProcessor implements GitCLICom
 
     private final static String ASCII_RECORD_SEPARATOR_REGEX = "\\x1e";
     private final static String ASCII_UNIT_SEPARATOR_REGEX = "\\x1f";
+    private final static String NEWLINE_REGEX = "\\R";
+    private final static String TAB_SEPARATOR = "\t";
 
     /**
      * 
@@ -103,11 +105,11 @@ public class ScmSingleRevisionFileChangeListOutputProcessor implements GitCLICom
     }
 
     private void parseFileListDetails( String string, Consumer<String[]> collector ) {
-        String[] fileRecords = string.trim().split( "\\R" );
+        String[] fileRecords = string.trim().split( NEWLINE_REGEX );
 
         // for each line separate by tab, or more sophisticated by first element in line and parse accordingly. 
         for (String fileRecordLine : fileRecords) {
-            String[] record = fileRecordLine.trim().split( "\t" );
+            String[] record = fileRecordLine.trim().split( TAB_SEPARATOR );
             collector.accept( record );
         }
     }
