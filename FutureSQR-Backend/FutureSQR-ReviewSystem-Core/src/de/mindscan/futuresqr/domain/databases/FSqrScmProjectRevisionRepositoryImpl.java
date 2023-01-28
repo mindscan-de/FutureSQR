@@ -32,6 +32,7 @@ import de.mindscan.futuresqr.domain.model.FSqrRevisionFileChangeList;
 import de.mindscan.futuresqr.domain.model.FSqrScmHistory;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectType;
+import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
 import de.mindscan.futuresqr.scmaccess.git.GitScmHistoryProvider;
 import de.mindscan.futuresqr.scmaccess.types.ScmBasicRevisionInformation;
 import de.mindscan.futuresqr.scmaccess.types.ScmHistory;
@@ -150,6 +151,12 @@ public class FSqrScmProjectRevisionRepositoryImpl {
 
     private FSqrRevisionFileChangeList translate( ScmSingleRevisionFileChangeList fileChangeList, String projectId ) {
         return new FSqrRevisionFileChangeList( fileChangeList );
+    }
+
+    // TODO: implement and define the model.
+    public FSqrRevisionFullChangeSet getRevisionFullChangeSet( String projectId, String revisionId ) {
+        // TODO implement me.
+        return new FSqrRevisionFullChangeSet();
     }
 
 }
