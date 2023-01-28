@@ -45,6 +45,7 @@ import de.mindscan.futuresqr.domain.model.FSqrRevision;
 import de.mindscan.futuresqr.domain.model.FSqrRevisionFileChangeList;
 import de.mindscan.futuresqr.domain.model.FSqrScmHistory;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
+import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
 
 /**
  * 
@@ -161,8 +162,9 @@ public class ProjectRESTfulService {
         if (projectDB.hasProjectLocalPath( projectId )) {
             // TODO: implement me
             FSqrScmProjectRevisionRepositoryImpl revisionRepository = FSqrApplication.getInstance().getServices().getRevisionRepository();
-            // revisionRepository.getRevisionFullChangeSet( projectId, revisionId );
+            FSqrRevisionFullChangeSet fullChangeSet = revisionRepository.getRevisionFullChangeSet( projectId, revisionId );
 
+            // TODO: implement conversion of FSqrRevisionFullChangeSet -> OutputSingleCommitFullChangeSet 
             OutputSingleCommitFullChangeSet response = new OutputSingleCommitFullChangeSet();
 
             Gson gson = new Gson();
