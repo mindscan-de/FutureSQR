@@ -25,6 +25,8 @@
  */
 package de.mindscan.futuresqr.domain.model;
 
+import java.util.ArrayList;
+
 import de.mindscan.futuresqr.scmaccess.types.ScmSingleRevisionFileChangeList;
 
 /**
@@ -32,7 +34,8 @@ import de.mindscan.futuresqr.scmaccess.types.ScmSingleRevisionFileChangeList;
  */
 public class FSqrRevisionFileChangeList {
 
-    public String revisionId = "";
+    protected String revisionId = "";
+    protected ArrayList<String[]> fileChangeList = new ArrayList<>();
 
     /**
      * 
@@ -46,6 +49,14 @@ public class FSqrRevisionFileChangeList {
      */
     public FSqrRevisionFileChangeList( ScmSingleRevisionFileChangeList scmfileChangeList ) {
         this.revisionId = scmfileChangeList.revisionId;
-        // TODO: the file list should be implemented
+        this.fileChangeList = new ArrayList<>( scmfileChangeList.fileChangeInformation );
+    }
+
+    public String getRevisionId() {
+        return revisionId;
+    }
+
+    public ArrayList<String[]> getFileChangeList() {
+        return fileChangeList;
     }
 }
