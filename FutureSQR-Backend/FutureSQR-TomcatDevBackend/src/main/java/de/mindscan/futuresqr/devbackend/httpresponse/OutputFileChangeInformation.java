@@ -26,10 +26,22 @@
 package de.mindscan.futuresqr.devbackend.httpresponse;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import de.mindscan.futuresqr.domain.model.FSqrRevisionFileChangeList;
 
 /**
  * compatible to "BackendModelSingleCommitFileActionsInfo" in frontend.
  */
 public class OutputFileChangeInformation {
-    public ArrayList<String[]> fileActionMap = new ArrayList<>();
+    public List<String[]> fileActionMap = new ArrayList<>();
+
+    public OutputFileChangeInformation() {
+        // intentionally left blank
+    }
+
+    public OutputFileChangeInformation( FSqrRevisionFileChangeList revisionFileChangeList ) {
+        this.fileActionMap = revisionFileChangeList.getFileChangeList();
+    }
+
 }
