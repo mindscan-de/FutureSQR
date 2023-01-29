@@ -32,6 +32,7 @@ import de.mindscan.futuresqr.scmaccess.git.command.impl.GetFileContentForRevisio
 import de.mindscan.futuresqr.scmaccess.git.command.impl.GetFileHistoryCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.impl.GetNRecentRevisionsCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.impl.GetRecentRevisionsCommand;
+import de.mindscan.futuresqr.scmaccess.git.command.impl.GetSimpleCommitInformationForRevisionCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.impl.UpdateLocalRepositoryCommand;
 import de.mindscan.futuresqr.scmaccess.types.ScmPath;
 
