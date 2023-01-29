@@ -36,12 +36,13 @@ import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
  */
 public class FSqrRevisionFullChangeSet {
 
-    public List<FSqrFileChangeSet> fileChangeSet = new ArrayList<>();
+    private List<FSqrFileChangeSet> fileChangeSet = new ArrayList<>();
 
     /**
      * 
      */
     public FSqrRevisionFullChangeSet() {
+        // intentionally left blank
     }
 
     public FSqrRevisionFullChangeSet( ScmFullChangeSet scmFullChangeSet ) {
@@ -50,6 +51,10 @@ public class FSqrRevisionFullChangeSet {
 
     private FSqrFileChangeSet transform( ScmFileChangeSet scmFileChangeSet ) {
         return new FSqrFileChangeSet( scmFileChangeSet );
+    }
+
+    public List<FSqrFileChangeSet> getFileChangeSet() {
+        return fileChangeSet;
     }
 
 }
