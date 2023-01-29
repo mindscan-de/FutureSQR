@@ -31,6 +31,7 @@ import java.util.function.Consumer;
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutput;
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileChangeSet;
+import de.mindscan.futuresqr.scmaccess.types.ScmFileContentChangeSet;
 import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
 
 /**
@@ -60,26 +61,43 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
         return scmFullChangeSet;
     }
 
-    private void parseFullChangeSet( String string, Consumer<ScmFileChangeSet> consumer ) {
-        // TODO Auto-generated method stub
+    private void parseFullChangeSet( String string, Consumer<ScmFileChangeSet> fileChangeSetConsumer ) {
+        // 
+        String[] lines = string.split( "\\R" );
+        // actually we have to provide a  line scanner....
+
+        for (String line : lines) {
+            if (line.startsWith( "diff --git " )) {
+                // for each file file entry
+                parseFileChangeSetEntry( line, fileChangeSetConsumer );
+            }
+        }
 
         // firstmenge for file entry will trigger parseFileChangeSetEntry
     }
 
-    private void parseFileChangeSetEntry() {
+    private void parseFileChangeSetEntry( String currentLine, Consumer<ScmFileChangeSet> fileChangeSetConsumer ) {
+        // TOOD: binary mode is false;
 
-        // for each file file entry
         // create a new file entry
-        // result is a file entry in the ScmFullChangeSet
+        ScmFileChangeSet fileChangeSet = new ScmFileChangeSet();
+        fileChangeSet.lazy_diff_line = currentLine;
 
-        // if a first menge of a content changeset is found, we will trigger parseContentChangeSetEntry
+        // while a first menge of a content changeset is found, we will trigger parseContentChangeSetEntry
+        parseContentChangeSetEntry( fileChangeSet.fileContentChangeSet::add );
 
         // end of stream or
         // first menge of a file changeset will finish scanning this file entry 
+
+        // result is a file entry in the ScmFullChangeSet
+        fileChangeSetConsumer.accept( fileChangeSet );
     }
 
-    private void parseContentChangeSetEntry() {
+    private void parseContentChangeSetEntry( Consumer<ScmFileContentChangeSet> contentChangeSetConsumer ) {
         // this is the parsing of a single
+        ScmFileContentChangeSet contentChangeset = new ScmFileContentChangeSet();
+
+        contentChangeSetConsumer.accept( contentChangeset );
     }
 
 }
