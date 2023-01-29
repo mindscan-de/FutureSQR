@@ -23,9 +23,9 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.scmaccess.git;
+package de.mindscan.futuresqr.scmaccess.git.command;
 
-import de.mindscan.futuresqr.scmaccess.git.command.GetSimpleCommitInformationForRevisionCommand;
+import de.mindscan.futuresqr.scmaccess.git.GitCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.impl.GetDiffForRevisionCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.impl.GetFileChangesListForRevisionCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.impl.GetFileContentForRevisionCommand;
