@@ -25,25 +25,79 @@
  */
 package de.mindscan.futuresqr.domain.model.changeset;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.mindscan.futuresqr.scmaccess.types.ScmFileChangeSet;
+import de.mindscan.futuresqr.scmaccess.types.ScmFileContentChangeSet;
 
 /**
  * 
  */
 public class FSqrFileChangeSet {
 
+    private List<FSqrFileContentChangeSet> fileContentChangeSet = new ArrayList<>();
+    private boolean isBinaryFile = false;
+
+    // TODO refactor this.    
+    private String lazyBinaryFileInfo = "";
+    // TODO refactor this.
+    private String lazyFileDiffLine = "";
+    // TODO refactor this.
+    private String lazyIndexLine = "";
+
+    // in case of a rename / move, we would also like to store from and to as well as the file similarity.
+    private String renamedFrom = "";
+    private String renamedTo = "";
+
+    private String lazySimilarityInfo = "";
+
     /**
      * 
      */
     public FSqrFileChangeSet() {
-        // TODO Auto-generated constructor stub
+        // intentionally left blank
     }
 
     /**
      * @param scmFileChangeSet
      */
     public FSqrFileChangeSet( ScmFileChangeSet scmFileChangeSet ) {
-        // TODO Auto-generated constructor stub
+
+        this.lazyBinaryFileInfo = scmFileChangeSet.binary_file_info_line;
+        this.isBinaryFile = scmFileChangeSet.isBinaryFile;
+
+        this.lazyFileDiffLine = scmFileChangeSet.lazy_diff_line;
+        this.lazyIndexLine = scmFileChangeSet.lazy_index_line;
+
+        this.renamedFrom = scmFileChangeSet.renamed_from;
+        this.renamedTo = scmFileChangeSet.renamed_to;
+        this.lazySimilarityInfo = scmFileChangeSet.similarity_info_line;
+
+        scmFileChangeSet.fileContentChangeSet.stream().forEach( x -> fileContentChangeSet.add( translate( x ) ) );
     }
 
+    private FSqrFileContentChangeSet translate( ScmFileContentChangeSet x ) {
+        return new FSqrFileContentChangeSet( x );
+    }
+
+    public List<FSqrFileContentChangeSet> getFileContentChangeSet() {
+        return fileContentChangeSet;
+    }
+
+    public boolean isBinaryFile() {
+        return isBinaryFile;
+    }
+
+    public String getLazyBinaryFileInfo() {
+        return lazyBinaryFileInfo;
+    }
+
+    public String getLazyFileDiffLine() {
+        return lazyFileDiffLine;
+    }
+
+    public String getLazyIndexLine() {
+        return lazyIndexLine;
+    }
 }
