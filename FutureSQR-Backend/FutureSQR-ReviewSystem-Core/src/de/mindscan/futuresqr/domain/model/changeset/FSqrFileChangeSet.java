@@ -25,31 +25,25 @@
  */
 package de.mindscan.futuresqr.domain.model.changeset;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import de.mindscan.futuresqr.scmaccess.types.ScmFileChangeSet;
-import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
 
 /**
  * 
  */
-public class FSqrRevisionFullChangeSet {
-
-    public List<FSqrFileChangeSet> fileChangeSet = new ArrayList<>();
+public class FSqrFileChangeSet {
 
     /**
      * 
      */
-    public FSqrRevisionFullChangeSet() {
+    public FSqrFileChangeSet() {
+        // TODO Auto-generated constructor stub
     }
 
-    public FSqrRevisionFullChangeSet( ScmFullChangeSet scmFullChangeSet ) {
-        scmFullChangeSet.fileChangeSet.stream().forEach( x -> this.fileChangeSet.add( transform( x ) ) );
-    }
-
-    private FSqrFileChangeSet transform( ScmFileChangeSet scmFileChangeSet ) {
-        return new FSqrFileChangeSet( scmFileChangeSet );
+    /**
+     * @param scmFileChangeSet
+     */
+    public FSqrFileChangeSet( ScmFileChangeSet scmFileChangeSet ) {
+        // TODO Auto-generated constructor stub
     }
 
 }
