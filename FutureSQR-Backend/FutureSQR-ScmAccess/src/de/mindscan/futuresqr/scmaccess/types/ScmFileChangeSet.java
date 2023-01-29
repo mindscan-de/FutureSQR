@@ -36,6 +36,10 @@ public class ScmFileChangeSet {
     // -------------------------------------
     public String lazy_diff_line = "";
     public String lazy_index_line = "";
+    // TODO also process this better
+    public String similarity_info_line = "";
+    public String renamed_from = "";
+    public String renamed_to = "";
 
     // ---------------------
     // TODO parsed FILE INFO
