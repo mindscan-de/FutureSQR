@@ -59,10 +59,18 @@ public class GitScmLineBasedLexer {
     }
 
     public String peekCurrentLine() {
+        if (currentLine >= input.size()) {
+            return "";
+        }
+
         return input.get( currentLine );
     }
 
     public String consumeCurrentLine() {
+        if (currentLine >= input.size()) {
+            return "";
+        }
+
         String line = input.get( currentLine );
         this.currentLine++;
         return line;
