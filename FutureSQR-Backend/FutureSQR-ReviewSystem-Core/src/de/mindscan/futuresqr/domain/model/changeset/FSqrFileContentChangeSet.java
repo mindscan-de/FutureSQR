@@ -25,6 +25,8 @@
  */
 package de.mindscan.futuresqr.domain.model.changeset;
 
+import java.util.List;
+
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContentChangeSet;
 
 /**
@@ -32,12 +34,26 @@ import de.mindscan.futuresqr.scmaccess.types.ScmFileContentChangeSet;
  */
 public class FSqrFileContentChangeSet {
 
+    private List<String> unifiedDiffData;
+
+    // TODO: this is a lazy implementation and should be improved. - backend + frontend change needed.
+    private String contentChangeDiffHeader;
+
     public FSqrFileContentChangeSet() {
         // intentionally let blank
     }
 
-    public FSqrFileContentChangeSet( ScmFileContentChangeSet x ) {
-        // TODO: implement me.
+    public FSqrFileContentChangeSet( ScmFileContentChangeSet contentChangeSet ) {
+        this.unifiedDiffData = contentChangeSet.line_diff_data;
+        this.contentChangeDiffHeader = contentChangeSet.line_info;
+    }
+
+    public List<String> getUnifiedDiffData() {
+        return unifiedDiffData;
+    }
+
+    public String getContentChangeDiffHeader() {
+        return contentChangeDiffHeader;
     }
 
 }
