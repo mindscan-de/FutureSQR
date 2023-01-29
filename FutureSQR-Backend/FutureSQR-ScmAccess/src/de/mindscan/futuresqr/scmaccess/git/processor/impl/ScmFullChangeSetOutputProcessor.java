@@ -25,8 +25,12 @@
  */
 package de.mindscan.futuresqr.scmaccess.git.processor.impl;
 
+import java.nio.charset.StandardCharsets;
+import java.util.function.Consumer;
+
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutput;
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutputProcessor;
+import de.mindscan.futuresqr.scmaccess.types.ScmFileChangeSet;
 import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
 
 /**
@@ -46,8 +50,36 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
      */
     @Override
     public ScmFullChangeSet transform( GitCLICommandOutput output ) {
+        ScmFullChangeSet scmFullChangeSet = new ScmFullChangeSet();
+
+        // TODO: analyze the standard changesets, UTF_8 ...
+        // TODO: Actually each file can have it's own encoding, such that we must provide a scanner with different charset modes
+        // this needs to be fixed longer term.
+        parseFullChangeSet( new String( output.getProcessOutput(), StandardCharsets.UTF_8 ), scmFullChangeSet.fileChangeSet::add );
+
+        return scmFullChangeSet;
+    }
+
+    private void parseFullChangeSet( String string, Consumer<ScmFileChangeSet> consumer ) {
         // TODO Auto-generated method stub
-        return null;
+
+        // firstmenge for file entry will trigger parseFileChangeSetEntry
+    }
+
+    private void parseFileChangeSetEntry() {
+
+        // for each file file entry
+        // create a new file entry
+        // result is a file entry in the ScmFullChangeSet
+
+        // if a first menge of a content changeset is found, we will trigger parseContentChangeSetEntry
+
+        // end of stream or
+        // first menge of a file changeset will finish scanning this file entry 
+    }
+
+    private void parseContentChangeSetEntry() {
+        // this is the parsing of a single
     }
 
 }
