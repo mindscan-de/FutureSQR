@@ -41,9 +41,13 @@ public class ScmFileChangeSet {
     public String renamed_from = "";
     public String renamed_to = "";
 
+    public boolean isBinaryFile = false;
+    public String binary_file_info_line = "";
+
     // ---------------------
     // TODO parsed FILE INFO
     // ---------------------
 
     public ArrayList<ScmFileContentChangeSet> fileContentChangeSet = new ArrayList<>();
+
 }
