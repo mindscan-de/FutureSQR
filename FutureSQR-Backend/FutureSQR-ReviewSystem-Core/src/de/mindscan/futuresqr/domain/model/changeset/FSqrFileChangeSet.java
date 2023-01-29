@@ -100,4 +100,16 @@ public class FSqrFileChangeSet {
     public String getLazyIndexLine() {
         return lazyIndexLine;
     }
+
+    public String getRenamedFrom() {
+        return renamedFrom;
+    }
+
+    public String getRenamedTo() {
+        return renamedTo;
+    }
+
+    public String getLazySimilarityInfo() {
+        return lazySimilarityInfo;
+    }
 }
