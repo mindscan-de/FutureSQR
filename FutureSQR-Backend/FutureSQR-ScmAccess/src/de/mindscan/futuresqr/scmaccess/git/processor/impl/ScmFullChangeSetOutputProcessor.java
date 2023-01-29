@@ -62,26 +62,33 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
     }
 
     private void parseFullChangeSet( String string, Consumer<ScmFileChangeSet> fileChangeSetConsumer ) {
-        // 
-        String[] lines = string.split( "\\R" );
-        // actually we have to provide a  line scanner....
+        // TODO: Actually the split tokens should not be consumed from the string
+        //       can to this later.
+        GitScmLineBasedLexer lineLexer = new GitScmLineBasedLexer( string.split( "\\R" ) );
 
-        for (String line : lines) {
-            if (line.startsWith( "diff --git " )) {
+        while (lineLexer.hasNextLine()) {
+            String currentLine = lineLexer.getCurrentLine();
+
+            // peek at current line
+            if (currentLine.startsWith( "diff --git " )) {
                 // for each file file entry
-                parseFileChangeSetEntry( line, fileChangeSetConsumer );
+                parseFileChangeSetEntry( lineLexer, fileChangeSetConsumer );
+            }
+            else {
+                lineLexer.advanceToNextLine();
             }
         }
 
-        // firstmenge for file entry will trigger parseFileChangeSetEntry
+        // first menge for file entry will trigger parseFileChangeSetEntry
     }
 
-    private void parseFileChangeSetEntry( String currentLine, Consumer<ScmFileChangeSet> fileChangeSetConsumer ) {
+    private void parseFileChangeSetEntry( GitScmLineBasedLexer lineLexer, Consumer<ScmFileChangeSet> fileChangeSetConsumer ) {
         // TOOD: binary mode is false;
 
         // create a new file entry
         ScmFileChangeSet fileChangeSet = new ScmFileChangeSet();
-        fileChangeSet.lazy_diff_line = currentLine;
+        fileChangeSet.lazy_diff_line = lineLexer.getCurrentLine();
+        lineLexer.advanceToNextLine();
 
         // while a first menge of a content changeset is found, we will trigger parseContentChangeSetEntry
         parseContentChangeSetEntry( fileChangeSet.fileContentChangeSet::add );
