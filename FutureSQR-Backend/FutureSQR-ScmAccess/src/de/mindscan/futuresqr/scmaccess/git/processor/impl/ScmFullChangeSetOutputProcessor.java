@@ -39,6 +39,9 @@ import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
  */
 public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProcessor<ScmFullChangeSet> {
 
+    private static final String GIT_DIFF_FILENAMEINFO_IDENTIFIER = "diff --git ";
+    private static final String GIT_DIFF_FILENAMEINFO_IDENTIFIER_TRIMMED = GIT_DIFF_FILENAMEINFO_IDENTIFIER.trim();
+
     /**
      * 
      */
@@ -67,10 +70,10 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
         GitScmLineBasedLexer lineLexer = new GitScmLineBasedLexer( string.split( "\\R" ) );
 
         while (lineLexer.hasNextLine()) {
-            String currentLine = lineLexer.getCurrentLine();
+            String currentLine = lineLexer.peekCurrentLine();
 
             // peek at current line
-            if (currentLine.startsWith( "diff --git " )) {
+            if (currentLine.startsWith( GIT_DIFF_FILENAMEINFO_IDENTIFIER )) {
                 // for each file file entry
                 parseFileChangeSetEntry( lineLexer, fileChangeSetConsumer );
             }
@@ -86,18 +89,20 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
         // TOOD: binary mode is false;
 
         // create a new file entry
-        ScmFileChangeSet fileChangeSet = new ScmFileChangeSet();
-        fileChangeSet.lazy_diff_line = lineLexer.getCurrentLine();
-        lineLexer.advanceToNextLine();
+        ScmFileChangeSet currentFileChangeSet = new ScmFileChangeSet();
+
+        // Parse the file info
+        // TODO: parse this file name info identifier, such that this info is in the currentFileChangeSet
+        currentFileChangeSet.lazy_diff_line = lineLexer.consumeCurrentLine();
 
         // while a first menge of a content changeset is found, we will trigger parseContentChangeSetEntry
-        parseContentChangeSetEntry( fileChangeSet.fileContentChangeSet::add );
+        parseContentChangeSetEntry( currentFileChangeSet.fileContentChangeSet::add );
 
         // end of stream or
         // first menge of a file changeset will finish scanning this file entry 
 
         // result is a file entry in the ScmFullChangeSet
-        fileChangeSetConsumer.accept( fileChangeSet );
+        fileChangeSetConsumer.accept( currentFileChangeSet );
     }
 
     private void parseContentChangeSetEntry( Consumer<ScmFileContentChangeSet> contentChangeSetConsumer ) {

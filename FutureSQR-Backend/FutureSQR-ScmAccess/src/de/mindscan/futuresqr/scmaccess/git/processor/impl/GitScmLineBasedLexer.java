@@ -58,8 +58,14 @@ public class GitScmLineBasedLexer {
 
     }
 
-    public String getCurrentLine() {
+    public String peekCurrentLine() {
         return input.get( currentLine );
+    }
+
+    public String consumeCurrentLine() {
+        String line = input.get( currentLine );
+        this.currentLine++;
+        return line;
     }
 
     public void advanceToNextLine() {
