@@ -33,8 +33,10 @@ import de.mindscan.futuresqr.domain.model.FSqrScmHistory;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectType;
 import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
+import de.mindscan.futuresqr.scmaccess.git.GitScmContentProvider;
 import de.mindscan.futuresqr.scmaccess.git.GitScmHistoryProvider;
 import de.mindscan.futuresqr.scmaccess.types.ScmBasicRevisionInformation;
+import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
 import de.mindscan.futuresqr.scmaccess.types.ScmHistory;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 import de.mindscan.futuresqr.scmaccess.types.ScmSingleRevisionFileChangeList;
@@ -45,10 +47,12 @@ import de.mindscan.futuresqr.scmaccess.types.ScmSingleRevisionFileChangeList;
 public class FSqrScmProjectRevisionRepositoryImpl {
 
     private GitScmHistoryProvider gitHistoryProvider;
+    private GitScmContentProvider gitScmContentProvider;
     private FSqrApplicationServices applicationServices;
 
     public FSqrScmProjectRevisionRepositoryImpl() {
         this.gitHistoryProvider = new GitScmHistoryProvider();
+        this.gitScmContentProvider = new GitScmContentProvider();
         this.applicationServices = new FSqrApplicationServicesUnitialized();
     }
 
@@ -153,9 +157,14 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         return new FSqrRevisionFileChangeList( fileChangeList );
     }
 
-    // TODO: implement and define the model.
     public FSqrRevisionFullChangeSet getRevisionFullChangeSet( String projectId, String revisionId ) {
-        // TODO implement me.
+        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
+        if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
+            ScmRepository scmRepository = toScmRepository( scmConfiguration );
+            ScmFullChangeSet fullChangeSet = gitScmContentProvider.getFullChangeSetForRevision( scmRepository, revisionId );
+
+            return new FSqrRevisionFullChangeSet( fullChangeSet );
+        }
         return new FSqrRevisionFullChangeSet();
     }
 
