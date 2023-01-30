@@ -48,6 +48,7 @@ import de.mindscan.futuresqr.domain.model.FSqrRevisionFileChangeList;
 import de.mindscan.futuresqr.domain.model.FSqrScmHistory;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
+import de.mindscan.futuresqr.domain.model.content.FSqrFileContentForRevision;
 
 /**
  * 
@@ -178,8 +179,14 @@ public class ProjectRESTfulService {
     @Produces( MediaType.APPLICATION_JSON )
     public String getRevisionFileContent( @PathParam( "projectid" ) String projectId, @PathParam( "revisionid" ) String revisionId,
                     @QueryParam( "filepath" ) String filePath ) {
+        if (projectDB.hasProjectLocalPath( projectId )) {
+            FSqrScmProjectRevisionRepositoryImpl revisionRepository = FSqrApplication.getInstance().getServices().getRevisionRepository();
+            FSqrFileContentForRevision fileContent = revisionRepository.getFileContentForRevision( projectId, revisionId, filePath );
 
-        // TODO: implement me.
+            OutputFileContentForRevisionModel response = new OutputFileContentForRevisionModel( fileContent );
+            Gson gson = new Gson();
+            return gson.toJson( response );
+        }
 
         OutputFileContentForRevisionModel response = new OutputFileContentForRevisionModel();
         Gson gson = new Gson();
