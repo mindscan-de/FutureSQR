@@ -25,9 +25,37 @@
  */
 package de.mindscan.futuresqr.domain.model.content;
 
+import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
+
 /**
  * 
  */
 public class FSqrFileContentForRevision {
+
+    private String fileContent = "";
+    private String filePath = "";
+    private String revisionId = "";
+
+    public FSqrFileContentForRevision() {
+        // intentionally left blank
+    }
+
+    public FSqrFileContentForRevision( ScmFileContent fileContent ) {
+        this.fileContent = fileContent.fileContent;
+        this.filePath = fileContent.filePath;
+        this.revisionId = fileContent.fileRevisionId;
+    }
+
+    public String getFileContent() {
+        return fileContent;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public String getRevisionId() {
+        return revisionId;
+    }
 
 }
