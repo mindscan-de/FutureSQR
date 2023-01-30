@@ -37,8 +37,10 @@ import de.mindscan.futuresqr.domain.model.content.FSqrFileContentForRevision;
 import de.mindscan.futuresqr.scmaccess.git.GitScmContentProvider;
 import de.mindscan.futuresqr.scmaccess.git.GitScmHistoryProvider;
 import de.mindscan.futuresqr.scmaccess.types.ScmBasicRevisionInformation;
+import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
 import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
 import de.mindscan.futuresqr.scmaccess.types.ScmHistory;
+import de.mindscan.futuresqr.scmaccess.types.ScmPath;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 import de.mindscan.futuresqr.scmaccess.types.ScmSingleRevisionFileChangeList;
 
@@ -170,7 +172,14 @@ public class FSqrScmProjectRevisionRepositoryImpl {
     }
 
     public FSqrFileContentForRevision getFileContentForRevision( String projectId, String revisionId, String filePath ) {
-        // TODO implement me
+        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
+        if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
+            ScmRepository scmRepository = toScmRepository( scmConfiguration );
+            ScmFileContent fileContent = gitScmContentProvider.getFileContentForRevision( scmRepository, revisionId, new ScmPath( filePath ) );
+
+            return new FSqrFileContentForRevision( fileContent );
+        }
+
         return new FSqrFileContentForRevision();
     }
 
