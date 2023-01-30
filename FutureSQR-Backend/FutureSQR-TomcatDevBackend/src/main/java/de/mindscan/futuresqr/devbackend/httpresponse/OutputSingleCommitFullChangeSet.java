@@ -28,9 +28,20 @@ package de.mindscan.futuresqr.devbackend.httpresponse;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
+
 /**
  * see BackendModelSingleCommitFullChangeSet
  */
 public class OutputSingleCommitFullChangeSet {
+
     public List<OutputSingleCommitFileChangeSet> fileChangeSet = new ArrayList<>();
+
+    public OutputSingleCommitFullChangeSet() {
+        // intentionally left blank
+    }
+
+    public OutputSingleCommitFullChangeSet( FSqrRevisionFullChangeSet fullChangeSet ) {
+        fullChangeSet.getFileChangeSet().stream().forEach( x -> fileChangeSet.add( new OutputSingleCommitFileChangeSet( x ) ) );
+    }
 }

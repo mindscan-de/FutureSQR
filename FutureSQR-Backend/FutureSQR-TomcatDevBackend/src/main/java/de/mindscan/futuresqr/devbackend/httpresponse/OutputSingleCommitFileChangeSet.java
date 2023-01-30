@@ -28,12 +28,27 @@ package de.mindscan.futuresqr.devbackend.httpresponse;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.mindscan.futuresqr.domain.model.changeset.FSqrFileChangeSet;
+
 /**
  * See: BackendModelSingleCommitFileChangeSet
  */
 public class OutputSingleCommitFileChangeSet {
+
     public String lazy_diff_line = "";
     public String lazy_index_line = "";
 
     public List<OutputSingleCommitFileContentChangeSet> fileContentChangeSet = new ArrayList<>();
+
+    public OutputSingleCommitFileChangeSet() {
+        // intentionally left blank
+    }
+
+    public OutputSingleCommitFileChangeSet( FSqrFileChangeSet fileChangeSet ) {
+        this.lazy_diff_line = fileChangeSet.getLazyFileDiffLine();
+        this.lazy_index_line = fileChangeSet.getLazyIndexLine();
+
+        fileChangeSet.getFileContentChangeSet().stream().forEach( x -> this.fileContentChangeSet.add( new OutputSingleCommitFileContentChangeSet( x ) ) );
+    }
+
 }
