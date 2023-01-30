@@ -156,11 +156,9 @@ public class ProjectRESTfulService {
     @Produces( MediaType.APPLICATION_JSON )
     public String getRevisionFullChangeset( @PathParam( "projectid" ) String projectId, @PathParam( "revisionid" ) String revisionId ) {
         if (projectDB.hasProjectLocalPath( projectId )) {
-            // TODO: implement me
             FSqrScmProjectRevisionRepositoryImpl revisionRepository = FSqrApplication.getInstance().getServices().getRevisionRepository();
             FSqrRevisionFullChangeSet fullChangeSet = revisionRepository.getRevisionFullChangeSet( projectId, revisionId );
 
-            // TODO: implement conversion of FSqrRevisionFullChangeSet -> OutputSingleCommitFullChangeSet 
             OutputSingleCommitFullChangeSet response = new OutputSingleCommitFullChangeSet( fullChangeSet );
 
             Gson gson = new Gson();
