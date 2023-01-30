@@ -161,7 +161,7 @@ public class ProjectRESTfulService {
             FSqrRevisionFullChangeSet fullChangeSet = revisionRepository.getRevisionFullChangeSet( projectId, revisionId );
 
             // TODO: implement conversion of FSqrRevisionFullChangeSet -> OutputSingleCommitFullChangeSet 
-            OutputSingleCommitFullChangeSet response = new OutputSingleCommitFullChangeSet();
+            OutputSingleCommitFullChangeSet response = new OutputSingleCommitFullChangeSet( fullChangeSet );
 
             Gson gson = new Gson();
             return gson.toJson( response );
