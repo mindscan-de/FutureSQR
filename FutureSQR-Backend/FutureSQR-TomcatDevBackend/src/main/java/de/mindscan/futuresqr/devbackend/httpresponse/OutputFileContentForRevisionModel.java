@@ -25,6 +25,8 @@
  */
 package de.mindscan.futuresqr.devbackend.httpresponse;
 
+import de.mindscan.futuresqr.domain.model.content.FSqrFileContentForRevision;
+
 /**
  * 
  */
@@ -36,5 +38,11 @@ public class OutputFileContentForRevisionModel {
 
     public OutputFileContentForRevisionModel() {
         // intentionally left blank
+    }
+
+    public OutputFileContentForRevisionModel( FSqrFileContentForRevision content ) {
+        this.filePath = content.getFilePath();
+        this.fileContent = content.getFileContent();
+        this.fileRevisionId = content.getRevisionId();
     }
 }
