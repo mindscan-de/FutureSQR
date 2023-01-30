@@ -25,9 +25,13 @@
  */
 package de.mindscan.futuresqr.devbackend.httpserver;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
@@ -167,6 +171,19 @@ public class ProjectRESTfulService {
 
         OutputSingleCommitFullChangeSet response = new OutputSingleCommitFullChangeSet();
 
+        Gson gson = new Gson();
+        return gson.toJson( response );
+    }
+
+    @javax.ws.rs.Path( "{projectid}/revisionfilecontent/{revisionid}" )
+    @GET
+    @Produces( MediaType.APPLICATION_JSON )
+    public String getRevisionFileContent( @PathParam( "projectid" ) String projectId, @PathParam( "revisionid" ) String revisionId,
+                    @QueryParam( "filepath" ) String filePath ) {
+
+        // TODO: implement me.
+
+        Map<String, String> response = new HashMap<String, String>();
         Gson gson = new Gson();
         return gson.toJson( response );
     }
