@@ -34,10 +34,12 @@ import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectType;
 import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
 import de.mindscan.futuresqr.domain.model.content.FSqrFileContentForRevision;
+import de.mindscan.futuresqr.domain.model.history.FSqrFileHistory;
 import de.mindscan.futuresqr.scmaccess.git.GitScmContentProvider;
 import de.mindscan.futuresqr.scmaccess.git.GitScmHistoryProvider;
 import de.mindscan.futuresqr.scmaccess.types.ScmBasicRevisionInformation;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
+import de.mindscan.futuresqr.scmaccess.types.ScmFileHistory;
 import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
 import de.mindscan.futuresqr.scmaccess.types.ScmHistory;
 import de.mindscan.futuresqr.scmaccess.types.ScmPath;
@@ -181,6 +183,21 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         }
 
         return new FSqrFileContentForRevision();
+    }
+
+    public FSqrFileHistory getParticularFileHistory( String projectId, String revisionId, String filePath ) {
+        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
+        if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
+            ScmRepository scmRepository = toScmRepository( scmConfiguration );
+            ScmFileHistory filePathHistory = gitHistoryProvider.getFilePathHistory( scmRepository, new ScmPath( filePath ) );
+
+            // TODO: actually add the reviews for each revision, here from somewhere else.
+            // TODO: actually we currently want to make things just run, let's see how far we get.
+
+            return new FSqrFileHistory( filePathHistory );
+        }
+
+        return new FSqrFileHistory();
     }
 
 }
