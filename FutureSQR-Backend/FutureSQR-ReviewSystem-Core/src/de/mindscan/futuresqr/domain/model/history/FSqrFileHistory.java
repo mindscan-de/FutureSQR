@@ -47,6 +47,9 @@ public class FSqrFileHistory {
     }
 
     public FSqrFileHistory( ScmFileHistory history ) {
+        this.filePath = history.filePath;
+        history.revisions.stream().forEach( x -> this.revisions.add( new FSqrRevision( x ) ) );
 
+        // TODO füllen haslimit und limit value.
     }
 }
