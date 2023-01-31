@@ -35,8 +35,8 @@ import de.mindscan.futuresqr.domain.model.history.FSqrFileHistory;
  */
 public class OutputFileHistoryModel {
 
-    private String filePath = "";
-    private List<OutputProjectRevisionsRevisionEntry> revisions = new ArrayList<>();
+    public String filePath = "";
+    public List<OutputProjectRevisionsRevisionEntry> revisions = new ArrayList<>();
 
     public OutputFileHistoryModel() {
         // intentionally left blank
