@@ -195,7 +195,6 @@ public class ProjectRESTfulService {
         return gson.toJson( response );
     }
 
-    // TODO: next endpoint:
     @javax.ws.rs.Path( "{projectid}/filehistory" )
     @GET
     @Produces( MediaType.APPLICATION_JSON )
