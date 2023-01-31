@@ -50,6 +50,8 @@ public class FSqrFileHistory {
         this.filePath = history.filePath;
         history.revisions.stream().forEach( x -> this.revisions.add( new FSqrRevision( x ) ) );
 
+        // TODO: we need to update the file revisions list with the info, whether they have a review already or not. 
+
         // TODO füllen haslimit und limit value.
     }
 
