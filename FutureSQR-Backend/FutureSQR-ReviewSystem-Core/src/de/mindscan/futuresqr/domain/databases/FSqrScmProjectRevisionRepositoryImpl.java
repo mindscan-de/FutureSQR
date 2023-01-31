@@ -192,6 +192,7 @@ public class FSqrScmProjectRevisionRepositoryImpl {
             ScmFileHistory filePathHistory = gitHistoryProvider.getFilePathHistory( scmRepository, new ScmPath( filePath ) );
 
             // TODO: actually add the reviews for each revision, here from somewhere else.
+            // TODO: also add author info.
             // TODO: actually we currently want to make things just run, let's see how far we get.
 
             return new FSqrFileHistory( filePathHistory );
