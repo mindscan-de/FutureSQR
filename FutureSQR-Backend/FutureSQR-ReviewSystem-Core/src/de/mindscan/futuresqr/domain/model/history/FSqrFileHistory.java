@@ -52,4 +52,20 @@ public class FSqrFileHistory {
 
         // TODO füllen haslimit und limit value.
     }
+
+    public int getLimitValue() {
+        return limitValue;
+    }
+
+    public boolean hasLimit() {
+        return hasLimit;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public List<FSqrRevision> getRevisions() {
+        return revisions;
+    }
 }
