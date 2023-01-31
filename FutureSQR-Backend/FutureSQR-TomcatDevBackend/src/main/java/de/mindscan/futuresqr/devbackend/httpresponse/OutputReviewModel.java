@@ -25,9 +25,28 @@
  */
 package de.mindscan.futuresqr.devbackend.httpresponse;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * 
  */
 public class OutputReviewModel {
+    public String reviewId = "";
+    public String reviewTitle = "";
+    public String reviewDescription = "";
+
+    public List<String> reviewRevisions = new ArrayList<>();
+    // actually a list of uuid in case of a known user or the unresolved author
+    public List<String> reviewAuthors = new ArrayList<>();
+
+    public boolean reviewReadyToClose = false;
+    public boolean reviewUnassigned = true;
+
+    public Map<String, Object> reviewReviewersResults = new HashMap<>();
+    public String reviewFkProjectId = "";
+    public String reviewLifecycleState = "";
 
 }
