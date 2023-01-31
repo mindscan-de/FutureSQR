@@ -47,6 +47,8 @@ public class OutputReviewModel {
 
     public Map<String, Object> reviewReviewersResults = new HashMap<>();
     public String reviewFkProjectId = "";
+
+    // Either "Open", "Closed", "Deleted"
     public String reviewLifecycleState = "";
 
 }
