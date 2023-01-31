@@ -35,6 +35,7 @@ import com.google.gson.Gson;
 
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputFileChangeInformation;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputFileContentForRevisionModel;
+import de.mindscan.futuresqr.devbackend.httpresponse.OutputFileHistoryModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputProjectRevisionsModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputProjectRevisionsRevisionEntry;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputSimpleProjectInformation;
@@ -49,6 +50,7 @@ import de.mindscan.futuresqr.domain.model.FSqrScmHistory;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
 import de.mindscan.futuresqr.domain.model.content.FSqrFileContentForRevision;
+import de.mindscan.futuresqr.domain.model.history.FSqrFileHistory;
 
 /**
  * 
@@ -194,7 +196,25 @@ public class ProjectRESTfulService {
     }
 
     // TODO: next endpoint:
-    // {projectid}/filehistory?filepath=
+    @javax.ws.rs.Path( "{projectid}/filehistory" )
+    @GET
+    @Produces( MediaType.APPLICATION_JSON )
+    public String getParticularFileHistory( @PathParam( "projectid" ) String projectId, @PathParam( "revisionid" ) String revisionId,
+                    @QueryParam( "filepath" ) String filePath ) {
+        if (projectDB.hasProjectLocalPath( projectId )) {
+            FSqrScmProjectRevisionRepositoryImpl revisionRepository = FSqrApplication.getInstance().getServices().getRevisionRepository();
+            FSqrFileHistory fileHistory = revisionRepository.getParticularFileHistory( projectId, revisionId, filePath );
+
+            OutputFileHistoryModel response = new OutputFileHistoryModel( fileHistory );
+            Gson gson = new Gson();
+            return gson.toJson( response );
+
+        }
+
+        OutputFileHistoryModel response = new OutputFileHistoryModel();
+        Gson gson = new Gson();
+        return gson.toJson( response );
+    }
 
 //  @javax.ws.rs.Path( "{projectid}/recentreviews" )
 //  @GET
