@@ -25,7 +25,6 @@
  */
 package de.mindscan.futuresqr.devbackend.httpserver;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -47,6 +46,7 @@ import de.mindscan.futuresqr.devbackend.httpresponse.OutputSingleCommitFullChang
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserToProjectDatabaseImpl;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
+import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrScmProjectRevisionRepositoryImpl;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 import de.mindscan.futuresqr.domain.model.FSqrRevision;
@@ -226,10 +226,10 @@ public class ProjectRESTfulService {
     public String getRecentReviews( @PathParam( "projectid" ) String projectId ) {
         if (projectDB.hasProjectLocalPath( projectId )) {
             // TODO: implement loading the open and recently reviews.
-            // FSqrApplication.getInstance().getServices().getReviewRepository().
+            FSqrCodeReviewRepositoryImpl reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
 
-            List<FSqrCodeReview> openReviews = new ArrayList<>();
-            List<FSqrCodeReview> closedReviews = new ArrayList<>();
+            List<FSqrCodeReview> openReviews = reviewRepository.getOpenReviews( projectId );
+            List<FSqrCodeReview> closedReviews = reviewRepository.getRecentlyClosedReviews( projectId );
 
             OutputRecentReviewsModel response = new OutputRecentReviewsModel( openReviews, closedReviews );
 
