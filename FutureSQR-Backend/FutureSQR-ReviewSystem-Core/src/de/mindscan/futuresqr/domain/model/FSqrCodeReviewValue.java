@@ -57,7 +57,7 @@ public class FSqrCodeReviewValue {
         return reviewId;
     }
 
-    FSqrCodeReviewLifecycleState getCurrentReviewState() {
+    public FSqrCodeReviewLifecycleState getCurrentReviewState() {
         return state;
     }
 
