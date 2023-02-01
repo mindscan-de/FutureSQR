@@ -28,6 +28,8 @@ package de.mindscan.futuresqr.devbackend.httpresponse;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
+
 /**
  * 
  */
@@ -39,9 +41,14 @@ public class OutputRecentReviewsModel {
         // intentionally left blank
     }
 
-    // TODO we need a review system model which we can easily convert to this model.
-//    public OutputRecentReviewsModel() {
-//        // intentionally left blank
+//    public OutputRecentReviewsModel( List<OutputReviewModel> openReviews, List<OutputReviewModel> closedReviews ) {
+//        this.openReviews = openReviews;
+//        this.recentClosedReviews = closedReviews;
 //    }
+
+    public OutputRecentReviewsModel( List<FSqrCodeReview> openReviews, List<FSqrCodeReview> closedReviews ) {
+        openReviews.stream().forEach( x -> this.openReviews.add( new OutputReviewModel( x ) ) );
+        closedReviews.stream().forEach( x -> this.recentClosedReviews.add( new OutputReviewModel( x ) ) );
+    }
 
 }
