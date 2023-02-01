@@ -51,6 +51,9 @@ public class FSqrScmProjectConfiguration {
 
     private FSqrScmProjectType scmProjectType;
 
+    // that means that this project is not active any more, and is not monitored any more, with respect to the SCM
+    private boolean isArchived = false;
+
     // TODO: some details, like ownership (who created, when created, when modified)
     // i guess this is not yet important, and can alo be kept in a kind of journal or so....
     private FSqrScmProjectGitAdminConfiguration scmGitAdminConfiguration;
@@ -134,5 +137,9 @@ public class FSqrScmProjectConfiguration {
 
     public FSqrScmProjectGitAdminConfiguration getScmGitAdminConfiguration() {
         return scmGitAdminConfiguration;
+    }
+
+    public boolean isArchived() {
+        return isArchived;
     }
 }
