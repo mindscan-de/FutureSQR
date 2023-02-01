@@ -125,6 +125,24 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
         this.updateCurrenReviewState( FSqrCodeReviewLifecycleState.Deleted );
     }
 
+    // TODO: test these
+
+    public String getReviewTitle() {
+        return reviewTitle;
+    }
+
+    public void setReviewTitle( String reviewTitle ) {
+        this.reviewTitle = reviewTitle;
+    }
+
+    public String getReviewDescription() {
+        return reviewDescription;
+    }
+
+    public void setReviewDescription( String reviewDescription ) {
+        this.reviewDescription = reviewDescription;
+    }
+
     // getDiscussionThreads
     // discussionthreadids?
 }
