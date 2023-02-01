@@ -228,8 +228,8 @@ public class ProjectRESTfulService {
             // TODO: implement loading the open and recently reviews.
             FSqrCodeReviewRepositoryImpl reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
 
-            List<FSqrCodeReview> openReviews = reviewRepository.getOpenReviews( projectId );
-            List<FSqrCodeReview> closedReviews = reviewRepository.getRecentlyClosedReviews( projectId );
+            List<FSqrCodeReview> openReviews = reviewRepository.selectOpenReviews( projectId );
+            List<FSqrCodeReview> closedReviews = reviewRepository.selectRecentlyClosedReviews( projectId );
 
             OutputRecentReviewsModel response = new OutputRecentReviewsModel( openReviews, closedReviews );
 

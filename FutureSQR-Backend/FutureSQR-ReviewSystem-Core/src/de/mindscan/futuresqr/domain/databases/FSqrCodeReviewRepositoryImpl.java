@@ -54,9 +54,6 @@ public class FSqrCodeReviewRepositoryImpl {
     // insertReview( projectid, review )
     // selectReview( projectid, reviewid )
 
-    // selectOpenReviews( projectid )
-    // selectClosedReviews( projectid )
-
     public boolean hasReviewForProjectAndRevision( String projectid, String revisionid ) {
         return false;
     }
@@ -65,12 +62,14 @@ public class FSqrCodeReviewRepositoryImpl {
         return "";
     }
 
-    public List<FSqrCodeReview> getOpenReviews( String projectId ) {
+    // selectOpenReviews( projectid )
+    public List<FSqrCodeReview> selectOpenReviews( String projectId ) {
         // TODO: implement this
         return new ArrayList<>();
     }
 
-    public List<FSqrCodeReview> getRecentlyClosedReviews( String projectId ) {
+    // selectClosedReviews( projectid )
+    public List<FSqrCodeReview> selectRecentlyClosedReviews( String projectId ) {
         // TODO: implement this
         return new ArrayList<>();
     }
