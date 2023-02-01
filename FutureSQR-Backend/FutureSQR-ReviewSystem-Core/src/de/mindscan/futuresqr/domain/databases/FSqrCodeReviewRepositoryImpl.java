@@ -25,8 +25,12 @@
  */
 package de.mindscan.futuresqr.domain.databases;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
+import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 
 /**
  * 
@@ -59,6 +63,16 @@ public class FSqrCodeReviewRepositoryImpl {
 
     public String getReviewIdForProjectAndRevision( String projectid, String revisionid ) {
         return "";
+    }
+
+    public List<FSqrCodeReview> getOpenReviews( String projectId ) {
+        // TODO: implement this
+        return new ArrayList<>();
+    }
+
+    public List<FSqrCodeReview> getRecentlyClosedReviews( String projectId ) {
+        // TODO: implement this
+        return new ArrayList<>();
     }
 
     // add revision to review
