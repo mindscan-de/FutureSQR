@@ -25,6 +25,9 @@
  */
 package de.mindscan.futuresqr.devbackend.httpserver;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -38,12 +41,14 @@ import de.mindscan.futuresqr.devbackend.httpresponse.OutputFileContentForRevisio
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputFileHistoryModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputProjectRevisionsModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputProjectRevisionsRevisionEntry;
+import de.mindscan.futuresqr.devbackend.httpresponse.OutputRecentReviewsModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputSimpleProjectInformation;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputSingleCommitFullChangeSet;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserToProjectDatabaseImpl;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
 import de.mindscan.futuresqr.domain.databases.FSqrScmProjectRevisionRepositoryImpl;
+import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 import de.mindscan.futuresqr.domain.model.FSqrRevision;
 import de.mindscan.futuresqr.domain.model.FSqrRevisionFileChangeList;
 import de.mindscan.futuresqr.domain.model.FSqrScmHistory;
@@ -215,16 +220,27 @@ public class ProjectRESTfulService {
         return gson.toJson( response );
     }
 
-//  @javax.ws.rs.Path( "{projectid}/recentreviews" )
-//  @GET
-//  @Produces( MediaType.APPLICATION_JSON )
-//  public String getRecentReviews( @PathParam( "projectid" ) String projectId ) {
-//      // TODO: implement me
-//
-//    Object response = null;
-//
-//      Gson gson = new Gson();
-//      return gson.toJson( response );
-//  }
+    @javax.ws.rs.Path( "{projectid}/recentreviews" )
+    @GET
+    @Produces( MediaType.APPLICATION_JSON )
+    public String getRecentReviews( @PathParam( "projectid" ) String projectId ) {
+        if (projectDB.hasProjectLocalPath( projectId )) {
+            // TODO: implement loading the open and recently reviews.
+            // FSqrApplication.getInstance().getServices().getReviewRepository().
+
+            List<FSqrCodeReview> openReviews = new ArrayList<>();
+            List<FSqrCodeReview> closedReviews = new ArrayList<>();
+
+            OutputRecentReviewsModel response = new OutputRecentReviewsModel( openReviews, closedReviews );
+
+            Gson gson = new Gson();
+            return gson.toJson( response );
+        }
+
+        OutputRecentReviewsModel response = new OutputRecentReviewsModel();
+
+        Gson gson = new Gson();
+        return gson.toJson( response );
+    }
 
 }
