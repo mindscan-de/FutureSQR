@@ -30,6 +30,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
+
 /**
  * 
  */
@@ -50,5 +52,27 @@ public class OutputReviewModel {
 
     // Either "Open", "Closed", "Deleted"
     public String reviewLifecycleState = "";
+
+    /**
+     * 
+     */
+    public OutputReviewModel() {
+        // intentionally left blank
+    }
+
+    public OutputReviewModel( FSqrCodeReview codeReview ) {
+        this.reviewId = codeReview.getReviewId();
+        this.reviewTitle = codeReview.getReviewTitle();
+        this.reviewDescription = codeReview.getReviewDescription();
+
+        // TODO: convert the reviewRevisions to revision ids only
+        // TODO: convert review Authors
+        // TODO: this.reviewReadyToClose = codeReview.
+        // TODO: this.reviewUnassigned =
+        // TODO: this.reviewReviewersResults = codeReview.
+
+        this.reviewFkProjectId = codeReview.getProjectId();
+        this.reviewLifecycleState = codeReview.getCurrentReviewState().name();
+    }
 
 }
