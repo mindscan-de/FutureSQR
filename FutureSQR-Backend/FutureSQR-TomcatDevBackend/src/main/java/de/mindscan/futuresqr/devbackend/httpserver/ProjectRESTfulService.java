@@ -124,6 +124,9 @@ public class ProjectRESTfulService {
         return new OutputProjectRevisionsRevisionEntry( rev );
     }
 
+    // TODO see python code
+    // TODO: @app.get("/FutureSQR/rest/project/{projectid}/recentcommitsfromrevid/{fromrevisionid}", response_class=JSONResponse)    
+
     @javax.ws.rs.Path( "{projectid}/revision/{revisionid}/information" )
     @GET
     @Produces( MediaType.APPLICATION_JSON )
@@ -219,6 +222,18 @@ public class ProjectRESTfulService {
         Gson gson = new Gson();
         return gson.toJson( response );
     }
+
+    // TODO: @app.get("/FutureSQR/rest/project/{projectid}/reviewdiff/{reviewid}", response_class=JSONResponse)
+
+    // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/filelist", response_class=JSONResponse)
+
+    // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/information", response_class=JSONResponse)
+
+    // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/revisiondetails", response_class=JSONResponse)
+
+    // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/suggestedreviewers", response_class=JSONResponse)
+
+    // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/threads", response_class=JSONResponse)
 
     @javax.ws.rs.Path( "{projectid}/recentreviews" )
     @GET
