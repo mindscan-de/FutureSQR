@@ -258,4 +258,24 @@ public class ProjectRESTfulService {
         return gson.toJson( response );
     }
 
+    // TODO: @app.post *
+    // @app.post("/FutureSQR/rest/project/{projectid}/star", response_class=JSONResponse)
+    // @app.post("/FutureSQR/rest/project/{projectid}/unstar", response_class=JSONResponse)    
+    // @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/createthread", response_class=JSONResponse)
+    // @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/replythread", response_class=JSONResponse)
+    // @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/editmessage", response_class=JSONResponse)
+    // @app.post("/FutureSQR/rest/project/{projectid}/review/create", response_class=JSONResponse)
+    // @app.post("/FutureSQR/rest/project/{projectid}/review/close", response_class=JSONResponse)
+    // @app.post("/FutureSQR/rest/project/{projectid}/review/reopen", response_class=JSONResponse)
+    // @app.post("/FutureSQR/rest/project/{projectid}/review/delete", response_class=JSONResponse)
+    // @app.post("/FutureSQR/rest/project/{projectid}/review/addreviewer", response_class=JSONResponse)
+    // @app.post("/FutureSQR/rest/project/{projectid}/review/removereviewer", response_class=JSONResponse)
+    // @app.post("/FutureSQR/rest/project/{projectid}/review/approvereview", response_class=JSONResponse)
+    // @app.post("/FutureSQR/rest/project/{projectid}/review/concernreview", response_class=JSONResponse)
+    // @app.post("/FutureSQR/rest/project/{projectid}/review/resetreview", response_class=JSONResponse)
+    // @app.post("/FutureSQR/rest/project/{projectid}/review/appendrevision", response_class=JSONResponse)
+    // @app.post("/FutureSQR/rest/project/{projectid}/review/removerevision", response_class=JSONResponse)
+    // @app.post("/FutureSQR/rest/project/{projectid}/updatecache", response_class=JSONResponse)
+    // 
+
 }
