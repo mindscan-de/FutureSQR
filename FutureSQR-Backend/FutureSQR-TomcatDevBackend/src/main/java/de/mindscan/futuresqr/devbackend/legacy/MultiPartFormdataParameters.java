@@ -44,11 +44,7 @@ public class MultiPartFormdataParameters {
     }
 
     public String getString( String parameterName ) {
-        if (parameters.containsKey( parameterName )) {
-            return parameters.get( parameterName );
-        }
-
-        return "";
+        return parameters.getOrDefault( parameterName, null );
     }
 
     public String getStringOrThrow( String parameterName ) {
