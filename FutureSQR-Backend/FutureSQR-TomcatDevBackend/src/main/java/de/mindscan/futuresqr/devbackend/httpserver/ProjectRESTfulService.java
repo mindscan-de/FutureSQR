@@ -28,6 +28,7 @@ package de.mindscan.futuresqr.devbackend.httpserver;
 import java.util.List;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -43,6 +44,7 @@ import de.mindscan.futuresqr.devbackend.httpresponse.OutputProjectRevisionsRevis
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputRecentReviewsModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputSimpleProjectInformation;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputSingleCommitFullChangeSet;
+import de.mindscan.futuresqr.devbackend.httpresponse.OutputStatusOkayModel;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserToProjectDatabaseImpl;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
@@ -223,7 +225,8 @@ public class ProjectRESTfulService {
         return gson.toJson( response );
     }
 
-    // TODO: @app.get("/FutureSQR/rest/project/{projectid}/reviewdiff/{reviewid}", response_class=JSONResponse)
+    // TODO: @app.get("/FutureSQR/rest/project/{projectid}/reviewdiff/{reviewid}", response_class=JSONResponse) <<-- refactor from this
+    // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/diff", response_class=JSONResponse) <<--  refactor to this
 
     // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/filelist", response_class=JSONResponse)
 
@@ -275,7 +278,28 @@ public class ProjectRESTfulService {
     // @app.post("/FutureSQR/rest/project/{projectid}/review/resetreview", response_class=JSONResponse)
     // @app.post("/FutureSQR/rest/project/{projectid}/review/appendrevision", response_class=JSONResponse)
     // @app.post("/FutureSQR/rest/project/{projectid}/review/removerevision", response_class=JSONResponse)
-    // @app.post("/FutureSQR/rest/project/{projectid}/updatecache", response_class=JSONResponse)
     // 
+
+    @javax.ws.rs.Path( "{projectid}/updatecache" )
+    @POST
+    @Produces( MediaType.APPLICATION_JSON )
+    public String postUpdateCache( @PathParam( "projectid" ) String projectId ) {
+        if (projectDB.hasProjectLocalPath( projectId )) {
+            FSqrScmProjectRevisionRepositoryImpl revisionRepository = FSqrApplication.getInstance().getServices().getRevisionRepository();
+
+            revisionRepository.updateProjectCache( projectId );
+
+            OutputStatusOkayModel response = new OutputStatusOkayModel();
+
+            Gson gson = new Gson();
+            return gson.toJson( response );
+        }
+
+        OutputStatusOkayModel response = new OutputStatusOkayModel();
+
+        Gson gson = new Gson();
+        return gson.toJson( response );
+
+    }
 
 }
