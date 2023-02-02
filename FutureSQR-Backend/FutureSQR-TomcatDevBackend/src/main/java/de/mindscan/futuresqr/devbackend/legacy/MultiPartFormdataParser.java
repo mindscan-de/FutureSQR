@@ -41,6 +41,10 @@ import java.io.InputStream;
  */
 public class MultiPartFormdataParser {
 
+    public static MultiPartFormdataParser createParser( String requestBody ) {
+        return new MultiPartFormdataParser( requestBody );
+    }
+
     /**
      * 
      */

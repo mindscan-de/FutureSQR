@@ -43,6 +43,8 @@ import de.mindscan.futuresqr.devbackend.httpresponse.OutputCsrfTokenModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputLoginDataModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputStatusOkayModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputUserProjectEntry;
+import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParameters;
+import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParser;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserDBEntry;
 import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserDatabaseImpl;
@@ -70,11 +72,13 @@ public class LazyImplUserRESTfulService {
 //                    @FormParam( "username" ) String username, //
 //                    @FormParam( "password" ) String password 
     ) {
+        MultiPartFormdataParameters parameters = MultiPartFormdataParser.createParser( requestBody ).parse();
 
         // XXX: this is bad but i really don't want to deal with the multipart formdata right now.
         //      bad enough this sh*t is not solved once and for all in tomcat 7 - eff this.
-        String username = "mindscan-de";
-        String password = "test";
+
+        String username = parameters.getStringOrDefault( "username", "mindscan-de" );
+        String password = parameters.getStringOrDefault( "password", "test" );
 
         return postLoginDataForAuthentication( username, password );
     }
@@ -113,14 +117,16 @@ public class LazyImplUserRESTfulService {
     @javax.ws.rs.Path( "/reauthenticate" )
     @POST
     @Produces( "application/json" )
-    public String postReauthenticationLoginData( //
+    public String postReauthenticationLoginData( String requestBody //
 //                    @FormParam( "assumedusername" )
     // String assumedUserName 
     ) {
+        MultiPartFormdataParameters parameters = MultiPartFormdataParser.createParser( requestBody ).parse();
 
         // XXX: this is bad but i really don't want to deal with the multipart formdata right now.
         //      bad enough this sh*t is not solved once and for all in tomcat 7 - eff this.
-        String assumedUserName = "mindscan-de";
+
+        String assumedUserName = parameters.getStringOrDefault( "assumedusername", "mindscan-de" );
 
         return postReauthenticationLoginData_internal( assumedUserName );
     }
