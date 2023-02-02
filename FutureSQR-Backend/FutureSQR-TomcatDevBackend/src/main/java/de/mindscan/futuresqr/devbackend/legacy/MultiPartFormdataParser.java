@@ -36,6 +36,8 @@ import java.io.InputStream;
  * to a more recent version.
  * 
  * I currently don't want to spend time for ramp up, to a different framework.
+ * 
+ * We won't support much features anyways.
  */
 public class MultiPartFormdataParser {
 
@@ -43,6 +45,10 @@ public class MultiPartFormdataParser {
      * 
      */
     public MultiPartFormdataParser( InputStream is ) {
+
+    }
+
+    public MultiPartFormdataParser( String requestBody ) {
 
     }
 
