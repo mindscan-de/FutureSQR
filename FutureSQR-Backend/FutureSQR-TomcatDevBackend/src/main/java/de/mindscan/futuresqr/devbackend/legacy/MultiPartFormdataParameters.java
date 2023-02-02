@@ -40,10 +40,27 @@ public class MultiPartFormdataParameters {
     }
 
     public void addParameter( String parameterName, String parameterValue ) {
-
+        this.parameters.put( parameterName, parameterValue );
     }
 
     public String getString( String parameterName ) {
+        if (parameters.containsKey( parameterName )) {
+            return parameters.get( parameterName );
+        }
+
         return "";
+    }
+
+    public String getStringOrThrow( String parameterName ) {
+        if (parameters.containsKey( parameterName )) {
+            return parameters.get( parameterName );
+        }
+
+        throw new RuntimeException( "Mising '" + parameterName + "' in transferred FormData." );
+    }
+
+    // for optional parameters
+    public String getStringOrDefault( String parameterName, String defaultValue ) {
+        return parameters.getOrDefault( parameterName, defaultValue );
     }
 }
