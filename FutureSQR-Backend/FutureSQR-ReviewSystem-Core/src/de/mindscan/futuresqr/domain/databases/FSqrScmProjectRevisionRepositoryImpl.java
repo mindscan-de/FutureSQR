@@ -201,4 +201,20 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         return new FSqrFileHistory();
     }
 
+    public void updateProjectCache( String projectId ) {
+        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
+        if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
+            ScmRepository scmRepository = toScmRepository( scmConfiguration );
+            String branchName = scmConfiguration.getScmGitAdminConfiguration().getDefaultBranchName();
+
+            if (branchName != null && !branchName.trim().isEmpty()) {
+                gitHistoryProvider.updateProjectCache( scmRepository, branchName );
+            }
+            else {
+                System.out.println( "[updateProjectCache] - branchName is empty - must be fixed." );
+            }
+        }
+
+    }
+
 }
