@@ -76,6 +76,10 @@ public class LazyImplUserRESTfulService {
         String username = "mindscan-de";
         String password = "test";
 
+        return postLoginDataForAuthentication( username, password );
+    }
+
+    private String postLoginDataForAuthentication( String username, String password ) {
         // #1 check if user is present in the userdatabase
         if (!userDB.hasUser( username )) {
             // todo provide a 404 and a good response
@@ -118,6 +122,10 @@ public class LazyImplUserRESTfulService {
         //      bad enough this sh*t is not solved once and for all in tomcat 7 - eff this.
         String assumedUserName = "mindscan-de";
 
+        return postReauthenticationLoginData_internal( assumedUserName );
+    }
+
+    private String postReauthenticationLoginData_internal( String assumedUserName ) {
         // TODO: reimplement python #postReauthenticateLoginData
 
         // #1 session handling and session checking for this alleged account.
