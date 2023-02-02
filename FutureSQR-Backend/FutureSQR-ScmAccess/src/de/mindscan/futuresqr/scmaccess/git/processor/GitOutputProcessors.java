@@ -31,6 +31,7 @@ import de.mindscan.futuresqr.scmaccess.git.processor.impl.ScmFileHistoryOutputPr
 import de.mindscan.futuresqr.scmaccess.git.processor.impl.ScmFullChangeSetOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.git.processor.impl.ScmHistoryOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.git.processor.impl.ScmSingleRevisionFileChangeListOutputProcessor;
+import de.mindscan.futuresqr.scmaccess.git.processor.impl.ScmVoidOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileHistory;
 import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
@@ -60,5 +61,9 @@ public class GitOutputProcessors {
 
     public static GitCLICommandOutputProcessor<ScmFullChangeSet> toScmFullChangeSet() {
         return new ScmFullChangeSetOutputProcessor();
+    }
+
+    public static GitCLICommandOutputProcessor<Void> toScmVoid() {
+        return new ScmVoidOutputProcessor();
     }
 }
