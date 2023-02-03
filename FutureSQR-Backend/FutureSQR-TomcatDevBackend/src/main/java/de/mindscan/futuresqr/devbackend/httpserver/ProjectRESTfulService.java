@@ -45,6 +45,8 @@ import de.mindscan.futuresqr.devbackend.httpresponse.OutputRecentReviewsModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputSimpleProjectInformation;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputSingleCommitFullChangeSet;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputStatusOkayModel;
+import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParameters;
+import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParser;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserToProjectDatabaseImpl;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
@@ -261,9 +263,43 @@ public class ProjectRESTfulService {
         return gson.toJson( response );
     }
 
-    // TODO: @app.post *
     // @app.post("/FutureSQR/rest/project/{projectid}/star", response_class=JSONResponse)
-    // @app.post("/FutureSQR/rest/project/{projectid}/unstar", response_class=JSONResponse)    
+    @javax.ws.rs.Path( "{projectid}/star" )
+    @POST
+    @Produces( MediaType.APPLICATION_JSON )
+    public String postProjectStarred( @PathParam( "projectid" ) String projectId, String requestBody ) {
+        // System.out.println( requestBody );
+        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
+
+        if (projectDB.hasProjectLocalPath( projectId )) {
+
+            String userid = postParams.getStringOrDefault( "userid", "8ce74ee9-48ff-3dde-b678-58a632887e31" );
+
+            // TODO: implement me...
+        }
+
+        return "";
+    }
+
+    // @app.post("/FutureSQR/rest/project/{projectid}/unstar", response_class=JSONResponse)
+    @javax.ws.rs.Path( "{projectid}/unstar" )
+    @POST
+    @Produces( MediaType.APPLICATION_JSON )
+    public String postProjectUnstarred( @PathParam( "projectid" ) String projectId, String requestBody ) {
+        // System.out.println( requestBody );
+        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
+
+        if (projectDB.hasProjectLocalPath( projectId )) {
+
+            String userid = postParams.getStringOrDefault( "userid", "8ce74ee9-48ff-3dde-b678-58a632887e31" );
+
+            // TODO: implement me....
+        }
+
+        return "";
+    }
+
+    // TODO: @app.post *
     // @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/createthread", response_class=JSONResponse)
     // @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/replythread", response_class=JSONResponse)
     // @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/editmessage", response_class=JSONResponse)
