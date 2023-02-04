@@ -80,7 +80,7 @@ public class FSqrUserToProjectRepositoryImpl {
             return;
         }
 
-        getUserStarredProjects( projectId ).remove( projectId );
+        getUserStarredProjects( userId ).remove( projectId );
     }
 
     public boolean isStarred( String userId, String projectId ) {
