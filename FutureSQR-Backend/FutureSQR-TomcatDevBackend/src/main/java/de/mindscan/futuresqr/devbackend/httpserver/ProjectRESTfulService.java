@@ -279,12 +279,12 @@ public class ProjectRESTfulService {
         // System.out.println( requestBody );
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
-        //if (projectDB.hasProjectLocalPath( projectId )) {
-        // TODO: replace this getStringOrThrow to force userid as soon as we have a working parser
-        String userid = postParams.getStringOrDefault( "userid", HARDCODED_MINDSCAN_DE_UUID );
+        if (projectDB.isProjectIdPresent( projectId )) {
+            // TODO: replace this getStringOrThrow to force userid as soon as we have a working parser
+            String userid = postParams.getStringOrDefault( "userid", HARDCODED_MINDSCAN_DE_UUID );
 
-        FSqrApplication.getInstance().getServices().getUserToProjectRepository().starProject( userid, projectId );
-        // }
+            FSqrApplication.getInstance().getServices().getUserToProjectRepository().starProject( userid, projectId );
+        }
 
         return "";
     }
@@ -297,14 +297,14 @@ public class ProjectRESTfulService {
         // System.out.println( requestBody );
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
-        //if (projectDB.hasProjectLocalPath( projectId )) {
-        // TODO: replace this getStringOrThrow to force userid as soon as we have a working parser 
-        String userid = postParams.getStringOrDefault( "userid", HARDCODED_MINDSCAN_DE_UUID );
+        if (projectDB.isProjectIdPresent( projectId )) {
+            // TODO: replace this getStringOrThrow to force userid as soon as we have a working parser 
+            String userid = postParams.getStringOrDefault( "userid", HARDCODED_MINDSCAN_DE_UUID );
 
-        // System.out.println( userid );
+            // System.out.println( userid );
 
-        FSqrApplication.getInstance().getServices().getUserToProjectRepository().unstarProject( userid, projectId );
-        //}
+            FSqrApplication.getInstance().getServices().getUserToProjectRepository().unstarProject( userid, projectId );
+        }
 
         return "";
     }

@@ -135,7 +135,7 @@ public class FSqrLazyProjectDatabaseImpl {
         return configurationRepository.getAllProjectConfigurations();
     }
 
-    private boolean isProjectIdPresent( String projectId ) {
+    public boolean isProjectIdPresent( String projectId ) {
         return configurationRepository.hasProjectConfiguration( projectId );
     }
 
