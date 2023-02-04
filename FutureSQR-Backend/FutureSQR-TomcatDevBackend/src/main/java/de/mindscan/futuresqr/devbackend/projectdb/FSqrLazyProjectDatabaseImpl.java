@@ -144,8 +144,7 @@ public class FSqrLazyProjectDatabaseImpl {
             return false;
         }
 
-        return true;
-        // return getProjectConfiguration( projectId ).hasLocalRepoPath();
+        return getProjectConfiguration( projectId ).hasLocalRepoPath();
     }
 
 }
