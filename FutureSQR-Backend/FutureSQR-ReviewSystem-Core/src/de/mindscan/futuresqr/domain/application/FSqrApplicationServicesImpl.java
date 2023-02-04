@@ -62,6 +62,7 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
 
         // we don't want to deal with the internals of this Review system from the outside e.g. the Web servers
         initializeHardCodedUsers();
+        initializeHardCodedStarredProjects();
     }
 
     void initializeServiceInstances( FSqrApplicationServices services ) {
@@ -83,6 +84,14 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
         this.userRepository.addUserHandle( "mindscan-banned", "6822a80d-1854-304c-a26d-81acd2c008f3" );
         this.userRepository.addUserHandle( "rbreunung", "35c94b55-559f-30e4-a2f4-ee16d31fc276" );
         this.userRepository.addUserHandle( "Robert Breunung", "35c94b55-559f-30e4-a2f4-ee16d31fc276" );
+    }
+
+    void initializeHardCodedStarredProjects() {
+        String mindscanUserId = "";
+        this.userToProjectRepository.starProject( mindscanUserId, "furiousiron-frontend" );
+        this.userToProjectRepository.starProject( mindscanUserId, "furiousiron-hfb" );
+        this.userToProjectRepository.starProject( mindscanUserId, "futuresqr" );
+        this.userToProjectRepository.starProject( mindscanUserId, "futuresqr-svn-trunk" );
     }
 
     // TODO we want to provide some dataprovider ability, the application can ask, e.g. on restart or on demand, 
