@@ -42,9 +42,11 @@ export class ProjectDataQueryBackendService {
 		private httpClient : HttpClient 
 	) { }
 
-    getAllProjects () : Observable<BackendModelProjectItem[]> {
+    getAllProjects (userid:string) : Observable<BackendModelProjectItem[]> {
+		let params = new HttpParams().set('userid',userid);
+	
 	    return this.httpClient
-				.get<BackendModelProjectItem[]>(ProjectDataQueryBackendService.URL_GET_ALL_PROJECTS, {})
+				.get<BackendModelProjectItem[]>(ProjectDataQueryBackendService.URL_GET_ALL_PROJECTS, { params: params })
 				.pipe(first());
     }
 

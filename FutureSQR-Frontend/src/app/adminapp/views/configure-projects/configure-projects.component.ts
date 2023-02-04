@@ -9,6 +9,7 @@ import { AdminNavbarBreadcrumbItem } from '../../services/model/admin-navbar-bre
 
 // BackendModel - should be actually 
 import { BackendModelProjectItem } from '../../../backend/model/backend-model-project-item';
+import { CurrentUserService } from '../../../uiservices/current-user.service';
 
 
 @Component({
@@ -22,13 +23,14 @@ export class ConfigureProjectsComponent implements OnInit {
 
 	constructor(
 		private projectDataQueryBackend : ProjectDataQueryBackendService,		
- 		private adminNavigationBarService : AdminNavigationBarService
+ 		private adminNavigationBarService : AdminNavigationBarService,
+		private currentUserService: CurrentUserService 
 	) { }
 
 	ngOnInit(): void {
 		this.updateNavigationBar();
 		
-		this.projectDataQueryBackend.getAllProjects().subscribe( 
+		this.projectDataQueryBackend.getAllProjects(this.currentUserService.getCurrentUserUUID()).subscribe( 
 			data => this.onAllProjectsProvided(data),
 			error => console.log(error)
 		);

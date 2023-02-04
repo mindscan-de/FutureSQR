@@ -28,7 +28,7 @@ export class AllProjectsPageComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
-		this.projectDataQueryBackend.getAllProjects().subscribe( 
+		this.projectDataQueryBackend.getAllProjects(this.currentUserService.getCurrentUserUUID()).subscribe( 
 			data => this.onAllProjectsProvided(data),
 			error => console.log(error)
 		);
