@@ -28,6 +28,7 @@ package de.mindscan.futuresqr.devbackend.httpserver;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.ws.rs.FormParam;
@@ -48,7 +49,8 @@ import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParser;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserDBEntry;
 import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserDatabaseImpl;
-import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserToProjectDatabaseImpl;
+import de.mindscan.futuresqr.domain.application.FSqrApplication;
+import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectRepositoryImpl;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 
 /**
@@ -59,7 +61,6 @@ public class LazyImplUserRESTfulService {
 
     private static FSqrLazyUserDatabaseImpl userDB = new FSqrLazyUserDatabaseImpl();
     private static FSqrLazyProjectDatabaseImpl projectDB = new FSqrLazyProjectDatabaseImpl();
-    private static FSqrLazyUserToProjectDatabaseImpl userToProjectDB = new FSqrLazyUserToProjectDatabaseImpl();
 
     @javax.ws.rs.Path( "/authenticate" )
     @POST
@@ -201,12 +202,16 @@ public class LazyImplUserRESTfulService {
     public String getUserStarredProjects( @QueryParam( "userid" ) String userUUID ) {
         Collection<FSqrScmProjectConfiguration> allProjects = projectDB.getAllProjects();
 
+        FSqrUserToProjectRepositoryImpl userToProjectRepository = FSqrApplication.getInstance().getServices().getUserToProjectRepository();
+        Set<String> starredProjects = userToProjectRepository.getAllStarredProjectsForUser( userUUID );
+
         // TODO actually also filter the accessible projects, since they could be starred, before
         //      user lost access.
         List<OutputUserProjectEntry> response = allProjects.stream()//
-                        .filter( x -> userToProjectDB.isStarred( x.getProjectId() ) )//
-                        .map( this::transform ) //
+                        .filter( x -> starredProjects.contains( x.getProjectId() ) )//
+                        .map( c -> transform( userUUID, c ) ) //
                         .collect( Collectors.toList() );
+
         response.sort( new Comparator<OutputUserProjectEntry>() {
             @Override
             public int compare( OutputUserProjectEntry o1, OutputUserProjectEntry o2 ) {
@@ -227,7 +232,7 @@ public class LazyImplUserRESTfulService {
         // TODO actually also filter the accessible projects, since they could be starred, before
         //      user lost access.
         List<OutputUserProjectEntry> response = allProjects.stream()//
-                        .map( this::transform ) //
+                        .map( c -> transform( userUUID, c ) ) //
                         .collect( Collectors.toList() );
         response.sort( new Comparator<OutputUserProjectEntry>() {
             @Override
@@ -239,15 +244,16 @@ public class LazyImplUserRESTfulService {
         return gson.toJson( response );
     }
 
-    private OutputUserProjectEntry transform( FSqrScmProjectConfiguration configuration ) {
+    private OutputUserProjectEntry transform( String userUUID, FSqrScmProjectConfiguration configuration ) {
+        FSqrUserToProjectRepositoryImpl userToProjectRepository = FSqrApplication.getInstance().getServices().getUserToProjectRepository();
+
         OutputUserProjectEntry transformed = new OutputUserProjectEntry();
         String projectId = configuration.getProjectId();
         transformed.project_id = projectId;
         transformed.project_display_name = configuration.getProjectDisplayName();
         transformed.description = configuration.getProjectDescription();
 
-        // TODO calculate whether project is starred by user, by separate repository.
-        transformed.is_starred = userToProjectDB.isStarred( projectId );
+        transformed.is_starred = userToProjectRepository.isStarred( userUUID, projectId );
 
         return transformed;
     }
