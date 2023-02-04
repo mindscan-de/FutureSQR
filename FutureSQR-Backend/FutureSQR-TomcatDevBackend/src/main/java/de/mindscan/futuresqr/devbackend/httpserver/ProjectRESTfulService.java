@@ -67,6 +67,10 @@ import de.mindscan.futuresqr.domain.model.history.FSqrFileHistory;
 @javax.ws.rs.Path( "/project" )
 public class ProjectRESTfulService {
 
+    // TODO: get rid of it as soon as possible.
+    private static final String HARDCODED_MINDSCAN_DE_UUID = "8ce74ee9-48ff-3dde-b678-58a632887e31";
+
+    // -------------------------------------------------------------------------------------------
     // this should be provided by a web-application instance, instead of a new instance each time.
     private static FSqrLazyProjectDatabaseImpl projectDB = new FSqrLazyProjectDatabaseImpl();
 
@@ -86,13 +90,13 @@ public class ProjectRESTfulService {
         // TODO: problem is that this project project information is user specific, because it may be starred by the user.
         // TODO: we might have to consider the current session context here.
 
-        OutputSimpleProjectInformation response = transform( projectConfiguration );
+        OutputSimpleProjectInformation response = transform( HARDCODED_MINDSCAN_DE_UUID, projectConfiguration );
 
         Gson gson = new Gson();
         return gson.toJson( response );
     }
 
-    private OutputSimpleProjectInformation transform( FSqrScmProjectConfiguration projectConfiguration ) {
+    private OutputSimpleProjectInformation transform( String userUUID, FSqrScmProjectConfiguration projectConfiguration ) {
         OutputSimpleProjectInformation transformed = new OutputSimpleProjectInformation();
 
         transformed.projectID = projectConfiguration.getProjectId();
@@ -100,9 +104,8 @@ public class ProjectRESTfulService {
         transformed.projectDescription = projectConfiguration.getProjectDescription();
         transformed.projectUuid = projectConfiguration.getProjectUuid();
 
-        // TODO: we need the current userid  to calculate the current transformation.
         FSqrUserToProjectRepositoryImpl userToProjectRepository = FSqrApplication.getInstance().getServices().getUserToProjectRepository();
-        transformed.projectIsStarred = userToProjectRepository.isStarred( "8ce74ee9-48ff-3dde-b678-58a632887e31", projectConfiguration.getProjectId() );
+        transformed.projectIsStarred = userToProjectRepository.isStarred( userUUID, projectConfiguration.getProjectId() );
 
         return transformed;
     }
@@ -278,7 +281,7 @@ public class ProjectRESTfulService {
 
         if (projectDB.hasProjectLocalPath( projectId )) {
             // TODO: replace this getStringOrThrow to force userid as soon as we have a working parser
-            String userid = postParams.getStringOrDefault( "userid", "8ce74ee9-48ff-3dde-b678-58a632887e31" );
+            String userid = postParams.getStringOrDefault( "userid", HARDCODED_MINDSCAN_DE_UUID );
 
             FSqrApplication.getInstance().getServices().getUserToProjectRepository().starProject( userid, projectId );
         }
@@ -296,7 +299,7 @@ public class ProjectRESTfulService {
 
         if (projectDB.hasProjectLocalPath( projectId )) {
             // TODO: replace this getStringOrThrow to force userid as soon as we have a working parser 
-            String userid = postParams.getStringOrDefault( "userid", "8ce74ee9-48ff-3dde-b678-58a632887e31" );
+            String userid = postParams.getStringOrDefault( "userid", HARDCODED_MINDSCAN_DE_UUID );
 
             FSqrApplication.getInstance().getServices().getUserToProjectRepository().unstarProject( userid, projectId );
         }
