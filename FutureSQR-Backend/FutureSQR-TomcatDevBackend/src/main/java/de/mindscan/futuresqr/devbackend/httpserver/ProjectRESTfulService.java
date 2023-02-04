@@ -48,10 +48,10 @@ import de.mindscan.futuresqr.devbackend.httpresponse.OutputStatusOkayModel;
 import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParameters;
 import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParser;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
-import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserToProjectDatabaseImpl;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
 import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrScmProjectRevisionRepositoryImpl;
+import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectRepositoryImpl;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 import de.mindscan.futuresqr.domain.model.FSqrRevision;
 import de.mindscan.futuresqr.domain.model.FSqrRevisionFileChangeList;
@@ -69,7 +69,6 @@ public class ProjectRESTfulService {
 
     // this should be provided by a web-application instance, instead of a new instance each time.
     private static FSqrLazyProjectDatabaseImpl projectDB = new FSqrLazyProjectDatabaseImpl();
-    private static FSqrLazyUserToProjectDatabaseImpl userToProjectDB = new FSqrLazyUserToProjectDatabaseImpl();
 
     @javax.ws.rs.Path( "/testme" )
     @GET
@@ -84,6 +83,9 @@ public class ProjectRESTfulService {
     public String getSimpleProjectInformation( @PathParam( "projectid" ) String projectId ) {
         FSqrScmProjectConfiguration projectConfiguration = projectDB.getProjectConfiguration( projectId );
 
+        // TODO: problem is that this project project information is user specific, because it may be starred by the user.
+        // TODO: we might have to consider the current session context here.
+
         OutputSimpleProjectInformation response = transform( projectConfiguration );
 
         Gson gson = new Gson();
@@ -96,8 +98,11 @@ public class ProjectRESTfulService {
         transformed.projectID = projectConfiguration.getProjectId();
         transformed.projectDisplayName = projectConfiguration.getProjectDisplayName();
         transformed.projectDescription = projectConfiguration.getProjectDescription();
-        transformed.projectIsStarred = userToProjectDB.isStarred( projectConfiguration.getProjectId() );
         transformed.projectUuid = projectConfiguration.getProjectUuid();
+
+        // TODO: we need the current userid  to calculate the current transformation.
+        FSqrUserToProjectRepositoryImpl userToProjectRepository = FSqrApplication.getInstance().getServices().getUserToProjectRepository();
+        transformed.projectIsStarred = userToProjectRepository.isStarred( "8ce74ee9-48ff-3dde-b678-58a632887e31", projectConfiguration.getProjectId() );
 
         return transformed;
     }
@@ -272,10 +277,10 @@ public class ProjectRESTfulService {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
         if (projectDB.hasProjectLocalPath( projectId )) {
-
+            // TODO: replace this getStringOrThrow to force userid as soon as we have a working parser
             String userid = postParams.getStringOrDefault( "userid", "8ce74ee9-48ff-3dde-b678-58a632887e31" );
 
-            // TODO: implement me...
+            FSqrApplication.getInstance().getServices().getUserToProjectRepository().starProject( userid, projectId );
         }
 
         return "";
@@ -290,10 +295,10 @@ public class ProjectRESTfulService {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
         if (projectDB.hasProjectLocalPath( projectId )) {
-
+            // TODO: replace this getStringOrThrow to force userid as soon as we have a working parser 
             String userid = postParams.getStringOrDefault( "userid", "8ce74ee9-48ff-3dde-b678-58a632887e31" );
 
-            // TODO: implement me....
+            FSqrApplication.getInstance().getServices().getUserToProjectRepository().unstarProject( userid, projectId );
         }
 
         return "";
