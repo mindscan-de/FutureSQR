@@ -36,17 +36,21 @@ import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitializ
 /**
  * Idea here is to collect methods and data and such related to user to project relations. 
  * This may be refactored any time.
+ * 
+ * Also we might also provide methods, to calculate which project a user has access to,
+ * because this is related to the user to project relationship as well but a different
+ * attribute.
  */
 public class FSqrUserToProjectRepositoryImpl {
 
-    private Map<String, Set<String>> starredUserProjects;
+    private Map<String, Set<String>> starredProjectsByUser;
     private FSqrApplicationServices applicationServices;
 
     /**
      * 
      */
     public FSqrUserToProjectRepositoryImpl() {
-        this.starredUserProjects = new HashMap<>();
+        this.starredProjectsByUser = new HashMap<>();
         this.applicationServices = new FSqrApplicationServicesUnitialized();
 
     }
@@ -93,8 +97,10 @@ public class FSqrUserToProjectRepositoryImpl {
     }
 
     private Set<String> getUserStarredProjects( String userId ) {
-        return starredUserProjects.computeIfAbsent( userId, k -> new HashSet<String>() );
+        return starredProjectsByUser.computeIfAbsent( userId, k -> new HashSet<String>() );
     }
+
+    // TODO: maybe we also want the reverse table, where we look at the project, and want to know who gave a star to this project
 
     private boolean isValidUser( String userId ) {
         // ask the user repository if the userId exists.
