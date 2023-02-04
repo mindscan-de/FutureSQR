@@ -30,6 +30,7 @@ import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrScmProjectConfigurationRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrScmProjectRevisionRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrScmUserRepositoryImpl;
+import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectRepositoryImpl;
 
 /**
  * 
@@ -40,6 +41,7 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
     private FSqrScmProjectRevisionRepositoryImpl revisionRepository;
     private FSqrScmUserRepositoryImpl userRepository;
     private FSqrCodeReviewRepositoryImpl reviewRepository;
+    private FSqrUserToProjectRepositoryImpl userToProjectRepository;
     private FSqrSystemInstanceConfigurationImpl systemConfiguration;
 
     /**
@@ -51,6 +53,7 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
         this.revisionRepository = new FSqrScmProjectRevisionRepositoryImpl();
         this.userRepository = new FSqrScmUserRepositoryImpl();
         this.reviewRepository = new FSqrCodeReviewRepositoryImpl();
+        this.userToProjectRepository = new FSqrUserToProjectRepositoryImpl();
 
         // we need to boot the instance
         // and then we actually need a way to provide some data from externalproviders, and then
@@ -68,6 +71,7 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
         this.revisionRepository.setApplicationServices( services );
         this.userRepository.setApplicationServices( services );
         this.reviewRepository.setApplicationServices( services );
+        this.userToProjectRepository.setApplicationServices( services );
     }
 
     private void initializeHardCodedUsers() {
@@ -115,6 +119,14 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
     @Override
     public FSqrCodeReviewRepositoryImpl getReviewRepository() {
         return reviewRepository;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public FSqrUserToProjectRepositoryImpl getUserToProjectRepository() {
+        return userToProjectRepository;
     }
 
     /** 

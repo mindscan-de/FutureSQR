@@ -35,7 +35,7 @@ import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitializ
 
 /**
  * Idea here is to collect methods and data and such related to user to project relations. 
- * This may be refactored.
+ * This may be refactored any time.
  */
 public class FSqrUserToProjectRepositoryImpl {
 

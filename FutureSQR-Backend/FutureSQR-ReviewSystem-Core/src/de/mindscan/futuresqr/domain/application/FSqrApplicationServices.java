@@ -30,6 +30,7 @@ import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrScmProjectConfigurationRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrScmProjectRevisionRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrScmUserRepositoryImpl;
+import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectRepositoryImpl;
 
 /**
  * 
@@ -44,4 +45,6 @@ public interface FSqrApplicationServices {
     FSqrCodeReviewRepositoryImpl getReviewRepository();
 
     FSqrSystemInstanceConfigurationImpl getSystemConfiguration();
+
+    FSqrUserToProjectRepositoryImpl getUserToProjectRepository();
 }
