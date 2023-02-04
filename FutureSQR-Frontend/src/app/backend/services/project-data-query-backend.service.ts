@@ -49,11 +49,10 @@ export class ProjectDataQueryBackendService {
     }
 
 	getStarredProjects(userid:string) : Observable<BackendModelProjectItem[]> {
-		
-		// TODO: provide USER-UUID / username to URL - so that the backend can work with it.
+		let params = new HttpParams().set('userid',userid);
 		
 		return this.httpClient
-				.get<BackendModelProjectItem[]>(ProjectDataQueryBackendService.URL_GET_MY_STARRED_PROJECTS, {})
+				.get<BackendModelProjectItem[]>(ProjectDataQueryBackendService.URL_GET_MY_STARRED_PROJECTS, { params: params })
 				.pipe(first());
 	}
 	
