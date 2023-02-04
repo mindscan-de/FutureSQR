@@ -58,7 +58,7 @@ public class FSqrUserToProjectRepositoryImpl {
     // public interface should not be able to modify internal HashSet.
     public Set<String> getAllStarredProjectsForUser( String userId ) {
         // MUST check if userId exists, otherwise a denial of service is possible
-        if (isValidUser( userId )) {
+        if (!isValidUser( userId )) {
             return new HashSet<>();
         }
 
@@ -67,7 +67,7 @@ public class FSqrUserToProjectRepositoryImpl {
 
     public void starProject( String userId, String projectId ) {
         // MUST check if userId exists, otherwise a denial of service is possible
-        if (isValidUser( userId )) {
+        if (!isValidUser( userId )) {
             return;
         }
 
@@ -76,7 +76,7 @@ public class FSqrUserToProjectRepositoryImpl {
 
     public void unstarProject( String userId, String projectId ) {
         // MUST check if userId exists, otherwise a denial of service is possible
-        if (isValidUser( userId )) {
+        if (!isValidUser( userId )) {
             return;
         }
 
@@ -85,7 +85,7 @@ public class FSqrUserToProjectRepositoryImpl {
 
     public boolean isStarred( String userId, String projectId ) {
         // MUST check if userId exists, otherwise a denial of service is possible
-        if (isValidUser( userId )) {
+        if (!isValidUser( userId )) {
             return false;
         }
 

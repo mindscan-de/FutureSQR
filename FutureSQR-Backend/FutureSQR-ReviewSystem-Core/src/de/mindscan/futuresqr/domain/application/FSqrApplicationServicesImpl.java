@@ -55,14 +55,14 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
         this.reviewRepository = new FSqrCodeReviewRepositoryImpl();
         this.userToProjectRepository = new FSqrUserToProjectRepositoryImpl();
 
+        // we don't want to deal with the internals of this Review system from the outside e.g. the Web servers
+        initializeHardCodedUsers();
+        initializeHardCodedStarredProjects();
+
         // we need to boot the instance
         // and then we actually need a way to provide some data from externalproviders, and then
         // finalize the boot of this application somehow.
         initializeServiceInstances( this );
-
-        // we don't want to deal with the internals of this Review system from the outside e.g. the Web servers
-        initializeHardCodedUsers();
-        initializeHardCodedStarredProjects();
     }
 
     void initializeServiceInstances( FSqrApplicationServices services ) {
@@ -87,7 +87,7 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
     }
 
     void initializeHardCodedStarredProjects() {
-        String mindscanUserId = "";
+        String mindscanUserId = "8ce74ee9-48ff-3dde-b678-58a632887e31";
         this.userToProjectRepository.starProject( mindscanUserId, "furiousiron-frontend" );
         this.userToProjectRepository.starProject( mindscanUserId, "furiousiron-hfb" );
         this.userToProjectRepository.starProject( mindscanUserId, "futuresqr" );
