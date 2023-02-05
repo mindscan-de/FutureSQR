@@ -291,7 +291,10 @@ public class ProjectRESTfulService {
         return gson.toJson( response );
     }
 
-    // @app.post("/FutureSQR/rest/project/{projectid}/star", response_class=JSONResponse)
+    // -------------------------------------------
+    // Starring and unstarring of projects by user
+    // -------------------------------------------
+
     @javax.ws.rs.Path( "{projectid}/star" )
     @POST
     @Produces( MediaType.APPLICATION_JSON )
@@ -309,7 +312,6 @@ public class ProjectRESTfulService {
         return "";
     }
 
-    // @app.post("/FutureSQR/rest/project/{projectid}/unstar", response_class=JSONResponse)
     @javax.ws.rs.Path( "{projectid}/unstar" )
     @POST
     @Produces( MediaType.APPLICATION_JSON )
