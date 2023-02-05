@@ -71,7 +71,7 @@ public class FSqrCodeReviewValue {
         return state;
     }
 
-    protected void updateCurrenReviewState( FSqrCodeReviewLifecycleState newState ) {
+    public void updateCurrenReviewState( FSqrCodeReviewLifecycleState newState ) {
         this.state = newState;
     }
 
