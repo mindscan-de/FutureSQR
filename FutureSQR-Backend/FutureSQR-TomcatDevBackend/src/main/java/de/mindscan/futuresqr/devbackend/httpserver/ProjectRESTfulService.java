@@ -42,6 +42,7 @@ import de.mindscan.futuresqr.devbackend.httpresponse.OutputFileHistoryModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputProjectRevisionsModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputProjectRevisionsRevisionEntry;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputRecentReviewsModel;
+import de.mindscan.futuresqr.devbackend.httpresponse.OutputReviewCreatedModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputSimpleProjectInformation;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputSingleCommitFullChangeSet;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputStatusOkayModel;
@@ -333,11 +334,75 @@ public class ProjectRESTfulService {
     // @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/replythread", response_class=JSONResponse)
     // @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/editmessage", response_class=JSONResponse)
 
-    // TODO: @app.post * code review state related.
-    // @app.post("/FutureSQR/rest/project/{projectid}/review/create", response_class=JSONResponse)
-    // @app.post("/FutureSQR/rest/project/{projectid}/review/close", response_class=JSONResponse)
-    // @app.post("/FutureSQR/rest/project/{projectid}/review/reopen", response_class=JSONResponse)
-    // @app.post("/FutureSQR/rest/project/{projectid}/review/delete", response_class=JSONResponse)
+    // ------------------------------
+    // Code review state related code 
+    // ------------------------------
+
+    @javax.ws.rs.Path( "{projectid}/review/create" )
+    @POST
+    @Produces( MediaType.APPLICATION_JSON )
+    public String postCreateReviewFromRevision( @PathParam( "projectid" ) String projectId, String requestBody ) {
+        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
+
+        if (projectDB.isProjectIdPresent( projectId )) {
+            // TODO: implement me
+            // String revisionId = postParams.getStringOrDefault( "revisionid", defaultValue );
+            // String openerUserUUID = postParams.getStringOrDefault( "opening_userid", defaultValue );
+
+            OutputReviewCreatedModel response = new OutputReviewCreatedModel();
+            // response.projectId = projectId;
+            // response.revisionId = revisionId;
+            // response.reviewId = review.getReviewId();
+            // response.reviewData = 
+
+            Gson gson = new Gson();
+            return gson.toJson( response );
+        }
+
+        return "{}";
+    }
+
+    @javax.ws.rs.Path( "{projectid}/review/close" )
+    @POST
+    @Produces( MediaType.APPLICATION_JSON )
+    public String postCloseReview( @PathParam( "projectid" ) String projectId, String requestBody ) {
+        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
+
+        if (projectDB.isProjectIdPresent( projectId )) {
+            // TODO: implement me
+            return "{}";
+        }
+
+        return "{}";
+    }
+
+    @javax.ws.rs.Path( "{projectid}/review/reopen" )
+    @POST
+    @Produces( MediaType.APPLICATION_JSON )
+    public String postReopenReview( @PathParam( "projectid" ) String projectId, String requestBody ) {
+        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
+
+        if (projectDB.isProjectIdPresent( projectId )) {
+            // TODO: implement me
+            return "{}";
+        }
+
+        return "{}";
+    }
+
+    @javax.ws.rs.Path( "{projectid}/review/delete" )
+    @POST
+    @Produces( MediaType.APPLICATION_JSON )
+    public String postDeleteReview( @PathParam( "projectid" ) String projectId, String requestBody ) {
+        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
+
+        if (projectDB.isProjectIdPresent( projectId )) {
+            // TODO: implement me
+            return "{}";
+        }
+
+        return "{}";
+    }
 
     // TODO: @app.post * code review reviewers related.
     // @app.post("/FutureSQR/rest/project/{projectid}/review/addreviewer", response_class=JSONResponse)
