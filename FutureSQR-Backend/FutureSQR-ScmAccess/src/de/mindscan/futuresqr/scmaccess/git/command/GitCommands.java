@@ -32,6 +32,7 @@ import de.mindscan.futuresqr.scmaccess.git.command.impl.GetFileContentForRevisio
 import de.mindscan.futuresqr.scmaccess.git.command.impl.GetFileHistoryCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.impl.GetNRecentRevisionsCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.impl.GetRecentRevisionsCommand;
+import de.mindscan.futuresqr.scmaccess.git.command.impl.GetRecentRevisionsCommandFromParticularRevision;
 import de.mindscan.futuresqr.scmaccess.git.command.impl.GetSimpleCommitInformationForRevisionCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.impl.UpdateLocalRepositoryCommand;
 import de.mindscan.futuresqr.scmaccess.types.ScmPath;
@@ -59,6 +60,10 @@ public class GitCommands {
 
     public static GitCommand createGetNRecentRevisionsCommand( int limit ) {
         return new GetNRecentRevisionsCommand( limit );
+    }
+
+    public static GitCommand createGetRecentRevisionsCommandFromParticularRevision( String fromRevision ) {
+        return new GetRecentRevisionsCommandFromParticularRevision( fromRevision );
     }
 
     public static GitCommand createGetFileChangesListForRevisionCommand( String revisionId ) {
