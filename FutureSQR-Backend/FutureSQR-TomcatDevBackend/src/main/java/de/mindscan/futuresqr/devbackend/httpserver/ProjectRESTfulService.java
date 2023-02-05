@@ -136,8 +136,26 @@ public class ProjectRESTfulService {
         return new OutputProjectRevisionsRevisionEntry( rev );
     }
 
-    // TODO see python code
-    // TODO: @app.get("/FutureSQR/rest/project/{projectid}/recentcommitsfromrevid/{fromrevisionid}", response_class=JSONResponse)    
+    @javax.ws.rs.Path( "{projectid}/recentcommitsfromrevid/{fromrevisionid}" )
+    @GET
+    @Produces( MediaType.APPLICATION_JSON )
+    public String getProjectRevisionsSinceDefinedRevision( @PathParam( "projectid" ) String projectId, @PathParam( "fromrevisionid" ) String fromRevision ) {
+        if (projectDB.hasProjectLocalPath( projectId )) {
+            FSqrScmProjectRevisionRepositoryImpl revisionProvider = FSqrApplication.getInstance().getServices().getRevisionRepository();
+            FSqrScmHistory scmHistory = revisionProvider.getRecentRevisionHistoryStartingFrom( projectId, fromRevision );
+
+            OutputProjectRevisionsModel response = new OutputProjectRevisionsModel();
+            scmHistory.getRevisions().stream().forEach( rev -> response.revisions.add( translate( rev ) ) );
+
+            Gson gson = new Gson();
+            return gson.toJson( response );
+        }
+
+        // return empty revision.
+        OutputProjectRevisionsModel response = new OutputProjectRevisionsModel();
+        Gson gson = new Gson();
+        return gson.toJson( response );
+    }
 
     @javax.ws.rs.Path( "{projectid}/revision/{revisionid}/information" )
     @GET
