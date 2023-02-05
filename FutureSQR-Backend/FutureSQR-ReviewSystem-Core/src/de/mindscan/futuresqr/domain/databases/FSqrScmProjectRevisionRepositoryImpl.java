@@ -78,6 +78,17 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         return result;
     }
 
+    public FSqrScmHistory getRecentRevisionHistoryStartingFrom( String projectId, String fromRevision ) {
+        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
+        if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
+            ScmHistory nRecentHistory = gitHistoryProvider.getRecentRevisionsFromStartingRevision( toScmRepository( scmConfiguration ), fromRevision );
+            return translate( nRecentHistory, projectId );
+        }
+
+        FSqrScmHistory result = new FSqrScmHistory();
+        return result;
+    }
+
     private FSqrScmHistory translate( ScmHistory nRecentHistory, String projectId ) {
         FSqrScmHistory result = new FSqrScmHistory();
 
