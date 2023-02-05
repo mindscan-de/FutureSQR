@@ -64,6 +64,7 @@ import de.mindscan.futuresqr.domain.model.history.FSqrFileHistory;
 /**
  * 
  */
+/* URL is FutureSQR/rest/project */
 @javax.ws.rs.Path( "/project" )
 public class ProjectRESTfulService {
 
@@ -327,19 +328,25 @@ public class ProjectRESTfulService {
         return "";
     }
 
-    // TODO: @app.post *
+    // TODO: @app.post * discussion related
     // @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/createthread", response_class=JSONResponse)
     // @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/replythread", response_class=JSONResponse)
     // @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/editmessage", response_class=JSONResponse)
+
+    // TODO: @app.post * code review state related.
     // @app.post("/FutureSQR/rest/project/{projectid}/review/create", response_class=JSONResponse)
     // @app.post("/FutureSQR/rest/project/{projectid}/review/close", response_class=JSONResponse)
     // @app.post("/FutureSQR/rest/project/{projectid}/review/reopen", response_class=JSONResponse)
     // @app.post("/FutureSQR/rest/project/{projectid}/review/delete", response_class=JSONResponse)
+
+    // TODO: @app.post * code review reviewers related.
     // @app.post("/FutureSQR/rest/project/{projectid}/review/addreviewer", response_class=JSONResponse)
     // @app.post("/FutureSQR/rest/project/{projectid}/review/removereviewer", response_class=JSONResponse)
     // @app.post("/FutureSQR/rest/project/{projectid}/review/approvereview", response_class=JSONResponse)
     // @app.post("/FutureSQR/rest/project/{projectid}/review/concernreview", response_class=JSONResponse)
     // @app.post("/FutureSQR/rest/project/{projectid}/review/resetreview", response_class=JSONResponse)
+
+    // TODO: @app.post * code review revisions related.
     // @app.post("/FutureSQR/rest/project/{projectid}/review/appendrevision", response_class=JSONResponse)
     // @app.post("/FutureSQR/rest/project/{projectid}/review/removerevision", response_class=JSONResponse)
     // 
