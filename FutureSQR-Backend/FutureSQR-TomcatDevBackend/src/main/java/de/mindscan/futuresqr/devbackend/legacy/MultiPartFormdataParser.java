@@ -26,6 +26,7 @@
 package de.mindscan.futuresqr.devbackend.legacy;
 
 import java.io.InputStream;
+import java.util.Arrays;
 
 /**
  * Because we use Tomcat 7 right now, we don't have access to Servlet version 3 and 
@@ -41,6 +42,8 @@ import java.io.InputStream;
  */
 public class MultiPartFormdataParser {
 
+    private String requestBody;
+
     public static MultiPartFormdataParser createParser( String requestBody ) {
         return new MultiPartFormdataParser( requestBody );
     }
@@ -53,17 +56,24 @@ public class MultiPartFormdataParser {
     }
 
     public MultiPartFormdataParser( String requestBody ) {
+        this.requestBody = requestBody;
 
     }
 
     public MultiPartFormdataParameters parse() {
         MultiPartFormdataParameters parameters = new MultiPartFormdataParameters();
 
+        System.out.println( "---> start RequestBody string --->" );
+        System.out.println( requestBody );
+        System.out.println( "---> stop RequestBody (string) --->" );
+        System.out.println( Arrays.toString( requestBody.getBytes() ) );
+        System.out.println( "---> stop RequestBody (bytearray) --->" );
+
         // TODO: parse header and isolate boundary
 
         // advance boundary and then parse name and then parse value
 
-        // 
+        //check if last boundary which has an additional "--" attached. 
 
         return parameters;
     }
