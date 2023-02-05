@@ -91,6 +91,18 @@ public class GitScmHistoryProvider implements ScmHistoryProvider {
      * {@inheritDoc}
      */
     @Override
+    public ScmHistory getRecentRevisionsFromStartingRevision( ScmRepository repository, String fromRevision ) {
+        ScmHistory scmHistory = gitCliExecutor //
+                        .execute( repository, GitCommands.createGetRecentRevisionsCommandFromParticularRevision( fromRevision ) ) //
+                        .transform( GitOutputProcessors.toScmHistory() );
+
+        return scmHistory;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
     public ScmSingleRevisionFileChangeList getFileChangeListForRevision( ScmRepository repository, String revisionId ) {
         ScmSingleRevisionFileChangeList scmFileChangesList = gitCliExecutor// 
                         .execute( repository, GitCommands.createGetFileChangesListForRevisionCommand( revisionId ) ) //
@@ -120,4 +132,5 @@ public class GitScmHistoryProvider implements ScmHistoryProvider {
                         .execute( repository, GitCommands.createUpdateLocalRepositoryCommand( branchName ) ) //
                         .transform( GitOutputProcessors.toScmVoid() );
     }
+
 }

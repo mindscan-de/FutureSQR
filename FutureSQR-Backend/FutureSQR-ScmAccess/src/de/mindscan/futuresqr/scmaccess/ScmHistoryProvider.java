@@ -52,6 +52,9 @@ public interface ScmHistoryProvider {
     // see calculateNRecentRevisionsForLocalGitRepo for context of this method.
     ScmHistory getNRecentRevisions( ScmRepository repository, int limit );
 
+    // see calculateRecentRevisionsFromRevisionToHeadForLocalGitRepo for context of this method 
+    ScmHistory getRecentRevisionsFromStartingRevision( ScmRepository scmRepository, String fromRevision );
+
     ScmSingleRevisionFileChangeList getFileChangeListForRevision( ScmRepository repository, String revisionId );
 
     ScmHistory getSimpleRevisionInformation( ScmRepository repository, String revisionId );
