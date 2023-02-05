@@ -1,6 +1,7 @@
 package de.mindscan.futuresqr.domain.databases;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.collection.IsEmptyCollection.empty;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
@@ -124,6 +125,46 @@ public class FSqrUserToProjectRepositoryImplTest {
         // assert
         Set<String> result = repository.getAllStarredProjectsForUser( KNOWN_USER_ID );
         assertThat( result, contains( PROJECT_2 ) );
+    }
+
+    @Test
+    public void testIsStarred_StarProject1ForKownUser_returnsIsStarredForKnownUser() throws Exception {
+        // arrange
+        FSqrUserToProjectRepositoryImpl repository = new FSqrUserToProjectRepositoryImpl();
+        repository.starProject( KNOWN_USER_ID, PROJECT_1 );
+
+        // act
+        boolean result = repository.isStarred( KNOWN_USER_ID, PROJECT_1 );
+
+        // assert
+        assertThat( result, equalTo( true ) );
+    }
+
+    @Test
+    public void testIsStarred_StarProject2ForKownUserButRequestProject1_returnsIsNotStarredForKnownUser() throws Exception {
+        // arrange
+        FSqrUserToProjectRepositoryImpl repository = new FSqrUserToProjectRepositoryImpl();
+        repository.starProject( KNOWN_USER_ID, PROJECT_2 );
+
+        // act
+        boolean result = repository.isStarred( KNOWN_USER_ID, PROJECT_1 );
+
+        // assert
+        assertThat( result, equalTo( false ) );
+    }
+
+    @Test
+    public void testIsStarred_StarThenUnstarProject1ForKownUser_returnsIsNotStarredForKnownUser() throws Exception {
+        // arrange
+        FSqrUserToProjectRepositoryImpl repository = new FSqrUserToProjectRepositoryImpl();
+        repository.starProject( KNOWN_USER_ID, PROJECT_1 );
+        repository.unstarProject( KNOWN_USER_ID, PROJECT_1 );
+
+        // act
+        boolean result = repository.isStarred( KNOWN_USER_ID, PROJECT_1 );
+
+        // assert
+        assertThat( result, equalTo( false ) );
     }
 
 }
