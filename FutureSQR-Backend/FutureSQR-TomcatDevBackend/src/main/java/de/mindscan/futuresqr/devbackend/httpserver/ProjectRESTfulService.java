@@ -478,10 +478,41 @@ public class ProjectRESTfulService {
         return "{}";
     }
 
-    // TODO: @app.post * code review revisions related.
-    // @app.post("/FutureSQR/rest/project/{projectid}/review/appendrevision", response_class=JSONResponse)
-    // @app.post("/FutureSQR/rest/project/{projectid}/review/removerevision", response_class=JSONResponse)
-    // 
+    // ------------------------------
+    // code review revisions related.
+    // ------------------------------
+
+    @javax.ws.rs.Path( "{projectid}/review/appendrevision" )
+    @POST
+    @Produces( MediaType.APPLICATION_JSON )
+    public String postReviewAppendRevisionToReview( @PathParam( "projectid" ) String projectId, String requestBody ) {
+        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
+
+        if (projectDB.isProjectIdPresent( projectId )) {
+            // TODO: implement me
+            return "{}";
+        }
+
+        return "{}";
+    }
+
+    @javax.ws.rs.Path( "{projectid}/review/removerevision" )
+    @POST
+    @Produces( MediaType.APPLICATION_JSON )
+    public String postReviewRemoveRevisionFromReview( @PathParam( "projectid" ) String projectId, String requestBody ) {
+        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
+
+        if (projectDB.isProjectIdPresent( projectId )) {
+            // TODO: implement me
+            return "{}";
+        }
+
+        return "{}";
+    }
+
+    // ------------------------------------
+    // update the temporary cache on demand
+    // ------------------------------------
 
     @javax.ws.rs.Path( "{projectid}/updatecache" )
     @POST
