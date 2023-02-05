@@ -53,8 +53,16 @@ public class FSqrCodeReviewValue {
         return projectId;
     }
 
+    public void setProjectId( String projectId ) {
+        this.projectId = projectId;
+    }
+
     public String getReviewId() {
         return reviewId;
+    }
+
+    public void setReviewId( String reviewId ) {
+        this.reviewId = reviewId;
     }
 
     public FSqrCodeReviewLifecycleState getCurrentReviewState() {
