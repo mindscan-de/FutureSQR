@@ -38,7 +38,10 @@ import java.util.Arrays;
  * 
  * I currently don't want to spend time for ramp up, to a different framework.
  * 
- * We won't support much features anyways.
+ * We won't support much features anyways. Means file upload will not be supported.
+ * Just parse the absolute necessary minimum, to make this data processing work.
+ * The Truth comes from the angular application, we will support what the angular
+ * application challenges us with.
  */
 public class MultiPartFormdataParser {
 
