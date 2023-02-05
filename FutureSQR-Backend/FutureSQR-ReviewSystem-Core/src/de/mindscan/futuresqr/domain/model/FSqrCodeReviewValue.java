@@ -45,6 +45,8 @@ public class FSqrCodeReviewValue {
 
     private Map<String, FSqrReviewResult> reviewerResults = new HashMap<>();
 
+    private String reviewTitle = "";
+
     protected Map<String, FSqrReviewResult> getReviewerResultsMap() {
         return reviewerResults;
     }
@@ -71,5 +73,13 @@ public class FSqrCodeReviewValue {
 
     protected void updateCurrenReviewState( FSqrCodeReviewLifecycleState newState ) {
         this.state = newState;
+    }
+
+    public String getReviewTitle() {
+        return reviewTitle;
+    }
+
+    public void setReviewTitle( String reviewTitle ) {
+        this.reviewTitle = reviewTitle;
     }
 }

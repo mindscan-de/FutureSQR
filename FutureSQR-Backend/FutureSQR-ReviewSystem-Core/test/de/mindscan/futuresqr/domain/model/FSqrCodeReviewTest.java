@@ -5,9 +5,6 @@ import static org.hamcrest.Matchers.equalTo;
 
 import org.junit.jupiter.api.Test;
 
-import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
-import de.mindscan.futuresqr.domain.model.FSqrCodeReviewLifecycleState;
-
 public class FSqrCodeReviewTest {
 
     public final static String REVIEWER_1_UUID = "11111-1111-";
