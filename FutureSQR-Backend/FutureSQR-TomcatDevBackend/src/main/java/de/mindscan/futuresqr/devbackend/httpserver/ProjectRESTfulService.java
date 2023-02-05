@@ -404,12 +404,79 @@ public class ProjectRESTfulService {
         return "{}";
     }
 
-    // TODO: @app.post * code review reviewers related.
-    // @app.post("/FutureSQR/rest/project/{projectid}/review/addreviewer", response_class=JSONResponse)
-    // @app.post("/FutureSQR/rest/project/{projectid}/review/removereviewer", response_class=JSONResponse)
-    // @app.post("/FutureSQR/rest/project/{projectid}/review/approvereview", response_class=JSONResponse)
-    // @app.post("/FutureSQR/rest/project/{projectid}/review/concernreview", response_class=JSONResponse)
-    // @app.post("/FutureSQR/rest/project/{projectid}/review/resetreview", response_class=JSONResponse)
+    // ------------------------------
+    // code review reviewers related.
+    // ------------------------------
+
+    @javax.ws.rs.Path( "{projectid}/review/addreviewer" )
+    @POST
+    @Produces( MediaType.APPLICATION_JSON )
+    public String postReviewAddReviewer( @PathParam( "projectid" ) String projectId, String requestBody ) {
+        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
+
+        if (projectDB.isProjectIdPresent( projectId )) {
+            // TODO: implement me
+            return "{}";
+        }
+
+        return "{}";
+    }
+
+    @javax.ws.rs.Path( "{projectid}/review/removereviewer" )
+    @POST
+    @Produces( MediaType.APPLICATION_JSON )
+    public String postReviewRemoveReviewer( @PathParam( "projectid" ) String projectId, String requestBody ) {
+        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
+
+        if (projectDB.isProjectIdPresent( projectId )) {
+            // TODO: implement me
+            return "{}";
+        }
+
+        return "{}";
+    }
+
+    @javax.ws.rs.Path( "{projectid}/review/approvereview" )
+    @POST
+    @Produces( MediaType.APPLICATION_JSON )
+    public String postReviewApproveReview( @PathParam( "projectid" ) String projectId, String requestBody ) {
+        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
+
+        if (projectDB.isProjectIdPresent( projectId )) {
+            // TODO: implement me
+            return "{}";
+        }
+
+        return "{}";
+    }
+
+    @javax.ws.rs.Path( "{projectid}/review/concernreview" )
+    @POST
+    @Produces( MediaType.APPLICATION_JSON )
+    public String postReviewConcernReview( @PathParam( "projectid" ) String projectId, String requestBody ) {
+        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
+
+        if (projectDB.isProjectIdPresent( projectId )) {
+            // TODO: implement me
+            return "{}";
+        }
+
+        return "{}";
+    }
+
+    @javax.ws.rs.Path( "{projectid}/review/resetreview" )
+    @POST
+    @Produces( MediaType.APPLICATION_JSON )
+    public String postReviewResetReview( @PathParam( "projectid" ) String projectId, String requestBody ) {
+        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
+
+        if (projectDB.isProjectIdPresent( projectId )) {
+            // TODO: implement me
+            return "{}";
+        }
+
+        return "{}";
+    }
 
     // TODO: @app.post * code review revisions related.
     // @app.post("/FutureSQR/rest/project/{projectid}/review/appendrevision", response_class=JSONResponse)
