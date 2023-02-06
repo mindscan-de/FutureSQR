@@ -54,6 +54,10 @@ public class FSqrScmProjectConfiguration {
     // that means that this project is not active any more, and is not monitored any more, with respect to the SCM
     private boolean isArchived = false;
 
+    // TODO: here? defaultbranch - indiscriminate whether GIT or SVN we will have some kind of branches
+    // TODO: here? branches  - indiscriminate whether GIT or SVN we will have some kind of branches
+    // so maybe this should be available here.
+
     // TODO: some details, like ownership (who created, when created, when modified)
     // i guess this is not yet important, and can alo be kept in a kind of journal or so....
     private FSqrScmProjectGitAdminConfiguration scmGitAdminConfiguration;
