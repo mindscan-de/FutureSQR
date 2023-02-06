@@ -60,6 +60,7 @@ import { SingleFileRevisionPageComponent } from './views/single-file-revision-pa
 import { FileContentViewerComponent } from './commonui/file-content-viewer/file-content-viewer.component';
 import { OtherFileRevisionsPanelComponent } from './views/single-file-revision-page/other-file-revisions-panel/other-file-revisions-panel.component';
 import { OtherFilesInRevisionPanelComponent } from './views/single-file-revision-page/other-files-in-revision-panel/other-files-in-revision-panel.component';
+import { ProjectBranchesPageComponent } from './views/project-branches-page/project-branches-page.component';
 
 @NgModule({
   declarations: [
@@ -110,7 +111,8 @@ import { OtherFilesInRevisionPanelComponent } from './views/single-file-revision
     SingleFileRevisionPageComponent,
     FileContentViewerComponent,
     OtherFileRevisionsPanelComponent,
-    OtherFilesInRevisionPanelComponent
+    OtherFilesInRevisionPanelComponent,
+    ProjectBranchesPageComponent
   ],
   imports: [
     BrowserModule,
