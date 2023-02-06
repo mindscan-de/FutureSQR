@@ -59,4 +59,8 @@ public class MultiPartFormdataParameters {
     public String getStringOrDefault( String parameterName, String defaultValue ) {
         return parameters.getOrDefault( parameterName, defaultValue );
     }
+
+    public boolean hasParameter( String parameterName ) {
+        return this.parameters.containsValue( parameterName );
+    }
 }
