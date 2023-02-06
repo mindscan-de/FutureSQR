@@ -344,7 +344,7 @@ public class ProjectRESTfulService {
     @POST
     @Produces( MediaType.APPLICATION_JSON )
     public String postCreateReviewFromRevision( @PathParam( "projectid" ) String projectId, String requestBody ) {
-        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
+        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParserAndDump( requestBody ).parse();
 
         if (projectDB.isProjectIdPresent( projectId )) {
             // TODO: implement me

@@ -42,6 +42,9 @@ import java.util.Arrays;
  * Just parse the absolute necessary minimum, to make this data processing work.
  * The Truth comes from the angular application, we will support what the angular
  * application challenges us with.
+ * 
+ * The boundary is basically transported in the request header, which we don't know.
+ * So we parse the boundary from the first line.
  */
 public class MultiPartFormdataParser {
 
@@ -49,6 +52,10 @@ public class MultiPartFormdataParser {
 
     public static MultiPartFormdataParser createParser( String requestBody ) {
         return new MultiPartFormdataParser( requestBody );
+    }
+
+    public static MultiPartFormdataParser createParserAndDump( String requestBody ) {
+        return new MultiPartFormdataParser( requestBody ).dumpRequestBody();
     }
 
     /**
@@ -60,17 +67,20 @@ public class MultiPartFormdataParser {
 
     public MultiPartFormdataParser( String requestBody ) {
         this.requestBody = requestBody;
-
     }
 
-    public MultiPartFormdataParameters parse() {
-        MultiPartFormdataParameters parameters = new MultiPartFormdataParameters();
-
+    public MultiPartFormdataParser dumpRequestBody() {
         System.out.println( "---> start RequestBody string --->" );
         System.out.println( requestBody );
         System.out.println( "---> stop RequestBody (string) --->" );
         System.out.println( Arrays.toString( requestBody.getBytes() ) );
         System.out.println( "---> stop RequestBody (bytearray) --->" );
+
+        return this;
+    }
+
+    public MultiPartFormdataParameters parse() {
+        MultiPartFormdataParameters parameters = new MultiPartFormdataParameters();
 
         // TODO: parse header and isolate boundary
 
