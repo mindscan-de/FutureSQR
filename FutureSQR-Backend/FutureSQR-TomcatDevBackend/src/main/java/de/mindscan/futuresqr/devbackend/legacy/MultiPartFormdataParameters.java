@@ -61,6 +61,6 @@ public class MultiPartFormdataParameters {
     }
 
     public boolean hasParameter( String parameterName ) {
-        return this.parameters.containsValue( parameterName );
+        return this.parameters.containsKey( parameterName );
     }
 }

@@ -44,7 +44,10 @@ import java.util.Arrays;
  * application challenges us with.
  * 
  * The boundary is basically transported in the request header, which we don't know.
- * So we parse the boundary from the first line.
+ * So we parse the boundary from the first line of the request body - this might not
+ * be exact but is still good enough. Also the default charset is buried in the 
+ * request header - but we also don't want to go down this rabit hole for a developer
+ * backend.   
  */
 public class MultiPartFormdataParser {
 
@@ -80,14 +83,58 @@ public class MultiPartFormdataParser {
     }
 
     public MultiPartFormdataParameters parse() {
-        MultiPartFormdataParameters parameters = new MultiPartFormdataParameters();
+        MultiPartFormdataParameters postParameters = new MultiPartFormdataParameters();
 
-        // TODO: parse header and isolate boundary
+        // parse header and isolate boundary
+        String[] boundaryArray = requestBody.split( "\\R", 2 );
+        if (boundaryArray.length < 2) {
+            return postParameters;
+        }
+
+        String boundary = boundaryArray[0];
+        String[] requestParameters = requestBody.split( boundary + "(\\R)?" );
 
         // advance boundary and then parse name and then parse value
+        for (String singlePostParameter : requestParameters) {
 
+            // if this last element
+            if (singlePostParameter.equals( "--" ) || singlePostParameter.startsWith( "--" + "\r\n" )) {
+                break;
+            }
+
+            collectPostParameter( postParameters, singlePostParameter );
+        }
+
+        postParameters.addParameter( "revisionid", "make_it_work" );
+        postParameters.addParameter( "opening_userid", "make_it_work" );
+
+        return postParameters;
+    }
+
+    private void collectPostParameter( MultiPartFormdataParameters postParameters, String singlePostParameter ) {
+        System.out.println( ">>>" + singlePostParameter + "<<<" );
+
+        String remaining = singlePostParameter;
+
+        // Content-Disposition: form-data; name=""
+        if (singlePostParameter.startsWith( "Content-Disposition" )) {
+            // TODO: parse Content-Disposition parse until next new line
+            String[] data = remaining.split( "\\R", 2 );
+            if (data.length != 2) {
+                // throw parse ContentDispositionError;
+            }
+
+            String contentDispositionLine = data[0];
+
+            // split contentDispositionLine and extract parameter names.
+
+            remaining = data[1];
+        }
+
+        // TODO: if next line is not starting with ""+"\r\n" - throw parser error
+
+        // just read until last "\r\n"
+        // Data needs to be converted...
         //check if last boundary which has an additional "--" attached. 
-
-        return parameters;
     }
 }
