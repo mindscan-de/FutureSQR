@@ -61,6 +61,7 @@ import { FileContentViewerComponent } from './commonui/file-content-viewer/file-
 import { OtherFileRevisionsPanelComponent } from './views/single-file-revision-page/other-file-revisions-panel/other-file-revisions-panel.component';
 import { OtherFilesInRevisionPanelComponent } from './views/single-file-revision-page/other-files-in-revision-panel/other-files-in-revision-panel.component';
 import { ProjectBranchesPageComponent } from './views/project-branches-page/project-branches-page.component';
+import { ProjectBranchRecentCommitsPageComponent } from './views/project-branch-recent-commits-page/project-branch-recent-commits-page.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,8 @@ import { ProjectBranchesPageComponent } from './views/project-branches-page/proj
     FileContentViewerComponent,
     OtherFileRevisionsPanelComponent,
     OtherFilesInRevisionPanelComponent,
-    ProjectBranchesPageComponent
+    ProjectBranchesPageComponent,
+    ProjectBranchRecentCommitsPageComponent
   ],
   imports: [
     BrowserModule,
