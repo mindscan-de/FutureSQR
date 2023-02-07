@@ -92,12 +92,12 @@ public class MultiPartFormdataParser {
         }
 
         String boundary = boundaryArray[0];
-        String[] requestParameters = requestBody.split( "(\\R)?" + boundary + "(\\R)?" );
+        String[] requestParameterBlocks = requestBody.split( "(\\R)?" + boundary + "(\\R)?" );
 
         // advance boundary and then parse name and then parse value
-        for (String singlePostParameter : requestParameters) {
+        for (String singlePostParameter : requestParameterBlocks) {
 
-            // if this last element
+            // this is the last element
             if (singlePostParameter.equals( "--" ) || singlePostParameter.startsWith( "--" + "\r\n" )) {
                 break;
             }
@@ -117,7 +117,7 @@ public class MultiPartFormdataParser {
         String remaining = singlePostParameter;
 
         // Content-Disposition: form-data; name=""
-        if (singlePostParameter.startsWith( "Content-Disposition" )) {
+        if (remaining.startsWith( "Content-Disposition" )) {
             // TODO: parse Content-Disposition parse until next new line
             String[] data = remaining.split( "\\R", 2 );
             if (data.length != 2) {
@@ -128,13 +128,27 @@ public class MultiPartFormdataParser {
 
             // split contentDispositionLine and extract parameter names.
 
+            // TODO isolate name only accept form-data and name
+
             remaining = data[1];
         }
+        else {
+            // well this is  not how it should be the first item should be content disposition
+        }
+
+        // there is either a default charset encoding which is valid for all, or each block can have it's own info
+        // for the particular encoding. (we need nothing fancy here)
 
         // TODO: if next line is not starting with ""+"\r\n" - throw parser error
+        if (remaining.startsWith( "\r\n" )) {
+            String[] data = remaining.split( "\\R", 2 );
+            remaining = data[1];
+        }
+        else {
 
-        // just read until last "\r\n"
+        }
+
+        // TODO: parse and convert value until end of string. 
         // Data needs to be converted...
-        //check if last boundary which has an additional "--" attached. 
     }
 }
