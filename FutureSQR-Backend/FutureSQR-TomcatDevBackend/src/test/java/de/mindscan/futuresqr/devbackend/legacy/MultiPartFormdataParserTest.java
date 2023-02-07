@@ -32,6 +32,19 @@ public class MultiPartFormdataParserTest {
     }
 
     @Test
+    public void testParse_WithTwoArgumentsRevisionIdOpeningUserId_returnRevidionidIs0x19aee1f() throws Exception {
+        String requestBody = REQUESTBODY_REVISIONID_OPENINGUSERID;
+        // arrange
+        MultiPartFormdataParser parser = MultiPartFormdataParser.createParser( requestBody );
+
+        // act
+        MultiPartFormdataParameters result = parser.parse();
+
+        // assert
+        assertThat( result.getStringOrThrow( "revisionid" ), equalTo( "19aee1fa31a7c55d998ede33bfd3f487f70fb898" ) );
+    }
+
+    @Test
     public void testParse_WithTwoArgumentsRevisionIdOpeningUserId_returnHasParameterOpeningUserId() throws Exception {
         String requestBody = REQUESTBODY_REVISIONID_OPENINGUSERID;
         // arrange
@@ -42,6 +55,19 @@ public class MultiPartFormdataParserTest {
 
         // assert
         assertThat( result.hasParameter( "opening_userid" ), equalTo( true ) );
+    }
+
+    @Test
+    public void testParse_WithTwoArgumentsRevisionIdOpeningUserId_returnOpeningUserIdIs() throws Exception {
+        String requestBody = REQUESTBODY_REVISIONID_OPENINGUSERID;
+        // arrange
+        MultiPartFormdataParser parser = MultiPartFormdataParser.createParser( requestBody );
+
+        // act
+        MultiPartFormdataParameters result = parser.parse();
+
+        // assert
+        assertThat( result.getStringOrThrow( "opening_userid" ), equalTo( "8ce74ee9-48ff-3dde-b678-58a632887e31" ) );
     }
 
 }

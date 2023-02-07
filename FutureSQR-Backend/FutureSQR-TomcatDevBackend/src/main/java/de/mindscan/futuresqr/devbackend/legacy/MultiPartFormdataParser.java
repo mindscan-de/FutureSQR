@@ -105,8 +105,8 @@ public class MultiPartFormdataParser {
             collectPostParameter( postParameters, singlePostParameter );
         }
 
-        postParameters.addParameter( "revisionid", "make_it_work" );
-        postParameters.addParameter( "opening_userid", "make_it_work" );
+        postParameters.addParameter( "revisionid", "19aee1fa31a7c55d998ede33bfd3f487f70fb898" );
+        postParameters.addParameter( "opening_userid", "8ce74ee9-48ff-3dde-b678-58a632887e31" );
 
         return postParameters;
     }
