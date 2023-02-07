@@ -73,6 +73,13 @@ public class FSqrScmProjectConfigurationRepositoryImpl {
         return scmProjectConfigurationsByProjectId.containsKey( projectId );
     }
 
+    public String getNewProjectReviewIdentifier( String projectId ) {
+        if (!hasProjectConfiguration( projectId )) {
+            throw new RuntimeException( "ProjectId is unknown" );
+        }
+        return scmProjectConfigurationsByProjectId.get( projectId ).createNewReviewIdentifierWithPrefix();
+    }
+
     public void addScmProjectConfiguration( FSqrScmProjectConfiguration projectConfiguration ) {
         String projectId = projectConfiguration.getProjectId();
 
