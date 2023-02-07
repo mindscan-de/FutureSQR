@@ -31,6 +31,8 @@ import java.util.List;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
+import de.mindscan.futuresqr.domain.model.FSqrCodeReviewFactory;
+import de.mindscan.futuresqr.domain.model.FSqrRevision;
 
 /**
  * 
@@ -77,4 +79,11 @@ public class FSqrCodeReviewRepositoryImpl {
     // add revision to review
     // remove revision from review
 
+    public FSqrCodeReview createReviewFromRevision( String projectid, FSqrRevision revision ) {
+        FSqrScmProjectConfigurationRepositoryImpl configurationRepository = applicationServices.getConfigurationRepository();
+
+        FSqrCodeReview codeReview = FSqrCodeReviewFactory.createReviewFromRevision( projectid, revision, configurationRepository );
+
+        return codeReview;
+    }
 }
