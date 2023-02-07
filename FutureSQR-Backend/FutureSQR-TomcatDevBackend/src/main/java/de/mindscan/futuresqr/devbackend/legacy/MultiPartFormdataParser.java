@@ -92,7 +92,7 @@ public class MultiPartFormdataParser {
         }
 
         String boundary = boundaryArray[0];
-        String[] requestParameters = requestBody.split( boundary + "(\\R)?" );
+        String[] requestParameters = requestBody.split( "(\\R)?" + boundary + "(\\R)?" );
 
         // advance boundary and then parse name and then parse value
         for (String singlePostParameter : requestParameters) {
