@@ -132,7 +132,9 @@ public class MultiPartFormdataParser {
                     continue;
                 }
                 else {
-                    // something unknown happened.
+                    // something unknown happened. What if the data is empty?
+                    // 
+                    throw new RuntimeException( "Unexpected newline combination found." );
                 }
             }
             else {
@@ -208,15 +210,6 @@ public class MultiPartFormdataParser {
 //
 //        // there is either a default charset encoding which is valid for all, or each block can have it's own info
 //        // for the particular encoding. (we need nothing fancy here)
-//
-//        // TODO: if next line is not starting with ""+"\r\n" - throw parser error
-//        if (remaining.startsWith( "\r\n" )) {
-//            String[] data = remaining.split( "\\R", 2 );
-//            remaining = data[1];
-//        }
-//        else {
-//
-//        }
 
     }
 }
