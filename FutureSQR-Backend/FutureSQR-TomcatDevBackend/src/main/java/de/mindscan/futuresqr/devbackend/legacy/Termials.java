@@ -50,4 +50,12 @@ public class Termials {
         return currentChar == '\n' || currentChar == '\r';
     }
 
+    public static boolean isSpace( char currenChar ) {
+        return currenChar == ' ';
+    }
+
+    public static boolean isSpaceOrLineSeparator( char currentChar ) {
+        return currentChar == ' ' || isStartOfLineSeparator( currentChar );
+    }
+
 }
