@@ -28,7 +28,7 @@ package de.mindscan.futuresqr.devbackend.legacy;
 /**
  * 
  */
-public class Termials {
+public class Terminals {
 
     // Quotes
     public final static char[] TERMINAL_QUOTES = new char[] { '\'', '"' };
