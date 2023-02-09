@@ -115,6 +115,8 @@ public class MultiPartFormdataParser {
 
         // Parse Header...
         while (lexer.isTokenEndBeforeInputEnd()) {
+            // TODO: check first char if part of newline we should prepare for newline more
+            
             lexer.prepareNextToken();
             lexer.incrementTokenEndWhileNot( Terminals::isSpaceOrLineSeparator );
 
