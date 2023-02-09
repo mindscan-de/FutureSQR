@@ -138,7 +138,6 @@ public class MultiPartFormdataParser {
                 }
             }
             else {
-                // TODO: check first char if part of newline we should prepare for newline more
                 lexer.incrementTokenEndWhileNot( Terminals::isSpaceOrLineSeparator );
 
                 String currentToken = lexer.getTokenString();
