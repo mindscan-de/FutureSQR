@@ -112,58 +112,79 @@ public class MultiPartFormdataParser {
     }
 
     private void collectPostParameter( MultiPartFormdataParameters postParameters, Lexer lexer ) {
-
         // Parse Header...
         while (lexer.isTokenEndBeforeInputEnd()) {
-            // TODO: check first char if part of newline we should prepare for newline more
-            
             lexer.prepareNextToken();
-            lexer.incrementTokenEndWhileNot( Terminals::isSpaceOrLineSeparator );
 
-            String currentToken = lexer.getTokenString();
+            if (Terminals.isStartOfLineSeparator( lexer.charAtTokenStart() )) {
+                lexer.incrementTokenEndWhile( Terminals::isStartOfLineSeparator );
 
-            if ("Content-Disposition:".equals( currentToken )) {
-                // we consume this token
+                String newLineMode = lexer.getTokenString();
                 lexer.advanceToNextToken();
 
-                // read over the spaces
-                lexer.prepareNextToken();
-                lexer.incrementTokenEndWhile( Terminals::isSpace );
-                lexer.advanceToNextToken();
-
-                // read the content type:
-                lexer.prepareNextToken();
-                lexer.incrementTokenEndWhileNot( Terminals::isSpaceOrLineSeparator );
-                String contentType = lexer.getTokenString();
-
-                if (!"form-data;".equals( contentType )) {
-                    // we found a different content type.
-                    System.out.println( "Unexpected ContentType found: '" + contentType + "'" );
-                    return;
+                if ("\r\n\r\n".equals( newLineMode )) {
+                    // either it is double newline "\r\n\r\n" -> switch to value read
+                    // switch to value mode
+                    break;
                 }
-
-                // we consume this form-data token
-                lexer.advanceToNextToken();
-
-                // read over the spaces
-                lexer.prepareNextToken();
-                lexer.incrementTokenEndWhile( Terminals::isSpace );
-                lexer.advanceToNextToken();
-
-                // now parse name="nameOf"
-
-                // parse content disposition until newline
+                else if ("\r\n".equals( newLineMode )) {
+                    // or is single "\r\n" then continue with header parsing.
+                    continue;
+                }
+                else {
+                    // something unknown happened.
+                }
             }
             else {
-                System.out.println( "CurrentToken='" + currentToken + "'" );
-            }
+                // TODO: check first char if part of newline we should prepare for newline more
+                lexer.incrementTokenEndWhileNot( Terminals::isSpaceOrLineSeparator );
 
+                String currentToken = lexer.getTokenString();
+
+                if ("Content-Disposition:".equals( currentToken )) {
+                    // we consume this token
+                    lexer.advanceToNextToken();
+
+                    // read over the spaces
+                    lexer.prepareNextToken();
+                    lexer.incrementTokenEndWhile( Terminals::isSpace );
+                    lexer.advanceToNextToken();
+
+                    // read the content type:
+                    lexer.prepareNextToken();
+                    lexer.incrementTokenEndWhileNot( Terminals::isSpaceOrLineSeparator );
+                    String contentType = lexer.getTokenString();
+
+                    if (!"form-data;".equals( contentType )) {
+                        // we found a different content type.
+                        // could be file upload, but we don't support it so we skip this part of the multi-part form-data
+                        System.out.println( "Unexpected ContentType found: '" + contentType + "'" );
+                        return;
+                    }
+
+                    // we consume this form-data token
+                    lexer.advanceToNextToken();
+
+                    // read over the spaces
+                    lexer.prepareNextToken();
+                    lexer.incrementTokenEndWhile( Terminals::isSpace );
+                    lexer.advanceToNextToken();
+
+                    // now parse name="nameOf"
+
+                    // parse content disposition until newline
+                }
+                else {
+                    System.out.println( "CurrentToken='" + currentToken + "'" );
+                    lexer.advanceToNextToken();
+                }
+            }
             // read all newlines chars
             // TODO: either it is double newline "\r\n\r\n" -> switch to value read
-            // TODO: or is single "\r\n" then continue with header parsing. 
 
-            lexer.advanceToNextToken();
         }
+
+        // TODO: parse and convert value.
 
 //        // Content-Disposition: form-data; name=""
 //        if (remaining.startsWith( "Content-Disposition" )) {
@@ -197,7 +218,5 @@ public class MultiPartFormdataParser {
 //
 //        }
 
-        // TODO: parse and convert value until end of string. 
-        // Data needs to be converted...
     }
 }
