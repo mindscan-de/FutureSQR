@@ -83,70 +83,117 @@ public class MultiPartFormdataParser {
     }
 
     public MultiPartFormdataParameters parse() {
-        MultiPartFormdataParameters postParameters = new MultiPartFormdataParameters();
+        MultiPartFormdataParameters postParameterCollector = new MultiPartFormdataParameters();
 
         // parse header and isolate boundary
         String[] boundaryArray = requestBody.split( "\\R", 2 );
         if (boundaryArray.length < 2) {
-            return postParameters;
+            return postParameterCollector;
         }
 
         String boundary = boundaryArray[0];
         String[] requestParameterBlocks = requestBody.split( "(\\R)?" + boundary + "(\\R)?" );
 
         // advance boundary and then parse name and then parse value
-        for (String singlePostParameter : requestParameterBlocks) {
+        for (String singlePostBlock : requestParameterBlocks) {
 
             // this is the last element
-            if (singlePostParameter.equals( "--" ) || singlePostParameter.startsWith( "--" + "\r\n" )) {
+            if (singlePostBlock.equals( "--" ) || singlePostBlock.startsWith( "--" + "\r\n" )) {
                 break;
             }
 
-            collectPostParameter( postParameters, singlePostParameter );
+            collectPostParameter( postParameterCollector, new StringBasedLexer( singlePostBlock ) );
         }
 
-        postParameters.addParameter( "revisionid", "19aee1fa31a7c55d998ede33bfd3f487f70fb898" );
-        postParameters.addParameter( "opening_userid", "8ce74ee9-48ff-3dde-b678-58a632887e31" );
+        postParameterCollector.addParameter( "revisionid", "19aee1fa31a7c55d998ede33bfd3f487f70fb898" );
+        postParameterCollector.addParameter( "opening_userid", "8ce74ee9-48ff-3dde-b678-58a632887e31" );
 
-        return postParameters;
+        return postParameterCollector;
     }
 
-    private void collectPostParameter( MultiPartFormdataParameters postParameters, String singlePostParameter ) {
-        System.out.println( ">>>" + singlePostParameter + "<<<" );
+    private void collectPostParameter( MultiPartFormdataParameters postParameters, Lexer lexer ) {
 
-        String remaining = singlePostParameter;
+        // Parse Header...
+        while (lexer.isTokenEndBeforeInputEnd()) {
+            lexer.prepareNextToken();
+            lexer.incrementTokenEndWhileNot( Terminals::isSpaceOrLineSeparator );
 
-        // Content-Disposition: form-data; name=""
-        if (remaining.startsWith( "Content-Disposition" )) {
-            // TODO: parse Content-Disposition parse until next new line
-            String[] data = remaining.split( "\\R", 2 );
-            if (data.length != 2) {
-                // throw parse ContentDispositionError;
+            String currentToken = lexer.getTokenString();
+
+            if ("Content-Disposition:".equals( currentToken )) {
+                // we consume this token
+                lexer.advanceToNextToken();
+
+                // read over the spaces
+                lexer.prepareNextToken();
+                lexer.incrementTokenEndWhile( Terminals::isSpace );
+                lexer.advanceToNextToken();
+
+                // read the content type:
+                lexer.prepareNextToken();
+                lexer.incrementTokenEndWhileNot( Terminals::isSpaceOrLineSeparator );
+                String contentType = lexer.getTokenString();
+
+                if (!"form-data;".equals( contentType )) {
+                    // we found a different content type.
+                    System.out.println( "Unexpected ContentType found: '" + contentType + "'" );
+                    return;
+                }
+
+                // we consume this form-data token
+                lexer.advanceToNextToken();
+
+                // read over the spaces
+                lexer.prepareNextToken();
+                lexer.incrementTokenEndWhile( Terminals::isSpace );
+                lexer.advanceToNextToken();
+
+                // now parse name="nameOf"
+
+                // parse content disposition until newline
+            }
+            else {
+                System.out.println( "CurrentToken='" + currentToken + "'" );
             }
 
-            String contentDispositionLine = data[0];
+            // read all newlines chars
+            // TODO: either it is double newline "\r\n\r\n" -> switch to value read
+            // TODO: or is single "\r\n" then continue with header parsing. 
 
-            // split contentDispositionLine and extract parameter names.
-
-            // TODO isolate name only accept form-data and name
-
-            remaining = data[1];
-        }
-        else {
-            // well this is  not how it should be the first item should be content disposition
+            lexer.advanceToNextToken();
         }
 
-        // there is either a default charset encoding which is valid for all, or each block can have it's own info
-        // for the particular encoding. (we need nothing fancy here)
-
-        // TODO: if next line is not starting with ""+"\r\n" - throw parser error
-        if (remaining.startsWith( "\r\n" )) {
-            String[] data = remaining.split( "\\R", 2 );
-            remaining = data[1];
-        }
-        else {
-
-        }
+//        // Content-Disposition: form-data; name=""
+//        if (remaining.startsWith( "Content-Disposition" )) {
+//            // TODO: parse Content-Disposition parse until next new line
+//            String[] data = remaining.split( "\\R", 2 );
+//            if (data.length != 2) {
+//                // throw parse ContentDispositionError;
+//            }
+//
+//            String contentDispositionLine = data[0];
+//
+//            // split contentDispositionLine and extract parameter names.
+//
+//            // TODO isolate name only accept form-data and name
+//
+//            remaining = data[1];
+//        }
+//        else {
+//            // well this is  not how it should be the first item should be content disposition
+//        }
+//
+//        // there is either a default charset encoding which is valid for all, or each block can have it's own info
+//        // for the particular encoding. (we need nothing fancy here)
+//
+//        // TODO: if next line is not starting with ""+"\r\n" - throw parser error
+//        if (remaining.startsWith( "\r\n" )) {
+//            String[] data = remaining.split( "\\R", 2 );
+//            remaining = data[1];
+//        }
+//        else {
+//
+//        }
 
         // TODO: parse and convert value until end of string. 
         // Data needs to be converted...
