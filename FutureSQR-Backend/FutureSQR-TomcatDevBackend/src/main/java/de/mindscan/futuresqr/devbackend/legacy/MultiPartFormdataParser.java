@@ -180,9 +180,6 @@ public class MultiPartFormdataParser {
                     lexer.advanceToNextToken();
                 }
             }
-            // read all newlines chars
-            // TODO: either it is double newline "\r\n\r\n" -> switch to value read
-
         }
 
         // TODO: parse and convert value.
