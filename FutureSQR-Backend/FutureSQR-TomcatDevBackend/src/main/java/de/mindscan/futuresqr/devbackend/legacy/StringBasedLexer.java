@@ -30,7 +30,7 @@ import java.util.function.Predicate;
 /**
  * 
  */
-public class StringBasedLexer {
+public class StringBasedLexer implements Lexer {
 
     private int tokenStart;
     private int tokenEnd;
@@ -42,52 +42,64 @@ public class StringBasedLexer {
         this.tokenEnd = 0;
     }
 
+    @Override
     public char charAtTokenStart() {
         return inputString.charAt( tokenStart );
     }
 
+    @Override
     public char charAtTokenEnd() {
         return inputString.charAt( tokenEnd );
     }
 
+    @Override
     public boolean isTokenStartBeforeInputEnd() {
         return tokenStart < inputString.length();
     }
 
+    @Override
     public boolean isTokenEndBeforeInputEnd() {
         return tokenEnd < inputString.length();
     }
 
+    @Override
     public void advanceToNextToken() {
         tokenStart = tokenEnd;
     }
 
+    @Override
     public void incrementTokenEnd() {
         tokenEnd++;
     }
 
+    @Override
     public void prepareNextToken() {
         tokenEnd = tokenStart + 1;
     }
 
+    @Override
     public String getTokenString() {
         return inputString.substring( tokenStart, tokenEnd );
     }
 
+    @Override
     public int getTokenStart() {
         return tokenStart;
     }
 
+    @Override
     public int getTokenEnd() {
         return tokenEnd;
     }
 
+    @Override
     public void incrementTokenEndWhile( Predicate<Character> object ) {
         while (isTokenEndBeforeInputEnd() && object.test( charAtTokenEnd() )) {
             incrementTokenEnd();
         }
     }
 
+    @Override
     public void incrementTokenEndWhileNot( Predicate<Character> object ) {
         while (isTokenEndBeforeInputEnd() && !object.test( charAtTokenEnd() )) {
             incrementTokenEnd();
