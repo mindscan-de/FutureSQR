@@ -125,7 +125,7 @@ public class MultiPartFormdataParser {
             lexer.prepareNextToken();
 
             if (Terminals.isStartOfLineSeparator( lexer.charAtTokenStart() )) {
-                lexer.incrementTokenEndWhile( Terminals::isStartOfLineSeparator );
+                lexer.incrementTokenEndWhile( Terminals::isStartOfLineSeparator, 4 );
 
                 String newLineMode = lexer.getTokenString();
                 lexer.advanceToNextToken();
