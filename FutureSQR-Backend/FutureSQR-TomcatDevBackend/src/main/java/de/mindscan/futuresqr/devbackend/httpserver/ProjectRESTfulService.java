@@ -303,8 +303,7 @@ public class ProjectRESTfulService {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
         if (projectDB.isProjectIdPresent( projectId )) {
-            // TODO: replace this getStringOrThrow to force userid as soon as we have a working parser
-            String userid = postParams.getStringOrDefault( "userid", HARDCODED_MINDSCAN_DE_UUID );
+            String userid = postParams.getStringOrThrow( "userid" );
 
             FSqrApplication.getInstance().getServices().getUserToProjectRepository().starProject( userid, projectId );
         }
@@ -320,8 +319,7 @@ public class ProjectRESTfulService {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
         if (projectDB.isProjectIdPresent( projectId )) {
-            // TODO: replace this getStringOrThrow to force userid as soon as we have a working parser 
-            String userid = postParams.getStringOrDefault( "userid", HARDCODED_MINDSCAN_DE_UUID );
+            String userid = postParams.getStringOrThrow( "userid" );
 
             // System.out.println( userid );
 

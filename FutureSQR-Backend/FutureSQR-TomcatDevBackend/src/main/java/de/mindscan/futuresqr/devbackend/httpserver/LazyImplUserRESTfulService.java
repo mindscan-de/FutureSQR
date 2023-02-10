@@ -75,11 +75,8 @@ public class LazyImplUserRESTfulService {
     ) {
         MultiPartFormdataParameters parameters = MultiPartFormdataParser.createParser( requestBody ).parse();
 
-        // XXX: this is bad but i really don't want to deal with the multipart formdata right now.
-        //      bad enough this sh*t is not solved once and for all in tomcat 7 - eff this.
-
-        String username = parameters.getStringOrDefault( "username", "mindscan-de" );
-        String password = parameters.getStringOrDefault( "password", "test" );
+        String username = parameters.getStringOrThrow( "username" );
+        String password = parameters.getStringOrThrow( "password" );
 
         return postLoginDataForAuthentication( username, password );
     }
@@ -118,16 +115,10 @@ public class LazyImplUserRESTfulService {
     @javax.ws.rs.Path( "/reauthenticate" )
     @POST
     @Produces( "application/json" )
-    public String postReauthenticationLoginData( String requestBody //
-//                    @FormParam( "assumedusername" )
-    // String assumedUserName 
-    ) {
+    public String postReauthenticationLoginData( String requestBody ) {
         MultiPartFormdataParameters parameters = MultiPartFormdataParser.createParser( requestBody ).parse();
 
-        // XXX: this is bad but i really don't want to deal with the multipart formdata right now.
-        //      bad enough this sh*t is not solved once and for all in tomcat 7 - eff this.
-
-        String assumedUserName = parameters.getStringOrDefault( "assumedusername", "mindscan-de" );
+        String assumedUserName = parameters.getStringOrThrow( "assumedusername" );
 
         return postReauthenticationLoginData_internal( assumedUserName );
     }
