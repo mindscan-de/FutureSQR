@@ -199,28 +199,5 @@ public class MultiPartFormdataParser {
             postParameters.addParameter( parameterName, parameterValue );
         }
 
-//        // Content-Disposition: form-data; name=""
-//        if (remaining.startsWith( "Content-Disposition" )) {
-//            // TODO: parse Content-Disposition parse until next new line
-//            String[] data = remaining.split( "\\R", 2 );
-//            if (data.length != 2) {
-//                // throw parse ContentDispositionError;
-//            }
-//
-//            String contentDispositionLine = data[0];
-//
-//            // split contentDispositionLine and extract parameter names.
-//
-//            // TODO isolate name only accept form-data and name
-//
-//            remaining = data[1];
-//        }
-//        else {
-//            // well this is  not how it should be the first item should be content disposition
-//        }
-//
-//        // there is either a default charset encoding which is valid for all, or each block can have it's own info
-//        // for the particular encoding. (we need nothing fancy here)
-
     }
 }
