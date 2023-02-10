@@ -191,9 +191,9 @@ public class MultiPartFormdataParser {
         }
 
         // TODO: parse and convert value.
-        String parameterValue = null;
+        String parameterValue = lexer.getRemainingString();
 
-        parameterValue = lexer.getRemainingString();
+        // TODO: actually based on the encoding and based on the charset this data must be transformed...
 
         if (parameterName != null && parameterValue != null) {
             postParameters.addParameter( parameterName, parameterValue );
