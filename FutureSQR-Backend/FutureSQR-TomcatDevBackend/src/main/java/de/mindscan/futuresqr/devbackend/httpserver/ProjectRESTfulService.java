@@ -51,6 +51,7 @@ import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParameters;
 import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParser;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
+import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrScmProjectRevisionRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectRepositoryImpl;
@@ -352,12 +353,14 @@ public class ProjectRESTfulService {
             System.out.println( "[CR-CREATE]: revisionid: " + revisionId );
             System.out.println( "[CR-CREATE]: openerUserUUID: " + openerUserUUID );
 
-            // TODO: collect some revision info, but this should be done in the reviewRepository...
-            FSqrRevision revision = FSqrApplication.getInstance().getServices().getRevisionRepository().getSimpleRevisionInformation( projectId, revisionId );
-            FSqrCodeReview codeReviewSystem = FSqrApplication.getInstance().getServices().getReviewRepository().createReviewFromRevision( projectId, revision );
+            FSqrApplicationServices services = FSqrApplication.getInstance().getServices();
 
-            // TODO: create the code review itself from a revision.
-            OutputReviewModel review = new OutputReviewModel( codeReviewSystem );
+            // TODO: collect some revision info, but this should be done in the reviewRepository...
+            FSqrRevision revision = services.getRevisionRepository().getSimpleRevisionInformation( projectId, revisionId );
+            FSqrCodeReview codeReviewFromReviewSystem = services.getReviewRepository().createReviewFromRevision( projectId, revision );
+
+            // TODO: create the code review itself from a revision - currently not completed.
+            OutputReviewModel review = new OutputReviewModel( codeReviewFromReviewSystem );
 
             // TODO: take that code review and fill the response model.
             OutputReviewCreatedModel response = new OutputReviewCreatedModel();
