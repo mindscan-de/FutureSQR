@@ -95,14 +95,20 @@ public class MultiPartFormdataParser {
         String[] requestParameterBlocks = requestBody.split( "(\\R)?" + boundary + "(\\R)?" );
 
         // advance boundary and then parse name and then parse value
-        for (String singlePostBlock : requestParameterBlocks) {
+        for (String singlePostParameter : requestParameterBlocks) {
 
             // this is the last element
-            if (singlePostBlock.equals( "--" ) || singlePostBlock.startsWith( "--" + "\r\n" )) {
+            if (singlePostParameter.equals( "--" ) || singlePostParameter.startsWith( "--" + "\r\n" )) {
                 break;
             }
 
-            collectPostParameter( postParameterCollector, new StringBasedLexer( singlePostBlock ) );
+            try {
+                collectPostParameter( postParameterCollector, new StringBasedLexer( singlePostParameter ) );
+            }
+            catch (Exception e) {
+                // TODO: handle exception
+                // intentionally left blank - maybe just continue to read the next post parameter
+            }
         }
 
         postParameterCollector.addParameter( "revisionid", "19aee1fa31a7c55d998ede33bfd3f487f70fb898" );
@@ -112,6 +118,8 @@ public class MultiPartFormdataParser {
     }
 
     private void collectPostParameter( MultiPartFormdataParameters postParameters, Lexer lexer ) {
+        String parameterName = null;
+
         // Parse Header...
         while (lexer.isTokenEndBeforeInputEnd()) {
             lexer.prepareNextToken();
@@ -183,6 +191,13 @@ public class MultiPartFormdataParser {
         }
 
         // TODO: parse and convert value.
+        String parameterValue = null;
+
+        parameterValue = lexer.getRemainingString();
+
+        if (parameterName != null && parameterValue != null) {
+            postParameters.addParameter( parameterName, parameterValue );
+        }
 
 //        // Content-Disposition: form-data; name=""
 //        if (remaining.startsWith( "Content-Disposition" )) {
