@@ -79,9 +79,10 @@ public class FSqrCodeReviewRepositoryImpl {
     // add revision to review
     // remove revision from review
 
-    public FSqrCodeReview createReviewFromRevision( String projectid, FSqrRevision revision ) {
+    public FSqrCodeReview createReviewFromRevision( String projectid, String revisionid ) {
         FSqrScmProjectConfigurationRepositoryImpl configurationRepository = applicationServices.getConfigurationRepository();
 
+        FSqrRevision revision = applicationServices.getRevisionRepository().getSimpleRevisionInformation( projectid, revisionid );
         FSqrCodeReview codeReview = FSqrCodeReviewFactory.createReviewFromRevision( projectid, revision, configurationRepository );
 
         return codeReview;
