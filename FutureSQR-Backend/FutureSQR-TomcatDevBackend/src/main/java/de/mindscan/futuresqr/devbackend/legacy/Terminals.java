@@ -58,4 +58,12 @@ public class Terminals {
         return currentChar == ' ' || isStartOfLineSeparator( currentChar );
     }
 
+    public static boolean isDoubleQuote( char currentChar ) {
+        return currentChar == '"';
+    }
+
+    public static boolean isDoubleQuoteOrLineSeparator( char currentChar ) {
+        return currentChar == '"' || isStartOfLineSeparator( currentChar );
+    }
+
 }
