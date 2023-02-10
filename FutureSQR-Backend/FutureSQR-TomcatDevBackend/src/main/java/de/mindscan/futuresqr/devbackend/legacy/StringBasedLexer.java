@@ -105,9 +105,27 @@ public class StringBasedLexer implements Lexer {
     }
 
     @Override
+    public void incrementTokenEndWhile( Predicate<Character> object, int maxLength ) {
+        int counter = 0;
+        while (isTokenEndBeforeInputEnd() && object.test( charAtTokenEnd() ) && counter < maxLength) {
+            incrementTokenEnd();
+            counter++;
+        }
+    }
+
+    @Override
     public void incrementTokenEndWhileNot( Predicate<Character> object ) {
         while (isTokenEndBeforeInputEnd() && !object.test( charAtTokenEnd() )) {
             incrementTokenEnd();
+        }
+    }
+
+    @Override
+    public void incrementTokenEndWhileNot( Predicate<Character> object, int maxLength ) {
+        int counter = 0;
+        while (isTokenEndBeforeInputEnd() && !object.test( charAtTokenEnd() ) && counter < maxLength) {
+            incrementTokenEnd();
+            counter++;
         }
     }
 

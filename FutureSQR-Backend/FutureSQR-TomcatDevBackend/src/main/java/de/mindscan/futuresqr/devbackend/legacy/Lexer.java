@@ -34,11 +34,11 @@ public interface Lexer {
 
     void incrementTokenEndWhileNot( Predicate<Character> object );
 
-    // TODO: incrementTokenEndWhileNot( Predicate<Character> object , int maxLength);
+    void incrementTokenEndWhileNot( Predicate<Character> object, int maxLength );
 
     void incrementTokenEndWhile( Predicate<Character> object );
 
-    // TODO implement incrementTokenEndWhile( Predicate<Character> object , int maxLength);
+    void incrementTokenEndWhile( Predicate<Character> object, int maxLength );
 
     int getTokenEnd();
 
