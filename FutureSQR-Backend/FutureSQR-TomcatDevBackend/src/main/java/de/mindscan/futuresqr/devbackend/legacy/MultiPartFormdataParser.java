@@ -111,9 +111,6 @@ public class MultiPartFormdataParser {
             }
         }
 
-        postParameterCollector.addParameter( "revisionid", "19aee1fa31a7c55d998ede33bfd3f487f70fb898" );
-        postParameterCollector.addParameter( "opening_userid", "8ce74ee9-48ff-3dde-b678-58a632887e31" );
-
         return postParameterCollector;
     }
 
@@ -180,6 +177,28 @@ public class MultiPartFormdataParser {
                     lexer.advanceToNextToken();
 
                     // now parse name="nameOf"
+                    lexer.prepareNextToken();
+                    lexer.incrementTokenEndWhileNot( Terminals::isDoubleQuote );
+                    String expectedAssignment = lexer.getTokenString();
+                    if (!"name=".equals( expectedAssignment )) {
+                        System.out.println( "expectd name=\"...\" but found: '" + contentType + "'" );
+                        return;
+                    }
+                    lexer.advanceToNextToken();
+
+                    // skip first double quotes.
+                    lexer.skipSingleChar();
+
+                    // read parameter name
+                    lexer.prepareNextToken();
+                    lexer.incrementTokenEndWhileNot( Terminals::isDoubleQuote );
+                    parameterName = lexer.getTokenString();
+                    lexer.advanceToNextToken();
+
+                    // skip everything until end of line.
+                    lexer.prepareNextToken();
+                    lexer.incrementTokenEndWhileNot( Terminals::isStartOfLineSeparator );
+                    lexer.advanceToNextToken();
 
                     // parse content disposition until newline
                 }
