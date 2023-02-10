@@ -63,6 +63,12 @@ public class StringBasedLexer implements Lexer {
     }
 
     @Override
+    public void skipSingleChar() {
+        tokenEnd = tokenStart + 1;
+        tokenStart = tokenEnd;
+    }
+
+    @Override
     public void advanceToNextToken() {
         tokenStart = tokenEnd;
     }

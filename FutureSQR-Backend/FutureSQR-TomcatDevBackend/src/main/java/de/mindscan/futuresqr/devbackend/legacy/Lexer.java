@@ -62,4 +62,6 @@ public interface Lexer {
 
     String getRemainingString();
 
+    void skipSingleChar();
+
 }
