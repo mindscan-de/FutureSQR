@@ -107,7 +107,7 @@ public class MultiPartFormdataParser {
             }
             catch (Exception e) {
                 // TODO: handle exception
-                // intentionally left blank - maybe just continue to read the next post parameter
+                e.printStackTrace();
             }
         }
 
@@ -181,7 +181,7 @@ public class MultiPartFormdataParser {
                     lexer.incrementTokenEndWhileNot( Terminals::isDoubleQuote );
                     String expectedAssignment = lexer.getTokenString();
                     if (!"name=".equals( expectedAssignment )) {
-                        System.out.println( "expectd name=\"...\" but found: '" + contentType + "'" );
+                        System.out.println( "Expected 'name=\"...\"' but found: '" + expectedAssignment + "'" );
                         return;
                     }
                     lexer.advanceToNextToken();
