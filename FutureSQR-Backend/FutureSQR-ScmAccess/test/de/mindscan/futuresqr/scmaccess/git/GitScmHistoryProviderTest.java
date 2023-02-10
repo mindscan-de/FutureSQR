@@ -16,7 +16,7 @@ public class GitScmHistoryProviderTest {
     public void testGetFilePathHistory() throws Exception {
         // arrange
         GitScmHistoryProvider provider = new GitScmHistoryProvider();
-        provider.setGitCLICommandExecutor( new GitCLICommandExecutor() );
+        provider.setGitCLICommandExecutor( new FakeGitCLICommandExecutor() );
 
         // act
         ScmFileHistory result = provider.getFilePathHistory( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ), new ScmPath(
