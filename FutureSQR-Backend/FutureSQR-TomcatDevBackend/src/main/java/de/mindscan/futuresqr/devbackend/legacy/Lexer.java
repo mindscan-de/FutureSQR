@@ -60,4 +60,6 @@ public interface Lexer {
 
     char charAtTokenStart();
 
+    String getRemainingString();
+
 }

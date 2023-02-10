@@ -93,6 +93,11 @@ public class StringBasedLexer implements Lexer {
     }
 
     @Override
+    public String getRemainingString() {
+        return inputString.substring( tokenStart );
+    }
+
+    @Override
     public void incrementTokenEndWhile( Predicate<Character> object ) {
         while (isTokenEndBeforeInputEnd() && object.test( charAtTokenEnd() )) {
             incrementTokenEnd();
