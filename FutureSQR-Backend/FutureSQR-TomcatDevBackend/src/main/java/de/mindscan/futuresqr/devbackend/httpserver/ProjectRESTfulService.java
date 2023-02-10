@@ -43,6 +43,7 @@ import de.mindscan.futuresqr.devbackend.httpresponse.OutputProjectRevisionsModel
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputProjectRevisionsRevisionEntry;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputRecentReviewsModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputReviewCreatedModel;
+import de.mindscan.futuresqr.devbackend.httpresponse.OutputReviewModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputSimpleProjectInformation;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputSingleCommitFullChangeSet;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputStatusOkayModel;
@@ -345,15 +346,25 @@ public class ProjectRESTfulService {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParserAndDump( requestBody ).parse();
 
         if (projectDB.isProjectIdPresent( projectId )) {
-            // TODO: implement me
-            // String revisionId = postParams.getStringOrDefault( "revisionid", defaultValue );
-            // String openerUserUUID = postParams.getStringOrDefault( "opening_userid", defaultValue );
+            String revisionId = postParams.getStringOrThrow( "revisionid" );
+            String openerUserUUID = postParams.getStringOrThrow( "opening_userid" );
 
+            System.out.println( "[CR-CREATE]: revisionid: " + revisionId );
+            System.out.println( "[CR-CREATE]: openerUserUUID: " + openerUserUUID );
+
+            // TODO: collect some revision info, but this should be done in the reviewRepository...
+            FSqrRevision revision = FSqrApplication.getInstance().getServices().getRevisionRepository().getSimpleRevisionInformation( projectId, revisionId );
+            FSqrCodeReview codeReviewSystem = FSqrApplication.getInstance().getServices().getReviewRepository().createReviewFromRevision( projectId, revision );
+
+            // TODO: create the code review itself from a revision.
+            OutputReviewModel review = new OutputReviewModel( codeReviewSystem );
+
+            // TODO: take that code review and fill the response model.
             OutputReviewCreatedModel response = new OutputReviewCreatedModel();
-            // response.projectId = projectId;
-            // response.revisionId = revisionId;
-            // response.reviewId = review.getReviewId();
-            // response.reviewData = 
+            response.projectId = projectId;
+            response.revisionId = revisionId;
+            response.reviewId = review.reviewId;
+            response.reviewData = review;
 
             Gson gson = new Gson();
             return gson.toJson( response );
