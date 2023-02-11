@@ -187,7 +187,7 @@ public class LazyImplUserRESTfulService {
     }
 
     @GetMapping( path = "/allaccessibleprojects", produces = MediaType.APPLICATION_JSON_VALUE )
-    public <T> List<OutputUserProjectEntry> getUserAccessibleProjects( @RequestParam String userUUID ) {
+    public <T> List<OutputUserProjectEntry> getUserAccessibleProjects( @RequestParam( "userid" ) String userUUID ) {
         Collection<FSqrScmProjectConfiguration> allProjects = projectDB.getAllProjects();
 
         // TODO actually also filter the accessible projects, since they could be
