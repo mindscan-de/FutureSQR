@@ -99,7 +99,7 @@ public class LazyImplUserRESTfulService {
         return response;
     }
 
-    @PostMapping( path = "/reauthenticate", params = MediaType.APPLICATION_JSON_VALUE )
+    @PostMapping( path = "/reauthenticate", produces = MediaType.APPLICATION_JSON_VALUE )
     public OutputLoginDataModel postReauthenticationLoginData( @RequestPart( "assumedusername" ) String assumedUserName ) {
 
         return postReauthenticationLoginData_internal( assumedUserName );
