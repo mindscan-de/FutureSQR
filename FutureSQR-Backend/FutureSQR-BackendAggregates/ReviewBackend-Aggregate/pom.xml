@@ -13,6 +13,7 @@
   	<module>../../FutureSQR-Core</module>
   	<module>../../FutureSQR-ScmAccess</module>
   	<module>../../FutureSQR-ReviewSystem-Core</module>
+  	<module>../../FutureSQR-DevBackendOutputModel</module>
   </modules>
   
 </project>

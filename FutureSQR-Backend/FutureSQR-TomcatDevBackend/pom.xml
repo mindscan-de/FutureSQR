@@ -19,6 +19,12 @@
   		<dependency>
   			<!-- direct -->
   			<groupId>de.mindscan.futuresqr</groupId>
+  			<artifactId>FutureSQR-DevBackendOutputModel</artifactId>
+  			<version>0.0.1-SNAPSHOT</version>
+  		</dependency>
+  		<dependency>
+  			<!-- direct -->
+  			<groupId>de.mindscan.futuresqr</groupId>
   			<artifactId>FutureSQR-ReviewSystem-Core</artifactId>
   			<version>0.0.1-SNAPSHOT</version>
   		</dependency>
