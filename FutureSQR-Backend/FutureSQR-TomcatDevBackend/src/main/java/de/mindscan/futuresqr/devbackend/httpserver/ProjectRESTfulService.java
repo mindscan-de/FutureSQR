@@ -84,7 +84,7 @@ public class ProjectRESTfulService {
         return "{\"hello\":\"world\"}";
     }
 
-    @javax.ws.rs.Path( "{projectid}/information" )
+    @javax.ws.rs.Path( "/{projectid}/information" )
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public String getSimpleProjectInformation( @PathParam( "projectid" ) String projectId ) {
