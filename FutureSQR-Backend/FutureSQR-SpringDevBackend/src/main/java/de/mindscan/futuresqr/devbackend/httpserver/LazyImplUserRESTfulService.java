@@ -54,177 +54,174 @@ import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
  * 
  */
 @RestController
-@RequestMapping("/rest/user")
+@RequestMapping( "/rest/user" )
 public class LazyImplUserRESTfulService {
 
-	private static FSqrLazyUserDatabaseImpl userDB = new FSqrLazyUserDatabaseImpl();
-	private static FSqrLazyProjectDatabaseImpl projectDB = new FSqrLazyProjectDatabaseImpl();
+    private static FSqrLazyUserDatabaseImpl userDB = new FSqrLazyUserDatabaseImpl();
+    private static FSqrLazyProjectDatabaseImpl projectDB = new FSqrLazyProjectDatabaseImpl();
 
-	@PostMapping(path = "/authenticate", produces = MediaType.APPLICATION_JSON_VALUE)
-	// @Consumes( MediaType.APPLICATION_FORM_URLENCODED )
-	public OutputLoginDataModel postLoginDataForAuthentication( //
-			@RequestPart("username") String username, //
-			@RequestPart("password") String password) {
+    @PostMapping( path = "/authenticate", produces = MediaType.APPLICATION_JSON_VALUE )
+    // @Consumes( MediaType.APPLICATION_FORM_URLENCODED )
+    public OutputLoginDataModel postLoginDataForAuthentication( //
+                    @RequestPart( "username" ) String username, //
+                    @RequestPart( "password" ) String password ) {
 
-		return postLoginDataForAuthenticationInternal(username, password);
-	}
+        return postLoginDataForAuthenticationInternal( username, password );
+    }
 
-	private OutputLoginDataModel postLoginDataForAuthenticationInternal(String username, String password) {
-		// #1 check if user is present in the userdatabase
-		if (!userDB.hasUser(username)) {
-			// todo provide a 404 and a good response
-			throw new RuntimeException("No such user or not authenticated. " + " username:'" + username
-					+ "'; password:'" + password + "'");
-		}
+    private OutputLoginDataModel postLoginDataForAuthenticationInternal( String username, String password ) {
+        // #1 check if user is present in the userdatabase
+        if (!userDB.hasUser( username )) {
+            // todo provide a 404 and a good response
+            throw new RuntimeException( "No such user or not authenticated. " + " username:'" + username + "'; password:'" + password + "'" );
+        }
 
-		// #2 get user entry using the username
-		FSqrLazyUserDBEntry userEntry = userDB.getUserEntryByLogonName(username);
+        // #2 get user entry using the username
+        FSqrLazyUserDBEntry userEntry = userDB.getUserEntryByLogonName( username );
 
-		// #3 TODO: register the user as an authenticated user
+        // #3 TODO: register the user as an authenticated user
 
-		OutputLoginDataModel response = new OutputLoginDataModel();
-		response.uuid = userEntry.uuid;
-		response.loginname = userEntry.loginname;
-		response.displayname = userEntry.displayname;
-		response.avatarlocation = userEntry.avatarlocation;
-		response.email = userEntry.email;
+        OutputLoginDataModel response = new OutputLoginDataModel();
+        response.uuid = userEntry.uuid;
+        response.loginname = userEntry.loginname;
+        response.displayname = userEntry.displayname;
+        response.avatarlocation = userEntry.avatarlocation;
+        response.email = userEntry.email;
 
-		// #4 figure out the roles and featureflags for this user
-		// #5 if admin, add admin role to capabilities
+        // #4 figure out the roles and featureflags for this user
+        // #5 if admin, add admin role to capabilities
 
-		// #6 return
-		if ("mindscan-de".equals(username)) {
-			response.capabilities.roles.add("admin");
-		}
+        // #6 return
+        if ("mindscan-de".equals( username )) {
+            response.capabilities.roles.add( "admin" );
+        }
 
-		return response;
-	}
+        return response;
+    }
 
-	@PostMapping(path = "/reauthenticate", params = MediaType.APPLICATION_JSON_VALUE)
-	public OutputLoginDataModel postReauthenticationLoginData(@RequestPart("assumedusername") String assumedUserName) {
+    @PostMapping( path = "/reauthenticate", params = MediaType.APPLICATION_JSON_VALUE )
+    public OutputLoginDataModel postReauthenticationLoginData( @RequestPart( "assumedusername" ) String assumedUserName ) {
 
-		return postReauthenticationLoginData_internal(assumedUserName);
-	}
+        return postReauthenticationLoginData_internal( assumedUserName );
+    }
 
-	private OutputLoginDataModel postReauthenticationLoginData_internal(String assumedUserName) {
-		// TODO: reimplement python #postReauthenticateLoginData
+    private OutputLoginDataModel postReauthenticationLoginData_internal( String assumedUserName ) {
+        // TODO: reimplement python #postReauthenticateLoginData
 
-		// #1 session handling and session checking for this alleged account.
-		if (isAuthSession(assumedUserName)) {
+        // #1 session handling and session checking for this alleged account.
+        if (isAuthSession( assumedUserName )) {
 
-			// #2 get user entry using the username
-			FSqrLazyUserDBEntry userEntry = userDB.getUserEntryByLogonName(assumedUserName);
+            // #2 get user entry using the username
+            FSqrLazyUserDBEntry userEntry = userDB.getUserEntryByLogonName( assumedUserName );
 
-			// #3 TODO: register the user as an authenticated user
+            // #3 TODO: register the user as an authenticated user
 
-			OutputLoginDataModel response = new OutputLoginDataModel();
-			response.uuid = userEntry.uuid;
-			response.loginname = userEntry.loginname;
-			response.displayname = userEntry.displayname;
-			response.avatarlocation = userEntry.avatarlocation;
-			response.email = userEntry.email;
+            OutputLoginDataModel response = new OutputLoginDataModel();
+            response.uuid = userEntry.uuid;
+            response.loginname = userEntry.loginname;
+            response.displayname = userEntry.displayname;
+            response.avatarlocation = userEntry.avatarlocation;
+            response.email = userEntry.email;
 
-			// #4 figure out the roles and featureflags for this user
-			// #5 if admin, add admin role to capabilities
+            // #4 figure out the roles and featureflags for this user
+            // #5 if admin, add admin role to capabilities
 
-			// #6 return
-			if ("mindscan-de".equals(assumedUserName)) {
-				response.capabilities.roles.add("admin");
-			}
+            // #6 return
+            if ("mindscan-de".equals( assumedUserName )) {
+                response.capabilities.roles.add( "admin" );
+            }
 
-			return response;
+            return response;
 
-		}
-		OutputLoginDataModel response = new OutputLoginDataModel();
+        }
+        OutputLoginDataModel response = new OutputLoginDataModel();
 
-		return response;
-	}
+        return response;
+    }
 
-	private boolean isAuthSession(String assumedUserName) {
-		// TODO implement a real session handling
-		return true;
-	}
+    private boolean isAuthSession( String assumedUserName ) {
+        // TODO implement a real session handling
+        return true;
+    }
 
-	@GetMapping(path = "/csrf", produces = MediaType.APPLICATION_JSON_VALUE)
-	public OutputCsrfTokenModel getCrsfToken() {
-		OutputCsrfTokenModel response = new OutputCsrfTokenModel();
+    @GetMapping( path = "/csrf", produces = MediaType.APPLICATION_JSON_VALUE )
+    public OutputCsrfTokenModel getCrsfToken() {
+        OutputCsrfTokenModel response = new OutputCsrfTokenModel();
 
-		return response;
-	}
+        return response;
+    }
 
-	@PostMapping(path = "/logout", produces = MediaType.APPLICATION_JSON_VALUE)
-	public OutputStatusOkayModel postLogoutData( //
-			@RequestPart("username") String userName) {
-		// TODO: reimplement python #postLogoutData
+    @PostMapping( path = "/logout", produces = MediaType.APPLICATION_JSON_VALUE )
+    public OutputStatusOkayModel postLogoutData( //
+                    @RequestPart( "username" ) String userName ) {
+        // TODO: reimplement python #postLogoutData
 
-		OutputStatusOkayModel response = new OutputStatusOkayModel();
+        OutputStatusOkayModel response = new OutputStatusOkayModel();
 
-		return response;
-	}
+        return response;
+    }
 
-	@GetMapping(path = "/starredprojects", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<OutputUserProjectEntry> getUserStarredProjects(@RequestParam("userid") String userUUID) {
-		Collection<FSqrScmProjectConfiguration> allProjects = projectDB.getAllProjects();
+    @GetMapping( path = "/starredprojects", produces = MediaType.APPLICATION_JSON_VALUE )
+    public List<OutputUserProjectEntry> getUserStarredProjects( @RequestParam( "userid" ) String userUUID ) {
+        Collection<FSqrScmProjectConfiguration> allProjects = projectDB.getAllProjects();
 
-		FSqrUserToProjectRepositoryImpl userToProjectRepository = FSqrApplication.getInstance().getServices()
-				.getUserToProjectRepository();
-		Set<String> starredProjects = userToProjectRepository.getAllStarredProjectsForUser(userUUID);
+        FSqrUserToProjectRepositoryImpl userToProjectRepository = FSqrApplication.getInstance().getServices().getUserToProjectRepository();
+        Set<String> starredProjects = userToProjectRepository.getAllStarredProjectsForUser( userUUID );
 
-		// TODO actually also filter the accessible projects, since they could be
-		// starred, before
-		// user lost access.
-		List<OutputUserProjectEntry> response = allProjects.stream()//
-				.filter(x -> starredProjects.contains(x.getProjectId()))//
-				.map(c -> transform(userUUID, c)) //
-				.collect(Collectors.toList());
+        // TODO actually also filter the accessible projects, since they could be
+        // starred, before
+        // user lost access.
+        List<OutputUserProjectEntry> response = allProjects.stream()//
+                        .filter( x -> starredProjects.contains( x.getProjectId() ) )//
+                        .map( c -> transform( userUUID, c ) ) //
+                        .collect( Collectors.toList() );
 
-		response.sort(new Comparator<OutputUserProjectEntry>() {
-			@Override
-			public int compare(OutputUserProjectEntry o1, OutputUserProjectEntry o2) {
-				return o1.project_display_name.compareTo(o2.project_display_name);
-			}
-		});
+        response.sort( new Comparator<OutputUserProjectEntry>() {
+            @Override
+            public int compare( OutputUserProjectEntry o1, OutputUserProjectEntry o2 ) {
+                return o1.project_display_name.compareTo( o2.project_display_name );
+            }
+        } );
 
-		return response;
-	}
+        return response;
+    }
 
-	@GetMapping(path = "/allaccessibleprojects", produces = MediaType.APPLICATION_JSON_VALUE)
-	public <T> List<OutputUserProjectEntry> getUserAccessibleProjects(@RequestParam String userUUID) {
-		Collection<FSqrScmProjectConfiguration> allProjects = projectDB.getAllProjects();
+    @GetMapping( path = "/allaccessibleprojects", produces = MediaType.APPLICATION_JSON_VALUE )
+    public <T> List<OutputUserProjectEntry> getUserAccessibleProjects( @RequestParam String userUUID ) {
+        Collection<FSqrScmProjectConfiguration> allProjects = projectDB.getAllProjects();
 
-		// TODO actually also filter the accessible projects, since they could be
-		// starred, before
-		// user lost access.
-		List<OutputUserProjectEntry> response = allProjects.stream()//
-				.map(c -> transform(userUUID, c)) //
-				.collect(Collectors.toList());
-		response.sort(new Comparator<OutputUserProjectEntry>() {
-			@Override
-			public int compare(OutputUserProjectEntry o1, OutputUserProjectEntry o2) {
-				return o1.project_display_name.compareTo(o2.project_display_name);
-			}
-		});
-		return response;
-	}
+        // TODO actually also filter the accessible projects, since they could be
+        // starred, before
+        // user lost access.
+        List<OutputUserProjectEntry> response = allProjects.stream()//
+                        .map( c -> transform( userUUID, c ) ) //
+                        .collect( Collectors.toList() );
+        response.sort( new Comparator<OutputUserProjectEntry>() {
+            @Override
+            public int compare( OutputUserProjectEntry o1, OutputUserProjectEntry o2 ) {
+                return o1.project_display_name.compareTo( o2.project_display_name );
+            }
+        } );
+        return response;
+    }
 
-	private OutputUserProjectEntry transform(String userUUID, FSqrScmProjectConfiguration configuration) {
-		FSqrUserToProjectRepositoryImpl userToProjectRepository = FSqrApplication.getInstance().getServices()
-				.getUserToProjectRepository();
+    private OutputUserProjectEntry transform( String userUUID, FSqrScmProjectConfiguration configuration ) {
+        FSqrUserToProjectRepositoryImpl userToProjectRepository = FSqrApplication.getInstance().getServices().getUserToProjectRepository();
 
-		OutputUserProjectEntry transformed = new OutputUserProjectEntry();
-		String projectId = configuration.getProjectId();
-		transformed.project_id = projectId;
-		transformed.project_display_name = configuration.getProjectDisplayName();
-		transformed.description = configuration.getProjectDescription();
+        OutputUserProjectEntry transformed = new OutputUserProjectEntry();
+        String projectId = configuration.getProjectId();
+        transformed.project_id = projectId;
+        transformed.project_display_name = configuration.getProjectDisplayName();
+        transformed.description = configuration.getProjectDescription();
 
-		transformed.is_starred = userToProjectRepository.isStarred(userUUID, projectId);
+        transformed.is_starred = userToProjectRepository.isStarred( userUUID, projectId );
 
-		return transformed;
-	}
+        return transformed;
+    }
 
-	// TODO: /ban
-	// TODO: /unban
-	// TODO: /add
-	// TODO: /adminuserlist
-	// TODO: /userdictionary
+    // TODO: /ban
+    // TODO: /unban
+    // TODO: /add
+    // TODO: /adminuserlist
+    // TODO: /userdictionary
 }
