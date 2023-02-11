@@ -1,0 +1,80 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>de.mindscan.futuresqr</groupId>
+  <artifactId>FutureSQR-DevBackendOutputModel</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>  
+  
+  
+  <dependencies>
+  		<!-- dependencies for this code review system -->
+  		<dependency>
+  			<!-- direct -->
+  			<groupId>de.mindscan.futuresqr</groupId>
+  			<artifactId>FutureSQR-ReviewSystem-Core</artifactId>
+  			<version>0.0.1-SNAPSHOT</version>
+  		</dependency>
+
+  			<dependency>
+  				<!-- transitive -->
+	  			<groupId>de.mindscan.futuresqr</groupId>
+	  			<artifactId>FutureSQR-Core</artifactId>
+	  			<version>0.0.1-SNAPSHOT</version>
+  			</dependency>
+	  		<dependency>
+	  			<!-- transitive -->
+	  			<groupId>de.mindscan.futuresqr</groupId>
+	  			<artifactId>FutureSQR-ScmAccess</artifactId>
+	  			<version>0.0.1-SNAPSHOT</version>
+	  		</dependency>
+  
+  		<!-- dependencies for future sqr development backend -->
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.8.9</version>
+		</dependency>  
+  
+    	<!-- dependencies for testing -->
+		<!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest -->
+		<dependency>
+		    <groupId>org.hamcrest</groupId>
+		    <artifactId>hamcrest</artifactId>
+		    <version>2.2</version>
+		    <scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-all</artifactId>
+		    <version>1.10.19</version>
+		    <scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.6.2</version>
+			<scope>test</scope>
+		</dependency>
+    
+  </dependencies>
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+	<testSourceDirectory>test</testSourceDirectory>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <release>8</release>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
