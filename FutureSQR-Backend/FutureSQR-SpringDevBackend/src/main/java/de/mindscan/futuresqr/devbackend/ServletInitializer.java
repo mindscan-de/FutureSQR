@@ -1,4 +1,4 @@
-package de.mindscan.futuresqr.FutureSQRSpringDevBackend;
+package de.mindscan.futuresqr.devbackend;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

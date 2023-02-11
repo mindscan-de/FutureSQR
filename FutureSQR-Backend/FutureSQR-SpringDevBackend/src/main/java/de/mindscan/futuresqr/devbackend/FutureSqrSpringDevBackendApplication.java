@@ -1,4 +1,4 @@
-package de.mindscan.futuresqr.FutureSQRSpringDevBackend;
+package de.mindscan.futuresqr.devbackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
