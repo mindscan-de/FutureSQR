@@ -360,7 +360,7 @@ public class ProjectRESTfulService {
     @POST
     @Produces( MediaType.APPLICATION_JSON )
     public String postCreateReviewFromRevision( @PathParam( "projectid" ) String projectId, String requestBody ) {
-        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParserAndDump( requestBody ).parse();
+        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
         if (projectDB.isProjectIdPresent( projectId )) {
             String revisionId = postParams.getStringOrThrow( "revisionid" );
@@ -371,10 +371,8 @@ public class ProjectRESTfulService {
 
             FSqrCodeReview codeReview = FSqrApplication.getInstance().getServices().getReviewRepository().createReviewFromRevision( projectId, revisionId );
 
-            // TODO: create the code review itself from a revision - currently not completed.
             OutputReviewModel outputReview = new OutputReviewModel( codeReview );
 
-            // TODO: take that code review and fill the response model.
             OutputReviewCreatedModel response = new OutputReviewCreatedModel();
             response.projectId = projectId;
             response.revisionId = revisionId;
