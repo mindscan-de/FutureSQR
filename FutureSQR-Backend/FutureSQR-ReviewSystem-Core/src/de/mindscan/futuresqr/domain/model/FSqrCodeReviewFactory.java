@@ -41,9 +41,7 @@ public class FSqrCodeReviewFactory {
         codeReview.setReviewDescription( revision.getCommitMessageFull() );
         codeReview.setReviewId( configurationRepository.getNewProjectReviewIdentifier( projectid ) );
         codeReview.updateCurrenReviewState( FSqrCodeReviewLifecycleState.Open );
-
-        // TODO: add revision to code review. 
-        // codeReview.addRevision();
+        codeReview.addFirstRevision( revision );
 
         return codeReview;
     }
