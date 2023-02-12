@@ -138,8 +138,24 @@ public class FSqrCodeReviewRepositoryImpl {
         }
     }
 
-    // TODO NEXT: add revision to review
-    // TODO NEXT: remove revision from review
+    public void addRevisionToReview( String projectId, String reviewId, String revisionId ) {
+        FSqrCodeReview codeReview = getReview( projectId, reviewId );
+        if (codeReview != null) {
+            // TODO NEXT: add revision to review
+            // TODO NEXT: we need to retrieve this revison ... THEN ADD IT
+            // codeReview.addRevision( revisionToAdd );
+
+            // TODO NEXT: add revision also to (project x revision) table - to associate revision with review. 
+        }
+    }
+
+    public void removeRevisionFromReview( String projectId, String reviewId, String revisionId ) {
+        FSqrCodeReview codeReview = getReview( projectId, reviewId );
+        if (codeReview != null) {
+            // TODO NEXT: remove revision from review
+            // TODO NEXT: remove revision from (project x revision) table - to mark it free again.
+        }
+    }
 
     public FSqrCodeReview createReviewFromRevision( String projectid, String revisionid ) {
         FSqrScmProjectConfigurationRepositoryImpl configurationRepository = applicationServices.getConfigurationRepository();
