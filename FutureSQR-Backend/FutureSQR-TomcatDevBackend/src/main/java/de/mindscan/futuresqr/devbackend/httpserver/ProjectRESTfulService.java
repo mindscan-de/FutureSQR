@@ -262,6 +262,24 @@ public class ProjectRESTfulService {
     // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/filelist", response_class=JSONResponse)
 
     // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/information", response_class=JSONResponse)
+    @javax.ws.rs.Path( "{projectid}/review/{reviewid}/information" )
+    @GET
+    @Produces( MediaType.APPLICATION_JSON )
+    public String getCodeReviewInformation( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId ) {
+        if (projectDB.hasProjectLocalPath( projectId )) {
+            FSqrCodeReviewRepositoryImpl reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
+            FSqrCodeReview codeReview = reviewRepository.getReview( projectId, reviewId );
+
+            if (codeReview == null) {
+                return "{}";
+            }
+
+            OutputReviewModel response = new OutputReviewModel( codeReview );
+            Gson gson = new Gson();
+            return gson.toJson( response );
+        }
+        return "{}";
+    }
 
     // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/revisiondetails", response_class=JSONResponse)
 
