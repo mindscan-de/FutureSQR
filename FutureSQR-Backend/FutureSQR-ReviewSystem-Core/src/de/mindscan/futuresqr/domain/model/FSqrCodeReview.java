@@ -139,6 +139,10 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
         this.revisions.add( 0, firstRevision );
     }
 
+    public String getFirstRevisionId( ) {
+        return getRevisions().get( 0 ).getRevisionId();
+    }
+
     // getDiscussionThreads
     // discussionthreadids?
 }

@@ -62,7 +62,7 @@ public class FSqrCodeReviewRepositoryImpl {
 
     public void insertReview( String projectId, FSqrCodeReview review ) {
         getOrCreateCodeReviewMap( projectId ).put( review.getReviewId(), review );
-        getOrCreateCodeReviewIdMap( projectId ).put( review.getRevisions().get( 0 ).getRevisionId(), review.getReviewId() );
+        getOrCreateCodeReviewIdMap( projectId ).put( review.getFirstRevisionId(), review.getReviewId() );
     }
 
     // ATTENTION: Actually only call on insert.
