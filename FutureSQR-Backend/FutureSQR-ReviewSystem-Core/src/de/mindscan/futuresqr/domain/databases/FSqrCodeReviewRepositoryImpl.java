@@ -113,10 +113,15 @@ public class FSqrCodeReviewRepositoryImpl {
         return resultList;
     }
 
-    // selectClosedReviews( projectid )
     public List<FSqrCodeReview> selectRecentlyClosedReviews( String projectId ) {
-        // TODO NEXT: implement this
-        return new ArrayList<>();
+        ArrayList<FSqrCodeReview> resultList = new ArrayList<>();
+
+        if (projectIdReviewIdToCodeReviewRepository.containsKey( projectId )) {
+            Map<String, FSqrCodeReview> projectMap = projectIdReviewIdToCodeReviewRepository.get( projectId );
+            projectMap.values().stream().filter( r -> r.getCurrentReviewState() == FSqrCodeReviewLifecycleState.Closed ).forEach( r -> resultList.add( r ) );
+        }
+
+        return resultList;
     }
 
     // TODO: add revision to review
