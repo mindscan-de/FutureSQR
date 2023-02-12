@@ -124,6 +124,20 @@ public class FSqrCodeReviewRepositoryImpl {
         return resultList;
     }
 
+    public void closeReview( String projectId, String reviewId, String whoClosedUUID ) {
+        FSqrCodeReview codeReview = getReview( projectId, reviewId );
+        if (codeReview != null) {
+            codeReview.closeReview( whoClosedUUID );
+        }
+    }
+
+    public void reopenReview( String projectId, String reviewId, String whoReopenedUUID ) {
+        FSqrCodeReview codeReview = getReview( projectId, reviewId );
+        if (codeReview != null) {
+            codeReview.reopenReview( whoReopenedUUID );
+        }
+    }
+
     // TODO: add revision to review
     // TODO: remove revision from review
 
