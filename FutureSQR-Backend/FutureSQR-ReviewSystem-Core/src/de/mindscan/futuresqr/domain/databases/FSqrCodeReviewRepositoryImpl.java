@@ -26,7 +26,9 @@
 package de.mindscan.futuresqr.domain.databases;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
@@ -41,20 +43,39 @@ import de.mindscan.futuresqr.domain.model.FSqrRevision;
 public class FSqrCodeReviewRepositoryImpl {
 
     private FSqrApplicationServices applicationServices;
+    private Map<String, Map<String, FSqrCodeReview>> localReviewRepository;
 
     /**
      * 
      */
     public FSqrCodeReviewRepositoryImpl() {
         this.applicationServices = new FSqrApplicationServicesUnitialized();
+        this.localReviewRepository = new HashMap<>();
     }
 
     public void setApplicationServices( FSqrApplicationServices services ) {
         this.applicationServices = services;
     }
 
-    // insertReview( projectid, review )
-    // selectReview( projectid, reviewid )
+    public void insertReview( String projectId, FSqrCodeReview review ) {
+        getOrCreateProjectMap( projectId ).put( review.getReviewId(), review );
+    }
+
+    // ATTENTION: Actually only call on insert.
+    private Map<String, FSqrCodeReview> getOrCreateProjectMap( String projectId ) {
+        // ATTENTION this allows for a DOS attack because it forces the repository map to grow.
+        return localReviewRepository.computeIfAbsent( projectId, pk -> new HashMap<String, FSqrCodeReview>() );
+    }
+
+    public FSqrCodeReview getReview( String projectId, String reviewId ) {
+        if (localReviewRepository.containsKey( projectId )) {
+            if (localReviewRepository.get( projectId ).containsKey( reviewId )) {
+                return localReviewRepository.get( projectId ).get( reviewId );
+            }
+            return null;
+        }
+        return null;
+    }
 
     public boolean hasReviewForProjectAndRevision( String projectid, String revisionid ) {
         return false;
@@ -84,6 +105,9 @@ public class FSqrCodeReviewRepositoryImpl {
 
         FSqrRevision revision = applicationServices.getRevisionRepository().getSimpleRevisionInformation( projectid, revisionid );
         FSqrCodeReview codeReview = FSqrCodeReviewFactory.createReviewFromRevision( projectid, revision, configurationRepository );
+
+        // store this in a local code review repository - we ay not like this right now - but this is good enough for now
+        insertReview( projectid, codeReview );
 
         // TODO: do update in revisionRepository: mark revision as connected to a review.
 
