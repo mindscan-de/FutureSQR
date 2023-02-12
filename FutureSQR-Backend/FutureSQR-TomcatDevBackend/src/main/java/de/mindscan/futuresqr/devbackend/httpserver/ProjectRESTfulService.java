@@ -393,7 +393,11 @@ public class ProjectRESTfulService {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
         if (projectDB.isProjectIdPresent( projectId )) {
-            // TODO NEXT: implement me
+            String reviewId = postParams.getStringOrThrow( "reviewid" );
+            String whoIsClosingUUID = postParams.getStringOrThrow( "closing_userid" );
+
+            FSqrApplication.getInstance().getServices().getReviewRepository().closeReview( projectId, reviewId, whoIsClosingUUID );
+
             return "{}";
         }
 
@@ -404,10 +408,14 @@ public class ProjectRESTfulService {
     @POST
     @Produces( MediaType.APPLICATION_JSON )
     public String postReopenReview( @PathParam( "projectid" ) String projectId, String requestBody ) {
-        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
+        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParserAndDump( requestBody ).parse();
 
         if (projectDB.isProjectIdPresent( projectId )) {
-            // TODO NEXT: implement me
+            String reviewId = postParams.getStringOrThrow( "reviewid" );
+            String whoReopenedUUID = postParams.getStringOrThrow( "reopening_userid" );
+
+            FSqrApplication.getInstance().getServices().getReviewRepository().reopenReview( projectId, reviewId, whoReopenedUUID );
+
             return "{}";
         }
 
