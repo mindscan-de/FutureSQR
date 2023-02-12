@@ -43,14 +43,16 @@ import de.mindscan.futuresqr.domain.model.FSqrRevision;
 public class FSqrCodeReviewRepositoryImpl {
 
     private FSqrApplicationServices applicationServices;
-    private Map<String, Map<String, FSqrCodeReview>> localReviewRepository;
+    private Map<String, Map<String, FSqrCodeReview>> projectIdReviewIdToCodeReviewRepository;
+    private Map<String, Map<String, String>> projectIdReviewIdToCodeReviewIdRepository;
 
     /**
      * 
      */
     public FSqrCodeReviewRepositoryImpl() {
         this.applicationServices = new FSqrApplicationServicesUnitialized();
-        this.localReviewRepository = new HashMap<>();
+        this.projectIdReviewIdToCodeReviewRepository = new HashMap<>();
+        this.projectIdReviewIdToCodeReviewIdRepository = new HashMap<>();
     }
 
     public void setApplicationServices( FSqrApplicationServices services ) {
@@ -58,19 +60,25 @@ public class FSqrCodeReviewRepositoryImpl {
     }
 
     public void insertReview( String projectId, FSqrCodeReview review ) {
-        getOrCreateProjectMap( projectId ).put( review.getReviewId(), review );
+        getOrCreateCodeReviewMap( projectId ).put( review.getReviewId(), review );
+        getOrCreateCodeReviewIdMap( projectId ).put( review.getRevisions().get( 0 ).getRevisionId(), review.getReviewId() );
     }
 
     // ATTENTION: Actually only call on insert.
-    private Map<String, FSqrCodeReview> getOrCreateProjectMap( String projectId ) {
+    private Map<String, FSqrCodeReview> getOrCreateCodeReviewMap( String projectId ) {
         // ATTENTION this allows for a DOS attack because it forces the repository map to grow.
-        return localReviewRepository.computeIfAbsent( projectId, pk -> new HashMap<String, FSqrCodeReview>() );
+        return projectIdReviewIdToCodeReviewRepository.computeIfAbsent( projectId, pk -> new HashMap<String, FSqrCodeReview>() );
+    }
+
+    private Map<String, String> getOrCreateCodeReviewIdMap( String projectId ) {
+        // ATTENTION this allows for a DOS attack because it forces the repository map to grow.
+        return projectIdReviewIdToCodeReviewIdRepository.computeIfAbsent( projectId, pk -> new HashMap<String, String>() );
     }
 
     public FSqrCodeReview getReview( String projectId, String reviewId ) {
-        if (localReviewRepository.containsKey( projectId )) {
-            if (localReviewRepository.get( projectId ).containsKey( reviewId )) {
-                return localReviewRepository.get( projectId ).get( reviewId );
+        if (projectIdReviewIdToCodeReviewRepository.containsKey( projectId )) {
+            if (projectIdReviewIdToCodeReviewRepository.get( projectId ).containsKey( reviewId )) {
+                return projectIdReviewIdToCodeReviewRepository.get( projectId ).get( reviewId );
             }
             return null;
         }
@@ -78,10 +86,18 @@ public class FSqrCodeReviewRepositoryImpl {
     }
 
     public boolean hasReviewForProjectAndRevision( String projectid, String revisionid ) {
+        if (projectIdReviewIdToCodeReviewIdRepository.containsKey( projectid )) {
+            return projectIdReviewIdToCodeReviewIdRepository.get( projectid ).containsKey( revisionid );
+        }
+
         return false;
     }
 
     public String getReviewIdForProjectAndRevision( String projectid, String revisionid ) {
+        if (hasReviewForProjectAndRevision( projectid, revisionid )) {
+            return projectIdReviewIdToCodeReviewIdRepository.get( projectid ).get( revisionid );
+        }
+
         return "";
     }
 
