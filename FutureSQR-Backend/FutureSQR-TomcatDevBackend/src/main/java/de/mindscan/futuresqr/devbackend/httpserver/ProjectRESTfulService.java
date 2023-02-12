@@ -280,7 +280,24 @@ public class ProjectRESTfulService {
         return "{}";
     }
 
-    // TODO NEXT: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/revisiondetails", response_class=JSONResponse)
+    @javax.ws.rs.Path( "{projectid}/review/{reviewid}/revisiondetails" )
+    @GET
+    @Produces( MediaType.APPLICATION_JSON )
+    public String getCodeReviewRevisionDetails( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId ) {
+        if (projectDB.hasProjectLocalPath( projectId )) {
+            FSqrCodeReviewRepositoryImpl reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
+
+            // TODO NEXT: read revision history, either from list of codereview revisions,
+            // TODO NEXT: or just read them and filter them with the codereview revisions.
+            // TODO NEXT: combines approaches and read from first revision to last revision, read all between then filter. 
+            //            this has better time constraints, but then revisions must be in order.
+            // TODO NEXT: Both things seem to be valid approaches.
+
+            // TODO NEXT: figure out output type from python code.
+        }
+
+        return "{}";
+    }
 
     // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/suggestedreviewers", response_class=JSONResponse)
 
@@ -521,7 +538,7 @@ public class ProjectRESTfulService {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
         if (projectDB.isProjectIdPresent( projectId )) {
-            // TODO: implement me
+            // TODO NEXT: implement me
             return "{}";
         }
 
@@ -535,7 +552,7 @@ public class ProjectRESTfulService {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
         if (projectDB.isProjectIdPresent( projectId )) {
-            // TODO: implement me
+            // TODO NEXT: implement me
             return "{}";
         }
 

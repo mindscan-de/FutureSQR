@@ -138,8 +138,8 @@ public class FSqrCodeReviewRepositoryImpl {
         }
     }
 
-    // TODO: add revision to review
-    // TODO: remove revision from review
+    // TODO NEXT: add revision to review
+    // TODO NEXT: remove revision from review
 
     public FSqrCodeReview createReviewFromRevision( String projectid, String revisionid ) {
         FSqrScmProjectConfigurationRepositoryImpl configurationRepository = applicationServices.getConfigurationRepository();
