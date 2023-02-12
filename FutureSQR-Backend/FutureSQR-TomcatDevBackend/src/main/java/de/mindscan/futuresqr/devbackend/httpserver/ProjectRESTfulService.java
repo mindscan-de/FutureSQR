@@ -259,9 +259,8 @@ public class ProjectRESTfulService {
     // TODO: @app.get("/FutureSQR/rest/project/{projectid}/reviewdiff/{reviewid}", response_class=JSONResponse) <<-- refactor from this
     // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/diff", response_class=JSONResponse) <<--  refactor to this
 
-    // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/filelist", response_class=JSONResponse)
+    // TODO NEXT: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/filelist", response_class=JSONResponse)
 
-    // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/information", response_class=JSONResponse)
     @javax.ws.rs.Path( "{projectid}/review/{reviewid}/information" )
     @GET
     @Produces( MediaType.APPLICATION_JSON )
@@ -281,7 +280,7 @@ public class ProjectRESTfulService {
         return "{}";
     }
 
-    // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/revisiondetails", response_class=JSONResponse)
+    // TODO NEXT: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/revisiondetails", response_class=JSONResponse)
 
     // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/suggestedreviewers", response_class=JSONResponse)
 
