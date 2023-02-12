@@ -47,6 +47,8 @@ public class FSqrCodeReviewValue {
 
     private String reviewTitle = "";
 
+    private String reviewDescription = "";
+
     protected Map<String, FSqrReviewResult> getReviewerResultsMap() {
         return reviewerResults;
     }
@@ -81,5 +83,13 @@ public class FSqrCodeReviewValue {
 
     public void setReviewTitle( String reviewTitle ) {
         this.reviewTitle = reviewTitle;
+    }
+
+    public String getReviewDescription() {
+        return reviewDescription;
+    }
+
+    public void setReviewDescription( String reviewDescription ) {
+        this.reviewDescription = reviewDescription;
     }
 }

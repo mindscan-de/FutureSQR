@@ -39,8 +39,6 @@ import java.util.List;
 // TODO: think about composition over inheritance, so we can have observable ValueObjects  
 public class FSqrCodeReview extends FSqrCodeReviewValue {
 
-    private String reviewDescription = "";
-
     // getInformation
 
     private List<FSqrRevision> revisions = new ArrayList<>();
@@ -122,14 +120,6 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
     }
 
     // TODO: test these
-
-    public String getReviewDescription() {
-        return reviewDescription;
-    }
-
-    public void setReviewDescription( String reviewDescription ) {
-        this.reviewDescription = reviewDescription;
-    }
 
     // removeRevison
     /**
