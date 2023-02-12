@@ -103,18 +103,18 @@ public class FSqrCodeReviewRepositoryImpl {
 
     // selectOpenReviews( projectid )
     public List<FSqrCodeReview> selectOpenReviews( String projectId ) {
-        // TODO: implement this
+        // TODO NEXT: implement this
         return new ArrayList<>();
     }
 
     // selectClosedReviews( projectid )
     public List<FSqrCodeReview> selectRecentlyClosedReviews( String projectId ) {
-        // TODO: implement this
+        // TODO NEXT: implement this
         return new ArrayList<>();
     }
 
-    // add revision to review
-    // remove revision from review
+    // TODO: add revision to review
+    // TODO: remove revision from review
 
     public FSqrCodeReview createReviewFromRevision( String projectid, String revisionid ) {
         FSqrScmProjectConfigurationRepositoryImpl configurationRepository = applicationServices.getConfigurationRepository();
@@ -124,8 +124,6 @@ public class FSqrCodeReviewRepositoryImpl {
 
         // store this in a local code review repository - we ay not like this right now - but this is good enough for now
         insertReview( projectid, codeReview );
-
-        // TODO: do update in revisionRepository: mark revision as connected to a review.
 
         return codeReview;
     }
