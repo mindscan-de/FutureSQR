@@ -85,6 +85,8 @@ public class FSqrCodeReviewRepositoryImpl {
         FSqrRevision revision = applicationServices.getRevisionRepository().getSimpleRevisionInformation( projectid, revisionid );
         FSqrCodeReview codeReview = FSqrCodeReviewFactory.createReviewFromRevision( projectid, revision, configurationRepository );
 
+        // TODO: do update in revisionRepository: mark revision as connected to a review.
+
         return codeReview;
     }
 }
