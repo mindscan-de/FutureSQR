@@ -34,6 +34,7 @@ import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReviewFactory;
+import de.mindscan.futuresqr.domain.model.FSqrCodeReviewLifecycleState;
 import de.mindscan.futuresqr.domain.model.FSqrRevision;
 
 /**
@@ -101,10 +102,15 @@ public class FSqrCodeReviewRepositoryImpl {
         return "";
     }
 
-    // selectOpenReviews( projectid )
     public List<FSqrCodeReview> selectOpenReviews( String projectId ) {
-        // TODO NEXT: implement this
-        return new ArrayList<>();
+        ArrayList<FSqrCodeReview> resultList = new ArrayList<>();
+
+        if (projectIdReviewIdToCodeReviewRepository.containsKey( projectId )) {
+            Map<String, FSqrCodeReview> projectMap = projectIdReviewIdToCodeReviewRepository.get( projectId );
+            projectMap.values().stream().filter( r -> r.getCurrentReviewState() == FSqrCodeReviewLifecycleState.Open ).forEach( r -> resultList.add( r ) );
+        }
+
+        return resultList;
     }
 
     // selectClosedReviews( projectid )
