@@ -43,9 +43,6 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
 
     // getInformation
 
-    // getRevisions
-    // addRevision
-    // removeRevison
     private List<FSqrRevision> revisions = new ArrayList<>();
 
     // these revisions have authors, they should be calculated once the revisions are added/removed
@@ -132,6 +129,20 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
 
     public void setReviewDescription( String reviewDescription ) {
         this.reviewDescription = reviewDescription;
+    }
+
+    // removeRevison
+    /**
+     * @return the revisions
+     */
+    public List<FSqrRevision> getRevisions() {
+        return revisions;
+    }
+
+    public void addRevision( FSqrRevision revisionToAdd ) {
+        // TODO: should figure out, at which position to add, but let someone else decide? 
+        // for now just assume, the revisions are in correct order, from oldest to newest.
+        this.revisions.add( revisionToAdd );
     }
 
     // getDiscussionThreads

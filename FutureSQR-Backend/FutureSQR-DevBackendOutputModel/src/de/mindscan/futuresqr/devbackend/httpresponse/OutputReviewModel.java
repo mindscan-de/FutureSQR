@@ -65,7 +65,10 @@ public class OutputReviewModel {
         this.reviewTitle = codeReview.getReviewTitle();
         this.reviewDescription = codeReview.getReviewDescription();
 
-        // TODO: convert the reviewRevisions to revision ids only
+        // convert the reviewRevisions to revision ids only
+        this.reviewRevisions = new ArrayList<>();
+        codeReview.getRevisions().stream().forEach( r -> this.reviewRevisions.add( r.getRevisionId() ) );
+
         // TODO: convert review Authors
         // TODO: this.reviewReadyToClose = codeReview.
         // TODO: this.reviewUnassigned =
