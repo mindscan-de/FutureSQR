@@ -312,7 +312,9 @@ public class ProjectRESTfulService {
             List<OutputProjectRevisionsRevisionEntry> response = new ArrayList<>();
             revisions.stream().forEach( r -> response.add( new OutputProjectRevisionsRevisionEntry( r ) ) );
 
-            // TODO fix this in frontend - this is newest version first now.
+            // TODO fix this in frontend - git provided newest version first, and oldest version last.
+            // list in code review is sorted the other way around, where list[0] is the oldest version and list[length-1] is newest version
+            // to accomodate for the current frontend we reverse this list right now.
             Collections.reverse( response );
 
             Gson gson = new Gson();
