@@ -156,8 +156,13 @@ public class FSqrCodeReviewRepositoryImpl {
     public void removeRevisionFromReview( String projectId, String reviewId, String revisionId ) {
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
-            // TODO NEXT: remove revision from review
-            // TODO NEXT: remove revision from (project x revision) table - to mark it free again.
+            // FSqrRevision revisionToRemove = applicationServices.getRevisionRepository().getSimpleRevisionInformation( projectId, revisionId );
+
+            // remove revision from review
+            codeReview.removeRevisionById( revisionId );
+
+            // remove revision from (project x revision) table - to mark it free again.
+            getOrCreateCodeReviewIdMap( projectId ).remove( revisionId );
         }
     }
 
