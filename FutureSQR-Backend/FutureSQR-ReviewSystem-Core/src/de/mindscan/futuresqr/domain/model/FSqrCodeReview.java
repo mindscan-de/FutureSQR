@@ -101,6 +101,8 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
 
     // derive boolean (ready_to_close state) from reviewerlist
     boolean isReadyToClose() {
+        // TODO NEXT: if revisionlist is empty return true
+        // TODO NEXT: check that all revierwers are good with it.
         return false;
     }
 
@@ -119,12 +121,6 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
         this.updateCurrenReviewState( FSqrCodeReviewLifecycleState.Deleted );
     }
 
-    // TODO: test these
-
-    // TODO next: removeRevison
-    /**
-     * @return the revisions
-     */
     public List<FSqrRevision> getRevisions() {
         return revisions;
     }
@@ -133,18 +129,26 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
         // TODO: should figure out, at which position to add, but let someone else decide? 
         // for now just assume, the revisions are in correct order, from oldest to newest.
         this.revisions.add( revisionToAdd );
+
+        // TODO NEXT: update the author list        
     }
 
     public void removeRevision( FSqrRevision revisionToRemove ) {
         this.revisions.removeIf( r -> revisionToRemove.getRevisionId().equals( r.getRevisionId() ) );
+
+        // TODO NEXT: update the author list
     }
 
     public void removeRevisionById( String revisionToRemoveId ) {
         this.revisions.removeIf( r -> revisionToRemoveId.equals( r.getRevisionId() ) );
+
+        // TODO NEXT: update the author list
     }
 
     public void addFirstRevision( FSqrRevision firstRevision ) {
         this.revisions.add( 0, firstRevision );
+
+        // TODO NEXT: update the author list
     }
 
     public String getFirstRevisionId() {
