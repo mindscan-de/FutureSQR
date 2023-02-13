@@ -25,6 +25,7 @@
  */
 package de.mindscan.futuresqr.devbackend.httpserver;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -286,6 +287,10 @@ public class ProjectRESTfulService {
     public String getCodeReviewRevisionDetails( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId ) {
         if (projectDB.hasProjectLocalPath( projectId )) {
             FSqrCodeReviewRepositoryImpl reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
+            FSqrScmProjectRevisionRepositoryImpl revisionRepository = FSqrApplication.getInstance().getServices().getRevisionRepository();
+
+            List<FSqrRevision> revisions = reviewRepository.getRevisionsForReview( projectId, reviewId );
+            // TODO: revisions should be improved by the annotated author uuids.
 
             // TODO NEXT: read revision history, either from list of codereview revisions,
             // TODO NEXT: or just read them and filter them with the codereview revisions.
@@ -294,9 +299,15 @@ public class ProjectRESTfulService {
             // TODO NEXT: Both things seem to be valid approaches.
 
             // TODO NEXT: figure out output type from python code.
+            List<OutputProjectRevisionsRevisionEntry> response = new ArrayList<>();
+            revisions.stream().forEach( r -> response.add( new OutputProjectRevisionsRevisionEntry( r ) ) );
+
+            Gson gson = new Gson();
+            return gson.toJson( response );
+
         }
 
-        return "{}";
+        return "[]";
     }
 
     // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/suggestedreviewers", response_class=JSONResponse)
