@@ -260,7 +260,16 @@ public class ProjectRESTfulService {
     // TODO: @app.get("/FutureSQR/rest/project/{projectid}/reviewdiff/{reviewid}", response_class=JSONResponse) <<-- refactor from this
     // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/diff", response_class=JSONResponse) <<--  refactor to this
 
-    // TODO NEXT: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/filelist", response_class=JSONResponse)
+    @javax.ws.rs.Path( "{projectid}/review/{reviewid}/filelist" )
+    @GET
+    @Produces( MediaType.APPLICATION_JSON )
+    public String getCodeReviewFileList( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId ) {
+        // TODO NEXT: implement this file list feature, for now it is not cool - just avoid the 404 in the frontend.
+
+        OutputFileChangeInformation response = new OutputFileChangeInformation();
+        Gson gson = new Gson();
+        return gson.toJson( response );
+    }
 
     @javax.ws.rs.Path( "{projectid}/review/{reviewid}/information" )
     @GET
@@ -436,7 +445,7 @@ public class ProjectRESTfulService {
     @POST
     @Produces( MediaType.APPLICATION_JSON )
     public String postReopenReview( @PathParam( "projectid" ) String projectId, String requestBody ) {
-        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParserAndDump( requestBody ).parse();
+        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
         if (projectDB.isProjectIdPresent( projectId )) {
             String reviewId = postParams.getStringOrThrow( "reviewid" );
@@ -549,6 +558,10 @@ public class ProjectRESTfulService {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
         if (projectDB.isProjectIdPresent( projectId )) {
+            // "reviewid"
+            // "revisionid"
+            // "userid"
+
             // TODO NEXT: implement me
             return "{}";
         }
