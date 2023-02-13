@@ -141,11 +141,15 @@ public class FSqrCodeReviewRepositoryImpl {
     public void addRevisionToReview( String projectId, String reviewId, String revisionId ) {
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
-            // TODO NEXT: add revision to review
-            // TODO NEXT: we need to retrieve this revison ... THEN ADD IT
-            // codeReview.addRevision( revisionToAdd );
+            // we need to retrieve this revison ... THEN ADD IT
+            // TODO: actually it is more complicated, we need to know where to add it... 
+            // TODO: get history firstrevision to revisionid, and count number of elements in list of code review -> that is the insert position. 
+            FSqrRevision revisionToAdd = applicationServices.getRevisionRepository().getSimpleRevisionInformation( projectId, revisionId );
+            codeReview.addRevision( revisionToAdd );
 
-            // TODO NEXT: add revision also to (project x revision) table - to associate revision with review. 
+            // add revision also to (project x revision) table - to associate revision with review. 
+            // TODO: this should be done in a separate method
+            getOrCreateCodeReviewIdMap( projectId ).put( revisionId, reviewId );
         }
     }
 
@@ -168,4 +172,10 @@ public class FSqrCodeReviewRepositoryImpl {
 
         return codeReview;
     }
+
+    public List<FSqrRevision> getRevisionsForReview( String projectId, String reviewId ) {
+        FSqrCodeReview codeReview = getReview( projectId, reviewId );
+        return codeReview.getRevisions();
+    }
+
 }
