@@ -26,6 +26,7 @@
 package de.mindscan.futuresqr.devbackend.httpserver;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -310,6 +311,9 @@ public class ProjectRESTfulService {
             // TODO NEXT: figure out output type from python code.
             List<OutputProjectRevisionsRevisionEntry> response = new ArrayList<>();
             revisions.stream().forEach( r -> response.add( new OutputProjectRevisionsRevisionEntry( r ) ) );
+
+            // TODO fix this in frontend - this is newest version first now.
+            Collections.reverse( response );
 
             Gson gson = new Gson();
             return gson.toJson( response );
