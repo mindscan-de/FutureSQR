@@ -135,11 +135,19 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
         this.revisions.add( revisionToAdd );
     }
 
+    public void removeRevision( FSqrRevision revisionToRemove ) {
+        this.revisions.removeIf( r -> revisionToRemove.getRevisionId().equals( r.getRevisionId() ) );
+    }
+
+    public void removeRevisionById( String revisionToRemoveId ) {
+        this.revisions.removeIf( r -> revisionToRemoveId.equals( r.getRevisionId() ) );
+    }
+
     public void addFirstRevision( FSqrRevision firstRevision ) {
         this.revisions.add( 0, firstRevision );
     }
 
-    public String getFirstRevisionId( ) {
+    public String getFirstRevisionId() {
         return getRevisions().get( 0 ).getRevisionId();
     }
 
