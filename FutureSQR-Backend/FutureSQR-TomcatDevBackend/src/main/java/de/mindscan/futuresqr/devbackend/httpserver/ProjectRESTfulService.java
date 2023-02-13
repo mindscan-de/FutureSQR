@@ -558,11 +558,12 @@ public class ProjectRESTfulService {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
         if (projectDB.isProjectIdPresent( projectId )) {
-            // "reviewid"
-            // "revisionid"
-            // "userid"
+            String reviewId = postParams.getStringOrThrow( "reviewid" );
+            String revisionId = postParams.getStringOrThrow( "revisionid" );
+            String userUUID = postParams.getStringOrThrow( "userid" );
 
-            // TODO NEXT: implement me
+            FSqrApplication.getInstance().getServices().getReviewRepository().addRevisionToReview( projectId, reviewId, revisionId );
+
             return "{}";
         }
 
