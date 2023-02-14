@@ -469,7 +469,7 @@ public class ProjectRESTfulService {
     @POST
     @Produces( MediaType.APPLICATION_JSON )
     public String postDeleteReview( @PathParam( "projectid" ) String projectId, String requestBody ) {
-        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParserAndDump( requestBody ).parse();
+        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
         if (projectDB.isProjectIdPresent( projectId )) {
             String reviewId = postParams.getStringOrThrow( "reviewid" );
