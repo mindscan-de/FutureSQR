@@ -26,6 +26,7 @@
 package de.mindscan.futuresqr.domain.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import de.mindscan.futuresqr.scmaccess.types.ScmSingleRevisionFileChangeList;
 
@@ -42,6 +43,11 @@ public class FSqrRevisionFileChangeList {
      */
     public FSqrRevisionFileChangeList() {
         // intentionally left blank
+    }
+
+    public FSqrRevisionFileChangeList( String revisionId, Collection<String[]> rawComprehension ) {
+        this.revisionId = revisionId;
+        this.fileChangeList = new ArrayList<>( rawComprehension );
     }
 
     /**
