@@ -25,6 +25,8 @@
  */
 package de.mindscan.futuresqr.domain.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -55,12 +57,22 @@ public class FSqrScmProjectConfiguration {
     private boolean isArchived = false;
 
     // TODO: here? defaultbranch - indiscriminate whether GIT or SVN we will have some kind of branches
+    // trunk for svn -> url
+    // branchname for svn -> url
+    private String projectDefaultBranch = "";
+
     // TODO: here? branches  - indiscriminate whether GIT or SVN we will have some kind of branches
+    // a branch should be translated depending on SCM
+    // TODO: get a branch configuration???
+    private List<String> branches = new ArrayList<>();
+
     // so maybe this should be available here.
 
     // TODO: some details, like ownership (who created, when created, when modified)
     // i guess this is not yet important, and can alo be kept in a kind of journal or so....
     private FSqrScmProjectGitAdminConfiguration scmGitAdminConfiguration;
+
+    // TODO: latest date updates for this project - or separate other dates. 
 
     public FSqrScmProjectConfiguration( String projectId, String projectDisplayName, String projectUuid, int autoIndexStart ) {
         this.autoIndex = new AtomicInteger( autoIndexStart );
@@ -145,5 +157,13 @@ public class FSqrScmProjectConfiguration {
 
     public boolean isArchived() {
         return isArchived;
+    }
+
+    public String getProjectDefaultBranch() {
+        return projectDefaultBranch;
+    }
+
+    public List<String> getBranches() {
+        return new ArrayList<>( branches );
     }
 }
