@@ -267,6 +267,19 @@ public class ProjectRESTfulService {
     public String getCodeReviewFileList( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId ) {
         // TODO NEXT: implement this file list feature, for now it is not cool - just avoid the 404 in the frontend.
 
+        if (projectDB.hasProjectLocalPath( projectId )) {
+            FSqrCodeReviewRepositoryImpl reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
+            FSqrCodeReview codeReview = reviewRepository.getReview( projectId, reviewId );
+
+            FSqrScmProjectRevisionRepositoryImpl revisionRepository = FSqrApplication.getInstance().getServices().getRevisionRepository();
+            FSqrRevisionFileChangeList allRevisionsFileChangeList = revisionRepository.getAllRevisionsFileChangeList( projectId, codeReview.getRevisions() );
+
+            OutputFileChangeInformation response = new OutputFileChangeInformation( allRevisionsFileChangeList );
+            Gson gson = new Gson();
+            return gson.toJson( response );
+
+        }
+
         OutputFileChangeInformation response = new OutputFileChangeInformation();
         Gson gson = new Gson();
         return gson.toJson( response );
@@ -584,7 +597,7 @@ public class ProjectRESTfulService {
     @POST
     @Produces( MediaType.APPLICATION_JSON )
     public String postReviewRemoveRevisionFromReview( @PathParam( "projectid" ) String projectId, String requestBody ) {
-        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParserAndDump( requestBody ).parse();
+        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
         if (projectDB.isProjectIdPresent( projectId )) {
             String reviewId = postParams.getStringOrThrow( "reviewid" );
