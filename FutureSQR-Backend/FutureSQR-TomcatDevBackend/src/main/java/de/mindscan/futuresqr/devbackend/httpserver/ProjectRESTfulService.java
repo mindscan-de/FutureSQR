@@ -469,10 +469,14 @@ public class ProjectRESTfulService {
     @POST
     @Produces( MediaType.APPLICATION_JSON )
     public String postDeleteReview( @PathParam( "projectid" ) String projectId, String requestBody ) {
-        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
+        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParserAndDump( requestBody ).parse();
 
         if (projectDB.isProjectIdPresent( projectId )) {
-            // TODO: implement me
+            String reviewId = postParams.getStringOrThrow( "reviewid" );
+            String whoDeletedUUID = postParams.getStringOrDefault( "deleting_userid", HARDCODED_MINDSCAN_DE_UUID );
+
+            FSqrApplication.getInstance().getServices().getReviewRepository().deleteReview( projectId, reviewId, whoDeletedUUID );
+
             return "{}";
         }
 
