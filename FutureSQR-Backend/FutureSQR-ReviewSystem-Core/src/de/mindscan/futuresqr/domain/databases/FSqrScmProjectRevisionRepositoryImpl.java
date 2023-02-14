@@ -25,6 +25,12 @@
  */
 package de.mindscan.futuresqr.domain.databases;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
+
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.model.FSqrRevision;
@@ -159,6 +165,44 @@ public class FSqrScmProjectRevisionRepositoryImpl {
             return translate( fileChangeList, projectId );
         }
 
+        return new FSqrRevisionFileChangeList();
+    }
+
+    public FSqrRevisionFileChangeList getAllRevisionsFileChangeList( String projectId, List<FSqrRevision> revisions ) {
+        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
+        if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
+            ScmRepository scmRepository = toScmRepository( scmConfiguration );
+
+            // build list of lists for each revision
+            List<FSqrRevisionFileChangeList> allchanges = revisions.stream().map( r -> this.getRevisionFileChangeList( projectId, r.getRevisionId() ) )
+                            .collect( Collectors.toList() );
+
+            String firstRevisionId = revisions.get( 0 ).getRevisionId();
+            Set<String[]> rawComprehension = new TreeSet<>( new Comparator<String[]>() {
+
+                @Override
+                public int compare( String[] o1, String[] o2 ) {
+                    if (o1 == null) {
+                        return o2 == null ? 0 : 1;
+                    }
+                    if (o2 == null) {
+                        return -1;
+                    }
+
+                    String o1String = String.join( "|", o1 );
+                    String o2String = String.join( "|", o2 );
+
+                    return o1String.compareTo( o2String );
+                }
+            } );
+
+            for (FSqrRevisionFileChangeList fileChangeList : allchanges) {
+                rawComprehension.addAll( fileChangeList.getFileChangeList() );
+            }
+
+            FSqrRevisionFileChangeList result = new FSqrRevisionFileChangeList( firstRevisionId, rawComprehension );
+            return result;
+        }
         return new FSqrRevisionFileChangeList();
     }
 
