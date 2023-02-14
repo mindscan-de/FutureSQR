@@ -45,7 +45,7 @@ public class FSqrCodeReviewRepositoryImpl {
 
     private FSqrApplicationServices applicationServices;
     private Map<String, Map<String, FSqrCodeReview>> projectIdReviewIdToCodeReviewRepository;
-    private Map<String, Map<String, String>> projectIdReviewIdToCodeReviewIdRepository;
+    private Map<String, Map<String, String>> projectIdRevisionIdToCodeReviewIdRepository;
 
     /**
      * 
@@ -53,7 +53,7 @@ public class FSqrCodeReviewRepositoryImpl {
     public FSqrCodeReviewRepositoryImpl() {
         this.applicationServices = new FSqrApplicationServicesUnitialized();
         this.projectIdReviewIdToCodeReviewRepository = new HashMap<>();
-        this.projectIdReviewIdToCodeReviewIdRepository = new HashMap<>();
+        this.projectIdRevisionIdToCodeReviewIdRepository = new HashMap<>();
     }
 
     public void setApplicationServices( FSqrApplicationServices services ) {
@@ -73,7 +73,7 @@ public class FSqrCodeReviewRepositoryImpl {
 
     private Map<String, String> getOrCreateCodeReviewIdMap( String projectId ) {
         // ATTENTION this allows for a DOS attack because it forces the repository map to grow.
-        return projectIdReviewIdToCodeReviewIdRepository.computeIfAbsent( projectId, pk -> new HashMap<String, String>() );
+        return projectIdRevisionIdToCodeReviewIdRepository.computeIfAbsent( projectId, pk -> new HashMap<String, String>() );
     }
 
     public FSqrCodeReview getReview( String projectId, String reviewId ) {
@@ -87,8 +87,8 @@ public class FSqrCodeReviewRepositoryImpl {
     }
 
     public boolean hasReviewForProjectAndRevision( String projectid, String revisionid ) {
-        if (projectIdReviewIdToCodeReviewIdRepository.containsKey( projectid )) {
-            return projectIdReviewIdToCodeReviewIdRepository.get( projectid ).containsKey( revisionid );
+        if (projectIdRevisionIdToCodeReviewIdRepository.containsKey( projectid )) {
+            return projectIdRevisionIdToCodeReviewIdRepository.get( projectid ).containsKey( revisionid );
         }
 
         return false;
@@ -96,7 +96,7 @@ public class FSqrCodeReviewRepositoryImpl {
 
     public String getReviewIdForProjectAndRevision( String projectid, String revisionid ) {
         if (hasReviewForProjectAndRevision( projectid, revisionid )) {
-            return projectIdReviewIdToCodeReviewIdRepository.get( projectid ).get( revisionid );
+            return projectIdRevisionIdToCodeReviewIdRepository.get( projectid ).get( revisionid );
         }
 
         return "";
