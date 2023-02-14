@@ -74,6 +74,8 @@ public class FSqrRevision {
     private boolean hasAttachedReview = false; // dynamic?, check for empty string?
     private String reviewId = "";
 
+    private String branchName;
+
     // urls to the CI-System?, to see how it built and what state?
     // or ci-references? Are those references from the ci table to the revision?
     // or should they be part of the ui joining this information, because here it is only creating overhead? 
@@ -101,6 +103,7 @@ public class FSqrRevision {
         this.commitMessageHead = scmbasicInfo.message;
         this.parentIds = scmbasicInfo.parentIds;
         this.shortParentIds = scmbasicInfo.shortParentIds;
+        this.branchName = scmbasicInfo.branchName;
     }
 
     /**
@@ -304,6 +307,13 @@ public class FSqrRevision {
      */
     public boolean hasReview() {
         return hasAttachedReview;
+    }
+
+    /**
+     * @return the branchName
+     */
+    public String getBranchName() {
+        return branchName;
     }
 
 }
