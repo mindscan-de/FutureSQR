@@ -99,7 +99,7 @@ export class AddRevisionToReviewSelectionDialogComponent implements OnInit {
 		var previousdate = "1999-13-32";
 		
 		// iterate grouped and 
-		for(var i:number = 1;i<ungrouped.revisions.length;i++) {
+		for(var i:number = 0;i<ungrouped.revisions.length;i++) {
 			var currentCommit:BackendModelProjectRecentCommitRevision = ungrouped.revisions[i];
 			
 			if(currentCommit.shortdate != previousdate) {
