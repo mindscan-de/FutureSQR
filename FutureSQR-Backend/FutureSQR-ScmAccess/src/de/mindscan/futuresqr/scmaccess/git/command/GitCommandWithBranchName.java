@@ -26,7 +26,10 @@
 package de.mindscan.futuresqr.scmaccess.git.command;
 
 /**
- * 
+ * This might be the interface to transfer the branchname to the processor, which 
+ * can then annotate the results with the branch name, e.g. the recent history. 
+ * Such that branch info can be shown in recent commits when multiple branches are
+ * present. 
  */
 public interface GitCommandWithBranchName {
 

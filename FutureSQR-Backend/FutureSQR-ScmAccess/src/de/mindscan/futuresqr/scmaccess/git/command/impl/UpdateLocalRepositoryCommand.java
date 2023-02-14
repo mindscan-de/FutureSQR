@@ -29,11 +29,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mindscan.futuresqr.scmaccess.git.GitCommand;
+import de.mindscan.futuresqr.scmaccess.git.command.GitCommandWithBranchName;
 
 /**
  * 
  */
-public class UpdateLocalRepositoryCommand extends GitCommand {
+public class UpdateLocalRepositoryCommand extends GitCommand implements GitCommandWithBranchName {
 
     private String branchName;
 
@@ -53,7 +54,7 @@ public class UpdateLocalRepositoryCommand extends GitCommand {
 
         args.add( "pull" );
         args.add( "origin" );
-        args.add( this.branchName );
+        args.add( this.getBranchName() );
 
         return args;
     }
@@ -64,6 +65,14 @@ public class UpdateLocalRepositoryCommand extends GitCommand {
     @Override
     public boolean isCacheable() {
         return false;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public String getBranchName() {
+        return this.branchName;
     }
 
 }
