@@ -49,6 +49,7 @@ import de.mindscan.futuresqr.devbackend.httpresponse.OutputReviewModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputSimpleProjectInformation;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputSingleCommitFullChangeSet;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputStatusOkayModel;
+import de.mindscan.futuresqr.devbackend.httpresponse.OutputSuggestedReviewersModel;
 import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParameters;
 import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParser;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
@@ -265,7 +266,6 @@ public class ProjectRESTfulService {
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public String getCodeReviewFileList( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId ) {
-        // TODO NEXT: implement this file list feature, for now it is not cool - just avoid the 404 in the frontend.
 
         if (projectDB.hasProjectLocalPath( projectId )) {
             FSqrCodeReviewRepositoryImpl reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
@@ -277,7 +277,6 @@ public class ProjectRESTfulService {
             OutputFileChangeInformation response = new OutputFileChangeInformation( allRevisionsFileChangeList );
             Gson gson = new Gson();
             return gson.toJson( response );
-
         }
 
         OutputFileChangeInformation response = new OutputFileChangeInformation();
@@ -338,9 +337,27 @@ public class ProjectRESTfulService {
         return "[]";
     }
 
-    // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/suggestedreviewers", response_class=JSONResponse)
+    @javax.ws.rs.Path( "{projectid}/review/{reviewid}/suggestedreviewers" )
+    @GET
+    @Produces( MediaType.APPLICATION_JSON )
+    public String getSuggestedReviewers( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId ) {
+        if (projectDB.hasProjectLocalPath( projectId )) {
+            // calculate the suggested reviewers somehow.
+            List<String> suggestedReviewers = new ArrayList<>();
+            suggestedReviewers.add( "8ce74ee9-48ff-3dde-b678-58a632887e31" );
+            suggestedReviewers.add( "f5fc8449-3049-3498-9f6b-ce828515bba2" );
 
-    // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/threads", response_class=JSONResponse)
+            // TODO: translate this list to List of OutputSuggestedReviewerEntry
+
+            OutputSuggestedReviewersModel response = new OutputSuggestedReviewersModel();
+            Gson gson = new Gson();
+            return gson.toJson( response );
+        }
+
+        OutputSuggestedReviewersModel response = new OutputSuggestedReviewersModel();
+        Gson gson = new Gson();
+        return gson.toJson( response );
+    }
 
     @javax.ws.rs.Path( "{projectid}/recentreviews" )
     @GET
@@ -403,6 +420,7 @@ public class ProjectRESTfulService {
         return "";
     }
 
+    // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/threads", response_class=JSONResponse)
     // TODO: @app.post * discussion related
     // @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/createthread", response_class=JSONResponse)
     // @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/replythread", response_class=JSONResponse)
