@@ -169,9 +169,8 @@ export class SingleReviewPageComponent implements OnInit {
 		
 		// TODO: also we should very likely review the file changesets, but only after completion of revision management dialogs.
 
-		// TODO: NEXT: update the authorlist - provide the authorlist to reviewmanagement panel.
-		// TODO: because of the authors list for the review, the review data should also be requeried, or at least the authorlist.
-		// TODO: the authorlist may be inferred from the revision list, because we know the authors from here, then we don't need to requery review info.
+		// HACK... / we actually only want to reload the review authors.
+		this.reloadReviewInformation(event);
 	}
 	
 }
