@@ -25,6 +25,7 @@
  */
 package de.mindscan.futuresqr.domain.databases;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
@@ -173,11 +174,12 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
             ScmRepository scmRepository = toScmRepository( scmConfiguration );
 
+            ArrayList<FSqrRevision> revisionCopy = new ArrayList<>( revisions );
             // build list of lists for each revision
-            List<FSqrRevisionFileChangeList> allchanges = revisions.stream().map( r -> this.getRevisionFileChangeList( projectId, r.getRevisionId() ) )
+            List<FSqrRevisionFileChangeList> allchanges = revisionCopy.stream().map( r -> this.getRevisionFileChangeList( projectId, r.getRevisionId() ) )
                             .collect( Collectors.toList() );
 
-            String firstRevisionId = revisions.get( 0 ).getRevisionId();
+            String firstRevisionId = revisionCopy.get( 0 ).getRevisionId();
             Set<String[]> rawComprehension = new TreeSet<>( new Comparator<String[]>() {
 
                 @Override
