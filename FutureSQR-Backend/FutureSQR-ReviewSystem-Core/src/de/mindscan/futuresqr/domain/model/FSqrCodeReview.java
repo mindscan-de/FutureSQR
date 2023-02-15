@@ -27,6 +27,7 @@ package de.mindscan.futuresqr.domain.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This is the model used for the CodeReview Model.
@@ -44,6 +45,7 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
     private List<FSqrRevision> revisions = new ArrayList<>();
 
     // these revisions have authors, they should be calculated once the revisions are added/removed
+    // TODO: maybe use a set?
     private List<String> revisionAuthorUUIDs = new ArrayList<>();
 
     // add reviewer ( userid reviewer, userid whoadded ) 
@@ -130,29 +132,37 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
         // for now just assume, the revisions are in correct order, from oldest to newest.
         this.revisions.add( revisionToAdd );
 
-        // TODO NEXT: update the author list        
+        updateAuthors();
     }
 
     public void removeRevision( FSqrRevision revisionToRemove ) {
         this.revisions.removeIf( r -> revisionToRemove.getRevisionId().equals( r.getRevisionId() ) );
 
-        // TODO NEXT: update the author list
+        updateAuthors();
     }
 
     public void removeRevisionById( String revisionToRemoveId ) {
         this.revisions.removeIf( r -> revisionToRemoveId.equals( r.getRevisionId() ) );
 
-        // TODO NEXT: update the author list
+        updateAuthors();
     }
 
     public void addFirstRevision( FSqrRevision firstRevision ) {
         this.revisions.add( 0, firstRevision );
 
-        // TODO NEXT: update the author list
+        updateAuthors();
     }
 
     public String getFirstRevisionId() {
         return getRevisions().get( 0 ).getRevisionId();
+    }
+
+    private void updateAuthors() {
+        this.revisionAuthorUUIDs = new ArrayList<>( getRevisions().stream().map( rev -> rev.getAuthorUuid() ).collect( Collectors.toSet() ) );
+    }
+
+    public List<String> getRevisionAuthorUUIDs() {
+        return revisionAuthorUUIDs;
     }
 
     // getDiscussionThreads
