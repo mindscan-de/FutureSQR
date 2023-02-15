@@ -25,6 +25,7 @@ export class ReviewParticipationPanelComponent implements OnInit {
 	
 	public currentUiReviewData: BackendModelReviewData = new BackendModelReviewData();
 	public currentReviewers: Map<string,BackendModelReviewResult> = new Map<string, BackendModelReviewResult>();
+	public currentAuthors: Array<string> = new Array<string>();
 	public isCurrentUserAReviewer: Boolean = false;
 	
 	@Input() activeReviewData: BackendModelReviewData = new BackendModelReviewData();
@@ -47,6 +48,13 @@ export class ReviewParticipationPanelComponent implements OnInit {
 		
 		if(this.currentUiReviewData != reviewDataCandidate) {
 			this.currentUiReviewData = reviewDataCandidate;
+			
+			let newAuthorArray = new Array<string>();
+			for(let i:number = 0; i<reviewDataCandidate.reviewAuthors.length;i++) {
+				newAuthorArray.push(reviewDataCandidate.reviewAuthors[i]);
+			}
+			this.currentAuthors = newAuthorArray; 
+			
 			this.currentReviewers = new Map<string, BackendModelReviewResult>(Object.entries(reviewDataCandidate.reviewReviewersResults));
 			this.isCurrentUserAReviewer = this.currentReviewers.has(currentUserId);
 			this.cdr.detectChanges();
