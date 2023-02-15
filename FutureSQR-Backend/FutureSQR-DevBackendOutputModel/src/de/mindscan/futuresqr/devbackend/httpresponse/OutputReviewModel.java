@@ -69,7 +69,9 @@ public class OutputReviewModel {
         this.reviewRevisions = new ArrayList<>();
         codeReview.getRevisions().stream().forEach( r -> this.reviewRevisions.add( r.getRevisionId() ) );
 
-        // TODO: convert review Authors
+        // convert review Authors
+        this.reviewAuthors = codeReview.getRevisionAuthorUUIDs();
+
         // TODO: this.reviewReadyToClose = codeReview.
         // TODO: this.reviewUnassigned =
         // TODO: this.reviewReviewersResults = codeReview.
