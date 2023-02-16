@@ -29,5 +29,50 @@ package de.mindscan.futuresqr.domain.model.user;
  * 
  */
 public class FSqrSystemUser {
+    private String avatarLocation = "";
+    private String userUUID = "";
+    private String userLoginName = "";
+    private String userDisplayName = "";
+    private String userEmail = "";
 
+    private boolean isBanned = true;
+
+    public FSqrSystemUser( String uuid, String loginName, String displayname, String email ) {
+        this.userUUID = uuid;
+        this.userLoginName = loginName;
+        this.userDisplayName = displayname;
+        this.userEmail = email;
+    }
+
+    public void setAvatarLocation( String avatarLocation ) {
+        this.avatarLocation = avatarLocation;
+    }
+
+    public String getAvatarLocation() {
+        return avatarLocation;
+    }
+
+    public void setBanned( boolean isBanned ) {
+        this.isBanned = isBanned;
+    }
+
+    public boolean isBanned() {
+        return isBanned;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public String getUserUUID() {
+        return userUUID;
+    }
+
+    public String getUserDisplayName() {
+        return userDisplayName;
+    }
+
+    public String getUserLoginName() {
+        return userLoginName;
+    }
 }
