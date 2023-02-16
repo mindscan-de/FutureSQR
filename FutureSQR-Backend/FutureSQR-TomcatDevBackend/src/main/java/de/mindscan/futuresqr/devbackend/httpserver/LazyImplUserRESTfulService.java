@@ -54,11 +54,14 @@ import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectRepositoryImpl;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 
 /**
- * 
+ * TODO: refactor me to review system core.
  */
 @javax.ws.rs.Path( "/user" )
 public class LazyImplUserRESTfulService {
 
+    // TODO: implement singleton, which loads the UserDatabase and the ProjectDatabase.
+    //       is important to provide data to the review system core, as long as we dont
+    //       have any persistence.
     private static FSqrLazyUserDatabaseImpl userDB = new FSqrLazyUserDatabaseImpl();
     private static FSqrLazyProjectDatabaseImpl projectDB = new FSqrLazyProjectDatabaseImpl();
 
