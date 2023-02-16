@@ -40,6 +40,7 @@ public class FSqrScmUserRepositoryImpl {
     private FSqrApplicationServices applicationServices;
     private Map<String, String> userHandleToUUID;
     private Map<String, FSqrSystemUser> uuidToSystemUser;
+    private Map<String, String> loginnameToUuid;
 
     /**
      * 
@@ -48,6 +49,7 @@ public class FSqrScmUserRepositoryImpl {
         this.applicationServices = new FSqrApplicationServicesUnitialized();
         this.userHandleToUUID = new HashMap<>();
         this.uuidToSystemUser = new HashMap<>();
+        this.loginnameToUuid = new HashMap<>();
     }
 
     public void setApplicationServices( FSqrApplicationServices services ) {
@@ -63,11 +65,16 @@ public class FSqrScmUserRepositoryImpl {
     }
 
     public void addUserEntry( FSqrSystemUser user ) {
-        uuidToSystemUser.put( user.getUserUUID(), user );
+        this.uuidToSystemUser.put( user.getUserUUID(), user );
+        this.loginnameToUuid.put( user.getUserLoginName(), user.getUserUUID() );
     }
 
     public boolean isUserUUIDPresent( String uuid ) {
         return uuidToSystemUser.containsKey( uuid );
+    }
+
+    public boolean isLogonNamePresent( String logonName ) {
+        return this.loginnameToUuid.containsKey( logonName );
     }
 
     public FSqrSystemUser getUserByUUID( String uuid ) {

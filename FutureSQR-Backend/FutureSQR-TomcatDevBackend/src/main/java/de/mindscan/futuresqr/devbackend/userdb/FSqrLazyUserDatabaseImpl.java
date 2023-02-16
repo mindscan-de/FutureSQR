@@ -108,14 +108,8 @@ public class FSqrLazyUserDatabaseImpl {
         }
     }
 
-    // TOOD NEXT: move to user repository
     public boolean hasUser( String username ) {
-        for (FSqrLazyUserDBEntry fSqrUserDBEntry : userDatabaseMap.values()) {
-            if (fSqrUserDBEntry.loginname.equals( username )) {
-                return true;
-            }
-        }
-        return false;
+        return this.userRepository.isLogonNamePresent( username );
     }
 
     // TOOD NEXT: move to user repository
