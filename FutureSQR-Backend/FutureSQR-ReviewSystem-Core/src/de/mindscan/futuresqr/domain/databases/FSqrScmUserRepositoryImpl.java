@@ -30,6 +30,7 @@ import java.util.Map;
 
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
+import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 
 /**
  * 
@@ -38,6 +39,7 @@ public class FSqrScmUserRepositoryImpl {
 
     private FSqrApplicationServices applicationServices;
     private Map<String, String> userHandleToUUID;
+    private Map<String, FSqrSystemUser> uuidToSystemUser;
 
     /**
      * 
@@ -45,6 +47,7 @@ public class FSqrScmUserRepositoryImpl {
     public FSqrScmUserRepositoryImpl() {
         this.applicationServices = new FSqrApplicationServicesUnitialized();
         this.userHandleToUUID = new HashMap<>();
+        this.uuidToSystemUser = new HashMap<>();
     }
 
     public void setApplicationServices( FSqrApplicationServices services ) {
