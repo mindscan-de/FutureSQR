@@ -62,8 +62,11 @@ public class FSqrScmUserRepositoryImpl {
         this.userHandleToUUID.putIfAbsent( authorHandle, authorUUID );
     }
 
-    public void addUserEntry( FSqrSystemUser systemUserEntry ) {
-        // TODO NEXT: implement me.
+    public void addUserEntry( FSqrSystemUser user ) {
+        uuidToSystemUser.put( user.getUserUUID(), user );
     }
 
+    public boolean isUserUUIDPresent( String uuid ) {
+        return uuidToSystemUser.containsKey( uuid );
+    }
 }

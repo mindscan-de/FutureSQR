@@ -136,9 +136,8 @@ public class FSqrLazyUserDatabaseImpl {
         return null;
     }
 
-    // TOOD NEXT: move to user repository
     private boolean hasUserEntryByUUID( String uuid ) {
-        return userDatabaseMap.containsKey( uuid );
+        return userRepository.isUserUUIDPresent( uuid );
     }
 
 }
