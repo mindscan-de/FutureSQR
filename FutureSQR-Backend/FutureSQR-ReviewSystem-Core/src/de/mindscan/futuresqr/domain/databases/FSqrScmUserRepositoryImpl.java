@@ -69,4 +69,11 @@ public class FSqrScmUserRepositoryImpl {
     public boolean isUserUUIDPresent( String uuid ) {
         return uuidToSystemUser.containsKey( uuid );
     }
+
+    public FSqrSystemUser getUserByUUID( String uuid ) {
+        if (isUserUUIDPresent( uuid )) {
+            return uuidToSystemUser.get( uuid );
+        }
+        return null;
+    }
 }
