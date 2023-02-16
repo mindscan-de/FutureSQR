@@ -35,7 +35,7 @@ public class FSqrSystemUser {
     private String userDisplayName = "";
     private String userEmail = "";
 
-    private boolean isBanned = true;
+    private boolean isBanned = false;
 
     public FSqrSystemUser( String uuid, String loginName, String displayname, String email ) {
         this.userUUID = uuid;
