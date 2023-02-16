@@ -41,6 +41,7 @@ import com.google.gson.reflect.TypeToken;
 
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
 import de.mindscan.futuresqr.domain.databases.FSqrScmUserRepositoryImpl;
+import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 
 /**
  * 
@@ -91,12 +92,19 @@ public class FSqrLazyUserDatabaseImpl {
         this.initializeScmUserRepository( this.userDatabaseMap.values() );
     }
 
-    /**
-     * @param values
-     */
     private void initializeScmUserRepository( Collection<FSqrLazyUserDBEntry> userEntries ) {
         for (FSqrLazyUserDBEntry fSqrLazyUserDBEntry : userEntries) {
 
+            String uuid = fSqrLazyUserDBEntry.uuid;
+            String loginname = fSqrLazyUserDBEntry.loginname;
+            String displayname = fSqrLazyUserDBEntry.displayname;
+            String email = fSqrLazyUserDBEntry.email;
+            FSqrSystemUser systemUserEntry = new FSqrSystemUser( uuid, loginname, displayname, email );
+
+            systemUserEntry.setAvatarLocation( fSqrLazyUserDBEntry.avatarlocation );
+            systemUserEntry.setBanned( fSqrLazyUserDBEntry.isbanned );
+
+            userRepository.addUserEntry( systemUserEntry );
         }
     }
 
