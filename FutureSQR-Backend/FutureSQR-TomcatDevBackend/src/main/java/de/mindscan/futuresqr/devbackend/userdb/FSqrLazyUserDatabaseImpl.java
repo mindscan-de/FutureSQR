@@ -33,10 +33,14 @@ import java.io.Reader;
 import java.lang.reflect.Type;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collection;
 import java.util.HashMap;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import de.mindscan.futuresqr.domain.application.FSqrApplication;
+import de.mindscan.futuresqr.domain.databases.FSqrScmUserRepositoryImpl;
 
 /**
  * 
@@ -44,6 +48,8 @@ import com.google.gson.reflect.TypeToken;
 public class FSqrLazyUserDatabaseImpl {
 
     private Gson gson = new Gson();
+
+    private FSqrScmUserRepositoryImpl userRepository = FSqrApplication.getInstance().getServices().getUserRepository();
 
     private HashMap<String, FSqrLazyUserDBEntry> userDatabaseMap = new HashMap<>();
 
@@ -82,8 +88,19 @@ public class FSqrLazyUserDatabaseImpl {
             }
         }
 
+        this.initializeScmUserRepository( this.userDatabaseMap.values() );
     }
 
+    /**
+     * @param values
+     */
+    private void initializeScmUserRepository( Collection<FSqrLazyUserDBEntry> userEntries ) {
+        for (FSqrLazyUserDBEntry fSqrLazyUserDBEntry : userEntries) {
+
+        }
+    }
+
+    // TOOD NEXT: move to user repository
     public boolean hasUser( String username ) {
         for (FSqrLazyUserDBEntry fSqrUserDBEntry : userDatabaseMap.values()) {
             if (fSqrUserDBEntry.loginname.equals( username )) {
@@ -93,6 +110,7 @@ public class FSqrLazyUserDatabaseImpl {
         return false;
     }
 
+    // TOOD NEXT: move to user repository
     public FSqrLazyUserDBEntry getUserEntryByLogonName( String username ) {
         for (FSqrLazyUserDBEntry fSqrUserDBEntry : userDatabaseMap.values()) {
             if (fSqrUserDBEntry.loginname.equals( username )) {
@@ -102,6 +120,7 @@ public class FSqrLazyUserDatabaseImpl {
         return null;
     }
 
+    // TOOD NEXT: move to user repository
     public FSqrLazyUserDBEntry getUserEntryByUUID( String uuid ) {
         if (hasUserEntryByUUID( uuid )) {
             return userDatabaseMap.get( uuid );
@@ -109,6 +128,7 @@ public class FSqrLazyUserDatabaseImpl {
         return null;
     }
 
+    // TOOD NEXT: move to user repository
     private boolean hasUserEntryByUUID( String uuid ) {
         return userDatabaseMap.containsKey( uuid );
     }
