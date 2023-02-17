@@ -132,7 +132,6 @@ public class ProjectRESTfulService {
             return gson.toJson( response );
         }
 
-        // return empty revision.
         OutputProjectRevisionsModel response = new OutputProjectRevisionsModel();
         Gson gson = new Gson();
         return gson.toJson( response );
@@ -209,7 +208,6 @@ public class ProjectRESTfulService {
             FSqrRevisionFullChangeSet fullChangeSet = revisionRepository.getRevisionFullChangeSet( projectId, revisionId );
 
             OutputSingleCommitFullChangeSet response = new OutputSingleCommitFullChangeSet( fullChangeSet );
-
             Gson gson = new Gson();
             return gson.toJson( response );
         }
@@ -364,7 +362,6 @@ public class ProjectRESTfulService {
     @Produces( MediaType.APPLICATION_JSON )
     public String getRecentReviews( @PathParam( "projectid" ) String projectId ) {
         if (projectDB.hasProjectLocalPath( projectId )) {
-            // TODO: implement loading the open and recently reviews.
             FSqrCodeReviewRepositoryImpl reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
 
             List<FSqrCodeReview> openReviews = reviewRepository.selectOpenReviews( projectId );
@@ -390,7 +387,6 @@ public class ProjectRESTfulService {
     @POST
     @Produces( MediaType.APPLICATION_JSON )
     public String postProjectStarred( @PathParam( "projectid" ) String projectId, String requestBody ) {
-        // System.out.println( requestBody );
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
         if (projectDB.isProjectIdPresent( projectId )) {
@@ -406,13 +402,10 @@ public class ProjectRESTfulService {
     @POST
     @Produces( MediaType.APPLICATION_JSON )
     public String postProjectUnstarred( @PathParam( "projectid" ) String projectId, String requestBody ) {
-        // System.out.println( requestBody );
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
         if (projectDB.isProjectIdPresent( projectId )) {
             String userid = postParams.getStringOrThrow( "userid" );
-
-            // System.out.println( userid );
 
             FSqrApplication.getInstance().getServices().getUserToProjectRepository().unstarProject( userid, projectId );
         }
