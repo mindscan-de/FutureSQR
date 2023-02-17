@@ -49,7 +49,7 @@ public class FSqrCodeReviewValue {
 
     private String reviewDescription = "";
 
-    protected Map<String, FSqrReviewResult> getReviewerResultsMap() {
+    public Map<String, FSqrReviewResult> getReviewerResultsMap() {
         return reviewerResults;
     }
 

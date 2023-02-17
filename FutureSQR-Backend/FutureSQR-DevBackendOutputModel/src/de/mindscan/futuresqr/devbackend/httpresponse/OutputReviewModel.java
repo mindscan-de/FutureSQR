@@ -29,8 +29,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
+import de.mindscan.futuresqr.domain.model.FSqrReviewResult;
 
 /**
  * 
@@ -47,7 +50,7 @@ public class OutputReviewModel {
     public boolean reviewReadyToClose = false;
     public boolean reviewUnassigned = true;
 
-    public Map<String, Object> reviewReviewersResults = new HashMap<>();
+    public Map<String, OutputReviewResultEntry> reviewReviewersResults = new HashMap<>();
     public String reviewFkProjectId = "";
 
     // Either "Open", "Closed", "Deleted"
@@ -75,11 +78,20 @@ public class OutputReviewModel {
         // TODO: this.reviewReadyToClose = codeReview.
 
         this.reviewUnassigned = codeReview.isUnassigned();
-
+        convertReviewerResults( codeReview.getReviewerResultsMap().entrySet() );
         // TODO: this.reviewReviewersResults = codeReview.
 
         this.reviewFkProjectId = codeReview.getProjectId();
         this.reviewLifecycleState = codeReview.getCurrentReviewState().name();
+    }
+
+    private void convertReviewerResults( Set<Entry<String, FSqrReviewResult>> results ) {
+        for (Entry<String, FSqrReviewResult> entry : results) {
+            String key = entry.getKey();
+            FSqrReviewResult internalResult = entry.getValue();
+
+            reviewReviewersResults.put( key, new OutputReviewResultEntry( internalResult ) );
+        }
     }
 
 }
