@@ -25,12 +25,22 @@
  */
 package de.mindscan.futuresqr.devbackend.httpresponse;
 
+import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
+
 /**
  * 
  */
 public class OutputSuggestedReviewerEntry {
+
     public String uuid = "";
     public String displayname = "";
     public String avatarlocation = "";
     public boolean isbanned = false;
+
+    public OutputSuggestedReviewerEntry( FSqrSystemUser reviewer ) {
+        this.uuid = reviewer.getUserUUID();
+        this.displayname = reviewer.getUserDisplayName();
+        this.avatarlocation = reviewer.getAvatarLocation();
+        this.isbanned = reviewer.isBanned();
+    }
 }
