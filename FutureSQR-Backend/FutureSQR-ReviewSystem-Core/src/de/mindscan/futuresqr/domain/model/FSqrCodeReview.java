@@ -97,7 +97,7 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
     }
 
     // derive boolean (unassigned state) from reviewerlist
-    boolean isUnassigned() {
+    public boolean isUnassigned() {
         return getReviewerResultsMap().isEmpty();
     }
 

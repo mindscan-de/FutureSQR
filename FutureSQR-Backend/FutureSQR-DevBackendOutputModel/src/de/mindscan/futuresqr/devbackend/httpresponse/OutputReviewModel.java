@@ -73,7 +73,9 @@ public class OutputReviewModel {
         this.reviewAuthors = codeReview.getRevisionAuthorUUIDs();
 
         // TODO: this.reviewReadyToClose = codeReview.
-        // TODO: this.reviewUnassigned =
+
+        this.reviewUnassigned = codeReview.isUnassigned();
+
         // TODO: this.reviewReviewersResults = codeReview.
 
         this.reviewFkProjectId = codeReview.getProjectId();
