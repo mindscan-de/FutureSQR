@@ -209,4 +209,11 @@ public class FSqrCodeReviewRepositoryImpl {
         return converted;
     }
 
+    public void addReviewerToCodeReview( String projectId, String reviewId, String reviewerId, String whoAddedId ) {
+        FSqrCodeReview codeReview = getReview( projectId, reviewId );
+        if (codeReview != null) {
+            codeReview.addReviewer( reviewerId, whoAddedId );
+        }
+    }
+
 }
