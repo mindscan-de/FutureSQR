@@ -65,6 +65,7 @@ import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
 import de.mindscan.futuresqr.domain.model.content.FSqrFileContentForRevision;
 import de.mindscan.futuresqr.domain.model.history.FSqrFileHistory;
+import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 
 /**
  * 
@@ -340,14 +341,10 @@ public class ProjectRESTfulService {
     @Produces( MediaType.APPLICATION_JSON )
     public String getSuggestedReviewers( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId ) {
         if (projectDB.hasProjectLocalPath( projectId )) {
-            // calculate the suggested reviewers somehow.
-            List<String> suggestedReviewers = new ArrayList<>();
-            suggestedReviewers.add( "8ce74ee9-48ff-3dde-b678-58a632887e31" );
-            suggestedReviewers.add( "f5fc8449-3049-3498-9f6b-ce828515bba2" );
+            FSqrCodeReviewRepositoryImpl reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
+            List<FSqrSystemUser> suggestedReviewers = reviewRepository.getSuggestedReviewers( projectId, reviewId );
 
-            // TODO: translate this list to List of OutputSuggestedReviewerEntry
-
-            OutputSuggestedReviewersModel response = new OutputSuggestedReviewersModel();
+            OutputSuggestedReviewersModel response = new OutputSuggestedReviewersModel( suggestedReviewers );
             Gson gson = new Gson();
             return gson.toJson( response );
         }

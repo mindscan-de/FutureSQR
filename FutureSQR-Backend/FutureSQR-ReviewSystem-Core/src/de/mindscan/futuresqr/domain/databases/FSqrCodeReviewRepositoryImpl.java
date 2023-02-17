@@ -36,6 +36,7 @@ import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReviewFactory;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReviewLifecycleState;
 import de.mindscan.futuresqr.domain.model.FSqrRevision;
+import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 
 /**
  * 
@@ -190,6 +191,22 @@ public class FSqrCodeReviewRepositoryImpl {
     public List<FSqrRevision> getRevisionsForReview( String projectId, String reviewId ) {
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         return codeReview.getRevisions();
+    }
+
+    public List<FSqrSystemUser> getSuggestedReviewers( String projectId, String reviewId ) {
+        FSqrScmUserRepositoryImpl userRepository = this.applicationServices.getUserRepository();
+
+        // TODO: calculate the suggested reviewers somehow.
+        List<String> suggestedReviewers = new ArrayList<>();
+        suggestedReviewers.add( "8ce74ee9-48ff-3dde-b678-58a632887e31" );
+        suggestedReviewers.add( "f5fc8449-3049-3498-9f6b-ce828515bba2" );
+
+        List<FSqrSystemUser> converted = new ArrayList<>();
+        suggestedReviewers.stream() //
+                        .filter( uuid -> userRepository.isUserUUIDPresent( uuid ) )//
+                        .forEach( uuid -> converted.add( userRepository.getUserByUUID( uuid ) ) );
+
+        return converted;
     }
 
 }
