@@ -26,10 +26,22 @@
 package de.mindscan.futuresqr.devbackend.httpresponse;
 
 import java.util.HashMap;
+import java.util.List;
+
+import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 
 /**
  * 
  */
 public class OutputSuggestedReviewersModel {
     public HashMap<String, OutputSuggestedReviewerEntry> dictionary = new HashMap<>();
+
+    public OutputSuggestedReviewersModel() {
+
+    }
+
+    public OutputSuggestedReviewersModel( List<FSqrSystemUser> suggestedReviewers ) {
+        suggestedReviewers.stream().forEach( reviewer -> dictionary.put( reviewer.getUserUUID(), new OutputSuggestedReviewerEntry( reviewer ) ) );
+    }
+
 }
