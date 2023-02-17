@@ -256,5 +256,6 @@ public class LazyImplUserRESTfulService {
     // TODO: /unban
     // TODO: /add
     // TODO: /adminuserlist
-    // TODO: /userdictionary
+    // TODO NEXT: /userdictionary 
+    //      need this for add participant dialog - part (find user)  
 }
