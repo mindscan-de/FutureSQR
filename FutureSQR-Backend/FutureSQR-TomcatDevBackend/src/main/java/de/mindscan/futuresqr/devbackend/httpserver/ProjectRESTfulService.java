@@ -46,6 +46,7 @@ import de.mindscan.futuresqr.devbackend.httpresponse.OutputProjectRevisionsRevis
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputRecentReviewsModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputReviewCreatedModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputReviewModel;
+import de.mindscan.futuresqr.devbackend.httpresponse.OutputReviewThreadsModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputSimpleProjectInformation;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputSingleCommitFullChangeSet;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputStatusOkayModel;
@@ -684,15 +685,26 @@ public class ProjectRESTfulService {
 
         Gson gson = new Gson();
         return gson.toJson( response );
-
     }
 
     // -------------------------------
     // code review related discussions
     // -------------------------------
 
-    // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/threads", response_class=JSONResponse)
-    // TODO: @app.post * discussion related
+    @javax.ws.rs.Path( "{projectid}/review/{reviewid}/threads" )
+    @GET
+    @Produces( MediaType.APPLICATION_JSON )
+    public String getDiscussionThreads( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId ) {
+        if (projectDB.hasProjectLocalPath( projectId )) {
+            // TODO: return all discussion threads for a project id and a review
+        }
+
+        // return empty discussion threads model.
+        OutputReviewThreadsModel response = new OutputReviewThreadsModel();
+        Gson gson = new Gson();
+        return gson.toJson( response );
+    }
+
     // TODO: @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/createthread", response_class=JSONResponse)
     // TODO: @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/replythread", response_class=JSONResponse)
     // TODO: @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/editmessage", response_class=JSONResponse)
