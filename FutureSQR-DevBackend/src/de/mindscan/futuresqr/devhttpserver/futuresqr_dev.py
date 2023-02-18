@@ -176,7 +176,7 @@ def getParticularRevisionsForFile(projectid:str, filepath:str):
     result = {}
     return result
 
-@app.get("/FutureSQR/rest/project/{projectid}/reviewdiff/{reviewid}", response_class=JSONResponse)
+@app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/diff", response_class=JSONResponse)
 def getProjectReviewDiff(projectid:str, reviewid:str):
     if projectDB.hasProjectLocalPath(projectid):
         reviewData = getReviewData(projectid, reviewid)

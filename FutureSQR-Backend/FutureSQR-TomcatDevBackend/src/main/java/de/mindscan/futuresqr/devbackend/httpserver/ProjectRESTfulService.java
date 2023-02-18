@@ -258,8 +258,7 @@ public class ProjectRESTfulService {
         return gson.toJson( response );
     }
 
-    // TODO: @app.get("/FutureSQR/rest/project/{projectid}/reviewdiff/{reviewid}", response_class=JSONResponse) <<-- refactor from this
-    // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/diff", response_class=JSONResponse) <<--  refactor to this
+    // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/diff", response_class=JSONResponse)
 
     @javax.ws.rs.Path( "{projectid}/review/{reviewid}/filelist" )
     @GET
