@@ -216,4 +216,11 @@ public class FSqrCodeReviewRepositoryImpl {
         }
     }
 
+    public void removeReviewerFromCodeReview( String projectId, String reviewId, String reviewerId, String whoRemovedId ) {
+        FSqrCodeReview codeReview = getReview( projectId, reviewId );
+        if (codeReview != null) {
+            codeReview.removeReviewer( reviewerId, whoRemovedId );
+        }
+    }
+
 }
