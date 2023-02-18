@@ -412,9 +412,9 @@ public class ProjectRESTfulService {
 
     // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/threads", response_class=JSONResponse)
     // TODO: @app.post * discussion related
-    // @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/createthread", response_class=JSONResponse)
-    // @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/replythread", response_class=JSONResponse)
-    // @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/editmessage", response_class=JSONResponse)
+    // TODO: @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/createthread", response_class=JSONResponse)
+    // TODO: @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/replythread", response_class=JSONResponse)
+    // TODO: @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/editmessage", response_class=JSONResponse)
 
     // ------------------------------
     // Code review state related code 
@@ -556,7 +556,13 @@ public class ProjectRESTfulService {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
         if (projectDB.isProjectIdPresent( projectId )) {
-            // TODO: implement me
+            FSqrCodeReviewRepositoryImpl reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
+
+            String reviewId = postParams.getStringOrThrow( "reviewid" );
+            String reviewerId = postParams.getStringOrThrow( "reviewerid" );
+
+            reviewRepository.approveCodeReview( projectId, reviewId, reviewerId );
+
             return "{}";
         }
 

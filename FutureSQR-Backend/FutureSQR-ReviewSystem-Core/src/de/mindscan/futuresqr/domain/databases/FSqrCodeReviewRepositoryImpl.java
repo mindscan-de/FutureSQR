@@ -2,7 +2,7 @@
  * 
  * MIT License
  *
- * Copyright (c) 2022 Maxim Gansert, Mindscan
+ * Copyright (c) 2022, 2023 Maxim Gansert, Mindscan
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -220,6 +220,13 @@ public class FSqrCodeReviewRepositoryImpl {
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
             codeReview.removeReviewer( reviewerId, whoRemovedId );
+        }
+    }
+
+    public void approveCodeReview( String projectId, String reviewId, String reviewerId ) {
+        FSqrCodeReview codeReview = getReview( projectId, reviewId );
+        if (codeReview != null) {
+            codeReview.approveReview( reviewerId );
         }
     }
 
