@@ -2,7 +2,7 @@
  * 
  * MIT License
  *
- * Copyright (c) 2022 Maxim Gansert, Mindscan
+ * Copyright (c) 2022, 2023 Maxim Gansert, Mindscan
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -38,6 +38,7 @@ import java.util.stream.Collectors;
  * 
  */
 // TODO: think about composition over inheritance, so we can have observable ValueObjects  
+// TODO: implement the ready to close state.
 public class FSqrCodeReview extends FSqrCodeReviewValue {
 
     // getInformation
