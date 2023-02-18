@@ -705,27 +705,42 @@ public class ProjectRESTfulService {
         return gson.toJson( response );
     }
 
-    // TODO: @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/createthread", response_class=JSONResponse)
     @javax.ws.rs.Path( "{projectid}/review/{reviewid}/createthread" )
     @POST
     @Produces( MediaType.APPLICATION_JSON )
     public String postCreateNewDiscussionThread( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId, String requestBody ) {
+        if (projectDB.hasProjectLocalPath( projectId )) {
+            MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
+
+            // TODO: @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/createthread", response_class=JSONResponse)
+        }
+
         return "{}";
     }
 
-    // TODO: @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/replythread", response_class=JSONResponse)
     @javax.ws.rs.Path( "{projectid}/review/{reviewid}/replythread" )
     @POST
     @Produces( MediaType.APPLICATION_JSON )
     public String postReplyToDiscussionMessage( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId, String requestBody ) {
+        if (projectDB.hasProjectLocalPath( projectId )) {
+            MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
+
+            // TODO: @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/replythread", response_class=JSONResponse)
+        }
+
         return "{}";
     }
 
-    // TODO: @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/editmessage", response_class=JSONResponse)
     @javax.ws.rs.Path( "{projectid}/review/{reviewid}/editmessage" )
     @POST
     @Produces( MediaType.APPLICATION_JSON )
     public String postEditDiscussionMessage( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId, String requestBody ) {
+        if (projectDB.hasProjectLocalPath( projectId )) {
+            MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
+
+            // TODO: @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/editmessage", response_class=JSONResponse)
+        }
+
         return "{}";
     }
 }
