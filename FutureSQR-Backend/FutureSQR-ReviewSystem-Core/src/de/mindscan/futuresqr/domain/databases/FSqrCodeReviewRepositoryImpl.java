@@ -237,4 +237,11 @@ public class FSqrCodeReviewRepositoryImpl {
         }
     }
 
+    public void retractCodeReview( String projectId, String reviewId, String reviewerId ) {
+        FSqrCodeReview codeReview = getReview( projectId, reviewId );
+        if (codeReview != null) {
+            codeReview.rollbackReview( reviewerId );
+        }
+    }
+
 }

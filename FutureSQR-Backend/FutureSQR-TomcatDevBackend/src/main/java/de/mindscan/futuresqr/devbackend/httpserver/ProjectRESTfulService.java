@@ -589,6 +589,7 @@ public class ProjectRESTfulService {
         return "{}";
     }
 
+    // TODO: refactor to "retractreview" instead of "resetreview".
     @javax.ws.rs.Path( "{projectid}/review/resetreview" )
     @POST
     @Produces( MediaType.APPLICATION_JSON )
@@ -596,7 +597,13 @@ public class ProjectRESTfulService {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
         if (projectDB.isProjectIdPresent( projectId )) {
-            // TODO: implement me
+            FSqrCodeReviewRepositoryImpl reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
+
+            String reviewId = postParams.getStringOrThrow( "reviewid" );
+            String reviewerId = postParams.getStringOrThrow( "reviewerid" );
+
+            reviewRepository.retractCodeReview( projectId, reviewId, reviewerId );
+
             return "{}";
         }
 
