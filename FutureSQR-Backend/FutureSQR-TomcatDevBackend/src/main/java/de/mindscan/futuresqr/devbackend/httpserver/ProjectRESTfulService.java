@@ -410,12 +410,6 @@ public class ProjectRESTfulService {
         return "";
     }
 
-    // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/threads", response_class=JSONResponse)
-    // TODO: @app.post * discussion related
-    // TODO: @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/createthread", response_class=JSONResponse)
-    // TODO: @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/replythread", response_class=JSONResponse)
-    // TODO: @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/editmessage", response_class=JSONResponse)
-
     // ------------------------------
     // Code review state related code 
     // ------------------------------
@@ -677,5 +671,15 @@ public class ProjectRESTfulService {
         return gson.toJson( response );
 
     }
+
+    // -------------------------------
+    // code review related discussions
+    // -------------------------------
+
+    // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/threads", response_class=JSONResponse)
+    // TODO: @app.post * discussion related
+    // TODO: @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/createthread", response_class=JSONResponse)
+    // TODO: @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/replythread", response_class=JSONResponse)
+    // TODO: @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/editmessage", response_class=JSONResponse)
 
 }
