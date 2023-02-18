@@ -56,6 +56,7 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
         this.userRepository = new FSqrScmUserRepositoryImpl();
         this.reviewRepository = new FSqrCodeReviewRepositoryImpl();
         this.userToProjectRepository = new FSqrUserToProjectRepositoryImpl();
+        this.discussionRepository = new FSqrDiscussionThreadRepositoryImpl();
 
         // we don't want to deal with the internals of this Review system from the outside e.g. the Web servers
         initializeHardCodedUsers();
