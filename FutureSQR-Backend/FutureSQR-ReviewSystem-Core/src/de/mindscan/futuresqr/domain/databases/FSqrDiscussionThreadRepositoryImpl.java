@@ -23,31 +23,27 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.domain.application;
+package de.mindscan.futuresqr.domain.databases;
 
-import de.mindscan.futuresqr.domain.configuration.FSqrSystemInstanceConfigurationImpl;
-import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewRepositoryImpl;
-import de.mindscan.futuresqr.domain.databases.FSqrDiscussionThreadRepositoryImpl;
-import de.mindscan.futuresqr.domain.databases.FSqrScmProjectConfigurationRepositoryImpl;
-import de.mindscan.futuresqr.domain.databases.FSqrScmProjectRevisionRepositoryImpl;
-import de.mindscan.futuresqr.domain.databases.FSqrScmUserRepositoryImpl;
-import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectRepositoryImpl;
+import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
+import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 
 /**
  * 
  */
-public interface FSqrApplicationServices {
-    FSqrScmProjectConfigurationRepositoryImpl getConfigurationRepository();
+public class FSqrDiscussionThreadRepositoryImpl {
 
-    FSqrScmProjectRevisionRepositoryImpl getRevisionRepository();
+    private FSqrApplicationServices applicationServices;
 
-    FSqrScmUserRepositoryImpl getUserRepository();
+    /**
+     * 
+     */
+    public FSqrDiscussionThreadRepositoryImpl() {
+        this.applicationServices = new FSqrApplicationServicesUnitialized();
+    }
 
-    FSqrCodeReviewRepositoryImpl getReviewRepository();
+    public void setApplicationServices( FSqrApplicationServices applicationServices ) {
+        this.applicationServices = applicationServices;
+    }
 
-    FSqrSystemInstanceConfigurationImpl getSystemConfiguration();
-
-    FSqrUserToProjectRepositoryImpl getUserToProjectRepository();
-
-    FSqrDiscussionThreadRepositoryImpl getDiscussionThreadRepository();
 }

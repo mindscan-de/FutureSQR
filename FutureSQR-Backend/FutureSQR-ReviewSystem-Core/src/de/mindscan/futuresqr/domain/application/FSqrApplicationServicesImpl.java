@@ -27,6 +27,7 @@ package de.mindscan.futuresqr.domain.application;
 
 import de.mindscan.futuresqr.domain.configuration.FSqrSystemInstanceConfigurationImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewRepositoryImpl;
+import de.mindscan.futuresqr.domain.databases.FSqrDiscussionThreadRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrScmProjectConfigurationRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrScmProjectRevisionRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrScmUserRepositoryImpl;
@@ -43,6 +44,7 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
     private FSqrCodeReviewRepositoryImpl reviewRepository;
     private FSqrUserToProjectRepositoryImpl userToProjectRepository;
     private FSqrSystemInstanceConfigurationImpl systemConfiguration;
+    private FSqrDiscussionThreadRepositoryImpl discussionRepository;
 
     /**
      * 
@@ -73,6 +75,7 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
         this.userRepository.setApplicationServices( services );
         this.reviewRepository.setApplicationServices( services );
         this.userToProjectRepository.setApplicationServices( services );
+        this.discussionRepository.setApplicationServices( services );
     }
 
     private void initializeHardCodedUsers() {
@@ -145,4 +148,13 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
     public FSqrSystemInstanceConfigurationImpl getSystemConfiguration() {
         return systemConfiguration;
     }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public FSqrDiscussionThreadRepositoryImpl getDiscussionThreadRepository() {
+        return discussionRepository;
+    }
+
 }
