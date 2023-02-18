@@ -230,4 +230,11 @@ public class FSqrCodeReviewRepositoryImpl {
         }
     }
 
+    public void concernCodeReview( String projectId, String reviewId, String reviewerId ) {
+        FSqrCodeReview codeReview = getReview( projectId, reviewId );
+        if (codeReview != null) {
+            codeReview.concernReview( reviewerId );
+        }
+    }
+
 }
