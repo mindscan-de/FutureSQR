@@ -342,7 +342,7 @@ export class ProjectDataQueryBackendService {
 	}
 	
 	resetReview(projectid: string, reviewid:string, reviewerid:string) : Observable<any> {
-		var url = `/FutureSQR/rest/project/${projectid}/review/resetreview`;
+		var url = `/FutureSQR/rest/project/${projectid}/review/retractreview`;
 
 		let formdata = new FormData();
 		

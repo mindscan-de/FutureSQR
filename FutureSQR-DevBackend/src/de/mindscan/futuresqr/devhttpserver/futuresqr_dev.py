@@ -457,7 +457,7 @@ def postReviewConcern(projectid:str, reviewid:str = Form(...), reviewerid:str = 
     result = {}
     return result
 
-@app.post("/FutureSQR/rest/project/{projectid}/review/resetreview", response_class=JSONResponse)
+@app.post("/FutureSQR/rest/project/{projectid}/review/retractreview", response_class=JSONResponse)
 def postReviewReset( projectid:str, reviewid:str=Form(...), reviewerid:str = Form(...)):
     if projectDB.isProjectIdPresent(projectid):
         # reviewDB.resetReview(projectid, reviewid, reviewerid)

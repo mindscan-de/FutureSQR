@@ -583,8 +583,7 @@ public class ProjectRESTfulService {
         return "{}";
     }
 
-    // TODO: refactor to "retractreview" instead of "resetreview".
-    @javax.ws.rs.Path( "{projectid}/review/resetreview" )
+    @javax.ws.rs.Path( "{projectid}/review/retractreview" )
     @POST
     @Produces( MediaType.APPLICATION_JSON )
     public String postReviewResetReview( @PathParam( "projectid" ) String projectId, String requestBody ) {
