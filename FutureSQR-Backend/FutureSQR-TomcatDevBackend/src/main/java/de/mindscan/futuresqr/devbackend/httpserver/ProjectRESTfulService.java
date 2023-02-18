@@ -258,7 +258,24 @@ public class ProjectRESTfulService {
         return gson.toJson( response );
     }
 
-    // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/diff", response_class=JSONResponse)
+    @javax.ws.rs.Path( "{projectid}/review/{reviewid}/diff" )
+    @GET
+    @Produces( MediaType.APPLICATION_JSON )
+    public String getCodeReviewUnifiedDiff( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId ) {
+        if (projectDB.hasProjectLocalPath( projectId )) {
+            // TODO: implement calculating the diff for a review 
+
+            // TODO use the result of previous diff.
+            OutputSingleCommitFullChangeSet response = new OutputSingleCommitFullChangeSet();
+            Gson gson = new Gson();
+            return gson.toJson( response );
+        }
+
+        OutputSingleCommitFullChangeSet response = new OutputSingleCommitFullChangeSet();
+
+        Gson gson = new Gson();
+        return gson.toJson( response );
+    }
 
     @javax.ws.rs.Path( "{projectid}/review/{reviewid}/filelist" )
     @GET
