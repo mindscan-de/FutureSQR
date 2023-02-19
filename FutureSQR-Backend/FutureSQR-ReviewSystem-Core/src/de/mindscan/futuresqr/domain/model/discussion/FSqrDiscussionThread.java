@@ -25,9 +25,34 @@
  */
 package de.mindscan.futuresqr.domain.model.discussion;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 
  */
 public class FSqrDiscussionThread {
 
+    private String discussionThreadUUID = "";
+    private String discussionThreadAuthor = "";
+
+    // TODO: inOrderList (by time) or by threaddepth and time?
+
+    private Map<String, FSqrDiscussionThreadMessage> discussionMessages = new HashMap<>();
+
+    public String getDiscussionThreadUUID() {
+        return discussionThreadUUID;
+    }
+
+    public String getDiscussionThreadAuthor() {
+        return discussionThreadAuthor;
+    }
+
+    public Map<String, FSqrDiscussionThreadMessage> getDiscussionMessages() {
+        return discussionMessages;
+    }
+
+    // TODO: addAsRootMessage()
+    // TODO: addReplyToMessage()
+    // TODO?: editMessage()
 }

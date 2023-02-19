@@ -30,4 +30,35 @@ package de.mindscan.futuresqr.domain.model.discussion;
  */
 public class FSqrDiscussionThreadMessage {
 
+    private String messageUUID = "";
+    private String threadUUID = "";
+
+    private String messageText = "";
+    private String messageAuthorUUID = "";
+    private String replyToMessageUUID = "";
+
+    public FSqrDiscussionThreadMessage() {
+        // TODO implement this.
+    }
+
+    public String getMessageAuthorUUID() {
+        return messageAuthorUUID;
+    }
+
+    public String getMessageText() {
+        return messageText;
+    }
+
+    public String getMessageUUID() {
+        return messageUUID;
+    }
+
+    public String getReplyToMessageUUID() {
+        return replyToMessageUUID;
+    }
+
+    public String getThreadUUID() {
+        return threadUUID;
+    }
+
 }
