@@ -43,6 +43,24 @@ public class FSqrDiscussionThread {
 
     private Map<String, FSqrDiscussionThreadMessage> discussionMessages = new HashMap<>();
 
+    public FSqrDiscussionThread() {
+        // TODO Auto-generated constructor stub
+    }
+
+    public FSqrDiscussionThread( String newThreadUUID, FSqrDiscussionThreadMessage rootMessage, String messageAuthorUUID ) {
+        this.discussionThreadUUID = newThreadUUID;
+        this.discussionThreadAuthor = messageAuthorUUID;
+        this.messageOrder = new ArrayList<>();
+        this.discussionMessages = new HashMap<>();
+
+        this.addAsRootMessage( rootMessage );
+    }
+
+    private void addAsRootMessage( FSqrDiscussionThreadMessage rootMessage ) {
+        messageOrder.add( 0, rootMessage.getMessageUUID() );
+        discussionMessages.put( rootMessage.getMessageUUID(), rootMessage );
+    }
+
     public String getDiscussionThreadUUID() {
         return discussionThreadUUID;
     }
@@ -59,7 +77,6 @@ public class FSqrDiscussionThread {
         return messageOrder;
     }
 
-    // TODO: addAsRootMessage()
     // TODO: addReplyToMessage()
     // TODO?: editMessage()
 }
