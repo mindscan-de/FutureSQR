@@ -56,6 +56,7 @@ import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParser;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
 import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewRepositoryImpl;
+import de.mindscan.futuresqr.domain.databases.FSqrDiscussionThreadRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrScmProjectRevisionRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectRepositoryImpl;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
@@ -65,6 +66,7 @@ import de.mindscan.futuresqr.domain.model.FSqrScmHistory;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
 import de.mindscan.futuresqr.domain.model.content.FSqrFileContentForRevision;
+import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
 import de.mindscan.futuresqr.domain.model.history.FSqrFileHistory;
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 
@@ -696,7 +698,15 @@ public class ProjectRESTfulService {
     @Produces( MediaType.APPLICATION_JSON )
     public String getDiscussionThreads( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId ) {
         if (projectDB.hasProjectLocalPath( projectId )) {
-            // TODO: return all discussion threads for a project id and a review
+            FSqrDiscussionThreadRepositoryImpl discussionRepository = FSqrApplication.getInstance().getServices().getDiscussionThreadRepository();
+
+            // Get only direct review discussions, opposed to inherited code discussions, and opposed to direct code discussions
+            // We will start with direct discussions first.
+            List<FSqrDiscussionThread> reviewRelatedDirectThreads = discussionRepository.getDirectThreadsForReview( projectId, reviewId );
+
+            OutputReviewThreadsModel response = new OutputReviewThreadsModel( reviewRelatedDirectThreads );
+            Gson gson = new Gson();
+            return gson.toJson( response );
         }
 
         // return empty discussion threads model.
@@ -712,7 +722,14 @@ public class ProjectRESTfulService {
         if (projectDB.hasProjectLocalPath( projectId )) {
             MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
-            // TODO: @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/createthread", response_class=JSONResponse)
+            String messageAuthorUUID = postParams.getStringOrThrow( "authorid" );
+            String messageText = postParams.getStringOrThrow( "message" );
+
+            FSqrDiscussionThreadRepositoryImpl discussionRepository = FSqrApplication.getInstance().getServices().getDiscussionThreadRepository();
+
+            discussionRepository.createNewReviewThread( projectId, reviewId, messageAuthorUUID, messageText );
+
+            return "{}";
         }
 
         return "{}";
