@@ -125,8 +125,34 @@ public class FSqrDiscussionThreadRepositoryImpl {
     }
 
     public void replyToThread( String projectId, String reviewId, String threadUUID, String replytoMessageId, String messageText, String messageAuthorUUID ) {
-        // TODO Auto-generated method stub
+        // check if project id 
+        if (!projectAndRewviewToThreads.containsKey( projectId )) {
+            return;
+        }
 
+        // check if reviewId exists
+        if (!projectAndRewviewToThreads.get( projectId ).containsKey( reviewId )) {
+            return;
+        }
+
+        // make sure this threadid is only in projectId and reviewId present, such that you can't edit 
+        // someone eles's Threads in different projects/reviews
+        if (!projectAndRewviewToThreads.get( projectId ).get( reviewId ).contains( threadUUID )) {
+            return;
+        }
+
+        if (threadTable.containsKey( threadUUID )) {
+            FSqrDiscussionThreadMessage message = createReplyMessage( threadUUID, replytoMessageId, messageText, messageAuthorUUID );
+            FSqrDiscussionThread thread = threadTable.get( threadUUID );
+            // TODO NEXT: do something special with this message in the appropriate thread and insert this at the right position.
+        }
     }
 
+    private FSqrDiscussionThreadMessage createReplyMessage( String threadUUID, String replytoMessageId, String messageText, String messageAuthorUUID ) {
+        FSqrDiscussionThreadMessage replyMessage = new FSqrDiscussionThreadMessage( messageText, messageAuthorUUID );
+        replyMessage.setThreadUUID( threadUUID );
+        replyMessage.setReplyTo( replytoMessageId );
+
+        return replyMessage;
+    }
 }

@@ -78,4 +78,8 @@ public class FSqrDiscussionThreadMessage {
         this.messageText = newMessageText;
     }
 
+    public void setReplyTo( String replytoMessageId ) {
+        this.replyToMessageUUID = replytoMessageId;
+    }
+
 }
