@@ -38,7 +38,11 @@ public class FSqrDiscussionThreadMessage {
     private String replyToMessageUUID = "";
 
     public FSqrDiscussionThreadMessage() {
-        // TODO implement this.
+    }
+
+    public FSqrDiscussionThreadMessage( String messageText, String messageAuthorUUID ) {
+        this.messageText = messageText;
+        this.messageAuthorUUID = messageAuthorUUID;
     }
 
     public String getMessageAuthorUUID() {
@@ -59,6 +63,10 @@ public class FSqrDiscussionThreadMessage {
 
     public String getThreadUUID() {
         return threadUUID;
+    }
+
+    public void setThreadUUID( String newThreadUUID ) {
+        this.threadUUID = newThreadUUID;
     }
 
 }
