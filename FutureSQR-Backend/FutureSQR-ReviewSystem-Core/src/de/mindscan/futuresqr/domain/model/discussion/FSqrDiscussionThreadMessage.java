@@ -37,6 +37,10 @@ public class FSqrDiscussionThreadMessage {
     private String messageAuthorUUID = "";
     private String replyToMessageUUID = "";
 
+    // TODO: lastEditorUUID
+    // TODO: lastEditTimestamp
+    // TODO: createdTimestamp
+
     public FSqrDiscussionThreadMessage() {
     }
 
@@ -67,6 +71,11 @@ public class FSqrDiscussionThreadMessage {
 
     public void setThreadUUID( String newThreadUUID ) {
         this.threadUUID = newThreadUUID;
+    }
+
+    public void updateMessage( String newMessageText, String messageAuthorUUID ) {
+        // TODO set edited by / and also add timestamp when change was made.
+        this.messageText = newMessageText;
     }
 
 }

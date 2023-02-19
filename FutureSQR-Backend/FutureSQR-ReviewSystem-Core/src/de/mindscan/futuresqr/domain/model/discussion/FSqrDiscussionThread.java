@@ -77,6 +77,12 @@ public class FSqrDiscussionThread {
         return messageOrder;
     }
 
+    public void updateMessage( String messageUUID, String newMessageText, String messageAuthorUUID ) {
+        if (discussionMessages.containsKey( messageUUID )) {
+            FSqrDiscussionThreadMessage message = discussionMessages.get( messageUUID );
+            message.updateMessage( newMessageText, messageAuthorUUID );
+        }
+    }
+
     // TODO: addReplyToMessage()
-    // TODO?: editMessage()
 }
