@@ -761,10 +761,14 @@ public class ProjectRESTfulService {
         if (projectDB.hasProjectLocalPath( projectId )) {
             MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
-            // TODO: @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/editmessage", response_class=JSONResponse)
+            String messageAuthorUUID = postParams.getStringOrThrow( "authorid" );
+            String threadUUID = postParams.getStringOrThrow( "threadid" );
+            String messageUUID = postParams.getStringOrThrow( "messageid" );
+            String newMessageText = postParams.getStringOrThrow( "newmessage" );
+
             FSqrDiscussionThreadRepositoryImpl discussionRepository = FSqrApplication.getInstance().getServices().getDiscussionThreadRepository();
 
-            // discussionRepository.updateMessage
+            discussionRepository.updateMessage( projectId, reviewId, threadUUID, messageUUID, messageAuthorUUID, newMessageText );
 
             return "{}";
         }

@@ -45,7 +45,7 @@ public class FSqrDiscussionThreadRepositoryImpl {
 
     private Map<String, FSqrDiscussionThread> threadTable = new HashMap<>();
 
-    private Map<String, Map<String, List<String>>> projectAndRewviewToThreads = new HashMap<>();
+    private Map<String, Map<String, ArrayList<String>>> projectAndRewviewToThreads = new HashMap<>();
 
     /**
      * 
@@ -90,7 +90,7 @@ public class FSqrDiscussionThreadRepositoryImpl {
     public List<FSqrDiscussionThread> getDirectThreadsForReview( String projectId, String reviewId ) {
         ArrayList<FSqrDiscussionThread> result = new ArrayList<>();
         if (projectAndRewviewToThreads.containsKey( projectId )) {
-            Map<String, List<String>> reviewsMapForProjectId = projectAndRewviewToThreads.get( projectId );
+            Map<String, ArrayList<String>> reviewsMapForProjectId = projectAndRewviewToThreads.get( projectId );
             if (reviewsMapForProjectId.containsKey( reviewId )) {
                 List<String> threadList = reviewsMapForProjectId.get( reviewId );
                 threadList.stream().forEach( tid -> result.add( threadTable.get( tid ) ) );
@@ -98,6 +98,16 @@ public class FSqrDiscussionThreadRepositoryImpl {
         }
 
         return result;
+    }
+
+    public void updateMessage( String projectId, String reviewId, String threadUUID, String messageUUID, String messageAuthorUUID, String newMessageText ) {
+        // check if project id ad review id exist.
+
+        //
+        if (threadTable.containsKey( threadUUID )) {
+            FSqrDiscussionThread thread = threadTable.get( threadUUID );
+            thread.updateMessage( messageUUID, newMessageText, messageAuthorUUID );
+        }
     }
 
 }
