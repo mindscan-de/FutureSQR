@@ -740,13 +740,16 @@ public class ProjectRESTfulService {
     @Produces( MediaType.APPLICATION_JSON )
     public String postReplyToDiscussionMessage( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId, String requestBody ) {
         if (projectDB.hasProjectLocalPath( projectId )) {
-            MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
+            MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParserAndDump( requestBody ).parse();
 
-            // TODO: @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/replythread", response_class=JSONResponse)
+            String messageAuthorUUID = postParams.getStringOrThrow( "authorid" );
+            String threadUUID = postParams.getStringOrThrow( "threadid" );
+            String replytoMessageId = postParams.getStringOrThrow( "replytoid" );
+            String messageText = postParams.getStringOrThrow( "message" );
 
             FSqrDiscussionThreadRepositoryImpl discussionRepository = FSqrApplication.getInstance().getServices().getDiscussionThreadRepository();
 
-            // discussionRepository.replyToThread(projectId, reviewId, messageAuthorUUID, threadId, replyTomessageId, messageText );
+            discussionRepository.replyToThread( projectId, reviewId, threadUUID, replytoMessageId, messageText, messageAuthorUUID );
 
             return "{}";
         }
@@ -768,7 +771,7 @@ public class ProjectRESTfulService {
 
             FSqrDiscussionThreadRepositoryImpl discussionRepository = FSqrApplication.getInstance().getServices().getDiscussionThreadRepository();
 
-            discussionRepository.updateMessage( projectId, reviewId, threadUUID, messageUUID, messageAuthorUUID, newMessageText );
+            discussionRepository.updateMessage( projectId, reviewId, threadUUID, messageUUID, newMessageText, messageAuthorUUID );
 
             return "{}";
         }

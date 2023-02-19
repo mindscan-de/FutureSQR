@@ -100,7 +100,7 @@ public class FSqrDiscussionThreadRepositoryImpl {
         return result;
     }
 
-    public void updateMessage( String projectId, String reviewId, String threadUUID, String messageUUID, String messageAuthorUUID, String newMessageText ) {
+    public void updateMessage( String projectId, String reviewId, String threadUUID, String messageUUID, String newMessageText, String messageAuthorUUID ) {
         // check if project id 
         if (!projectAndRewviewToThreads.containsKey( projectId )) {
             return;
@@ -122,6 +122,11 @@ public class FSqrDiscussionThreadRepositoryImpl {
             FSqrDiscussionThread thread = threadTable.get( threadUUID );
             thread.updateMessage( messageUUID, newMessageText, messageAuthorUUID );
         }
+    }
+
+    public void replyToThread( String projectId, String reviewId, String threadUUID, String replytoMessageId, String messageText, String messageAuthorUUID ) {
+        // TODO Auto-generated method stub
+
     }
 
 }
