@@ -26,11 +26,15 @@
 package de.mindscan.futuresqr.domain.databases;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import de.mindscan.futuresqr.core.uuid.UuidUtil;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
+import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThreadMessage;
 
 /**
  * 
@@ -38,6 +42,10 @@ import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
 public class FSqrDiscussionThreadRepositoryImpl {
 
     private FSqrApplicationServices applicationServices;
+
+    private Map<String, FSqrDiscussionThread> threadTable = new HashMap<>();
+
+    private Map<String, Map<String, List<String>>> projectAndRewviewToThreads = new HashMap<>();
 
     /**
      * 
@@ -50,17 +58,46 @@ public class FSqrDiscussionThreadRepositoryImpl {
         this.applicationServices = applicationServices;
     }
 
-    // TODO NEXT: introduce fsqr backend model
     public void createNewReviewThread( String projectId, String reviewId, String messageAuthorUUID, String messageText ) {
-        // create thread
-        // add message to thread.
+        FSqrDiscussionThread newThread = createNewThread( messageText, messageAuthorUUID );
+
+        // insertThreadToDB
+        threadTable.put( newThread.getDiscussionThreadUUID(), newThread );
+
+        // 
+        projectAndRewviewToThreads //
+                        .computeIfAbsent( projectId, id -> new HashMap<>() )//
+                        .computeIfAbsent( reviewId, id -> new ArrayList<String>() ) //
+                        .add( 0, newThread.getDiscussionThreadUUID() );
     }
 
-    // TODO NEXT: introduce fsqr backend model
-    public List<FSqrDiscussionThread> getDirectThreadsForReview( String projectId, String reviewId ) {
-        // TODO: return all discussion threads for a project id and a review
+    private FSqrDiscussionThread createNewThread( String messageText, String messageAuthorUUID ) {
+        String newThreadUUID = UuidUtil.getRandomUUID().toString();
 
-        return new ArrayList<>();
+        FSqrDiscussionThreadMessage rootMessage = createRootMessage( newThreadUUID, messageText, messageAuthorUUID );
+        FSqrDiscussionThread createdThread = new FSqrDiscussionThread( newThreadUUID, rootMessage, messageAuthorUUID );
+
+        return createdThread;
+    }
+
+    private FSqrDiscussionThreadMessage createRootMessage( String newThreadUUID, String messageText, String messageAuthorUUID ) {
+        FSqrDiscussionThreadMessage rootMessage = new FSqrDiscussionThreadMessage( messageText, messageAuthorUUID );
+
+        rootMessage.setThreadUUID( newThreadUUID );
+        return rootMessage;
+    }
+
+    public List<FSqrDiscussionThread> getDirectThreadsForReview( String projectId, String reviewId ) {
+        ArrayList<FSqrDiscussionThread> result = new ArrayList<>();
+        if (projectAndRewviewToThreads.containsKey( projectId )) {
+            Map<String, List<String>> reviewsMapForProjectId = projectAndRewviewToThreads.get( projectId );
+            if (reviewsMapForProjectId.containsKey( reviewId )) {
+                List<String> threadList = reviewsMapForProjectId.get( reviewId );
+                threadList.stream().forEach( tid -> result.add( threadTable.get( tid ) ) );
+            }
+        }
+
+        return result;
     }
 
 }
