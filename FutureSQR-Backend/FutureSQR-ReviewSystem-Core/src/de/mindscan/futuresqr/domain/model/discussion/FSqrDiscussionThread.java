@@ -25,7 +25,9 @@
  */
 package de.mindscan.futuresqr.domain.model.discussion;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,6 +39,7 @@ public class FSqrDiscussionThread {
     private String discussionThreadAuthor = "";
 
     // TODO: inOrderList (by time) or by threaddepth and time?
+    private ArrayList<String> messageOrder = new ArrayList<>();
 
     private Map<String, FSqrDiscussionThreadMessage> discussionMessages = new HashMap<>();
 
@@ -50,6 +53,10 @@ public class FSqrDiscussionThread {
 
     public Map<String, FSqrDiscussionThreadMessage> getDiscussionMessages() {
         return discussionMessages;
+    }
+
+    public List<String> getMessageOrder() {
+        return messageOrder;
     }
 
     // TODO: addAsRootMessage()
