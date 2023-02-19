@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
+import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThreadMessage;
 
 /**
  * TODO: actually we have two types of discussions generally review related and those which are embedded to code.
@@ -50,6 +51,16 @@ public class OutputDiscussionThreadModel {
     }
 
     public OutputDiscussionThreadModel( FSqrDiscussionThread thread ) {
-        // TODO implement the transformation. 
+        this.threadId = thread.getDiscussionThreadUUID();
+        this.authorId = thread.getDiscussionThreadAuthor();
+
+        this.messagesId = new ArrayList<>( thread.getMessageOrder() );
+
+        this.messages = new HashMap<>();
+        addMessages( thread.getDiscussionMessages() );
+    }
+
+    private void addMessages( Map<String, FSqrDiscussionThreadMessage> discussionMessages ) {
+        discussionMessages.values().stream().forEach( msg -> this.messages.put( msg.getMessageUUID(), new OutputDiscussionMessageModel( msg ) ) );
     }
 }

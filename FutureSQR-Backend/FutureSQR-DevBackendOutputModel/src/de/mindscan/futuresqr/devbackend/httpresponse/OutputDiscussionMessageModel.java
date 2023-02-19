@@ -25,6 +25,8 @@
  */
 package de.mindscan.futuresqr.devbackend.httpresponse;
 
+import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThreadMessage;
+
 /**
  * 
  */
@@ -37,4 +39,14 @@ public class OutputDiscussionMessageModel {
     public String authorId = "";
     public String replyToMsgId = "";
 
+    public OutputDiscussionMessageModel() {
+    }
+
+    public OutputDiscussionMessageModel( FSqrDiscussionThreadMessage msg ) {
+        this.messageId = msg.getMessageUUID();
+        this.threadId = msg.getThreadUUID();
+        this.message = msg.getMessageText();
+        this.authorId = msg.getMessageAuthorUUID();
+        this.replyToMsgId = msg.getReplyToMessageUUID();
+    }
 }
