@@ -25,8 +25,12 @@
  */
 package de.mindscan.futuresqr.domain.databases;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
+import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
 
 /**
  * 
@@ -44,6 +48,19 @@ public class FSqrDiscussionThreadRepositoryImpl {
 
     public void setApplicationServices( FSqrApplicationServices applicationServices ) {
         this.applicationServices = applicationServices;
+    }
+
+    // TODO NEXT: introduce fsqr backend model
+    public void createNewReviewThread( String projectId, String reviewId, String messageAuthorUUID, String messageText ) {
+        // create thread
+        // add message to thread.
+    }
+
+    // TODO NEXT: introduce fsqr backend model
+    public List<FSqrDiscussionThread> getDirectThreadsForReview( String projectId, String reviewId ) {
+        // TODO: return all discussion threads for a project id and a review
+
+        return new ArrayList<>();
     }
 
 }
