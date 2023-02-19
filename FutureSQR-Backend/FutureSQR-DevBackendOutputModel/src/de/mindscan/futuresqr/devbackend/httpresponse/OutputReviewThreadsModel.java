@@ -28,9 +28,22 @@ package de.mindscan.futuresqr.devbackend.httpresponse;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
+
 /**
  * 
  */
 public class OutputReviewThreadsModel {
+
     public List<OutputDiscussionThreadModel> allreviewthreads = new ArrayList<>();
+
+    public OutputReviewThreadsModel() {
+        this.allreviewthreads = new ArrayList<>();
+    }
+
+    public OutputReviewThreadsModel( List<FSqrDiscussionThread> reviewThreads ) {
+        this.allreviewthreads = new ArrayList<>();
+        reviewThreads.stream().forEach( thread -> this.allreviewthreads.add( new OutputDiscussionThreadModel( thread ) ) );
+    }
+
 }

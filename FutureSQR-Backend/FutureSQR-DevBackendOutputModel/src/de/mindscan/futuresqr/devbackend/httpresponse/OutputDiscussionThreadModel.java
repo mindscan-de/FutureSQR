@@ -30,6 +30,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
+
 /**
  * TODO: actually we have two types of discussions generally review related and those which are embedded to code.
  * this should be distinguished. But for the output model this doesn't matter at all right now.
@@ -44,4 +46,10 @@ public class OutputDiscussionThreadModel {
     public List<String> messagesId = new ArrayList<>();
     public Map<String, OutputDiscussionMessageModel> messages = new HashMap<>();
 
+    public OutputDiscussionThreadModel() {
+    }
+
+    public OutputDiscussionThreadModel( FSqrDiscussionThread thread ) {
+        // TODO implement the transformation. 
+    }
 }
