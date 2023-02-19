@@ -101,9 +101,23 @@ public class FSqrDiscussionThreadRepositoryImpl {
     }
 
     public void updateMessage( String projectId, String reviewId, String threadUUID, String messageUUID, String messageAuthorUUID, String newMessageText ) {
-        // check if project id ad review id exist.
+        // check if project id 
+        if (!projectAndRewviewToThreads.containsKey( projectId )) {
+            return;
+        }
 
-        //
+        // check if reviewId exists
+        if (!projectAndRewviewToThreads.get( projectId ).containsKey( reviewId )) {
+            return;
+        }
+
+        // make sure this threadid is only in projectId and reviewId present, such that you can't edit 
+        // someone eles's Threads in different projects/reviews
+        if (!projectAndRewviewToThreads.get( projectId ).get( reviewId ).contains( threadUUID )) {
+            return;
+        }
+
+        // update if threadUUID exists.
         if (threadTable.containsKey( threadUUID )) {
             FSqrDiscussionThread thread = threadTable.get( threadUUID );
             thread.updateMessage( messageUUID, newMessageText, messageAuthorUUID );
