@@ -58,7 +58,7 @@ public class FSqrDiscussionThreadRepositoryImpl {
         this.applicationServices = applicationServices;
     }
 
-    public void createNewReviewThread( String projectId, String reviewId, String messageAuthorUUID, String messageText ) {
+    public void createNewReviewThread( String projectId, String reviewId, String messageText, String messageAuthorUUID ) {
         FSqrDiscussionThread newThread = createNewThread( messageText, messageAuthorUUID );
 
         // insertThreadToDB

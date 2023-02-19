@@ -727,7 +727,7 @@ public class ProjectRESTfulService {
 
             FSqrDiscussionThreadRepositoryImpl discussionRepository = FSqrApplication.getInstance().getServices().getDiscussionThreadRepository();
 
-            discussionRepository.createNewReviewThread( projectId, reviewId, messageAuthorUUID, messageText );
+            discussionRepository.createNewReviewThread( projectId, reviewId, messageText, messageAuthorUUID );
 
             return "{}";
         }
