@@ -743,6 +743,12 @@ public class ProjectRESTfulService {
             MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
             // TODO: @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/replythread", response_class=JSONResponse)
+
+            FSqrDiscussionThreadRepositoryImpl discussionRepository = FSqrApplication.getInstance().getServices().getDiscussionThreadRepository();
+
+            // discussionRepository.replyToThread(projectId, reviewId, messageAuthorUUID, threadId, replyTomessageId, messageText );
+
+            return "{}";
         }
 
         return "{}";
@@ -756,6 +762,11 @@ public class ProjectRESTfulService {
             MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
             // TODO: @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/editmessage", response_class=JSONResponse)
+            FSqrDiscussionThreadRepositoryImpl discussionRepository = FSqrApplication.getInstance().getServices().getDiscussionThreadRepository();
+
+            // discussionRepository.updateMessage
+
+            return "{}";
         }
 
         return "{}";
