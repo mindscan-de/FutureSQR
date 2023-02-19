@@ -52,6 +52,10 @@ public class UuidUtil {
         return buildUUIDByNamespace( USERNAMES_NAMESPACE_OID, name );
     }
 
+    public static UUID getRandomUUID() {
+        return UUID.randomUUID();
+    }
+
     private static byte[] joinNameSpaceBytes( long nsMsb, long nsLsb, byte[] nameBytes ) {
         ByteBuffer bb = ByteBuffer.allocate( 8 + 8 + nameBytes.length );
 
