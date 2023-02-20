@@ -166,6 +166,4 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
         return revisionAuthorUUIDs;
     }
 
-    // getDiscussionThreads
-    // discussionthreadids?
 }
