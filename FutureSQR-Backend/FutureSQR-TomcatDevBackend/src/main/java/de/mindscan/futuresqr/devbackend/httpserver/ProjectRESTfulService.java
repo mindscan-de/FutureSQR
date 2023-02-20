@@ -266,10 +266,14 @@ public class ProjectRESTfulService {
     @Produces( MediaType.APPLICATION_JSON )
     public String getCodeReviewUnifiedDiff( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId ) {
         if (projectDB.hasProjectLocalPath( projectId )) {
-            // TODO: implement calculating the diff for a review 
+            FSqrCodeReviewRepositoryImpl reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
+            FSqrCodeReview codeReview = reviewRepository.getReview( projectId, reviewId );
+            List<FSqrRevision> revisionList = codeReview.getRevisions();
 
-            // TODO use the result of previous diff.
-            OutputSingleCommitFullChangeSet response = new OutputSingleCommitFullChangeSet();
+            FSqrScmProjectRevisionRepositoryImpl revisionRepository = FSqrApplication.getInstance().getServices().getRevisionRepository();
+            FSqrRevisionFullChangeSet fullChangeSet = revisionRepository.getRevisionFullChangeSet( projectId, revisionList );
+
+            OutputSingleCommitFullChangeSet response = new OutputSingleCommitFullChangeSet( fullChangeSet );
             Gson gson = new Gson();
             return gson.toJson( response );
         }
@@ -740,7 +744,7 @@ public class ProjectRESTfulService {
     @Produces( MediaType.APPLICATION_JSON )
     public String postReplyToDiscussionMessage( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId, String requestBody ) {
         if (projectDB.hasProjectLocalPath( projectId )) {
-            MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParserAndDump( requestBody ).parse();
+            MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
             String messageAuthorUUID = postParams.getStringOrThrow( "authorid" );
             String threadUUID = postParams.getStringOrThrow( "threadid" );
