@@ -144,7 +144,7 @@ public class FSqrDiscussionThreadRepositoryImpl {
         if (threadTable.containsKey( threadUUID )) {
             FSqrDiscussionThreadMessage message = createReplyMessage( threadUUID, replytoMessageId, messageText, messageAuthorUUID );
             FSqrDiscussionThread thread = threadTable.get( threadUUID );
-            // TODO NEXT: do something special with this message in the appropriate thread and insert this at the right position.
+            thread.addAsReplytoMessage( message );
         }
     }
 

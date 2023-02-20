@@ -44,7 +44,7 @@ public class FSqrDiscussionThread {
     private Map<String, FSqrDiscussionThreadMessage> discussionMessages = new HashMap<>();
 
     public FSqrDiscussionThread() {
-        // TODO Auto-generated constructor stub
+        // intentionally left blank
     }
 
     public FSqrDiscussionThread( String newThreadUUID, FSqrDiscussionThreadMessage rootMessage, String messageAuthorUUID ) {
@@ -59,6 +59,12 @@ public class FSqrDiscussionThread {
     private void addAsRootMessage( FSqrDiscussionThreadMessage rootMessage ) {
         messageOrder.add( 0, rootMessage.getMessageUUID() );
         discussionMessages.put( rootMessage.getMessageUUID(), rootMessage );
+    }
+
+    public void addAsReplytoMessage( FSqrDiscussionThreadMessage message ) {
+        // TODO: either correct insert position or build a discussion tree, and then use an in order traversal.
+        messageOrder.add( message.getMessageUUID() );
+        discussionMessages.put( message.getMessageUUID(), message );
     }
 
     public String getDiscussionThreadUUID() {
@@ -84,5 +90,4 @@ public class FSqrDiscussionThread {
         }
     }
 
-    // TODO: addReplyToMessage()
 }
