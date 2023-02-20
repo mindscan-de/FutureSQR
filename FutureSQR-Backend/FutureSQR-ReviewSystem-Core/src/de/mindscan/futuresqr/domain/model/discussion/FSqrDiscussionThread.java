@@ -43,6 +43,10 @@ public class FSqrDiscussionThread {
 
     private Map<String, FSqrDiscussionThreadMessage> discussionMessages = new HashMap<>();
 
+    // TODO: whenWasThis thread created. / as long in seconds / milliseconds
+    // TODO: is this discussion thread resolved
+    // TODO: implement a tree structure for the discussion thread, instead of hacking the messageOrder.
+
     public FSqrDiscussionThread() {
         // intentionally left blank
     }
