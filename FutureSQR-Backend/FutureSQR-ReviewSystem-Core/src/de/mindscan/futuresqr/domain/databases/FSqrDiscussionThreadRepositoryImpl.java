@@ -68,7 +68,7 @@ public class FSqrDiscussionThreadRepositoryImpl {
         projectAndRewviewToThreads //
                         .computeIfAbsent( projectId, id -> new HashMap<>() )//
                         .computeIfAbsent( reviewId, id -> new ArrayList<String>() ) //
-                        .add( 0, newThread.getDiscussionThreadUUID() );
+                        .add( newThread.getDiscussionThreadUUID() );
     }
 
     private FSqrDiscussionThread createNewThread( String messageText, String messageAuthorUUID ) {
