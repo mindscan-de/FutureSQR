@@ -212,6 +212,18 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         return new FSqrRevisionFileChangeList( fileChangeList );
     }
 
+    public FSqrRevisionFullChangeSet getRevisionFullChangeSet( String projectId, List<FSqrRevision> revisionList ) {
+        if (revisionList.size() == 1) {
+            return getRevisionFullChangeSet( projectId, revisionList.get( 0 ).getReviewId() );
+        }
+
+        // TODO: check if the revisions are all on
+
+        // TODO: calculate a good changeset or build a revisionchangeset for each revision in the revisionlist.
+
+        return new FSqrRevisionFullChangeSet();
+    }
+
     public FSqrRevisionFullChangeSet getRevisionFullChangeSet( String projectId, String revisionId ) {
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
