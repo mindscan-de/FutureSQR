@@ -102,11 +102,17 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
         return getReviewerResultsMap().isEmpty();
     }
 
-    // derive boolean (ready_to_close state) from reviewerlist
-    boolean isReadyToClose() {
-        // TODO NEXT: if revisionlist is empty return true
-        // TODO NEXT: check that all revierwers are good with it.
-        return false;
+    public boolean isReadyToClose() {
+        // it can be closed if no revision is set in review.
+        if (this.revisions.isEmpty()) {
+            return true;
+        }
+
+        List<FSqrReviewResult> nonApprovers = getReviewerResultsMap().values().stream().filter( result -> result.result != FSqrReviewResultState.Approved )
+                        .collect( Collectors.toList() );
+
+        // derive boolean (ready_to_close state) from reviewerlist
+        return nonApprovers.size() == 0;
     }
 
     // closeReview ( userid who )

@@ -75,17 +75,19 @@ public class OutputReviewModel {
         // convert review Authors
         this.reviewAuthors = codeReview.getRevisionAuthorUUIDs();
 
-        // TODO: this.reviewReadyToClose = codeReview.
+        this.reviewReadyToClose = codeReview.isReadyToClose();
 
         this.reviewUnassigned = codeReview.isUnassigned();
+
+        reviewReviewersResults = new HashMap<>();
         convertReviewerResults( codeReview.getReviewerResultsMap().entrySet() );
-        // TODO: this.reviewReviewersResults = codeReview.
 
         this.reviewFkProjectId = codeReview.getProjectId();
         this.reviewLifecycleState = codeReview.getCurrentReviewState().name();
     }
 
     private void convertReviewerResults( Set<Entry<String, FSqrReviewResult>> results ) {
+
         for (Entry<String, FSqrReviewResult> entry : results) {
             String key = entry.getKey();
             FSqrReviewResult internalResult = entry.getValue();
