@@ -212,14 +212,16 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         return new FSqrRevisionFileChangeList( fileChangeList );
     }
 
+    // TODO: calculate change set for a single file, using a revisionlist.
+
     public FSqrRevisionFullChangeSet getRevisionFullChangeSet( String projectId, List<FSqrRevision> revisionList ) {
         if (revisionList.size() == 1) {
             return getRevisionFullChangeSet( projectId, revisionList.get( 0 ).getReviewId() );
         }
 
-        // TODO: check if the revisions are all on
+        // TODO: check if the revisions are all on one direct line, or split that lines up
 
-        // TODO: calculate a good changeset or build a revisionchangeset for each revision in the revisionlist.
+        // TODO: calculate a good changeset or build a revisionchangeset for each revision in the revisionlist. 
 
         return new FSqrRevisionFullChangeSet();
     }
