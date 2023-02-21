@@ -237,7 +237,7 @@ public class FSqrScmProjectRevisionRepositoryImpl {
     private boolean isLiningUp( List<FSqrRevision> revisionList ) {
         for (int i = revisionList.size() - 1; i > 0; i--) {
             FSqrRevision currentRevision = revisionList.get( i );
-            FSqrRevision previousRevision = revisionList.get( i );
+            FSqrRevision previousRevision = revisionList.get( i - 1 );
 
             // check if previousElement.revisionId is in currentElement.parent : if not return false -> they don't line up.
             if (!currentRevision.getParentIds().contains( previousRevision.getRevisionId() )) {
