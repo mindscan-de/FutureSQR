@@ -43,4 +43,7 @@ public interface ScmContentProvider {
 
     // see getProjectRevisionDiffToPrevious for context of this method
     ScmFullChangeSet getFullChangeSetForRevision( ScmRepository repository, String revisionId );
+
+    // see ???
+    ScmFullChangeSet getFullChangeSetFromRevisionToRevision( ScmRepository scmRepository, String firstRevisionId, String lastRevisionId );
 }

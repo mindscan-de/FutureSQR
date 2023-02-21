@@ -74,4 +74,16 @@ public class GitScmContentProvider implements ScmContentProvider {
         return fullChangeSet;
     }
 
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public ScmFullChangeSet getFullChangeSetFromRevisionToRevision( ScmRepository repository, String firstRevisionId, String lastRevisionId ) {
+        ScmFullChangeSet fullChangeSet = gitCliExecutor //
+                        .execute( repository, GitCommands.createGetDiffBetweenRevisionsCommand( firstRevisionId, lastRevisionId ) )//
+                        .transform( GitOutputProcessors.toScmFullChangeSet() );
+
+        return fullChangeSet;
+    }
+
 }
