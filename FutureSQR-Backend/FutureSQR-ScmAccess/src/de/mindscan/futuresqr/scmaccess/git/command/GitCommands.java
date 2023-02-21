@@ -77,4 +77,8 @@ public class GitCommands {
     public static GitCommand createGetDiffForRevisionCommand( String revisionId ) {
         return new GetDiffForRevisionCommand( revisionId );
     }
+
+    public static GitCommand createGetDiffBetweenRevisionsCommand( String firstRevisionId, String lastRevisionId ) {
+        throw new RuntimeException( "implement me." );
+    }
 }
