@@ -80,6 +80,10 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
     }
 
     private void parseFullChangeSet( String string, Consumer<ScmFileChangeSet> fileChangeSetConsumer ) {
+        // System.out.println( string );
+        // TODO NEXT: must split to new commit, we get the diff for each single commit in between. not what I expected.....
+        // TODO NEXT: maybe a list of full change sets for each revision one entry in the list.
+
         // TODO: Actually the split tokens should not be consumed from the string
         //       can to this later.
         GitScmLineBasedLexer lineLexer = new GitScmLineBasedLexer( string.split( "\\R" ) );
