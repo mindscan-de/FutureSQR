@@ -142,7 +142,7 @@ public class FSqrCodeReviewRepositoryImpl {
     public void deleteReview( String projectId, String reviewId, String whoDeletedUUID ) {
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
-            // TODO NEXT: cleanup/unregister all referenced revisions, such they can be reviewed 
+            // TODO NEXT: cleanup/unregister all referenced revisions, such they can again be reviewed 
             // projectIdRevisionIdToCodeReviewIdRepository
             codeReview.deleteReview( whoDeletedUUID );
         }
