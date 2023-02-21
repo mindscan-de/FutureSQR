@@ -227,7 +227,7 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         if (isLiningUp( revisionList )) {
             int last = revisionList.size() - 1;
             int first = 0;
-            return new FSqrRevisionFullChangeSet();
+            return getRevisionFullChangeset( projectId, revisionList.get( first ).getRevisionId(), revisionList.get( last ).getRevisionId() );
         }
 
         // TODO: calculate a good changeset or build a revisionchangeset for each revision in the revisionlist. 
@@ -253,6 +253,17 @@ public class FSqrScmProjectRevisionRepositoryImpl {
             ScmRepository scmRepository = toScmRepository( scmConfiguration );
             ScmFullChangeSet fullChangeSet = gitScmContentProvider.getFullChangeSetForRevision( scmRepository, revisionId );
 
+            return new FSqrRevisionFullChangeSet( fullChangeSet );
+        }
+        return new FSqrRevisionFullChangeSet();
+    }
+
+    private FSqrRevisionFullChangeSet getRevisionFullChangeset( String projectId, String firstRevisionId, String lastRevisionId ) {
+        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
+        if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
+            ScmRepository scmRepository = toScmRepository( scmConfiguration );
+
+            ScmFullChangeSet fullChangeSet = gitScmContentProvider.getFullChangeSetFromRevisionToRevision( scmRepository, firstRevisionId, lastRevisionId );
             return new FSqrRevisionFullChangeSet( fullChangeSet );
         }
         return new FSqrRevisionFullChangeSet();
