@@ -223,11 +223,28 @@ public class FSqrScmProjectRevisionRepositoryImpl {
             return getRevisionFullChangeSet( projectId, revisionList.get( 0 ).getReviewId() );
         }
 
-        // TODO: check if the revisions are all on one direct line, or split that lines up
+        // check if the revisions are all on one direct line, or split that lines up
+        if (isLiningUp( revisionList )) {
+            int last = revisionList.size() - 1;
+            int first = 0;
+            return new FSqrRevisionFullChangeSet();
+        }
 
         // TODO: calculate a good changeset or build a revisionchangeset for each revision in the revisionlist. 
-
         return new FSqrRevisionFullChangeSet();
+    }
+
+    private boolean isLiningUp( List<FSqrRevision> revisionList ) {
+        for (int i = revisionList.size() - 1; i > 0; i--) {
+            FSqrRevision currentRevision = revisionList.get( i );
+            FSqrRevision previousRevision = revisionList.get( i );
+
+            // check if previousElement.revisionId is in currentElement.parent : if not return false -> they don't line up.
+            if (!currentRevision.getParentIds().contains( previousRevision.getRevisionId() )) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public FSqrRevisionFullChangeSet getRevisionFullChangeSet( String projectId, String revisionId ) {
