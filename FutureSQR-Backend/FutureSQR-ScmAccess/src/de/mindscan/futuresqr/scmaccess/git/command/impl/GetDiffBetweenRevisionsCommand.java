@@ -25,6 +25,7 @@
  */
 package de.mindscan.futuresqr.scmaccess.git.command.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.mindscan.futuresqr.scmaccess.git.GitCommand;
@@ -48,7 +49,14 @@ public class GetDiffBetweenRevisionsCommand extends GitCommand implements GitCom
      */
     @Override
     public List<String> getArguments() {
-        throw new RuntimeException( "implement me." );
+        List<String> args = new ArrayList<String>();
+
+        args.add( "log" );
+        args.add( "-u" );
+        args.add( this.getStartRevisionId() + "^.." + this.getEndRevisionId() );
+
+        return args;
+
     }
 
     /** 
