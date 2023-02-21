@@ -57,6 +57,9 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
 
     private static final String GIT_DIFF_NO_NEWLINE_AT_END_OF_FILE_INDICATOR = "\\ No newline at end of file";
 
+    // TODO NEXT: two newlines are a separator for revision-Data / revision information.
+    // TODO NEXT: a new line and a space on the next followed by newline is a newline in the file.
+
     /**
      * 
      */
