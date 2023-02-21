@@ -215,6 +215,10 @@ public class FSqrScmProjectRevisionRepositoryImpl {
     // TODO: calculate change set for a single file, using a revisionlist.
 
     public FSqrRevisionFullChangeSet getRevisionFullChangeSet( String projectId, List<FSqrRevision> revisionList ) {
+        if (revisionList.size() == 0) {
+            return new FSqrRevisionFullChangeSet();
+        }
+
         if (revisionList.size() == 1) {
             return getRevisionFullChangeSet( projectId, revisionList.get( 0 ).getReviewId() );
         }
