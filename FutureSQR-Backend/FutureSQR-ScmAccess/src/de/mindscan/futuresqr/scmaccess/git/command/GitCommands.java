@@ -26,6 +26,7 @@
 package de.mindscan.futuresqr.scmaccess.git.command;
 
 import de.mindscan.futuresqr.scmaccess.git.GitCommand;
+import de.mindscan.futuresqr.scmaccess.git.command.impl.GetDiffBetweenRevisionsCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.impl.GetDiffForRevisionCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.impl.GetFileChangesListForRevisionCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.impl.GetFileContentForRevisionCommand;
@@ -78,7 +79,7 @@ public class GitCommands {
         return new GetDiffForRevisionCommand( revisionId );
     }
 
-    public static GitCommand createGetDiffBetweenRevisionsCommand( String firstRevisionId, String lastRevisionId ) {
-        throw new RuntimeException( "implement me." );
+    public static GitCommand createGetDiffBetweenRevisionsCommand( String startRevisionId, String endRevisionId ) {
+        return new GetDiffBetweenRevisionsCommand( startRevisionId, endRevisionId );
     }
 }
