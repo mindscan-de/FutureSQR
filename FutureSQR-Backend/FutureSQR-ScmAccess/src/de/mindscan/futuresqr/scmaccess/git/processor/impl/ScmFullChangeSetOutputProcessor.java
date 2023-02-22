@@ -74,6 +74,8 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
     public ScmFullChangeSet transform( GitCLICommandOutput output ) {
         ScmFullChangeSet scmFullChangeSet = new ScmFullChangeSet();
 
+        // TODO: parse the commit + id /Author/date/message andmaybe also provide a list of full changesets .... instead of one.
+
         // TODO: analyze the standard changesets, UTF_8 ...
         // TODO: Actually each file can have it's own encoding, such that we must provide a scanner with different charset modes
         // this needs to be fixed longer term.
