@@ -231,6 +231,10 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
             if (currentLine.startsWith( GIT_DIFF_NO_NEWLINE_AT_END_OF_FILE_INDICATOR )) {
                 //intentionally left blank;
             }
+            else if (currentLine.equals( "" )) {
+                // actually we are done with this file.
+                break;
+            }
             else {
                 // TODO: it either starts with a '+', '-', ' ' this should be handled and split into a different Array, 
                 // where add, remove and unchanged info is stored for each index. 
