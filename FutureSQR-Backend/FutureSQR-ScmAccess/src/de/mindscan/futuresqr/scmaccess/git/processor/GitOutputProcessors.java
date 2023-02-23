@@ -25,9 +25,12 @@
  */
 package de.mindscan.futuresqr.scmaccess.git.processor;
 
+import java.util.List;
+
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.git.processor.impl.ScmFileContentOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.git.processor.impl.ScmFileHistoryOutputProcessor;
+import de.mindscan.futuresqr.scmaccess.git.processor.impl.ScmFullChangeSetListOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.git.processor.impl.ScmFullChangeSetOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.git.processor.impl.ScmHistoryOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.git.processor.impl.ScmSingleRevisionFileChangeListOutputProcessor;
@@ -61,6 +64,10 @@ public class GitOutputProcessors {
 
     public static GitCLICommandOutputProcessor<ScmFullChangeSet> toScmFullChangeSet() {
         return new ScmFullChangeSetOutputProcessor();
+    }
+
+    public static GitCLICommandOutputProcessor<List<ScmFullChangeSet>> toScmFullChangeSetList() {
+        return new ScmFullChangeSetListOutputProcessor();
     }
 
     public static GitCLICommandOutputProcessor<Void> toScmVoid() {
