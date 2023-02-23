@@ -76,6 +76,16 @@ public class GitCLICommonConstants {
     public static final String MINUSMINUS = "--";
 
     /**
+     * Modifier to refer to previous version 
+     */
+    public static final String MINUS_ONE = "-1";
+
+    /**
+     * Modifier for unified diff
+     */
+    public static final String MINUS_U = "-u";
+
+    /**
      * 
      */
     public static final String GIT_PRETTY_FORMAT_WITH_PARAMETERS = "--pretty=format:" + String.join( "%x1f", GIT_FORMAT_PARAMS ) + "%x1e";
