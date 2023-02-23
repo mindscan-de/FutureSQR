@@ -28,6 +28,7 @@ package de.mindscan.futuresqr.scmaccess.git.command.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.mindscan.futuresqr.scmaccess.git.GitCLICommonConstants;
 import de.mindscan.futuresqr.scmaccess.git.GitCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.GitCommandWithRevisionId;
 
@@ -57,11 +58,11 @@ public class GetFileChangesListForRevisionCommand extends GitCommand implements 
         String[] pretty_format = { "%H", "%cn", "%cr" };
         String formatdetails = String.join( "%x1f", pretty_format );
 
-        args.add( "log" );
+        args.add( GitCLICommonConstants.GIT_COMMAND_LOG );
         args.add( "--find-renames" );
         args.add( "--name-status" );
         args.add( "--pretty=format:" + formatdetails + "%x1e" );
-        args.add( "-1" );
+        args.add( GitCLICommonConstants.MINUS_ONE );
         args.add( this.getRevisionId() );
 
         return args;

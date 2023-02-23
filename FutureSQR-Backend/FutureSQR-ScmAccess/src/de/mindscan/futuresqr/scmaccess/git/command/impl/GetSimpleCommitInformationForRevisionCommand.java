@@ -53,9 +53,9 @@ public class GetSimpleCommitInformationForRevisionCommand extends GitCommand imp
     public List<String> getArguments() {
         List<String> args = new ArrayList<String>();
 
-        args.add( "log" );
+        args.add( GitCLICommonConstants.GIT_COMMAND_LOG );
         args.add( GitCLICommonConstants.GIT_PRETTY_FORMAT_WITH_PARAMETERS );
-        args.add( "-1" );
+        args.add( GitCLICommonConstants.MINUS_ONE );
         args.add( this.getRevisionId() );
 
         return args;
