@@ -94,15 +94,32 @@ public class ScmHistoryOutputProcessor implements GitCLICommandOutputProcessor<S
         result.date = record[4];
         result.shortDate = record[5];
         result.relDate = record[6];
+
         result.parentIds = new ArrayList<>();
-        // TODO needs to be split
-        result.parentIds.add( record[7] );
+        splitAndConsumeParentIdsList( record[7], result.parentIds::add );
+
         result.shortParentIds = new ArrayList<>();
-        // TODO needs to be split
-        result.shortParentIds.add( record[8] );
+        splitAndConsumeParentIdsList( record[8], result.shortParentIds::add );
+
         result.message = record[9];
 
         return result;
+    }
+
+    private void splitAndConsumeParentIdsList( String string, Consumer<String> consumer ) {
+        if (string.isEmpty()) {
+            return;
+        }
+
+        if (!string.contains( "," )) {
+            consumer.accept( string );
+        }
+
+        String[] allValues = string.split( "," );
+
+        for (String parentId : allValues) {
+            consumer.accept( parentId.trim() );
+        }
     }
 
 }
