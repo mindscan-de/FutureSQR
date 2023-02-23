@@ -32,15 +32,19 @@ import java.util.ArrayList;
  */
 public class ScmFullChangeSet {
 
-    // TODO: commitID
-    public String commitId;
+    // TODO: commitID 
+    public String revisionId;
 
-    // TODO: author
+    // TODO: authorName / AuthorId / AuthorEmail
 
     // TODO: author email
 
+    // TODO: Date?
+
+    // TODO: branch name?
+
     // TODO: commitMessage
-    public String commitMessage;
+    public String revisionCommitMessage;
 
     public ArrayList<ScmFileChangeSet> fileChangeSet = new ArrayList<>();
 }
