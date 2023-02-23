@@ -101,6 +101,9 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
                 // for each file file entry
                 System.out.println( "[parseFullChangeSet][p]: '" + currentLine + "'" );
                 parseFileChangeSetEntry( lineLexer, fileChangeSetConsumer );
+
+                // TODO: reinitialize for next revision.?
+                // TODO: maybe adding the ScmFileChangeset should be part of this method? not of the parseFileChangeSetEntry.
             }
             else {
                 // This will either skip some header or unparsed stuff from the inner parsers.
@@ -212,6 +215,7 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
         }
 
         // result is a file entry in the ScmFullChangeSet
+        // MAYBE we want
         fileChangeSetConsumer.accept( currentFileChangeSet );
     }
 
