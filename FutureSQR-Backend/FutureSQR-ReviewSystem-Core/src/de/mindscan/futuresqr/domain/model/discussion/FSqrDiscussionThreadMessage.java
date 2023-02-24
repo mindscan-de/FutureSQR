@@ -50,9 +50,10 @@ public class FSqrDiscussionThreadMessage {
     public FSqrDiscussionThreadMessage() {
     }
 
-    public FSqrDiscussionThreadMessage( String messageText, String messageAuthorUUID ) {
+    public FSqrDiscussionThreadMessage( String messageUUID, String messageText, String messageAuthorUUID ) {
         this.messageText = messageText;
         this.messageAuthorUUID = messageAuthorUUID;
+        this.messageUUID = messageUUID;
     }
 
     public String getMessageAuthorUUID() {

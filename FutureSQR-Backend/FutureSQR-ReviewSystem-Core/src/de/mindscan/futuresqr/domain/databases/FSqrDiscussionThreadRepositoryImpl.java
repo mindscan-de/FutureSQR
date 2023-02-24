@@ -81,7 +81,7 @@ public class FSqrDiscussionThreadRepositoryImpl {
     }
 
     private FSqrDiscussionThreadMessage createRootMessage( String newThreadUUID, String messageText, String messageAuthorUUID ) {
-        FSqrDiscussionThreadMessage rootMessage = new FSqrDiscussionThreadMessage( messageText, messageAuthorUUID );
+        FSqrDiscussionThreadMessage rootMessage = new FSqrDiscussionThreadMessage( UuidUtil.getRandomUUID().toString(), messageText, messageAuthorUUID );
 
         rootMessage.setThreadUUID( newThreadUUID );
         return rootMessage;
@@ -149,7 +149,7 @@ public class FSqrDiscussionThreadRepositoryImpl {
     }
 
     private FSqrDiscussionThreadMessage createReplyMessage( String threadUUID, String replytoMessageId, String messageText, String messageAuthorUUID ) {
-        FSqrDiscussionThreadMessage replyMessage = new FSqrDiscussionThreadMessage( messageText, messageAuthorUUID );
+        FSqrDiscussionThreadMessage replyMessage = new FSqrDiscussionThreadMessage( UuidUtil.getRandomUUID().toString(), messageText, messageAuthorUUID );
         replyMessage.setThreadUUID( threadUUID );
         replyMessage.setReplyTo( replytoMessageId );
 
