@@ -59,7 +59,13 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
 
     private static final String GIT_DIFF_NO_NEWLINE_AT_END_OF_FILE_INDICATOR = "\\ No newline at end of file";
 
+    private static final String GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER = "commit ";
+    private static final String GIT_DIFF_NEWCOMMIT_AUTHOR_LINE_IDENTIFIER = "Author: ";
+    private static final String GIT_DIFF_NEWCOMMIT_DATE_LINE_IDENTIFIER = "Date: ";
+
     // TODO NEXT: two newlines are a separator for revision-Data / revision information.
+    private static final String GIT_DIFF_SECTION_SPLITTER = "\n\n";
+
     // TODO NEXT: a new line and a space on the next followed by newline is a newline in the file.
 
     /**
@@ -94,7 +100,10 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
     }
 
     private void parseFullChangeSet( String string, Consumer<ScmFileChangeSet> fileChangeSetConsumer ) {
-        // System.out.println( string );
+
+        // For debug purposes 
+        System.out.println( string );
+
         // TODO NEXT: must split to new commit, we get the diff for each single commit in between. not what I expected.....
         // TODO NEXT: maybe a list of full change sets for each revision one entry in the list.
 
