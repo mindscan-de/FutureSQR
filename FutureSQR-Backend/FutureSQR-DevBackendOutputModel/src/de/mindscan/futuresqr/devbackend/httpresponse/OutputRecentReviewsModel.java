@@ -41,11 +41,6 @@ public class OutputRecentReviewsModel {
         // intentionally left blank
     }
 
-//    public OutputRecentReviewsModel( List<OutputReviewModel> openReviews, List<OutputReviewModel> closedReviews ) {
-//        this.openReviews = openReviews;
-//        this.recentClosedReviews = closedReviews;
-//    }
-
     public OutputRecentReviewsModel( List<FSqrCodeReview> openReviews, List<FSqrCodeReview> closedReviews ) {
         openReviews.stream().forEach( x -> this.openReviews.add( new OutputReviewModel( x ) ) );
         closedReviews.stream().forEach( x -> this.recentClosedReviews.add( new OutputReviewModel( x ) ) );
