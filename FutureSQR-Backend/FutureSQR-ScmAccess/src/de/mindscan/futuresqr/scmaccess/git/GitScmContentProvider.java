@@ -25,6 +25,8 @@
  */
 package de.mindscan.futuresqr.scmaccess.git;
 
+import java.util.List;
+
 import de.mindscan.futuresqr.scmaccess.ScmContentProvider;
 import de.mindscan.futuresqr.scmaccess.git.command.GitCommands;
 import de.mindscan.futuresqr.scmaccess.git.processor.GitOutputProcessors;
@@ -78,10 +80,10 @@ public class GitScmContentProvider implements ScmContentProvider {
      * {@inheritDoc}
      */
     @Override
-    public ScmFullChangeSet getFullChangeSetFromRevisionToRevision( ScmRepository repository, String firstRevisionId, String lastRevisionId ) {
-        ScmFullChangeSet fullChangeSet = gitCliExecutor //
+    public List<ScmFullChangeSet> getFullChangeSetFromRevisionToRevision( ScmRepository repository, String firstRevisionId, String lastRevisionId ) {
+        List<ScmFullChangeSet> fullChangeSet = gitCliExecutor //
                         .execute( repository, GitCommands.createGetDiffBetweenRevisionsCommand( firstRevisionId, lastRevisionId ) )//
-                        .transform( GitOutputProcessors.toScmFullChangeSet() );
+                        .transform( GitOutputProcessors.toScmFullChangeSetList() );
 
         return fullChangeSet;
     }

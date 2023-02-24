@@ -25,6 +25,8 @@
  */
 package de.mindscan.futuresqr.scmaccess;
 
+import java.util.List;
+
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
 import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
 import de.mindscan.futuresqr.scmaccess.types.ScmPath;
@@ -45,5 +47,5 @@ public interface ScmContentProvider {
     ScmFullChangeSet getFullChangeSetForRevision( ScmRepository repository, String revisionId );
 
     // see ???
-    ScmFullChangeSet getFullChangeSetFromRevisionToRevision( ScmRepository scmRepository, String firstRevisionId, String lastRevisionId );
+    List<ScmFullChangeSet> getFullChangeSetFromRevisionToRevision( ScmRepository scmRepository, String firstRevisionId, String lastRevisionId );
 }
