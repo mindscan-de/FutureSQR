@@ -118,7 +118,7 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
             if (currentLine.startsWith( GIT_DIFF_FILENAMEINFO_IDENTIFIER )) {
                 // for each file file entry
                 System.out.println( "[parseFullChangeSet][p]: '" + currentLine + "'" );
-                parseFileChangeSetEntry( lineLexer, fileChangeSetConsumer );
+                fileChangeSetConsumer.accept( parseFileChangeSetEntry( lineLexer ) );
 
                 // TODO: 
                 // TODO: reinitialize for next revision.
@@ -133,7 +133,7 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
         // first menge for file entry will trigger parseFileChangeSetEntry
     }
 
-    private void parseFileChangeSetEntry( GitScmLineBasedLexer lineLexer, Consumer<ScmFileChangeSet> fileChangeSetConsumer ) {
+    private ScmFileChangeSet parseFileChangeSetEntry( GitScmLineBasedLexer lineLexer ) {
         // TOOD: binary mode is false;
 
         // create a new file entry
@@ -214,13 +214,11 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
         }
 
         if (!lineLexer.hasNextLine()) {
-            fileChangeSetConsumer.accept( currentFileChangeSet );
-            return;
+            return currentFileChangeSet;
         }
 
         if (currentFileChangeSet.isBinaryFile) {
-            fileChangeSetConsumer.accept( currentFileChangeSet );
-            return;
+            return currentFileChangeSet;
         }
 
         // content changeset identifier is @@ at start
@@ -234,7 +232,7 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
 
         // result is a file entry in the ScmFullChangeSet
         // MAYBE we want
-        fileChangeSetConsumer.accept( currentFileChangeSet );
+        return currentFileChangeSet;
     }
 
     private void parseContentChangeSetEntry( GitScmLineBasedLexer lineLexer, Consumer<ScmFileContentChangeSet> contentChangeSetConsumer ) {
@@ -249,6 +247,7 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
 
         // we must stop at end of input, start at new file info 
         while (lineLexer.hasNextLine() && !lineLexer.peekCurrentLine().startsWith( GIT_DIFF_FILENAMEINFO_IDENTIFIER )
+                        && !lineLexer.peekCurrentLine().startsWith( GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER )
                         && !lineLexer.peekCurrentLine().startsWith( GIT_DIFF_CONTENT_CHANGESET_IDENTIFIER )) {
 
             String currentLine = lineLexer.consumeCurrentLine();
