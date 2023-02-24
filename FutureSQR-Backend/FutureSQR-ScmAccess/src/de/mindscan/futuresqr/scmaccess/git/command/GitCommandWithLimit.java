@@ -31,4 +31,6 @@ package de.mindscan.futuresqr.scmaccess.git.command;
 public interface GitCommandWithLimit {
 
     int getLimit();
+
+    boolean hasLimit();
 }

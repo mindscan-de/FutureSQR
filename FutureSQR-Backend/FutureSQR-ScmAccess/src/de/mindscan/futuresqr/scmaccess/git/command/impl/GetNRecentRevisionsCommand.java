@@ -79,4 +79,12 @@ public class GetNRecentRevisionsCommand extends GitCommand implements GitCommand
         return limit;
     }
 
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean hasLimit() {
+        return true;
+    }
+
 }

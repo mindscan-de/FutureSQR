@@ -62,12 +62,10 @@ public class ScmHistoryOutputProcessor implements GitCLICommandOutputProcessor<S
         scmHistory.scmRepository = output.getRepository();
         scmHistory.revisions = revisions;
 
-        // TODO: read
-
         GitCommand gitCommand = output.getCommand();
 
         if (gitCommand instanceof GitCommandWithLimit) {
-            scmHistory.hasLimit = true;
+            scmHistory.hasLimit = ((GitCommandWithLimit) gitCommand).hasLimit();
             scmHistory.limit = ((GitCommandWithLimit) gitCommand).getLimit();
         }
 
