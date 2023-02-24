@@ -49,6 +49,11 @@ public class GitCLICommonConstants {
      */
     public static final String GIT_COMMAND_LOG = "log";
 
+    /** 
+     * git "pull" command
+     */
+    public static final String GIT_COMMAND_PULL = "pull";
+
     /**
      * This list contains the meanings of the List in GitCLICommonConstants.GIT_FORMAT_PARAMS.
      */

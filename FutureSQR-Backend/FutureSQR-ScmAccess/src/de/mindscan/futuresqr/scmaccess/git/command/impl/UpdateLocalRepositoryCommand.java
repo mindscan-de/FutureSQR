@@ -28,6 +28,7 @@ package de.mindscan.futuresqr.scmaccess.git.command.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.mindscan.futuresqr.scmaccess.git.GitCLICommonConstants;
 import de.mindscan.futuresqr.scmaccess.git.GitCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.GitCommandWithBranchName;
 
@@ -52,7 +53,7 @@ public class UpdateLocalRepositoryCommand extends GitCommand implements GitComma
     public List<String> getArguments() {
         List<String> args = new ArrayList<String>();
 
-        args.add( "pull" );
+        args.add( GitCLICommonConstants.GIT_COMMAND_PULL );
         args.add( "origin" );
         args.add( this.getBranchName() );
 
