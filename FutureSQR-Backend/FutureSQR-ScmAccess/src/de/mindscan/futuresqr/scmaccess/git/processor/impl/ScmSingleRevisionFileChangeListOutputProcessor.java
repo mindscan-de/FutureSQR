@@ -65,12 +65,7 @@ public class ScmSingleRevisionFileChangeListOutputProcessor implements GitCLICom
         fileChangeList.scmRepository = output.getRepository();
         fileChangeList.fileChangeInformation = new ArrayList<>();
 
-        // first line contains some more commit details... do we need them?
-        // revisionId
-        // committer
-        // relDate
-
-        // use the recordseparator \\x1e to split first line from fileinfo
+        // use the record separator \\x1e to split first line from file info
         String processOutput = new String( output.getProcessOutput(), StandardCharsets.UTF_8 );
         String[] processOutputSplitted = processOutput.split( ASCII_RECORD_SEPARATOR_REGEX );
 
@@ -94,6 +89,11 @@ public class ScmSingleRevisionFileChangeListOutputProcessor implements GitCLICom
     }
 
     private void parseCommitDetails( String string, ScmSingleRevisionFileChangeList target ) {
+        // first line contains some more commit details... do we need them?
+        // revisionId
+        // committer
+        // relDate
+
         // e.g.
         // 8485a4abffce885376bebb7d1d788a0b10aa9ff6<US>mindscan-de<US>5 weeks ago<RS>
         // split by unit separator and assign to correct fields.
