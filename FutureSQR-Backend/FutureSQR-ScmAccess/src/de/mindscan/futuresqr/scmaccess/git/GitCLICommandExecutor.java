@@ -31,6 +31,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.mindscan.futuresqr.scmaccess.HardCodedConstants;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
 /**
@@ -42,9 +43,15 @@ import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
  */
 public class GitCLICommandExecutor {
 
-    // FIXME: make the GitExecutablePath Configurable, and initialize instance with this configuration 
-    // start with hard coded git executable to make things work first
-    public static final String GIT_EXECUTABLE_PATH = "C:\\Program Files\\Git\\cmd\\git.exe";
+    private final String executablePath;
+
+    public GitCLICommandExecutor() {
+        this( HardCodedConstants.GIT_EXECUTABLE_PATH );
+    }
+
+    public GitCLICommandExecutor( String executablePath ) {
+        this.executablePath = executablePath;
+    }
 
     public GitCLICommandOutput execute( ScmRepository repository, GitCommand command ) {
         List<String> gitCliCommand = buildCommandLine( repository, command );
@@ -79,7 +86,7 @@ public class GitCLICommandExecutor {
 
     private List<String> buildCommandLine( ScmRepository repository, GitCommand command ) {
         List<String> gitCliCommand = new ArrayList<String>();
-        gitCliCommand.add( GIT_EXECUTABLE_PATH );
+        gitCliCommand.add( this.executablePath );
 
         // actually depends on repository and repository type
         if (repository.hasLocalRepositoryPath()) {
