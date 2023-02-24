@@ -25,6 +25,10 @@
  */
 package de.mindscan.futuresqr.domain.model.discussion;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+
 /**
  * 
  */
@@ -36,6 +40,8 @@ public class FSqrDiscussionThreadMessage {
     private String messageText = "";
     private String messageAuthorUUID = "";
     private String replyToMessageUUID = "";
+
+    private List<FSqrDiscussionThreadMessage> directReplies = new ArrayList<>();
 
     // TODO: lastEditorUUID
     // TODO: lastEditTimestamp
@@ -80,6 +86,26 @@ public class FSqrDiscussionThreadMessage {
 
     public void setReplyTo( String replytoMessageId ) {
         this.replyToMessageUUID = replytoMessageId;
+    }
+
+    public List<FSqrDiscussionThreadMessage> getDirectReplies() {
+        return this.directReplies;
+    }
+
+    public void addReply( FSqrDiscussionThreadMessage reply ) {
+        if (reply == this) {
+            return;
+        }
+
+        this.directReplies.add( reply );
+    }
+
+    public void traversePreOrder( Consumer<String> consumer ) {
+        consumer.accept( this.getMessageUUID() );
+
+        for (FSqrDiscussionThreadMessage fSqrDiscussionThreadMessage : directReplies) {
+            fSqrDiscussionThreadMessage.traversePreOrder( consumer );
+        }
     }
 
 }
