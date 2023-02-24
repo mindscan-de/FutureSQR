@@ -96,19 +96,18 @@ public class ScmFileHistoryOutputProcessor implements GitCLICommandOutputProcess
         return result;
     }
 
-    private void splitAndConsumeParentIdsList( String string, Consumer<String> consumer ) {
-        if (string.isEmpty()) {
+    private void splitAndConsumeParentIdsList( String parentIdList, Consumer<String> consumer ) {
+        if (parentIdList.isEmpty()) {
             return;
         }
 
-        if (!string.contains( "," )) {
-            consumer.accept( string );
+        if (parentIdList.contains( "," )) {
+            for (String parentId : parentIdList.split( "," )) {
+                consumer.accept( parentId.trim() );
+            }
         }
-
-        String[] allValues = string.split( "," );
-
-        for (String parentId : allValues) {
-            consumer.accept( parentId.trim() );
+        else {
+            consumer.accept( parentIdList );
         }
     }
 
