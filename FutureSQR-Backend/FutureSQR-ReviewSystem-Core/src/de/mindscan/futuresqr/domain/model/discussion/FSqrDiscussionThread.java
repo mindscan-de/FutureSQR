@@ -38,11 +38,9 @@ public class FSqrDiscussionThread {
     private String discussionThreadUUID = "";
     private String discussionThreadAuthor = "";
 
-    // TODO: inOrderList (by time) or by threaddepth and time?
-    private ArrayList<String> messageOrder = new ArrayList<>();
-
     private Map<String, FSqrDiscussionThreadMessage> discussionMessages = new HashMap<>();
 
+    private FSqrDiscussionThreadMessage discussionThreadRootMessage = null;
     // TODO: whenWasThis thread created. / as long in seconds / milliseconds
     // TODO: is this discussion thread resolved
     // TODO: implement a tree structure for the discussion thread, instead of hacking the messageOrder.
@@ -54,21 +52,26 @@ public class FSqrDiscussionThread {
     public FSqrDiscussionThread( String newThreadUUID, FSqrDiscussionThreadMessage rootMessage, String messageAuthorUUID ) {
         this.discussionThreadUUID = newThreadUUID;
         this.discussionThreadAuthor = messageAuthorUUID;
-        this.messageOrder = new ArrayList<>();
         this.discussionMessages = new HashMap<>();
+        this.discussionThreadRootMessage = null;
 
         this.addAsRootMessage( rootMessage );
     }
 
     private void addAsRootMessage( FSqrDiscussionThreadMessage rootMessage ) {
-        messageOrder.add( 0, rootMessage.getMessageUUID() );
-        discussionMessages.put( rootMessage.getMessageUUID(), rootMessage );
+        this.discussionMessages.put( rootMessage.getMessageUUID(), rootMessage );
+        this.discussionThreadRootMessage = rootMessage;
     }
 
     public void addAsReplytoMessage( FSqrDiscussionThreadMessage message ) {
-        // TODO: either correct insert position or build a discussion tree, and then use an in order traversal.
-        messageOrder.add( message.getMessageUUID() );
-        discussionMessages.put( message.getMessageUUID(), message );
+        String replyToUUID = message.getReplyToMessageUUID();
+
+        if (this.discussionMessages.containsKey( replyToUUID )) {
+            // put the message into array.
+            this.discussionMessages.put( message.getMessageUUID(), message );
+            // insert the reply to the right parent message.
+            this.discussionMessages.get( replyToUUID ).addReply( message );
+        }
     }
 
     public String getDiscussionThreadUUID() {
@@ -84,6 +87,10 @@ public class FSqrDiscussionThread {
     }
 
     public List<String> getMessageOrder() {
+        List<String> messageOrder = new ArrayList<String>();
+        if (discussionThreadRootMessage != null) {
+            this.discussionThreadRootMessage.traversePreOrder( messageOrder::add );
+        }
         return messageOrder;
     }
 
