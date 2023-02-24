@@ -220,7 +220,7 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         }
 
         if (revisionList.size() == 1) {
-            return getRevisionFullChangeSet( projectId, revisionList.get( 0 ).getReviewId() );
+            return getRevisionFullChangeSet( projectId, revisionList.get( 0 ).getRevisionId() );
         }
 
         // check if the revisions are all on one direct line, or split that lines up
