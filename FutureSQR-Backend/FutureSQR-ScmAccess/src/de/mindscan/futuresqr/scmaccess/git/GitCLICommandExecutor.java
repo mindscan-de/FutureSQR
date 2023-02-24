@@ -62,9 +62,6 @@ public class GitCLICommandExecutor {
             Process process = new ProcessBuilder( gitCliCommand ).start();
             InputStream is = process.getInputStream();
 
-            // TODO: Use Java 9 instead? - then errordetection is then more problematic....
-            // TOOD: is.readNBytes( len )
-
             byte buffer[] = new byte[1024];
             int readLength;
 
