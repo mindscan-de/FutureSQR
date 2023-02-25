@@ -1,8 +1,10 @@
 package de.mindscan.futuresqr.scmaccess.git;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
 
+import java.util.List;
+
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
@@ -35,42 +37,56 @@ public class GitScmContentProviderTest {
     public void testGetFullChangeSetForRevision_RevOneModifiedFile_hasOneFileInChangeSet() throws Exception {
         // arrange
         GitScmContentProvider provider = new GitScmContentProvider();
-        provider.setGitCLICommandExecutor( new FakeGitCLICommandExecutor( false ) );
+        provider.setGitCLICommandExecutor( new FakeGitCLICommandExecutor( true ) );
 
         // act
         ScmFullChangeSet result = provider.getFullChangeSetForRevision( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ),
                         REVISION_WITH_ONE_MODIFIED_FILE );
 
         // assert
-        assertThat( result.fileChangeSet, hasSize( 1 ) );
+        assertThat( result.fileChangeSet, Matchers.hasSize( 1 ) );
     }
 
     @Test
     public void testGetFullChangeSetForRevision_RevOneAddedFile_hasOneFileInChangeSet() throws Exception {
         // arrange
         GitScmContentProvider provider = new GitScmContentProvider();
-        provider.setGitCLICommandExecutor( new FakeGitCLICommandExecutor( false ) );
+        provider.setGitCLICommandExecutor( new FakeGitCLICommandExecutor( true ) );
 
         // act
         ScmFullChangeSet result = provider.getFullChangeSetForRevision( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ),
                         REVISION_WITH_ONE_ADDED_FILE );
 
         // assert
-        assertThat( result.fileChangeSet, hasSize( 1 ) );
+        assertThat( result.fileChangeSet, Matchers.hasSize( 1 ) );
     }
 
     @Test
     public void testGetFullChangeSetForRevision_RevTwoAddedFiles_hasTwoFilesInChangeSet() throws Exception {
         // arrange
         GitScmContentProvider provider = new GitScmContentProvider();
-        provider.setGitCLICommandExecutor( new FakeGitCLICommandExecutor( false ) );
+        provider.setGitCLICommandExecutor( new FakeGitCLICommandExecutor( true ) );
 
         // act
         ScmFullChangeSet result = provider.getFullChangeSetForRevision( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ),
                         REVISION_WITH_TWO_ADDED_FILES );
 
         // assert
-        assertThat( result.fileChangeSet, hasSize( 2 ) );
+        assertThat( result.fileChangeSet, Matchers.hasSize( 2 ) );
+    }
+
+    @Test
+    public void testGetFullChangeSetFromRevisionToRevision_TwoRevisionsInARow_hasTwoElementsInRevisionList() throws Exception {
+        // arrange  ed0abce8fa030c9a29f821c4961d2fd8ba171869  to 76553c9b515e700227753731cb8c2266b8965aa0
+        GitScmContentProvider provider = new GitScmContentProvider();
+        provider.setGitCLICommandExecutor( new FakeGitCLICommandExecutor( true ) );
+
+        // act
+        List<ScmFullChangeSet> result = provider.getFullChangeSetFromRevisionToRevision( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ),
+                        "ed0abce8fa030c9a29f821c4961d2fd8ba171869", "76553c9b515e700227753731cb8c2266b8965aa0" );
+
+        // assert
+        assertThat( result, Matchers.hasSize( 2 ) );
     }
 
 }

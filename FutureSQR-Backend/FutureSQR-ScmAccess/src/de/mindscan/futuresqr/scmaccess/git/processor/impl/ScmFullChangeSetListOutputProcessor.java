@@ -94,28 +94,46 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
 
         // For debug purposes 
         System.out.println( string );
-        GitScmLineBasedLexer lineLexer = new GitScmLineBasedLexer( string.split( "\\R" ) );
 
-        // Parse the revision, then parse file until next revision - initialize another revision continue to parse the 
-        // revision
+        // prepare line lexxer
+        GitScmLineBasedLexer lineLexer = new GitScmLineBasedLexer( string.split( "\\R" ) );
 
         // TODO NEXT: must split to new commit, we get the diff for each single commit in between. not what I expected.....
         // TODO NEXT: maybe a list of full change sets for each revision one entry in the list.
 
-        // TODO: Actually the split tokens should not be consumed from the string
-        //       can to this later.
-        resultList.add( parseFullChangeSet( lineLexer ) );
+        while (lineLexer.hasNextLine()) {
+            String currentLine = lineLexer.peekCurrentLine();
+
+            // peek at current line
+            if (currentLine.startsWith( GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER )) {
+                // for each commit identifier
+                System.out.println( "[parseFullChangeSetList][p]: '" + currentLine + "'" );
+                resultList.add( parseFullChangeSet( lineLexer ) );
+            }
+            else {
+                // This will either skip some header or unparsed stuff from the inner parsers.
+                System.out.println( "[parseFullChangeSetList][u]: '" + currentLine + "'" );
+                lineLexer.advanceToNextLine();
+            }
+        }
 
         return resultList;
     }
 
     private ScmFullChangeSet parseFullChangeSet( GitScmLineBasedLexer lineLexer ) {
+        // Parse the revision, then parse file until next revision - initialize another revision continue to parse the 
+        // revision
 
         // TODO: parse the commit + id /Author/date/message andmaybe also provide a list of full changesets .... instead of one.
         ScmFullChangeSet scmFullChangeSet = new ScmFullChangeSet();
         Consumer<ScmFileChangeSet> fileChangeSetConsumer = scmFullChangeSet.fileChangeSet::add;
 
-        while (lineLexer.hasNextLine()) {
+        if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER )) {
+            // TODO parse commit identifier
+            lineLexer.consumeCurrentLine();
+        }
+
+        while (lineLexer.hasNextLine() && !lineLexer.peekCurrentLine().startsWith( GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER )) {
             String currentLine = lineLexer.peekCurrentLine();
 
             // peek at current line
