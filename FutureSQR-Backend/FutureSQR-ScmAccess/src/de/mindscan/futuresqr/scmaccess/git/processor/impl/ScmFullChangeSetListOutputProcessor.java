@@ -80,36 +80,40 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
      */
     @Override
     public List<ScmFullChangeSet> transform( GitCLICommandOutput output ) {
-        List<ScmFullChangeSet> resultList = new ArrayList<>();
-
-        ScmFullChangeSet scmFullChangeSet = new ScmFullChangeSet();
-
-        // Parse the revision, then parse file until next revision - initialize another revision continue to parse the 
-        // revision
-
-        // TODO: parse the commit + id /Author/date/message andmaybe also provide a list of full changesets .... instead of one.
 
         // TODO: analyze the standard changesets, UTF_8 ...
         // TODO: Actually each file can have it's own encoding, such that we must provide a scanner with different charset modes
         // this needs to be fixed longer term.
-        parseFullChangeSet( new String( output.getProcessOutput(), StandardCharsets.UTF_8 ), scmFullChangeSet.fileChangeSet::add );
-
-        resultList.add( scmFullChangeSet );
+        List<ScmFullChangeSet> resultList = parseFullChangeSetList( new String( output.getProcessOutput(), StandardCharsets.UTF_8 ) );
 
         return resultList;
     }
 
-    private void parseFullChangeSet( String string, Consumer<ScmFileChangeSet> fileChangeSetConsumer ) {
+    private List<ScmFullChangeSet> parseFullChangeSetList( String string ) {
+        List<ScmFullChangeSet> resultList = new ArrayList<>();
 
         // For debug purposes 
         System.out.println( string );
+        GitScmLineBasedLexer lineLexer = new GitScmLineBasedLexer( string.split( "\\R" ) );
+
+        // Parse the revision, then parse file until next revision - initialize another revision continue to parse the 
+        // revision
 
         // TODO NEXT: must split to new commit, we get the diff for each single commit in between. not what I expected.....
         // TODO NEXT: maybe a list of full change sets for each revision one entry in the list.
 
         // TODO: Actually the split tokens should not be consumed from the string
         //       can to this later.
-        GitScmLineBasedLexer lineLexer = new GitScmLineBasedLexer( string.split( "\\R" ) );
+        resultList.add( parseFullChangeSet( lineLexer ) );
+
+        return resultList;
+    }
+
+    private ScmFullChangeSet parseFullChangeSet( GitScmLineBasedLexer lineLexer ) {
+
+        // TODO: parse the commit + id /Author/date/message andmaybe also provide a list of full changesets .... instead of one.
+        ScmFullChangeSet scmFullChangeSet = new ScmFullChangeSet();
+        Consumer<ScmFileChangeSet> fileChangeSetConsumer = scmFullChangeSet.fileChangeSet::add;
 
         while (lineLexer.hasNextLine()) {
             String currentLine = lineLexer.peekCurrentLine();
@@ -131,6 +135,7 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
         }
 
         // first menge for file entry will trigger parseFileChangeSetEntry
+        return scmFullChangeSet;
     }
 
     private ScmFileChangeSet parseFileChangeSetEntry( GitScmLineBasedLexer lineLexer ) {
