@@ -134,10 +134,9 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
     }
 
     private ScmFileChangeSet parseFileChangeSetEntry( GitScmLineBasedLexer lineLexer ) {
-        // TOOD: binary mode is false;
-
         // create a new file entry
         ScmFileChangeSet currentFileChangeSet = new ScmFileChangeSet();
+        currentFileChangeSet.isBinaryFile = false;
 
         // Parse the file info
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_FILENAMEINFO_IDENTIFIER )) {
@@ -230,8 +229,6 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
             }
         }
 
-        // result is a file entry in the ScmFullChangeSet
-        // MAYBE we want
         return currentFileChangeSet;
     }
 
