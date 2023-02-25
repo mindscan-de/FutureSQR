@@ -263,8 +263,9 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
             ScmRepository scmRepository = toScmRepository( scmConfiguration );
 
-            ScmFullChangeSet fullChangeSet = gitScmContentProvider.getFullChangeSetFromRevisionToRevision( scmRepository, firstRevisionId, lastRevisionId );
-            return new FSqrRevisionFullChangeSet( fullChangeSet );
+            List<ScmFullChangeSet> fullChangeSet = gitScmContentProvider.getFullChangeSetFromRevisionToRevision( scmRepository, firstRevisionId,
+                            lastRevisionId );
+            return new FSqrRevisionFullChangeSet( fullChangeSet.get( 0 ) );
         }
         return new FSqrRevisionFullChangeSet();
     }
