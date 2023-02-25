@@ -28,8 +28,20 @@ export class ProjectBranchesPageComponent implements OnInit {
 	ngOnInit(): void {
 		this.activeProjectID = this.route.snapshot.paramMap.get('projectid');
 
-		// TODO Set and Update the navigation bar
+		this.setTopNavigation();
 	}
+	
+	setTopNavigation() : void {
+		let x = []
+		
+		x.push(this.navigationBarService.createItem( this.activeProjectID, ['/',this.activeProjectID], false ));
+		x.push(this.navigationBarService.createItem( 'Reviews', ['/', this.activeProjectID, 'reviews'], false));
+		x.push(this.navigationBarService.createItem( 'Branches', ['/', this.activeProjectID, 'branches'], true))
+		
+		
+		this.navigationBarService.setBreadcrumbNavigation(x);		
+	}
+	
 
 	reloadCommitHistory(event:any) : void {
 		// Do nothing here, this button will be removed when project has database
