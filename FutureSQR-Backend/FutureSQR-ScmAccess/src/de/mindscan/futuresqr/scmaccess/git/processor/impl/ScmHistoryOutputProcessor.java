@@ -109,14 +109,13 @@ public class ScmHistoryOutputProcessor implements GitCLICommandOutputProcessor<S
             return;
         }
 
-        if (!string.contains( "," )) {
-            consumer.accept( string );
+        if (string.contains( "," )) {
+            for (String parentId : string.split( "," )) {
+                consumer.accept( parentId.trim() );
+            }
         }
-
-        String[] allValues = string.split( "," );
-
-        for (String parentId : allValues) {
-            consumer.accept( parentId.trim() );
+        else {
+            consumer.accept( string );
         }
     }
 
