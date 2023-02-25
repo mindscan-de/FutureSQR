@@ -228,13 +228,21 @@ public class FSqrScmProjectRevisionRepositoryImpl {
             String firstRevisionId = revisionList.get( 0 ).getRevisionId();
             String lastRevisionId = revisionList.get( revisionList.size() - 1 ).getRevisionId();
 
-            // TODO: this must already be unified into one changeset, or do we want the ui to do it?
+            List<FSqrRevisionFullChangeSet> revisionFullChangeset = getRevisionFullChangeset( projectId, firstRevisionId, lastRevisionId );
 
-            return getRevisionFullChangeset( projectId, firstRevisionId, lastRevisionId );
+            // TODO: consolidate the changes into one for a given revision list, because they are in one line, we can consolidate them... somehow.
+
+            return revisionFullChangeset.get( 0 );
         }
 
-        // TODO: calculate a good changeset or build a revisionchangeset for each revision in the revisionlist. 
-        return new FSqrRevisionFullChangeSet();
+        String firstRevisionId = revisionList.get( 0 ).getRevisionId();
+        String lastRevisionId = revisionList.get( revisionList.size() - 1 ).getRevisionId();
+
+        List<FSqrRevisionFullChangeSet> revisionFullChangeset = getRevisionFullChangeset( projectId, firstRevisionId, lastRevisionId );
+
+        // TODO: filter down the change set and then build a unified one?
+
+        return revisionFullChangeset.get( 0 );
     }
 
     private boolean isLiningUp( List<FSqrRevision> revisionList ) {
@@ -261,7 +269,9 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         return new FSqrRevisionFullChangeSet();
     }
 
-    private FSqrRevisionFullChangeSet getRevisionFullChangeset( String projectId, String firstRevisionId, String lastRevisionId ) {
+    private List<FSqrRevisionFullChangeSet> getRevisionFullChangeset( String projectId, String firstRevisionId, String lastRevisionId ) {
+        List<FSqrRevisionFullChangeSet> result = new ArrayList<>();
+
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
             ScmRepository scmRepository = toScmRepository( scmConfiguration );
@@ -269,12 +279,10 @@ public class FSqrScmProjectRevisionRepositoryImpl {
             List<ScmFullChangeSet> fullChangeSet = gitScmContentProvider.getFullChangeSetFromRevisionToRevision( scmRepository, firstRevisionId,
                             lastRevisionId );
 
-            // TODO: We may have to introduce a new Type or return a list of FSqrRevisionFullChangeSets
-            //       Later should be more natural for the API.
-
-            return new FSqrRevisionFullChangeSet( fullChangeSet.get( 0 ) );
+            fullChangeSet.stream().forEach( changeSet -> result.add( new FSqrRevisionFullChangeSet( changeSet ) ) );
+            return result;
         }
-        return new FSqrRevisionFullChangeSet();
+        return result;
     }
 
     public FSqrFileContentForRevision getFileContentForRevision( String projectId, String revisionId, String filePath ) {
