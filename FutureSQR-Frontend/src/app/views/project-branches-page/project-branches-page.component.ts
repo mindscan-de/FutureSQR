@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+
+// Services
+import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
+import { NavigationBarService } from '../../uiservices/navigation-bar.service';
+
+
 
 @Component({
   selector: 'app-project-branches-page',
@@ -7,9 +14,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectBranchesPageComponent implements OnInit {
 
-  constructor() { }
+	public activeProjectID: string = '';
 
-  ngOnInit(): void {
-  }
+	constructor(
+		private projectDataQueryBackend : ProjectDataQueryBackendService,
+		private navigationBarService : NavigationBarService,
+		private route: ActivatedRoute, 
+		private router: Router
+	) { }
+
+	ngOnInit(): void {
+		this.activeProjectID = this.route.snapshot.paramMap.get('projectid');
+
+		// TODO Set and Update the navigation bar
+	}
+
+	reloadCommitHistory(event:any) : void {
+		// Do nothing here, this button will be removed when project has database
+		// and we switch from pull principle to push to database principle.
+	}
 
 }

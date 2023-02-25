@@ -1,1 +1,9 @@
-<p>project-branches-page works!</p>
+<div class="row">
+	<div class="col-xl-9">
+		<app-basic-project-information [activeProjectId]="activeProjectID" (revisionHistoryUpdated)="reloadCommitHistory($event)"></app-basic-project-information>
+	</div>
+	
+	<div class="col-xl-3">
+		<app-personal-user-feed></app-personal-user-feed>
+	</div>
+</div>
