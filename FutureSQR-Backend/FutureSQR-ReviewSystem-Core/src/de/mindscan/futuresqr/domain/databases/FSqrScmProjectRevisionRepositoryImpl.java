@@ -225,9 +225,12 @@ public class FSqrScmProjectRevisionRepositoryImpl {
 
         // check if the revisions are all on one direct line, or split that lines up
         if (isLiningUp( revisionList )) {
-            int last = revisionList.size() - 1;
-            int first = 0;
-            return getRevisionFullChangeset( projectId, revisionList.get( first ).getRevisionId(), revisionList.get( last ).getRevisionId() );
+            String firstRevisionId = revisionList.get( 0 ).getRevisionId();
+            String lastRevisionId = revisionList.get( revisionList.size() - 1 ).getRevisionId();
+
+            // TODO: this must already be unified into one changeset, or do we want the ui to do it?
+
+            return getRevisionFullChangeset( projectId, firstRevisionId, lastRevisionId );
         }
 
         // TODO: calculate a good changeset or build a revisionchangeset for each revision in the revisionlist. 
