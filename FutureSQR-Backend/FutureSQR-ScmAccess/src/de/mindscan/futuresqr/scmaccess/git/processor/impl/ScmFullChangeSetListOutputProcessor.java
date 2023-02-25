@@ -133,6 +133,12 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
             lineLexer.consumeCurrentLine();
         }
 
+        // TODO: Author
+        // TODO: DATE
+        // TODO: NEWLINE
+        // TODO: commitmessage (starts with 4 spaces "    ")
+        // TODO: NEWLINE
+
         while (lineLexer.hasNextLine() && !lineLexer.peekCurrentLine().startsWith( GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER )) {
             String currentLine = lineLexer.peekCurrentLine();
 
