@@ -265,6 +265,10 @@ public class FSqrScmProjectRevisionRepositoryImpl {
 
             List<ScmFullChangeSet> fullChangeSet = gitScmContentProvider.getFullChangeSetFromRevisionToRevision( scmRepository, firstRevisionId,
                             lastRevisionId );
+
+            // TODO: We may have to introduce a new Type or return a list of FSqrRevisionFullChangeSets
+            //       Later should be more natural for the API.
+
             return new FSqrRevisionFullChangeSet( fullChangeSet.get( 0 ) );
         }
         return new FSqrRevisionFullChangeSet();
