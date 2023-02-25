@@ -1,6 +1,20 @@
 <div class="row">
 	<div class="col-xl-9">
 		<app-basic-project-information [activeProjectId]="activeProjectID" (revisionHistoryUpdated)="reloadCommitHistory($event)"></app-basic-project-information>
+		
+		<div class="card mt-3">
+			<div class="card-header">
+				<b>Known Branches</b>
+			</div>
+			<div class="card-body">
+				TODO: provide default (or just mark default in following list)
+			</div>
+			<ul class="list-group list-group-flush">
+				<li *ngFor="let branch of projectBranches" class="list-group-item">
+					<a [routerLink]="['/',activeProjectID,'branch',branch]">{{branch}}</a> <span class="ml-4">TODO:  latest commit dates / latest commit author </span>
+				</li>
+			</ul>
+		</div>		
 	</div>
 	
 	<div class="col-xl-3">

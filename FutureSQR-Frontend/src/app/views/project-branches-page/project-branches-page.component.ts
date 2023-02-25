@@ -15,6 +15,8 @@ import { NavigationBarService } from '../../uiservices/navigation-bar.service';
 export class ProjectBranchesPageComponent implements OnInit {
 
 	public activeProjectID: string = '';
+	public projectBranches: string[] = ["main","authn_rb","configUser_showNameInNav_rb","main","waitstate_old_rb"];
+	
 
 	constructor(
 		private projectDataQueryBackend : ProjectDataQueryBackendService,
