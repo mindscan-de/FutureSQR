@@ -12,6 +12,7 @@ import { SingleRevisionPageComponent } from './views/single-revision-page/single
 import { SingleReviewPageComponent } from './views/single-review-page/single-review-page.component';
 import { SingleFileRevisionPageComponent } from './views/single-file-revision-page/single-file-revision-page.component';
 import { ProjectBranchesPageComponent } from './views/project-branches-page/project-branches-page.component';
+import { ProjectBranchRecentCommitsPageComponent } from './views/project-branch-recent-commits-page/project-branch-recent-commits-page.component';
 
 const routes: Routes = [
 	// show the main Page
@@ -33,7 +34,7 @@ const routes: Routes = [
 	{ path:':projectid/branches', component:ProjectBranchesPageComponent, canActivate: [AuthNGuardService] },
 	
 	// TODO: show the commits for the selected branch of the selected project 
-	// { path:':projectid/branch/:branchname', component:ProjectBranchRecentCommitsPageComponent, canActivate: [AuthNGuardService] },
+	{ path:':projectid/branch/:branchname', component:ProjectBranchRecentCommitsPageComponent, canActivate: [AuthNGuardService] },
 	
 	// show a review for a certain project
 	{ path:':projectid/review/:reviewid', component:SingleReviewPageComponent, canActivate: [AuthNGuardService] },
