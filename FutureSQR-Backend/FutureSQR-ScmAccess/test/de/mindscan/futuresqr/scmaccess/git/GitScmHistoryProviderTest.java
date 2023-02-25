@@ -128,4 +128,16 @@ public class GitScmHistoryProviderTest {
         // assert
     }
 
+    @Test
+    public void testUpdateProjectCache_onlyupdate_() throws Exception {
+        // arrange
+        GitScmHistoryProvider provider = new GitScmHistoryProvider();
+        provider.setGitCLICommandExecutor( new FakeGitCLICommandExecutor() );
+
+        // assert
+        provider.updateProjectCache( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ), "main" );
+
+        // assert        
+    }
+
 }
