@@ -63,8 +63,9 @@ export class TransformChangeSet {
 						backendModel: BackendModelSingleCommitFileContentChangeSet ): UiContentChangeSetModel {
 		let diffContent = backendModel.line_diff_data;
 		
-		if(backendModel.diffRightLineCountStart == -1 && backendModel.diffLeftLineCountStart== -1) {
+		if(backendModel.line_info != null && ""!=backendModel.line_info) {
 			// TODO: remove this when we get rid of backendModel.line_info is removed.
+			// TODO: fix python code, then remove this body and remove the ""line_info""
 			let lineInfoSplitted:string[] = backendModel.line_info.split("@@");
 			let linedata_splitted:string[] = lineInfoSplitted[1].trim().split(/[,+\-]/u);
 			 
