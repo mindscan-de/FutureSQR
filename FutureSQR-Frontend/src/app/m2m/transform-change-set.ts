@@ -62,17 +62,29 @@ export class TransformChangeSet {
 	public static fromBackendFileToUiContentChangeSetModel(
 						backendModel: BackendModelSingleCommitFileContentChangeSet ): UiContentChangeSetModel {
 		let diffContent = backendModel.line_diff_data;
-
-		// Well - not exceptionally beautiful..... Extract the line numbers from the backend Model.
-		let lineInfoSplitted:string[] = backendModel.line_info.split("@@");
-		let linedata_splitted:string[] = lineInfoSplitted[1].trim().split(/[,+\-]/u);
-		 
-		let leftLineStart:number = +linedata_splitted[1];
-		let leftLineCount:number = +linedata_splitted[2];
-		let rightLineStart:number = +linedata_splitted[3];
-		let rightLineCount:number = +linedata_splitted[4];
 		
-		return new UiContentChangeSetModel(  diffContent, leftLineStart, leftLineCount, rightLineStart, rightLineCount );
+		if(backendModel.diffRightLineCountStart == -1 && backendModel.diffLeftLineCountStart== -1) {
+			// TODO: remove this when we get rid of backendModel.line_info is removed.
+			let lineInfoSplitted:string[] = backendModel.line_info.split("@@");
+			let linedata_splitted:string[] = lineInfoSplitted[1].trim().split(/[,+\-]/u);
+			 
+			let leftLineStart:number = +linedata_splitted[1];
+			let leftLineCount:number = +linedata_splitted[2];
+			let rightLineStart:number = +linedata_splitted[3];
+			let rightLineCount:number = +linedata_splitted[4];
+			
+			return new UiContentChangeSetModel(  diffContent, leftLineStart, leftLineCount, rightLineStart, rightLineCount );
+		} else
+		{
+			let leftLineStart:number = backendModel.diffRightLineCountStart;
+			let leftLineCount:number = backendModel.diffLeftLineCountDelta;
+			
+			let rightLineStart:number = backendModel.diffRightLineCountStart;
+			let rightLineCount:number = backendModel.diffRightLineCountDelta;
+			
+			return new UiContentChangeSetModel(  diffContent, leftLineStart, leftLineCount, rightLineStart, rightLineCount );
+			
+		}
 	}
 	
 	public static fromUiContentChangeSetToSingleSideDiffContent(uiccs:UiContentChangeSetModel, side:UiSingleSideEnum ): UiSingleSideDiffContentModel {
