@@ -30,6 +30,7 @@ import java.util.function.Consumer;
 
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutput;
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutputProcessor;
+import de.mindscan.futuresqr.scmaccess.git.processor.impl.parsers.ContentChangeSetParsers;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileChangeSet;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContentChangeSet;
 import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
@@ -225,8 +226,8 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
 
         // double check in case we change the outer parser.
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_CONTENT_CHANGESET_IDENTIFIER )) {
-            // TODO: parse and consume this info and add info to current file change set.            
-            contentChangeset.line_info = lineLexer.consumeCurrentLine();
+            String contentChangeSetLineInfo = lineLexer.consumeCurrentLine();
+            ContentChangeSetParsers.parseLineInfoIntoContentChangeSet( contentChangeSetLineInfo, contentChangeset );
         }
 
         // we must stop at end of input, start at new file info 

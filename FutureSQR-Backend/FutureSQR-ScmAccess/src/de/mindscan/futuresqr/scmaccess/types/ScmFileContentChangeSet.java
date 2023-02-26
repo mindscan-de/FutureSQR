@@ -32,9 +32,15 @@ import java.util.ArrayList;
  */
 public class ScmFileContentChangeSet {
 
-    // TODO: better parse this line contains the info for line counters... and the length of changes...
+    // TODO: remove me when transition to #diffLeftLineCountStart...#diffRightLineCountDelta is done
     public String line_info = "";
+    // This is the new way which we want to have in future.
+    public int diffLeftLineCountStart = 1;
+    public int diffLeftLineCountDelta = 0;
+    public int diffRightLineCountStart = 1;
+    public int diffRightLineCountDelta = 0;
 
-    // will be reworked and renamed and such later...
+    // TODO: will be reworked and renamed and such later...
     public ArrayList<String> line_diff_data = new ArrayList<>();
+
 }
