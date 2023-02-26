@@ -41,6 +41,8 @@ public class ContentChangeSetParsers {
 
         String[] lineInfoSplitted = lineInfo.split( "@@" );
 
+        // TODO: in case that the lineInfoSplitted contains a third item, we want to save that as a locator / context info.
+
         if (lineInfoSplitted == null || lineInfoSplitted.length < 2) {
             return;
         }
