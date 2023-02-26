@@ -41,9 +41,9 @@ public class ScmFileChangeSet {
     public String scmFromPath = "";
     public String scmToPath = "";
 
-    // -------------------------------------
-    // TODO remove temporary lazy file infos
-    // -------------------------------------
+    // ------------------------------------------------------------
+    // TODO remove temporary lazy index infos / file mode and more.
+    // ------------------------------------------------------------
     public String lazy_index_line = "";
 
     // TODO also process this better

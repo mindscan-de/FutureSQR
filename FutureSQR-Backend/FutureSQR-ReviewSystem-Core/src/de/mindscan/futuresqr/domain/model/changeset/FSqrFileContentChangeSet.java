@@ -42,7 +42,7 @@ public class FSqrFileContentChangeSet {
     private int diffRightLineCountDelta = 0;
 
     public FSqrFileContentChangeSet() {
-        // intentionally let blank
+        // intentionally left blank
     }
 
     public FSqrFileContentChangeSet( ScmFileContentChangeSet contentChangeSet ) {
