@@ -32,8 +32,6 @@ import java.util.ArrayList;
  */
 public class ScmFileContentChangeSet {
 
-    // TODO: remove me when transition to #diffLeftLineCountStart...#diffRightLineCountDelta is done
-    public String line_info = "";
     // This is the new way which we want to have in future.
     public int diffLeftLineCountStart = 1;
     public int diffLeftLineCountDelta = 0;

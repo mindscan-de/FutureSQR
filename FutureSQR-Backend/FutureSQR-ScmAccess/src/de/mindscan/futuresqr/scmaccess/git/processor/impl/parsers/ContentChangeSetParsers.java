@@ -33,26 +33,24 @@ import de.mindscan.futuresqr.scmaccess.types.ScmFileContentChangeSet;
 public class ContentChangeSetParsers {
 
     public static void parseLineInfoIntoContentChangeSet( String lineInfo, ScmFileContentChangeSet contentChangeset ) {
-        contentChangeset.line_info = lineInfo;
-    
         // setup some default values, in case we run into parsing errors.
         contentChangeset.diffLeftLineCountStart = 1;
         contentChangeset.diffLeftLineCountDelta = 0;
         contentChangeset.diffRightLineCountStart = 1;
         contentChangeset.diffRightLineCountDelta = 0;
-    
+
         String[] lineInfoSplitted = lineInfo.split( "@@" );
-    
+
         if (lineInfoSplitted == null || lineInfoSplitted.length < 2) {
             return;
         }
-    
+
         String[] lineNumberDataLR = lineInfoSplitted[1].trim().split( " " );
-    
+
         if (lineNumberDataLR.length != 2) {
             return;
         }
-    
+
         String[] diffLeftLineData = lineNumberDataLR[0].trim().split( "[+,\\-]" );
         if (diffLeftLineData.length >= 2) {
             if (diffLeftLineData.length >= 2) {
@@ -70,7 +68,7 @@ public class ContentChangeSetParsers {
                 }
             }
         }
-    
+
         String[] diffRightLineData = lineNumberDataLR[1].trim().split( "[+,\\-]" );
         if (diffRightLineData.length >= 2) {
             if (diffRightLineData.length >= 2) {
@@ -80,7 +78,7 @@ public class ContentChangeSetParsers {
                 catch (Exception e) {
                 }
             }
-    
+
             if (diffRightLineData.length >= 3) {
                 try {
                     contentChangeset.diffRightLineCountDelta = Integer.parseInt( diffRightLineData[2] );
@@ -89,7 +87,7 @@ public class ContentChangeSetParsers {
                 }
             }
         }
-    
+
     }
 
 }

@@ -35,9 +35,6 @@ import de.mindscan.futuresqr.domain.model.changeset.FSqrFileContentChangeSet;
  */
 public class OutputSingleCommitFileContentChangeSet {
 
-    // TODO: remove me later
-    public String line_info = "";
-
     public int diffLeftLineCountDelta = -1;
     public int diffLeftLineCountStart = -1;
     public int diffRightLineCountDelta = -1;
@@ -50,7 +47,6 @@ public class OutputSingleCommitFileContentChangeSet {
     }
 
     public OutputSingleCommitFileContentChangeSet( FSqrFileContentChangeSet contentChangeSet ) {
-        this.line_info = contentChangeSet.getContentChangeDiffHeader();
         this.line_diff_data = contentChangeSet.getUnifiedDiffData();
 
         this.diffLeftLineCountDelta = contentChangeSet.getDiffLeftLineCountDelta();

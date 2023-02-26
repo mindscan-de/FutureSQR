@@ -41,9 +41,6 @@ public class FSqrFileContentChangeSet {
     private int diffRightLineCountStart = 1;
     private int diffRightLineCountDelta = 0;
 
-    // TODO: this is a lazy implementation and should be improved. - backend + frontend change needed.
-    private String contentChangeDiffHeader;
-
     public FSqrFileContentChangeSet() {
         // intentionally let blank
     }
@@ -56,16 +53,10 @@ public class FSqrFileContentChangeSet {
         this.diffRightLineCountDelta = contentChangeSet.diffRightLineCountDelta;
         this.diffRightLineCountStart = contentChangeSet.diffRightLineCountStart;
 
-        // TODO: This has to be removed in future.
-        this.contentChangeDiffHeader = contentChangeSet.line_info;
     }
 
     public List<String> getUnifiedDiffData() {
         return unifiedDiffData;
-    }
-
-    public String getContentChangeDiffHeader() {
-        return contentChangeDiffHeader;
     }
 
     public int getDiffLeftLineCountDelta() {
