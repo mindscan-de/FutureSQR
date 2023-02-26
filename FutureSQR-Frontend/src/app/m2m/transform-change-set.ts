@@ -76,7 +76,7 @@ export class TransformChangeSet {
 			return new UiContentChangeSetModel(  diffContent, leftLineStart, leftLineCount, rightLineStart, rightLineCount );
 		} else
 		{
-			let leftLineStart:number = backendModel.diffRightLineCountStart;
+			let leftLineStart:number = backendModel.diffLeftLineCountStart;
 			let leftLineCount:number = backendModel.diffLeftLineCountDelta;
 			
 			let rightLineStart:number = backendModel.diffRightLineCountStart;
