@@ -35,7 +35,17 @@ public class ScmFileChangeSet {
     // TODO remove temporary lazy file infos
     // -------------------------------------
     public String lazy_diff_line = "";
+
+    // TODO: scmFromPath
+    // TODO: scmToPath
+    public String scmFromPath = "";
+    public String scmToPath = "";
+
+    // -------------------------------------
+    // TODO remove temporary lazy file infos
+    // -------------------------------------
     public String lazy_index_line = "";
+
     // TODO also process this better
     public String similarity_info_line = "";
     public String renamed_from = "";
