@@ -31,6 +31,7 @@ import java.util.function.Consumer;
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutput;
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.git.processor.impl.parsers.ContentChangeSetParsers;
+import de.mindscan.futuresqr.scmaccess.git.processor.impl.parsers.FileChangeSetParsers;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileChangeSet;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContentChangeSet;
 import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
@@ -124,8 +125,8 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
 
         // Parse the file info
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_FILENAMEINFO_IDENTIFIER )) {
-            // TODO: parse and consume this file name info identifier, such that this info is in the currentFileChangeSet
-            currentFileChangeSet.lazy_diff_line = lineLexer.consumeCurrentLine();
+            String currentLazyDiffLine = lineLexer.consumeCurrentLine();
+            FileChangeSetParsers.parseGitDiffLineToFileChangeSet( currentLazyDiffLine, currentFileChangeSet );
         }
 
         // ---------------------
