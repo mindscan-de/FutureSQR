@@ -36,6 +36,11 @@ public class FSqrFileContentChangeSet {
 
     private List<String> unifiedDiffData;
 
+    private int diffLeftLineCountStart = 1;
+    private int diffLeftLineCountDelta = 0;
+    private int diffRightLineCountStart = 1;
+    private int diffRightLineCountDelta = 0;
+
     // TODO: this is a lazy implementation and should be improved. - backend + frontend change needed.
     private String contentChangeDiffHeader;
 
@@ -45,6 +50,13 @@ public class FSqrFileContentChangeSet {
 
     public FSqrFileContentChangeSet( ScmFileContentChangeSet contentChangeSet ) {
         this.unifiedDiffData = contentChangeSet.line_diff_data;
+
+        this.diffLeftLineCountDelta = contentChangeSet.diffLeftLineCountDelta;
+        this.diffLeftLineCountStart = contentChangeSet.diffLeftLineCountStart;
+        this.diffRightLineCountDelta = contentChangeSet.diffRightLineCountDelta;
+        this.diffRightLineCountStart = contentChangeSet.diffRightLineCountStart;
+
+        // TODO: This has to be removed in future.
         this.contentChangeDiffHeader = contentChangeSet.line_info;
     }
 
@@ -54,6 +66,22 @@ public class FSqrFileContentChangeSet {
 
     public String getContentChangeDiffHeader() {
         return contentChangeDiffHeader;
+    }
+
+    public int getDiffLeftLineCountDelta() {
+        return diffLeftLineCountDelta;
+    }
+
+    public int getDiffLeftLineCountStart() {
+        return diffLeftLineCountStart;
+    }
+
+    public int getDiffRightLineCountDelta() {
+        return diffRightLineCountDelta;
+    }
+
+    public int getDiffRightLineCountStart() {
+        return diffRightLineCountStart;
     }
 
 }
