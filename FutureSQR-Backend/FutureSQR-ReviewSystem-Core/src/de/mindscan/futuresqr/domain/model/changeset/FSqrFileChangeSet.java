@@ -41,8 +41,13 @@ public class FSqrFileChangeSet {
 
     // TODO refactor this.    
     private String lazyBinaryFileInfo = "";
+
     // TODO refactor this.
     private String lazyFileDiffLine = "";
+    // new
+    private String fromPath = "";
+    private String toPath = "";
+
     // TODO refactor this.
     private String lazyIndexLine = "";
 
@@ -68,6 +73,8 @@ public class FSqrFileChangeSet {
         this.isBinaryFile = scmFileChangeSet.isBinaryFile;
 
         this.lazyFileDiffLine = scmFileChangeSet.lazy_diff_line;
+        this.fromPath = scmFileChangeSet.scmFromPath;
+        this.toPath = scmFileChangeSet.scmToPath;
         this.lazyIndexLine = scmFileChangeSet.lazy_index_line;
 
         this.renamedFrom = scmFileChangeSet.renamed_from;
@@ -111,5 +118,13 @@ public class FSqrFileChangeSet {
 
     public String getLazySimilarityInfo() {
         return lazySimilarityInfo;
+    }
+
+    public String getFromPath() {
+        return fromPath;
+    }
+
+    public String getToPath() {
+        return toPath;
     }
 }
