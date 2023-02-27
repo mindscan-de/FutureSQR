@@ -27,13 +27,20 @@ export class TransformChangeSet {
 									(ccs) => TransformChangeSet.fromBackendFileToUiContentChangeSetModel(ccs)
 								));
 		
-		// TODO: convert filenames fromFilename / toFilename / move or / renames / may also be cool to highlight.
-		// actually this should be part of the scm part (server side, we just do this here to just make it work right now.)
-		converted.setDiffLine( backendModel.lazy_diff_line );
-		
-		let [scmFromPath, scmToPath] = TransformChangeSet.scmGitCalculatePath(backendModel.lazy_diff_line);
-		converted.setScmFromPath(scmFromPath);
-		converted.setScmToPath(scmToPath);
+		if(backendModel.fromPath!="" && backendModel.toPath!="" ) {
+			converted.setScmFromPath(backendModel.fromPath);
+			converted.setScmToPath(backendModel.toPath);
+		}
+		else {
+			// TODO: only here because for python dev backend support. 
+			// TODO: convert filenames fromFilename / toFilename / move or / renames / may also be cool to highlight.
+			// actually this should be part of the scm part (server side, we just do this here to just make it work right now.)
+			converted.setDiffLine( backendModel.lazy_diff_line );
+	
+			let [scmFromPath, scmToPath] = TransformChangeSet.scmGitCalculatePath(backendModel.lazy_diff_line);
+			converted.setScmFromPath(scmFromPath);
+			converted.setScmToPath(scmToPath);
+		}
 		
 		// TODO: convert filemode ets fromIndex / toIndex
 		converted.setIndexLine( backendModel.lazy_index_line );

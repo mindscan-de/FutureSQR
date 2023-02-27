@@ -5,6 +5,8 @@ export class BackendModelSingleCommitFileChangeSet {
 	//       and what happened to this file:
 	// modified, added, renamed, etc., which hash it has. and so on....
 	public lazy_diff_line:string = "";
+	public fromPath:string = "";
+	public toPath:string = "";
 	public lazy_index_line:string = "";
 	
 	// It contains a list of file_content_changeset
