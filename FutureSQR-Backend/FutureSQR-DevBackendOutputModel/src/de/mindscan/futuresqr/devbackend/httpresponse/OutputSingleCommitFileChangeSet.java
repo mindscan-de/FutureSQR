@@ -35,7 +35,6 @@ import de.mindscan.futuresqr.domain.model.changeset.FSqrFileChangeSet;
  */
 public class OutputSingleCommitFileChangeSet {
 
-    public String lazy_diff_line = "";
     public String fromPath = "";
     public String toPath = "";
 
@@ -48,7 +47,6 @@ public class OutputSingleCommitFileChangeSet {
     }
 
     public OutputSingleCommitFileChangeSet( FSqrFileChangeSet fileChangeSet ) {
-        this.lazy_diff_line = fileChangeSet.getLazyFileDiffLine();
         this.fromPath = fileChangeSet.getFromPath();
         this.toPath = fileChangeSet.getToPath();
         this.lazy_index_line = fileChangeSet.getLazyIndexLine();

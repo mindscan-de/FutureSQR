@@ -31,13 +31,6 @@ import java.util.ArrayList;
  * 
  */
 public class ScmFileChangeSet {
-    // -------------------------------------
-    // TODO remove temporary lazy file infos
-    // -------------------------------------
-    public String lazy_diff_line = "";
-
-    // TODO: scmFromPath
-    // TODO: scmToPath
     public String scmFromPath = "";
     public String scmToPath = "";
 

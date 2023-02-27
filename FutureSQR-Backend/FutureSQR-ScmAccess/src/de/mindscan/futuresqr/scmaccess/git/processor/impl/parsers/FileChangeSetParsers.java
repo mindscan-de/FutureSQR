@@ -36,27 +36,22 @@ public class FileChangeSetParsers {
     private static final String GIT_DIFF_B_SLASH_PATH = " b/";
     private static final String GIT_DIFF_FILENAMEINFO_IDENTIFIER = "diff --git ";
 
-    public static void parseGitDiffLineToFileChangeSet( String currentLazyDiffLine, ScmFileChangeSet currentFileChangeSet ) {
+    public static void parseGitDiffLineToFileChangeSet( String currentGitDiffLine, ScmFileChangeSet currentFileChangeSet ) {
 
-        if (!currentLazyDiffLine.startsWith( GIT_DIFF_FILENAMEINFO_IDENTIFIER )) {
+        if (!currentGitDiffLine.startsWith( GIT_DIFF_FILENAMEINFO_IDENTIFIER )) {
             currentFileChangeSet.scmFromPath = "";
             currentFileChangeSet.scmToPath = "";
             return;
         }
 
-        // System.out.println( "LazyDiffLine: '" + currentLazyDiffLine + "'" );
-
-        // TODO: will be removed.
-        currentFileChangeSet.lazy_diff_line = currentLazyDiffLine;
-
-        int firstIndexASlash = currentLazyDiffLine.indexOf( GIT_DIFF_A_SLASH_PATH );
+        int firstIndexASlash = currentGitDiffLine.indexOf( GIT_DIFF_A_SLASH_PATH );
         // int lastIndexASlash = currentLazyDiffLine.lastIndexOf( " a/" );
 
-        int firstIndexBSlash = currentLazyDiffLine.indexOf( GIT_DIFF_B_SLASH_PATH );
-        int lastIndexBSlash = currentLazyDiffLine.lastIndexOf( GIT_DIFF_B_SLASH_PATH );
+        int firstIndexBSlash = currentGitDiffLine.indexOf( GIT_DIFF_B_SLASH_PATH );
+        int lastIndexBSlash = currentGitDiffLine.lastIndexOf( GIT_DIFF_B_SLASH_PATH );
 
-        currentFileChangeSet.scmFromPath = currentLazyDiffLine.substring( firstIndexASlash + GIT_DIFF_A_SLASH_PATH.length(), lastIndexBSlash );
-        currentFileChangeSet.scmToPath = currentLazyDiffLine.substring( firstIndexBSlash + GIT_DIFF_B_SLASH_PATH.length() );
+        currentFileChangeSet.scmFromPath = currentGitDiffLine.substring( firstIndexASlash + GIT_DIFF_A_SLASH_PATH.length(), lastIndexBSlash );
+        currentFileChangeSet.scmToPath = currentGitDiffLine.substring( firstIndexBSlash + GIT_DIFF_B_SLASH_PATH.length() );
     }
 
 }
