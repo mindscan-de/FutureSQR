@@ -41,6 +41,14 @@ public class FSqrDiscussionThread {
     private Map<String, FSqrDiscussionThreadMessage> discussionMessages = new HashMap<>();
 
     private FSqrDiscussionThreadMessage discussionThreadRootMessage = null;
+
+    private boolean discussionThreadInlined = false;
+
+    // private codeReference
+    // private FSqrDiscussionThreadCodeReference codeReference;
+
+    // TODO: maybe it is useful to reference the project id and the review id, it is just for navigation 
+
     // TODO: whenWasThis thread created. / as long in seconds / milliseconds
     // TODO: is this discussion thread resolved
     // TODO: implement a tree structure for the discussion thread, instead of hacking the messageOrder.
@@ -99,6 +107,14 @@ public class FSqrDiscussionThread {
             FSqrDiscussionThreadMessage message = discussionMessages.get( messageUUID );
             message.updateMessage( newMessageText, messageAuthorUUID );
         }
+    }
+
+    public boolean isDiscussionThreadInlined() {
+        return discussionThreadInlined;
+    }
+
+    public void setDiscussionThreadInlined( boolean discussionThreadInlined ) {
+        this.discussionThreadInlined = discussionThreadInlined;
     }
 
 }
