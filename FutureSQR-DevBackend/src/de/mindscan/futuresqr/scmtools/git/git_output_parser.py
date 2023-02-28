@@ -59,6 +59,8 @@ def parse_log_full_changeset(log):
             
             # found a new file change
             # TODO: exract filenames from  line
+            # TODO: calculate fromPath, toPath from lazy_diff_line
+            
             singleFileChangeSet['lazy_diff_line']=lines[linecounter]
             linecounter+=1
             
@@ -102,7 +104,16 @@ def parse_log_full_changeset(log):
             
             # parse @@ ... @@
             if lines[linecounter].startswith('@@ '):
-                singleContentChangeset = {'line_info':lines[linecounter], 'line_diff_data':[]}
+                leftLineStart, leftLineCount, rightLineStart, rightLineCount = contentChangeSetLineInfoSplitter(lines[linecounter])
+                
+                singleContentChangeset = {
+                    'line_info':lines[linecounter], 
+                    'line_diff_data':[],
+                    'diffLeftLineCountStart':leftLineStart,
+                    'diffLeftLineCountDelta':leftLineCount,
+                    'diffRightLineCountStart':rightLineStart,
+                    'diffRightLineCountDelta':rightLineCount                    
+                    }
                 singleFileChangeSet['fileContentChangeSet']=[]
                 singleFileChangeSet['fileContentChangeSet'].append(singleContentChangeset)
                 linecounter+=1
@@ -135,6 +146,12 @@ def parse_log_full_changeset(log):
             linecounter+=1
         
     return fileChangeSets
+
+def contentChangeSetLineInfoSplitter(split:str):
+    # TODO: calculate leftLineStart, leftLineCount, rightLineStart, rightLineCount from line_info
+    
+        
+    return [1,2,5,3]
 
 
 def parse_log_fileListToArray(log):
