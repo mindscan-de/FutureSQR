@@ -149,11 +149,7 @@ def parse_log_full_changeset(log):
 
 def contentChangeSetLineInfoSplitter(contentLineInfo:str):
     lineInfoSplitted = contentLineInfo.split("@@", 3)
-    print(lineInfoSplitted)
-    print(lineInfoSplitted[1])
-    
     lineData = re.split(",|\+|\-", lineInfoSplitted[1].strip()) 
-    print(lineData)
     
     ls = int(lineData[1])
     lc = int(lineData[2])
