@@ -66,9 +66,17 @@ def parse_log_full_changeset(log):
             linecounter+=1
             
             if lines[linecounter].startswith('new file mode'):
+                # TODO: 
+                # singleFileChangeSet['fileMode']
+                # singleFileChangeSet['fileParentRevId']
+                # singleFileChangeSet['fileCurrentRevId']
                 linecounter+=1
             
             if lines[linecounter].startswith('deleted file mode'):
+                # TODO: 
+                # singleFileChangeSet['fileMode']
+                # singleFileChangeSet['fileParentRevId']
+                # singleFileChangeSet['fileCurrentRevId']
                 singleFileChangeSet['lazy_deleted_file_line'] = lines[linecounter]
                 linecounter+=1
                 
@@ -87,6 +95,10 @@ def parse_log_full_changeset(log):
             singleFileChangeSet['lazy_index_line']= "(empty)"
             if lines[linecounter].startswith('index'):
                 singleFileChangeSet['lazy_index_line']=lines[linecounter]
+                # TODO: 
+                # singleFileChangeSet['fileMode']
+                # singleFileChangeSet['fileParentRevId']
+                # singleFileChangeSet['fileCurrentRevId']
                 linecounter+=1
                 
             if lines[linecounter].startswith('Binary files'):

@@ -41,6 +41,11 @@ public class OutputSingleCommitFileChangeSet {
     // TODO remove this stuff...
     public String lazy_index_line = "";
 
+    // TODO: fill me next.
+    public String fileMode = "";
+    public String fileParentRevId = "";
+    public String fileCurrentRevId = "";
+
     public List<OutputSingleCommitFileContentChangeSet> fileContentChangeSet = new ArrayList<>();
 
     public OutputSingleCommitFileChangeSet() {
