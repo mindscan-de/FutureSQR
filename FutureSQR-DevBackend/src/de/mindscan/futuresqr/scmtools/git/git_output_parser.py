@@ -25,7 +25,9 @@ SOFTWARE.
 
 @autor: Maxim Gansert
 '''
+from IPython.core.splitinput import LineInfo
 
+import re
 
 def parse_log_by_rs_us(log, fieldnames):
     records = log.strip('\n\x1e').split('\x1e')
@@ -61,7 +63,9 @@ def parse_log_full_changeset(log):
             # TODO: exract filenames from  line
             # TODO: calculate fromPath, toPath from lazy_diff_line
             
-            singleFileChangeSet['lazy_diff_line']=lines[linecounter]
+            # singleFileChangeSet['lazy_diff_line']=lines[linecounter]
+            singleFileChangeSet['fromPath'] = "/bla/from/fixme.md"
+            singleFileChangeSet['toPath'] = "/bla/to/fixme.md"
             linecounter+=1
             
             if lines[linecounter].startswith('new file mode'):
@@ -107,7 +111,6 @@ def parse_log_full_changeset(log):
                 leftLineStart, leftLineCount, rightLineStart, rightLineCount = contentChangeSetLineInfoSplitter(lines[linecounter])
                 
                 singleContentChangeset = {
-                    'line_info':lines[linecounter], 
                     'line_diff_data':[],
                     'diffLeftLineCountStart':leftLineStart,
                     'diffLeftLineCountDelta':leftLineCount,
@@ -147,11 +150,20 @@ def parse_log_full_changeset(log):
         
     return fileChangeSets
 
-def contentChangeSetLineInfoSplitter(split:str):
-    # TODO: calculate leftLineStart, leftLineCount, rightLineStart, rightLineCount from line_info
+def contentChangeSetLineInfoSplitter(contentLineInfo:str):
+    lineInfoSplitted = contentLineInfo.split("@@", 3)
+    print(lineInfoSplitted)
+    print(lineInfoSplitted[1])
     
+    lineData = re.split(",|\+|\-", lineInfoSplitted[1].strip()) 
+    print(lineData)
+    
+    ls = int(lineData[1])
+    lc = int(lineData[2])
+    rs = int(lineData[3])
+    rc = int(lineData[4] or '0')
         
-    return [1,2,5,3]
+    return ls,lc,rs,rc
 
 
 def parse_log_fileListToArray(log):
