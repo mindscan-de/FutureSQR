@@ -38,6 +38,7 @@ public class OutputSingleCommitFileChangeSet {
     public String fromPath = "";
     public String toPath = "";
 
+    // TODO remove this stuff...
     public String lazy_index_line = "";
 
     public List<OutputSingleCommitFileContentChangeSet> fileContentChangeSet = new ArrayList<>();
