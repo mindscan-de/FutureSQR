@@ -159,8 +159,9 @@ def contentChangeSetLineInfoSplitter(contentLineInfo:str):
     return ls,lc,rs,rc
 
 def fileChangeSetGitDiffSplitter(diffGitLineInfo:str):
-    # TODO: split everything.
-    return "/bla/from/fixme.md", "/bla/to/fixme.md"
+    filenamesCombined = diffGitLineInfo.strip().split(" a/", 2)
+    filenames = filenamesCombined[1].strip().split(" b/", 2)
+    return filenames[0], filenames[1]
 
 
 
