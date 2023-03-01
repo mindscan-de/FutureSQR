@@ -55,6 +55,9 @@ public class OutputSingleCommitFileChangeSet {
     public OutputSingleCommitFileChangeSet( FSqrFileChangeSet fileChangeSet ) {
         this.fromPath = fileChangeSet.getFromPath();
         this.toPath = fileChangeSet.getToPath();
+        this.fileMode = fileChangeSet.getFileMode();
+        this.fileParentRevId = fileChangeSet.getFileParentRevId();
+        this.fileCurrentRevId = fileChangeSet.getFileCurrentRevId();
         this.lazy_index_line = fileChangeSet.getLazyIndexLine();
 
         fileChangeSet.getFileContentChangeSet().stream().forEach( x -> this.fileContentChangeSet.add( new OutputSingleCommitFileContentChangeSet( x ) ) );

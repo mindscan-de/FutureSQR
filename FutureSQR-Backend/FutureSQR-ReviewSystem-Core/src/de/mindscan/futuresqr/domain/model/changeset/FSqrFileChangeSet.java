@@ -46,8 +46,12 @@ public class FSqrFileChangeSet {
     private String fromPath = "";
     private String toPath = "";
 
-    // TODO refactor this.
+    // TODO refactor this to fileMode, fileParentRevId, fileCurrentRevId
     private String lazyIndexLine = "";
+
+    private String fileMode = "";
+    private String fileParentRevId = "";
+    private String fileCurrentRevId = "";
 
     // in case of a rename / move, we would also like to store from and to as well as the file similarity.
     private String renamedFrom = "";
@@ -72,7 +76,12 @@ public class FSqrFileChangeSet {
 
         this.fromPath = scmFileChangeSet.scmFromPath;
         this.toPath = scmFileChangeSet.scmToPath;
+        // TODO: replace it...
         this.lazyIndexLine = scmFileChangeSet.lazy_index_line;
+        // TODO: get this from scmFileChangeSet.
+        this.fileMode = "";
+        this.fileCurrentRevId = "";
+        this.fileParentRevId = "";
 
         this.renamedFrom = scmFileChangeSet.renamed_from;
         this.renamedTo = scmFileChangeSet.renamed_to;
@@ -119,5 +128,17 @@ public class FSqrFileChangeSet {
 
     public String getToPath() {
         return toPath;
+    }
+
+    public String getFileMode() {
+        return fileMode;
+    }
+
+    public String getFileParentRevId() {
+        return fileParentRevId;
+    }
+
+    public String getFileCurrentRevId() {
+        return fileCurrentRevId;
     }
 }
