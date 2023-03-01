@@ -79,9 +79,9 @@ public class FSqrFileChangeSet {
         // TODO: replace it...
         this.lazyIndexLine = scmFileChangeSet.lazy_index_line;
         // TODO: get this from scmFileChangeSet.
-        this.fileMode = "";
-        this.fileCurrentRevId = "";
-        this.fileParentRevId = "";
+        this.fileMode = scmFileChangeSet.fileMode;
+        this.fileCurrentRevId = scmFileChangeSet.fileCurrentRevId;
+        this.fileParentRevId = scmFileChangeSet.fileParentRevId;
 
         this.renamedFrom = scmFileChangeSet.renamed_from;
         this.renamedTo = scmFileChangeSet.renamed_to;
