@@ -60,12 +60,9 @@ def parse_log_full_changeset(log):
             # print(lines[linecounter:linecounter+5])
             
             # found a new file change
-            # TODO: exract filenames from  line
-            # TODO: calculate fromPath, toPath from lazy_diff_line
-            
-            # singleFileChangeSet['lazy_diff_line']=lines[linecounter]
-            singleFileChangeSet['fromPath'] = "/bla/from/fixme.md"
-            singleFileChangeSet['toPath'] = "/bla/to/fixme.md"
+            fromPath, toPath = fileChangeSetGitDiffSplitter(lines[linecounter])
+            singleFileChangeSet['fromPath'] = fromPath
+            singleFileChangeSet['toPath'] = toPath
             linecounter+=1
             
             if lines[linecounter].startswith('new file mode'):
@@ -164,6 +161,11 @@ def contentChangeSetLineInfoSplitter(contentLineInfo:str):
     rc = int(lineData[4] or '0')
         
     return ls,lc,rs,rc
+
+def fileChangeSetGitDiffSplitter(diffGitLineInfo:str):
+    # TODO: split everything.
+    return "/bla/from/fixme.md", "/bla/to/fixme.md"
+
 
 
 def parse_log_fileListToArray(log):
