@@ -70,29 +70,13 @@ export class TransformChangeSet {
 						backendModel: BackendModelSingleCommitFileContentChangeSet ): UiContentChangeSetModel {
 		let diffContent = backendModel.line_diff_data;
 		
-		if(backendModel.line_info != null && ""!=backendModel.line_info) {
-			// TODO: remove this when we get rid of backendModel.line_info is removed.
-			// TODO: fix python code, then remove this body and remove the ""line_info""
-			let lineInfoSplitted:string[] = backendModel.line_info.split("@@");
-			let linedata_splitted:string[] = lineInfoSplitted[1].trim().split(/[,+\-]/u);
-			 
-			let leftLineStart:number = +linedata_splitted[1];
-			let leftLineCount:number = +linedata_splitted[2];
-			let rightLineStart:number = +linedata_splitted[3];
-			let rightLineCount:number = +linedata_splitted[4];
-			
-			return new UiContentChangeSetModel(  diffContent, leftLineStart, leftLineCount, rightLineStart, rightLineCount );
-		} else
-		{
-			let leftLineStart:number = backendModel.diffLeftLineCountStart;
-			let leftLineCount:number = backendModel.diffLeftLineCountDelta;
-			
-			let rightLineStart:number = backendModel.diffRightLineCountStart;
-			let rightLineCount:number = backendModel.diffRightLineCountDelta;
-			
-			return new UiContentChangeSetModel(  diffContent, leftLineStart, leftLineCount, rightLineStart, rightLineCount );
-			
-		}
+		let leftLineStart:number = backendModel.diffLeftLineCountStart;
+		let leftLineCount:number = backendModel.diffLeftLineCountDelta;
+		
+		let rightLineStart:number = backendModel.diffRightLineCountStart;
+		let rightLineCount:number = backendModel.diffRightLineCountDelta;
+		
+		return new UiContentChangeSetModel(  diffContent, leftLineStart, leftLineCount, rightLineStart, rightLineCount );
 	}
 	
 	public static fromUiContentChangeSetToSingleSideDiffContent(uiccs:UiContentChangeSetModel, side:UiSingleSideEnum ): UiSingleSideDiffContentModel {
