@@ -30,8 +30,9 @@ export class TransformChangeSet {
 		converted.setScmFromPath(backendModel.fromPath);
 		converted.setScmToPath(backendModel.toPath);
 		
-		// TODO: convert filemode ets fromIndex / toIndex
-		converted.setIndexLine( backendModel.lazy_index_line );
+		converted.setFileMode(backendModel.fileMode);
+		converted.setFileParentRevision(backendModel.fileParentRevId);
+		converted.setFileCurrentRevision(backendModel.fileCurrentRevId);
 		
 		return converted;
 	}

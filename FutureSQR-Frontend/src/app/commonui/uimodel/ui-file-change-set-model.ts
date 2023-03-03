@@ -1,7 +1,6 @@
 import { UiContentChangeSetModel } from './ui-content-change-set-model';
 
 export class UiFileChangeSetModel {
-	
 	public uiContentChangeSet: UiContentChangeSetModel[] = [];
 	
 	public scmFromFilePath: string = "";
@@ -12,18 +11,27 @@ export class UiFileChangeSetModel {
 	public scmToParentPath: string = "";
 	public scmToFileName: string = "";
 	
+	public scmFileMode: string = "";
+	public scmFileParentRevisionId = "";
+	public scmFileCurrentRevisionId = "";
 	
-	// ATTN: This will be replaced and converted into a file mode, if needed.
-	public tempLayzIndexLineInfo: string = "";
 	
 	public setUiContentChangeSet( contentChangeSet: UiContentChangeSetModel[]) : void {
 		this.uiContentChangeSet = contentChangeSet;
 	}
+
+    setFileMode(fileMode: string) {
+        this.scmFileMode = fileMode;
+    }
+
+    setFileParentRevision(fileParentRevId: string) {
+        this.scmFileParentRevisionId = fileParentRevId;
+    }
 	
-	public setIndexLine(indexLineInfo:string): void {
-		this.tempLayzIndexLineInfo = indexLineInfo;
-	}
-	
+    setFileCurrentRevision(fileCurrentRevId: string) {
+        this.scmFileCurrentRevisionId = fileCurrentRevId;
+    }
+
 	public setScmFromPath(scmPath:string): void {
 		this.scmFromFilePath = scmPath;
 		let lastindex:number = scmPath.lastIndexOf("/");
