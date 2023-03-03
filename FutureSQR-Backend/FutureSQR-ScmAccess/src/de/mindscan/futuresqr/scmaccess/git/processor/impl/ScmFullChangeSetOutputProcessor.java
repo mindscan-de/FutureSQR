@@ -171,11 +171,8 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
         // ----------------------------
 
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_INDEX_IDENTIFIER )) {
-            // TODO: parse and consume this info and add info to current file change set.            
-            currentFileChangeSet.lazy_index_line = lineLexer.consumeCurrentLine();
-        }
-        else {
-            currentFileChangeSet.lazy_index_line = "(empty)";
+            String currentIndexLine = lineLexer.consumeCurrentLine();
+            FileChangeSetParsers.parseIndexLineToFileChangeSet( currentIndexLine, currentFileChangeSet );
         }
 
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_BINARY_FILES_IDENTIFIER )) {

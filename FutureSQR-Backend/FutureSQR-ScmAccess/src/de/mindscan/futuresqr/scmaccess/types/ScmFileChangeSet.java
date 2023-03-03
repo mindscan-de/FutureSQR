@@ -37,7 +37,7 @@ public class ScmFileChangeSet {
     // ------------------------------------------------------------
     // TODO remove temporary lazy index infos / file mode and more.
     // ------------------------------------------------------------
-    public String lazy_index_line = "";
+    public String lazy_index_line = "(empty)";
     // replace lazy index line with:
     public String fileMode = "";
     public String fileCurrentRevId;

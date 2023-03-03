@@ -54,4 +54,11 @@ public class FileChangeSetParsers {
         currentFileChangeSet.scmToPath = currentGitDiffLine.substring( firstIndexBSlash + GIT_DIFF_B_SLASH_PATH.length() );
     }
 
+    public static void parseIndexLineToFileChangeSet( String currentIndexLine, ScmFileChangeSet currentFileChangeSet ) {
+        System.out.print( "TODO: SPLITME...." );
+        System.out.println( currentIndexLine );
+
+        currentFileChangeSet.lazy_index_line = currentIndexLine;
+    }
+
 }
