@@ -118,8 +118,6 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
     }
 
     private void parseFileChangeSetEntry( GitScmLineBasedLexer lineLexer, Consumer<ScmFileChangeSet> fileChangeSetConsumer ) {
-        // TOOD: binary mode is false;
-
         // create a new file entry
         ScmFileChangeSet currentFileChangeSet = new ScmFileChangeSet();
 
@@ -142,6 +140,7 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_DELETED_FILE_MODE )) {
             // TODO: parse and consume this info and add info to current file change set.
             lineLexer.consumeCurrentLine();
+            // TODO: set fileAction ("D");
         }
 
         // ---------------------
@@ -152,6 +151,7 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_RENAME_SIMILARITY_INDEX )) {
             // TODO: parse and consume this info and add info to current file change set.
             currentFileChangeSet.similarity_info_line = lineLexer.consumeCurrentLine();
+            // TODO: set fileAction("R");
         }
 
         // parse from name / from directory
@@ -173,6 +173,7 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_INDEX_IDENTIFIER )) {
             String currentIndexLine = lineLexer.consumeCurrentLine();
             FileChangeSetParsers.parseIndexLineToFileChangeSet( currentIndexLine, currentFileChangeSet );
+            // TODO: set fileAction("M") if not already marked as "R", R is more important than "M")
         }
 
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_BINARY_FILES_IDENTIFIER )) {
