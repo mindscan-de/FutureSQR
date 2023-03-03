@@ -90,14 +90,16 @@ def parse_log_full_changeset(log):
                 linecounter+=1
             
             # parse index line if present
-            singleFileChangeSet['lazy_index_line']= "(empty)"
             if lines[linecounter].startswith('index'):
-                singleFileChangeSet['lazy_index_line']=lines[linecounter]
-                # TODO: 
-                # singleFileChangeSet['fileMode']
-                # singleFileChangeSet['fileParentRevId']
-                # singleFileChangeSet['fileCurrentRevId']
+                indexline=lines[linecounter]
                 linecounter+=1
+                indexdata = indexline.split(" ", 3);
+                if(len(indexdata)>2):
+                    singleFileChangeSet['fileMode'] = indexdata[2]
+                if(len(indexdata)>1):
+                    revisiondata = indexdata[1].strip().split("..",2)
+                    singleFileChangeSet['fileParentRevId'] = revisiondata[0]
+                    singleFileChangeSet['fileCurrentRevId'] = revisiondata[1]
                 
             if lines[linecounter].startswith('Binary files'):
                 singleFileChangeSet['binary_file_info_line'] = lines[linecounter]
