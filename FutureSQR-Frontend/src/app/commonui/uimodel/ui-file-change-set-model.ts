@@ -7,6 +7,7 @@ export class UiFileChangeSetModel {
 	public scmFromParentPath: string = "";
 	public scmFromFileName: string = "";
 	
+	public scmFileAction: string = "";
 	public scmToFilePath: string = "";
 	public scmToParentPath: string = "";
 	public scmToFileName: string = "";
@@ -31,6 +32,11 @@ export class UiFileChangeSetModel {
     setFileCurrentRevision(fileCurrentRevId: string) {
         this.scmFileCurrentRevisionId = fileCurrentRevId;
     }
+
+    setFileAction(fileAction: string) {
+        this.scmFileAction = fileAction;
+    }
+
 
 	public setScmFromPath(scmPath:string): void {
 		this.scmFromFilePath = scmPath;

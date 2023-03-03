@@ -30,6 +30,7 @@ export class TransformChangeSet {
 		converted.setScmFromPath(backendModel.fromPath);
 		converted.setScmToPath(backendModel.toPath);
 		
+		converted.setFileAction(backendModel.fileAction);
 		converted.setFileMode(backendModel.fileMode);
 		converted.setFileParentRevision(backendModel.fileParentRevId);
 		converted.setFileCurrentRevision(backendModel.fileCurrentRevId);

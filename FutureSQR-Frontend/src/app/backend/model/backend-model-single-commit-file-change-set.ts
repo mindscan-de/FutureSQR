@@ -4,6 +4,7 @@ export class BackendModelSingleCommitFileChangeSet {
 	public fromPath:string = "";
 	public toPath:string = "";
 	
+	public fileAction:string = "";
 	public fileMode:string = "";
 	public fileParentRevId:string = "";
 	public fileCurrentRevId:string = "";
