@@ -133,9 +133,11 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
 
         // Parse new file mode
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_NEW_FILE_MODE )) {
-            // TODO: parse and consume this info and add info to current file change set.
-            lineLexer.consumeCurrentLine();
+            String newFileModeLine = lineLexer.consumeCurrentLine();
+            FileChangeSetParsers.parseNewFileModeLineToFileChangeSet( newFileModeLine, currentFileChangeSet );
+            // TODO: set fileAction ("A")
         }
+
         // Parse deleted file mode
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_DELETED_FILE_MODE )) {
             // TODO: parse and consume this info and add info to current file change set.

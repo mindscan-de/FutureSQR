@@ -35,6 +35,7 @@ public class FileChangeSetParsers {
     private static final String GIT_DIFF_A_SLASH_PATH = " a/";
     private static final String GIT_DIFF_B_SLASH_PATH = " b/";
     private static final String GIT_DIFF_FILENAMEINFO_IDENTIFIER = "diff --git ";
+    private static final String GIT_DIFF_NEW_FILE_MODE = "new file mode ";
 
     public static void parseGitDiffLineToFileChangeSet( String currentGitDiffLine, ScmFileChangeSet currentFileChangeSet ) {
 
@@ -65,6 +66,11 @@ public class FileChangeSetParsers {
             String filemode = fileinfo[2];
             currentFileChangeSet.fileMode = filemode;
         }
+    }
+
+    public static void parseNewFileModeLineToFileChangeSet( String newFileModeLine, ScmFileChangeSet currentFileChangeSet ) {
+        String fileMode = newFileModeLine.substring( GIT_DIFF_NEW_FILE_MODE.length() );
+        currentFileChangeSet.fileMode = fileMode.trim();
     }
 
 }
