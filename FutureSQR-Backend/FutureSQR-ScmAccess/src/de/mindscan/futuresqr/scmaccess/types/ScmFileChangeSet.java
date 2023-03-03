@@ -34,6 +34,8 @@ public class ScmFileChangeSet {
     public String scmFromPath = "";
     public String scmToPath = "";
 
+    public String fileAction = "";
+
     public String fileMode = "";
     public String fileCurrentRevId;
     public String fileParentRevId;

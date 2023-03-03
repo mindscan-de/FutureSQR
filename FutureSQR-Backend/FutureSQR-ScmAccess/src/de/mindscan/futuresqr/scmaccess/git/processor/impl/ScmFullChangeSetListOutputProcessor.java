@@ -182,14 +182,14 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_NEW_FILE_MODE )) {
             String newFileModeLine = lineLexer.consumeCurrentLine();
             FileChangeSetParsers.parseNewFileModeLineToFileChangeSet( newFileModeLine, currentFileChangeSet );
-            // TODO: set fileAction ("A")
+            currentFileChangeSet.fileAction = "A";
         }
 
         // Parse deleted file mode
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_DELETED_FILE_MODE )) {
             // TODO: parse and consume this info and add info to current file change set.
             lineLexer.consumeCurrentLine();
-            // TODO: set fileAction ("D");
+            currentFileChangeSet.fileAction = "D";
         }
 
         // ---------------------
@@ -200,7 +200,7 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_RENAME_SIMILARITY_INDEX )) {
             // TODO: parse and consume this info and add info to current file change set.
             currentFileChangeSet.similarity_info_line = lineLexer.consumeCurrentLine();
-            // TODO: set fileAction("R");
+            currentFileChangeSet.fileAction = "R";
         }
 
         // parse from name / from directory
@@ -222,7 +222,10 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_INDEX_IDENTIFIER )) {
             String currentIndexLine = lineLexer.consumeCurrentLine();
             FileChangeSetParsers.parseIndexLineToFileChangeSet( currentIndexLine, currentFileChangeSet );
-            // TODO: set fileAction("M") if not already marked as "R", R is more important than "M")
+            if (currentFileChangeSet.fileAction.isEmpty()) {
+                // set fileAction("M") if not already marked as "R", R is more important than "M")
+                currentFileChangeSet.fileAction = "M";
+            }
         }
 
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_BINARY_FILES_IDENTIFIER )) {
