@@ -34,7 +34,6 @@ public class ScmFileChangeSet {
     public String scmFromPath = "";
     public String scmToPath = "";
 
-    // replace lazy index line with:
     public String fileMode = "";
     public String fileCurrentRevId;
     public String fileParentRevId;
@@ -47,6 +46,10 @@ public class ScmFileChangeSet {
     public String renamed_to = "";
 
     public boolean isBinaryFile = false;
+
+    // -----------------------------
+    // TODO also process this better
+    // -----------------------------
     public String binary_file_info_line = "";
 
     // ---------------------
