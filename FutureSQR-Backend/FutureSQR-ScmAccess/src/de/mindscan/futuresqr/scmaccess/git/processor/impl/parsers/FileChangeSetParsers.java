@@ -55,18 +55,16 @@ public class FileChangeSetParsers {
     }
 
     public static void parseIndexLineToFileChangeSet( String currentIndexLine, ScmFileChangeSet currentFileChangeSet ) {
-        System.out.println( "TODO: SPLITME...." );
-        System.out.println( currentIndexLine );
-
         String[] fileinfo = currentIndexLine.trim().split( " ", 3 );
         String revisions = fileinfo[1];
-        String filemode = fileinfo[2];
-
         String[] revisioninfo = revisions.split( "\\.\\.", 2 );
-        currentFileChangeSet.fileMode = filemode;
         currentFileChangeSet.fileParentRevId = revisioninfo[0];
         currentFileChangeSet.fileCurrentRevId = revisioninfo[1];
 
+        if (fileinfo.length > 2) {
+            String filemode = fileinfo[2];
+            currentFileChangeSet.fileMode = filemode;
+        }
     }
 
 }
