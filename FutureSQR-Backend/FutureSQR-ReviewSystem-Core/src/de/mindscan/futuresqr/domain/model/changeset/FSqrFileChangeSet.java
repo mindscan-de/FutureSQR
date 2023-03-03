@@ -39,8 +39,10 @@ public class FSqrFileChangeSet {
     private List<FSqrFileContentChangeSet> fileContentChangeSet = new ArrayList<>();
     private boolean isBinaryFile = false;
 
-    // TODO refactor this.    
+    // TODO refactor this.
     private String lazyBinaryFileInfo = "";
+    // TODO reactor this.
+    private String lazySimilarityInfo = "";
 
     // new
     private String fromPath = "";
@@ -53,8 +55,6 @@ public class FSqrFileChangeSet {
     // in case of a rename / move, we would also like to store from and to as well as the file similarity.
     private String renamedFrom = "";
     private String renamedTo = "";
-
-    private String lazySimilarityInfo = "";
 
     /**
      * 
