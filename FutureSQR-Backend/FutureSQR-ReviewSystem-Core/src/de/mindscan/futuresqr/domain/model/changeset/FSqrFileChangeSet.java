@@ -46,9 +46,6 @@ public class FSqrFileChangeSet {
     private String fromPath = "";
     private String toPath = "";
 
-    // TODO refactor this to fileMode, fileParentRevId, fileCurrentRevId
-    private String lazyIndexLine = "";
-
     private String fileMode = "";
     private String fileParentRevId = "";
     private String fileCurrentRevId = "";
@@ -76,9 +73,7 @@ public class FSqrFileChangeSet {
 
         this.fromPath = scmFileChangeSet.scmFromPath;
         this.toPath = scmFileChangeSet.scmToPath;
-        // TODO: replace it...
-        this.lazyIndexLine = scmFileChangeSet.lazy_index_line;
-        // TODO: get this from scmFileChangeSet.
+
         this.fileMode = scmFileChangeSet.fileMode;
         this.fileCurrentRevId = scmFileChangeSet.fileCurrentRevId;
         this.fileParentRevId = scmFileChangeSet.fileParentRevId;
@@ -104,10 +99,6 @@ public class FSqrFileChangeSet {
 
     public String getLazyBinaryFileInfo() {
         return lazyBinaryFileInfo;
-    }
-
-    public String getLazyIndexLine() {
-        return lazyIndexLine;
     }
 
     public String getRenamedFrom() {
