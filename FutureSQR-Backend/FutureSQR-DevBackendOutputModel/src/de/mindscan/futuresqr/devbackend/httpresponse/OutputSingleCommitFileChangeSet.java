@@ -38,10 +38,6 @@ public class OutputSingleCommitFileChangeSet {
     public String fromPath = "";
     public String toPath = "";
 
-    // TODO remove this stuff...
-    public String lazy_index_line = "";
-
-    // TODO: fill me next.
     public String fileMode = "";
     public String fileParentRevId = "";
     public String fileCurrentRevId = "";
@@ -58,7 +54,6 @@ public class OutputSingleCommitFileChangeSet {
         this.fileMode = fileChangeSet.getFileMode();
         this.fileParentRevId = fileChangeSet.getFileParentRevId();
         this.fileCurrentRevId = fileChangeSet.getFileCurrentRevId();
-        this.lazy_index_line = "index " + fileChangeSet.getFileParentRevId() + ".." + fileChangeSet.getFileCurrentRevId() + " " + fileChangeSet.getFileMode();
 
         fileChangeSet.getFileContentChangeSet().stream().forEach( x -> this.fileContentChangeSet.add( new OutputSingleCommitFileContentChangeSet( x ) ) );
     }
