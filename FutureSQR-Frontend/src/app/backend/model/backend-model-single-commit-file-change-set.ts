@@ -4,10 +4,6 @@ export class BackendModelSingleCommitFileChangeSet {
 	public fromPath:string = "";
 	public toPath:string = "";
 	
-	// TODO: get rid of the index line.
-	public lazy_index_line:string = "";
-	
-	// TODO: fill me next.
 	public fileMode:string = "";
 	public fileParentRevId:string = "";
 	public fileCurrentRevId:string = "";
