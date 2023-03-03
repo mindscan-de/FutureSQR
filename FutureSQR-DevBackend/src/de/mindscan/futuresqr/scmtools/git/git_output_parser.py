@@ -25,8 +25,6 @@ SOFTWARE.
 
 @autor: Maxim Gansert
 '''
-from IPython.core.splitinput import LineInfo
-
 import re
 
 def parse_log_by_rs_us(log, fieldnames):
