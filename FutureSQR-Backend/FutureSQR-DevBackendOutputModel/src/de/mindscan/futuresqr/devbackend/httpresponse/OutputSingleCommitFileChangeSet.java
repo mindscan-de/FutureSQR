@@ -38,6 +38,7 @@ public class OutputSingleCommitFileChangeSet {
     public String fromPath = "";
     public String toPath = "";
 
+    public String fileAction = "";
     public String fileMode = "";
     public String fileParentRevId = "";
     public String fileCurrentRevId = "";
@@ -54,6 +55,7 @@ public class OutputSingleCommitFileChangeSet {
         this.fileMode = fileChangeSet.getFileMode();
         this.fileParentRevId = fileChangeSet.getFileParentRevId();
         this.fileCurrentRevId = fileChangeSet.getFileCurrentRevId();
+        this.fileAction = fileChangeSet.getFileAction();
 
         fileChangeSet.getFileContentChangeSet().stream().forEach( x -> this.fileContentChangeSet.add( new OutputSingleCommitFileContentChangeSet( x ) ) );
     }
