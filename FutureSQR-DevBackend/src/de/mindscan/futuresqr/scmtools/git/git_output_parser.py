@@ -53,6 +53,7 @@ def parse_log_full_changeset(log):
         
         if line.startswith('diff --git '):
             singleFileChangeSet = {}
+            singleFileChangeSet['fileAction'] = ""
             
             # debug output
             # print(lines[linecounter:linecounter+5])
@@ -68,6 +69,7 @@ def parse_log_full_changeset(log):
                 # singleFileChangeSet['fileMode']
                 # singleFileChangeSet['fileParentRevId']
                 # singleFileChangeSet['fileCurrentRevId']
+                singleFileChangeSet['fileAction']="A"
                 linecounter+=1
             
             if lines[linecounter].startswith('deleted file mode'):
@@ -76,11 +78,13 @@ def parse_log_full_changeset(log):
                 # singleFileChangeSet['fileParentRevId']
                 # singleFileChangeSet['fileCurrentRevId']
                 singleFileChangeSet['lazy_deleted_file_line'] = lines[linecounter]
+                singleFileChangeSet['fileAction']="D"
                 linecounter+=1
                 
             # simularity index / rename_from / rename_to
             if lines[linecounter].startswith('similarity index'):
                 singleFileChangeSet['similarity_info_line'] = lines[linecounter]
+                singleFileChangeSet['fileAction']="R"
                 linecounter+=1
             if lines[linecounter].startswith('rename from'):
                 singleFileChangeSet['renamed_from'] = lines[linecounter]
@@ -100,6 +104,8 @@ def parse_log_full_changeset(log):
                     revisiondata = indexdata[1].strip().split("..",2)
                     singleFileChangeSet['fileParentRevId'] = revisiondata[0]
                     singleFileChangeSet['fileCurrentRevId'] = revisiondata[1]
+                    if singleFileChangeSet['fileAction'] is "":
+                        singleFileChangeSet['fileAction']="M"
                 
             if lines[linecounter].startswith('Binary files'):
                 singleFileChangeSet['binary_file_info_line'] = lines[linecounter]
