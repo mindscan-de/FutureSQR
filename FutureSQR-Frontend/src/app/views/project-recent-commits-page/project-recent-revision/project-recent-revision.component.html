@@ -23,9 +23,9 @@
 					<li class="list-unstyled" *ngFor="let file of uiFileInformations">
 					<span class="mr-2 badge ml-3" [ngClass]="{
 						 'badge-primary': file.fileAction=='M', 
-						 'badge-secondary': file.fileAction=='R100',
 						 'badge-danger': file.fileAction=='D',
-						 'badge-success': file.fileAction=='A'
+						 'badge-success': file.fileAction=='A',
+						 'badge-secondary': file.fileAction[0]=='R'
 						  } ">{{file.fileAction}}</span>
 						  <span class="small text-black"><b>{{file.simpleFileName}}</b></span><span class="small text-muted ml-3">{{file.parentFilePath}}/</span>
 					</li>
