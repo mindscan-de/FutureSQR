@@ -30,7 +30,7 @@ export class SingleReviewThreadMessageComponent implements OnInit {
 	@Input() activeProjectID: string = "";
 	@Input() activeReviewID: string = "";
 	@Input() activeMessage: BackendModelThreadsMessage = new BackendModelThreadsMessage();
-	@Output() threadUpdated: EventEmitter<any> = new EventEmitter<any>();
+	@Output() threadUpdated: EventEmitter<string> = new EventEmitter<string>();
 	
 	public isInAnswerMode:boolean = false;
 	public isMessageEditMode:boolean = false;

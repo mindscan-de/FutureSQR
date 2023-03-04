@@ -13,7 +13,7 @@ export class SingleReviewThreadPanelComponent implements OnInit {
 	@Input() activeProjectID: string = "";
 	@Input() activeReviewID: string = "";
 	@Input() activeThread: BackendModelThreadsFullThread = new BackendModelThreadsFullThread();
-	@Output() threadUpdated: EventEmitter<any> = new EventEmitter<any>();
+	@Output() threadUpdated: EventEmitter<string> = new EventEmitter<string>();
 	
 
 	constructor() { }
@@ -21,7 +21,9 @@ export class SingleReviewThreadPanelComponent implements OnInit {
 	ngOnInit(): void {
 	}
 
-	onThreadUpdated(data:any): void {
+	onThreadUpdated(data:string): void {
+		// TODO, actually we only want to update the active thread, none other.
+		
 		// forward the update to the main page.
 		this.threadUpdated.emit(data);
 	}

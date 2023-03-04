@@ -86,7 +86,7 @@ export class ReviewDiscussionPanelComponent implements OnInit {
 			);
 	}
 	
-	onThreadUpdated(event:any): void {
+	onThreadUpdated(event:string): void {
 		// TODO: the idea would be in future to only read the updated thread
 		this.retrieveDiscussion();
 	}
