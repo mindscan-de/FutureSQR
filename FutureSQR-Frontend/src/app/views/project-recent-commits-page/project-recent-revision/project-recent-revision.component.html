@@ -8,7 +8,9 @@
 		</div>
 		
 		<div class="p-0" *ngIf="activeRevision.hasReview==true">
-			<span><a class="mr-2 ml-2" [routerLink]="['/',activeProjectID,'review',activeRevision.reviewID]">{{activeRevision.reviewID}}</a></span>
+			<span><a class="mr-2 ml-2" [ngClass]="{
+				'text-muted' : activeRevision.reviewClosed
+			}" [routerLink]="['/',activeProjectID,'review',activeRevision.reviewID]">{{activeRevision.reviewID}}</a></span>
 		</div>
 		
 		<!--  Maybe use the click here and use $event.stopPropagation() -->
