@@ -76,7 +76,9 @@ export class SingleReviewThreadMessageComponent implements OnInit {
 			data => {
 				that.isMessageEditMode = false;
 				// This is a dirty hack, we patch the value instead of reloading the page
-				that.activeMessage.message = that.formMessageText.value;		
+				that.activeMessage.message = that.formMessageText.value;
+				
+				that.threadUpdated.emit("update");
 			},
 			error => {}
 			
@@ -120,7 +122,7 @@ export class SingleReviewThreadMessageComponent implements OnInit {
 				that.isInAnswerMode = false;
 				that.formAnswerText.setValue("");
 				
-				// TODO actually we must reload 
+				that.threadUpdated.emit("reply"); 
 			},
 			error => {}
 		);
