@@ -243,6 +243,12 @@ class ReviewDatabase(object):
             return None
         return self.revisionTable[project_id][revision_id]
     
+    def selectReviewByRevisionId(self, project_id, revision_id):
+        review_id = self.selectReviewIdByRevisionId(project_id, revision_id)
+        if review_id is None :
+            return None
+        return self.selectReviewByReviewId(project_id, review_id)
+    
     def getRevisionToReviewsMap(self, project_id):
         if not project_id in self.revisionTable:
             return {}

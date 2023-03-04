@@ -106,7 +106,9 @@ def getProjectRevisions(projectid:str):
         for revision in revisions['revisions']:
             if reviewDB.hasReviewByRevisionId(projectid, revision['revisionid']):
                 revision['hasReview']= True
-                revision['reviewID']= reviewDB.selectReviewIdByRevisionId(projectid, revision['revisionid'])
+                review = reviewDB.selectReviewByRevisionId(projectid, revision['revisionid'])
+                revision['reviewID'] = review[REVIEW_REVIEW_ID]
+                revision['reviewClosed'] = review[REVIEW_LIFECYLCE_STATE] == REVIEW_LIFECYCLE_STATE_CLOSED
             else:
                 revision['hasReview']= False
         
