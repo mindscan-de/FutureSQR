@@ -103,6 +103,14 @@ public class FSqrCodeReviewRepositoryImpl {
         return "";
     }
 
+    public FSqrCodeReview getReviewForProjectAndRevision( String projectid, String revisionid ) {
+        String reviewId = this.getReviewIdForProjectAndRevision( projectid, revisionid );
+        if (!"".equals( reviewId )) {
+            return this.getReview( projectid, reviewId );
+        }
+        return null;
+    }
+
     public List<FSqrCodeReview> selectOpenReviews( String projectId ) {
         ArrayList<FSqrCodeReview> resultList = new ArrayList<>();
 

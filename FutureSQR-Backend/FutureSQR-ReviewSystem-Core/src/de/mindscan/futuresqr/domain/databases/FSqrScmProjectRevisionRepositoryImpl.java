@@ -34,6 +34,8 @@ import java.util.stream.Collectors;
 
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
+import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
+import de.mindscan.futuresqr.domain.model.FSqrCodeReviewLifecycleState;
 import de.mindscan.futuresqr.domain.model.FSqrRevision;
 import de.mindscan.futuresqr.domain.model.FSqrRevisionFileChangeList;
 import de.mindscan.futuresqr.domain.model.FSqrScmHistory;
@@ -121,7 +123,9 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         // calculate whether a review is known for this 
         if (applicationServices.getReviewRepository().hasReviewForProjectAndRevision( projectId, x.revisionId )) {
             result.setHasAttachedReview( true );
-            result.setReviewId( applicationServices.getReviewRepository().getReviewIdForProjectAndRevision( projectId, x.revisionId ) );
+            FSqrCodeReview review = applicationServices.getReviewRepository().getReviewForProjectAndRevision( projectId, x.revisionId );
+            result.setReviewId( review.getReviewId() );
+            result.setReviewClosed( review.getCurrentReviewState() == FSqrCodeReviewLifecycleState.Closed );
         }
 
         return result;

@@ -73,6 +73,7 @@ public class FSqrRevision {
 
     private boolean hasAttachedReview = false; // dynamic?, check for empty string?
     private String reviewId = "";
+    private boolean reviewClosed = false;
 
     private String branchName;
 
@@ -167,6 +168,10 @@ public class FSqrRevision {
      */
     public void setReviewId( String reviewId ) {
         this.reviewId = reviewId;
+    }
+
+    public void setReviewClosed( boolean reviewClosed ) {
+        this.reviewClosed = reviewClosed;
     }
 
     /**
@@ -314,6 +319,13 @@ public class FSqrRevision {
      */
     public String getBranchName() {
         return branchName;
+    }
+
+    /**
+     * @return the reviewClosed
+     */
+    public boolean isReviewClosed() {
+        return reviewClosed;
     }
 
 }
