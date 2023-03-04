@@ -1,7 +1,10 @@
-<div class="card mb-2">
+<div class="card mt-2">
 	<div class="card-body">
-		<span class="text-muted small">Thread (id:{{activeThread.threadId}}) started by <b>{{activeThread.authorId}}</b></span>	
+		<span class="text-muted">
+			<app-avatar-and-name [uuid]="activeThread.authorId"></app-avatar-and-name> wrote on ((TODO: CREATED_DATE))
+		</span>
 	</div>
+	<!-- in dem UL sollten nur die antworten sein? außerdem sollten die antworten hierarchisch in der Tiefe organisiert sein. -->
 	<ul class="list-group list-group-flush">
 		<li class="list-group-item" *ngFor="let messageid of activeThread.messagesId">
 			<app-single-review-thread-message [activeProjectID]="activeProjectID" [activeReviewID]="activeReviewID" [activeMessage]="activeThread.messages[messageid]" (threadUpdated)="onThreadUpdated($event)"></app-single-review-thread-message>

@@ -1,14 +1,12 @@
-<div class="card mt-4 mb-5">
-	<div class="card-header">
-		Discuss Review &mdash; <span>{{uimodel.allreviewthreads.length}} discussion(s) present.</span>
-	</div>
+<ng-container *ngIf="uimodel.allreviewthreads.length>0">
+	<ng-container *ngFor="let thread of uimodel.allreviewthreads">
+		<app-single-review-thread-panel [activeProjectID]="activeProjectID" [activeReviewID]="activeReviewID" [activeThread]="thread" (threadUpdated)="onThreadUpdated($event)"></app-single-review-thread-panel>
+	</ng-container>		
+</ng-container>
+
+
+<div class="card mt-2 mb-5">
 	<div class="card-body">
-		<ng-container *ngIf="uimodel.allreviewthreads.length>0">
-			<ng-container *ngFor="let thread of uimodel.allreviewthreads">
-				<app-single-review-thread-panel [activeProjectID]="activeProjectID" [activeReviewID]="activeReviewID" [activeThread]="thread" (threadUpdated)="onThreadUpdated($event)"></app-single-review-thread-panel>
-			</ng-container>		
-		</ng-container>
-		
 		<form (ngSubmit)="onCreateThreadClicked()">
 			<div class="form-group">
 				<label for="startThreadTextarea">Start a new discussion</label>				
@@ -20,7 +18,6 @@
 		<ul>
 			<li>TODO: provide unsolved previous discussions for the files</li>
 			<li>TOOD: integrate the file discussions into the code viewer, where applicable.</li>
-			<li>TODO: show avatars and Names for thread / messages instead of uuids
 		</ul>
 		
 	</div>
