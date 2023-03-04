@@ -50,6 +50,7 @@ public class OutputProjectRevisionsRevisionEntry {
 
     public boolean hasReview = false;
     public String reviewID = "";
+    public boolean reviewClosed = false;
 
     /**
      * 
@@ -75,6 +76,7 @@ public class OutputProjectRevisionsRevisionEntry {
 
         this.hasReview = rev.hasReview();
         this.reviewID = rev.getReviewId();
+        this.reviewClosed = rev.isReviewClosed();
     }
 
 }
