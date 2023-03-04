@@ -43,6 +43,7 @@ public class FSqrDiscussionThread {
     private FSqrDiscussionThreadMessage discussionThreadRootMessage = null;
 
     private boolean discussionThreadInlined = false;
+    private long discussionThreadCreatedTimestamp = 0L;
 
     // private codeReference
     // private FSqrDiscussionThreadCodeReference codeReference;
@@ -62,6 +63,7 @@ public class FSqrDiscussionThread {
         this.discussionThreadAuthor = messageAuthorUUID;
         this.discussionMessages = new HashMap<>();
         this.discussionThreadRootMessage = null;
+        this.discussionThreadCreatedTimestamp = rootMessage.getMessageCreatedTimestamp();
 
         this.addAsRootMessage( rootMessage );
     }
@@ -115,6 +117,10 @@ public class FSqrDiscussionThread {
 
     public void setDiscussionThreadInlined( boolean discussionThreadInlined ) {
         this.discussionThreadInlined = discussionThreadInlined;
+    }
+
+    public long getDiscussionThreadCreatedTimestamp() {
+        return discussionThreadCreatedTimestamp;
     }
 
 }

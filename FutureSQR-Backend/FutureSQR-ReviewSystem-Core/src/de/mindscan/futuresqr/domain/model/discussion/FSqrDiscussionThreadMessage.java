@@ -43,17 +43,20 @@ public class FSqrDiscussionThreadMessage {
 
     private List<FSqrDiscussionThreadMessage> directReplies = new ArrayList<>();
 
+    private long messageCreatedTimestamp = 0L;
+
     // TODO: lastEditorUUID
     // TODO: lastEditTimestamp
-    // TODO: createdTimestamp
 
     public FSqrDiscussionThreadMessage() {
+
     }
 
     public FSqrDiscussionThreadMessage( String messageUUID, String messageText, String messageAuthorUUID ) {
         this.messageText = messageText;
         this.messageAuthorUUID = messageAuthorUUID;
         this.messageUUID = messageUUID;
+        this.messageCreatedTimestamp = System.currentTimeMillis();        
     }
 
     public String getMessageAuthorUUID() {
@@ -107,6 +110,10 @@ public class FSqrDiscussionThreadMessage {
         for (FSqrDiscussionThreadMessage fSqrDiscussionThreadMessage : directReplies) {
             fSqrDiscussionThreadMessage.traversePreOrder( consumer );
         }
+    }
+
+    public long getMessageCreatedTimestamp() {
+        return messageCreatedTimestamp;
     }
 
 }
