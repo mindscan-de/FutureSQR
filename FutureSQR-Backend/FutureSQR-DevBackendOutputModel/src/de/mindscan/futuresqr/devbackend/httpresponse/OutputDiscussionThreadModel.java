@@ -44,6 +44,7 @@ public class OutputDiscussionThreadModel {
 
     public String threadId = "";
     public String authorId = "";
+    public Long threadCreatedTS = 0L;
     public List<String> messagesId = new ArrayList<>();
     public Map<String, OutputDiscussionMessageModel> messages = new HashMap<>();
 
@@ -53,6 +54,7 @@ public class OutputDiscussionThreadModel {
     public OutputDiscussionThreadModel( FSqrDiscussionThread thread ) {
         this.threadId = thread.getDiscussionThreadUUID();
         this.authorId = thread.getDiscussionThreadAuthor();
+        this.threadCreatedTS = thread.getDiscussionThreadCreatedTimestamp();
 
         this.messagesId = new ArrayList<>( thread.getMessageOrder() );
 

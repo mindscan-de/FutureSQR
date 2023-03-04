@@ -35,6 +35,8 @@ public class OutputDiscussionMessageModel {
     public String messageId = "";
     public String threadId = "";
 
+    public Long messageCreatedTS = 0L;
+
     public String message = "";
     public String authorId = "";
     public String replyToMsgId = "";
@@ -48,5 +50,6 @@ public class OutputDiscussionMessageModel {
         this.message = msg.getMessageText();
         this.authorId = msg.getMessageAuthorUUID();
         this.replyToMsgId = msg.getReplyToMessageUUID();
+        this.messageCreatedTS = msg.getMessageCreatedTimestamp();
     }
 }
