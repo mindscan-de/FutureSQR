@@ -1,4 +1,9 @@
-<h5>{{currentUiFileChangeSet.scmFromFileName}}<span class="ml-4 small text-muted">{{currentUiFileChangeSet.scmFromParentPath}}</span><span class="ml-2" *ngIf="currentUiFileChangeSet.scmFromFilePath!=currentUiFileChangeSet.scmToFilePath"> =&gt; {{currentUiFileChangeSet.scmToFilePath}}</span></h5>
+<h5><span class="mr-2 badge" [ngClass]="{
+				 'badge-primary': currentUiFileChangeSet.scmFileAction=='M', 
+				 'badge-danger': currentUiFileChangeSet.scmFileAction=='D',
+				 'badge-success': currentUiFileChangeSet.scmFileAction=='A',
+				 'badge-secondary': currentUiFileChangeSet.scmFileAction[0]=='R'
+				  } ">{{currentUiFileChangeSet.scmFileAction}}</span>{{currentUiFileChangeSet.scmFromFileName}}<span class="ml-4 small text-muted">{{currentUiFileChangeSet.scmFromParentPath}}</span><span class="ml-2" *ngIf="currentUiFileChangeSet.scmFromFilePath!=currentUiFileChangeSet.scmToFilePath"> =&gt; {{currentUiFileChangeSet.scmToFilePath}}</span></h5>
 <p></p>
 <!-- <p class="text-muted">{{currentUiFileChangeSet.tempLayzIndexLineInfo}}</p> -->
 <ul class="list-group">
