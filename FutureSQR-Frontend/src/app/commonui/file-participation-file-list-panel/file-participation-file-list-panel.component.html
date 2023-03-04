@@ -7,9 +7,9 @@
 			<span class="small text-muted"><b>{{file.parentFilePath}}</b></span><br>
 			<span class="mr-2 badge ml-3" [ngClass]="{
 				 'badge-primary': file.fileAction=='M', 
-				 'badge-secondary': file.fileAction=='R100',
 				 'badge-danger': file.fileAction=='D',
-				 'badge-success': file.fileAction=='A'
+				 'badge-success': file.fileAction=='A',
+				 'badge-secondary': file.fileAction[0]=='R'
 				  } ">{{file.fileAction}}</span><span class="small text-primary"><b>{{file.simpleFileName}}</b></span>
 		</li>
 	</ul>
