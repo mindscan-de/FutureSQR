@@ -235,6 +235,8 @@ public class FSqrScmProjectRevisionRepositoryImpl {
             List<FSqrRevisionFullChangeSet> revisionFullChangeset = getRevisionFullChangeset( projectId, firstRevisionId, lastRevisionId );
 
             // TODO: consolidate the changes into one for a given revision list, because they are in one line, we can consolidate them... somehow.
+            // TODO: create a list of revision Ids 
+            // new UnifiedDiffCalculationV1().squashDiffs( revisionFullChangeset, revisionList, revisionList );
 
             return revisionFullChangeset.get( 0 );
         }
@@ -245,6 +247,10 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         List<FSqrRevisionFullChangeSet> revisionFullChangeset = getRevisionFullChangeset( projectId, firstRevisionId, lastRevisionId );
 
         // TODO: filter down the change set and then build a unified one?
+
+        // TODO: consolidate the changes into one for a given revision list, because they are in one line, we can consolidate them... somehow.
+        // TODO: create a list of revision Ids 
+        // new UnifiedDiffCalculationV1().squashDiffs( revisionFullChangeset, revisionList, revisionList );
 
         return revisionFullChangeset.get( 0 );
     }
