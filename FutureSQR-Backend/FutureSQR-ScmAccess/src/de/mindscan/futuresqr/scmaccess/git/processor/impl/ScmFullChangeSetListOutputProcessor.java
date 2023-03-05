@@ -195,8 +195,8 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
 
         // parse similarity of rename / move operation 
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_RENAME_SIMILARITY_INDEX )) {
-            // TODO: parse and consume this info and add info to current file change set.
-            currentFileChangeSet.similarity_info_line = lineLexer.consumeCurrentLine();
+            String similarityLine = lineLexer.consumeCurrentLine();
+            FileChangeSetParsers.parseRenameSimilarityToFileChangeSet( similarityLine, currentFileChangeSet );
             currentFileChangeSet.fileAction = "R";
         }
 
