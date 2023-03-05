@@ -48,7 +48,4 @@ public class ScmBasicRevisionInformation {
     public List<String> shortParentIds;
 
     public String branchName = "xxxSetBranchName";
-
-    // TODO: basic file list for review, with file state?
-    // or just leave it at the minumum.
 }
