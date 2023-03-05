@@ -170,6 +170,9 @@ public class FSqrRevision {
         this.reviewId = reviewId;
     }
 
+    /**
+     * @param reviewClosed
+     */
     public void setReviewClosed( boolean reviewClosed ) {
         this.reviewClosed = reviewClosed;
     }
