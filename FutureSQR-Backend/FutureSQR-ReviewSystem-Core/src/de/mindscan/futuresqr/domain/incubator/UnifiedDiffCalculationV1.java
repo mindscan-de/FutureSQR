@@ -43,6 +43,11 @@ public class UnifiedDiffCalculationV1 {
             return new FSqrRevisionFullChangeSet();
         }
 
+        if (selectedRevisions.size() == 1) {
+            // actually only one revison is selected, so we can just return the correct intermediate revision from intermediate Revisions List
+            // TODO: implement this particular strategy.
+        }
+
         // intermediateRevisions contains all revisions in newest to oldest order
 
         // filterRevisions are those which are part of the review (usually codeReview.getRevisions)
