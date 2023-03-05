@@ -33,7 +33,7 @@ import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
 /**
  * 
  */
-public class UnfiedDiffCalculationV1 {
+public class UnifiedDiffCalculationV1 {
 
     // TODO: we want to build a FullChangeSet, which can be displayed 
     public FSqrRevisionFullChangeSet squashDiffs( List<FSqrRevisionFullChangeSet> intermediateRevisions, Collection<String> filterRevisions,
@@ -51,6 +51,6 @@ public class UnfiedDiffCalculationV1 {
 
         // we want to figure out, which files are touched in filtreRevisions, and selectedRevisions
 
-        return null;
+        return intermediateRevisions.get( 0 );
     }
 }
