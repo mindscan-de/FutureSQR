@@ -39,6 +39,10 @@ public class UnifiedDiffCalculationV1 {
     public FSqrRevisionFullChangeSet squashDiffs( List<FSqrRevisionFullChangeSet> intermediateRevisions, Collection<String> filterRevisions,
                     Collection<String> selectedRevisions ) {
 
+        if (selectedRevisions.size() == 0) {
+            return new FSqrRevisionFullChangeSet();
+        }
+
         // intermediateRevisions contains all revisions in newest to oldest order
 
         // filterRevisions are those which are part of the review (usually codeReview.getRevisions)
