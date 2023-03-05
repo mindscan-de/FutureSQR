@@ -102,10 +102,7 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
             if (currentLine.startsWith( GIT_DIFF_FILENAMEINFO_IDENTIFIER )) {
                 // for each file file entry
                 System.out.println( "[parseFullChangeSet][p]: '" + currentLine + "'" );
-                parseFileChangeSetEntry( lineLexer, fileChangeSetConsumer );
-
-                // TODO: reinitialize for next revision.?
-                // TODO: maybe adding the ScmFileChangeset should be part of this method? not of the parseFileChangeSetEntry.
+                fileChangeSetConsumer.accept( parseFileChangeSetEntry( lineLexer ) );
             }
             else {
                 // This will either skip some header or unparsed stuff from the inner parsers.
@@ -117,7 +114,7 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
         // first menge for file entry will trigger parseFileChangeSetEntry
     }
 
-    private void parseFileChangeSetEntry( GitScmLineBasedLexer lineLexer, Consumer<ScmFileChangeSet> fileChangeSetConsumer ) {
+    private ScmFileChangeSet parseFileChangeSetEntry( GitScmLineBasedLexer lineLexer ) {
         // create a new file entry
         ScmFileChangeSet currentFileChangeSet = new ScmFileChangeSet();
 
@@ -141,7 +138,7 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
         // Parse deleted file mode
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_DELETED_FILE_MODE )) {
             // TODO: parse and consume this info and add info to current file change set.
-            lineLexer.consumeCurrentLine();
+            String deleteFileModeLine = lineLexer.consumeCurrentLine();
             currentFileChangeSet.fileAction = "D";
         }
 
@@ -201,13 +198,11 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
         }
 
         if (!lineLexer.hasNextLine()) {
-            fileChangeSetConsumer.accept( currentFileChangeSet );
-            return;
+            return currentFileChangeSet;
         }
 
         if (currentFileChangeSet.isBinaryFile) {
-            fileChangeSetConsumer.accept( currentFileChangeSet );
-            return;
+            return currentFileChangeSet;
         }
 
         // content changeset identifier is @@ at start
@@ -219,9 +214,7 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
             }
         }
 
-        // result is a file entry in the ScmFullChangeSet
-        // MAYBE we want
-        fileChangeSetConsumer.accept( currentFileChangeSet );
+        return currentFileChangeSet;
     }
 
     private void parseContentChangeSetEntry( GitScmLineBasedLexer lineLexer, Consumer<ScmFileContentChangeSet> contentChangeSetConsumer ) {
