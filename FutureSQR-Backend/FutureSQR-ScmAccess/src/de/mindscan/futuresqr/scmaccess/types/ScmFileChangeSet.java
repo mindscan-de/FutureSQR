@@ -46,6 +46,7 @@ public class ScmFileChangeSet {
     public String similarity_info_line = "";
     public String renamed_from = "";
     public String renamed_to = "";
+    public int renameSimilarity;
 
     public boolean isBinaryFile = false;
 

@@ -36,6 +36,7 @@ public class FileChangeSetParsers {
     private static final String GIT_DIFF_B_SLASH_PATH = " b/";
     private static final String GIT_DIFF_FILENAMEINFO_IDENTIFIER = "diff --git ";
     private static final String GIT_DIFF_NEW_FILE_MODE = "new file mode ";
+    private static final String GIT_DIFF_RENAME_SIMILARITY_INDEX = "similarity index ";
 
     public static void parseGitDiffLineToFileChangeSet( String currentGitDiffLine, ScmFileChangeSet currentFileChangeSet ) {
 
@@ -71,6 +72,18 @@ public class FileChangeSetParsers {
     public static void parseNewFileModeLineToFileChangeSet( String newFileModeLine, ScmFileChangeSet currentFileChangeSet ) {
         String fileMode = newFileModeLine.substring( GIT_DIFF_NEW_FILE_MODE.length() );
         currentFileChangeSet.fileMode = fileMode.trim();
+    }
+
+    public static void parseRenameSimilarityToFileChangeSet( String similarityLine, ScmFileChangeSet currentFileChangeSet ) {
+        String similarity = similarityLine.substring( GIT_DIFF_RENAME_SIMILARITY_INDEX.length(), similarityLine.length() - "%".length() );
+
+        currentFileChangeSet.similarity_info_line = similarityLine;
+        try {
+            currentFileChangeSet.renameSimilarity = Integer.parseInt( similarity );
+        }
+        catch (Exception ex) {
+            currentFileChangeSet.renameSimilarity = 100;
+        }
     }
 
 }
