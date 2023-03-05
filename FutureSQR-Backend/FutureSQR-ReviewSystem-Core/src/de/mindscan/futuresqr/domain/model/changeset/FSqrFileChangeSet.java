@@ -41,8 +41,6 @@ public class FSqrFileChangeSet {
 
     // TODO refactor this.
     private String lazyBinaryFileInfo = "";
-    // TODO reactor this.
-    private String lazySimilarityInfo = "";
 
     // new
     private String fromPath = "";
@@ -56,6 +54,7 @@ public class FSqrFileChangeSet {
     // in case of a rename / move, we would also like to store from and to as well as the file similarity.
     private String renamedFrom = "";
     private String renamedTo = "";
+    private int renameSimilarity = 100;
 
     /**
      * 
@@ -82,7 +81,7 @@ public class FSqrFileChangeSet {
 
         this.renamedFrom = scmFileChangeSet.renamed_from;
         this.renamedTo = scmFileChangeSet.renamed_to;
-        this.lazySimilarityInfo = scmFileChangeSet.similarity_info_line;
+        this.renameSimilarity = scmFileChangeSet.renameSimilarity;
 
         scmFileChangeSet.fileContentChangeSet.stream().forEach( x -> fileContentChangeSet.add( translate( x ) ) );
     }
@@ -111,10 +110,6 @@ public class FSqrFileChangeSet {
         return renamedTo;
     }
 
-    public String getLazySimilarityInfo() {
-        return lazySimilarityInfo;
-    }
-
     public String getFromPath() {
         return fromPath;
     }
@@ -137,5 +132,9 @@ public class FSqrFileChangeSet {
 
     public String getFileAction() {
         return fileAction;
+    }
+
+    public int getRenameSimilarity() {
+        return renameSimilarity;
     }
 }

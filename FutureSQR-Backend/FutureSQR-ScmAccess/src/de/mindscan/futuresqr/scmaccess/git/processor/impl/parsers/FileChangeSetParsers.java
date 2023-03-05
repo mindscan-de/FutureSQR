@@ -77,7 +77,6 @@ public class FileChangeSetParsers {
     public static void parseRenameSimilarityToFileChangeSet( String similarityLine, ScmFileChangeSet currentFileChangeSet ) {
         String similarity = similarityLine.substring( GIT_DIFF_RENAME_SIMILARITY_INDEX.length(), similarityLine.length() - "%".length() );
 
-        currentFileChangeSet.similarity_info_line = similarityLine;
         try {
             currentFileChangeSet.renameSimilarity = Integer.parseInt( similarity );
         }

@@ -40,10 +40,6 @@ public class ScmFileChangeSet {
     public String fileCurrentRevId;
     public String fileParentRevId;
 
-    // -----------------------------
-    // TODO also process this better
-    // -----------------------------
-    public String similarity_info_line = "";
     public String renamed_from = "";
     public String renamed_to = "";
     public int renameSimilarity;
