@@ -108,6 +108,10 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
             return true;
         }
 
+        if (isUnassigned()) {
+            return false;
+        }
+
         List<FSqrReviewResult> nonApprovers = getReviewerResultsMap().values().stream().filter( result -> result.result != FSqrReviewResultState.Approved )
                         .collect( Collectors.toList() );
 
