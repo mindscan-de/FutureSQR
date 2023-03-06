@@ -204,6 +204,7 @@ def calculateDiffForSingleRevision(local_git_repo_path:str, revisionid:str):
     fileChangeSets = parse_log_full_changeset(log)
     
     diffData = {
+            'revisionId': "python_xxxx",
             'fileChangeSet': fileChangeSets
         }
     return diffData
