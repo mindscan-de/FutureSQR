@@ -36,6 +36,7 @@ import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
  */
 public class FSqrRevisionFullChangeSet {
 
+    private String revisionId = "";
     private List<FSqrFileChangeSet> fileChangeSet = new ArrayList<>();
 
     /**
@@ -46,6 +47,7 @@ public class FSqrRevisionFullChangeSet {
     }
 
     public FSqrRevisionFullChangeSet( ScmFullChangeSet scmFullChangeSet ) {
+        this.revisionId = scmFullChangeSet.revisionId;
         scmFullChangeSet.fileChangeSet.stream().forEach( x -> this.fileChangeSet.add( transform( x ) ) );
     }
 
@@ -55,6 +57,10 @@ public class FSqrRevisionFullChangeSet {
 
     public List<FSqrFileChangeSet> getFileChangeSet() {
         return fileChangeSet;
+    }
+
+    public String getRevisionId() {
+        return revisionId;
     }
 
 }
