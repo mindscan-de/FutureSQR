@@ -36,12 +36,15 @@ import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
 public class OutputSingleCommitFullChangeSet {
 
     public List<OutputSingleCommitFileChangeSet> fileChangeSet = new ArrayList<>();
+    public String revisionId = "";
 
     public OutputSingleCommitFullChangeSet() {
         // intentionally left blank
     }
 
     public OutputSingleCommitFullChangeSet( FSqrRevisionFullChangeSet fullChangeSet ) {
+        this.revisionId = fullChangeSet.getRevisionId();
+
         fullChangeSet.getFileChangeSet().stream().forEach( x -> fileChangeSet.add( new OutputSingleCommitFileChangeSet( x ) ) );
     }
 }
