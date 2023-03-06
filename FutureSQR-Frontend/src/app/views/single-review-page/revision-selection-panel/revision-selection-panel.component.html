@@ -1,11 +1,13 @@
 <div class="card mt-2">
 	<div class="card-header">
 		Select Revisions
+		<!-- TODO correct the number of selectedUiReviewRevisions -->
 		<span class="badge badge-secondary ml-2 " title="Number of selected revisions">{{currentUiReviewRevisions.length}}</span> / <span class="badge badge-secondary" title="Number of revisions in review">{{currentUiReviewRevisions.length}}</span>
 	</div>
 	<div class="card-body">
-		<a class="btn btn-sm btn-secondary text-warning m-1 small" title="Show all revisions" (click)="onShowAllRevisions()"><span class=""> &#x2605; show all</span></a>
-		<a class="btn btn-sm btn-secondary text-white m-1" title="Hide all revisions" (click)="onHideAllRevisions()"><span class="">&#x2605; hide all</span></a>
+		<!-- TODO: only show the relevant buttons. -->
+		<a class="btn btn-sm btn-secondary text-warning ml-1 mr-1 small" title="Show all revisions" (click)="onShowAllRevisions()"><span class=""> &#x2605; show all</span></a>
+		<a class="btn btn-sm btn-secondary text-white ml-1 mr-1 small" title="Hide all revisions" (click)="onHideAllRevisions()"><span class="">&#x2605; hide all</span></a>
 	</div>
 	
 	<ul class="list-group list-group-flush">
