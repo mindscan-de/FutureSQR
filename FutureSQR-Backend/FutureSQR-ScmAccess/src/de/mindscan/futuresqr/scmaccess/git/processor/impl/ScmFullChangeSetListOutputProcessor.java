@@ -34,6 +34,7 @@ import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutput;
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.git.processor.impl.parsers.ContentChangeSetParsers;
 import de.mindscan.futuresqr.scmaccess.git.processor.impl.parsers.FileChangeSetParsers;
+import de.mindscan.futuresqr.scmaccess.git.processor.impl.parsers.FullChangeSetParsers;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileChangeSet;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContentChangeSet;
 import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
@@ -131,8 +132,8 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
         Consumer<ScmFileChangeSet> fileChangeSetConsumer = scmFullChangeSet.fileChangeSet::add;
 
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER )) {
-            // TODO parse commit identifier
-            lineLexer.consumeCurrentLine();
+            String commitRevisionIdLine = lineLexer.consumeCurrentLine();
+            FullChangeSetParsers.parseCommitRevisionLineToFullChangeSet( commitRevisionIdLine, scmFullChangeSet );
         }
 
         // TODO: Author

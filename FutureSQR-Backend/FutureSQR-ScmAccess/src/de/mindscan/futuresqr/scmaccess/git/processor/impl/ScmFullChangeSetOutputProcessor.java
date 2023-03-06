@@ -32,6 +32,7 @@ import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutput;
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.git.processor.impl.parsers.ContentChangeSetParsers;
 import de.mindscan.futuresqr.scmaccess.git.processor.impl.parsers.FileChangeSetParsers;
+import de.mindscan.futuresqr.scmaccess.git.processor.impl.parsers.FullChangeSetParsers;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileChangeSet;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContentChangeSet;
 import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
@@ -59,6 +60,10 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
 
     private static final String GIT_DIFF_NO_NEWLINE_AT_END_OF_FILE_INDICATOR = "\\ No newline at end of file";
 
+    private static final String GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER = "commit ";
+    private static final String GIT_DIFF_NEWCOMMIT_AUTHOR_LINE_IDENTIFIER = "Author: ";
+    private static final String GIT_DIFF_NEWCOMMIT_DATE_LINE_IDENTIFIER = "Date: ";
+
     // TODO NEXT: two newlines are a separator for revision-Data / revision information.
     // TODO NEXT: a new line and a space on the next followed by newline is a newline in the file.
 
@@ -74,19 +79,21 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
      */
     @Override
     public ScmFullChangeSet transform( GitCLICommandOutput output ) {
-        ScmFullChangeSet scmFullChangeSet = new ScmFullChangeSet();
-
         // TODO: parse the commit + id /Author/date/message andmaybe also provide a list of full changesets .... instead of one.
 
         // TODO: analyze the standard changesets, UTF_8 ...
         // TODO: Actually each file can have it's own encoding, such that we must provide a scanner with different charset modes
         // this needs to be fixed longer term.
-        parseFullChangeSet( new String( output.getProcessOutput(), StandardCharsets.UTF_8 ), scmFullChangeSet.fileChangeSet::add );
+        ScmFullChangeSet result = parseFullChangeSet( new String( output.getProcessOutput(), StandardCharsets.UTF_8 ) );
 
-        return scmFullChangeSet;
+        return result;
     }
 
-    private void parseFullChangeSet( String string, Consumer<ScmFileChangeSet> fileChangeSetConsumer ) {
+    private ScmFullChangeSet parseFullChangeSet( String string ) {
+
+        ScmFullChangeSet scmFullChangeSet = new ScmFullChangeSet();
+        Consumer<ScmFileChangeSet> fileChangeSetConsumer = scmFullChangeSet.fileChangeSet::add;
+
         // System.out.println( string );
         // TODO NEXT: must split to new commit, we get the diff for each single commit in between. not what I expected.....
         // TODO NEXT: maybe a list of full change sets for each revision one entry in the list.
@@ -94,6 +101,17 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
         // TODO: Actually the split tokens should not be consumed from the string
         //       can to this later.
         GitScmLineBasedLexer lineLexer = new GitScmLineBasedLexer( string.split( "\\R" ) );
+
+        if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER )) {
+            String commitRevisionIdLine = lineLexer.consumeCurrentLine();
+            FullChangeSetParsers.parseCommitRevisionLineToFullChangeSet( commitRevisionIdLine, scmFullChangeSet );
+        }
+
+        // TODO: Author
+        // TODO: DATE
+        // TODO: NEWLINE / empty line
+        // TODO: commitmessage (starts with 4 spaces "    ")
+        // TODO: NEWLINE / empty line
 
         while (lineLexer.hasNextLine()) {
             String currentLine = lineLexer.peekCurrentLine();
@@ -111,7 +129,7 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
             }
         }
 
-        // first menge for file entry will trigger parseFileChangeSetEntry
+        return scmFullChangeSet;
     }
 
     private ScmFileChangeSet parseFileChangeSetEntry( GitScmLineBasedLexer lineLexer ) {
