@@ -37,16 +37,38 @@ public class UnifiedDiffCalculationV1 {
 
     // TODO: we want to build a FullChangeSet, which can be displayed 
     public FSqrRevisionFullChangeSet squashDiffs( List<FSqrRevisionFullChangeSet> intermediateRevisions, Collection<String> filterRevisions,
-                    Collection<String> selectedRevisions ) {
+                    List<String> selectedRevisions ) {
 
+        // --------------------
+        // 0 selected Revisions
+        // --------------------
         if (selectedRevisions.size() == 0) {
             return new FSqrRevisionFullChangeSet();
         }
 
+        // --------------------
+        // 1 selected Revisions
+        // --------------------
         if (selectedRevisions.size() == 1) {
-            // actually only one revison is selected, so we can just return the correct intermediate revision from intermediate Revisions List
-            // TODO: implement this particular strategy.
+            // actually only one revision is selected, so we can just return the correct intermediate revision from intermediate Revisions List
+            String selectedRevisionId = selectedRevisions.get( 0 );
+            if (selectedRevisionId == null) {
+                return new FSqrRevisionFullChangeSet();
+            }
+
+            for (FSqrRevisionFullChangeSet fullChangeSet : intermediateRevisions) {
+                if (selectedRevisionId.equals( fullChangeSet.getRevisionId() )) {
+                    return fullChangeSet;
+                }
+            }
+
+            // else - in case of unknown revision id
+            return new FSqrRevisionFullChangeSet();
         }
+
+        // -----------------------
+        // many selected Revisions
+        // -----------------------
 
         // intermediateRevisions contains all revisions in newest to oldest order
 
