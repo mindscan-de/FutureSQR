@@ -72,18 +72,25 @@ export class ReviewDiscussionPanelComponent implements OnInit {
 		let disussionText = this.formDiscussionText.value;
 		let currentUserId = this.currentUserService.getCurrentUserUUID();
 		
-		this.projectDataQueryBackend
-			.createThreadForReview(
-				this.activeProjectID, 
-				this.activeReviewID, 
-				currentUserId, 
-				disussionText).subscribe(
-					data => { 
-						that.retrieveDiscussion();
-						that.formDiscussionText.setValue("");
-					 },
-					error => {}
-			);
+		// make sure the string is not empy.
+		if(!this.isBlank(disussionText)) {
+			this.projectDataQueryBackend
+				.createThreadForReview(
+					this.activeProjectID, 
+					this.activeReviewID, 
+					currentUserId, 
+					disussionText).subscribe(
+						data => { 
+							that.retrieveDiscussion();
+							that.formDiscussionText.setValue("");
+						 },
+						error => {}
+				);
+		}
+	}
+	
+	isBlank(str) {
+    	return (!str || /^\s*$/.test(str));
 	}
 	
 	onThreadUpdated(event:string): void {
