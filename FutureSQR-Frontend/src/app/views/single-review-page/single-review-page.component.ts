@@ -70,6 +70,8 @@ export class SingleReviewPageComponent implements OnInit {
 			error => console.log(error)
 		);
 
+		// retrieve full combined diff 
+		// * but we want to make the filter also... 
 		this.projectDataQueryBackend.getReviewRevisionDiffFullChangeSet(this.activeProjectID,this.activeReviewID ).subscribe(
 			data => this.onDiffDataReceived(data),
 			error => {}
@@ -120,6 +122,14 @@ export class SingleReviewPageComponent implements OnInit {
 		
 		// we must encode the list as a single parameter
 		// we must manipulate the parame parameter map, so in the link can be given a configuration
+		
+		// TODO: apply the filter and then provide the new diffdata.		
+/*		this.projectDataQueryBackend.getReviewRevisionDiffFullChangeSet(this.activeProjectID,this.activeReviewID ).subscribe(
+			data => this.onDiffDataReceived(data),
+			error => {}
+		);
+*/		
+		
 	}
 	
 	onProjectInformationProvided(projectinformation:any):void {
