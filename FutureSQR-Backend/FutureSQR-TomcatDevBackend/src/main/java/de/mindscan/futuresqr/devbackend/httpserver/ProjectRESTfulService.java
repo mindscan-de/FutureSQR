@@ -288,6 +288,7 @@ public class ProjectRESTfulService {
         return gson.toJson( response );
     }
 
+    // maybe this should be moved into the getRevisionFullChangeset class.
     private List<FSqrRevision> getActiveRevisions( String selectedRevisions, List<FSqrRevision> revisionList ) {
         List<FSqrRevision> activeRevisions = new ArrayList<>();
 
