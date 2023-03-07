@@ -53,7 +53,7 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
     public void addReviewer( String reviewerId, String whoAdded ) {
         if (!hasReviewer( reviewerId )) {
             FSqrReviewResult reviewResult = new FSqrReviewResult( reviewerId );
-            long now = 0L;
+            long now = this.getCurrentTimestamp();
             reviewResult.assignReview( now );
             this.getReviewerResultsMap().put( reviewerId, reviewResult );
         }
@@ -69,8 +69,7 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
     // approveReview ( userid who )
     public void approveReview( String reviewerId ) {
         if (hasReviewer( reviewerId )) {
-            // TODO: calculate correct current timestamp;
-            long now = 0L;
+            long now = this.getCurrentTimestamp();
             this.getReviewerResultsMap().get( reviewerId ).approveReview( now );
         }
     }
@@ -78,8 +77,7 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
     // concernReview ( userid who )
     public void concernReview( String reviewerId ) {
         if (hasReviewer( reviewerId )) {
-            // TODO: calculate correct current timestamp;
-            long now = 0L;
+            long now = this.getCurrentTimestamp();
             this.getReviewerResultsMap().get( reviewerId ).concernOnReview( now );
         }
     }
@@ -87,10 +85,13 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
     // rollbackReview
     public void rollbackReview( String reviewerId ) {
         if (hasReviewer( reviewerId )) {
-            // TODO: calculate correct current timestamp;
-            long now = 0L;
+            long now = this.getCurrentTimestamp();
             this.getReviewerResultsMap().get( reviewerId ).rollbackReview( now );
         }
+    }
+
+    private long getCurrentTimestamp() {
+        return System.currentTimeMillis();
     }
 
     boolean hasReviewer( String reviewerId ) {
