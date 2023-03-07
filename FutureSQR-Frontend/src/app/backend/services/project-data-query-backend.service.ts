@@ -132,11 +132,13 @@ export class ProjectDataQueryBackendService {
 				.pipe(first());
 	}
 	
-	getReviewRevisionDiffFullChangeSet(projectid:string, reviewid:string) : Observable<BackendModelSingleCommitFullChangeSet> {
+	getReviewRevisionDiffFullChangeSet(projectid:string, reviewid:string, activatedRevisions:string="") : Observable<BackendModelSingleCommitFullChangeSet> {
 		var url = `/FutureSQR/rest/project/${projectid}/review/${reviewid}/diff`;
 		
+		let params = new HttpParams().set('selected',activatedRevisions);
+		
 		return this.httpClient
-				.get<BackendModelSingleCommitFullChangeSet>(url, {})
+				.get<BackendModelSingleCommitFullChangeSet>(url, { params: params })
 				.pipe(first());
 	}
 	
