@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PathParam;
@@ -264,14 +265,17 @@ public class ProjectRESTfulService {
     @javax.ws.rs.Path( "{projectid}/review/{reviewid}/diff" )
     @GET
     @Produces( MediaType.APPLICATION_JSON )
-    public String getCodeReviewUnifiedDiff( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId ) {
+    public String getCodeReviewUnifiedDiff( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId,
+                    @DefaultValue( "" ) @QueryParam( "selected" ) String selectedRevisions ) {
         if (projectDB.hasProjectLocalPath( projectId )) {
             FSqrCodeReviewRepositoryImpl reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
             FSqrCodeReview codeReview = reviewRepository.getReview( projectId, reviewId );
             List<FSqrRevision> revisionList = codeReview.getRevisions();
 
+            List<FSqrRevision> activeRevisions = getActiveRevisions( selectedRevisions, revisionList );
+
             FSqrScmProjectRevisionRepositoryImpl revisionRepository = FSqrApplication.getInstance().getServices().getRevisionRepository();
-            FSqrRevisionFullChangeSet fullChangeSet = revisionRepository.getRevisionFullChangeSet( projectId, revisionList );
+            FSqrRevisionFullChangeSet fullChangeSet = revisionRepository.getRevisionFullChangeSet( projectId, activeRevisions );
 
             OutputSingleCommitFullChangeSet response = new OutputSingleCommitFullChangeSet( fullChangeSet );
             Gson gson = new Gson();
@@ -282,6 +286,28 @@ public class ProjectRESTfulService {
 
         Gson gson = new Gson();
         return gson.toJson( response );
+    }
+
+    private List<FSqrRevision> getActiveRevisions( String selectedRevisions, List<FSqrRevision> revisionList ) {
+        List<FSqrRevision> activeRevisions = new ArrayList<>();
+
+        if (selectedRevisions.isEmpty()) {
+            return revisionList;
+        }
+
+        if (revisionList.size() > selectedRevisions.length()) {
+            return revisionList;
+        }
+
+        for (int i = 0; i < selectedRevisions.length(); i++) {
+            // a - active
+            // b - blank
+            if (selectedRevisions.charAt( i ) == 'a') {
+                activeRevisions.add( revisionList.get( i ) );
+            }
+        }
+
+        return activeRevisions;
     }
 
     @javax.ws.rs.Path( "{projectid}/review/{reviewid}/filelist" )
