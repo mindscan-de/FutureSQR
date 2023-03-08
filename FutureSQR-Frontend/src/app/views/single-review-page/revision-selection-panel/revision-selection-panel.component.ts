@@ -14,6 +14,7 @@ import { UiModelProjectRecentCommitRevision } from './uimodel/ui-model-project-r
 export class RevisionSelectionPanelComponent implements OnInit {
 
 	public currentUiReviewRevisions: UiModelProjectRecentCommitRevision [] = [];
+	public currentRevisionActivations: string = "";
 	
 
 	@Input() activeReviewData: BackendModelReviewData = new BackendModelReviewData();
@@ -26,7 +27,6 @@ export class RevisionSelectionPanelComponent implements OnInit {
 	}
 	
 	ngOnChanges(changes: SimpleChanges) : void {
-		
 		if(changes.reviewRevisions !== undefined) {
 			this.currentUiReviewRevisions = this.m2mTransform(changes.reviewRevisions.currentValue.reverse()); 
 		}
@@ -34,21 +34,36 @@ export class RevisionSelectionPanelComponent implements OnInit {
 	
 	onToggleSelection(revision:UiModelProjectRecentCommitRevision): void {
 		revision.isRevisionSelected = !revision.isRevisionSelected;
-		this.onRevisionActivationChanged.emit("fooooooooo");
+		this.onRevisionActivationChanged.emit(this.updateActivations());
 	}
 	
 	onShowAllRevisions(): void {
 		for(let i:number=0;i<this.currentUiReviewRevisions.length;i++) {
 			this.currentUiReviewRevisions[i].isRevisionSelected = true;
 		}
-		this.onRevisionActivationChanged.emit("showAll");
+		this.onRevisionActivationChanged.emit(this.updateActivations());
 	}
 	
 	onHideAllRevisions(): void {
 		for(let i:number=0;i<this.currentUiReviewRevisions.length;i++) {
 			this.currentUiReviewRevisions[i].isRevisionSelected = false;
 		}
-		this.onRevisionActivationChanged.emit("hideAll");
+		this.onRevisionActivationChanged.emit(this.updateActivations());
+	}
+	
+	updateActivations():string {
+		let activation:string = "";
+		for(let i:number=0;i<this.currentUiReviewRevisions.length;i++) {
+			if(this.currentUiReviewRevisions[i].isRevisionSelected) {
+				activation.concat("a");
+			}
+			else {
+				activation.concat("b");
+			}
+		}
+		
+		this.currentRevisionActivations = activation;
+		return activation;
 	}
 	
 	// todo: convert to ui model
