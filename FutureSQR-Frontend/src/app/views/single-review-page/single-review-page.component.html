@@ -5,22 +5,9 @@
 		<!-- [this should be exracted into some compoent?] -->
 		<app-revision-selection-panel [activeReviewData]="activeReviewData" [reviewRevisions]="uiRevisionInformation" (onRevisionSelectionChanged)="onRevisionSelectionChanged($event)"></app-revision-selection-panel>		
 
-		<!-- this should be either part of the revision/selection panel, or some kind of combined component. -->			
-		<div class="row mt-2" >
-			<div class="col">
-				<ul class="list-group">
-					<li class="list-group-item" *ngFor="let fileChangeSet of uiFileChangeSetsNew">
-						<div class="row">
-							<div class="col">
-								<span class="float-right"><button type="button" class="btn btn-light btn-sm" (click)="openSideBySideDialog(fileChangeSet)">Side by Side</button></span>				
-								<app-file-change-set-single-diff [fileChangeSet]="fileChangeSet"></app-file-change-set-single-diff>
-							</div>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</div>
+		<app-full-review-change-set-panel [activeReviewChangeSet]="uiFileChangeSetsNew"></app-full-review-change-set-panel>
 		<!-- [/this should be exracted into some compoent?] -->
+		
 
 		<app-recent-review-actions-log></app-recent-review-actions-log>
 

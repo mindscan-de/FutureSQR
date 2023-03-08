@@ -22,9 +22,6 @@ import { BackendModelProjectRecentCommitRevision } from '../../backend/model/bac
 import { UiReviewFileInformation } from '../../commonui/uimodel/ui-review-file-information';
 import { UiFileChangeSetModel } from '../../commonui/uimodel/ui-file-change-set-model';
 
-// UI-Dialog
-import { SingleRevisionSideBySideDialogComponent } from '../../commonui/single-revision-side-by-side-dialog/single-revision-side-by-side-dialog.component';
-
 // DIRTY HACK - make sure the BPE encode is initialized early....
 import { BpeEncoderProviderService } from '../../incubator/bpe/bpe-encoder-provider.service';
 
@@ -135,23 +132,6 @@ export class SingleReviewPageComponent implements OnInit {
 	
 	onProjectInformationProvided(projectinformation:any):void {
 		
-	}
-	
-	// open side by side dialog
-	openSideBySideDialog( filechangeSet:UiFileChangeSetModel ):void {
-		const modalref = this.modalService.open(  SingleRevisionSideBySideDialogComponent,  {centered: true, ariaLabelledBy: 'modal-basic-title', size:<any>'fs'}    )
-		
-		modalref.componentInstance.setAllChangeSets(this.uiFileChangeSetsNew);
-		modalref.componentInstance.setSelectedFileChangeSet(filechangeSet);
-		
-		modalref.result.then((result) => {
-			result.subscribe(
-				data => {} ,
-				error => {}
-			)
-		}, (reason) => {
-		  // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-	 	});
 	}
 	
 	onReviewRevisionInformation(data): void {
