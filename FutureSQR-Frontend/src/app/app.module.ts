@@ -62,6 +62,7 @@ import { OtherFileRevisionsPanelComponent } from './views/single-file-revision-p
 import { OtherFilesInRevisionPanelComponent } from './views/single-file-revision-page/other-files-in-revision-panel/other-files-in-revision-panel.component';
 import { ProjectBranchesPageComponent } from './views/project-branches-page/project-branches-page.component';
 import { ProjectBranchRecentCommitsPageComponent } from './views/project-branch-recent-commits-page/project-branch-recent-commits-page.component';
+import { FullReviewChangeSetPanelComponent } from './views/single-review-page/full-review-change-set-panel/full-review-change-set-panel.component';
 
 @NgModule({
   declarations: [
@@ -114,7 +115,8 @@ import { ProjectBranchRecentCommitsPageComponent } from './views/project-branch-
     OtherFileRevisionsPanelComponent,
     OtherFilesInRevisionPanelComponent,
     ProjectBranchesPageComponent,
-    ProjectBranchRecentCommitsPageComponent
+    ProjectBranchRecentCommitsPageComponent,
+    FullReviewChangeSetPanelComponent
   ],
   imports: [
     BrowserModule,
