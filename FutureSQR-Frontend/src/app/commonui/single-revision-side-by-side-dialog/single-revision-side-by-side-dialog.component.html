@@ -1,22 +1,17 @@
 <div class="modal-header">
-  <h4 class="modal-title">Change</h4>
-  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Dismiss')">
-	<span aria-hidden="true">&times;</span>
-  </button>
-</div>
-
-<div class="modal-body">
-	<div class="col">
-		<div class="row">
-			<span>
-				<button class="btn btn-sm btn-secondary" [disabled]="!prevEnabled" (click)="onNavLeftClicked()">&lt;</button>
-			</span>
-			<span class="ml-2 mr-2"><span class="mr-1">{{currentShownFileUiIndex}}</span>/<span class="ml-1">{{numberOfFiles}}</span> </span>
-			<span>
-				<button class="btn btn-sm btn-secondary" [disabled]="!nextEnabled" (click)="onNavRightClicked()">&gt;</button>
-			</span>
-		</div>
-	</div>  
+	<h5 class="modal-title">
+		<span>
+			<button class="btn btn-sm btn-secondary" [disabled]="!prevEnabled" (click)="onNavLeftClicked()">&lt;</button>
+		</span>
+		<span class="ml-2 mr-2"><span class="mr-1">{{currentShownFileUiIndex}}</span>/<span class="ml-1">{{numberOfFiles}}</span> </span>
+		<span>
+			<button class="btn btn-sm btn-secondary" [disabled]="!nextEnabled" (click)="onNavRightClicked()">&gt;</button>
+		</span>
+  
+	</h5>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Dismiss')">
+		<span aria-hidden="true">&times;</span>
+ 	</button>
 </div>
 
 <div class="modal-body">
