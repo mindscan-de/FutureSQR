@@ -56,6 +56,11 @@ public class OutputReviewModel {
     // Either "Open", "Closed", "Deleted"
     public String reviewLifecycleState = "";
 
+    // some time stamps
+    public long closedTimestamp = 0L;
+    public long openedTimestamp = 0L;
+    public long deletedTimestamp = 0L;
+
     /**
      * 
      */
@@ -84,6 +89,10 @@ public class OutputReviewModel {
 
         this.reviewFkProjectId = codeReview.getProjectId();
         this.reviewLifecycleState = codeReview.getCurrentReviewState().name();
+
+        this.closedTimestamp = codeReview.getClosedTimestamp();
+        this.openedTimestamp = codeReview.getOpenedTimestamp();
+        this.deletedTimestamp = codeReview.getDeletedTimestamp();
     }
 
     private void convertReviewerResults( Set<Entry<String, FSqrReviewResult>> results ) {
