@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
 // Backend Services
 import { ProjectDataQueryBackendService } from '../../backend/services/project-data-query-backend.service';
 
