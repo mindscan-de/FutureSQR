@@ -18,7 +18,7 @@ export class RevisionSelectionPanelComponent implements OnInit {
 
 	@Input() activeReviewData: BackendModelReviewData = new BackendModelReviewData();
 	@Input() reviewRevisions: BackendModelProjectRecentCommitRevision[] = [];	
-	@Output() onRevisionSelectionChanged: EventEmitter<any> = new EventEmitter<any>();
+	@Output() onRevisionActivationChanged: EventEmitter<any> = new EventEmitter<any>();
 
 	constructor() { }
 
@@ -34,21 +34,21 @@ export class RevisionSelectionPanelComponent implements OnInit {
 	
 	onToggleSelection(revision:UiModelProjectRecentCommitRevision): void {
 		revision.isRevisionSelected = !revision.isRevisionSelected;
-		this.onRevisionSelectionChanged.emit("fooooooooo");
+		this.onRevisionActivationChanged.emit("fooooooooo");
 	}
 	
 	onShowAllRevisions(): void {
 		for(let i:number=0;i<this.currentUiReviewRevisions.length;i++) {
 			this.currentUiReviewRevisions[i].isRevisionSelected = true;
 		}
-		this.onRevisionSelectionChanged.emit("showAll");
+		this.onRevisionActivationChanged.emit("showAll");
 	}
 	
 	onHideAllRevisions(): void {
 		for(let i:number=0;i<this.currentUiReviewRevisions.length;i++) {
 			this.currentUiReviewRevisions[i].isRevisionSelected = false;
 		}
-		this.onRevisionSelectionChanged.emit("hideAll");
+		this.onRevisionActivationChanged.emit("hideAll");
 	}
 	
 	// todo: convert to ui model

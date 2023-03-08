@@ -107,7 +107,7 @@ export class SingleReviewPageComponent implements OnInit {
 		this.uiFileInformations = fileInformations;
 	}
 	
-	onRevisionSelectionChanged(eventdata:any):void {
+	onRevisionActivationChanged(eventdata:string):void {
 		console.log("Guess what");
 		console.log(eventdata);
 		
