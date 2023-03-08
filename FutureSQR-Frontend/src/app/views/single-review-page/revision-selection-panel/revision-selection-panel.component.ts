@@ -15,6 +15,7 @@ export class RevisionSelectionPanelComponent implements OnInit {
 
 	public currentUiReviewRevisions: UiModelProjectRecentCommitRevision [] = [];
 	public currentRevisionActivations: string = "";
+	public currentRevisionsActivated: number = 0;
 	
 
 	@Input() activeReviewData: BackendModelReviewData = new BackendModelReviewData();
@@ -54,10 +55,12 @@ export class RevisionSelectionPanelComponent implements OnInit {
 	
 	updateActivations():void {
 		let activation:string = "";
+		let activeRevisionCount:number = 0;
 
 		for(let i:number=0;i<this.currentUiReviewRevisions.length;i++) {
 			if(this.currentUiReviewRevisions[i].isRevisionSelected) {
 				activation=activation.concat("a");
+				activeRevisionCount+=1;
 			}
 			else {
 				activation=activation.concat("b");
@@ -65,6 +68,7 @@ export class RevisionSelectionPanelComponent implements OnInit {
 		}
 		
 		this.currentRevisionActivations = activation;
+		this.currentRevisionsActivated = activeRevisionCount;
 		this.onRevisionActivationChanged.emit(activation);
 	}
 	
