@@ -48,8 +48,7 @@ export class SingleReviewPageComponent implements OnInit {
 		private navigationBarService : NavigationBarService,
 		// actually this is not nice here, anyhow.... DIRTY HACK.
 		private encoder: BpeEncoderProviderService,
-		private route: ActivatedRoute, 
-		private modalService: NgbModal 
+		private route: ActivatedRoute 
 	) { }
 
 	ngOnInit(): void {

@@ -2,11 +2,11 @@
 	<div class="col-xl-9">
 		<app-basic-review-information [activeReviewData]="activeReviewData" [activeProjectID]="activeProjectID" [activeReviewID]="activeReviewID"></app-basic-review-information>
 
-		<!-- [this should be exracted into some compoent?] -->
+		<!-- [this should be extracted into some compoent?] -->
 		<app-revision-selection-panel [activeReviewData]="activeReviewData" [reviewRevisions]="uiRevisionInformation" (onRevisionSelectionChanged)="onRevisionSelectionChanged($event)"></app-revision-selection-panel>		
 
 		<app-full-review-change-set-panel [activeReviewChangeSet]="uiActiveChangeSetReviewDiff"></app-full-review-change-set-panel>
-		<!-- [/this should be exracted into some compoent?] -->
+		<!-- [/this should be extracted into some compoent?] -->
 		
 
 		<app-recent-review-actions-log></app-recent-review-actions-log>
