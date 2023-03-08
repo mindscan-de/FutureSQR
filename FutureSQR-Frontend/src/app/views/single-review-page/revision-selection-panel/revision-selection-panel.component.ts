@@ -19,7 +19,7 @@ export class RevisionSelectionPanelComponent implements OnInit {
 
 	@Input() activeReviewData: BackendModelReviewData = new BackendModelReviewData();
 	@Input() reviewRevisions: BackendModelProjectRecentCommitRevision[] = [];	
-	@Output() onRevisionActivationChanged: EventEmitter<any> = new EventEmitter<any>();
+	@Output() onRevisionActivationChanged: EventEmitter<string> = new EventEmitter<string>();
 
 	constructor() { }
 
@@ -28,42 +28,44 @@ export class RevisionSelectionPanelComponent implements OnInit {
 	
 	ngOnChanges(changes: SimpleChanges) : void {
 		if(changes.reviewRevisions !== undefined) {
-			this.currentUiReviewRevisions = this.m2mTransform(changes.reviewRevisions.currentValue.reverse()); 
+			this.currentUiReviewRevisions = this.m2mTransform(changes.reviewRevisions.currentValue.reverse());
+			this.updateActivations();
 		}
 	}
 	
 	onToggleSelection(revision:UiModelProjectRecentCommitRevision): void {
 		revision.isRevisionSelected = !revision.isRevisionSelected;
-		this.onRevisionActivationChanged.emit(this.updateActivations());
+		this.updateActivations();
 	}
 	
 	onShowAllRevisions(): void {
 		for(let i:number=0;i<this.currentUiReviewRevisions.length;i++) {
 			this.currentUiReviewRevisions[i].isRevisionSelected = true;
 		}
-		this.onRevisionActivationChanged.emit(this.updateActivations());
+		this.updateActivations();
 	}
 	
 	onHideAllRevisions(): void {
 		for(let i:number=0;i<this.currentUiReviewRevisions.length;i++) {
 			this.currentUiReviewRevisions[i].isRevisionSelected = false;
 		}
-		this.onRevisionActivationChanged.emit(this.updateActivations());
+		this.updateActivations();
 	}
 	
-	updateActivations():string {
+	updateActivations():void {
 		let activation:string = "";
+
 		for(let i:number=0;i<this.currentUiReviewRevisions.length;i++) {
 			if(this.currentUiReviewRevisions[i].isRevisionSelected) {
-				activation.concat("a");
+				activation=activation.concat("a");
 			}
 			else {
-				activation.concat("b");
+				activation=activation.concat("b");
 			}
 		}
 		
 		this.currentRevisionActivations = activation;
-		return activation;
+		this.onRevisionActivationChanged.emit(activation);
 	}
 	
 	// todo: convert to ui model
