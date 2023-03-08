@@ -26,6 +26,7 @@
 package de.mindscan.futuresqr.domain.databases;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -119,16 +120,23 @@ public class FSqrCodeReviewRepositoryImpl {
             projectMap.values().stream().filter( r -> r.getCurrentReviewState() == FSqrCodeReviewLifecycleState.Open ).forEach( r -> resultList.add( r ) );
         }
 
+        Comparator<FSqrCodeReview> comparing = Comparator.comparing( FSqrCodeReview::getReviewId );
+        resultList.sort( comparing );
+
         return resultList;
     }
 
     public List<FSqrCodeReview> selectRecentlyClosedReviews( String projectId ) {
         ArrayList<FSqrCodeReview> resultList = new ArrayList<>();
 
+        // TODO: filter by close date e.g. 24 hours
         if (projectIdReviewIdToCodeReviewRepository.containsKey( projectId )) {
             Map<String, FSqrCodeReview> projectMap = projectIdReviewIdToCodeReviewRepository.get( projectId );
             projectMap.values().stream().filter( r -> r.getCurrentReviewState() == FSqrCodeReviewLifecycleState.Closed ).forEach( r -> resultList.add( r ) );
         }
+
+        Comparator<FSqrCodeReview> comparing = Comparator.comparing( FSqrCodeReview::getReviewId );
+        resultList.sort( comparing );
 
         return resultList;
     }
