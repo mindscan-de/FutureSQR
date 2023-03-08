@@ -64,12 +64,6 @@ export class SingleReviewPageComponent implements OnInit {
 			error => console.log(error)
 		);
 
-//		// retrieve full combined diff / (show all) 
-//		this.projectDataQueryBackend.getReviewRevisionDiffFullChangeSet(this.activeProjectID,this.activeReviewID ).subscribe(
-//			data => this.onDiffDataReceived(data),
-//			error => {}
-//		);
-		
 		// query some revision information for this particular review
 		this.projectDataQueryBackend.getReviewSimpleRevisionInformationList(this.activeProjectID,this.activeReviewID).subscribe(
 			data => this.onReviewRevisionInformation(data),
