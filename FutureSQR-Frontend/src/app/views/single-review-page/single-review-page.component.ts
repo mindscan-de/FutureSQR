@@ -64,13 +64,11 @@ export class SingleReviewPageComponent implements OnInit {
 			error => console.log(error)
 		);
 
-		// retrieve full combined diff 
-		// * but we want to make the filter also... 
-		// maybe extract the diff view, and maybe it should be  
-		this.projectDataQueryBackend.getReviewRevisionDiffFullChangeSet(this.activeProjectID,this.activeReviewID ).subscribe(
-			data => this.onDiffDataReceived(data),
-			error => {}
-		);
+//		// retrieve full combined diff / (show all) 
+//		this.projectDataQueryBackend.getReviewRevisionDiffFullChangeSet(this.activeProjectID,this.activeReviewID ).subscribe(
+//			data => this.onDiffDataReceived(data),
+//			error => {}
+//		);
 		
 		// query some revision information for this particular review
 		this.projectDataQueryBackend.getReviewSimpleRevisionInformationList(this.activeProjectID,this.activeReviewID).subscribe(
@@ -107,9 +105,9 @@ export class SingleReviewPageComponent implements OnInit {
 		this.uiFileInformations = fileInformations;
 	}
 	
-	onRevisionActivationChanged(eventdata:string):void {
+	onRevisionActivationChanged(activations:string):void {
 		console.log("Guess what");
-		console.log(eventdata);
+		console.log(activations);
 		
 		// TODO: reload unified diff data from server, depending on the current revision selection.
 		// envdata should be a list of revisions enabled.
@@ -118,12 +116,10 @@ export class SingleReviewPageComponent implements OnInit {
 		// we must encode the list as a single parameter
 		// we must manipulate the parame parameter map, so in the link can be given a configuration
 		
-		// TODO: apply the filter and then provide the new diffdata.		
-/*		this.projectDataQueryBackend.getReviewRevisionDiffFullChangeSet(this.activeProjectID,this.activeReviewID ).subscribe(
+		this.projectDataQueryBackend.getReviewRevisionDiffFullChangeSet(this.activeProjectID,this.activeReviewID, activations ).subscribe(
 			data => this.onDiffDataReceived(data),
 			error => {}
 		);
-*/		
 		
 	}
 	
