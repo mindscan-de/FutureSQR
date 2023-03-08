@@ -72,6 +72,7 @@ export class SingleReviewPageComponent implements OnInit {
 
 		// retrieve full combined diff 
 		// * but we want to make the filter also... 
+		// maybe extract the diff view, and maybe it should be  
 		this.projectDataQueryBackend.getReviewRevisionDiffFullChangeSet(this.activeProjectID,this.activeReviewID ).subscribe(
 			data => this.onDiffDataReceived(data),
 			error => {}

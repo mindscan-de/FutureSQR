@@ -1,9 +1,11 @@
 <div class="row">
 	<div class="col-xl-9">
 		<app-basic-review-information [activeReviewData]="activeReviewData" [activeProjectID]="activeProjectID" [activeReviewID]="activeReviewID"></app-basic-review-information>
-	
+
+		<!-- [this should be exracted into some compoent?] -->
 		<app-revision-selection-panel [activeReviewData]="activeReviewData" [reviewRevisions]="uiRevisionInformation" (onRevisionSelectionChanged)="onRevisionSelectionChanged($event)"></app-revision-selection-panel>		
-			
+
+		<!-- this should be either part of the revision/selection panel, or some kind of combined component. -->			
 		<div class="row mt-2" >
 			<div class="col">
 				<ul class="list-group">
@@ -18,6 +20,7 @@
 				</ul>
 			</div>
 		</div>
+		<!-- [/this should be exracted into some compoent?] -->
 
 		<app-recent-review-actions-log></app-recent-review-actions-log>
 
