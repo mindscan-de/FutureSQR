@@ -8,24 +8,19 @@
 		<!-- TODO: only show the relevant buttons. -->
 		<a class="btn btn-sm btn-secondary text-warning ml-1 mr-1 small" title="Show all revisions" (click)="onShowAllRevisions()"><span class=""> &#x2605; show all</span></a>
 		<a class="btn btn-sm btn-secondary text-white ml-1 mr-1 small" title="Hide all revisions" (click)="onHideAllRevisions()"><span class="">&#x2605; hide all</span></a>
-	</div>
-	
-	<ul class="list-group list-group-flush">
-		<li class="list-group-item borderless">
-			<div class="h4">
-				<ul class="list-group list-group-horizontal m-1  border-0">
-					<ng-container *ngFor="let revision of currentUiReviewRevisions">
-						<li class="list-group-item m-0 p-0  border-0" *ngIf="!revision.isRoot">
-							<b class="text-secondary" title="revision(s) skipped" *ngIf="!revision.isDirectChild">&hellip;</b>
-							<b class="text-secondary" title="direct parent" *ngIf="revision.isDirectChild">&mdash;</b>
-						</li>
-						<li class="list-group-item m-0 p-0  border-0" title="{{revision.message}} - p({{revision.parents}})">
-							<a class="btn btn-sm btn-secondary text-white m-0 p-1"  (click)="onToggleSelection(revision)" *ngIf="!revision.isRevisionSelected"><span class="">&#x2605;</span></a>
-							<a class="btn btn-sm btn-secondary text-warning m-0 p-1" (click)="onToggleSelection(revision)" *ngIf="revision.isRevisionSelected"><span class="">&#x2605;</span></a>
-						</li>
-					</ng-container>
-				</ul>
-			</div>
-		</li>
-	</ul>
+		<hr>
+		<div class="h4">
+			<ul class="list-group list-group-horizontal m-1  border-0">
+				<ng-container *ngFor="let revision of currentUiReviewRevisions">
+					<li class="list-group-item m-0 p-0  border-0" *ngIf="!revision.isRoot">
+						<b class="text-secondary" title="revision(s) skipped" *ngIf="!revision.isDirectChild">&hellip;</b>
+						<b class="text-secondary" title="direct parent" *ngIf="revision.isDirectChild">&mdash;</b>
+					</li>
+					<li class="list-group-item m-0 p-0  border-0" title="{{revision.message}} - p({{revision.parents}})">
+						<a class="btn btn-sm btn-secondary text-white m-0 p-1"  (click)="onToggleSelection(revision)" *ngIf="!revision.isRevisionSelected"><span class="">&#x2605;</span></a>
+						<a class="btn btn-sm btn-secondary text-warning m-0 p-1" (click)="onToggleSelection(revision)" *ngIf="revision.isRevisionSelected"><span class="">&#x2605;</span></a>
+					</li>
+				</ng-container>
+			</ul>
+		</div>
 </div>
