@@ -37,7 +37,7 @@ export class SingleReviewPageComponent implements OnInit {
 	public uiFileInformations: UiReviewFileInformation[] = [];  
 
     public uiModelSingleRevisionDiffs: BackendModelSingleCommitFullChangeSet = new BackendModelSingleCommitFullChangeSet();
-	public uiFileChangeSetsNew: UiFileChangeSetModel[] = [];
+	public uiActiveChangeSetReviewDiff: UiFileChangeSetModel[] = [];
 		
 	public uiRevisionInformation: BackendModelProjectRecentCommitRevision[] = [];
 	
@@ -100,7 +100,7 @@ export class SingleReviewPageComponent implements OnInit {
 	onDiffDataReceived( diffData: BackendModelSingleCommitFullChangeSet ):void {
 		this.uiModelSingleRevisionDiffs = diffData;
 		
-		this.uiFileChangeSetsNew=diffData.fileChangeSet.map(
+		this.uiActiveChangeSetReviewDiff=diffData.fileChangeSet.map(
 				(item)=> TransformChangeSet.fromBackendFileChangeSetToUiFileChangeSet(item)
 			);
 		
