@@ -256,7 +256,7 @@ def getSuggestedReviewersForReview(projectid:str, reviewid:str):
 @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/threads", response_class=JSONResponse)
 def getReviewThreadsInformation(projectid:str, reviewid:str):
     threadlist = reviewThreadsDB.selectThreadsForReview(projectid, reviewid)
-    if len(threadlist) is 0:
+    if len(threadlist) == 0:
         return {'allreviewthreads':[]}
     
     result = [ threadsDB.selectFullThread(thread_uuid) for thread_uuid in threadlist]
