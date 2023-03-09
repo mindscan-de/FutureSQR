@@ -179,7 +179,7 @@ def getParticularRevisionsForFile(projectid:str, filepath:str):
     return result
 
 @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/diff", response_class=JSONResponse)
-def getProjectReviewDiff(projectid:str, reviewid:str):
+def getProjectReviewDiff(projectid:str, reviewid:str, selection:str=""):
     if projectDB.hasProjectLocalPath(projectid):
         reviewData = getReviewData(projectid, reviewid)
         fullScmPath = systemConfiguration.calculateScmCacheFolder(projectDB.getProjectLocalPath(projectid))
