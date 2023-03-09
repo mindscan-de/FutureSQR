@@ -48,7 +48,11 @@ def createNewReview(projectDB, projectId, revisionInformation) :
         REVIEW_REVIEWERRESULTS : {},
         # 
         REVIEW_FK_PROJECT_ID : projectId,
-        REVIEW_LIFECYLCE_STATE : REVIEW_LIFECYCLE_STATE_OPEN
+        REVIEW_LIFECYLCE_STATE : REVIEW_LIFECYCLE_STATE_OPEN,
+        #
+        REVIEW_TIMESTAMP_CLOSED : 0,
+        REVIEW_TIMESTAMP_OPENED : 0,
+        REVIEW_TIMESTAMP_DELETED : 0
         }
     
     return review

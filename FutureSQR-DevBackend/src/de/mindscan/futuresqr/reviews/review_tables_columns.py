@@ -39,6 +39,10 @@ REVIEW_REVIEWERRESULTS             = 'reviewReviewersResults'
 REVIEW_FK_PROJECT_ID               = 'reviewFkProjectId'
 REVIEW_LIFECYLCE_STATE             = 'reviewLifecycleState'
 
+REVIEW_TIMESTAMP_CLOSED            = 'closedTimestamp'
+REVIEW_TIMESTAMP_OPENED            = 'openedTimestamp'
+REVIEW_TIMESTAMP_DELETED           = 'deletedTimestamp'
+
 REVIEW_LIFECYCLE_STATE_OPEN        = 'Open'
 REVIEW_LIFECYCLE_STATE_CLOSED      = 'Closed'
 REVIEW_LIFECYCLE_STATE_DELETED     = 'Deleted'
