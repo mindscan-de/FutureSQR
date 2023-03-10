@@ -113,7 +113,12 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
             FullChangeSetParsers.parseCommitAuthorToFullChangeSet( commitAuthorLine, scmFullChangeSet );
         }
 
-        // TODO: DATE
+        // read and parse DATE
+        if ((lineLexer.peekCurrentLine().startsWith( GIT_DIFF_NEWCOMMIT_DATE_LINE_IDENTIFIER ))) {
+            String commitDateLine = lineLexer.consumeCurrentLine();
+            FullChangeSetParsers.parseCommitDateToFullChangeSet( commitDateLine, scmFullChangeSet );
+        }
+
         // TODO: NEWLINE / empty line
         // TODO: commitmessage (starts with 4 spaces "    ")
         // TODO: NEWLINE / empty line
