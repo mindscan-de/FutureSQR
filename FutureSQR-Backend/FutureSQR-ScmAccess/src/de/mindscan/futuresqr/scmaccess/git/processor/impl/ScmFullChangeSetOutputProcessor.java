@@ -114,14 +114,25 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
         }
 
         // read and parse DATE
-        if ((lineLexer.peekCurrentLine().startsWith( GIT_DIFF_NEWCOMMIT_DATE_LINE_IDENTIFIER ))) {
+        if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_NEWCOMMIT_DATE_LINE_IDENTIFIER )) {
             String commitDateLine = lineLexer.consumeCurrentLine();
             FullChangeSetParsers.parseCommitDateToFullChangeSet( commitDateLine, scmFullChangeSet );
         }
 
         // TODO: NEWLINE / empty line
-        // TODO: commitmessage (starts with 4 spaces "    ")
-        // TODO: NEWLINE / empty line
+        if ("".equals( lineLexer.peekCurrentLine() )) {
+            lineLexer.consumeCurrentLine();
+
+            while (!"".equals( lineLexer.peekCurrentLine() )) {
+                // TODO: commitmessage (starts with 4 spaces "    ")
+                // TODO: NEWLINE / empty line
+                String commentline = lineLexer.consumeCurrentLine();
+                System.out.println( "comment: '" + commentline + "'" );
+            }
+
+            // consume empty line
+            lineLexer.consumeCurrentLine();
+        }
 
         while (lineLexer.hasNextLine()) {
             String currentLine = lineLexer.peekCurrentLine();
