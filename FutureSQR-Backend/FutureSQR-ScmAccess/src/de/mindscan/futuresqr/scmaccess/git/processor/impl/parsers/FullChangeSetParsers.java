@@ -33,10 +33,18 @@ import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
 public class FullChangeSetParsers {
 
     private static final String GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER = "commit ";
+    private static final String GIT_DIFF_NEWCOMMIT_AUTHOR_LINE_IDENTIFIER = "Author: ";
 
     public static void parseCommitRevisionLineToFullChangeSet( String commitRevisionIdLine, ScmFullChangeSet scmFullChangeSet ) {
-        if (!commitRevisionIdLine.startsWith( GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER )) {
-            scmFullChangeSet.revisionId = commitRevisionIdLine.substring( "commit ".length() );
+        if (commitRevisionIdLine.startsWith( GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER )) {
+            scmFullChangeSet.revisionId = commitRevisionIdLine.substring( GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER.length() );
+        }
+    }
+
+    public static void parseCommitAuthorToFullChangeSet( String commitAuthorLine, ScmFullChangeSet scmFullChangeSet ) {
+        System.out.println( "Authorline: '" + commitAuthorLine + "'" );
+        if (commitAuthorLine.startsWith( GIT_DIFF_NEWCOMMIT_AUTHOR_LINE_IDENTIFIER )) {
+
         }
     }
 
