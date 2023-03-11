@@ -38,8 +38,4 @@ public class ScmDiffLine {
         this.line = content;
     }
 
-    public String asUnifiedLine() {
-        return diffType.toString( this.line );
-    }
-
 }

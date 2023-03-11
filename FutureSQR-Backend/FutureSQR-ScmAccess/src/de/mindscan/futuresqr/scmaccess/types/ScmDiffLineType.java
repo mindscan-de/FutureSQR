@@ -30,30 +30,11 @@ package de.mindscan.futuresqr.scmaccess.types;
  */
 public enum ScmDiffLineType {
 
-    ADDED {
-        @Override
-        public String toString( String line ) {
-            return "+" + line;
-        }
-    },
+    ADDED,
 
-    DELETED {
-        @Override
-        public String toString( String line ) {
-            return "-" + line;
-        }
-    },
+    DELETED,
 
-    UNMODIFIED {
-        @Override
-        public String toString( String line ) {
-            return " " + line;
-        }
-    }
-
-    ;
-
-    abstract public String toString( String line );
+    UNMODIFIED;
 
     public static ScmDiffLineType toType( String line ) {
         if (line == null || line.length() == 0) {
