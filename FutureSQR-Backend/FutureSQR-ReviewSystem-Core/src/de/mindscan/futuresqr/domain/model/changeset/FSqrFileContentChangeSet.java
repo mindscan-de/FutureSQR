@@ -35,7 +35,7 @@ import de.mindscan.futuresqr.scmaccess.types.ScmFileContentChangeSet;
  */
 public class FSqrFileContentChangeSet {
 
-    private List<String> unifiedDiffData;
+    private List<FSqrDiffLine> unifiedDiffData;
 
     private int diffLeftLineCountStart = 1;
     private int diffLeftLineCountDelta = 0;
@@ -49,8 +49,7 @@ public class FSqrFileContentChangeSet {
     public FSqrFileContentChangeSet( ScmFileContentChangeSet contentChangeSet ) {
         this.unifiedDiffData = new ArrayList<>();
 
-        // TODO: refactor this later.
-        contentChangeSet.unifiedDiffLines.forEach( line -> this.unifiedDiffData.add( line.asUnifiedLine() ) );
+        contentChangeSet.unifiedDiffLines.forEach( line -> this.unifiedDiffData.add( new FSqrDiffLine( line ) ) );
 
         this.diffLeftLineCountDelta = contentChangeSet.diffLeftLineCountDelta;
         this.diffLeftLineCountStart = contentChangeSet.diffLeftLineCountStart;
@@ -59,7 +58,7 @@ public class FSqrFileContentChangeSet {
 
     }
 
-    public List<String> getUnifiedDiffData() {
+    public List<FSqrDiffLine> getUnifiedDiffData() {
         return unifiedDiffData;
     }
 

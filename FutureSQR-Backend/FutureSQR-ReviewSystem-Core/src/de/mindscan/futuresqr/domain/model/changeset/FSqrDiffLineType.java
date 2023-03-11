@@ -32,11 +32,30 @@ import de.mindscan.futuresqr.scmaccess.types.ScmDiffLineType;
  */
 public enum FSqrDiffLineType {
 
-    ADDED,
+    ADDED {
+        @Override
+        public String asRawDiffLine( String line ) {
+            return "+" + line;
+        }
+    },
 
-    DELETED,
+    DELETED {
+        @Override
+        public String asRawDiffLine( String line ) {
+            return "-" + line;
+        }
+    },
 
-    UNMODIFIED;
+    UNMODIFIED {
+        @Override
+        public String asRawDiffLine( String line ) {
+            return " " + line;
+        }
+    }
+
+    ;
+
+    abstract public String asRawDiffLine( String line );
 
     public static FSqrDiffLineType toType( ScmDiffLineType diffType ) {
         switch (diffType) {

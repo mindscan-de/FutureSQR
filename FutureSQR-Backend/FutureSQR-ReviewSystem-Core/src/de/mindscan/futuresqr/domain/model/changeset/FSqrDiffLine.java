@@ -48,4 +48,8 @@ public class FSqrDiffLine {
         return type;
     }
 
+    public String asUnifiedLineContent() {
+        return type.asRawDiffLine( line );
+    }
+
 }

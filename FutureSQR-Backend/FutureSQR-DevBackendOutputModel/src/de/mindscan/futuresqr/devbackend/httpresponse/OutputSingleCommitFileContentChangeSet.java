@@ -47,7 +47,9 @@ public class OutputSingleCommitFileContentChangeSet {
     }
 
     public OutputSingleCommitFileContentChangeSet( FSqrFileContentChangeSet contentChangeSet ) {
-        this.line_diff_data = contentChangeSet.getUnifiedDiffData();
+        this.line_diff_data = new ArrayList<>();
+
+        contentChangeSet.getUnifiedDiffData().forEach( uline -> line_diff_data.add( uline.asUnifiedLineContent() ) );
 
         this.diffLeftLineCountDelta = contentChangeSet.getDiffLeftLineCountDelta();
         this.diffLeftLineCountStart = contentChangeSet.getDiffLeftLineCountStart();
