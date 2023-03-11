@@ -43,8 +43,11 @@ public class ScmFullChangeSet {
 
     // TODO: branch name?
 
-    // TODO: commitMessage
-    public String revisionCommitMessage;
+    // commitMessage
+    public String revisionCommitMessageFull;
+    public String revisionCommitMessageHead;
+    public String revisionCOmmitMessageDetails;
 
     public ArrayList<ScmFileChangeSet> fileChangeSet = new ArrayList<>();
+
 }
