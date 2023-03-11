@@ -65,6 +65,7 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
     private static final String GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER = "commit ";
     private static final String GIT_DIFF_NEWCOMMIT_AUTHOR_LINE_IDENTIFIER = "Author: ";
     private static final String GIT_DIFF_NEWCOMMIT_DATE_LINE_IDENTIFIER = "Date: ";
+    private static final String GIT_DIFF_FOUR_SAPCE_INDENT = "    ";
 
     // TODO NEXT: two newlines are a separator for revision-Data / revision information.
     private static final String GIT_DIFF_SECTION_SPLITTER = "\n\n";
@@ -148,19 +149,27 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
             FullChangeSetParsers.parseCommitDateToFullChangeSet( commitDateLine, scmFullChangeSet );
         }
 
-        // TODO: NEWLINE / empty line
+        // read commit message.
         if ("".equals( lineLexer.peekCurrentLine() )) {
+            List<String> commitLines = new ArrayList<>();
+
+            // consume empty line
             lineLexer.consumeCurrentLine();
 
             while (!"".equals( lineLexer.peekCurrentLine() )) {
-                // TODO: commitmessage (starts with 4 spaces "    ")
-                // TODO: NEWLINE / empty line
                 String commentline = lineLexer.consumeCurrentLine();
-                System.out.println( "comment: '" + commentline + "'" );
+
+                if (commentline.startsWith( GIT_DIFF_FOUR_SAPCE_INDENT )) {
+                    // remove 4 space indent
+                    commitLines.add( commentline.substring( GIT_DIFF_FOUR_SAPCE_INDENT.length() ) );
+                }
             }
 
             // consume empty line
             lineLexer.consumeCurrentLine();
+
+            String commitMessage = String.join( "\n", commitLines );
+            FullChangeSetParsers.parseCommitMessageToFullChangeSet( commitMessage, scmFullChangeSet );
         }
 
         while (lineLexer.hasNextLine() && !lineLexer.peekCurrentLine().startsWith( GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER )) {
