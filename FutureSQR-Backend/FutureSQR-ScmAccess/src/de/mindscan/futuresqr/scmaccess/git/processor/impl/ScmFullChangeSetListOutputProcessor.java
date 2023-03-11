@@ -68,9 +68,6 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
     private static final String GIT_DIFF_FOUR_SAPCE_INDENT = "    ";
     private static final String GIT_DIFF_EMPTY_LINE = "";
 
-    // TODO NEXT: two newlines are a separator for revision-Data / revision information.
-    private static final String GIT_DIFF_SECTION_SPLITTER = "\n\n";
-
     // TODO NEXT: a new line and a space on the next followed by newline is a newline in the file.
 
     /**
@@ -103,9 +100,6 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
         // prepare line lexxer
         GitScmLineBasedLexer lineLexer = new GitScmLineBasedLexer( string.split( "\\R" ) );
 
-        // TODO NEXT: must split to new commit, we get the diff for each single commit in between. not what I expected.....
-        // TODO NEXT: maybe a list of full change sets for each revision one entry in the list.
-
         while (lineLexer.hasNextLine()) {
             String currentLine = lineLexer.peekCurrentLine();
 
@@ -126,10 +120,6 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
     }
 
     private ScmFullChangeSet parseFullChangeSet( GitScmLineBasedLexer lineLexer ) {
-        // Parse the revision, then parse file until next revision - initialize another revision continue to parse the 
-        // revision
-
-        // TODO: parse the commit + id /Author/date/message andmaybe also provide a list of full changesets .... instead of one.
         ScmFullChangeSet scmFullChangeSet = new ScmFullChangeSet();
         Consumer<ScmFileChangeSet> fileChangeSetConsumer = scmFullChangeSet.fileChangeSet::add;
 

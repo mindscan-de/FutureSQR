@@ -68,7 +68,6 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
     private static final String GIT_DIFF_FOUR_SAPCE_INDENT = "    ";
     private static final String GIT_DIFF_EMPTY_LINE = "";
 
-    // TODO NEXT: two newlines are a separator for revision-Data / revision information.
     // TODO NEXT: a new line and a space on the next followed by newline is a newline in the file.
 
     /**
@@ -97,10 +96,6 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
 
         ScmFullChangeSet scmFullChangeSet = new ScmFullChangeSet();
         Consumer<ScmFileChangeSet> fileChangeSetConsumer = scmFullChangeSet.fileChangeSet::add;
-
-        // System.out.println( string );
-        // TODO NEXT: must split to new commit, we get the diff for each single commit in between. not what I expected.....
-        // TODO NEXT: maybe a list of full change sets for each revision one entry in the list.
 
         // TODO: Actually the split tokens should not be consumed from the string
         //       can to this later.
