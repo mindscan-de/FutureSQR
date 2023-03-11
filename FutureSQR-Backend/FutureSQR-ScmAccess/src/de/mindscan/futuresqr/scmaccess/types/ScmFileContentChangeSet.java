@@ -38,8 +38,5 @@ public class ScmFileContentChangeSet {
     public int diffRightLineCountStart = 1;
     public int diffRightLineCountDelta = 0;
 
-    // TODO: will be reworked and renamed and such later...
-    public ArrayList<String> line_diff_data = new ArrayList<>();
-
     public ArrayList<ScmDiffLine> unifiedDiffLines = new ArrayList<>();
 }

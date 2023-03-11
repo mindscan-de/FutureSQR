@@ -35,6 +35,8 @@ import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.git.processor.impl.parsers.ContentChangeSetParsers;
 import de.mindscan.futuresqr.scmaccess.git.processor.impl.parsers.FileChangeSetParsers;
 import de.mindscan.futuresqr.scmaccess.git.processor.impl.parsers.FullChangeSetParsers;
+import de.mindscan.futuresqr.scmaccess.types.ScmDiffLine;
+import de.mindscan.futuresqr.scmaccess.types.ScmDiffLineType;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileChangeSet;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContentChangeSet;
 import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
@@ -310,13 +312,17 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
                 break;
             }
             else {
-                // TODO: it either starts with a '+', '-', ' ' this should be handled and split into a different Array, 
-                // where add, remove and unchanged info is stored for each index. 
-                contentChangeset.line_diff_data.add( currentLine );
+                contentChangeset.unifiedDiffLines.add( toScmDiffLine( currentLine ) );
             }
         }
 
         contentChangeSetConsumer.accept( contentChangeset );
+    }
+
+    private ScmDiffLine toScmDiffLine( String currentLine ) {
+        String lineContent = currentLine.length() > 0 ? currentLine.substring( 1 ) : currentLine;
+
+        return new ScmDiffLine( ScmDiffLineType.toType( currentLine ), lineContent );
     }
 
 }
