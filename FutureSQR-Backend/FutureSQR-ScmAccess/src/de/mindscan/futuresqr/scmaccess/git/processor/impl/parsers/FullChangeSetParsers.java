@@ -56,4 +56,18 @@ public class FullChangeSetParsers {
         }
     }
 
+    public static void parseCommitMessageToFullChangeSet( String commitMessage, ScmFullChangeSet scmFullChangeSet ) {
+        scmFullChangeSet.revisionCommitMessageFull = commitMessage;
+
+        String[] splitCommitMessage = commitMessage.split( "\\R", 2 );
+
+        if (splitCommitMessage.length > 0) {
+            scmFullChangeSet.revisionCommitMessageHead = splitCommitMessage[0];
+        }
+
+        if (splitCommitMessage.length > 1) {
+            scmFullChangeSet.revisionCOmmitMessageDetails = splitCommitMessage[1];
+        }
+    }
+
 }
