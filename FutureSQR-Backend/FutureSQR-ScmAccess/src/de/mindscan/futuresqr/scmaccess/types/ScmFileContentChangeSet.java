@@ -41,4 +41,5 @@ public class ScmFileContentChangeSet {
     // TODO: will be reworked and renamed and such later...
     public ArrayList<String> line_diff_data = new ArrayList<>();
 
+    public ArrayList<ScmDiffLine> unifiedDiffLines = new ArrayList<>();
 }
