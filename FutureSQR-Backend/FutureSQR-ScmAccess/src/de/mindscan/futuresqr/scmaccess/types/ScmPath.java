@@ -32,17 +32,11 @@ public class ScmPath {
 
     private String path;
 
-    /**
-     * 
-     */
     public ScmPath( String path ) {
         this.path = path;
 
     }
 
-    /**
-     * @return the path
-     */
     public String getPath() {
         return path;
     }

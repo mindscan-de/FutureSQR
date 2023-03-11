@@ -37,9 +37,6 @@ public class ScmRepository {
         this( "" );
     }
 
-    /**
-     * 
-     */
     public ScmRepository( String localRepositoryPath ) {
         this.localRepositoryPath = localRepositoryPath;
     }

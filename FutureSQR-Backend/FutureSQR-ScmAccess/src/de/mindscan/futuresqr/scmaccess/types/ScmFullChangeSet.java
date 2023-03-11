@@ -32,7 +32,6 @@ import java.util.ArrayList;
  */
 public class ScmFullChangeSet {
 
-    // TODO: commitID 
     public String revisionId;
 
     // TODO: authorName / AuthorId / AuthorEmail
