@@ -54,4 +54,19 @@ public enum ScmDiffLineType {
     ;
 
     abstract public String toString( String line );
+
+    public static ScmDiffLineType toType( String line ) {
+        if (line == null || line.length() == 0) {
+            return UNMODIFIED;
+        }
+
+        switch (line.charAt( 0 )) {
+            case '+':
+                return ADDED;
+            case '-':
+                return DELETED;
+            default:
+                return UNMODIFIED;
+        }
+    }
 }
