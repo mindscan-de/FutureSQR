@@ -46,7 +46,7 @@ public class ScmFullChangeSet {
     // commitMessage
     public String revisionCommitMessageFull;
     public String revisionCommitMessageHead;
-    public String revisionCOmmitMessageDetails;
+    public String revisionCommitMessageDetails;
 
     public ArrayList<ScmFileChangeSet> fileChangeSet = new ArrayList<>();
 

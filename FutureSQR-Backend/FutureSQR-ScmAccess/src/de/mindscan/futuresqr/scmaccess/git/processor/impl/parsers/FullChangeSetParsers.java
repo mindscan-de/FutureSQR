@@ -66,7 +66,7 @@ public class FullChangeSetParsers {
         }
 
         if (splitCommitMessage.length > 1) {
-            scmFullChangeSet.revisionCOmmitMessageDetails = splitCommitMessage[1];
+            scmFullChangeSet.revisionCommitMessageDetails = splitCommitMessage[1];
         }
     }
 
