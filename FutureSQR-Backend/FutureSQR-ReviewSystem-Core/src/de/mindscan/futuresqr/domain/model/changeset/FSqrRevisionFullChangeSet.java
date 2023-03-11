@@ -39,6 +39,10 @@ public class FSqrRevisionFullChangeSet {
     private String revisionId = "";
     private List<FSqrFileChangeSet> fileChangeSet = new ArrayList<>();
 
+    private String commitMessageDetails;
+    private String commitMessageFull;
+    private String commitMessageHead;
+
     /**
      * 
      */
@@ -48,6 +52,10 @@ public class FSqrRevisionFullChangeSet {
 
     public FSqrRevisionFullChangeSet( ScmFullChangeSet scmFullChangeSet ) {
         this.revisionId = scmFullChangeSet.revisionId;
+        this.commitMessageDetails = scmFullChangeSet.revisionCommitMessageDetails;
+        this.commitMessageFull = scmFullChangeSet.revisionCommitMessageFull;
+        this.commitMessageHead = scmFullChangeSet.revisionCommitMessageHead;
+
         scmFullChangeSet.fileChangeSet.stream().forEach( x -> this.fileChangeSet.add( transform( x ) ) );
     }
 
@@ -61,6 +69,18 @@ public class FSqrRevisionFullChangeSet {
 
     public String getRevisionId() {
         return revisionId;
+    }
+
+    public String getCommitMessageDetails() {
+        return commitMessageDetails;
+    }
+
+    public String getCommitMessageFull() {
+        return commitMessageFull;
+    }
+
+    public String getCommitMessageHead() {
+        return commitMessageHead;
     }
 
 }
