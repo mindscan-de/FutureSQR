@@ -66,6 +66,7 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
     private static final String GIT_DIFF_NEWCOMMIT_AUTHOR_LINE_IDENTIFIER = "Author: ";
     private static final String GIT_DIFF_NEWCOMMIT_DATE_LINE_IDENTIFIER = "Date: ";
     private static final String GIT_DIFF_FOUR_SAPCE_INDENT = "    ";
+    private static final String GIT_DIFF_EMPTY_LINE = "";
 
     // TODO NEXT: two newlines are a separator for revision-Data / revision information.
     // TODO NEXT: a new line and a space on the next followed by newline is a newline in the file.
@@ -123,13 +124,13 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
         }
 
         // read commit message.
-        if ("".equals( lineLexer.peekCurrentLine() )) {
+        if (GIT_DIFF_EMPTY_LINE.equals( lineLexer.peekCurrentLine() )) {
             List<String> commitLines = new ArrayList<>();
 
             // consume empty line
             lineLexer.consumeCurrentLine();
 
-            while (!"".equals( lineLexer.peekCurrentLine() )) {
+            while (!GIT_DIFF_EMPTY_LINE.equals( lineLexer.peekCurrentLine() )) {
                 String commentline = lineLexer.consumeCurrentLine();
 
                 if (commentline.startsWith( GIT_DIFF_FOUR_SAPCE_INDENT )) {
@@ -285,7 +286,7 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
             if (currentLine.startsWith( GIT_DIFF_NO_NEWLINE_AT_END_OF_FILE_INDICATOR )) {
                 //intentionally left blank;
             }
-            else if (currentLine.equals( "" )) {
+            else if (GIT_DIFF_EMPTY_LINE.equals( currentLine )) {
                 // actually we are done with this file.
                 break;
             }
