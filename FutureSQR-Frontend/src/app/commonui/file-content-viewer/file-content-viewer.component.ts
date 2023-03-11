@@ -24,7 +24,7 @@ export class FileContentViewerComponent implements OnInit {
 		'htm':'htmlmixed',
 		'MD':'markdown',
 		'py':'python',
-		'java':'clike',
+		'java':'text/x-java',
 		'ts':'javascript'
 	};
 	@Input() revisionFileContent: BackendModelRevisionFileContent = new BackendModelRevisionFileContent();
