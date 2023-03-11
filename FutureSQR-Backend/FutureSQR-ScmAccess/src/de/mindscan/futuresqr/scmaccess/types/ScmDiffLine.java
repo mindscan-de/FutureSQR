@@ -33,4 +33,9 @@ public class ScmDiffLine {
     public ScmDiffLineType diffType;
     public String line;
 
+    public ScmDiffLine( ScmDiffLineType type, String content ) {
+        this.diffType = type;
+        this.line = content;
+    }
+
 }
