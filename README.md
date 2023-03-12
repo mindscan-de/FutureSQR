@@ -9,22 +9,22 @@ For more screen shots please visit the [Screenshot Gallery](Gallery/README.md)
 Well, it caught me off guard, that Jetbrains decided to discontinue their product at the beginning of 2022. Upsource was used for a bunch 
 of reasons - the main ones were: easy to use, easy to administrate and most importantly easy to integrate into a workflow.
 
-Unlike many people believe, there are some good reasons to not only look at Git and their  feature-branch and pull-request system. 
-Despite Git being a quite useful SCM system, people tend to forget, that there are other SCM systems out there for a reason. We tend to
-forget, that Git was developed for a reason, namely to develop a monolithic system, in a distributed manner, where you don't trust the contributors,
-while at the same time, to not discourage them to provide useful improvements to the code base. This is one undeniable strength of Git.
-It solved a certain type and style of collaboration in an open source environment, while at the same time avoiding "contributions" of malicious contributors 
-or actors. 
+Unlike many developers believe, there are some good reasons to not only look at Git and its  feature-branch and pull-request system. 
+Despite Git being a quite useful SCM system, developers tend to forget, that there are other SCM systems out there for a reason. We tend to
+forget, that Git was developed for a reason, namely to develop a monolithic system, in a distributed manner, where you don't have trust in the contributors,
+while at the same time, to not discourage contributors to provide useful improvements to the code base. This is one undeniable strength of Git.
+It solved a certain type and style of collaboration for an open source environment, while at the same time avoiding "contributions" of malicious contributors 
+or actors.
 
-Another still important SCM system is SVN and there are good reasons to prefer it over other SCM systems. Like in cases where you combine
+Another still important SCM system is SVN and there are also good reasons to prefer it over other SCM systems. Like in cases where you combine
 SCM with configuration management and want the configuration management also being version managed as well.
 
 Therefore we can conclude there are good reasons to support Git as well as SVN for a code review tool. 
 
-Another important thing is that there are different types of collaborations possible. In case of a corporate environment, there is an intrinsic
-alignment between members of a team, which is essentially done by the working contract. Therefore a SCM system which is enforcing some sort of 
+Another important thing is, that there are different types of possible collaborations. In case of a corporate environment, there is an intrinsic
+alignment between members of a team, which is essentially done by the working contract. Therefore a SCM system which enforces some sort of 
 synchronization process (which is useful in an open source environment) might be considered inefficient in a corporate environment. The
-current most efficient type of collaboration in development is trunk-based-development. You can find enough sources supporting this claim,
+current most efficient type of collaboration in software development is trunk-based-development. You can find enough sources supporting this claim,
 don't let me spoon feed you. In a corporate environment trunk-based-development is considered SOTA (state of the art). So now the big 
 question, if trunk based development is more efficient compared to feature-branches, do we need to use a SCM supporting feature branches, or is this just
 a nice-to-have feature (remember in a corporate setting)?
@@ -34,14 +34,14 @@ requires extra synchronization and creates extra bottlenecks and creates extra w
 delivery of a feature or a bugfix becomes somehow unpredictable. 
 
 There is a need for a code-review system which can still work post commit, which adds no extra synchronization between people and where
-people are not forced to wait for each other. An improvement of the source code as a result of a code review can still be applied later on trunk
-and can be delivered to the customer. There is no need to punish people by rejecting their code, in an environment where they are paid for
+people aren't forced to wait for each other. An improvement of the source code as a result of a code review, can still be applied later on trunk
+and can always be delivered to the customer. There is no need to punish people by rejecting their code, in an environment where they are paid for
 creating this code in the first place. When there is a need to improve the code, it can still be done. Each time the code is not integrated to trunk, the 
-non integrated code looses value. The longer code waits for its integration on trunk, the more likely it is that errors post integration are found
-late - even though it is reviewed.
+non integrated code looses value and creates additional costs. The longer code waits for its integration on trunk, the more likely it is that errors post integration are found
+late - even though it might be reviewed.
 
-Therefore a demand for a code-review tool what is able to handle at least SVN and GIT and what is supporting trunk-based development
-at its core still exists. This project will hopefully provide a solution which is as easy to use, as the tool which I still regard highly despite being
+Therefore a demand for a code-review tool, which is able to handle at least SVN and GIT and which is supporting trunk-based development
+at its core, still exists. This project will hopefully provide a solution which is as easy to use, as the tool which I still regard highly despite being
 discontinued. It still is and was a good, simple and efficient tool - Thank you for this.
 
 Anyhow, as the world progresses, there is still demand for a good, simple and efficient code review tool. Let's make it!
@@ -50,12 +50,25 @@ Anyhow, as the world progresses, there is still demand for a good, simple and ef
 
 Attention: The implementation of a Proof of Concept has been started.
 
-Also there is a python based developer backend - but it has all issues like hard coded values in it and has no error handling and such.
+As of for July 2022 speaking, there is a python based developer backend - but it has all issues like hard coded values in it and has no error handling and such.
 This particular python developer backend doesn't persist any of the data, and only provides in-memory-storage until service restart. 
-The current state after about 26 weeks of working on it in my spare time, can be seen in the [Screenshot Gallery](Gallery/README.md)
+The current state after about 26 weeks of working on it in my spare time, can be seen in the [Screenshot Gallery](Gallery/README.md) (December 2022)
 
-As for now speaking I'm currently in the process to develop a java code base to access git and to implement a domain model and its logic 
+As of for January 2023 speaking, I'm currently in the process to develop a java code base to access git and to implement a domain model and its logic 
 for the code reviews. Such that a future java based web server can then use this core domain model to provide the content for the UI.
+
+As of for March 2023 speaking, the current goal is to refactor the "tracer bullet" java-backend, that it enables features like dynamic 
+diffs (pick multiple revisions in a code review and then show a combined diff of them).
+
+Outlook as of for April to June 2023 speaking, the refactoring is also applied to clean up and clarify the in-memory-model
+of "reviewsystem-core" to enable the persistence. A persistence will then itself enable many other features and architecture 
+changes, so that the backend can be transitioned from a pull system (read revision data from repository at http-request) to 
+a push system (store revision data in a database by different SCM crawlers), where we can switch the dependencies of the 
+reviewsystem-core from direct scm-access to fsqr-persistence. The detection and handling of branches will be implemented 
+before implementing the persistence component.
+
+Highlighting the diffs, such that the diff allows optimal human-readability is on the menu as well, but this problem is 
+quite hard to solve, that particular solution will take some time.
 
 ## Principles of Development
 
@@ -87,11 +100,12 @@ Idea is, that "Kuukou" can be reused for other applications as well, because thi
 
 
 ## Next Points of Action
-* User management
-* Rights Management
-* Access Management
-* Transition to a non developer Backend
-* Build a SOTA Diff-Algorithm and presentation, which allows to combine multiple singe revisions into one human readable diff - this is the hard part for now
+
+* User management (can wait)
+* Rights Management (can wait)
+* Access Management (can wait)
+* Transition to a non developer Backend (in the works)
+* Build a SOTA Diff-Algorithm and presentation, which allows to combine multiple singe revisions into one human readable diff - this is the hard part for now (hard, butin the works)
 * Attach to review
 * Combine File list if they share the same path / sort by path (m2m transformer)
 ----
