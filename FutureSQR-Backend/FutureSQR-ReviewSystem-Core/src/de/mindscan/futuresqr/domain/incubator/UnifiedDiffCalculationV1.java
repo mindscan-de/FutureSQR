@@ -78,24 +78,38 @@ public class UnifiedDiffCalculationV1 {
 
     private FSqrRevisionFullChangeSet calculateSquashedDiff( List<FSqrRevisionFullChangeSet> intermediateRevisions, List<String> selectedRevisions ) {
         // intermediateRevisions contains all revisions in newest to oldest order
+        boolean isFirstInitialized = false;
 
         FSqrRevisionFullChangeSet squashedDiff = new FSqrRevisionFullChangeSet();
-        // TODO initialize squashed diff with latest selected revision
 
-        // filterRevisions are those which are part of the review (usually codeReview.getRevisions) (maybe we don't need this here...)
+        // MAYBE?: filterRevisions are those which are part of the review (usually codeReview.getRevisions)
 
         // we will create a list of paths, which are part of the touchedFiles in the review
         // we want to figure out, which files are touched in filtreRevisions, and selectedRevisions
         Collection<String> filesOfInterestInSelection = collectFilesForSelectedRevisions( intermediateRevisions, selectedRevisions );
 
-        for (FSqrRevisionFullChangeSet fSqrRevisionFullChangeSet : intermediateRevisions) {
+        for (FSqrRevisionFullChangeSet fullChangeSet : intermediateRevisions) {
             // if the intermediate revision is part of the selected revisions, then we actually must process this change set
-            if (selectedRevisions.contains( fSqrRevisionFullChangeSet.getRevisionId() )) {
+            if (selectedRevisions.contains( fullChangeSet.getRevisionId() )) {
+                if (!isFirstInitialized) {
+                    // TODO: initialize squashedDiff (revisionid, etc pp) (using (fullChangeSet))
+                    // TODO: initialize squashed diff with latest selected revision
+                    isFirstInitialized = true;
+                }
+
+                // TODO update squashedDiff with diffs of fullChangeSet, using some kind of include strategy...
+
                 // we must add this revision to the squashedDiff
                 // check if this is the most recent revision -> if so, we must initialize squashedDiff
 
                 // now calculate for each file a new 
                 // calculate the diffs which must be actively ignored
+            }
+            else {
+                if (isFirstInitialized) {
+                    // TODO update squashedDiff with diffs of fullchangeset, using some kind of ignore strategy
+                    // maybe we want to update the line numbers, such that we can match other lines....?
+                }
             }
         }
 
