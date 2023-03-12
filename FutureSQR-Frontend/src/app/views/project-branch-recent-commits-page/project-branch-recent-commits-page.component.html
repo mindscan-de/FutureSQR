@@ -1,6 +1,8 @@
 <div class="row">
 	<div class="col-xl-9 mb-4">
 		<app-basic-project-information [activeProjectId]="activeProjectID" (revisionHistoryUpdated)="refreshCommitHistory($event)"></app-basic-project-information>
+		
+		<!-- TODO: The revisions are they available without branching info, o do we need branch-aware components? -->
 	</div>
 	<div class="col-xl-3">
 		<app-personal-user-feed></app-personal-user-feed>
