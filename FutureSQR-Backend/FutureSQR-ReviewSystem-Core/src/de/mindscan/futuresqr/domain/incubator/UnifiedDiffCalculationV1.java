@@ -113,6 +113,11 @@ public class UnifiedDiffCalculationV1 {
             }
         }
 
+        // TODO: another strategy would be to now filter all fullchangesets according to the files and group by revision from newest to oldest.
+        // not sure right now, this is a bit of a brainfuck...
+
+        // maybe a n square algorithm, for each file separately, and then use a merger for algorithm...
+
         return intermediateRevisions.get( 0 );
     }
 
