@@ -2,7 +2,11 @@
 	<div class="col-xl-9 mb-4">
 		<app-basic-project-information [activeProjectId]="activeProjectID" (revisionHistoryUpdated)="refreshCommitHistory($event)"></app-basic-project-information>
 		
-		<!-- TODO: The revisions are they available without branching info, o do we need branch-aware components? -->
+		<!-- 
+		TODO: The revisions are they available without branching info, o do we need branch-aware components?
+		A simple try with just the commit id won't provide the diff data. therefore the data has to be handled differently...
+		therefore the links to the simple diff page would not work properly. this can either be solved using a database or by separate dialog.
+		-->
 	</div>
 	<div class="col-xl-3">
 		<app-personal-user-feed></app-personal-user-feed>
