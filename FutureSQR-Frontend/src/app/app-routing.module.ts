@@ -33,7 +33,7 @@ const routes: Routes = [
 	// show a list of branches known for a selecte project - where you can change default branch etc.
 	{ path:':projectid/branches', component:ProjectBranchesPageComponent, canActivate: [AuthNGuardService] },
 	
-	// TODO: show the commits for the selected branch of the selected project 
+	// show the commits for the selected branch of the selected project 
 	{ path:':projectid/branch/:branchname', component:ProjectBranchRecentCommitsPageComponent, canActivate: [AuthNGuardService] },
 	
 	// show a review for a certain project
