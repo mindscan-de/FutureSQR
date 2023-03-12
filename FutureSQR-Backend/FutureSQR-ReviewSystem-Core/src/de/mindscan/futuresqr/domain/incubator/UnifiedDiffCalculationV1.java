@@ -80,18 +80,25 @@ public class UnifiedDiffCalculationV1 {
         // intermediateRevisions contains all revisions in newest to oldest order
 
         FSqrRevisionFullChangeSet squashedDiff = new FSqrRevisionFullChangeSet();
-        // TODO initialize squshed Diff with latest selected revision
+        // TODO initialize squashed diff with latest selected revision
 
         // filterRevisions are those which are part of the review (usually codeReview.getRevisions) (maybe we don't need this here...)
 
         // we will create a list of paths, which are part of the touchedFiles in the review
+        // we want to figure out, which files are touched in filtreRevisions, and selectedRevisions
         Collection<String> filesOfInterestInSelection = collectFilesForSelectedRevisions( intermediateRevisions, selectedRevisions );
 
-        // now calculate for each file a new 
+        for (FSqrRevisionFullChangeSet fSqrRevisionFullChangeSet : intermediateRevisions) {
+            // if the intermediate revision is part of the selected revisions, then we actually must process this change set
+            if (selectedRevisions.contains( fSqrRevisionFullChangeSet.getRevisionId() )) {
+                // we must add this revision to the squashedDiff
+                // check if this is the most recent revision -> if so, we must initialize squashedDiff
 
-        // calculate the diffs which must be actively ignored
+                // now calculate for each file a new 
+                // calculate the diffs which must be actively ignored
+            }
+        }
 
-        // we want to figure out, which files are touched in filtreRevisions, and selectedRevisions
         return intermediateRevisions.get( 0 );
     }
 
