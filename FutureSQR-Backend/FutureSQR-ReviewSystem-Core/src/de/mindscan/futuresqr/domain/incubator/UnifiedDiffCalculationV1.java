@@ -26,7 +26,9 @@
 package de.mindscan.futuresqr.domain.incubator;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
 
@@ -69,19 +71,38 @@ public class UnifiedDiffCalculationV1 {
         // -----------------------
         // many selected Revisions
         // -----------------------
+        FSqrRevisionFullChangeSet squashedDiff = calculateSquashedDiff( intermediateRevisions, selectedRevisions );
 
+        return squashedDiff;
+    }
+
+    private FSqrRevisionFullChangeSet calculateSquashedDiff( List<FSqrRevisionFullChangeSet> intermediateRevisions, List<String> selectedRevisions ) {
         // intermediateRevisions contains all revisions in newest to oldest order
 
-        // filterRevisions are those which are part of the review (usually codeReview.getRevisions)
+        FSqrRevisionFullChangeSet squashedDiff = new FSqrRevisionFullChangeSet();
+        // TODO initialize squshed Diff with latest selected revision
+
+        // filterRevisions are those which are part of the review (usually codeReview.getRevisions) (maybe we don't need this here...)
 
         // we will create a list of paths, which are part of the touchedFiles in the review
+        Collection<String> filesOfInterestInSelection = collectFilesForSelectedRevisions( intermediateRevisions, selectedRevisions );
 
-        // now calculate for each file the 
+        // now calculate for each file a new 
 
         // calculate the diffs which must be actively ignored
 
         // we want to figure out, which files are touched in filtreRevisions, and selectedRevisions
-
         return intermediateRevisions.get( 0 );
+    }
+
+    private Collection<String> collectFilesForSelectedRevisions( List<FSqrRevisionFullChangeSet> intermediateRevisions, List<String> selectedRevisions ) {
+        Set<String> files = new HashSet<>();
+
+        for (FSqrRevisionFullChangeSet changeset : intermediateRevisions) {
+            changeset.getFileChangeSet().forEach( fcs -> files.add( fcs.getToPath() ) );
+            changeset.getFileChangeSet().forEach( fcs -> files.add( fcs.getFromPath() ) );
+        }
+
+        return files;
     }
 }
