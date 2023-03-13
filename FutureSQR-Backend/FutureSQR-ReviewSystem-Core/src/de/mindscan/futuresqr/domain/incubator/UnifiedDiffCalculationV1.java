@@ -71,12 +71,12 @@ public class UnifiedDiffCalculationV1 {
         // -----------------------
         // many selected Revisions
         // -----------------------
-        FSqrRevisionFullChangeSet squashedDiff = calculateSquashedDiff( intermediateRevisions, selectedRevisions );
+        FSqrRevisionFullChangeSet squashedDiff = calculateSquashedDiffv1( intermediateRevisions, selectedRevisions );
 
         return squashedDiff;
     }
 
-    private FSqrRevisionFullChangeSet calculateSquashedDiff( List<FSqrRevisionFullChangeSet> intermediateRevisions, List<String> selectedRevisions ) {
+    private FSqrRevisionFullChangeSet calculateSquashedDiffv1( List<FSqrRevisionFullChangeSet> intermediateRevisions, List<String> selectedRevisions ) {
         // intermediateRevisions contains all revisions in newest to oldest order
         boolean isFirstInitialized = false;
 
@@ -131,4 +131,17 @@ public class UnifiedDiffCalculationV1 {
 
         return files;
     }
+
+    private FSqrRevisionFullChangeSet calculateSquashedDiffv2( List<FSqrRevisionFullChangeSet> intermediateRevisions, List<String> selectedRevisions ) {
+        // TODO different idea,
+        // for each touched file
+        // figure out first touched revision and then add this
+        // then figure out, if skipped revisions exist
+        // then figure out if more revsions in selected revisions
+        // combine ignored
+        // combine selected
+
+        return null;
+    }
+
 }
