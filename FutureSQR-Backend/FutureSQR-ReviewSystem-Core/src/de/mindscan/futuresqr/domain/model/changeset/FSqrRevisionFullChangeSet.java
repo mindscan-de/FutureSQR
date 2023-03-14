@@ -83,4 +83,7 @@ public class FSqrRevisionFullChangeSet {
         return commitMessageHead;
     }
 
+    public void addFileChangeSet( FSqrFileChangeSet fileChangSet ) {
+        this.fileChangeSet.add( fileChangSet );
+    }
 }
