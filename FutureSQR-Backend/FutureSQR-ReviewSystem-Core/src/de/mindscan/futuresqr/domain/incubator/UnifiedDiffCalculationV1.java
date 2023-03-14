@@ -30,6 +30,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import de.mindscan.futuresqr.domain.model.changeset.FSqrFileChangeSet;
 import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
 
 /**
@@ -98,6 +99,15 @@ public class UnifiedDiffCalculationV1 {
                 }
 
                 // TODO update squashedDiff with diffs of fullChangeSet, using some kind of include strategy...
+
+                // because this is 
+                for (FSqrFileChangeSet changeSet : fullChangeSet.getFileChangeSet()) {
+                    FSqrFileChangeSet newFileChangeset = new FSqrFileChangeSet();
+
+                    // changeSet.getToPath();
+
+                    squashedDiff.addFileChangeSet( newFileChangeset );
+                }
 
                 // we must add this revision to the squashedDiff
                 // check if this is the most recent revision -> if so, we must initialize squashedDiff
