@@ -213,6 +213,10 @@ public class FSqrCodeReviewRepositoryImpl {
         FSqrScmUserRepositoryImpl userRepository = this.applicationServices.getUserRepository();
 
         // TODO: calculate the suggested reviewers somehow.
+
+        // userlist, who edited these files filtered fr visibility?
+        // or just users in the group, which can access a certain repo, regardless of their contributions...
+
         List<String> suggestedReviewers = new ArrayList<>();
         suggestedReviewers.add( "8ce74ee9-48ff-3dde-b678-58a632887e31" );
         suggestedReviewers.add( "f5fc8449-3049-3498-9f6b-ce828515bba2" );
