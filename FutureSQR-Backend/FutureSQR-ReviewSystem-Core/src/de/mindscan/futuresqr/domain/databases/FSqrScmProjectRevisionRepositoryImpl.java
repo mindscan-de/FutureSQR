@@ -109,7 +109,6 @@ public class FSqrScmProjectRevisionRepositoryImpl {
     private FSqrRevision translate( ScmBasicRevisionInformation x, String projectId ) {
         FSqrRevision result = new FSqrRevision( x );
 
-        // calculate the author id / lookup author uuid
         String authorUUID = applicationServices.getUserRepository().getUserUUID( x.authorName );
         result.setAuthorUuid( authorUUID );
 
@@ -131,7 +130,6 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         return result;
     }
 
-    // TODO: calculate the correct system path from scmConfiguration.
     private ScmRepository toScmRepository( FSqrScmProjectConfiguration scmConfiguration ) {
         String repoCachePath = applicationServices.getSystemConfiguration().getSystemRepoCachePath();
 
@@ -215,8 +213,6 @@ public class FSqrScmProjectRevisionRepositoryImpl {
     private FSqrRevisionFileChangeList translate( ScmSingleRevisionFileChangeList fileChangeList, String projectId ) {
         return new FSqrRevisionFileChangeList( fileChangeList );
     }
-
-    // TODO: calculate change set for a single file, using a revisionlist.
 
     public FSqrRevisionFullChangeSet getRevisionFullChangeSet( String projectId, List<FSqrRevision> revisionList ) {
         if (revisionList.size() == 0) {
