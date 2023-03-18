@@ -112,9 +112,6 @@ public class FSqrScmProjectRevisionRepositoryImpl {
         String authorUUID = applicationServices.getUserRepository().getUserUUID( x.authorName );
         result.setAuthorUuid( authorUUID );
 
-        // TODO: shorten message for message head (max until first newline) 
-        // result.setCommitMessageHead( x.message );
-
         // calculate whether a review is known for this 
         if (applicationServices.getReviewRepository().hasReviewForProjectAndRevision( projectId, x.revisionId )) {
             result.setHasAttachedReview( true );

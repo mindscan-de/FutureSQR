@@ -101,7 +101,9 @@ public class FSqrRevision {
         this.revisionShortDate = scmbasicInfo.shortDate;
         this.revisionRelativeDate = scmbasicInfo.relDate;
         this.commitMessageFull = scmbasicInfo.message;
-        this.commitMessageHead = scmbasicInfo.message;
+        if (scmbasicInfo.message != null) {
+            this.commitMessageHead = scmbasicInfo.message.split( "\\R", 2 )[0];
+        }
         this.parentIds = scmbasicInfo.parentIds;
         this.shortParentIds = scmbasicInfo.shortParentIds;
         this.branchName = scmbasicInfo.branchName;
