@@ -91,6 +91,8 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
     }
 
     void initializeHardCodedStarredProjects() {
+        // TODO this won't work if the lazy userdatabase is not yet initialized, 
+
         String mindscanUserId = "8ce74ee9-48ff-3dde-b678-58a632887e31";
         this.userToProjectRepository.starProject( mindscanUserId, "furiousiron-frontend" );
         this.userToProjectRepository.starProject( mindscanUserId, "furiousiron-hfb" );
