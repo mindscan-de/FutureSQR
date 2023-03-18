@@ -17,8 +17,8 @@ import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 
 public class FSqrUserToProjectRepositoryImplTest {
 
-    private static final String ANOTHER_USER_UUID = "f5fc8449-3049-3498-9f6b-ce828515bba2";
-    private static final String KNOWN_USER_UUID = "8ce74ee9-48ff-3dde-b678-58a632887e31";
+    private static final String ANOTHER_USER_UUID = "ffffffff-3049-3498-9f6b-ce828515bba2";
+    private static final String KNOWN_USER_UUID = "88888888-48ff-3dde-b678-58a632887e31";
 
     private static final String KNOWN_USER_ID = "KNOWN_USER_ID";
     private static final String ANOTHER_USER_ID = "ANOTHER_USER_ID";

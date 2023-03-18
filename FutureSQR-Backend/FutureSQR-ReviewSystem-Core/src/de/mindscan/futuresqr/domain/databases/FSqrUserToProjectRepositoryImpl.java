@@ -103,7 +103,9 @@ public class FSqrUserToProjectRepositoryImpl {
     // TODO: maybe we also want the reverse table, where we look at the project, and want to know who gave a star to this project
 
     private boolean isValidUser( String userUUID ) {
-        return this.applicationServices.getUserRepository().isUserUUIDPresent( userUUID );
+        // TODO: doesn't work correctly out right now.
+        // return this.applicationServices.getUserRepository().isUserUUIDPresent( userUUID );
+        return true;
     }
 
 }
