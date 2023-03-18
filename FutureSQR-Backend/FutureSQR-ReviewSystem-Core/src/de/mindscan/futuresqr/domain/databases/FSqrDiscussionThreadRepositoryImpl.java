@@ -58,7 +58,7 @@ public class FSqrDiscussionThreadRepositoryImpl {
         this.applicationServices = applicationServices;
     }
 
-    public void createNewReviewThread( String projectId, String reviewId, String messageText, String messageAuthorUUID ) {
+    public FSqrDiscussionThread createNewReviewThread( String projectId, String reviewId, String messageText, String messageAuthorUUID ) {
         FSqrDiscussionThread newThread = createNewThread( messageText, messageAuthorUUID );
 
         // insertThreadToDB
@@ -69,6 +69,8 @@ public class FSqrDiscussionThreadRepositoryImpl {
                         .computeIfAbsent( projectId, id -> new HashMap<>() )//
                         .computeIfAbsent( reviewId, id -> new ArrayList<String>() ) //
                         .add( newThread.getDiscussionThreadUUID() );
+
+        return newThread;
     }
 
     private FSqrDiscussionThread createNewThread( String messageText, String messageAuthorUUID ) {

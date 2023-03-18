@@ -758,7 +758,9 @@ public class ProjectRESTfulService {
 
             FSqrDiscussionThreadRepositoryImpl discussionRepository = FSqrApplication.getInstance().getServices().getDiscussionThreadRepository();
 
-            discussionRepository.createNewReviewThread( projectId, reviewId, messageText, messageAuthorUUID );
+            FSqrDiscussionThread newThread = discussionRepository.createNewReviewThread( projectId, reviewId, messageText, messageAuthorUUID );
+
+            // TODO provide new Thread data to the frontend, such that the new thread can be loaded.
 
             return "{}";
         }
