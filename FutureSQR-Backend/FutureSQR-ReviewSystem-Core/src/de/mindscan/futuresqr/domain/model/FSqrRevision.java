@@ -62,11 +62,8 @@ public class FSqrRevision {
     private String revisionShortDate = "";
     private String revisionRelativeDate = ""; // dynamic?
 
-    // full commit message, or just stripped of head?
+    // full commit message
     private String commitMessageFull = "";
-
-    // only first line of commitMessage
-    private String commitMessageHead = "";
 
     private List<String> parentIds = new ArrayList<>();
     private List<String> shortParentIds = new ArrayList<>();
@@ -101,9 +98,6 @@ public class FSqrRevision {
         this.revisionShortDate = scmbasicInfo.shortDate;
         this.revisionRelativeDate = scmbasicInfo.relDate;
         this.commitMessageFull = scmbasicInfo.message;
-        if (scmbasicInfo.message != null) {
-            this.commitMessageHead = scmbasicInfo.message.split( "\\R", 2 )[0];
-        }
         this.parentIds = scmbasicInfo.parentIds;
         this.shortParentIds = scmbasicInfo.shortParentIds;
         this.branchName = scmbasicInfo.branchName;
@@ -135,13 +129,6 @@ public class FSqrRevision {
      */
     public void setCommitMessageFull( String commitMessageFull ) {
         this.commitMessageFull = commitMessageFull;
-    }
-
-    /**
-     * @param commitMessageHead the commitMessageHead to set
-     */
-    public void setCommitMessageHead( String commitMessageHead ) {
-        this.commitMessageHead = commitMessageHead;
     }
 
     /**
@@ -246,7 +233,7 @@ public class FSqrRevision {
      * @return the commitMessageHead
      */
     public String getCommitMessageHead() {
-        return commitMessageHead;
+        return commitMessageFull.split( "\\R", 2 )[0];
     }
 
     /**
