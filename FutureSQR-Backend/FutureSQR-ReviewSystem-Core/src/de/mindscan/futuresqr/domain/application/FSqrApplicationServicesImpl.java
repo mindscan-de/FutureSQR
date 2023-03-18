@@ -60,12 +60,13 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
 
         // we don't want to deal with the internals of this Review system from the outside e.g. the Web servers
         initializeHardCodedUsers();
-        initializeHardCodedStarredProjects();
 
         // we need to boot the instance
         // and then we actually need a way to provide some data from externalproviders, and then
         // finalize the boot of this application somehow.
         initializeServiceInstances( this );
+
+        initializeHardCodedStarredProjects();
     }
 
     void initializeServiceInstances( FSqrApplicationServices services ) {
