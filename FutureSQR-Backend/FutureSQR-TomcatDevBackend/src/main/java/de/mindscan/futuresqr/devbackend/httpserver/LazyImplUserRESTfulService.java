@@ -25,6 +25,7 @@
  */
 package de.mindscan.futuresqr.devbackend.httpserver;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
@@ -198,6 +199,9 @@ public class LazyImplUserRESTfulService {
 
         FSqrUserToProjectRepositoryImpl userToProjectRepository = FSqrApplication.getInstance().getServices().getUserToProjectRepository();
         Set<String> starredProjects = userToProjectRepository.getAllStarredProjectsForUser( userUUID );
+
+        System.out.println( "userid: '" + userUUID + "'" );
+        System.out.println( "projects: " + Arrays.deepToString( starredProjects.toArray() ) );
 
         // TODO actually also filter the accessible projects, since they could be starred, before
         //      user lost access.
