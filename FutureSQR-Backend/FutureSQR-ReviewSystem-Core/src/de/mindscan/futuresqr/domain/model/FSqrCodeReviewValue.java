@@ -164,4 +164,8 @@ public class FSqrCodeReviewValue {
         return getReviewerResultsMap().isEmpty();
     }
 
+    protected void addReviewResult( FSqrReviewResult reviewResult ) {
+        this.getReviewerResultsMap().put( reviewResult.getReviewerId(), reviewResult );
+    }
+
 }

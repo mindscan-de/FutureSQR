@@ -51,7 +51,7 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
             FSqrReviewResult reviewResult = new FSqrReviewResult( reviewerId );
             long now = this.getCurrentTimestamp();
             reviewResult.assignReview( now );
-            this.getReviewerResultsMap().put( reviewerId, reviewResult );
+            addReviewResult( reviewResult );
         }
     }
 
