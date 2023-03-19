@@ -43,8 +43,6 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
 
     // getInformation
 
-    private List<FSqrRevision> revisions = new ArrayList<>();
-
     // these revisions have authors, they should be calculated once the revisions are added/removed
     // TODO: maybe use a set?
     private List<String> revisionAuthorUUIDs = new ArrayList<>();
@@ -112,7 +110,7 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
 
     public boolean isReadyToClose() {
         // it can be closed if no revision is set in review.
-        if (this.revisions.isEmpty()) {
+        if (getRevisions().isEmpty()) {
             return true;
         }
 
@@ -145,32 +143,28 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
         this.deletedTimestamp = System.currentTimeMillis();
     }
 
-    public List<FSqrRevision> getRevisions() {
-        return revisions;
-    }
-
     public void addRevision( FSqrRevision revisionToAdd ) {
         // TODO: should figure out, at which position to add, but let someone else decide? 
         // for now just assume, the revisions are in correct order, from oldest to newest.
-        this.revisions.add( revisionToAdd );
+        super.addRevision( revisionToAdd );
 
         updateAuthors();
     }
 
     public void removeRevision( FSqrRevision revisionToRemove ) {
-        this.revisions.removeIf( r -> revisionToRemove.getRevisionId().equals( r.getRevisionId() ) );
+        super.removeRevision( revisionToRemove );
 
         updateAuthors();
     }
 
     public void removeRevisionById( String revisionToRemoveId ) {
-        this.revisions.removeIf( r -> revisionToRemoveId.equals( r.getRevisionId() ) );
+        super.removeRevisionById( revisionToRemoveId );
 
         updateAuthors();
     }
 
     public void addFirstRevision( FSqrRevision firstRevision ) {
-        this.revisions.add( 0, firstRevision );
+        super.addFirstRevision( firstRevision );
 
         updateAuthors();
     }

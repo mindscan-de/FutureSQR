@@ -25,7 +25,9 @@
  */
 package de.mindscan.futuresqr.domain.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -48,6 +50,8 @@ public class FSqrCodeReviewValue {
     private String reviewTitle = "";
 
     private String reviewDescription = "";
+
+    protected List<FSqrRevision> revisions = new ArrayList<>();
 
     public Map<String, FSqrReviewResult> getReviewerResultsMap() {
         return reviewerResults;
@@ -91,5 +95,25 @@ public class FSqrCodeReviewValue {
 
     public void setReviewDescription( String reviewDescription ) {
         this.reviewDescription = reviewDescription;
+    }
+
+    public List<FSqrRevision> getRevisions() {
+        return revisions;
+    }
+
+    public void addRevision( FSqrRevision revisionToAdd ) {
+        this.revisions.add( revisionToAdd );
+    }
+
+    public void addFirstRevision( FSqrRevision firstRevision ) {
+        this.revisions.add( 0, firstRevision );
+    }
+
+    public void removeRevision( FSqrRevision revisionToRemove ) {
+        this.revisions.removeIf( r -> revisionToRemove.getRevisionId().equals( r.getRevisionId() ) );
+    }
+
+    public void removeRevisionById( String revisionToRemoveId ) {
+        this.revisions.removeIf( r -> revisionToRemoveId.equals( r.getRevisionId() ) );
     }
 }
