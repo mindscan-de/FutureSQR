@@ -53,8 +53,10 @@ public class FSqrCodeReviewValue {
 
     private List<FSqrRevision> revisions = new ArrayList<>();
 
-    // also means reopened.
+    // timestamps
+    private long createdTimestamp = 0L;
     private long closedTimestamp = 0L;
+    // also means reopened.
     private long openedTimestamp = 0L;
     private long deletedTimestamp = 0L;
 
@@ -144,5 +146,9 @@ public class FSqrCodeReviewValue {
 
     protected void setOpenedTimestamp( long openedTimestamp ) {
         this.openedTimestamp = openedTimestamp;
+    }
+
+    public long getCreatedTimestamp() {
+        return createdTimestamp;
     }
 }
