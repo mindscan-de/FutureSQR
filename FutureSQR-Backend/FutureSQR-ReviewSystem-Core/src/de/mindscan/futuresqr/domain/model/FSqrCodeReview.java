@@ -90,11 +90,6 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
         return System.currentTimeMillis();
     }
 
-    // derive boolean (unassigned state) from reviewerlist
-    public boolean isUnassigned() {
-        return getReviewerResultsMap().isEmpty();
-    }
-
     public boolean isReadyToClose() {
         // it can be closed if no revision is set in review.
         if (getRevisions().isEmpty()) {

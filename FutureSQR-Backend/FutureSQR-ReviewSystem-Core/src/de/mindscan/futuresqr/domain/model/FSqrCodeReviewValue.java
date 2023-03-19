@@ -160,4 +160,8 @@ public class FSqrCodeReviewValue {
         return getReviewerResultsMap().containsKey( reviewerId );
     }
 
+    public boolean isUnassigned() {
+        return getReviewerResultsMap().isEmpty();
+    }
+
 }
