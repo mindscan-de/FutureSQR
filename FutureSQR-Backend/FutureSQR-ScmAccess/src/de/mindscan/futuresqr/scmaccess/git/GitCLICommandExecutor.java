@@ -31,7 +31,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.mindscan.futuresqr.scmaccess.HardCodedConstants;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
 /**
@@ -44,10 +43,6 @@ import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 public class GitCLICommandExecutor {
 
     private final String executablePath;
-
-    public GitCLICommandExecutor() {
-        this( HardCodedConstants.GIT_EXECUTABLE_PATH );
-    }
 
     public GitCLICommandExecutor( String executablePath ) {
         this.executablePath = executablePath;

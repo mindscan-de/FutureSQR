@@ -25,6 +25,7 @@
  */
 package de.mindscan.futuresqr.scmaccess.git;
 
+import de.mindscan.futuresqr.scmaccess.HardCodedConstants;
 import de.mindscan.futuresqr.scmaccess.ScmHistoryProvider;
 import de.mindscan.futuresqr.scmaccess.git.command.GitCommands;
 import de.mindscan.futuresqr.scmaccess.git.processor.GitOutputProcessors;
@@ -39,7 +40,7 @@ import de.mindscan.futuresqr.scmaccess.types.ScmSingleRevisionFileChangeList;
  */
 public class GitScmHistoryProvider implements ScmHistoryProvider {
 
-    private GitCLICommandExecutor gitCliExecutor = new GitCLICommandExecutor();
+    private GitCLICommandExecutor gitCliExecutor = new GitCLICommandExecutor( HardCodedConstants.GIT_EXECUTABLE_PATH );
 
     /**
      * This method is available to replace the default GitCLUCommandExecutor with a different one, e.g. for tests
