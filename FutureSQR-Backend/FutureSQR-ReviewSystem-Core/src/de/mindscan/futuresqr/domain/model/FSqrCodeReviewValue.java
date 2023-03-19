@@ -51,7 +51,12 @@ public class FSqrCodeReviewValue {
 
     private String reviewDescription = "";
 
-    protected List<FSqrRevision> revisions = new ArrayList<>();
+    private List<FSqrRevision> revisions = new ArrayList<>();
+
+    // also means reopened.
+    private long closedTimestamp = 0L;
+    private long openedTimestamp = 0L;
+    private long deletedTimestamp = 0L;
 
     public Map<String, FSqrReviewResult> getReviewerResultsMap() {
         return reviewerResults;
@@ -115,5 +120,29 @@ public class FSqrCodeReviewValue {
 
     public void removeRevisionById( String revisionToRemoveId ) {
         this.revisions.removeIf( r -> revisionToRemoveId.equals( r.getRevisionId() ) );
+    }
+
+    public long getClosedTimestamp() {
+        return closedTimestamp;
+    }
+
+    protected void setClosedTimestamp( long closedTimestamp ) {
+        this.closedTimestamp = closedTimestamp;
+    }
+
+    public long getDeletedTimestamp() {
+        return deletedTimestamp;
+    }
+
+    protected void setDeletedTimestamp( long deletedTimestamp ) {
+        this.deletedTimestamp = deletedTimestamp;
+    }
+
+    public long getOpenedTimestamp() {
+        return openedTimestamp;
+    }
+
+    protected void setOpenedTimestamp( long openedTimestamp ) {
+        this.openedTimestamp = openedTimestamp;
     }
 }

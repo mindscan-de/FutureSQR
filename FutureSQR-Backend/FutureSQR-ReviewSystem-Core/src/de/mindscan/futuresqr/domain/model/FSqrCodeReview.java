@@ -49,10 +49,6 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
 
     // TODO: timestamps
     private long createdTimestamp = 0L;
-    // also means reopened.
-    private long closedTimestamp = 0L;
-    private long openedTimestamp = 0L;
-    private long deletedTimestamp = 0L;
 
     // add reviewer ( userid reviewer, userid whoadded ) 
     public void addReviewer( String reviewerId, String whoAdded ) {
@@ -128,19 +124,19 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
     // closeReview ( userid who )
     public void closeReview( String whoClosed ) {
         this.updateCurrenReviewState( FSqrCodeReviewLifecycleState.Closed );
-        this.closedTimestamp = System.currentTimeMillis();
+        setClosedTimestamp( System.currentTimeMillis() );
     }
 
     // reopenReview( userid who )
     public void reopenReview( String whoReopened ) {
         this.updateCurrenReviewState( FSqrCodeReviewLifecycleState.Open );
-        this.openedTimestamp = System.currentTimeMillis();
+        setOpenedTimestamp( System.currentTimeMillis() );
     }
 
     public void deleteReview( String whoDeleted ) {
         // TODO: clear revisions from review, clear reviewers, clear authors, etc.
         this.updateCurrenReviewState( FSqrCodeReviewLifecycleState.Deleted );
-        this.deletedTimestamp = System.currentTimeMillis();
+        setDeletedTimestamp( System.currentTimeMillis() );
     }
 
     public void addRevision( FSqrRevision revisionToAdd ) {
@@ -181,15 +177,4 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
         return revisionAuthorUUIDs;
     }
 
-    public long getClosedTimestamp() {
-        return closedTimestamp;
-    }
-
-    public long getDeletedTimestamp() {
-        return deletedTimestamp;
-    }
-
-    public long getOpenedTimestamp() {
-        return openedTimestamp;
-    }
 }
