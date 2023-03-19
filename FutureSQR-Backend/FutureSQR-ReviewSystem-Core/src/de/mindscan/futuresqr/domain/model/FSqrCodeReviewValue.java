@@ -156,4 +156,8 @@ public class FSqrCodeReviewValue {
         return this.getReviewerResultsMap().get( reviewerId );
     }
 
+    protected boolean hasReviewer( String reviewerId ) {
+        return getReviewerResultsMap().containsKey( reviewerId );
+    }
+
 }

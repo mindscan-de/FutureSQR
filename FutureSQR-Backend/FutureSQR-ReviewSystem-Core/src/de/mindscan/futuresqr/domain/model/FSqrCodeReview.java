@@ -92,10 +92,6 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
         return System.currentTimeMillis();
     }
 
-    boolean hasReviewer( String reviewerId ) {
-        return getReviewerResultsMap().containsKey( reviewerId );
-    }
-
     // derive boolean (unassigned state) from reviewerlist
     public boolean isUnassigned() {
         return getReviewerResultsMap().isEmpty();
