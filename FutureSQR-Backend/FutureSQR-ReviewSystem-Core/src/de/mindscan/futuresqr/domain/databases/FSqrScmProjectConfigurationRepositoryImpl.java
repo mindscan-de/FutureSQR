@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 
 /**
@@ -45,6 +46,8 @@ import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
  */
 public class FSqrScmProjectConfigurationRepositoryImpl {
 
+    private FSqrApplicationServices applicationServices;
+
     private Map<String, FSqrScmProjectConfiguration> scmProjectConfigurationsByProjectId = new HashMap<>();
 
     /**
@@ -52,6 +55,10 @@ public class FSqrScmProjectConfigurationRepositoryImpl {
      */
     public FSqrScmProjectConfigurationRepositoryImpl() {
         // intentionally left blank
+    }
+
+    public void setApplicationServices( FSqrApplicationServices services ) {
+        this.applicationServices = services;
     }
 
     // TODO use an alternate constructor with a projectConfigurationInitialProvider, which 
