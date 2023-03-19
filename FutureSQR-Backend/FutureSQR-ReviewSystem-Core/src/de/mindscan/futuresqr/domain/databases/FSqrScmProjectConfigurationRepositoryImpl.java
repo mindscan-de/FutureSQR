@@ -31,6 +31,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
+import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 
 /**
@@ -54,7 +55,7 @@ public class FSqrScmProjectConfigurationRepositoryImpl {
      * 
      */
     public FSqrScmProjectConfigurationRepositoryImpl() {
-        // intentionally left blank
+        this.applicationServices = new FSqrApplicationServicesUnitialized();
     }
 
     public void setApplicationServices( FSqrApplicationServices services ) {
