@@ -38,12 +38,10 @@ import java.util.stream.Collectors;
  * 
  */
 // TODO: think about composition over inheritance, so we can have observable ValueObjects  
-// TODO: implement the ready to close state.
 public class FSqrCodeReview extends FSqrCodeReviewValue {
 
     // getInformation
 
-    // these revisions have authors, they should be calculated once the revisions are added/removed
     // TODO: maybe use a set?
     private List<String> revisionAuthorUUIDs = new ArrayList<>();
 
