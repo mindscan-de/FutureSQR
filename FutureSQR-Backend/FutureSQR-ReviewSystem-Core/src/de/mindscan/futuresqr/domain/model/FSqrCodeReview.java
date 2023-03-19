@@ -68,7 +68,7 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
     public void approveReview( String reviewerId ) {
         if (hasReviewer( reviewerId )) {
             long now = this.getCurrentTimestamp();
-            this.getReviewerResultsMap().get( reviewerId ).approveReview( now );
+            getReviewResultFor( reviewerId ).approveReview( now );
         }
     }
 
@@ -76,7 +76,7 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
     public void concernReview( String reviewerId ) {
         if (hasReviewer( reviewerId )) {
             long now = this.getCurrentTimestamp();
-            this.getReviewerResultsMap().get( reviewerId ).concernOnReview( now );
+            getReviewResultFor( reviewerId ).concernOnReview( now );
         }
     }
 
@@ -84,7 +84,7 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
     public void rollbackReview( String reviewerId ) {
         if (hasReviewer( reviewerId )) {
             long now = this.getCurrentTimestamp();
-            this.getReviewerResultsMap().get( reviewerId ).rollbackReview( now );
+            getReviewResultFor( reviewerId ).rollbackReview( now );
         }
     }
 

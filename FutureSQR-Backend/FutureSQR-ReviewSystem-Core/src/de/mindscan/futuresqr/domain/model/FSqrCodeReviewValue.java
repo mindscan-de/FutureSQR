@@ -151,4 +151,9 @@ public class FSqrCodeReviewValue {
     public long getCreatedTimestamp() {
         return createdTimestamp;
     }
+
+    public FSqrReviewResult getReviewResultFor( String reviewerId ) {
+        return this.getReviewerResultsMap().get( reviewerId );
+    }
+
 }
