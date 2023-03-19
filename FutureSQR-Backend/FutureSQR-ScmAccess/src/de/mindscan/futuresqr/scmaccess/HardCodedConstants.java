@@ -34,4 +34,5 @@ public class HardCodedConstants {
     // start with hard coded git executable to make things work first
     public static final String GIT_EXECUTABLE_PATH = "C:\\Program Files\\Git\\cmd\\git.exe";
 
+    public static final String SVN_EXECUTABLE_PATH = "C:\\Program Files\\TortoiseSVN\\bin\\svn.exe";
 }
