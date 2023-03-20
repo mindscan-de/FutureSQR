@@ -116,6 +116,10 @@ public class FSqrCodeReviewValue {
         this.revisions.add( 0, firstRevision );
     }
 
+    public String getFirstRevisionId() {
+        return this.revisions.get( 0 ).getRevisionId();
+    }
+
     public void removeRevision( FSqrRevision revisionToRemove ) {
         this.revisions.removeIf( r -> revisionToRemove.getRevisionId().equals( r.getRevisionId() ) );
     }

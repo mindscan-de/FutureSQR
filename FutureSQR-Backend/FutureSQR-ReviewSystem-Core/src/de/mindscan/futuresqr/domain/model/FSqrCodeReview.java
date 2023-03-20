@@ -151,10 +151,6 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
         updateAuthors();
     }
 
-    public String getFirstRevisionId() {
-        return getRevisions().get( 0 ).getRevisionId();
-    }
-
     private void updateAuthors() {
         this.revisionAuthorUUIDs = new ArrayList<>( getRevisions().stream().map( rev -> rev.getAuthorUuid() ).collect( Collectors.toSet() ) );
     }
