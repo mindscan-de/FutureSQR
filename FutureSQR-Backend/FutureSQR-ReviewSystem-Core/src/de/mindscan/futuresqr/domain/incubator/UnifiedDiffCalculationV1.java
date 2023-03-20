@@ -112,6 +112,7 @@ public class UnifiedDiffCalculationV1 {
                         FSqrFileChangeSet newFileChangeset = new FSqrFileChangeSet();
 
                         // TODO: initialize the newFileChangeset with changeset infos.
+                        // 
 
                         // make it available in case we need to patch it later.
                         pathToFileChangeSetMap.put( toPath, newFileChangeset );
@@ -122,6 +123,11 @@ public class UnifiedDiffCalculationV1 {
                     else {
                         FSqrFileChangeSet targetFileChangeSet = pathToFileChangeSetMap.get( toPath );
                         // TODO: squash changeSet into targetFileChangeSet
+
+                        // check if there were in between versions, then we need to fix line numbers first before
+                        // full squash.
+
+                        // squash different aspects... renames, fileactions etc.
                     }
                 }
 
