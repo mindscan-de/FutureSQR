@@ -112,7 +112,7 @@ public class UnifiedDiffCalculationV1 {
                         FSqrFileChangeSet newFileChangeset = new FSqrFileChangeSet();
 
                         // TODO: initialize the newFileChangeset with changeset infos.
-                        // 
+                        // TODO: copy constructor, but without the content changesets, or with content changesetsets well?
 
                         // make it available in case we need to patch it later.
                         pathToFileChangeSetMap.put( toPath, newFileChangeset );
