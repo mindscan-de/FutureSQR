@@ -93,8 +93,8 @@ public class UnifiedDiffCalculationV1 {
             // if the intermediate revision is part of the selected revisions, then we actually must process this change set
             if (selectedRevisions.contains( fullChangeSet.getRevisionId() )) {
                 if (!isFirstInitialized) {
-                    // TODO: initialize squashedDiff (revisionid, etc pp) (using (fullChangeSet))
-                    // TODO: initialize squashed diff with latest selected revision
+                    // initialize squashed diff with latest selected revision
+                    squashedDiff.setRevisionId( fullChangeSet.getRevisionId() );
                     isFirstInitialized = true;
                 }
 
