@@ -26,8 +26,10 @@
 package de.mindscan.futuresqr.domain.incubator;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import de.mindscan.futuresqr.domain.model.changeset.FSqrFileChangeSet;
@@ -89,6 +91,8 @@ public class UnifiedDiffCalculationV1 {
         // we want to figure out, which files are touched in filtreRevisions, and selectedRevisions
         Collection<String> filesOfInterestInSelection = collectFilesForSelectedRevisions( intermediateRevisions, selectedRevisions );
 
+        Map<String, FSqrFileChangeSet> pathToFileChangeSetMap = new HashMap<>();
+
         for (FSqrRevisionFullChangeSet fullChangeSet : intermediateRevisions) {
             // if the intermediate revision is part of the selected revisions, then we actually must process this change set
             if (selectedRevisions.contains( fullChangeSet.getRevisionId() )) {
@@ -102,11 +106,23 @@ public class UnifiedDiffCalculationV1 {
 
                 // because this is 
                 for (FSqrFileChangeSet changeSet : fullChangeSet.getFileChangeSet()) {
-                    FSqrFileChangeSet newFileChangeset = new FSqrFileChangeSet();
+                    String toPath = changeSet.getToPath();
+                    if (!pathToFileChangeSetMap.containsKey( toPath )) {
+                        // create a file changeset
+                        FSqrFileChangeSet newFileChangeset = new FSqrFileChangeSet();
 
-                    // changeSet.getToPath();
+                        // TODO: initialize the newFileChangeset with changeset infos.
 
-                    squashedDiff.addFileChangeSet( newFileChangeset );
+                        // make it available in case we need to patch it later.
+                        pathToFileChangeSetMap.put( toPath, newFileChangeset );
+
+                        // provide this filechangeset in squashed diff.
+                        squashedDiff.addFileChangeSet( newFileChangeset );
+                    }
+                    else {
+                        FSqrFileChangeSet targetFileChangeSet = pathToFileChangeSetMap.get( toPath );
+                        // TODO: squash changeSet into targetFileChangeSet
+                    }
                 }
 
                 // we must add this revision to the squashedDiff
