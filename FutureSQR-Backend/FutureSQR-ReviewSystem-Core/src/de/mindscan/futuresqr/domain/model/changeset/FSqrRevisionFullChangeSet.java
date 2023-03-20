@@ -86,4 +86,8 @@ public class FSqrRevisionFullChangeSet {
     public void addFileChangeSet( FSqrFileChangeSet fileChangSet ) {
         this.fileChangeSet.add( fileChangSet );
     }
+
+    public void setRevisionId( String revisionId ) {
+        this.revisionId = revisionId;
+    }
 }
