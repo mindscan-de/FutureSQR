@@ -168,14 +168,22 @@ public class UnifiedDiffCalculationV1 {
                             continue;
                         }
 
-                        // TODO: if there is a hidden record, we will continue the record.
-                        // TODO: else we create a new copy of the pathToFileChangeSetMap.
+                        FSqrFileChangeSet hiddenFileChangeSetRecord;
+                        if (pathToHiddenFileChangeSetJournalMap.containsKey( toPath )) {
+                            // if there is a hidden record, we will continue the record.
+                            hiddenFileChangeSetRecord = pathToHiddenFileChangeSetJournalMap.get( toPath );
+                        }
+                        else {
+                            // else we create a new copy of the pathToFileChangeSetMap, what we may or may not use.
+                            hiddenFileChangeSetRecord = new FSqrFileChangeSet( pathToFileChangeSetMap.get( toPath ) );
+                        }
 
                         // TODO: use an ignore strategy.
+                        // TODO: it should be checked , whether filechangesets are joinable.
 
                         // TODO: then update the updated hidden record.
                         // store/save this intermediate FileChangeset copy.
-                        // pathToHiddenFileChangeSetJournalMap.put( toPath, hiddenFileChangeSetRecord );
+                        pathToHiddenFileChangeSetJournalMap.put( toPath, hiddenFileChangeSetRecord );
                     }
                 }
             }
