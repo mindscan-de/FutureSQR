@@ -208,16 +208,4 @@ public class UnifiedDiffCalculationV1 {
         return files;
     }
 
-    private FSqrRevisionFullChangeSet calculateSquashedDiffv2( List<FSqrRevisionFullChangeSet> intermediateRevisions, List<String> selectedRevisions ) {
-        // TODO different idea,
-        // for each touched file
-        // figure out first touched revision and then add this
-        // then figure out, if skipped revisions exist
-        // then figure out if more revsions in selected revisions
-        // combine ignored
-        // combine selected
-
-        return null;
-    }
-
 }
