@@ -40,6 +40,11 @@ public class FSqrDiffLine {
         this.type = FSqrDiffLineType.toType( scmLine.diffType );
     }
 
+    public FSqrDiffLine( FSqrDiffLine other ) {
+        this.line = other.line;
+        this.type = other.type;
+    }
+
     public String getLineContent() {
         return line;
     }
