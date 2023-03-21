@@ -121,7 +121,11 @@ public class UnifiedDiffCalculationV1 {
                         if (pathToHiddenFileChangeSetJournalMap.containsKey( toPath )) {
                             // that copy must be pulled from the Map, such that the entry gets invalidated, and replaces the pathoFileChangesetMap
                             FSqrFileChangeSet hiddenJournalFileChangeSet = pathToHiddenFileChangeSetJournalMap.remove( toPath );
-                            pathToFileChangeSetMap.put( toPath, hiddenJournalFileChangeSet );
+
+                            //TODO: remove the previous filechangeset from squashed diff, and then replace it again by the updated file change set
+                            //TODO: actually we must check what kind of change it was..., maybe we can't combine them....
+                            FSqrFileChangeSet previous = pathToFileChangeSetMap.put( toPath, hiddenJournalFileChangeSet );
+
                         }
 
                         // we continue with the pathToFileChangeSetMap, after we got rid of probable hidden records.
@@ -137,6 +141,8 @@ public class UnifiedDiffCalculationV1 {
                         // TODO: update line modes in content changeset
                         // TODO: update file action
                         // TODO: update file 
+
+                        // squashedDiff.addFileChangeSet( updatedFileChangeset );
                     }
                 }
 
