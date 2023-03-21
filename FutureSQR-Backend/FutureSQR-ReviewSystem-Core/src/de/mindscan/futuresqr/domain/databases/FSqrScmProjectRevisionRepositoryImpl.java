@@ -34,6 +34,7 @@ import java.util.stream.Collectors;
 
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
+import de.mindscan.futuresqr.domain.incubator.UnifiedDiffCalculationV1;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReviewLifecycleState;
 import de.mindscan.futuresqr.domain.model.FSqrRevision;
@@ -216,32 +217,29 @@ public class FSqrScmProjectRevisionRepositoryImpl {
             return getRevisionFullChangeSet( projectId, revisionList.get( 0 ).getRevisionId() );
         }
 
+        // TODO: refactor this later, combine connected and unconnected diffs, because the same logic
+
         // check if the revisions are all on one direct line, or split that lines up
+        UnifiedDiffCalculationV1 diffCalculator = new UnifiedDiffCalculationV1();
         if (isLiningUp( revisionList )) {
             String firstRevisionId = revisionList.get( 0 ).getRevisionId();
             String lastRevisionId = revisionList.get( revisionList.size() - 1 ).getRevisionId();
 
             List<FSqrRevisionFullChangeSet> revisionFullChangeset = getRevisionFullChangeset( projectId, firstRevisionId, lastRevisionId );
+            List<String> revisionListIds = revisionList.stream().map( r -> r.getRevisionId() ).collect( Collectors.toList() );
 
-            // TODO: consolidate the changes into one for a given revision list, because they are in one line, we can consolidate them... somehow.
-            // TODO: create a list of revision Ids 
-            // new UnifiedDiffCalculationV1().squashDiffs( revisionFullChangeset, revisionList, revisionList );
-
-            return revisionFullChangeset.get( 0 );
+            // squash connected diff into one
+            return diffCalculator.squashDiffs( revisionFullChangeset, revisionListIds, revisionListIds );
         }
 
         String firstRevisionId = revisionList.get( 0 ).getRevisionId();
         String lastRevisionId = revisionList.get( revisionList.size() - 1 ).getRevisionId();
 
         List<FSqrRevisionFullChangeSet> revisionFullChangeset = getRevisionFullChangeset( projectId, firstRevisionId, lastRevisionId );
+        List<String> revisionListIds = revisionList.stream().map( r -> r.getRevisionId() ).collect( Collectors.toList() );
 
-        // TODO: filter down the change set and then build a unified one?
-
-        // TODO: consolidate the changes into one for a given revision list, because they are in one line, we can consolidate them... somehow.
-        // TODO: create a list of revision Ids 
-        // new UnifiedDiffCalculationV1().squashDiffs( revisionFullChangeset, revisionList, revisionList );
-
-        return revisionFullChangeset.get( 0 );
+        // squash unconnected diff into one
+        return diffCalculator.squashDiffs( revisionFullChangeset, revisionListIds, revisionListIds );
     }
 
     private boolean isLiningUp( List<FSqrRevision> revisionList ) {

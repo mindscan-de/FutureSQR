@@ -147,7 +147,7 @@ public class UnifiedDiffCalculationV1 {
 
         // maybe a n square algorithm, for each file separately, and then use a merger for algorithm...
 
-        return intermediateRevisions.get( 0 );
+        return squashedDiff;
     }
 
     private Collection<String> collectFilesForSelectedRevisions( List<FSqrRevisionFullChangeSet> intermediateRevisions, List<String> selectedRevisions ) {
