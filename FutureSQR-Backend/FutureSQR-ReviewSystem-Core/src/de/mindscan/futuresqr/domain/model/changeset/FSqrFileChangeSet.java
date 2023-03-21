@@ -63,11 +63,7 @@ public class FSqrFileChangeSet {
         // intentionally left blank
     }
 
-    /**
-     * @param scmFileChangeSet
-     */
     public FSqrFileChangeSet( ScmFileChangeSet scmFileChangeSet ) {
-
         this.lazyBinaryFileInfo = scmFileChangeSet.binary_file_info_line;
         this.isBinaryFile = scmFileChangeSet.isBinaryFile;
 
@@ -87,6 +83,29 @@ public class FSqrFileChangeSet {
     }
 
     private FSqrFileContentChangeSet translate( ScmFileContentChangeSet x ) {
+        return new FSqrFileContentChangeSet( x );
+    }
+
+    public FSqrFileChangeSet( FSqrFileChangeSet otherFileChangeSet ) {
+        this.lazyBinaryFileInfo = otherFileChangeSet.lazyBinaryFileInfo;
+        this.isBinaryFile = otherFileChangeSet.isBinaryFile;
+
+        this.fromPath = otherFileChangeSet.fromPath;
+        this.toPath = otherFileChangeSet.toPath;
+
+        this.fileMode = otherFileChangeSet.fileMode;
+        this.fileCurrentRevId = otherFileChangeSet.fileCurrentRevId;
+        this.fileParentRevId = otherFileChangeSet.fileParentRevId;
+        this.fileAction = otherFileChangeSet.fileAction;
+
+        this.renamedFrom = otherFileChangeSet.renamedFrom;
+        this.renamedTo = otherFileChangeSet.renamedTo;
+        this.renameSimilarity = otherFileChangeSet.renameSimilarity;
+
+        otherFileChangeSet.fileContentChangeSet.stream().forEach( x -> this.fileContentChangeSet.add( copy( x ) ) );
+    }
+
+    private FSqrFileContentChangeSet copy( FSqrFileContentChangeSet x ) {
         return new FSqrFileContentChangeSet( x );
     }
 
