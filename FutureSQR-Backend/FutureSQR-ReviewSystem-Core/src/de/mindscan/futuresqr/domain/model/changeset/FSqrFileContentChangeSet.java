@@ -58,6 +58,17 @@ public class FSqrFileContentChangeSet {
 
     }
 
+    public FSqrFileContentChangeSet( FSqrFileContentChangeSet other ) {
+        this.unifiedDiffData = new ArrayList<>();
+
+        other.unifiedDiffData.forEach( line -> this.unifiedDiffData.add( new FSqrDiffLine( line ) ) );
+
+        this.diffLeftLineCountDelta = other.diffLeftLineCountDelta;
+        this.diffLeftLineCountStart = other.diffLeftLineCountStart;
+        this.diffRightLineCountDelta = other.diffRightLineCountDelta;
+        this.diffRightLineCountStart = other.diffRightLineCountStart;
+    }
+
     public List<FSqrDiffLine> getUnifiedDiffData() {
         return unifiedDiffData;
     }
