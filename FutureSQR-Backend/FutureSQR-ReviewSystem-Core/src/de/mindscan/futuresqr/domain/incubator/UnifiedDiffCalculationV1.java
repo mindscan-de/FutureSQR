@@ -102,9 +102,7 @@ public class UnifiedDiffCalculationV1 {
                     isFirstInitialized = true;
                 }
 
-                // TODO update squashedDiff with diffs of fullChangeSet, using some kind of include strategy...
-
-                // because this is 
+                // process the file change set and integrate it into the squashed diff
                 for (FSqrFileChangeSet changeSet : fullChangeSet.getFileChangeSet()) {
                     String toPath = changeSet.getToPath();
                     if (!pathToFileChangeSetMap.containsKey( toPath )) {
@@ -125,19 +123,29 @@ public class UnifiedDiffCalculationV1 {
                         // full squash.
 
                         // squash different aspects... renames, fileactions etc.
+                        // TODO: update line numbers in content changeset
+                        // TODO: update line modes in content changeset
+                        // TODO: update file action
+                        // TODO: update file 
                     }
                 }
 
-                // we must add this revision to the squashedDiff
                 // check if this is the most recent revision -> if so, we must initialize squashedDiff
-
-                // now calculate for each file a new 
                 // calculate the diffs which must be actively ignored
             }
             else {
                 if (isFirstInitialized) {
                     // TODO update squashedDiff with diffs of fullchangeset, using some kind of ignore strategy
                     // maybe we want to update the line numbers, such that we can match other lines....?
+
+                    // manage the ignore set....
+                    // update in a hidden way? and only use it if there is another
+                    // maybe create a second copy of the Filechangeset and update it with an ignore strategy and then
+                    // store this intermediate FileChangeset copy.
+
+                    // if this file is not in filesOfInterestInSelection, we simply ignore this file changeset
+                    // if there is no entry in pathToFileChangeSetMap, we simply ignore this file changeset
+                    // otherwise we keep a hidden updated record.
                 }
             }
         }
