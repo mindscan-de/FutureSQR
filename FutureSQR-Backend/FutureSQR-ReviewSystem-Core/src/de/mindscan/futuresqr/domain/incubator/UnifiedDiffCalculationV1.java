@@ -108,11 +108,8 @@ public class UnifiedDiffCalculationV1 {
                 for (FSqrFileChangeSet changeSet : fullChangeSet.getFileChangeSet()) {
                     String toPath = changeSet.getToPath();
                     if (!pathToFileChangeSetMap.containsKey( toPath )) {
-                        // create a file changeset
-                        FSqrFileChangeSet newFileChangeset = new FSqrFileChangeSet();
-
-                        // TODO: initialize the newFileChangeset with changeset infos.
-                        // TODO: copy constructor, but without the content changesets, or with content changesetsets well?
+                        // create a copy file changeset
+                        FSqrFileChangeSet newFileChangeset = new FSqrFileChangeSet( changeSet );
 
                         // make it available in case we need to patch it later.
                         pathToFileChangeSetMap.put( toPath, newFileChangeset );
