@@ -92,6 +92,7 @@ public class UnifiedDiffCalculationV1 {
         Collection<String> filesOfInterestInSelection = collectFilesForSelectedRevisions( intermediateRevisions, selectedRevisions );
 
         Map<String, FSqrFileChangeSet> pathToFileChangeSetMap = new HashMap<>();
+        Map<String, FSqrFileChangeSet> pathToHiddenFileChangeSetJournalMap = new HashMap<>();
 
         for (FSqrRevisionFullChangeSet fullChangeSet : intermediateRevisions) {
             // if the intermediate revision is part of the selected revisions, then we actually must process this change set
@@ -116,7 +117,16 @@ public class UnifiedDiffCalculationV1 {
                         squashedDiff.addFileChangeSet( newFileChangeset );
                     }
                     else {
+                        // check if there is a hidden record for the targetFileChangeset, that one wins over pathToFileChangeSetMap
+                        if (pathToHiddenFileChangeSetJournalMap.containsKey( toPath )) {
+                            // that copy must be pulled from the Map, such that the entry gets invalidated, and replaces the pathoFileChangesetMap
+                            FSqrFileChangeSet hiddenJournalFileChangeSet = pathToHiddenFileChangeSetJournalMap.remove( toPath );
+                            pathToFileChangeSetMap.put( toPath, hiddenJournalFileChangeSet );
+                        }
+
+                        // we continue with the pathToFileChangeSetMap, after we got rid of probable hidden records.
                         FSqrFileChangeSet targetFileChangeSet = pathToFileChangeSetMap.get( toPath );
+
                         // TODO: squash changeSet into targetFileChangeSet
 
                         // check if there were in between versions, then we need to fix line numbers first before
@@ -138,14 +148,29 @@ public class UnifiedDiffCalculationV1 {
                     // TODO update squashedDiff with diffs of fullchangeset, using some kind of ignore strategy
                     // maybe we want to update the line numbers, such that we can match other lines....?
 
-                    // manage the ignore set....
-                    // update in a hidden way? and only use it if there is another
-                    // maybe create a second copy of the Filechangeset and update it with an ignore strategy and then
-                    // store this intermediate FileChangeset copy.
+                    for (FSqrFileChangeSet changeSet : fullChangeSet.getFileChangeSet()) {
+                        String toPath = changeSet.getToPath();
 
-                    // if this file is not in filesOfInterestInSelection, we simply ignore this file changeset
-                    // if there is no entry in pathToFileChangeSetMap, we simply ignore this file changeset
-                    // otherwise we keep a hidden updated record.
+                        // if this file is not in filesOfInterestInSelection, we simply ignore this file change set
+                        if (!filesOfInterestInSelection.contains( toPath )) {
+                            continue;
+                        }
+
+                        // if there is no entry in pathToFileChangeSetMap, we simply ignore this file change set
+                        // because we have no previous record for this file
+                        if (!pathToFileChangeSetMap.containsKey( toPath )) {
+                            continue;
+                        }
+
+                        // TODO: if there is a hidden record, we will continue the record.
+                        // TODO: else we create a new copy of the pathToFileChangeSetMap.
+
+                        // TODO: use an ignore strategy.
+
+                        // TODO: then update the updated hidden record.
+                        // store/save this intermediate FileChangeset copy.
+                        // pathToHiddenFileChangeSetJournalMap.put( toPath, hiddenFileChangeSetRecord );
+                    }
                 }
             }
         }
