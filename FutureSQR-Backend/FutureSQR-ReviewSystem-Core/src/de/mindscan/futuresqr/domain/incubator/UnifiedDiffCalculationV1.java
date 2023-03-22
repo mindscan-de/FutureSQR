@@ -26,6 +26,7 @@
 package de.mindscan.futuresqr.domain.incubator;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -231,6 +232,14 @@ public class UnifiedDiffCalculationV1 {
             //       we can improve the squashing for each of the content change sets later 
             targetFileChangeSet.addContentChangeSet( contentChangeSet );
         }
+
+        // sort by line numbers (right side)
+        targetFileChangeSet.getFileContentChangeSet().sort( new Comparator<FSqrFileContentChangeSet>() {
+            @Override
+            public int compare( FSqrFileContentChangeSet o1, FSqrFileContentChangeSet o2 ) {
+                return o1.getDiffRightLineCountStart() - o2.getDiffRightLineCountStart();
+            }
+        } );
 
         return targetFileChangeSet;
     }
