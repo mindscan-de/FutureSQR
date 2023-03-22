@@ -155,45 +155,47 @@ public class UnifiedDiffCalculationV1 {
                 // calculate the diffs which must be actively ignored
             }
             else {
-                if (isFirstInitialized) {
-                    // TODO update squashedDiff with diffs of fullchangeset, using some kind of ignore strategy
-                    // maybe we want to update the line numbers, such that we can match other lines....?
+                if (!isFirstInitialized) {
+                    continue;
+                }
 
-                    for (FSqrFileChangeSet changeSet : fullChangeSet.getFileChangeSet()) {
-                        // TODO: use the changeSet.fileaction to determine the correct strategy.
-                        // changeSet.getFileAction();
-                        // A, M, R, D
+                // TODO update squashedDiff with diffs of fullchangeset, using some kind of ignore strategy
+                // maybe we want to update the line numbers, such that we can match other lines....?
 
-                        String toPath = changeSet.getToPath();
+                for (FSqrFileChangeSet changeSet : fullChangeSet.getFileChangeSet()) {
+                    // TODO: use the changeSet.fileaction to determine the correct strategy.
+                    // changeSet.getFileAction();
+                    // A, M, R, D
 
-                        // if this file is not in filesOfInterestInSelection, we simply ignore this file change set
-                        if (!filesOfInterestInSelection.contains( toPath )) {
-                            continue;
-                        }
+                    String toPath = changeSet.getToPath();
 
-                        // if there is no entry in pathToFileChangeSetMap, we simply ignore this file change set
-                        // because we have no previous record for this file
-                        if (!pathToFileChangeSetMap.containsKey( toPath )) {
-                            continue;
-                        }
-
-                        FSqrFileChangeSet hiddenFileChangeSetRecord;
-                        if (pathToHiddenFileChangeSetJournalMap.containsKey( toPath )) {
-                            // if there is a hidden record, we will continue the record.
-                            hiddenFileChangeSetRecord = pathToHiddenFileChangeSetJournalMap.get( toPath );
-                        }
-                        else {
-                            // else we create a new copy of the pathToFileChangeSetMap, what we may or may not use.
-                            hiddenFileChangeSetRecord = new FSqrFileChangeSet( pathToFileChangeSetMap.get( toPath ) );
-                        }
-
-                        // TODO: use an ignore strategy.
-                        // TODO: it should be checked , whether filechangesets are joinable.
-
-                        // TODO: then update the updated hidden record.
-                        // store/save this intermediate FileChangeset copy.
-                        pathToHiddenFileChangeSetJournalMap.put( toPath, hiddenFileChangeSetRecord );
+                    // if this file is not in filesOfInterestInSelection, we simply ignore this file change set
+                    if (!filesOfInterestInSelection.contains( toPath )) {
+                        continue;
                     }
+
+                    // if there is no entry in pathToFileChangeSetMap, we simply ignore this file change set
+                    // because we have no previous record for this file
+                    if (!pathToFileChangeSetMap.containsKey( toPath )) {
+                        continue;
+                    }
+
+                    FSqrFileChangeSet hiddenFileChangeSetRecord;
+                    if (pathToHiddenFileChangeSetJournalMap.containsKey( toPath )) {
+                        // if there is a hidden record, we will continue the record.
+                        hiddenFileChangeSetRecord = pathToHiddenFileChangeSetJournalMap.get( toPath );
+                    }
+                    else {
+                        // else we create a new copy of the pathToFileChangeSetMap, what we may or may not use.
+                        hiddenFileChangeSetRecord = new FSqrFileChangeSet( pathToFileChangeSetMap.get( toPath ) );
+                    }
+
+                    // TODO: use an ignore strategy.
+                    // TODO: it should be checked , whether filechangesets are joinable.
+
+                    // TODO: then update the updated hidden record.
+                    // store/save this intermediate FileChangeset copy.
+                    pathToHiddenFileChangeSetJournalMap.put( toPath, hiddenFileChangeSetRecord );
                 }
             }
         }
