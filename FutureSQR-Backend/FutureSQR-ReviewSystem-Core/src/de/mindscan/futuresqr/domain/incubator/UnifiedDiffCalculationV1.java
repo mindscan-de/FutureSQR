@@ -95,8 +95,9 @@ public class UnifiedDiffCalculationV1 {
         Map<String, FSqrFileChangeSet> pathToHiddenFileChangeSetJournalMap = new HashMap<>();
 
         for (FSqrRevisionFullChangeSet fullChangeSet : intermediateRevisions) {
-            // if the intermediate revision is part of the selected revisions, then we actually must process this change set
-            if (selectedRevisions.contains( fullChangeSet.getRevisionId() )) {
+            if (isSelectedRevision( fullChangeSet, selectedRevisions )) {
+                // process the selected revision
+
                 if (!isFirstInitialized) {
                     // initialize squashed diff with latest selected revision
                     squashedDiff.setRevisionId( fullChangeSet.getRevisionId() );
@@ -198,6 +199,10 @@ public class UnifiedDiffCalculationV1 {
         }
 
         return squashedDiff;
+    }
+
+    private boolean isSelectedRevision( FSqrRevisionFullChangeSet fullChangeSet, List<String> selectedRevisions ) {
+        return selectedRevisions.contains( fullChangeSet.getRevisionId() );
     }
 
     private Collection<String> collectFilesForSelectedRevisions( List<FSqrRevisionFullChangeSet> intermediateRevisions, List<String> selectedRevisions ) {
