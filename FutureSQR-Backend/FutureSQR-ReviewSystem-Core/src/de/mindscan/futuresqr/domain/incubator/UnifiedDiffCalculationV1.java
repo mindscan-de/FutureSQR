@@ -105,6 +105,10 @@ public class UnifiedDiffCalculationV1 {
 
                 // process the file change set and integrate it into the squashed diff
                 for (FSqrFileChangeSet changeSet : fullChangeSet.getFileChangeSet()) {
+                    // TODO: use the changeSet.fileaction to determine the correct strategy.
+                    // changeSet.getFileAction();
+                    // A, M, R, D
+
                     String toPath = changeSet.getToPath();
                     if (!pathToFileChangeSetMap.containsKey( toPath )) {
                         // create a copy file changeset
@@ -155,6 +159,10 @@ public class UnifiedDiffCalculationV1 {
                     // maybe we want to update the line numbers, such that we can match other lines....?
 
                     for (FSqrFileChangeSet changeSet : fullChangeSet.getFileChangeSet()) {
+                        // TODO: use the changeSet.fileaction to determine the correct strategy.
+                        // changeSet.getFileAction();
+                        // A, M, R, D
+
                         String toPath = changeSet.getToPath();
 
                         // if this file is not in filesOfInterestInSelection, we simply ignore this file change set
@@ -188,11 +196,6 @@ public class UnifiedDiffCalculationV1 {
                 }
             }
         }
-
-        // TODO: another strategy would be to now filter all fullchangesets according to the files and group by revision from newest to oldest.
-        // not sure right now, this is a bit of a brainfuck...
-
-        // maybe a n square algorithm, for each file separately, and then use a merger for algorithm...
 
         return squashedDiff;
     }
