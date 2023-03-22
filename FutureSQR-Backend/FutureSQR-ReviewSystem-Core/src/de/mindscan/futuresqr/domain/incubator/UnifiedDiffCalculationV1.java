@@ -211,8 +211,9 @@ public class UnifiedDiffCalculationV1 {
         return files;
     }
 
-    // These are the interesting transitions, but we also need to distinguish, whether, it is an hidden or an selected
-    // revision.
+    // These are the interesting transitions, but we also need to distinguish, whether, it is a hidden/ignored or 
+    // selected revision. Some transitions might be "impossible", but we never know, how "impossible" these are. 
+    // A - ADD, M - Modified, R - Renamed/Moved, D-Deleted
 
     // AA => ??
     // AR => 
