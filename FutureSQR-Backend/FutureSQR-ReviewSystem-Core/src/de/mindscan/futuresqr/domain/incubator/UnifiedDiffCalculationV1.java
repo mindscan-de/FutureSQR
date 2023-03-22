@@ -211,4 +211,26 @@ public class UnifiedDiffCalculationV1 {
         return files;
     }
 
+    // These are the interesting transitions, but we also need to distinguish, whether, it is an hidden or an selected
+    // revision.
+
+    // AA => ??
+    // AR => 
+    // AM
+    // AD => empty for file
+
+    // MA
+    // MR
+    // MM
+    // MD
+
+    // RA
+    // RR
+    // RM
+    // RD
+
+    // DA
+    // DR
+    // DM
+    // DD
 }
