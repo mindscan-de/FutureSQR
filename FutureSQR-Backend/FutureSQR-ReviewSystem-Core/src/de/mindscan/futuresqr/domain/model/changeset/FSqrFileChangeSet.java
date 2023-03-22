@@ -56,6 +56,12 @@ public class FSqrFileChangeSet {
     private String renamedTo = "";
     private int renameSimilarity = 100;
 
+    // TODO: we want to provide some additional information, in case we squashed multiple FileChangesets into one
+    // so we can provide user readable information and summaries about skipped versions, e.g that a file was renamed
+    // but not being visible/tracked in the file change set. also we want some format. Maybe we can use some kind
+    // of recent changes system, which we might want overall... in the system, such that we can provide summaries
+    // for the reviews and so on.
+
     /**
      * 
      */
