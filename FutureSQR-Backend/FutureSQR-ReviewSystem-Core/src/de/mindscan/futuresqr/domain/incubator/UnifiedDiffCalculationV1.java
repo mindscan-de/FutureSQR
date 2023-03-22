@@ -75,9 +75,7 @@ public class UnifiedDiffCalculationV1 {
         // -----------------------
         // many selected Revisions
         // -----------------------
-        FSqrRevisionFullChangeSet squashedDiff = calculateSquashedDiffv1( intermediateRevisions, selectedRevisions );
-
-        return squashedDiff;
+        return calculateSquashedDiffv1( intermediateRevisions, selectedRevisions );
     }
 
     private FSqrRevisionFullChangeSet calculateSquashedDiffv1( List<FSqrRevisionFullChangeSet> intermediateRevisions, List<String> selectedRevisions ) {
@@ -134,15 +132,26 @@ public class UnifiedDiffCalculationV1 {
 
                             // remove the previous file change set, if there was a hidden file change set
                             squashedDiff.removeFileChangeSet( previous );
+
+                            // we continue with the pathToFileChangeSetMap, after we got rid of probable hidden records.
+                            FSqrFileChangeSet targetFileChangeSet = pathToFileChangeSetMap.get( toPath );
+
+                            // squash changeSet into targetFileChangeSet
+                            FSqrFileChangeSet updatedFileChangeset = squashSelectedFileChangeSet( targetFileChangeSet, changeSet );
+
+                            squashedDiff.addFileChangeSet( updatedFileChangeset );
+
                         }
+                        else {
+                            // we continue with the pathToFileChangeSetMap, after we got rid of probable hidden records.
+                            FSqrFileChangeSet targetFileChangeSet = pathToFileChangeSetMap.get( toPath );
 
-                        // we continue with the pathToFileChangeSetMap, after we got rid of probable hidden records.
-                        FSqrFileChangeSet targetFileChangeSet = pathToFileChangeSetMap.get( toPath );
+                            // squash changeSet into targetFileChangeSet
+                            FSqrFileChangeSet updatedFileChangeset = squashSelectedFileChangeSet( targetFileChangeSet, changeSet );
 
-                        // squash changeSet into targetFileChangeSet
-                        FSqrFileChangeSet updatedFileChangeset = squashSelectedFileChangeSet( targetFileChangeSet, changeSet );
-
-                        squashedDiff.addFileChangeSet( updatedFileChangeset );
+//                            squashedDiff.removeFileChangeSet( targetFileChangeSet );
+//                            squashedDiff.addFileChangeSet( updatedFileChangeset );
+                        }
                     }
                 }
 
