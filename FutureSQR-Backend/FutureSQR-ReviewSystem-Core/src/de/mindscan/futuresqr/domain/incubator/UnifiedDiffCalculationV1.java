@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.Set;
 
 import de.mindscan.futuresqr.domain.model.changeset.FSqrFileChangeSet;
+import de.mindscan.futuresqr.domain.model.changeset.FSqrFileContentChangeSet;
 import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
 
 /**
@@ -131,15 +132,15 @@ public class UnifiedDiffCalculationV1 {
                             //TODO: actually we must check what kind of change it was..., maybe we can't combine them....
                             FSqrFileChangeSet previous = pathToFileChangeSetMap.put( toPath, hiddenJournalFileChangeSet );
 
+                            // remove the previous file change set, if there was a hidden file change set
+                            squashedDiff.removeFileChangeSet( previous );
                         }
 
                         // we continue with the pathToFileChangeSetMap, after we got rid of probable hidden records.
                         FSqrFileChangeSet targetFileChangeSet = pathToFileChangeSetMap.get( toPath );
 
                         // TODO: squash changeSet into targetFileChangeSet
-
-                        // check if there were in between versions, then we need to fix line numbers first before
-                        // full squash.
+                        FSqrFileChangeSet updatedFileChangeset = squashSelectedFile( targetFileChangeSet, changeSet );
 
                         // squash different aspects... renames, fileactions etc.
                         // TODO: update line numbers in content changeset
@@ -147,7 +148,7 @@ public class UnifiedDiffCalculationV1 {
                         // TODO: update file action
                         // TODO: update file 
 
-                        // squashedDiff.addFileChangeSet( updatedFileChangeset );
+                        squashedDiff.addFileChangeSet( updatedFileChangeset );
                     }
                 }
 
@@ -191,7 +192,12 @@ public class UnifiedDiffCalculationV1 {
                     }
 
                     // TODO: use an ignore strategy.
+                    // fix linenumbers and such.
+
                     // TODO: it should be checked , whether filechangesets are joinable.
+
+                    // check if there were in between versions, then we need to fix line numbers first before
+                    // full squash.
 
                     // TODO: then update the updated hidden record.
                     // store/save this intermediate FileChangeset copy.
@@ -203,6 +209,16 @@ public class UnifiedDiffCalculationV1 {
         return squashedDiff;
     }
 
+    private FSqrFileChangeSet squashSelectedFile( FSqrFileChangeSet targetFileChangeSet, FSqrFileChangeSet currentChangeSet ) {
+        List<FSqrFileContentChangeSet> fileContentChangeSet = currentChangeSet.getFileContentChangeSet();
+
+        for (FSqrFileContentChangeSet contentChangeSet : fileContentChangeSet) {
+            // integrate the file changes content change sets
+        }
+
+        return targetFileChangeSet;
+    }
+
     private boolean isSelectedRevision( FSqrRevisionFullChangeSet fullChangeSet, List<String> selectedRevisions ) {
         return selectedRevisions.contains( fullChangeSet.getRevisionId() );
     }
@@ -211,6 +227,7 @@ public class UnifiedDiffCalculationV1 {
         Set<String> files = new HashSet<>();
 
         for (FSqrRevisionFullChangeSet changeset : intermediateRevisions) {
+            // TODO: actually only add if not empty...
             changeset.getFileChangeSet().forEach( fcs -> files.add( fcs.getToPath() ) );
             changeset.getFileChangeSet().forEach( fcs -> files.add( fcs.getFromPath() ) );
         }
