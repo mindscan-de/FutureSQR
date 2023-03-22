@@ -214,6 +214,9 @@ public class UnifiedDiffCalculationV1 {
     private FSqrFileChangeSet squashSelectedFileChangeSet( FSqrFileChangeSet targetFileChangeSet, FSqrFileChangeSet currentChangeSet ) {
         List<FSqrFileContentChangeSet> fileContentChangeSet = currentChangeSet.getFileContentChangeSet();
 
+        // targetFileChangeSet - right
+        // currentChangeSet - left
+
         // depending on the two file changesettype we now want to select the correct merge/squash strategy.
         // and update the content change sets correctly.
 
@@ -233,7 +236,7 @@ public class UnifiedDiffCalculationV1 {
             targetFileChangeSet.addContentChangeSet( contentChangeSet );
         }
 
-        // sort by line numbers (right side)
+        // sort by line numbers (right side) / Quick hack - 
         targetFileChangeSet.getFileContentChangeSet().sort( new Comparator<FSqrFileContentChangeSet>() {
             @Override
             public int compare( FSqrFileContentChangeSet o1, FSqrFileContentChangeSet o2 ) {
