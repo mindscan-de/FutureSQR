@@ -139,14 +139,8 @@ public class UnifiedDiffCalculationV1 {
                         // we continue with the pathToFileChangeSetMap, after we got rid of probable hidden records.
                         FSqrFileChangeSet targetFileChangeSet = pathToFileChangeSetMap.get( toPath );
 
-                        // TODO: squash changeSet into targetFileChangeSet
-                        FSqrFileChangeSet updatedFileChangeset = squashSelectedFile( targetFileChangeSet, changeSet );
-
-                        // squash different aspects... renames, fileactions etc.
-                        // TODO: update line numbers in content changeset
-                        // TODO: update line modes in content changeset
-                        // TODO: update file action
-                        // TODO: update file 
+                        // squash changeSet into targetFileChangeSet
+                        FSqrFileChangeSet updatedFileChangeset = squashSelectedFileChangeSet( targetFileChangeSet, changeSet );
 
                         squashedDiff.addFileChangeSet( updatedFileChangeset );
                     }
@@ -195,9 +189,7 @@ public class UnifiedDiffCalculationV1 {
                     // fix linenumbers and such.
 
                     // TODO: it should be checked , whether filechangesets are joinable.
-
-                    // check if there were in between versions, then we need to fix line numbers first before
-                    // full squash.
+                    hiddenFileChangeSetRecord = squashHiddenFileChangeSet( hiddenFileChangeSetRecord, changeSet );
 
                     // TODO: then update the updated hidden record.
                     // store/save this intermediate FileChangeset copy.
@@ -209,13 +201,25 @@ public class UnifiedDiffCalculationV1 {
         return squashedDiff;
     }
 
-    private FSqrFileChangeSet squashSelectedFile( FSqrFileChangeSet targetFileChangeSet, FSqrFileChangeSet currentChangeSet ) {
+    private FSqrFileChangeSet squashSelectedFileChangeSet( FSqrFileChangeSet targetFileChangeSet, FSqrFileChangeSet currentChangeSet ) {
         List<FSqrFileContentChangeSet> fileContentChangeSet = currentChangeSet.getFileContentChangeSet();
 
+        // squash different aspects... renames, fileactions etc.
+        // TODO: update line numbers in content changeset
+        // TODO: update line modes in content changeset
+        // TODO: update file action
+        // TODO: update file 
+
         for (FSqrFileContentChangeSet contentChangeSet : fileContentChangeSet) {
-            // integrate the file changes content change sets
+            // TODO: integrate the file changes content change sets
+            // use some kind or merging mechanism, if lines do not overlap, bingo, just insert at correct position.
+            // this is the more complicated stuff....
         }
 
+        return targetFileChangeSet;
+    }
+
+    private FSqrFileChangeSet squashHiddenFileChangeSet( FSqrFileChangeSet targetFileChangeSet, FSqrFileChangeSet currentChangeSet ) {
         return targetFileChangeSet;
     }
 
@@ -244,15 +248,15 @@ public class UnifiedDiffCalculationV1 {
     // AM
     // AD => empty for file
 
-    // MA
-    // MR
-    // MM
-    // MD
-
     // RA
     // RR
     // RM
     // RD
+
+    // MA
+    // MR
+    // MM
+    // MD
 
     // DA
     // DR
