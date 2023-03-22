@@ -162,4 +162,9 @@ public class FSqrFileChangeSet {
     public int getRenameSimilarity() {
         return renameSimilarity;
     }
+
+    public void addContentChangeSet( FSqrFileContentChangeSet contentChangeSet ) {
+        // TODO: insert at right position...?
+        this.fileContentChangeSet.add( contentChangeSet );
+    }
 }

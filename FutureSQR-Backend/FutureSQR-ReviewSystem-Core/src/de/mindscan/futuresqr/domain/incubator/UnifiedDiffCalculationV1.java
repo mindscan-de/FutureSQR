@@ -204,6 +204,9 @@ public class UnifiedDiffCalculationV1 {
     private FSqrFileChangeSet squashSelectedFileChangeSet( FSqrFileChangeSet targetFileChangeSet, FSqrFileChangeSet currentChangeSet ) {
         List<FSqrFileContentChangeSet> fileContentChangeSet = currentChangeSet.getFileContentChangeSet();
 
+        // depending on the two file changesettype we now want to select the correct merge/squash strategy.
+        // and update the content change sets correctly.
+
         // squash different aspects... renames, fileactions etc.
         // TODO: update line numbers in content changeset
         // TODO: update line modes in content changeset
@@ -214,6 +217,10 @@ public class UnifiedDiffCalculationV1 {
             // TODO: integrate the file changes content change sets
             // use some kind or merging mechanism, if lines do not overlap, bingo, just insert at correct position.
             // this is the more complicated stuff....
+
+            // TODO: just add this stuff.... for now..., let's see whether the whole logic works alltogether,
+            //       we can improve the squashing for each of the content change sets later 
+            targetFileChangeSet.addContentChangeSet( contentChangeSet );
         }
 
         return targetFileChangeSet;
