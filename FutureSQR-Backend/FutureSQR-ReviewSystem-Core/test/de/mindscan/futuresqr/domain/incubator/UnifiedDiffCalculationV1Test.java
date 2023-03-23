@@ -113,6 +113,24 @@ public class UnifiedDiffCalculationV1Test {
         assertThat( squashedDiffs.getRevisionId(), equalTo( LAST_OF_THREE_1921FA01 ) );
     }
 
+    @Test
+    public void testSquashDiffs_threeRevisionsInRowSelectFirstTwo_returnsFullChangeSetWithSecondRevisionId() throws Exception {
+        // arrange
+        UnifiedDiffCalculationV1 diffCalculation = new UnifiedDiffCalculationV1();
+        List<String> selectedRevisions = new ArrayList<>();
+        // first revision.
+        selectedRevisions.add( FIRST_OF_THREE_1A306DE7 );
+        selectedRevisions.add( SECOND_OF_THREE_DFB2A463 );
+        Collection<String> filterRevisions = null;
+        List<FSqrRevisionFullChangeSet> intermediateRevisions = retrieveRevisions( FIRST_OF_THREE_1A306DE7, LAST_OF_THREE_1921FA01 );
+
+        // act
+        FSqrRevisionFullChangeSet squashedDiffs = diffCalculation.squashDiffs( intermediateRevisions, filterRevisions, selectedRevisions );
+
+        // assert
+        assertThat( squashedDiffs.getRevisionId(), equalTo( SECOND_OF_THREE_DFB2A463 ) );
+    }
+
     private List<FSqrRevisionFullChangeSet> retrieveRevisions( String firstRevisionId, String lastRevisionId ) {
         ScmRepository repository = new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" );
 
