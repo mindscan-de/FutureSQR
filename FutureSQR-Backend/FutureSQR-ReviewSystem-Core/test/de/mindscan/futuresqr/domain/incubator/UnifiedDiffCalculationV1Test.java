@@ -194,6 +194,8 @@ public class UnifiedDiffCalculationV1Test {
 //        assertThat( fileChangeSet.getFileContentChangeSet(), hasSize( 3 ) );
 //    }
 
+    // TODO: also correct for parent rev and current rev for each filechange set.
+
     private List<FSqrRevisionFullChangeSet> retrieveRevisions( String firstRevisionId, String lastRevisionId ) {
         ScmRepository repository = new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" );
 
