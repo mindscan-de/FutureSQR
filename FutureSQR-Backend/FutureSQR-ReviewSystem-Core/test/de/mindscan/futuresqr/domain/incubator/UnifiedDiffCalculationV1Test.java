@@ -2,6 +2,7 @@ package de.mindscan.futuresqr.domain.incubator;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.collection.IsEmptyCollection.empty;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import de.mindscan.futuresqr.domain.model.changeset.FSqrFileChangeSet;
 import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
 import de.mindscan.futuresqr.scmaccess.git.command.GitCommands;
 import de.mindscan.futuresqr.scmaccess.git.processor.GitOutputProcessors;
@@ -129,6 +131,43 @@ public class UnifiedDiffCalculationV1Test {
 
         // assert
         assertThat( squashedDiffs.getRevisionId(), equalTo( SECOND_OF_THREE_DFB2A463 ) );
+    }
+
+    @Test
+    public void testSquashDiffs_threeRevisionsInRowSelectFirstTwo_expectFullChangeSetHasOneFileChangeSet() throws Exception {
+        // arrange
+        UnifiedDiffCalculationV1 diffCalculation = new UnifiedDiffCalculationV1();
+        List<String> selectedRevisions = new ArrayList<>();
+        // first revision.
+        selectedRevisions.add( FIRST_OF_THREE_1A306DE7 );
+        selectedRevisions.add( SECOND_OF_THREE_DFB2A463 );
+        Collection<String> filterRevisions = null;
+        List<FSqrRevisionFullChangeSet> intermediateRevisions = retrieveRevisions( FIRST_OF_THREE_1A306DE7, LAST_OF_THREE_1921FA01 );
+
+        // act
+        FSqrRevisionFullChangeSet squashedDiffs = diffCalculation.squashDiffs( intermediateRevisions, filterRevisions, selectedRevisions );
+
+        // assert
+        assertThat( squashedDiffs.getFileChangeSet(), hasSize( 1 ) );
+    }
+
+    @Test
+    public void testSquashDiffs_threeRevisionsInRowSelectFirstTwo_expectFullChangeSetHasThreeContentChangesetsInOnlyFileChangeset() throws Exception {
+        // arrange
+        UnifiedDiffCalculationV1 diffCalculation = new UnifiedDiffCalculationV1();
+        List<String> selectedRevisions = new ArrayList<>();
+        // first revision.
+        selectedRevisions.add( FIRST_OF_THREE_1A306DE7 );
+        selectedRevisions.add( SECOND_OF_THREE_DFB2A463 );
+        Collection<String> filterRevisions = null;
+        List<FSqrRevisionFullChangeSet> intermediateRevisions = retrieveRevisions( FIRST_OF_THREE_1A306DE7, LAST_OF_THREE_1921FA01 );
+
+        // act
+        FSqrRevisionFullChangeSet squashedDiffs = diffCalculation.squashDiffs( intermediateRevisions, filterRevisions, selectedRevisions );
+        FSqrFileChangeSet fileChangeSet = squashedDiffs.getFileChangeSet().get( 0 );
+
+        // assert
+        assertThat( fileChangeSet.getFileContentChangeSet(), hasSize( 3 ) );
     }
 
     private List<FSqrRevisionFullChangeSet> retrieveRevisions( String firstRevisionId, String lastRevisionId ) {
