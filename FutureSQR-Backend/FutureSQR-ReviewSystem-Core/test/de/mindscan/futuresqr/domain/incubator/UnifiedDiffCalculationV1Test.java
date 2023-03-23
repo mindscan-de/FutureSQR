@@ -170,6 +170,30 @@ public class UnifiedDiffCalculationV1Test {
         assertThat( fileChangeSet.getFileContentChangeSet(), hasSize( 3 ) );
     }
 
+// TODO: do some approval tests, for the output list for the file change sets and their content changesets.    
+//    @Test
+//    public void testSquashDiffs_threeRevisionsInRowSelectFirstTwo_expectFullChangeSetHasThreeContentChangesetsInOnlyFileChangeset() throws Exception {
+//        // arrange
+//        UnifiedDiffCalculationV1 diffCalculation = new UnifiedDiffCalculationV1();
+//        List<String> selectedRevisions = new ArrayList<>();
+//        // first revision.
+//        selectedRevisions.add( FIRST_OF_THREE_1A306DE7 );
+//        selectedRevisions.add( SECOND_OF_THREE_DFB2A463 );
+//        Collection<String> filterRevisions = null;
+//        List<FSqrRevisionFullChangeSet> intermediateRevisions = retrieveRevisions( FIRST_OF_THREE_1A306DE7, LAST_OF_THREE_1921FA01 );
+//
+//        // act
+//        FSqrRevisionFullChangeSet squashedDiffs = diffCalculation.squashDiffs( intermediateRevisions, filterRevisions, selectedRevisions );
+//        FSqrFileChangeSet fileChangeSet = squashedDiffs.getFileChangeSet().get( 0 );
+//
+//        // contentchangeset #1  -95,8 / +95,9
+//        // contentchangeset #2  -200,6 / +201,10
+//        // contentchangeset #3  -211,8 / +216,9  <<-- this one will fail because we currently don't correct for the truth, without truth correction: 211,9
+//        
+//        // assert
+//        assertThat( fileChangeSet.getFileContentChangeSet(), hasSize( 3 ) );
+//    }
+
     private List<FSqrRevisionFullChangeSet> retrieveRevisions( String firstRevisionId, String lastRevisionId ) {
         ScmRepository repository = new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" );
 
