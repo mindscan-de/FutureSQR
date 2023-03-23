@@ -116,7 +116,7 @@ public class UnifiedDiffCalculationV1Test {
     private List<FSqrRevisionFullChangeSet> retrieveRevisions( String firstRevisionId, String lastRevisionId ) {
         ScmRepository repository = new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" );
 
-        FakeGitCLICommandExecutor gitContentProvider = new FakeGitCLICommandExecutor( false );
+        FakeGitCLICommandExecutor gitContentProvider = new FakeGitCLICommandExecutor( true );
 
         List<ScmFullChangeSet> revisionList = gitContentProvider//
                         .execute( repository, GitCommands.createGetDiffBetweenRevisionsCommand( firstRevisionId, lastRevisionId ) ) //
