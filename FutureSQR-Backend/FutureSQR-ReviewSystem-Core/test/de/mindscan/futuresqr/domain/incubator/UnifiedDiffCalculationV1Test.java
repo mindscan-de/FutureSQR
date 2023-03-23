@@ -46,6 +46,40 @@ public class UnifiedDiffCalculationV1Test {
     }
 
     @Test
+    public void testSquashDiffs_emptyIntermediaRevisions_returnsEmptyFileChangeSetInFullChangeSet() throws Exception {
+        // arrange
+        UnifiedDiffCalculationV1 diffCalculation = new UnifiedDiffCalculationV1();
+        List<String> selectedRevisions = new ArrayList<>();
+        // first revision.
+        selectedRevisions.add( FIRST_OF_THREE_1A306DE7 );
+        Collection<String> filterRevisions = null;
+        List<FSqrRevisionFullChangeSet> intermediateRevisions = new ArrayList<>();
+
+        // act
+        FSqrRevisionFullChangeSet squashedDiffs = diffCalculation.squashDiffs( intermediateRevisions, filterRevisions, selectedRevisions );
+
+        // assert
+        assertThat( squashedDiffs.getFileChangeSet(), empty() );
+    }
+
+    @Test
+    public void testSquashDiffs_selectedRevisionHasNullValue_returnsEmptyFileChangeSetInFullChangeSet() throws Exception {
+        // arrange
+        UnifiedDiffCalculationV1 diffCalculation = new UnifiedDiffCalculationV1();
+        List<String> selectedRevisions = new ArrayList<>();
+        // first revision.
+        selectedRevisions.add( null );
+        Collection<String> filterRevisions = null;
+        List<FSqrRevisionFullChangeSet> intermediateRevisions = new ArrayList<>();
+
+        // act
+        FSqrRevisionFullChangeSet squashedDiffs = diffCalculation.squashDiffs( intermediateRevisions, filterRevisions, selectedRevisions );
+
+        // assert
+        assertThat( squashedDiffs.getFileChangeSet(), empty() );
+    }
+
+    @Test
     public void testSquashDiffs_threeRevisionsInRowSelectFirst_returnsFullChangeSetWithFirstRevisionId() throws Exception {
         // arrange
         UnifiedDiffCalculationV1 diffCalculation = new UnifiedDiffCalculationV1();
