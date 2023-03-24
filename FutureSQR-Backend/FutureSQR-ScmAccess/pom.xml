@@ -64,7 +64,7 @@
         <configuration>
 	      <!-- currently commented because of the tomcat limitation to java 8 -->
           <!-- <release>11</release> -->
-          <release>8</release>
+          <!-- <release>8</release> -->
         </configuration>
       </plugin>
     </plugins>
