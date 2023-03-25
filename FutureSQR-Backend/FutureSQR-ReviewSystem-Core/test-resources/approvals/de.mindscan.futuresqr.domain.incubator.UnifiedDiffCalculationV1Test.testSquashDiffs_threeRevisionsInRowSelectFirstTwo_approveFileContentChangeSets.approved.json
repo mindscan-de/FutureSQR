@@ -1,0 +1,154 @@
+[
+  {
+    "unifiedDiffData": [
+      {
+        "line": "        Map\u003cString, FSqrFileChangeSet\u003e pathToHiddenFileChangeSetJournalMap \u003d new HashMap\u003c\u003e();",
+        "type": "UNMODIFIED"
+      },
+      {
+        "line": "",
+        "type": "UNMODIFIED"
+      },
+      {
+        "line": "        for (FSqrRevisionFullChangeSet fullChangeSet : intermediateRevisions) {",
+        "type": "UNMODIFIED"
+      },
+      {
+        "line": "            // if the intermediate revision is part of the selected revisions, then we actually must process this change set",
+        "type": "DELETED"
+      },
+      {
+        "line": "            if (selectedRevisions.contains( fullChangeSet.getRevisionId() )) {",
+        "type": "DELETED"
+      },
+      {
+        "line": "            if (isSelectedRevision( fullChangeSet, selectedRevisions )) {",
+        "type": "ADDED"
+      },
+      {
+        "line": "                // process the selected revision",
+        "type": "ADDED"
+      },
+      {
+        "line": "",
+        "type": "ADDED"
+      },
+      {
+        "line": "                if (!isFirstInitialized) {",
+        "type": "UNMODIFIED"
+      },
+      {
+        "line": "                    // initialize squashed diff with latest selected revision",
+        "type": "UNMODIFIED"
+      },
+      {
+        "line": "                    squashedDiff.setRevisionId( fullChangeSet.getRevisionId() );",
+        "type": "UNMODIFIED"
+      }
+    ],
+    "diffLeftLineCountStart": 95,
+    "diffLeftLineCountDelta": 8,
+    "diffRightLineCountStart": 95,
+    "diffRightLineCountDelta": 9
+  },
+  {
+    "unifiedDiffData": [
+      {
+        "line": "        return squashedDiff;",
+        "type": "UNMODIFIED"
+      },
+      {
+        "line": "    }",
+        "type": "UNMODIFIED"
+      },
+      {
+        "line": "",
+        "type": "UNMODIFIED"
+      },
+      {
+        "line": "    private boolean isSelectedRevision( FSqrRevisionFullChangeSet fullChangeSet, List\u003cString\u003e selectedRevisions ) {",
+        "type": "ADDED"
+      },
+      {
+        "line": "        return selectedRevisions.contains( fullChangeSet.getRevisionId() );",
+        "type": "ADDED"
+      },
+      {
+        "line": "    }",
+        "type": "ADDED"
+      },
+      {
+        "line": "",
+        "type": "ADDED"
+      },
+      {
+        "line": "    private Collection\u003cString\u003e collectFilesForSelectedRevisions( List\u003cFSqrRevisionFullChangeSet\u003e intermediateRevisions, List\u003cString\u003e selectedRevisions ) {",
+        "type": "UNMODIFIED"
+      },
+      {
+        "line": "        Set\u003cString\u003e files \u003d new HashSet\u003c\u003e();",
+        "type": "UNMODIFIED"
+      },
+      {
+        "line": "",
+        "type": "UNMODIFIED"
+      }
+    ],
+    "diffLeftLineCountStart": 200,
+    "diffLeftLineCountDelta": 6,
+    "diffRightLineCountStart": 201,
+    "diffRightLineCountDelta": 10
+  },
+  {
+    "unifiedDiffData": [
+      {
+        "line": "        return files;",
+        "type": "UNMODIFIED"
+      },
+      {
+        "line": "    }",
+        "type": "UNMODIFIED"
+      },
+      {
+        "line": "",
+        "type": "UNMODIFIED"
+      },
+      {
+        "line": "    // These are the interesting transitions, but we also need to distinguish, whether, it is an hidden or an selected",
+        "type": "DELETED"
+      },
+      {
+        "line": "    // revision.",
+        "type": "DELETED"
+      },
+      {
+        "line": "    // These are the interesting transitions, but we also need to distinguish, whether, it is a hidden/ignored or ",
+        "type": "ADDED"
+      },
+      {
+        "line": "    // selected revision. Some transitions might be \"impossible\", but we never know, how \"impossible\" these are. ",
+        "type": "ADDED"
+      },
+      {
+        "line": "    // A - ADD, M - Modified, R - Renamed/Moved, D-Deleted",
+        "type": "ADDED"
+      },
+      {
+        "line": "",
+        "type": "UNMODIFIED"
+      },
+      {
+        "line": "    // AA \u003d\u003e ??",
+        "type": "UNMODIFIED"
+      },
+      {
+        "line": "    // AR \u003d\u003e ",
+        "type": "UNMODIFIED"
+      }
+    ],
+    "diffLeftLineCountStart": 211,
+    "diffLeftLineCountDelta": 8,
+    "diffRightLineCountStart": 211,
+    "diffRightLineCountDelta": 9
+  }
+]
