@@ -110,7 +110,7 @@ public class JsonApprovals {
 
     private String buildApprovedFileName( StackTraceElement stackFrame ) {
         String className = stackFrame.getClassName();
-        String simpleClassName = className.substring( className.lastIndexOf( '.' ) );
+        String simpleClassName = className.substring( className.lastIndexOf( "." ) + ".".length() );
         return simpleClassName + "." + stackFrame.getMethodName() + APPROVED_JSON;
     }
 
