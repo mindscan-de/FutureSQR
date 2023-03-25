@@ -73,11 +73,26 @@ public class JsonApprovals {
 
         if (!isApprovalPresent( approvedFileName )) {
             saveReceived( received, receivedFileName );
+
+            // open a diff viewer.
+
             throw new ApprovalFailure( "Not yet approved. Please approve this test by renaming the '" + receivedFileName.getFileName().toString() + "' to '"
                             + approvedFileName.getFileName().toString() + "'." );
         }
 
-        // TODO: now check if received and approved json match.
+        int compared = compareReceivedToApproved( received, approvedFileName );
+
+        if (compared != 0) {
+            saveReceived( received, receivedFileName );
+
+            // open a diff viewer.
+
+            throw new ApprovalFailure( "The approved data, doesn't match the received data." );
+        }
+    }
+
+    private int compareReceivedToApproved( List<? extends Object> received, Path approvedFileName ) {
+        return 0;
     }
 
     private void saveReceived( List<? extends Object> received, Path receivedFileName ) {
