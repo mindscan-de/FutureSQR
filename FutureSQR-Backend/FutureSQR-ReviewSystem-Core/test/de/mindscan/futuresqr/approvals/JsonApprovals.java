@@ -71,8 +71,8 @@ public class JsonApprovals {
     }
 
     public void approveJson( StackTraceElement unitTestStackTraceElement, List<? extends Object> received ) {
-        String approvedFileName = buildApprovedFileName( unitTestStackTraceElement );
-        String receivedFileName = buildReceivedFileName( unitTestStackTraceElement );
+        Path approvedFileName = buildApprovedFileName( unitTestStackTraceElement );
+        Path receivedFileName = buildReceivedFileName( unitTestStackTraceElement );
 
         if (!isApprovalPresent( approvedFileName )) {
             saveReceived( received, receivedFileName );
@@ -82,7 +82,7 @@ public class JsonApprovals {
         // TODO: now check if received and approved json match.
     }
 
-    private void saveReceived( List<? extends Object> received, String receivedFileName ) {
+    private void saveReceived( List<? extends Object> received, Path receivedFileName ) {
 
         Gson gson = new GsonBuilder() //
                         .serializeNulls() //
@@ -100,25 +100,25 @@ public class JsonApprovals {
         }
     }
 
-    private boolean isApprovalPresent( String approvedFileName ) {
+    private boolean isApprovalPresent( Path approvedFileName ) {
         return Files.isRegularFile( buildResolvedResourcesFileName( approvedFileName ) );
     }
 
-    private Path buildResolvedResourcesFileName( String fileName ) {
+    private Path buildResolvedResourcesFileName( Path fileName ) {
         return Paths.get( TEST_RESOURCES_APPROVALS_DIRECTORY ).resolve( fileName );
     }
 
-    private String buildApprovedFileName( StackTraceElement stackFrame ) {
+    private Path buildApprovedFileName( StackTraceElement stackFrame ) {
         String className = stackFrame.getClassName();
         String simpleClassName = className.substring( className.lastIndexOf( "." ) + ".".length() );
-        return simpleClassName + "." + stackFrame.getMethodName() + APPROVED_JSON;
+
+        return Paths.get( simpleClassName, stackFrame.getMethodName() + APPROVED_JSON );
     }
 
-    private String buildReceivedFileName( StackTraceElement stackFrame ) {
+    private Path buildReceivedFileName( StackTraceElement stackFrame ) {
         String className = stackFrame.getClassName();
         String simpleClassName = className.substring( className.lastIndexOf( "." ) + ".".length() );
-
-        return simpleClassName + "." + stackFrame.getMethodName() + RECEIVED_JSON;
+        return Paths.get( simpleClassName, stackFrame.getMethodName() + RECEIVED_JSON );
     }
 
 }
