@@ -58,7 +58,8 @@ public class JsonApprovals {
 
         for (StackTraceElement stackTraceElement : stackTrace) {
             if (!JsonApprovals.class.getCanonicalName().equals( stackTraceElement.getClassName() )) {
-                System.out.println( "JsonApprovals: " + stackTraceElement.getClassName() + "." + stackTraceElement.getMethodName() );
+                String methodName = stackTraceElement.getMethodName();
+                System.out.println( "JsonApprovals: " + stackTraceElement.getClassName() + "." + methodName );
                 return stackTraceElement;
             }
         }
@@ -108,11 +109,16 @@ public class JsonApprovals {
     }
 
     private String buildApprovedFileName( StackTraceElement stackFrame ) {
-        return stackFrame.getClassName() + "." + stackFrame.getMethodName() + APPROVED_JSON;
+        String className = stackFrame.getClassName();
+        String simpleClassName = className.substring( className.lastIndexOf( '.' ) );
+        return simpleClassName + "." + stackFrame.getMethodName() + APPROVED_JSON;
     }
 
-    private String buildReceivedFileName( StackTraceElement unitTestStackTraceElement ) {
-        return unitTestStackTraceElement.getClassName() + "." + unitTestStackTraceElement.getMethodName() + RECEIVED_JSON;
+    private String buildReceivedFileName( StackTraceElement stackFrame ) {
+        String className = stackFrame.getClassName();
+        String simpleClassName = className.substring( className.lastIndexOf( "." ) + ".".length() );
+
+        return simpleClassName + "." + stackFrame.getMethodName() + RECEIVED_JSON;
     }
 
 }
