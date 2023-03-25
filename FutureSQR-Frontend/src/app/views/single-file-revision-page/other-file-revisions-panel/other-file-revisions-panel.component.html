@@ -4,6 +4,8 @@
 	</div>
 	<div class="list-group list-group-flush">
 		<a class="mb-2" *ngFor="let revision of uiOtherRevisions" class="list-group-item list-unstyled small"
+				[routerLink]="['/',uiActiveProjectID,'revision',revision.revisionid,'viewfile']"
+				[queryParams]="{p:uiActiveFilePath}" 
 				[ngClass]="{'active':revision.revisionid==uiActiveRevisionID}"
 			><div title="{{revision.shortrev}} -- {{revision.revisionid}}" >
 				<div>

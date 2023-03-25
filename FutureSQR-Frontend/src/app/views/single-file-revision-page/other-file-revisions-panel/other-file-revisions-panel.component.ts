@@ -13,6 +13,8 @@ export class OtherFileRevisionsPanelComponent implements OnInit {
 	public uiActiveProjectID: string = "";
 	// needed for the highlighting
 	public uiActiveRevisionID: string = "";
+	// needed for the filepath
+	public uiActiveFilePath: string = "";
 	// needed for the list of revisions
 	public uiOtherRevisions: BackendModelProjectRecentCommitRevision[] = [];
 
@@ -21,6 +23,8 @@ export class OtherFileRevisionsPanelComponent implements OnInit {
 	private activeProjectIDProvided = false;
 	@Input() activeRevisionID: string = "";
 	private activeRevisionIDProvided = false;
+	@Input() activeFilePath: string = "";
+	private activeFilePathProvided = false;
 	@Input() otherRevisions: BackendModelProjectRecentCommitRevision[] = [];
 	private otherRevisionsProvided = false;
 
@@ -34,6 +38,11 @@ export class OtherFileRevisionsPanelComponent implements OnInit {
 		if(changes.activeProjectID != undefined) {
 			this.uiActiveProjectID = changes.activeProjectID.currentValue; 
 			this.activeProjectIDProvided = true;
+		}
+		
+		if(changes.activeFilePath != undefined) {
+			this.uiActiveFilePath = changes.activeFilePath.currentValue;
+			this.activeFilePathProvided = true;
 		}
 		
 		if(changes.activeRevisionID != undefined) {
