@@ -88,7 +88,17 @@ public class JsonApprovals {
                         .serializeNulls() //
                         .setPrettyPrinting().create();
 
-        try (FileWriter writer = new FileWriter( buildResolvedResourcesFileName( receivedFileName ).toString() )) {
+        Path receivedPath = buildResolvedResourcesFileName( receivedFileName );
+        if (!Files.isDirectory( receivedPath.getParent() )) {
+            try {
+                Files.createDirectories( receivedPath.getParent() );
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try (FileWriter writer = new FileWriter( receivedPath.toString() )) {
             try (JsonWriter jsonWriter = new JsonWriter( writer );) {
                 jsonWriter.setIndent( "  " );
                 gson.toJson( received, received.getClass(), jsonWriter );
@@ -111,7 +121,6 @@ public class JsonApprovals {
     private Path buildApprovedFileName( StackTraceElement stackFrame ) {
         String className = stackFrame.getClassName();
         String simpleClassName = className.substring( className.lastIndexOf( "." ) + ".".length() );
-
         return Paths.get( simpleClassName, stackFrame.getMethodName() + APPROVED_JSON );
     }
 
