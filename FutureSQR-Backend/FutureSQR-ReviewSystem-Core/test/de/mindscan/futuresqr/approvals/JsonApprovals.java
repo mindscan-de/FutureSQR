@@ -44,8 +44,8 @@ public class JsonApprovals {
         // then select first one, this is the file name and package name for the approval.
 
         for (StackTraceElement stackTraceElement : stackTrace) {
-            if (JsonApprovals.class.getCanonicalName().equals( stackTraceElement.getClassName() )) {
-                System.out.println( stackTraceElement.getClassName() + "." + stackTraceElement.getMethodName() );
+            if (!JsonApprovals.class.getCanonicalName().equals( stackTraceElement.getClassName() )) {
+                System.out.println( "JsonApprovals: " + stackTraceElement.getClassName() + "." + stackTraceElement.getMethodName() );
                 return stackTraceElement;
             }
         }
