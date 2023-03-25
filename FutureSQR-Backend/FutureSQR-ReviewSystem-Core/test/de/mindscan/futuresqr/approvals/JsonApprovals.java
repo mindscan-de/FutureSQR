@@ -32,11 +32,14 @@ import java.util.List;
  */
 public class JsonApprovals {
 
-    public static <T extends Object> void approve( List<T> fileContentChangeSet ) {
+    private static final String APPROVED_JSON = ".approved.json";
+    private static final String RECEIVED_JSON = ".received.json";
+
+    public static <T extends Object> void approve( List<T> received ) {
         RuntimeException runtimeException = new RuntimeException();
         StackTraceElement unitTestStackTraceElement = findUnitTestName( runtimeException.getStackTrace() );
 
-        // TODO: findUnitTestParameters? - the parameters the test was started with.... but basically i don't care enough for now for it.
+        new JsonApprovals().approveJson( unitTestStackTraceElement, received );
     }
 
     private static StackTraceElement findUnitTestName( StackTraceElement[] stackTrace ) {
@@ -51,6 +54,33 @@ public class JsonApprovals {
         }
 
         throw new ApprovalError( "StackTraceElement is null; Can't determine the Testname." );
+    }
+
+    public JsonApprovals() {
+    }
+
+    public void approveJson( StackTraceElement unitTestStackTraceElement, List<? extends Object> received ) {
+        String approvedFileName = buildApprovedFileName( unitTestStackTraceElement );
+        String receivedFileName = buildReceivedFileName( unitTestStackTraceElement );
+
+        // TODO: check if approval file name exists. -> if not we now have a ApprovalFailure.
+        if (!isApprovalPresent( approvedFileName )) {
+            // TODO write received Json first
+
+            // throw new ApprovalFailure( "Not yet approved. Please approve this test by renaming the '.received.json' to '.approved.json'." );
+        }
+    }
+
+    private boolean isApprovalPresent( String approvedFileName ) {
+        return false;
+    }
+
+    private String buildApprovedFileName( StackTraceElement stackFrame ) {
+        return stackFrame.getClassName() + "." + stackFrame.getMethodName() + APPROVED_JSON;
+    }
+
+    private String buildReceivedFileName( StackTraceElement unitTestStackTraceElement ) {
+        return unitTestStackTraceElement.getClassName() + "." + unitTestStackTraceElement.getMethodName() + RECEIVED_JSON;
     }
 
 }
