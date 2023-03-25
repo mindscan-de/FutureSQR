@@ -84,6 +84,7 @@ export class SingleFileRevisionPageComponent implements OnInit {
 		this.route.queryParams.subscribe(queryParams => this.onUpdateQuery(queryParams.p));
 		
 		// TODO? subscription when paramMap changes - so we can load a different revision and revision content.
+		// TODO: we eed to subscribe to different revisions here....as well 
 	}
 	
 	onFileListActionsProvided( fileInformations : UiReviewFileInformation[]) : void {
