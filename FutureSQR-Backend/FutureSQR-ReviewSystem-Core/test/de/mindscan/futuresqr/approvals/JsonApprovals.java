@@ -45,29 +45,26 @@ public class JsonApprovals {
     private static final String RECEIVED_JSON = ".received.json";
     private static final String TEST_RESOURCES_APPROVALS_DIRECTORY = "test-resources/approvals";
 
+    private Gson gson = new Gson();
+
     public static <T extends Object> void approve( List<T> received ) {
         RuntimeException runtimeException = new RuntimeException();
-        StackTraceElement unitTestStackTraceElement = findUnitTestName( runtimeException.getStackTrace() );
+        StackTraceElement unitTestStackTraceElement = locateUnitTest( runtimeException.getStackTrace() );
 
         new JsonApprovals().approveJson( unitTestStackTraceElement, received );
     }
 
-    private static StackTraceElement findUnitTestName( StackTraceElement[] stackTrace ) {
-        // skip all elements in stack trace starting with this class name 
-        // then select first one, this is the file name and package name for the approval.
-
+    private static StackTraceElement locateUnitTest( StackTraceElement[] stackTrace ) {
         for (StackTraceElement stackTraceElement : stackTrace) {
             if (!JsonApprovals.class.getCanonicalName().equals( stackTraceElement.getClassName() )) {
-                String methodName = stackTraceElement.getMethodName();
-                System.out.println( "JsonApprovals: " + stackTraceElement.getClassName() + "." + methodName );
                 return stackTraceElement;
             }
         }
-
         throw new ApprovalError( "StackTraceElement is null; Can't determine the Testname." );
     }
 
     public JsonApprovals() {
+        this.gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
     }
 
     public void approveJson( StackTraceElement unitTestStackTraceElement, List<? extends Object> received ) {
@@ -76,18 +73,14 @@ public class JsonApprovals {
 
         if (!isApprovalPresent( approvedFileName )) {
             saveReceived( received, receivedFileName );
-            throw new ApprovalFailure( "Not yet approved. Please approve this test by renaming the '.received.json' to '.approved.json'." );
+            throw new ApprovalFailure( "Not yet approved. Please approve this test by renaming the '" + receivedFileName.getFileName().toString() + "' to '"
+                            + approvedFileName.getFileName().toString() + "'." );
         }
 
         // TODO: now check if received and approved json match.
     }
 
     private void saveReceived( List<? extends Object> received, Path receivedFileName ) {
-
-        Gson gson = new GsonBuilder() //
-                        .serializeNulls() //
-                        .setPrettyPrinting().create();
-
         Path receivedPath = buildResolvedResourcesFileName( receivedFileName );
         if (!Files.isDirectory( receivedPath.getParent() )) {
             try {
@@ -102,7 +95,7 @@ public class JsonApprovals {
             try (JsonWriter jsonWriter = new JsonWriter( writer );) {
                 jsonWriter.setIndent( "  " );
                 gson.toJson( received, received.getClass(), jsonWriter );
-                jsonWriter.close();
+                // jsonWriter.close();
             }
         }
         catch (IOException e) {
