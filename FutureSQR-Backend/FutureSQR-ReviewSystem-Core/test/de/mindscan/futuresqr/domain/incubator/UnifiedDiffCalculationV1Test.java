@@ -173,7 +173,7 @@ public class UnifiedDiffCalculationV1Test {
 
 // TODO: do some approval tests, for the output list for the file change sets and their content changesets.    
     @Test
-    public void testSquashDiffs_threeRevisionsInRowSelectFirstTwo_approveFileContentChangeSets() throws Exception {
+    public void testSquashDiffs_threeRevisionsInRowSelectFirstTwo() throws Exception {
         // arrange
         UnifiedDiffCalculationV1 diffCalculation = new UnifiedDiffCalculationV1();
         List<String> selectedRevisions = new ArrayList<>();
