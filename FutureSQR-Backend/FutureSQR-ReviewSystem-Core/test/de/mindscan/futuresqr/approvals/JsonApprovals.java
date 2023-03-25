@@ -25,7 +25,16 @@
  */
 package de.mindscan.futuresqr.approvals;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.stream.JsonWriter;
 
 /**
  * 
@@ -34,6 +43,7 @@ public class JsonApprovals {
 
     private static final String APPROVED_JSON = ".approved.json";
     private static final String RECEIVED_JSON = ".received.json";
+    private static final String TEST_RESOURCES_APPROVALS_DIRECTORY = "test-resources/approvals";
 
     public static <T extends Object> void approve( List<T> received ) {
         RuntimeException runtimeException = new RuntimeException();
@@ -63,16 +73,38 @@ public class JsonApprovals {
         String approvedFileName = buildApprovedFileName( unitTestStackTraceElement );
         String receivedFileName = buildReceivedFileName( unitTestStackTraceElement );
 
-        // TODO: check if approval file name exists. -> if not we now have a ApprovalFailure.
         if (!isApprovalPresent( approvedFileName )) {
-            // TODO write received Json first
+            saveReceived( received, receivedFileName );
+            throw new ApprovalFailure( "Not yet approved. Please approve this test by renaming the '.received.json' to '.approved.json'." );
+        }
 
-            // throw new ApprovalFailure( "Not yet approved. Please approve this test by renaming the '.received.json' to '.approved.json'." );
+        // TODO: now check if received and approved json match.
+    }
+
+    private void saveReceived( List<? extends Object> received, String receivedFileName ) {
+
+        Gson gson = new GsonBuilder() //
+                        .serializeNulls() //
+                        .setPrettyPrinting().create();
+
+        try (FileWriter writer = new FileWriter( buildResolvedResourcesFileName( receivedFileName ).toString() )) {
+            try (JsonWriter jsonWriter = new JsonWriter( writer );) {
+                jsonWriter.setIndent( "  " );
+                gson.toJson( received, received.getClass(), jsonWriter );
+                jsonWriter.close();
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     private boolean isApprovalPresent( String approvedFileName ) {
-        return false;
+        return Files.isRegularFile( buildResolvedResourcesFileName( approvedFileName ) );
+    }
+
+    private Path buildResolvedResourcesFileName( String fileName ) {
+        return Paths.get( TEST_RESOURCES_APPROVALS_DIRECTORY ).resolve( fileName );
     }
 
     private String buildApprovedFileName( StackTraceElement stackFrame ) {
