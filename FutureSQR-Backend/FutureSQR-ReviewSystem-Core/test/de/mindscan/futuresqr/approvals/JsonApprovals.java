@@ -27,6 +27,7 @@ package de.mindscan.futuresqr.approvals;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -67,14 +68,14 @@ public class JsonApprovals {
         this.gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
     }
 
-    public void approveJson( StackTraceElement unitTestStackTraceElement, List<? extends Object> received ) {
+    public void approveJson( StackTraceElement unitTestStackTraceElement, Object received ) {
         Path approvedFileName = buildApprovedFileName( unitTestStackTraceElement );
         Path receivedFileName = buildReceivedFileName( unitTestStackTraceElement );
 
         if (!isApprovalPresent( approvedFileName )) {
             saveReceived( received, receivedFileName );
 
-            // open a diff viewer.
+            // open a diff / approval viewer in case of interactive mode. 
 
             throw new ApprovalFailure( "Not yet approved. Please approve this test by renaming the '" + receivedFileName.getFileName().toString() + "' to '"
                             + approvedFileName.getFileName().toString() + "'." );
@@ -85,17 +86,38 @@ public class JsonApprovals {
         if (compared != 0) {
             saveReceived( received, receivedFileName );
 
-            // open a diff viewer.
+            // open a diff / approval viewer in case of interactive mode.
 
             throw new ApprovalFailure( "The approved data, doesn't match the received data." );
         }
     }
 
-    private int compareReceivedToApproved( List<? extends Object> received, Path approvedFileName ) {
-        return 0;
+    private int compareReceivedToApproved( Object received, Path approvedFileName ) {
+        Path approvedPath = buildResolvedResourcesFileName( approvedFileName );
+
+        try (StringWriter stringWriter = new StringWriter()) {
+            try (JsonWriter jsonWriter = new JsonWriter( stringWriter )) {
+                jsonWriter.setIndent( "  " );
+                gson.toJson( received, received.getClass(), jsonWriter );
+            }
+            catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            finally {
+                stringWriter.flush();
+            }
+
+            String approvedFileContent = new String( Files.readAllBytes( approvedPath ) );
+
+            return stringWriter.toString().compareTo( approvedFileContent );
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
-    private void saveReceived( List<? extends Object> received, Path receivedFileName ) {
+    private void saveReceived( Object received, Path receivedFileName ) {
         Path receivedPath = buildResolvedResourcesFileName( receivedFileName );
         if (!Files.isDirectory( receivedPath.getParent() )) {
             try {
@@ -110,7 +132,6 @@ public class JsonApprovals {
             try (JsonWriter jsonWriter = new JsonWriter( writer );) {
                 jsonWriter.setIndent( "  " );
                 gson.toJson( received, received.getClass(), jsonWriter );
-                // jsonWriter.close();
             }
         }
         catch (IOException e) {
