@@ -36,15 +36,25 @@ import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
  */
 public interface FSqrCodeReviewRepository {
 
+    // CodeReview actions of a reviewer - Concern, Approve, Retract
+
     void concernCodeReview( String projectId, String reviewId, String reviewerId );
 
     void approveCodeReview( String projectId, String reviewId, String reviewerId );
+
+    void retractCodeReview( String projectId, String reviewId, String reviewerId );
+
+    // Add / Remove Reviewer 
 
     void removeReviewerFromCodeReview( String projectId, String reviewId, String reviewerId, String whoRemovedId );
 
     void addReviewerToCodeReview( String projectId, String reviewId, String reviewerId, String whoAddedId );
 
-    void retractCodeReview( String projectId, String reviewId, String reviewerId );
+    // suggest reviewers
+
+    List<FSqrSystemUser> getSuggestedReviewers( String projectId, String reviewId );
+
+    // CodeReview actions on CodeReview - Delete, Reopen, Close 
 
     void deleteReview( String projectId, String reviewId, String whoDeletedUUID );
 
@@ -52,18 +62,22 @@ public interface FSqrCodeReviewRepository {
 
     void closeReview( String projectId, String reviewId, String whoClosedUUID );
 
-    List<FSqrSystemUser> getSuggestedReviewers( String projectId, String reviewId );
-
-    List<FSqrRevision> getRevisionsForReview( String projectId, String reviewId );
+    // CodeFReview actions - Create from Revision
 
     FSqrCodeReview createReviewFromRevision( String projectid, String revisionid );
 
-    void removeRevisionFromReview( String projectId, String reviewId, String revisionId );
-
-    void addRevisionToReview( String projectId, String reviewId, String revisionId );
+    // Retrieve Recent Reviews (by Project)
 
     List<FSqrCodeReview> selectRecentlyClosedReviews( String projectId );
 
     List<FSqrCodeReview> selectOpenReviews( String projectId );
+
+    // Handle Revisions
+
+    List<FSqrRevision> getRevisionsForReview( String projectId, String reviewId );
+
+    void removeRevisionFromReview( String projectId, String reviewId, String revisionId );
+
+    void addRevisionToReview( String projectId, String reviewId, String revisionId );
 
 }
