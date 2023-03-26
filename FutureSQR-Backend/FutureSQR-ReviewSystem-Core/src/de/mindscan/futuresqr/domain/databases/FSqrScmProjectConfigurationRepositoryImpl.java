@@ -61,6 +61,7 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements ApplicationSer
         this.applicationServices = new FSqrApplicationServicesUnitialized();
     }
 
+    @Override
     public void setApplicationServices( FSqrApplicationServices services ) {
         this.applicationServices = services;
     }

@@ -53,6 +53,7 @@ public class FSqrScmUserRepositoryImpl implements ApplicationServicesSetter {
         this.loginnameToUuid = new HashMap<>();
     }
 
+    @Override
     public void setApplicationServices( FSqrApplicationServices services ) {
         this.applicationServices = services;
     }

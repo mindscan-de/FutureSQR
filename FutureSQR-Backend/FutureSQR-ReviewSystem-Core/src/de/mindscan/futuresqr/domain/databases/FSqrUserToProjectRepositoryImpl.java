@@ -59,6 +59,7 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
 
     }
 
+    @Override
     public void setApplicationServices( FSqrApplicationServices applicationServices ) {
         this.applicationServices = applicationServices;
     }
