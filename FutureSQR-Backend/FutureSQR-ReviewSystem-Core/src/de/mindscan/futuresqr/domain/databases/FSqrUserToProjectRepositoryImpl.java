@@ -33,6 +33,7 @@ import java.util.Set;
 import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
+import de.mindscan.futuresqr.domain.repository.FSqrUserToProjectRepository;
 
 /**
  * Idea here is to collect methods and data and such related to user to project relations. 
@@ -44,7 +45,7 @@ import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitializ
  * 
  * TODO: rework the repository to use a database instead of the in-memory + scm data pull implementation
  */
-public class FSqrUserToProjectRepositoryImpl implements ApplicationServicesSetter {
+public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectRepository, ApplicationServicesSetter {
 
     private Map<String, Set<String>> starredProjectsByUser;
     private FSqrApplicationServices applicationServices;
@@ -63,6 +64,7 @@ public class FSqrUserToProjectRepositoryImpl implements ApplicationServicesSette
     }
 
     // public interface should not be able to modify internal HashSet.
+    @Override
     public Set<String> getAllStarredProjectsForUser( String userId ) {
         // MUST check if userId exists, otherwise a denial of service is possible
         if (!isValidUser( userId )) {
@@ -72,6 +74,7 @@ public class FSqrUserToProjectRepositoryImpl implements ApplicationServicesSette
         return new HashSet<>( getUserStarredProjects( userId ) );
     }
 
+    @Override
     public void starProject( String userId, String projectId ) {
         // MUST check if userId exists, otherwise a denial of service is possible
         if (!isValidUser( userId )) {
@@ -81,6 +84,7 @@ public class FSqrUserToProjectRepositoryImpl implements ApplicationServicesSette
         getUserStarredProjects( userId ).add( projectId );
     }
 
+    @Override
     public void unstarProject( String userId, String projectId ) {
         // MUST check if userId exists, otherwise a denial of service is possible
         if (!isValidUser( userId )) {
@@ -90,6 +94,7 @@ public class FSqrUserToProjectRepositoryImpl implements ApplicationServicesSette
         getUserStarredProjects( userId ).remove( projectId );
     }
 
+    @Override
     public boolean isStarred( String userId, String projectId ) {
         // MUST check if userId exists, otherwise a denial of service is possible
         if (!isValidUser( userId )) {

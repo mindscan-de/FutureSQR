@@ -51,8 +51,8 @@ import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserDBEntry;
 import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserDatabaseImpl;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
-import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectRepositoryImpl;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
+import de.mindscan.futuresqr.domain.repository.FSqrUserToProjectRepository;
 
 /**
  * TODO: refactor me to review system core.
@@ -197,7 +197,7 @@ public class LazyImplUserRESTfulService {
     public String getUserStarredProjects( @QueryParam( "userid" ) String userUUID ) {
         Collection<FSqrScmProjectConfiguration> allProjects = projectDB.getAllProjects();
 
-        FSqrUserToProjectRepositoryImpl userToProjectRepository = FSqrApplication.getInstance().getServices().getUserToProjectRepository();
+        FSqrUserToProjectRepository userToProjectRepository = FSqrApplication.getInstance().getServices().getUserToProjectRepository();
         Set<String> starredProjects = userToProjectRepository.getAllStarredProjectsForUser( userUUID );
 
         System.out.println( "userid: '" + userUUID + "'" );
@@ -243,7 +243,7 @@ public class LazyImplUserRESTfulService {
     }
 
     private OutputUserProjectEntry transform( String userUUID, FSqrScmProjectConfiguration configuration ) {
-        FSqrUserToProjectRepositoryImpl userToProjectRepository = FSqrApplication.getInstance().getServices().getUserToProjectRepository();
+        FSqrUserToProjectRepository userToProjectRepository = FSqrApplication.getInstance().getServices().getUserToProjectRepository();
 
         OutputUserProjectEntry transformed = new OutputUserProjectEntry();
         String projectId = configuration.getProjectId();

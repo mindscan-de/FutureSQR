@@ -57,7 +57,6 @@ import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParser;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
 import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewRepositoryImpl;
-import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectRepositoryImpl;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 import de.mindscan.futuresqr.domain.model.FSqrRevision;
 import de.mindscan.futuresqr.domain.model.FSqrRevisionFileChangeList;
@@ -71,6 +70,7 @@ import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrDiscussionThreadRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectRevisionRepository;
+import de.mindscan.futuresqr.domain.repository.FSqrUserToProjectRepository;
 
 /**
  * 
@@ -116,7 +116,7 @@ public class ProjectRESTfulService {
         transformed.projectDescription = projectConfiguration.getProjectDescription();
         transformed.projectUuid = projectConfiguration.getProjectUuid();
 
-        FSqrUserToProjectRepositoryImpl userToProjectRepository = FSqrApplication.getInstance().getServices().getUserToProjectRepository();
+        FSqrUserToProjectRepository userToProjectRepository = FSqrApplication.getInstance().getServices().getUserToProjectRepository();
         transformed.projectIsStarred = userToProjectRepository.isStarred( userUUID, projectConfiguration.getProjectId() );
 
         return transformed;
