@@ -38,7 +38,7 @@ import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
 import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThreadMessage;
 
 /**
- * 
+ * TODO: rework the repository to use a database instead of the in-memory + scm data pull implementation
  */
 public class FSqrDiscussionThreadRepositoryImpl implements ApplicationServicesSetter {
 

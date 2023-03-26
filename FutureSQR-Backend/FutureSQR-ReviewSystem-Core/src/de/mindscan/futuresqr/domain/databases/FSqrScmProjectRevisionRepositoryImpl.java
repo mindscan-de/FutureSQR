@@ -58,7 +58,7 @@ import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 import de.mindscan.futuresqr.scmaccess.types.ScmSingleRevisionFileChangeList;
 
 /**
- * 
+ * TODO: rework the repository to use a database instead of the in-memory + scm data pull implementation
  */
 public class FSqrScmProjectRevisionRepositoryImpl implements ApplicationServicesSetter {
 

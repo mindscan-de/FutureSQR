@@ -45,6 +45,8 @@ import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
  * with this particular scm project. It provides an index of all projects and such.
  * 
  * This object should not be serializable.
+ * 
+ * TODO: rework the repository to use a database instead of the in-memory + scm data pull implementation
  */
 public class FSqrScmProjectConfigurationRepositoryImpl implements ApplicationServicesSetter {
 

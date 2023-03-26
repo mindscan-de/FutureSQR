@@ -41,6 +41,8 @@ import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitializ
  * Also we might also provide methods, to calculate which project a user has access to,
  * because this is related to the user to project relationship as well but a different
  * attribute.
+ * 
+ * TODO: rework the repository to use a database instead of the in-memory + scm data pull implementation
  */
 public class FSqrUserToProjectRepositoryImpl implements ApplicationServicesSetter {
 
