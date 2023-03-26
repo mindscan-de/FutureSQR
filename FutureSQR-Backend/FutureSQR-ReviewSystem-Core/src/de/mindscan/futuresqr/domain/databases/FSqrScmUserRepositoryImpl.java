@@ -28,6 +28,7 @@ package de.mindscan.futuresqr.domain.databases;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
@@ -35,7 +36,7 @@ import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 /**
  * 
  */
-public class FSqrScmUserRepositoryImpl {
+public class FSqrScmUserRepositoryImpl implements ApplicationServicesSetter {
 
     private FSqrApplicationServices applicationServices;
     private Map<String, String> userHandleToUUID;

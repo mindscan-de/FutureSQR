@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
@@ -45,7 +46,7 @@ import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
  * 
  * This object should not be serializable.
  */
-public class FSqrScmProjectConfigurationRepositoryImpl {
+public class FSqrScmProjectConfigurationRepositoryImpl implements ApplicationServicesSetter {
 
     private FSqrApplicationServices applicationServices;
 

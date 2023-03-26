@@ -23,32 +23,12 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.domain.configuration;
-
-import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
-import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
-import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
+package de.mindscan.futuresqr.domain.application;
 
 /**
  * 
  */
-public class FSqrSystemInstanceConfigurationImpl implements ApplicationServicesSetter {
+public interface ApplicationServicesSetter {
 
-    private FSqrApplicationServices applicationServices;
-
-    /**
-     * 
-     */
-    public FSqrSystemInstanceConfigurationImpl() {
-        this.applicationServices = new FSqrApplicationServicesUnitialized();
-    }
-
-    public void setApplicationServices( FSqrApplicationServices services ) {
-        this.applicationServices = services;
-    }
-
-    public String getSystemRepoCachePath() {
-        return "D:\\Temp\\future-square-cache\\";
-    }
-
+    public void setApplicationServices( FSqrApplicationServices services );
 }

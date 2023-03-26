@@ -30,6 +30,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 
@@ -41,7 +42,7 @@ import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitializ
  * because this is related to the user to project relationship as well but a different
  * attribute.
  */
-public class FSqrUserToProjectRepositoryImpl {
+public class FSqrUserToProjectRepositoryImpl implements ApplicationServicesSetter {
 
     private Map<String, Set<String>> starredProjectsByUser;
     private FSqrApplicationServices applicationServices;

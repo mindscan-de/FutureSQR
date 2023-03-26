@@ -32,6 +32,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.incubator.UnifiedDiffCalculationV1;
@@ -59,7 +60,7 @@ import de.mindscan.futuresqr.scmaccess.types.ScmSingleRevisionFileChangeList;
 /**
  * 
  */
-public class FSqrScmProjectRevisionRepositoryImpl {
+public class FSqrScmProjectRevisionRepositoryImpl implements ApplicationServicesSetter {
 
     private GitScmHistoryProvider gitHistoryProvider;
     private GitScmContentProvider gitScmContentProvider;

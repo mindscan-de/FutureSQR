@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 import de.mindscan.futuresqr.core.uuid.UuidUtil;
+import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
@@ -39,7 +40,7 @@ import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThreadMessage
 /**
  * 
  */
-public class FSqrDiscussionThreadRepositoryImpl {
+public class FSqrDiscussionThreadRepositoryImpl implements ApplicationServicesSetter {
 
     private FSqrApplicationServices applicationServices;
 

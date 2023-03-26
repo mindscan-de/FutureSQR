@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
@@ -43,7 +44,7 @@ import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
  * 
  */
 
-public class FSqrCodeReviewRepositoryImpl {
+public class FSqrCodeReviewRepositoryImpl implements ApplicationServicesSetter {
 
     private FSqrApplicationServices applicationServices;
     private Map<String, Map<String, FSqrCodeReview>> projectIdReviewIdToCodeReviewRepository;
