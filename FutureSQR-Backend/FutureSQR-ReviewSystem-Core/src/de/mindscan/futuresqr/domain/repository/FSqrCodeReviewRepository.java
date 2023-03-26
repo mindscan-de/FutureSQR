@@ -36,6 +36,10 @@ import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
  */
 public interface FSqrCodeReviewRepository {
 
+    // CodeReview get data
+
+    FSqrCodeReview getReview( String projectId, String reviewId );
+
     // CodeReview actions of a reviewer - Concern, Approve, Retract
 
     void concernCodeReview( String projectId, String reviewId, String reviewerId );

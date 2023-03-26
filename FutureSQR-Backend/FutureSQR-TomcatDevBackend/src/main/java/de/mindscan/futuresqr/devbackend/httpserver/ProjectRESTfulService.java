@@ -56,7 +56,6 @@ import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParameters;
 import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParser;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
-import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewRepositoryImpl;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 import de.mindscan.futuresqr.domain.model.FSqrRevision;
 import de.mindscan.futuresqr.domain.model.FSqrRevisionFileChangeList;
@@ -269,7 +268,7 @@ public class ProjectRESTfulService {
     public String getCodeReviewUnifiedDiff( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId,
                     @DefaultValue( "" ) @QueryParam( "selected" ) String selectedRevisions ) {
         if (projectDB.hasProjectLocalPath( projectId )) {
-            FSqrCodeReviewRepositoryImpl reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
+            FSqrCodeReviewRepository reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
             FSqrCodeReview codeReview = reviewRepository.getReview( projectId, reviewId );
             List<FSqrRevision> revisionList = codeReview.getRevisions();
 
@@ -318,7 +317,7 @@ public class ProjectRESTfulService {
     public String getCodeReviewFileList( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId ) {
 
         if (projectDB.hasProjectLocalPath( projectId )) {
-            FSqrCodeReviewRepositoryImpl reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
+            FSqrCodeReviewRepository reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
             FSqrCodeReview codeReview = reviewRepository.getReview( projectId, reviewId );
 
             FSqrScmProjectRevisionRepository revisionRepository = FSqrApplication.getInstance().getServices().getRevisionRepository();
@@ -339,7 +338,7 @@ public class ProjectRESTfulService {
     @Produces( MediaType.APPLICATION_JSON )
     public String getCodeReviewInformation( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId ) {
         if (projectDB.hasProjectLocalPath( projectId )) {
-            FSqrCodeReviewRepositoryImpl reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
+            FSqrCodeReviewRepository reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
             FSqrCodeReview codeReview = reviewRepository.getReview( projectId, reviewId );
 
             if (codeReview == null) {
