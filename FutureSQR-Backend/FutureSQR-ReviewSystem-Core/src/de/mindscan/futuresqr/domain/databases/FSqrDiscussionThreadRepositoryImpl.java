@@ -36,11 +36,12 @@ import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
 import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThreadMessage;
+import de.mindscan.futuresqr.domain.repository.FSqrDiscussionThreadRepository;
 
 /**
  * TODO: rework the repository to use a database instead of the in-memory + scm data pull implementation
  */
-public class FSqrDiscussionThreadRepositoryImpl implements ApplicationServicesSetter {
+public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadRepository, ApplicationServicesSetter {
 
     private FSqrApplicationServices applicationServices;
 
@@ -55,10 +56,12 @@ public class FSqrDiscussionThreadRepositoryImpl implements ApplicationServicesSe
         this.applicationServices = new FSqrApplicationServicesUnitialized();
     }
 
+    @Override
     public void setApplicationServices( FSqrApplicationServices applicationServices ) {
         this.applicationServices = applicationServices;
     }
 
+    @Override
     public FSqrDiscussionThread createNewReviewThread( String projectId, String reviewId, String messageText, String messageAuthorUUID ) {
         FSqrDiscussionThread newThread = createNewThread( messageText, messageAuthorUUID );
 
@@ -90,6 +93,7 @@ public class FSqrDiscussionThreadRepositoryImpl implements ApplicationServicesSe
         return rootMessage;
     }
 
+    @Override
     public List<FSqrDiscussionThread> getDirectThreadsForReview( String projectId, String reviewId ) {
         ArrayList<FSqrDiscussionThread> result = new ArrayList<>();
         if (projectAndRewviewToThreads.containsKey( projectId )) {
@@ -103,6 +107,7 @@ public class FSqrDiscussionThreadRepositoryImpl implements ApplicationServicesSe
         return result;
     }
 
+    @Override
     public void updateMessage( String projectId, String reviewId, String threadUUID, String messageUUID, String newMessageText, String messageAuthorUUID ) {
         // check if project id 
         if (!projectAndRewviewToThreads.containsKey( projectId )) {
@@ -127,6 +132,7 @@ public class FSqrDiscussionThreadRepositoryImpl implements ApplicationServicesSe
         }
     }
 
+    @Override
     public void replyToThread( String projectId, String reviewId, String threadUUID, String replytoMessageId, String messageText, String messageAuthorUUID ) {
         // check if project id 
         if (!projectAndRewviewToThreads.containsKey( projectId )) {

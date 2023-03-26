@@ -57,7 +57,6 @@ import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParser;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
 import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewRepositoryImpl;
-import de.mindscan.futuresqr.domain.databases.FSqrDiscussionThreadRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrScmProjectRevisionRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectRepositoryImpl;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
@@ -71,6 +70,7 @@ import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
 import de.mindscan.futuresqr.domain.model.history.FSqrFileHistory;
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
+import de.mindscan.futuresqr.domain.repository.FSqrDiscussionThreadRepository;
 
 /**
  * 
@@ -730,7 +730,7 @@ public class ProjectRESTfulService {
     @Produces( MediaType.APPLICATION_JSON )
     public String getDiscussionThreads( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId ) {
         if (projectDB.hasProjectLocalPath( projectId )) {
-            FSqrDiscussionThreadRepositoryImpl discussionRepository = FSqrApplication.getInstance().getServices().getDiscussionThreadRepository();
+            FSqrDiscussionThreadRepository discussionRepository = FSqrApplication.getInstance().getServices().getDiscussionThreadRepository();
 
             // Get only direct review discussions, opposed to inherited code discussions, and opposed to direct code discussions
             // We will start with direct discussions first.
@@ -757,7 +757,7 @@ public class ProjectRESTfulService {
             String messageAuthorUUID = postParams.getStringOrThrow( "authorid" );
             String messageText = postParams.getStringOrThrow( "message" );
 
-            FSqrDiscussionThreadRepositoryImpl discussionRepository = FSqrApplication.getInstance().getServices().getDiscussionThreadRepository();
+            FSqrDiscussionThreadRepository discussionRepository = FSqrApplication.getInstance().getServices().getDiscussionThreadRepository();
 
             FSqrDiscussionThread newThread = discussionRepository.createNewReviewThread( projectId, reviewId, messageText, messageAuthorUUID );
 
@@ -781,7 +781,7 @@ public class ProjectRESTfulService {
             String replytoMessageId = postParams.getStringOrThrow( "replytoid" );
             String messageText = postParams.getStringOrThrow( "message" );
 
-            FSqrDiscussionThreadRepositoryImpl discussionRepository = FSqrApplication.getInstance().getServices().getDiscussionThreadRepository();
+            FSqrDiscussionThreadRepository discussionRepository = FSqrApplication.getInstance().getServices().getDiscussionThreadRepository();
 
             discussionRepository.replyToThread( projectId, reviewId, threadUUID, replytoMessageId, messageText, messageAuthorUUID );
 
@@ -803,7 +803,7 @@ public class ProjectRESTfulService {
             String messageUUID = postParams.getStringOrThrow( "messageid" );
             String newMessageText = postParams.getStringOrThrow( "newmessage" );
 
-            FSqrDiscussionThreadRepositoryImpl discussionRepository = FSqrApplication.getInstance().getServices().getDiscussionThreadRepository();
+            FSqrDiscussionThreadRepository discussionRepository = FSqrApplication.getInstance().getServices().getDiscussionThreadRepository();
 
             discussionRepository.updateMessage( projectId, reviewId, threadUUID, messageUUID, newMessageText, messageAuthorUUID );
 
