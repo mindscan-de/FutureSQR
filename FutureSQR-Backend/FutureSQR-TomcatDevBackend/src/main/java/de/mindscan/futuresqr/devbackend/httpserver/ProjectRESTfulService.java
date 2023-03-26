@@ -70,6 +70,7 @@ import de.mindscan.futuresqr.domain.model.content.FSqrFileContentForRevision;
 import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
 import de.mindscan.futuresqr.domain.model.history.FSqrFileHistory;
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
+import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
 
 /**
  * 
@@ -357,7 +358,7 @@ public class ProjectRESTfulService {
     @Produces( MediaType.APPLICATION_JSON )
     public String getCodeReviewRevisionDetails( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId ) {
         if (projectDB.hasProjectLocalPath( projectId )) {
-            FSqrCodeReviewRepositoryImpl reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
+            FSqrCodeReviewRepository reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
             FSqrScmProjectRevisionRepositoryImpl revisionRepository = FSqrApplication.getInstance().getServices().getRevisionRepository();
 
             List<FSqrRevision> revisions = reviewRepository.getRevisionsForReview( projectId, reviewId );
@@ -391,7 +392,7 @@ public class ProjectRESTfulService {
     @Produces( MediaType.APPLICATION_JSON )
     public String getSuggestedReviewers( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId ) {
         if (projectDB.hasProjectLocalPath( projectId )) {
-            FSqrCodeReviewRepositoryImpl reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
+            FSqrCodeReviewRepository reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
             List<FSqrSystemUser> suggestedReviewers = reviewRepository.getSuggestedReviewers( projectId, reviewId );
 
             OutputSuggestedReviewersModel response = new OutputSuggestedReviewersModel( suggestedReviewers );
@@ -409,7 +410,7 @@ public class ProjectRESTfulService {
     @Produces( MediaType.APPLICATION_JSON )
     public String getRecentReviews( @PathParam( "projectid" ) String projectId ) {
         if (projectDB.hasProjectLocalPath( projectId )) {
-            FSqrCodeReviewRepositoryImpl reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
+            FSqrCodeReviewRepository reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
 
             List<FSqrCodeReview> openReviews = reviewRepository.selectOpenReviews( projectId );
             List<FSqrCodeReview> closedReviews = reviewRepository.selectRecentlyClosedReviews( projectId );
@@ -559,7 +560,7 @@ public class ProjectRESTfulService {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
         if (projectDB.isProjectIdPresent( projectId )) {
-            FSqrCodeReviewRepositoryImpl reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
+            FSqrCodeReviewRepository reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
 
             String reviewId = postParams.getStringOrThrow( "reviewid" );
             String reviewerId = postParams.getStringOrThrow( "reviewerid" );
@@ -579,7 +580,7 @@ public class ProjectRESTfulService {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
         if (projectDB.isProjectIdPresent( projectId )) {
-            FSqrCodeReviewRepositoryImpl reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
+            FSqrCodeReviewRepository reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
 
             String reviewId = postParams.getStringOrThrow( "reviewid" );
             String reviewerId = postParams.getStringOrThrow( "reviewerid" );
@@ -600,7 +601,7 @@ public class ProjectRESTfulService {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
         if (projectDB.isProjectIdPresent( projectId )) {
-            FSqrCodeReviewRepositoryImpl reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
+            FSqrCodeReviewRepository reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
 
             String reviewId = postParams.getStringOrThrow( "reviewid" );
             String reviewerId = postParams.getStringOrThrow( "reviewerid" );
@@ -620,7 +621,7 @@ public class ProjectRESTfulService {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
         if (projectDB.isProjectIdPresent( projectId )) {
-            FSqrCodeReviewRepositoryImpl reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
+            FSqrCodeReviewRepository reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
 
             String reviewId = postParams.getStringOrThrow( "reviewid" );
             String reviewerId = postParams.getStringOrThrow( "reviewerid" );
@@ -640,7 +641,7 @@ public class ProjectRESTfulService {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
         if (projectDB.isProjectIdPresent( projectId )) {
-            FSqrCodeReviewRepositoryImpl reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
+            FSqrCodeReviewRepository reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
 
             String reviewId = postParams.getStringOrThrow( "reviewid" );
             String reviewerId = postParams.getStringOrThrow( "reviewerid" );

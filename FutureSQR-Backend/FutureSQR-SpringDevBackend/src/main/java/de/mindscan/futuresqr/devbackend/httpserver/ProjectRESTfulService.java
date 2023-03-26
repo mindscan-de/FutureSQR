@@ -49,7 +49,6 @@ import de.mindscan.futuresqr.devbackend.httpresponse.OutputSingleCommitFullChang
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputStatusOkayModel;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
-import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrScmProjectRevisionRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectRepositoryImpl;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
@@ -60,6 +59,7 @@ import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
 import de.mindscan.futuresqr.domain.model.content.FSqrFileContentForRevision;
 import de.mindscan.futuresqr.domain.model.history.FSqrFileHistory;
+import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
 
 /**
  * 
@@ -278,7 +278,7 @@ public class ProjectRESTfulService {
 	public OutputRecentReviewsModel getRecentReviews(@PathVariable("projectid") String projectId) {
 		if (projectDB.hasProjectLocalPath(projectId)) {
 			// TODO: implement loading the open and recently reviews.
-			FSqrCodeReviewRepositoryImpl reviewRepository = FSqrApplication.getInstance().getServices()
+			FSqrCodeReviewRepository reviewRepository = FSqrApplication.getInstance().getServices()
 					.getReviewRepository();
 
 			List<FSqrCodeReview> openReviews = reviewRepository.selectOpenReviews(projectId);

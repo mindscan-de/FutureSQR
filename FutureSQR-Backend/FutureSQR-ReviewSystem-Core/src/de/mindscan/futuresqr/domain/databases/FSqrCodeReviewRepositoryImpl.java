@@ -39,11 +39,12 @@ import de.mindscan.futuresqr.domain.model.FSqrCodeReviewFactory;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReviewLifecycleState;
 import de.mindscan.futuresqr.domain.model.FSqrRevision;
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
+import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
 
 /**
  * TODO: rework the repository to use a database instead of the in-memory + scm data pull implementation
  */
-public class FSqrCodeReviewRepositoryImpl implements ApplicationServicesSetter {
+public class FSqrCodeReviewRepositoryImpl implements ApplicationServicesSetter, FSqrCodeReviewRepository {
 
     private FSqrApplicationServices applicationServices;
     private Map<String, Map<String, FSqrCodeReview>> projectIdReviewIdToCodeReviewRepository;
@@ -58,6 +59,7 @@ public class FSqrCodeReviewRepositoryImpl implements ApplicationServicesSetter {
         this.projectIdRevisionIdToCodeReviewIdRepository = new HashMap<>();
     }
 
+    @Override
     public void setApplicationServices( FSqrApplicationServices services ) {
         this.applicationServices = services;
     }
@@ -112,6 +114,7 @@ public class FSqrCodeReviewRepositoryImpl implements ApplicationServicesSetter {
         return null;
     }
 
+    @Override
     public List<FSqrCodeReview> selectOpenReviews( String projectId ) {
         ArrayList<FSqrCodeReview> resultList = new ArrayList<>();
 
@@ -126,6 +129,7 @@ public class FSqrCodeReviewRepositoryImpl implements ApplicationServicesSetter {
         return resultList;
     }
 
+    @Override
     public List<FSqrCodeReview> selectRecentlyClosedReviews( String projectId ) {
         ArrayList<FSqrCodeReview> resultList = new ArrayList<>();
 
@@ -141,6 +145,7 @@ public class FSqrCodeReviewRepositoryImpl implements ApplicationServicesSetter {
         return resultList;
     }
 
+    @Override
     public void closeReview( String projectId, String reviewId, String whoClosedUUID ) {
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
@@ -148,6 +153,7 @@ public class FSqrCodeReviewRepositoryImpl implements ApplicationServicesSetter {
         }
     }
 
+    @Override
     public void reopenReview( String projectId, String reviewId, String whoReopenedUUID ) {
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
@@ -155,6 +161,7 @@ public class FSqrCodeReviewRepositoryImpl implements ApplicationServicesSetter {
         }
     }
 
+    @Override
     public void deleteReview( String projectId, String reviewId, String whoDeletedUUID ) {
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
@@ -164,6 +171,7 @@ public class FSqrCodeReviewRepositoryImpl implements ApplicationServicesSetter {
         }
     }
 
+    @Override
     public void addRevisionToReview( String projectId, String reviewId, String revisionId ) {
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
@@ -179,6 +187,7 @@ public class FSqrCodeReviewRepositoryImpl implements ApplicationServicesSetter {
         }
     }
 
+    @Override
     public void removeRevisionFromReview( String projectId, String reviewId, String revisionId ) {
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
@@ -192,6 +201,7 @@ public class FSqrCodeReviewRepositoryImpl implements ApplicationServicesSetter {
         }
     }
 
+    @Override
     public FSqrCodeReview createReviewFromRevision( String projectid, String revisionid ) {
         FSqrScmProjectConfigurationRepositoryImpl configurationRepository = applicationServices.getConfigurationRepository();
 
@@ -204,11 +214,13 @@ public class FSqrCodeReviewRepositoryImpl implements ApplicationServicesSetter {
         return codeReview;
     }
 
+    @Override
     public List<FSqrRevision> getRevisionsForReview( String projectId, String reviewId ) {
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         return codeReview.getRevisions();
     }
 
+    @Override
     public List<FSqrSystemUser> getSuggestedReviewers( String projectId, String reviewId ) {
         FSqrScmUserRepositoryImpl userRepository = this.applicationServices.getUserRepository();
 
@@ -229,6 +241,7 @@ public class FSqrCodeReviewRepositoryImpl implements ApplicationServicesSetter {
         return converted;
     }
 
+    @Override
     public void addReviewerToCodeReview( String projectId, String reviewId, String reviewerId, String whoAddedId ) {
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
@@ -236,6 +249,7 @@ public class FSqrCodeReviewRepositoryImpl implements ApplicationServicesSetter {
         }
     }
 
+    @Override
     public void removeReviewerFromCodeReview( String projectId, String reviewId, String reviewerId, String whoRemovedId ) {
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
@@ -243,6 +257,7 @@ public class FSqrCodeReviewRepositoryImpl implements ApplicationServicesSetter {
         }
     }
 
+    @Override
     public void approveCodeReview( String projectId, String reviewId, String reviewerId ) {
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
@@ -250,6 +265,7 @@ public class FSqrCodeReviewRepositoryImpl implements ApplicationServicesSetter {
         }
     }
 
+    @Override
     public void concernCodeReview( String projectId, String reviewId, String reviewerId ) {
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
@@ -257,6 +273,7 @@ public class FSqrCodeReviewRepositoryImpl implements ApplicationServicesSetter {
         }
     }
 
+    @Override
     public void retractCodeReview( String projectId, String reviewId, String reviewerId ) {
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
