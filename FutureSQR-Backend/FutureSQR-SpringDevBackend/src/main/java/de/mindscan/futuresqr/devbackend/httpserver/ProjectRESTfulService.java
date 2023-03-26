@@ -49,7 +49,6 @@ import de.mindscan.futuresqr.devbackend.httpresponse.OutputSingleCommitFullChang
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputStatusOkayModel;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
-import de.mindscan.futuresqr.domain.databases.FSqrScmProjectRevisionRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectRepositoryImpl;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 import de.mindscan.futuresqr.domain.model.FSqrRevision;
@@ -60,6 +59,7 @@ import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
 import de.mindscan.futuresqr.domain.model.content.FSqrFileContentForRevision;
 import de.mindscan.futuresqr.domain.model.history.FSqrFileHistory;
 import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
+import de.mindscan.futuresqr.domain.repository.FSqrScmProjectRevisionRepository;
 
 /**
  * 
@@ -116,7 +116,7 @@ public class ProjectRESTfulService {
 		if (projectDB.hasProjectLocalPath(projectId)) {
 			OutputProjectRevisionsModel response = new OutputProjectRevisionsModel();
 
-			FSqrScmProjectRevisionRepositoryImpl revisionProvider = FSqrApplication.getInstance().getServices()
+			FSqrScmProjectRevisionRepository revisionProvider = FSqrApplication.getInstance().getServices()
 					.getRevisionRepository();
 			FSqrScmHistory scmHistory = revisionProvider.getRecentRevisionHistory(projectId);
 
@@ -139,7 +139,7 @@ public class ProjectRESTfulService {
 	public OutputProjectRevisionsModel getProjectRevisionsSinceDefinedRevision(
 			@PathVariable("projectid") String projectId, @PathVariable("fromrevisionid") String fromRevision) {
 		if (projectDB.hasProjectLocalPath(projectId)) {
-			FSqrScmProjectRevisionRepositoryImpl revisionProvider = FSqrApplication.getInstance().getServices()
+			FSqrScmProjectRevisionRepository revisionProvider = FSqrApplication.getInstance().getServices()
 					.getRevisionRepository();
 			FSqrScmHistory scmHistory = revisionProvider.getRecentRevisionHistoryStartingFrom(projectId, fromRevision);
 
@@ -159,7 +159,7 @@ public class ProjectRESTfulService {
 	public OutputProjectRevisionsRevisionEntry getRevisionInformation(@PathVariable("projectid") String projectId,
 			@PathVariable("revisionid") String revisionId) {
 		if (projectDB.hasProjectLocalPath(projectId)) {
-			FSqrScmProjectRevisionRepositoryImpl revisionProvider = FSqrApplication.getInstance().getServices()
+			FSqrScmProjectRevisionRepository revisionProvider = FSqrApplication.getInstance().getServices()
 					.getRevisionRepository();
 			FSqrRevision revisionInfo = revisionProvider.getSimpleRevisionInformation(projectId, revisionId);
 
@@ -177,7 +177,7 @@ public class ProjectRESTfulService {
 	public OutputFileChangeInformation getRevisionFileList(@PathVariable("projectid") String projectId,
 			@PathVariable("revisionid") String revisionId) {
 		if (projectDB.hasProjectLocalPath(projectId)) {
-			FSqrScmProjectRevisionRepositoryImpl revisionProvider = FSqrApplication.getInstance().getServices()
+			FSqrScmProjectRevisionRepository revisionProvider = FSqrApplication.getInstance().getServices()
 					.getRevisionRepository();
 			FSqrRevisionFileChangeList fileChangeList = revisionProvider.getRevisionFileChangeList(projectId,
 					revisionId);
@@ -196,7 +196,7 @@ public class ProjectRESTfulService {
 	public OutputSingleCommitFullChangeSet getRevisionFullChangeset(@PathVariable("projectid") String projectId,
 			@PathVariable("revisionid") String revisionId) {
 		if (projectDB.hasProjectLocalPath(projectId)) {
-			FSqrScmProjectRevisionRepositoryImpl revisionRepository = FSqrApplication.getInstance().getServices()
+			FSqrScmProjectRevisionRepository revisionRepository = FSqrApplication.getInstance().getServices()
 					.getRevisionRepository();
 			FSqrRevisionFullChangeSet fullChangeSet = revisionRepository.getRevisionFullChangeSet(projectId,
 					revisionId);
@@ -215,7 +215,7 @@ public class ProjectRESTfulService {
 	public OutputFileContentForRevisionModel getRevisionFileContent(@PathVariable("projectid") String projectId,
 			@PathVariable("revisionid") String revisionId, @RequestParam("filepath") String filePath) {
 		if (projectDB.hasProjectLocalPath(projectId)) {
-			FSqrScmProjectRevisionRepositoryImpl revisionRepository = FSqrApplication.getInstance().getServices()
+			FSqrScmProjectRevisionRepository revisionRepository = FSqrApplication.getInstance().getServices()
 					.getRevisionRepository();
 			FSqrFileContentForRevision fileContent = revisionRepository.getFileContentForRevision(projectId, revisionId,
 					filePath);
@@ -234,7 +234,7 @@ public class ProjectRESTfulService {
 	public OutputFileHistoryModel getParticularFileHistory(@PathVariable("projectid") String projectId,
 			@PathVariable("revisionid") String revisionId, @RequestParam("filepath") String filePath) {
 		if (projectDB.hasProjectLocalPath(projectId)) {
-			FSqrScmProjectRevisionRepositoryImpl revisionRepository = FSqrApplication.getInstance().getServices()
+			FSqrScmProjectRevisionRepository revisionRepository = FSqrApplication.getInstance().getServices()
 					.getRevisionRepository();
 			FSqrFileHistory fileHistory = revisionRepository.getParticularFileHistory(projectId, revisionId, filePath);
 
@@ -493,7 +493,7 @@ public class ProjectRESTfulService {
 	@PostMapping(path = "/{projectid}/updatecache", produces = MediaType.APPLICATION_JSON_VALUE)
 	public OutputStatusOkayModel postUpdateCache(@PathVariable("projectid") String projectId) {
 		if (projectDB.hasProjectLocalPath(projectId)) {
-			FSqrScmProjectRevisionRepositoryImpl revisionRepository = FSqrApplication.getInstance().getServices()
+			FSqrScmProjectRevisionRepository revisionRepository = FSqrApplication.getInstance().getServices()
 					.getRevisionRepository();
 
 			revisionRepository.updateProjectCache(projectId);

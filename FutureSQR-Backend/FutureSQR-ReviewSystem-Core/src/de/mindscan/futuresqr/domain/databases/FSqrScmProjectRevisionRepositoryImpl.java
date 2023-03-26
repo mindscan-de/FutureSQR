@@ -46,6 +46,7 @@ import de.mindscan.futuresqr.domain.model.FSqrScmProjectType;
 import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
 import de.mindscan.futuresqr.domain.model.content.FSqrFileContentForRevision;
 import de.mindscan.futuresqr.domain.model.history.FSqrFileHistory;
+import de.mindscan.futuresqr.domain.repository.FSqrScmProjectRevisionRepository;
 import de.mindscan.futuresqr.scmaccess.git.GitScmContentProvider;
 import de.mindscan.futuresqr.scmaccess.git.GitScmHistoryProvider;
 import de.mindscan.futuresqr.scmaccess.types.ScmBasicRevisionInformation;
@@ -60,7 +61,7 @@ import de.mindscan.futuresqr.scmaccess.types.ScmSingleRevisionFileChangeList;
 /**
  * TODO: rework the repository to use a database instead of the in-memory + scm data pull implementation
  */
-public class FSqrScmProjectRevisionRepositoryImpl implements ApplicationServicesSetter {
+public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevisionRepository, ApplicationServicesSetter {
 
     private GitScmHistoryProvider gitHistoryProvider;
     private GitScmContentProvider gitScmContentProvider;
@@ -72,10 +73,12 @@ public class FSqrScmProjectRevisionRepositoryImpl implements ApplicationServices
         this.applicationServices = new FSqrApplicationServicesUnitialized();
     }
 
+    @Override
     public void setApplicationServices( FSqrApplicationServices services ) {
         this.applicationServices = services;
     }
 
+    @Override
     public FSqrScmHistory getRecentRevisionHistory( String projectId ) {
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
@@ -89,6 +92,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements ApplicationServices
         return result;
     }
 
+    @Override
     public FSqrScmHistory getRecentRevisionHistoryStartingFrom( String projectId, String fromRevision ) {
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
@@ -141,6 +145,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements ApplicationServices
         return result;
     }
 
+    @Override
     public FSqrRevision getSimpleRevisionInformation( String projectId, String revisionId ) {
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
@@ -154,6 +159,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements ApplicationServices
         return new FSqrRevision();
     }
 
+    @Override
     public FSqrRevisionFileChangeList getRevisionFileChangeList( String projectId, String revisionId ) {
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
@@ -166,6 +172,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements ApplicationServices
         return new FSqrRevisionFileChangeList();
     }
 
+    @Override
     public FSqrRevisionFileChangeList getAllRevisionsFileChangeList( String projectId, List<FSqrRevision> revisions ) {
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
@@ -209,6 +216,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements ApplicationServices
         return new FSqrRevisionFileChangeList( fileChangeList );
     }
 
+    @Override
     public FSqrRevisionFullChangeSet getRevisionFullChangeSet( String projectId, List<FSqrRevision> revisionList ) {
         if (revisionList.size() == 0) {
             return new FSqrRevisionFullChangeSet();
@@ -256,6 +264,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements ApplicationServices
         return true;
     }
 
+    @Override
     public FSqrRevisionFullChangeSet getRevisionFullChangeSet( String projectId, String revisionId ) {
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
@@ -283,6 +292,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements ApplicationServices
         return result;
     }
 
+    @Override
     public FSqrFileContentForRevision getFileContentForRevision( String projectId, String revisionId, String filePath ) {
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
@@ -295,6 +305,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements ApplicationServices
         return new FSqrFileContentForRevision();
     }
 
+    @Override
     public FSqrFileHistory getParticularFileHistory( String projectId, String revisionId, String filePath ) {
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
@@ -311,6 +322,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements ApplicationServices
         return new FSqrFileHistory();
     }
 
+    @Override
     public void updateProjectCache( String projectId ) {
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
