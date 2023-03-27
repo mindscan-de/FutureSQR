@@ -100,14 +100,6 @@ public class FSqrCodeReviewRepositoryImpl implements ApplicationServicesSetter, 
         return false;
     }
 
-    private String getReviewIdForProjectAndRevision( String projectid, String revisionid ) {
-        if (hasReviewForProjectAndRevision( projectid, revisionid )) {
-            return projectIdRevisionIdToCodeReviewIdRepository.get( projectid ).get( revisionid );
-        }
-
-        return "";
-    }
-
     @Override
     public FSqrCodeReview getReviewForProjectAndRevision( String projectid, String revisionid ) {
         String reviewId = this.getReviewIdForProjectAndRevision( projectid, revisionid );
@@ -115,6 +107,14 @@ public class FSqrCodeReviewRepositoryImpl implements ApplicationServicesSetter, 
             return this.getReview( projectid, reviewId );
         }
         return null;
+    }
+
+    private String getReviewIdForProjectAndRevision( String projectid, String revisionid ) {
+        if (hasReviewForProjectAndRevision( projectid, revisionid )) {
+            return projectIdRevisionIdToCodeReviewIdRepository.get( projectid ).get( revisionid );
+        }
+
+        return "";
     }
 
     @Override
