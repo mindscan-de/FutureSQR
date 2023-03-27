@@ -64,22 +64,6 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         this.applicationServices = services;
     }
 
-    public void insertReview( String projectId, FSqrCodeReview review ) {
-        getOrCreateCodeReviewMap( projectId ).put( review.getReviewId(), review );
-        getOrCreateCodeReviewIdMap( projectId ).put( review.getFirstRevisionId(), review.getReviewId() );
-    }
-
-    // ATTENTION: Actually only call on insert.
-    private Map<String, FSqrCodeReview> getOrCreateCodeReviewMap( String projectId ) {
-        // ATTENTION this allows for a DOS attack because it forces the repository map to grow.
-        return projectIdReviewIdToCodeReviewRepository.computeIfAbsent( projectId, pk -> new HashMap<String, FSqrCodeReview>() );
-    }
-
-    private Map<String, String> getOrCreateCodeReviewIdMap( String projectId ) {
-        // ATTENTION this allows for a DOS attack because it forces the repository map to grow.
-        return projectIdRevisionIdToCodeReviewIdRepository.computeIfAbsent( projectId, pk -> new HashMap<String, String>() );
-    }
-
     @Override
     public FSqrCodeReview getReview( String projectId, String reviewId ) {
         if (projectIdReviewIdToCodeReviewRepository.containsKey( projectId )) {
@@ -215,6 +199,22 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         insertReview( projectid, codeReview );
 
         return codeReview;
+    }
+
+    public void insertReview( String projectId, FSqrCodeReview review ) {
+        getOrCreateCodeReviewMap( projectId ).put( review.getReviewId(), review );
+        getOrCreateCodeReviewIdMap( projectId ).put( review.getFirstRevisionId(), review.getReviewId() );
+    }
+
+    // ATTENTION: Actually only call on insert.
+    private Map<String, FSqrCodeReview> getOrCreateCodeReviewMap( String projectId ) {
+        // ATTENTION this allows for a DOS attack because it forces the repository map to grow.
+        return projectIdReviewIdToCodeReviewRepository.computeIfAbsent( projectId, pk -> new HashMap<String, FSqrCodeReview>() );
+    }
+
+    private Map<String, String> getOrCreateCodeReviewIdMap( String projectId ) {
+        // ATTENTION this allows for a DOS attack because it forces the repository map to grow.
+        return projectIdRevisionIdToCodeReviewIdRepository.computeIfAbsent( projectId, pk -> new HashMap<String, String>() );
     }
 
     @Override
