@@ -34,6 +34,7 @@ import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
+import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
 
 /**
  * This provides the in-memory repository for the Source Code Management Project Configurations.
@@ -48,7 +49,7 @@ import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
  * 
  * TODO: rework the repository to use a database instead of the in-memory + scm data pull implementation
  */
-public class FSqrScmProjectConfigurationRepositoryImpl implements ApplicationServicesSetter {
+public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProjectConfigurationRepository, ApplicationServicesSetter {
 
     private FSqrApplicationServices applicationServices;
 
@@ -69,22 +70,27 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements ApplicationSer
     // TODO use an alternate constructor with a projectConfigurationInitialProvider, which 
     //      provides the configurations, when this class is initialized
 
+    @Override
     public Collection<FSqrScmProjectConfiguration> getAllProjectConfigurations() {
         return scmProjectConfigurationsByProjectId.values();
     }
 
+    @Override
     public FSqrScmProjectConfiguration getProjectConfiguration( String projectId ) {
         return scmProjectConfigurationsByProjectId.getOrDefault( projectId, null );
     }
 
+    @Override
     public FSqrScmProjectConfiguration getProjectConfiguration( UUID projectUUID ) {
         return null;
     }
 
+    @Override
     public boolean hasProjectConfiguration( String projectId ) {
         return scmProjectConfigurationsByProjectId.containsKey( projectId );
     }
 
+    @Override
     public String getNewProjectReviewIdentifier( String projectId ) {
         if (!hasProjectConfiguration( projectId )) {
             throw new RuntimeException( "ProjectId is unknown" );
@@ -92,6 +98,7 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements ApplicationSer
         return scmProjectConfigurationsByProjectId.get( projectId ).createNewReviewIdentifierWithPrefix();
     }
 
+    @Override
     public void addScmProjectConfiguration( FSqrScmProjectConfiguration projectConfiguration ) {
         String projectId = projectConfiguration.getProjectId();
 
