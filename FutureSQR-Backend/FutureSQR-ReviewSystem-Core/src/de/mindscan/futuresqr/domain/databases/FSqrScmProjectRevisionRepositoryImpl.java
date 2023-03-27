@@ -80,6 +80,10 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
     @Override
     public FSqrScmHistory getRecentRevisionHistory( String projectId ) {
+        // TODO: this should be tested, whether it is already cached in-memory database, and if the maximum age is reached
+        // TODO: retrieve the current values from database.
+        // TODO: the crawler will put that info into the database.
+
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
 
@@ -94,6 +98,10 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
     @Override
     public FSqrScmHistory getRecentRevisionHistoryStartingFrom( String projectId, String fromRevision ) {
+        // TODO: this should be tested, whether it is already cached in-memory database, and if the maximum age is reached
+        // TODO: retrieve the current values from database.
+        // TODO: the crawler will put that info into the database.
+
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
             ScmHistory nRecentHistory = gitHistoryProvider.getRecentRevisionsFromStartingRevision( toScmRepository( scmConfiguration ), fromRevision );
@@ -147,6 +155,10 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
     @Override
     public FSqrRevision getSimpleRevisionInformation( String projectId, String revisionId ) {
+        // TODO: this should be tested, whether it is already cached in-memory database.
+        // TODO: if not, we should have an information, whether we can retrieve this from the Database
+        // TODO: only if not in the database, retrieve from SCM, then update the database, then update the cache.
+
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
             ScmRepository scmRepository = toScmRepository( scmConfiguration );
@@ -161,6 +173,10 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
     @Override
     public FSqrRevisionFileChangeList getRevisionFileChangeList( String projectId, String revisionId ) {
+        // TODO: this should be tested, whether it is already cached in-memory database.
+        // TODO: if not, we should have an information, whether we can retrieve this from the Database
+        // TODO: only if not in the database, retrieve from SCM, then update the database, then update the cache.
+
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
             ScmRepository scmRepository = toScmRepository( scmConfiguration );
@@ -307,6 +323,10 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
     @Override
     public FSqrFileHistory getParticularFileHistory( String projectId, String revisionId, String filePath ) {
+        // TODO: test in in-memory database
+        // TODO: get this from databse
+        // TODO: use the crawler to put file history into the database 
+
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
             ScmRepository scmRepository = toScmRepository( scmConfiguration );
@@ -324,6 +344,8 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
     @Override
     public void updateProjectCache( String projectId ) {
+        // TODO: This is just a helper as long as we have no crawler, which retrieves 
+
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
             ScmRepository scmRepository = toScmRepository( scmConfiguration );
@@ -336,7 +358,6 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
                 System.out.println( "[updateProjectCache] - branchName is empty - must be fixed." );
             }
         }
-
     }
 
     private FSqrScmProjectConfiguration toScmConfiguration( String projectId ) {
