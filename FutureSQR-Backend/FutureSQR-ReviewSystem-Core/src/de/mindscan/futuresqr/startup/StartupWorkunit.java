@@ -32,6 +32,8 @@ package de.mindscan.futuresqr.startup;
  * data, like user data, the most recent reviews, the most recent discussions, statistics, the project 
  * configurations etc.; we want to provide a waitstate, while the application is not started fully, until
  * it is and then  the waitstate should be disabled.
+ * 
+ * We maybe need to start other threads, e.g. the different svn and git crawlers.
  */
 public class StartupWorkunit {
 
