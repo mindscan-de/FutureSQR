@@ -47,7 +47,11 @@ import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
 public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, ApplicationServicesSetter {
 
     private FSqrApplicationServices applicationServices;
+
+    // search key: ( projectId:string , reviewId:string ) -> codereview:FSqrCodeReview
     private Map<String, Map<String, FSqrCodeReview>> projectIdReviewIdToCodeReviewRepository;
+
+    // search key: ( projectId:string , revisionId:string ) -> CodeReviewId:string
     private Map<String, Map<String, String>> projectIdRevisionIdToCodeReviewIdRepository;
 
     /**
