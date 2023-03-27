@@ -45,8 +45,10 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
 
     private FSqrApplicationServices applicationServices;
 
+    // search key: ( threaduuid:string ) -> thread:FSqrDiscussionThread
     private Map<String, FSqrDiscussionThread> threadTable = new HashMap<>();
 
+    // search key: ( projectId:string , reviewId:string ) -> List of DiscussionThread Ids:ArrayList<String>
     private Map<String, Map<String, ArrayList<String>>> projectAndRewviewToThreads = new HashMap<>();
 
     /**
