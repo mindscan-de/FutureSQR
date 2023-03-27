@@ -63,8 +63,11 @@ import de.mindscan.futuresqr.scmaccess.types.ScmSingleRevisionFileChangeList;
  */
 public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevisionRepository, ApplicationServicesSetter {
 
+    // TODO: we want to get rid of the direct SCM interaction in this repository, and retrieve most of the data
+    //       either from in memory storage or from a persistence/database
     private GitScmHistoryProvider gitHistoryProvider;
     private GitScmContentProvider gitScmContentProvider;
+
     private FSqrApplicationServices applicationServices;
 
     public FSqrScmProjectRevisionRepositoryImpl() {
@@ -344,7 +347,8 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
     @Override
     public void updateProjectCache( String projectId ) {
-        // TODO: This is just a helper as long as we have no crawler, which retrieves 
+        // TODO: This is just a helper as long as we have no crawler, which retrieves the data from the SCM and puts 
+        //       these information into a database.
 
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
