@@ -40,6 +40,10 @@ public interface FSqrCodeReviewRepository {
 
     FSqrCodeReview getReview( String projectId, String reviewId );
 
+    FSqrCodeReview getReviewForProjectAndRevision( String projectid, String revisionid );
+
+    boolean hasReviewForProjectAndRevision( String projectid, String revisionid );
+
     // CodeReview actions of a reviewer - Concern, Approve, Retract
 
     void concernCodeReview( String projectId, String reviewId, String reviewerId );

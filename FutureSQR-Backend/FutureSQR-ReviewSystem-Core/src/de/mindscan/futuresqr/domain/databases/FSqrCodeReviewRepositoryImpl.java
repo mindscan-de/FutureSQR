@@ -91,6 +91,7 @@ public class FSqrCodeReviewRepositoryImpl implements ApplicationServicesSetter, 
         return null;
     }
 
+    @Override
     public boolean hasReviewForProjectAndRevision( String projectid, String revisionid ) {
         if (projectIdRevisionIdToCodeReviewIdRepository.containsKey( projectid )) {
             return projectIdRevisionIdToCodeReviewIdRepository.get( projectid ).containsKey( revisionid );
@@ -99,7 +100,7 @@ public class FSqrCodeReviewRepositoryImpl implements ApplicationServicesSetter, 
         return false;
     }
 
-    public String getReviewIdForProjectAndRevision( String projectid, String revisionid ) {
+    private String getReviewIdForProjectAndRevision( String projectid, String revisionid ) {
         if (hasReviewForProjectAndRevision( projectid, revisionid )) {
             return projectIdRevisionIdToCodeReviewIdRepository.get( projectid ).get( revisionid );
         }
@@ -107,6 +108,7 @@ public class FSqrCodeReviewRepositoryImpl implements ApplicationServicesSetter, 
         return "";
     }
 
+    @Override
     public FSqrCodeReview getReviewForProjectAndRevision( String projectid, String revisionid ) {
         String reviewId = this.getReviewIdForProjectAndRevision( projectid, revisionid );
         if (!"".equals( reviewId )) {
