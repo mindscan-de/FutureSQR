@@ -40,8 +40,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
-import de.mindscan.futuresqr.domain.databases.FSqrScmUserRepositoryImpl;
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
+import de.mindscan.futuresqr.domain.repository.FSqrScmUserRepository;
 
 /**
  * 
@@ -50,7 +50,7 @@ public class FSqrLazyUserDatabaseImpl {
 
     private Gson gson = new Gson();
 
-    private FSqrScmUserRepositoryImpl userRepository = FSqrApplication.getInstance().getServices().getUserRepository();
+    private FSqrScmUserRepository userRepository = FSqrApplication.getInstance().getServices().getUserRepository();
 
     private HashMap<String, FSqrLazyUserDBEntry> userDatabaseMap = new HashMap<>();
 
