@@ -44,7 +44,7 @@ import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
 /**
  * TODO: rework the repository to use a database instead of the in-memory + scm data pull implementation
  */
-public class FSqrCodeReviewRepositoryImpl implements ApplicationServicesSetter, FSqrCodeReviewRepository {
+public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, ApplicationServicesSetter {
 
     private FSqrApplicationServices applicationServices;
     private Map<String, Map<String, FSqrCodeReview>> projectIdReviewIdToCodeReviewRepository;
