@@ -27,11 +27,12 @@ package de.mindscan.futuresqr.domain.repository.cache;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiFunction;
 
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 
 /**
- * 
+ * search key: ( projectId , reviewId ) -> CodeReview
  */
 public class InMemoryCacheCodeReviewTableImpl {
 
@@ -64,11 +65,18 @@ public class InMemoryCacheCodeReviewTableImpl {
     }
 
     // TODO: getOrCompute which will either get or execute the expression and then put the code review into the table.
-    public FSqrCodeReview getCodeReviewOrComputeIfAbsent( String projectId, String reviewId ) {
-        return null;
+    public FSqrCodeReview getCodeReviewOrComputeIfAbsent( String projectId, String reviewId, BiFunction<String, String, FSqrCodeReview> computeFunction ) {
+        if (isCached( projectId, reviewId )) {
+            return getCodeReview( projectId, reviewId );
+        }
+
+        FSqrCodeReview codeReview = computeFunction.apply( projectId, reviewId );
+        putCodeReview( projectId, reviewId, codeReview );
+        return codeReview;
     }
 
-    public void putCodeReview( String projectId, String reviewId, FSqrCodeReview coreReview ) {
+    // TODO: putCodeReview - use the multi map initialization / key function.
+    public void putCodeReview( String projectId, String reviewId, FSqrCodeReview codeReview ) {
 
     }
 }
