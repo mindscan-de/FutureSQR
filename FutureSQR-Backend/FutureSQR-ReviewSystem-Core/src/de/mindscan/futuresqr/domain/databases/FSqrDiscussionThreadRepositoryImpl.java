@@ -98,13 +98,16 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
     @Override
     public List<FSqrDiscussionThread> getDirectThreadsForReview( String projectId, String reviewId ) {
         ArrayList<FSqrDiscussionThread> result = new ArrayList<>();
-        if (projectAndRewviewToThreads.containsKey( projectId )) {
-            Map<String, ArrayList<String>> reviewsMapForProjectId = projectAndRewviewToThreads.get( projectId );
-            if (reviewsMapForProjectId.containsKey( reviewId )) {
-                List<String> threadList = reviewsMapForProjectId.get( reviewId );
-                threadList.stream().forEach( tid -> result.add( threadTable.get( tid ) ) );
-            }
+        if (!projectAndRewviewToThreads.containsKey( projectId )) {
+            return result;
         }
+
+        if (!projectAndRewviewToThreads.get( projectId ).containsKey( reviewId )) {
+            return result;
+        }
+
+        List<String> threadList = projectAndRewviewToThreads.get( projectId ).get( reviewId );
+        threadList.stream().forEach( tid -> result.add( threadTable.get( tid ) ) );
 
         return result;
     }
