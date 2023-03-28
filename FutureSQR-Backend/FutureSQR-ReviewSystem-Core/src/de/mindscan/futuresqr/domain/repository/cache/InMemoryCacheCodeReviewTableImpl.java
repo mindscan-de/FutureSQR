@@ -77,7 +77,7 @@ public class InMemoryCacheCodeReviewTableImpl {
 
     // TODO: putCodeReview - use the multi map initialization / key function.
     public void putCodeReview( String projectId, String reviewId, FSqrCodeReview codeReview ) {
-        getOrCreateProjectToCodeReviewMap( projectId ).put( codeReview.getReviewId(), codeReview );
+        getOrCreateProjectToCodeReviewMap( projectId ).put( reviewId, codeReview );
     }
 
     // ATTENTION: Actually only call on insert.
