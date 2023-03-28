@@ -51,6 +51,14 @@ public class InMemoryCacheDiscussionThreadIdsTableImpl {
         return false;
     }
 
+    public boolean hasDiscussionThreadUUID( String projectId, String reviewId, String discussionThreadUUID ) {
+        if (!isCached( projectId, reviewId )) {
+            return false;
+        }
+
+        return getDiscussionThreadUUIDs( projectId, reviewId ).contains( discussionThreadUUID );
+    }
+
     private boolean isKnownProjectId( String projectId ) {
         return projectIdReviewIdToThreadIds.containsKey( projectId );
     }
