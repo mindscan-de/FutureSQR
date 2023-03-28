@@ -25,9 +25,12 @@
  */
 package de.mindscan.futuresqr.domain.repository.cache;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
+import java.util.function.Predicate;
 
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 
@@ -49,10 +52,14 @@ public class InMemoryCacheCodeReviewTableImpl {
     }
 
     public boolean isCached( String projectId, String reviewId ) {
-        if (projectIdReviewIdToCodeReviewCache.containsKey( projectId )) {
+        if (isKnownProjectId( projectId )) {
             return projectIdReviewIdToCodeReviewCache.get( projectId ).containsKey( reviewId );
         }
         return false;
+    }
+
+    private boolean isKnownProjectId( String projectId ) {
+        return projectIdReviewIdToCodeReviewCache.containsKey( projectId );
     }
 
     public FSqrCodeReview getCodeReview( String projectId, String reviewId ) {
@@ -70,6 +77,16 @@ public class InMemoryCacheCodeReviewTableImpl {
         FSqrCodeReview codeReview = computeCodeReview.apply( projectId, reviewId );
         putCodeReview( projectId, reviewId, codeReview );
         return codeReview;
+    }
+
+    public List<FSqrCodeReview> filterCodeReviewsByProject( String projectId, Predicate<FSqrCodeReview> predicate ) {
+        ArrayList<FSqrCodeReview> resultList = new ArrayList<>();
+
+        if (isKnownProjectId( projectId )) {
+            getOrCreateProjectToCodeReviewMap( projectId ).values().stream().filter( predicate ).forEach( r -> resultList.add( r ) );
+        }
+
+        return resultList;
     }
 
     public void putCodeReview( String projectId, String reviewId, FSqrCodeReview codeReview ) {
