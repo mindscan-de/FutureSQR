@@ -37,6 +37,7 @@ import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitializ
 import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
 import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThreadMessage;
 import de.mindscan.futuresqr.domain.repository.FSqrDiscussionThreadRepository;
+import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheDiscussionThreadIdsTableImpl;
 
 /**
  * TODO: rework the repository to use a database instead of the in-memory + scm data pull implementation
@@ -49,13 +50,14 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
     private Map<String, FSqrDiscussionThread> threadTable = new HashMap<>();
 
     // search key: ( projectId:string , reviewId:string ) -> List of DiscussionThread Ids:ArrayList<String>
-    private Map<String, Map<String, ArrayList<String>>> projectAndRewviewToThreads = new HashMap<>();
+    private InMemoryCacheDiscussionThreadIdsTableImpl projectAndReviewToThreadsCache;
 
     /**
      * 
      */
     public FSqrDiscussionThreadRepositoryImpl() {
         this.applicationServices = new FSqrApplicationServicesUnitialized();
+        this.projectAndReviewToThreadsCache = new InMemoryCacheDiscussionThreadIdsTableImpl();
     }
 
     @Override
@@ -70,11 +72,7 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
         // insertThreadToDB
         threadTable.put( newThread.getDiscussionThreadUUID(), newThread );
 
-        // 
-        projectAndRewviewToThreads //
-                        .computeIfAbsent( projectId, id -> new HashMap<>() )//
-                        .computeIfAbsent( reviewId, id -> new ArrayList<String>() ) //
-                        .add( newThread.getDiscussionThreadUUID() );
+        this.projectAndReviewToThreadsCache.addDiscussionThread( projectId, reviewId, newThread.getDiscussionThreadUUID() );
 
         return newThread;
     }
@@ -98,15 +96,12 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
     @Override
     public List<FSqrDiscussionThread> getDirectThreadsForReview( String projectId, String reviewId ) {
         ArrayList<FSqrDiscussionThread> result = new ArrayList<>();
-        if (!projectAndRewviewToThreads.containsKey( projectId )) {
+
+        if (!this.projectAndReviewToThreadsCache.isCached( projectId, reviewId )) {
             return result;
         }
 
-        if (!projectAndRewviewToThreads.get( projectId ).containsKey( reviewId )) {
-            return result;
-        }
-
-        List<String> threadList = projectAndRewviewToThreads.get( projectId ).get( reviewId );
+        List<String> threadList = this.projectAndReviewToThreadsCache.getDiscussionThreadUUIDs( projectId, reviewId );
         threadList.stream().forEach( tid -> result.add( threadTable.get( tid ) ) );
 
         return result;
@@ -114,19 +109,7 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
 
     @Override
     public void updateMessage( String projectId, String reviewId, String threadUUID, String messageUUID, String newMessageText, String messageAuthorUUID ) {
-        // check if project id 
-        if (!projectAndRewviewToThreads.containsKey( projectId )) {
-            return;
-        }
-
-        // check if reviewId exists
-        if (!projectAndRewviewToThreads.get( projectId ).containsKey( reviewId )) {
-            return;
-        }
-
-        // make sure this threadid is only in projectId and reviewId present, such that you can't edit 
-        // someone eles's Threads in different projects/reviews
-        if (!projectAndRewviewToThreads.get( projectId ).get( reviewId ).contains( threadUUID )) {
+        if (!this.projectAndReviewToThreadsCache.hasDiscussionThreadUUID( projectId, reviewId, threadUUID )) {
             return;
         }
 
@@ -139,19 +122,7 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
 
     @Override
     public void replyToThread( String projectId, String reviewId, String threadUUID, String replytoMessageId, String messageText, String messageAuthorUUID ) {
-        // check if project id 
-        if (!projectAndRewviewToThreads.containsKey( projectId )) {
-            return;
-        }
-
-        // check if reviewId exists
-        if (!projectAndRewviewToThreads.get( projectId ).containsKey( reviewId )) {
-            return;
-        }
-
-        // make sure this threadid is only in projectId and reviewId present, such that you can't edit 
-        // someone eles's Threads in different projects/reviews
-        if (!projectAndRewviewToThreads.get( projectId ).get( reviewId ).contains( threadUUID )) {
+        if (!this.projectAndReviewToThreadsCache.hasDiscussionThreadUUID( projectId, reviewId, threadUUID )) {
             return;
         }
 
