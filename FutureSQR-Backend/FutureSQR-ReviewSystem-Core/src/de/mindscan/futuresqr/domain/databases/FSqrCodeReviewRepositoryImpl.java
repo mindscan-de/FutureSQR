@@ -27,9 +27,7 @@ package de.mindscan.futuresqr.domain.databases;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
@@ -41,6 +39,7 @@ import de.mindscan.futuresqr.domain.model.FSqrRevision;
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
 import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheCodeReviewTableImpl;
+import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheRevisionToCodeReviewIdTableImpl;
 
 /**
  * TODO: rework the repository to use a database instead of the in-memory + scm data pull implementation
@@ -53,7 +52,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
     private InMemoryCacheCodeReviewTableImpl codeReviewTableCache;
 
     // search key: ( projectId:string , revisionId:string ) -> CodeReviewId:string
-    private Map<String, Map<String, String>> projectIdRevisionIdToCodeReviewIdRepository;
+    private InMemoryCacheRevisionToCodeReviewIdTableImpl codeReviewIdTableCache;
 
     /**
      * 
@@ -61,7 +60,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
     public FSqrCodeReviewRepositoryImpl() {
         this.applicationServices = new FSqrApplicationServicesUnitialized();
         this.codeReviewTableCache = new InMemoryCacheCodeReviewTableImpl();
-        this.projectIdRevisionIdToCodeReviewIdRepository = new HashMap<>();
+        this.codeReviewIdTableCache = new InMemoryCacheRevisionToCodeReviewIdTableImpl();
     }
 
     @Override
@@ -83,9 +82,12 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
 
     @Override
     public boolean hasReviewForProjectAndRevision( String projectid, String revisionid ) {
-        if (projectIdRevisionIdToCodeReviewIdRepository.containsKey( projectid )) {
-            return projectIdRevisionIdToCodeReviewIdRepository.get( projectid ).containsKey( revisionid );
+        if (this.codeReviewIdTableCache.isCached( projectid, revisionid )) {
+            return !"".equals( this.codeReviewIdTableCache.getCodeReviewId( projectid, revisionid ) );
         }
+
+        // TODO: query the persistence / database here - actually combine it with this API call ... 
+        // this.codeReviewIdTableCache.getCodeReviewOrComputeIfAbsent( projectId, reviewId, computeCodeReview )
 
         return false;
     }
@@ -101,7 +103,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
 
     private String getReviewIdForProjectAndRevision( String projectid, String revisionid ) {
         if (hasReviewForProjectAndRevision( projectid, revisionid )) {
-            return projectIdRevisionIdToCodeReviewIdRepository.get( projectid ).get( revisionid );
+            return this.codeReviewIdTableCache.getCodeReviewId( projectid, revisionid );
         }
 
         return "";
@@ -172,8 +174,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
             codeReview.addRevision( revisionToAdd );
 
             // add revision also to (project x revision) table - to associate revision with review. 
-            // TODO: this should be done in a separate method
-            getOrCreateCodeReviewIdMap( projectId ).put( revisionId, reviewId );
+            this.codeReviewIdTableCache.putCodeReviewId( projectId, revisionId, reviewId );
         }
     }
 
@@ -187,7 +188,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
             codeReview.removeRevisionById( revisionId );
 
             // remove revision from (project x revision) table - to mark it free again.
-            getOrCreateCodeReviewIdMap( projectId ).remove( revisionId );
+            this.codeReviewIdTableCache.removeCodeReviewId( projectId, revisionId );
         }
     }
 
@@ -206,12 +207,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
 
     public void insertReview( String projectId, FSqrCodeReview review ) {
         this.codeReviewTableCache.putCodeReview( projectId, review.getReviewId(), review );
-        getOrCreateCodeReviewIdMap( projectId ).put( review.getFirstRevisionId(), review.getReviewId() );
-    }
-
-    private Map<String, String> getOrCreateCodeReviewIdMap( String projectId ) {
-        // ATTENTION this allows for a DOS attack because it forces the repository map to grow.
-        return projectIdRevisionIdToCodeReviewIdRepository.computeIfAbsent( projectId, pk -> new HashMap<String, String>() );
+        this.codeReviewIdTableCache.putCodeReviewId( projectId, review.getFirstRevisionId(), review.getReviewId() );
     }
 
     @Override
