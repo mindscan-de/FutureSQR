@@ -27,10 +27,11 @@ package de.mindscan.futuresqr.domain.repository.cache;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
- * search key: ( projectId , reviewId ) -> ( threadIds ) ArrayList<String>
+ * search key: ( projectId:string , reviewId:string ) -> ( threadIds:ArrayList<String> )
  */
 public class InMemoryCacheDiscussionThreadIdsTableImpl {
 
@@ -43,4 +44,28 @@ public class InMemoryCacheDiscussionThreadIdsTableImpl {
         this.projectIdReviewIdToThreadIds = new HashMap<>();
     }
 
+    public boolean isCached( String projectId, String reviewId ) {
+        if (isKnownProjectId( projectId )) {
+            return projectIdReviewIdToThreadIds.get( projectId ).containsKey( reviewId );
+        }
+        return false;
+    }
+
+    private boolean isKnownProjectId( String projectId ) {
+        return projectIdReviewIdToThreadIds.containsKey( projectId );
+    }
+
+    public List<String> getDiscussionThreadUUIDs( String projectId, String reviewId ) {
+        if (isCached( projectId, reviewId )) {
+            return projectIdReviewIdToThreadIds.get( projectId ).get( reviewId );
+        }
+        return new ArrayList<>();
+    }
+
+    public void addDiscussionThread( String projectId, String reviewId, String threadUUID ) {
+        this.projectIdReviewIdToThreadIds // 
+                        .computeIfAbsent( projectId, id -> new HashMap<>() )//
+                        .computeIfAbsent( reviewId, id -> new ArrayList<String>() ) //
+                        .add( threadUUID );
+    }
 }
