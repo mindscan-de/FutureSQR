@@ -40,6 +40,7 @@ import de.mindscan.futuresqr.domain.model.FSqrCodeReviewLifecycleState;
 import de.mindscan.futuresqr.domain.model.FSqrRevision;
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
+import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheCodeReviewTableImpl;
 
 /**
  * TODO: rework the repository to use a database instead of the in-memory + scm data pull implementation
@@ -49,7 +50,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
     private FSqrApplicationServices applicationServices;
 
     // search key: ( projectId:string , reviewId:string ) -> codereview:FSqrCodeReview
-    private Map<String, Map<String, FSqrCodeReview>> projectIdReviewIdToCodeReviewRepository;
+    private InMemoryCacheCodeReviewTableImpl codeReviewTableCache;
 
     // search key: ( projectId:string , revisionId:string ) -> CodeReviewId:string
     private Map<String, Map<String, String>> projectIdRevisionIdToCodeReviewIdRepository;
@@ -59,7 +60,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
      */
     public FSqrCodeReviewRepositoryImpl() {
         this.applicationServices = new FSqrApplicationServicesUnitialized();
-        this.projectIdReviewIdToCodeReviewRepository = new HashMap<>();
+        this.codeReviewTableCache = new InMemoryCacheCodeReviewTableImpl();
         this.projectIdRevisionIdToCodeReviewIdRepository = new HashMap<>();
     }
 
@@ -70,12 +71,13 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
 
     @Override
     public FSqrCodeReview getReview( String projectId, String reviewId ) {
-        if (projectIdReviewIdToCodeReviewRepository.containsKey( projectId )) {
-            if (projectIdReviewIdToCodeReviewRepository.get( projectId ).containsKey( reviewId )) {
-                return projectIdReviewIdToCodeReviewRepository.get( projectId ).get( reviewId );
-            }
-            return null;
+        if (this.codeReviewTableCache.isCached( projectId, reviewId )) {
+            return this.codeReviewTableCache.getCodeReview( projectId, reviewId );
         }
+
+        // TODO: query the persistence / database here - actually combine it with this API call ... 
+        // this.codeReviewTableCache.getCodeReviewOrComputeIfAbsent( projectId, reviewId, computeCodeReview )
+
         return null;
     }
 
@@ -107,12 +109,11 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
 
     @Override
     public List<FSqrCodeReview> selectOpenReviews( String projectId ) {
-        ArrayList<FSqrCodeReview> resultList = new ArrayList<>();
-
-        if (projectIdReviewIdToCodeReviewRepository.containsKey( projectId )) {
-            Map<String, FSqrCodeReview> projectMap = projectIdReviewIdToCodeReviewRepository.get( projectId );
-            projectMap.values().stream().filter( r -> r.getCurrentReviewState() == FSqrCodeReviewLifecycleState.Open ).forEach( r -> resultList.add( r ) );
-        }
+        // TODO: is it a good idea to filter on the in memory database?
+        // for the open reviews it should be done from database (restart scenario?)
+        // for now: good enough
+        List<FSqrCodeReview> resultList = codeReviewTableCache.filterCodeReviewsByProject( projectId,
+                        r -> r.getCurrentReviewState() == FSqrCodeReviewLifecycleState.Open );
 
         Comparator<FSqrCodeReview> comparing = Comparator.comparing( FSqrCodeReview::getReviewId );
         resultList.sort( comparing );
@@ -122,13 +123,11 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
 
     @Override
     public List<FSqrCodeReview> selectRecentlyClosedReviews( String projectId ) {
-        ArrayList<FSqrCodeReview> resultList = new ArrayList<>();
-
-        // TODO: filter by close date e.g. 24 hours
-        if (projectIdReviewIdToCodeReviewRepository.containsKey( projectId )) {
-            Map<String, FSqrCodeReview> projectMap = projectIdReviewIdToCodeReviewRepository.get( projectId );
-            projectMap.values().stream().filter( r -> r.getCurrentReviewState() == FSqrCodeReviewLifecycleState.Closed ).forEach( r -> resultList.add( r ) );
-        }
+        // TODO is it a good idea to filter on the in memory database?
+        // i guess for closed reviews it should be good enough.
+        // for now: good enough        
+        List<FSqrCodeReview> resultList = codeReviewTableCache.filterCodeReviewsByProject( projectId,
+                        r -> r.getCurrentReviewState() == FSqrCodeReviewLifecycleState.Closed );
 
         Comparator<FSqrCodeReview> comparing = Comparator.comparing( FSqrCodeReview::getReviewId );
         resultList.sort( comparing );
@@ -206,14 +205,8 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
     }
 
     public void insertReview( String projectId, FSqrCodeReview review ) {
-        getOrCreateCodeReviewMap( projectId ).put( review.getReviewId(), review );
+        this.codeReviewTableCache.putCodeReview( projectId, review.getReviewId(), review );
         getOrCreateCodeReviewIdMap( projectId ).put( review.getFirstRevisionId(), review.getReviewId() );
-    }
-
-    // ATTENTION: Actually only call on insert.
-    private Map<String, FSqrCodeReview> getOrCreateCodeReviewMap( String projectId ) {
-        // ATTENTION this allows for a DOS attack because it forces the repository map to grow.
-        return projectIdReviewIdToCodeReviewRepository.computeIfAbsent( projectId, pk -> new HashMap<String, FSqrCodeReview>() );
     }
 
     private Map<String, String> getOrCreateCodeReviewIdMap( String projectId ) {
