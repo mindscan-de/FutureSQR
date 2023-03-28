@@ -86,4 +86,32 @@ public class InMemoryCacheRevisionToCodeReviewIdTableImplTest {
         assertThat( result, is( sameInstance( A_PROJECT_REVIEW_1 ) ) );
     }
 
+    @Test
+    public void testRemoveCodeReviewId_putCodeReviewIdRemoveCodeReviewId_getReturnsEmptyValue() throws Exception {
+        // arrange
+        InMemoryCacheRevisionToCodeReviewIdTableImpl revisionTable = new InMemoryCacheRevisionToCodeReviewIdTableImpl();
+        revisionTable.putCodeReviewId( A_PROJECT, REVISION_1111, A_PROJECT_REVIEW_1 );
+
+        // act
+        revisionTable.removeCodeReviewId( A_PROJECT, REVISION_1111 );
+
+        // assert
+        String result = revisionTable.getCodeReviewId( A_PROJECT, REVISION_1111 );
+        assertThat( result, equalTo( "" ) );
+    }
+
+    @Test
+    public void testRemoveCodeReviewId_putCodeReviewIdRemoveCodeReviewId_isCahedReturnsFalse() throws Exception {
+        // arrange
+        InMemoryCacheRevisionToCodeReviewIdTableImpl revisionTable = new InMemoryCacheRevisionToCodeReviewIdTableImpl();
+        revisionTable.putCodeReviewId( A_PROJECT, REVISION_1111, A_PROJECT_REVIEW_1 );
+
+        // act
+        revisionTable.removeCodeReviewId( A_PROJECT, REVISION_1111 );
+
+        // assert
+        boolean result = revisionTable.isCached( A_PROJECT, REVISION_1111 );
+        assertThat( result, equalTo( false ) );
+    }
+
 }

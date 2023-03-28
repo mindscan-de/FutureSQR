@@ -64,6 +64,10 @@ public class InMemoryCacheRevisionToCodeReviewIdTableImpl {
         getOrCreateProjectToRevisionIdMap( projectId ).put( revisionId, codeReviewId );
     }
 
+    public void removeCodeReviewId( String projectId, String revisionId ) {
+        getOrCreateProjectToRevisionIdMap( projectId ).remove( revisionId );
+    }
+
     private Map<String, String> getOrCreateProjectToRevisionIdMap( String projectId ) {
         return projectIdRevisionIdToCodeReviewIdCache.computeIfAbsent( projectId, pk -> new HashMap<String, String>() );
     }
