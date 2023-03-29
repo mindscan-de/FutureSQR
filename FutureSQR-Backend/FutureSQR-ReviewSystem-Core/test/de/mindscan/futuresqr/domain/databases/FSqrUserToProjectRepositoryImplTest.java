@@ -7,7 +7,7 @@ import static org.hamcrest.collection.IsEmptyCollection.empty;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
 
-import java.util.Set;
+import java.util.Collection;
 
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +32,7 @@ public class FSqrUserToProjectRepositoryImplTest {
         FSqrUserToProjectRepositoryImpl repository = createInitializedUserToProjectrepository();
 
         // act
-        Set<String> result = repository.getAllStarredProjectsForUser( KNOWN_USER_ID );
+        Collection<String> result = repository.getAllStarredProjectsForUser( KNOWN_USER_ID );
 
         // assert
         assertThat( result, empty() );
@@ -47,7 +47,7 @@ public class FSqrUserToProjectRepositoryImplTest {
         repository.starProject( KNOWN_USER_UUID, PROJECT_1 );
 
         // assert
-        Set<String> result = repository.getAllStarredProjectsForUser( KNOWN_USER_UUID );
+        Collection<String> result = repository.getAllStarredProjectsForUser( KNOWN_USER_UUID );
         assertThat( result, not( empty() ) );
     }
 
@@ -58,7 +58,7 @@ public class FSqrUserToProjectRepositoryImplTest {
         repository.starProject( KNOWN_USER_UUID, PROJECT_1 );
 
         // act
-        Set<String> result = repository.getAllStarredProjectsForUser( ANOTHER_USER_UUID );
+        Collection<String> result = repository.getAllStarredProjectsForUser( ANOTHER_USER_UUID );
 
         // assert
         assertThat( result, empty() );
@@ -73,7 +73,7 @@ public class FSqrUserToProjectRepositoryImplTest {
         repository.starProject( KNOWN_USER_UUID, PROJECT_1 );
 
         // assert
-        Set<String> result = repository.getAllStarredProjectsForUser( KNOWN_USER_UUID );
+        Collection<String> result = repository.getAllStarredProjectsForUser( KNOWN_USER_UUID );
         assertThat( result, contains( PROJECT_1 ) );
     }
 
@@ -86,7 +86,7 @@ public class FSqrUserToProjectRepositoryImplTest {
         repository.starProject( KNOWN_USER_UUID, PROJECT_2 );
 
         // assert
-        Set<String> result = repository.getAllStarredProjectsForUser( KNOWN_USER_UUID );
+        Collection<String> result = repository.getAllStarredProjectsForUser( KNOWN_USER_UUID );
         assertThat( result, contains( PROJECT_2 ) );
     }
 
@@ -100,7 +100,7 @@ public class FSqrUserToProjectRepositoryImplTest {
         repository.starProject( KNOWN_USER_UUID, PROJECT_2 );
 
         // assert
-        Set<String> result = repository.getAllStarredProjectsForUser( KNOWN_USER_UUID );
+        Collection<String> result = repository.getAllStarredProjectsForUser( KNOWN_USER_UUID );
         assertThat( result, containsInAnyOrder( PROJECT_1, PROJECT_2 ) );
     }
 
@@ -115,7 +115,7 @@ public class FSqrUserToProjectRepositoryImplTest {
         repository.unstarProject( KNOWN_USER_UUID, PROJECT_2 );
 
         // assert
-        Set<String> result = repository.getAllStarredProjectsForUser( KNOWN_USER_UUID );
+        Collection<String> result = repository.getAllStarredProjectsForUser( KNOWN_USER_UUID );
         assertThat( result, contains( PROJECT_1 ) );
     }
 
@@ -130,7 +130,7 @@ public class FSqrUserToProjectRepositoryImplTest {
         repository.unstarProject( KNOWN_USER_UUID, PROJECT_1 );
 
         // assert
-        Set<String> result = repository.getAllStarredProjectsForUser( KNOWN_USER_UUID );
+        Collection<String> result = repository.getAllStarredProjectsForUser( KNOWN_USER_UUID );
         assertThat( result, contains( PROJECT_2 ) );
     }
 
