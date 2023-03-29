@@ -25,7 +25,9 @@
  */
 package de.mindscan.futuresqr.domain.repository.cache;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
@@ -54,7 +56,17 @@ public class InMemoryCacheDiscussionThreadTableImpl {
     }
 
     public FSqrDiscussionThread getDiscussionThread( String threadUuuid ) {
+        // TODO: use a load function in case that the thread is not cached.
+
         return this.threadCacheTable.get( threadUuuid );
     }
 
+    public List<FSqrDiscussionThread> lookupThreads( List<String> input ) {
+        ArrayList<FSqrDiscussionThread> result = new ArrayList<>();
+
+        // TODO: use a load function.
+        input.stream().forEach( tid -> result.add( this.getDiscussionThread( tid ) ) );
+
+        return result;
+    }
 }
