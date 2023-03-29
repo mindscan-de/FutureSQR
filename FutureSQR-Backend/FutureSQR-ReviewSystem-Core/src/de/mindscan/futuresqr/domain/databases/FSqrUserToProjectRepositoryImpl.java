@@ -25,8 +25,8 @@
  */
 package de.mindscan.futuresqr.domain.databases;
 
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
 
 import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
@@ -65,7 +65,7 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
 
     // public interface should not be able to modify internal HashSet.
     @Override
-    public Set<String> getAllStarredProjectsForUser( String userId ) {
+    public Collection<String> getAllStarredProjectsForUser( String userId ) {
         // MUST check if userId exists, otherwise a denial of service is possible
         if (!isValidUser( userId )) {
             return new HashSet<>();

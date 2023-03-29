@@ -25,7 +25,7 @@
  */
 package de.mindscan.futuresqr.domain.repository;
 
-import java.util.Set;
+import java.util.Collection;
 
 /**
  * 
@@ -38,6 +38,6 @@ public interface FSqrUserToProjectRepository {
 
     void starProject( String userId, String projectId );
 
-    Set<String> getAllStarredProjectsForUser( String userId );
+    Collection<String> getAllStarredProjectsForUser( String userId );
 
 }
