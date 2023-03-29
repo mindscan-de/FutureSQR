@@ -25,15 +25,14 @@
  */
 package de.mindscan.futuresqr.domain.databases;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.repository.FSqrUserToProjectRepository;
+import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheUserStarredProjectTableImpl;
 
 /**
  * Idea here is to collect methods and data and such related to user to project relations. 
@@ -47,16 +46,16 @@ import de.mindscan.futuresqr.domain.repository.FSqrUserToProjectRepository;
  */
 public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectRepository, ApplicationServicesSetter {
 
-    private Map<String, Set<String>> starredProjectsByUser;
     private FSqrApplicationServices applicationServices;
+
+    private InMemoryCacheUserStarredProjectTableImpl starredProjectsCache;
 
     /**
      * 
      */
     public FSqrUserToProjectRepositoryImpl() {
-        this.starredProjectsByUser = new HashMap<>();
+        this.starredProjectsCache = new InMemoryCacheUserStarredProjectTableImpl();
         this.applicationServices = new FSqrApplicationServicesUnitialized();
-
     }
 
     @Override
@@ -72,7 +71,11 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
             return new HashSet<>();
         }
 
-        return new HashSet<>( getUserStarredProjects( userId ) );
+        if (this.starredProjectsCache.isCached( userId )) {
+            return new HashSet<>( this.starredProjectsCache.getStarredProjects( userId ) );
+        }
+
+        return new HashSet<>();
     }
 
     @Override
@@ -82,7 +85,7 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
             return;
         }
 
-        getUserStarredProjects( userId ).add( projectId );
+        this.starredProjectsCache.addStarredProject( userId, projectId );
     }
 
     @Override
@@ -92,7 +95,7 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
             return;
         }
 
-        getUserStarredProjects( userId ).remove( projectId );
+        this.starredProjectsCache.removeStarredProject( userId, projectId );
     }
 
     @Override
@@ -102,11 +105,7 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
             return false;
         }
 
-        return getUserStarredProjects( userId ).contains( projectId );
-    }
-
-    private Set<String> getUserStarredProjects( String userId ) {
-        return starredProjectsByUser.computeIfAbsent( userId, k -> new HashSet<String>() );
+        return this.starredProjectsCache.isStarred( userId, projectId );
     }
 
     // TODO: maybe we also want the reverse table, where we look at the project, and want to know who gave a star to this project
