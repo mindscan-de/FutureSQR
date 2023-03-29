@@ -65,7 +65,10 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
     // TODO: we want to get rid of the direct SCM interaction in this repository, and retrieve most of the data
     //       either from in memory storage or from a persistence/database
+
+    // TODO: implement Caching for the history provider ?
     private GitScmHistoryProvider gitHistoryProvider;
+    // TODO: implement Cache for content Provider ?
     private GitScmContentProvider gitScmContentProvider;
 
     private FSqrApplicationServices applicationServices;

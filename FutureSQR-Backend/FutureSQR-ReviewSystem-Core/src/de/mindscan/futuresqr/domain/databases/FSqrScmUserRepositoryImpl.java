@@ -40,8 +40,11 @@ import de.mindscan.futuresqr.domain.repository.FSqrScmUserRepository;
 public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, ApplicationServicesSetter {
 
     private FSqrApplicationServices applicationServices;
+    // TODO: implement cache Object
     private Map<String, String> userHandleToUUID;
+    // TODO: implement cache Object
     private Map<String, FSqrSystemUser> uuidToSystemUser;
+    // TODO: implement cache Object
     private Map<String, String> loginnameToUuid;
 
     /**

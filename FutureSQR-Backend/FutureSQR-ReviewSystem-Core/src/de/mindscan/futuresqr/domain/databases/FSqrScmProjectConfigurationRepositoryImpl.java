@@ -53,6 +53,7 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
 
     private FSqrApplicationServices applicationServices;
 
+    // TODO implement cache for the scm configuration table
     private Map<String, FSqrScmProjectConfiguration> scmProjectConfigurationsByProjectId = new HashMap<>();
 
     /**
