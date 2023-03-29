@@ -159,4 +159,19 @@ public class InMemoryCacheCodeReviewTableImplTest {
         assertThat( result, containsInAnyOrder( expectedCodeReview, differentCodeReview ) );
     }
 
+    @Test
+    public void testFilterCodeReviewsByProject_AddNoneReviewsFilterPassAll_returnsEmptyCollection() throws Exception {
+        // arrange
+        FSqrCodeReview expectedCodeReview = Mockito.mock( FSqrCodeReview.class, "codeReview" );
+        FSqrCodeReview differentCodeReview = Mockito.mock( FSqrCodeReview.class, "differentCodeReview" );
+
+        InMemoryCacheCodeReviewTableImpl reviewTable = new InMemoryCacheCodeReviewTableImpl();
+
+        // act
+        List<FSqrCodeReview> result = reviewTable.filterCodeReviewsByProject( A_PROJECT_KEY, x -> true );
+
+        // assert
+        assertThat( result, empty() );
+    }
+
 }
