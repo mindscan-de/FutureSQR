@@ -26,9 +26,7 @@
 package de.mindscan.futuresqr.domain.databases;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import de.mindscan.futuresqr.core.uuid.UuidUtil;
 import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
@@ -38,6 +36,7 @@ import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
 import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThreadMessage;
 import de.mindscan.futuresqr.domain.repository.FSqrDiscussionThreadRepository;
 import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheDiscussionThreadIdsTableImpl;
+import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheDiscussionThreadTableImpl;
 
 /**
  * TODO: rework the repository to use a database instead of the in-memory + scm data pull implementation
@@ -47,7 +46,7 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
     private FSqrApplicationServices applicationServices;
 
     // search key: ( threaduuid:string ) -> thread:FSqrDiscussionThread
-    private Map<String, FSqrDiscussionThread> threadTable = new HashMap<>();
+    private InMemoryCacheDiscussionThreadTableImpl uuidToThreadsCache;
 
     // search key: ( projectId:string , reviewId:string ) -> List of DiscussionThread Ids:ArrayList<String>
     private InMemoryCacheDiscussionThreadIdsTableImpl projectAndReviewToThreadsCache;
@@ -58,6 +57,7 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
     public FSqrDiscussionThreadRepositoryImpl() {
         this.applicationServices = new FSqrApplicationServicesUnitialized();
         this.projectAndReviewToThreadsCache = new InMemoryCacheDiscussionThreadIdsTableImpl();
+        this.uuidToThreadsCache = new InMemoryCacheDiscussionThreadTableImpl();
     }
 
     @Override
@@ -70,8 +70,7 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
         FSqrDiscussionThread newThread = createNewThread( messageText, messageAuthorUUID );
 
         // insertThreadToDB
-        threadTable.put( newThread.getDiscussionThreadUUID(), newThread );
-
+        this.uuidToThreadsCache.putDiscussionThread( newThread.getDiscussionThreadUUID(), newThread );
         this.projectAndReviewToThreadsCache.addDiscussionThread( projectId, reviewId, newThread.getDiscussionThreadUUID() );
 
         return newThread;
@@ -95,16 +94,18 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
 
     @Override
     public List<FSqrDiscussionThread> getDirectThreadsForReview( String projectId, String reviewId ) {
-        ArrayList<FSqrDiscussionThread> result = new ArrayList<>();
-
         if (!this.projectAndReviewToThreadsCache.isCached( projectId, reviewId )) {
-            return result;
+            return new ArrayList<>();
         }
 
-        List<String> threadList = this.projectAndReviewToThreadsCache.getDiscussionThreadUUIDs( projectId, reviewId );
-        threadList.stream().forEach( tid -> result.add( threadTable.get( tid ) ) );
+        // TODO: lookup/translation from uuid to Discussion-Thread.
+        // some may be cached some may not.
 
-        return result;
+        // TODO: provide a lookup/load function, in case that the thread is not cached.
+
+        List<String> discussionThreadUUIDs = projectAndReviewToThreadsCache.getDiscussionThreadUUIDs( projectId, reviewId );
+
+        return this.uuidToThreadsCache.lookupThreads( discussionThreadUUIDs );
     }
 
     @Override
@@ -114,8 +115,11 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
         }
 
         // update if threadUUID exists.
-        if (threadTable.containsKey( threadUUID )) {
-            FSqrDiscussionThread thread = threadTable.get( threadUUID );
+        if (uuidToThreadsCache.isCached( threadUUID )) {
+
+            // TODO: actually we don't need to check for caching, otherwise we want to get and compute if absent 
+
+            FSqrDiscussionThread thread = uuidToThreadsCache.getDiscussionThread( threadUUID );
             thread.updateMessage( messageUUID, newMessageText, messageAuthorUUID );
         }
     }
@@ -126,9 +130,12 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
             return;
         }
 
-        if (threadTable.containsKey( threadUUID )) {
+        if (uuidToThreadsCache.isCached( threadUUID )) {
             FSqrDiscussionThreadMessage message = createReplyMessage( threadUUID, replytoMessageId, messageText, messageAuthorUUID );
-            FSqrDiscussionThread thread = threadTable.get( threadUUID );
+
+            // TODO: actually we don't need to check for caching, otherwise we want to get and compute if absent
+
+            FSqrDiscussionThread thread = uuidToThreadsCache.getDiscussionThread( threadUUID );
             thread.addAsReplytoMessage( message );
         }
     }
