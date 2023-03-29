@@ -28,7 +28,6 @@ package de.mindscan.futuresqr.devbackend.httpserver;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.http.MediaType;
@@ -166,7 +165,7 @@ public class LazyImplUserRESTfulService {
         Collection<FSqrScmProjectConfiguration> allProjects = projectDB.getAllProjects();
 
         FSqrUserToProjectRepository userToProjectRepository = FSqrApplication.getInstance().getServices().getUserToProjectRepository();
-        Set<String> starredProjects = userToProjectRepository.getAllStarredProjectsForUser( userUUID );
+        Collection<String> starredProjects = userToProjectRepository.getAllStarredProjectsForUser( userUUID );
 
         // TODO actually also filter the accessible projects, since they could be
         // starred, before

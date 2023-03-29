@@ -29,7 +29,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.ws.rs.FormParam;
@@ -198,7 +197,7 @@ public class LazyImplUserRESTfulService {
         Collection<FSqrScmProjectConfiguration> allProjects = projectDB.getAllProjects();
 
         FSqrUserToProjectRepository userToProjectRepository = FSqrApplication.getInstance().getServices().getUserToProjectRepository();
-        Set<String> starredProjects = userToProjectRepository.getAllStarredProjectsForUser( userUUID );
+        Collection<String> starredProjects = userToProjectRepository.getAllStarredProjectsForUser( userUUID );
 
         System.out.println( "userid: '" + userUUID + "'" );
         System.out.println( "projects: " + Arrays.deepToString( starredProjects.toArray() ) );
