@@ -74,6 +74,7 @@ public class InMemoryCacheSystemUserTableImpl {
         }
 
         if (loadFunction != null) {
+            // TODO: multi-threading may be a complication while we access or iterate the map in another web thread.
             return this.uuidToSystemUserCache.computeIfAbsent( userUuid, loadFunction );
         }
 
