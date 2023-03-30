@@ -41,8 +41,11 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
     private FSqrApplicationServices applicationServices;
 
     private InMemoryCacheAlternateScmAliasTableImpl aliasScmNameCache;
-
     private InMemoryCacheSystemUserTableImpl systemUserCache;
+
+    // TODO: we need some filters?
+    // TODO: we need some uuid list to FSqrSystemUser list implementation, which we need for some operations, so
+    //       that we can save some local user data. / Sort this?
 
     /**
      * 
@@ -59,13 +62,13 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
     }
 
     @Override
-    public String getUserUUID( String authorId ) {
-        return aliasScmNameCache.getUserIdForScmAlias( authorId );
+    public String getUserUUID( String scmAlias ) {
+        return aliasScmNameCache.getUserIdForScmAlias( scmAlias );
     }
 
     @Override
-    public void addUserHandle( String authorHandle, String authorUUID ) {
-        this.aliasScmNameCache.addScmAlias( authorHandle, authorUUID );
+    public void addUserHandle( String scmAlias, String authorUUID ) {
+        this.aliasScmNameCache.addScmAlias( scmAlias, authorUUID );
     }
 
     @Override

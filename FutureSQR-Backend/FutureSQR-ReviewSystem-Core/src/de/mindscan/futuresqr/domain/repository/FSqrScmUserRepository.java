@@ -38,9 +38,9 @@ public interface FSqrScmUserRepository {
 
     void addUserEntry( FSqrSystemUser user );
 
-    void addUserHandle( String authorHandle, String authorUUID );
+    void addUserHandle( String scmAlias, String authorUUID );
 
-    String getUserUUID( String authorId );
+    String getUserUUID( String scmAlias );
 
     FSqrSystemUser getUserByUUID( String uuid );
 
