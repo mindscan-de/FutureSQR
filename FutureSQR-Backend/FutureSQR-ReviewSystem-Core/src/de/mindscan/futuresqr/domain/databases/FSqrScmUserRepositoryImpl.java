@@ -47,9 +47,6 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
 
     private InMemoryCacheSystemUserTableImpl systemUserCache;
 
-    // TODO: implement cache Object - combine with system User Cache?
-    private Map<String, String> loginnameToUuid;
-
     /**
      * 
      */
@@ -57,7 +54,6 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
         this.applicationServices = new FSqrApplicationServicesUnitialized();
         this.userHandleToUUID = new HashMap<>();
         this.systemUserCache = new InMemoryCacheSystemUserTableImpl();
-        this.loginnameToUuid = new HashMap<>();
     }
 
     @Override
@@ -78,7 +74,6 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
     @Override
     public void addUserEntry( FSqrSystemUser user ) {
         this.systemUserCache.putSystemUser( user.getUserUUID(), user );
-        this.loginnameToUuid.put( user.getUserLoginName(), user.getUserUUID() );
     }
 
     @Override
@@ -88,7 +83,7 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
 
     @Override
     public boolean isLogonNamePresent( String logonName ) {
-        return this.loginnameToUuid.containsKey( logonName );
+        return this.systemUserCache.isLoginNamePresent( logonName );
     }
 
     @Override

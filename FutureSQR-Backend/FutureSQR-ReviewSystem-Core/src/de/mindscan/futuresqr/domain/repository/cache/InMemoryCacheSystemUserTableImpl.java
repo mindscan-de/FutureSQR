@@ -36,12 +36,14 @@ import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 public class InMemoryCacheSystemUserTableImpl {
 
     private Map<String, FSqrSystemUser> uuidToSystemUserCache;
+    private Map<String, String> loginnameToUuid;
 
     /**
      * 
      */
     public InMemoryCacheSystemUserTableImpl() {
         this.uuidToSystemUserCache = new HashMap<>();
+        this.loginnameToUuid = new HashMap<>();
     }
 
     public boolean isCached( String userUuid ) {
@@ -50,6 +52,11 @@ public class InMemoryCacheSystemUserTableImpl {
 
     public void putSystemUser( String userUuid, FSqrSystemUser systemUser ) {
         this.uuidToSystemUserCache.put( userUuid, systemUser );
+        this.loginnameToUuid.put( systemUser.getUserLoginName(), userUuid );
+    }
+
+    public boolean isLoginNamePresent( String logonName ) {
+        return logonName.contains( logonName );
     }
 
     public FSqrSystemUser getSystemUser( String userUuid ) {
