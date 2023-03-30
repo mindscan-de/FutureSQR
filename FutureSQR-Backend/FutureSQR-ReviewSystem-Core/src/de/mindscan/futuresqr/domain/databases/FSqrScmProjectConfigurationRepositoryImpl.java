@@ -35,6 +35,7 @@ import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
+import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheProjectConfigurationTybleImpl;
 
 /**
  * This provides the in-memory repository for the Source Code Management Project Configurations.
@@ -54,13 +55,18 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
     private FSqrApplicationServices applicationServices;
 
     // TODO implement cache for the scm configuration table
-    private Map<String, FSqrScmProjectConfiguration> scmProjectConfigurationsByProjectId = new HashMap<>();
+    private Map<String, FSqrScmProjectConfiguration> scmProjectConfigurationsByProjectId;
+
+    // search key ( projectid:string ) -> ( projectconfiguration:FSqrScmProjectConfiguration )
+    private InMemoryCacheProjectConfigurationTybleImpl scmProjectConfigurationCache;
 
     /**
      * 
      */
     public FSqrScmProjectConfigurationRepositoryImpl() {
         this.applicationServices = new FSqrApplicationServicesUnitialized();
+        this.scmProjectConfigurationCache = new InMemoryCacheProjectConfigurationTybleImpl();
+        this.scmProjectConfigurationsByProjectId = new HashMap<>();
     }
 
     @Override
