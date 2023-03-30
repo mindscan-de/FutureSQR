@@ -25,6 +25,8 @@
  */
 package de.mindscan.futuresqr.domain.databases;
 
+import java.util.function.Function;
+
 import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
@@ -43,6 +45,9 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
     private InMemoryCacheAlternateScmAliasTableImpl aliasScmNameCache;
     private InMemoryCacheSystemUserTableImpl systemUserCache;
 
+    // Proof of Concept
+    private Function<String, FSqrSystemUser> systemUserPersistenceLoader;
+
     // TODO: we need some filters?
     // TODO: we need some uuid list to FSqrSystemUser list implementation, which we need for some operations, so
     //       that we can save some local user data. / Sort this?
@@ -54,6 +59,11 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
         this.applicationServices = new FSqrApplicationServicesUnitialized();
         this.systemUserCache = new InMemoryCacheSystemUserTableImpl();
         this.aliasScmNameCache = new InMemoryCacheAlternateScmAliasTableImpl();
+        this.setPersistenceSystemUserLoader( this::uninitializedPersistenceLoader );
+    }
+
+    private FSqrSystemUser uninitializedPersistenceLoader( String userid ) {
+        return null;
     }
 
     @Override
@@ -91,6 +101,23 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
         if (isUserUUIDPresent( uuid )) {
             return this.systemUserCache.getSystemUser( uuid );
         }
-        return null;
+
+        // when user is not present, we want to retrieve this single user entry, with the system user loader
+        FSqrSystemUser loadedSystemUser = this.systemUserPersistenceLoader.apply( uuid );
+        if (loadedSystemUser != null) {
+            // then we want to cache this entry, to not reload this entry.
+            this.systemUserCache.putSystemUser( uuid, loadedSystemUser );
+        }
+
+        return loadedSystemUser;
+    }
+
+    // Proof of Concept
+    // basic idea, on inverse dependency for providing persisted data, e.g from a database or from 
+    // TODO: Start with idea, on how to provide data, if not cached.
+    public void setPersistenceSystemUserLoader( Function<String, FSqrSystemUser> loader ) {
+        if (loader != null) {
+            this.systemUserPersistenceLoader = loader;
+        }
     }
 }
