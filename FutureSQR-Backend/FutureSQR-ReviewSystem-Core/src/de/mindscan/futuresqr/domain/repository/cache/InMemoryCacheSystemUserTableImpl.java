@@ -47,7 +47,7 @@ public class InMemoryCacheSystemUserTableImpl {
     }
 
     public boolean isCached( String userUuid ) {
-        return uuidToSystemUserCache.containsKey( uuidToSystemUserCache );
+        return uuidToSystemUserCache.containsKey( userUuid );
     }
 
     public void putSystemUser( String userUuid, FSqrSystemUser systemUser ) {
