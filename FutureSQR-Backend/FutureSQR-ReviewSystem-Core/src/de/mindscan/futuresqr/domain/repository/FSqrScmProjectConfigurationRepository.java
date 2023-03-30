@@ -26,7 +26,6 @@
 package de.mindscan.futuresqr.domain.repository;
 
 import java.util.Collection;
-import java.util.UUID;
 
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 
@@ -42,8 +41,6 @@ public interface FSqrScmProjectConfigurationRepository {
     boolean hasProjectConfiguration( String projectId );
 
     FSqrScmProjectConfiguration getProjectConfiguration( String projectId );
-
-    FSqrScmProjectConfiguration getProjectConfiguration( UUID projectUUID );
 
     Collection<FSqrScmProjectConfiguration> getAllProjectConfigurations();
 

@@ -28,7 +28,6 @@ package de.mindscan.futuresqr.domain.databases;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
@@ -85,11 +84,6 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
     @Override
     public FSqrScmProjectConfiguration getProjectConfiguration( String projectId ) {
         return scmProjectConfigurationsByProjectId.getOrDefault( projectId, null );
-    }
-
-    @Override
-    public FSqrScmProjectConfiguration getProjectConfiguration( UUID projectUUID ) {
-        return null;
     }
 
     @Override
