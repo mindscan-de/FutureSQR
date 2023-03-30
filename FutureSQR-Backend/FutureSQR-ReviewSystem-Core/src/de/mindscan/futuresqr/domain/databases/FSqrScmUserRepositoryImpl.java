@@ -25,14 +25,12 @@
  */
 package de.mindscan.futuresqr.domain.databases;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 import de.mindscan.futuresqr.domain.repository.FSqrScmUserRepository;
+import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheAlternateScmAliasTableImpl;
 import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheSystemUserTableImpl;
 
 /**
@@ -42,8 +40,7 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
 
     private FSqrApplicationServices applicationServices;
 
-    // TODO: implement cache Object
-    private Map<String, String> userHandleToUUID;
+    private InMemoryCacheAlternateScmAliasTableImpl aliasScmNameCache;
 
     private InMemoryCacheSystemUserTableImpl systemUserCache;
 
@@ -52,8 +49,8 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
      */
     public FSqrScmUserRepositoryImpl() {
         this.applicationServices = new FSqrApplicationServicesUnitialized();
-        this.userHandleToUUID = new HashMap<>();
         this.systemUserCache = new InMemoryCacheSystemUserTableImpl();
+        this.aliasScmNameCache = new InMemoryCacheAlternateScmAliasTableImpl();
     }
 
     @Override
@@ -63,12 +60,12 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
 
     @Override
     public String getUserUUID( String authorId ) {
-        return userHandleToUUID.getOrDefault( authorId, authorId );
+        return aliasScmNameCache.getUserIdForScmAlias( authorId );
     }
 
     @Override
     public void addUserHandle( String authorHandle, String authorUUID ) {
-        this.userHandleToUUID.putIfAbsent( authorHandle, authorUUID );
+        this.aliasScmNameCache.addScmAlias( authorHandle, authorUUID );
     }
 
     @Override
