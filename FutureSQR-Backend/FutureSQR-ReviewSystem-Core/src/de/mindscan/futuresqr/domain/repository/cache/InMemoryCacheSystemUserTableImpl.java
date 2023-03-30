@@ -36,6 +36,7 @@ import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
  */
 public class InMemoryCacheSystemUserTableImpl {
 
+    // search key: ( useruuid:string ) -> ( systemUser:FSqrSystemUser ) 
     private Map<String, FSqrSystemUser> uuidToSystemUserCache;
     private Map<String, String> loginnameToUuid;
 
@@ -74,8 +75,13 @@ public class InMemoryCacheSystemUserTableImpl {
         }
 
         if (loadFunction != null) {
-            // TODO: multi-threading may be a complication while we access or iterate the map in another web thread.
-            return this.uuidToSystemUserCache.computeIfAbsent( userUuid, loadFunction );
+            // use this particular ugly implementation, because we also must register the login name, otherwise we just would use "computeIfAbsent"
+
+            FSqrSystemUser loadedSystemUser = loadFunction.apply( userUuid );
+            if (loadedSystemUser != null) {
+                this.putSystemUser( userUuid, loadedSystemUser );
+                return loadedSystemUser;
+            }
         }
 
         return null;
