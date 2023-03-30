@@ -68,13 +68,13 @@ public class InMemoryCacheSystemUserTableImpl {
         return null;
     }
 
-    public FSqrSystemUser getSystemUser( String userUuid, Function<String, FSqrSystemUser> loader ) {
+    public FSqrSystemUser getSystemUser( String userUuid, Function<String, FSqrSystemUser> loadFunction ) {
         if (isCached( userUuid )) {
             return this.uuidToSystemUserCache.get( userUuid );
         }
 
-        if (loader != null) {
-            return this.uuidToSystemUserCache.computeIfAbsent( userUuid, loader );
+        if (loadFunction != null) {
+            return this.uuidToSystemUserCache.computeIfAbsent( userUuid, loadFunction );
         }
 
         return null;
