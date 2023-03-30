@@ -93,6 +93,10 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
 
     @Override
     public boolean isLogonNamePresent( String logonName ) {
+        // actually if not yet present, we might want to attempt to load this user
+        // but we want to have some timeout, if such a user can't be laoded.
+        // this should implement a kind of second chance algorithm.
+
         return this.systemUserCache.isLoginNamePresent( logonName );
     }
 
