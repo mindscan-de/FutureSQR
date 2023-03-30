@@ -107,6 +107,7 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
         }
 
         // when user is not present, we want to retrieve this single user entry, with the system user loader
+        // actually this caching logic should be transferred to the systemUserCache. 
         FSqrSystemUser loadedSystemUser = this.systemUserPersistenceLoader.apply( uuid );
         if (loadedSystemUser != null) {
             // then we want to cache this entry, to not reload this entry.
