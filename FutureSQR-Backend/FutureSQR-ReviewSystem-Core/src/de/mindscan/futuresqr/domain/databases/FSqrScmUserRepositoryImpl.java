@@ -33,6 +33,7 @@ import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 import de.mindscan.futuresqr.domain.repository.FSqrScmUserRepository;
+import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheSystemUserTableImpl;
 
 /**
  * TODO: rework the repository to use a database instead of the in-memory + scm data pull implementation
@@ -40,11 +41,13 @@ import de.mindscan.futuresqr.domain.repository.FSqrScmUserRepository;
 public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, ApplicationServicesSetter {
 
     private FSqrApplicationServices applicationServices;
+
     // TODO: implement cache Object
     private Map<String, String> userHandleToUUID;
-    // TODO: implement cache Object
-    private Map<String, FSqrSystemUser> uuidToSystemUser;
-    // TODO: implement cache Object
+
+    private InMemoryCacheSystemUserTableImpl systemUserCache;
+
+    // TODO: implement cache Object - combine with system User Cache?
     private Map<String, String> loginnameToUuid;
 
     /**
@@ -53,7 +56,7 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
     public FSqrScmUserRepositoryImpl() {
         this.applicationServices = new FSqrApplicationServicesUnitialized();
         this.userHandleToUUID = new HashMap<>();
-        this.uuidToSystemUser = new HashMap<>();
+        this.systemUserCache = new InMemoryCacheSystemUserTableImpl();
         this.loginnameToUuid = new HashMap<>();
     }
 
@@ -74,13 +77,13 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
 
     @Override
     public void addUserEntry( FSqrSystemUser user ) {
-        this.uuidToSystemUser.put( user.getUserUUID(), user );
+        this.systemUserCache.putSystemUser( user.getUserUUID(), user );
         this.loginnameToUuid.put( user.getUserLoginName(), user.getUserUUID() );
     }
 
     @Override
     public boolean isUserUUIDPresent( String uuid ) {
-        return uuidToSystemUser.containsKey( uuid );
+        return systemUserCache.isCached( uuid );
     }
 
     @Override
@@ -91,7 +94,7 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
     @Override
     public FSqrSystemUser getUserByUUID( String uuid ) {
         if (isUserUUIDPresent( uuid )) {
-            return uuidToSystemUser.get( uuid );
+            return this.systemUserCache.getSystemUser( uuid );
         }
         return null;
     }
