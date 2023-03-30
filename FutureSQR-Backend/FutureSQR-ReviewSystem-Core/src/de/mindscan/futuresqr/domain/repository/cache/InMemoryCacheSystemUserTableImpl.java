@@ -27,6 +27,7 @@ package de.mindscan.futuresqr.domain.repository.cache;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 
@@ -66,4 +67,17 @@ public class InMemoryCacheSystemUserTableImpl {
 
         return null;
     }
+
+    public FSqrSystemUser getSystemUser( String userUuid, Function<String, FSqrSystemUser> loader ) {
+        if (isCached( userUuid )) {
+            return this.uuidToSystemUserCache.get( userUuid );
+        }
+
+        if (loader != null) {
+            return this.uuidToSystemUserCache.computeIfAbsent( userUuid, loader );
+        }
+
+        return null;
+    }
+
 }
