@@ -102,19 +102,21 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
 
     @Override
     public FSqrSystemUser getUserByUUID( String uuid ) {
-        if (isUserUUIDPresent( uuid )) {
-            return this.systemUserCache.getSystemUser( uuid );
-        }
+        // TODO: another concern / can be solved later.
+        // well, we also need to know, whether we loaded a different user, such that we can load the scm aliasnames
+        // also. But maybe we can extend the loader with an "andThen" part, when we set the loader... 
 
-        // when user is not present, we want to retrieve this single user entry, with the system user loader
-        // actually this caching logic should be transferred to the systemUserCache. 
-        FSqrSystemUser loadedSystemUser = this.systemUserPersistenceLoader.apply( uuid );
-        if (loadedSystemUser != null) {
-            // then we want to cache this entry, to not reload this entry.
-            this.systemUserCache.putSystemUser( uuid, loadedSystemUser );
-        }
+        return this.systemUserCache.getSystemUser( uuid, this.systemUserPersistenceLoader );
 
-        return loadedSystemUser;
+//        // when user is not present, we want to retrieve this single user entry, with the system user loader
+//        // actually this caching logic should be transferred to the systemUserCache. 
+//        FSqrSystemUser loadedSystemUser = this.systemUserPersistenceLoader.apply( uuid );
+//        if (loadedSystemUser != null) {
+//            // then we want to cache this entry, to not reload this entry.
+//            this.systemUserCache.putSystemUser( uuid, loadedSystemUser );
+//        }
+//
+//        return loadedSystemUser;
     }
 
     // Proof of Concept
