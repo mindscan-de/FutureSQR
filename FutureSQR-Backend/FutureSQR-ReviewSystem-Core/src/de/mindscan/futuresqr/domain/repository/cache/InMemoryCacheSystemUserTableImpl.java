@@ -63,7 +63,7 @@ public class InMemoryCacheSystemUserTableImpl {
 
     public FSqrSystemUser getSystemUser( String userUuid ) {
         if (isCached( userUuid )) {
-            this.uuidToSystemUserCache.get( userUuid );
+            return this.uuidToSystemUserCache.get( userUuid );
         }
 
         return null;
