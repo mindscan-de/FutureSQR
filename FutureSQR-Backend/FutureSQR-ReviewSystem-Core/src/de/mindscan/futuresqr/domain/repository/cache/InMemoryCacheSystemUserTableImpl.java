@@ -58,7 +58,7 @@ public class InMemoryCacheSystemUserTableImpl {
     }
 
     public boolean isLoginNamePresent( String logonName ) {
-        return logonName.contains( logonName );
+        return loginnameToUuid.containsKey( logonName );
     }
 
     public FSqrSystemUser getSystemUser( String userUuid ) {
