@@ -36,7 +36,17 @@ import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheAlternateScmAl
 import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheSystemUserTableImpl;
 
 /**
- * TODO: rework the repository to use a database instead of the in-memory + scm data pull implementation
+ * TODO: rework the repository to use a database alongside the in-memory cache.
+ * 
+ * The basic idea is to provide a "Factory" or source of truth, where the UserData and the Alternate SCM 
+ * Aliases can be retrieved, when they aren't cached.
+ * 
+ * Also we must make sure, that if an object is going to be changed, we want to inform the repository,
+ * that a persistent change to was applied, such that the database persistence can be updated. We want
+ * to make the persistence two ways, currently it is one way, from the storage into the memory.
+ * 
+ * For now, this solution is good enough, to provide enough seams to integrate the database persistence
+ * dependencies into each of the repositories.
  */
 public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, ApplicationServicesSetter {
 
