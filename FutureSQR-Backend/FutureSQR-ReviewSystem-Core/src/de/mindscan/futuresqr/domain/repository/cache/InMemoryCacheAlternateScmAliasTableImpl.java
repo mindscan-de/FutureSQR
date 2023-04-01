@@ -34,7 +34,11 @@ import java.util.Map;
  */
 public class InMemoryCacheAlternateScmAliasTableImpl {
 
+    // search key: ( scmAliasName:String ) -> ( systemUserId:String )
     private Map<String, String> alternateScmAliases;
+
+    // TODO Map<String, Collection<String>> userId to ScmAliases
+    // search key: ( systemUserId:String ) -> ( scmAliasName:String )
 
     /**
      * 
@@ -49,6 +53,8 @@ public class InMemoryCacheAlternateScmAliasTableImpl {
 
     public void addScmAlias( String scmAlias, String systemUserId ) {
         this.alternateScmAliases.put( scmAlias, systemUserId );
+
+        // TODO Map<String, Collection<String>> userId to ScmAliases
     }
 
     public void addScmAliases( List<String> scmAliases, String systemUserId ) {
@@ -56,4 +62,5 @@ public class InMemoryCacheAlternateScmAliasTableImpl {
             addScmAlias( scmAlias, systemUserId );
         }
     }
+
 }
