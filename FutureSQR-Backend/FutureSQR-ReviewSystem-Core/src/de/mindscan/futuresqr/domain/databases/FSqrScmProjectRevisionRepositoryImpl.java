@@ -357,6 +357,12 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     }
 
     private ScmRepository toScmRepository( FSqrScmProjectConfiguration scmConfiguration ) {
+
+        // TDOO: 
+        // - we need A factory, which can translate some FSqrScmProjectConfiguration to a useful ScmRepository Object
+        // - we should not do this here....
+        // depending on the type, we might want to distinguish between different needs according to the repository type.
+
         String repoCachePath = applicationServices.getSystemConfiguration().getSystemRepoCachePath();
 
         if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
