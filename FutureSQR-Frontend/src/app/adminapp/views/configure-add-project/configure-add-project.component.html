@@ -1,11 +1,34 @@
 <div class="row">
-	<div class="col col-4">
+	<div class="col col-9">
 		<div class="card mt-2">
 			<div class="card-header">Add Project</div>
 			<div class="card-body">
+				<ul>
+					<li>ServerURL?</li>
+					<li>projectDisplayName</li>
+					<li>projectId (must be unique), will be queried, each time it is updated, and is derived from displayname.</li>
+					<li>projectDescription</li>
+					<li>projectUUID - will be generated.</li>
+					<li>projectReviewPrefix</li>
+					
+					<ul>
+						<li>the following configurations should be part of the edit configuration instead of the create operation</li>
+						<ul>
+							<li>projectType</li>
+							<li>projectDefaultBranch</li>
+							<li>branches</li>
+							<li>gitconfiguration</li>
+							<ul>
+								<li>localpath</li>
+								<li>defaultbranchname</li>
+								<li>server, etc....</li>
+							</ul>
+							<li>svnconfiguration</li>
+						</ul>
+					</ul>
+				</ul>
+				
 				<form [formGroup]="addForm" (ngSubmit)="onSubmit()">
-				
-				
 				
 					<div class="form-group">
 		 				<button [disabled]="loading" class="btn btn-primary">
