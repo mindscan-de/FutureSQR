@@ -53,6 +53,9 @@ public enum FSqrDiffLineType {
         }
     }
 
+    // TODO IGNORE/HIDDEN_ADDED,
+    // TODO IGNORE/HIDDEN_DELETED
+
     ;
 
     abstract public String asRawDiffLine( String line );

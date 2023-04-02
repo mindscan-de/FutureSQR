@@ -42,6 +42,8 @@ public class FSqrFileContentChangeSet {
     private int diffRightLineCountStart = 1;
     private int diffRightLineCountDelta = 0;
 
+    // TODO: IGNORED/HIDDEN, such that the diff content changeset can be properly classified for changeset operations 
+
     // TODO: we want to provide some additional information, in case we squashed multiple FileChangesets into one
     // so we can provide user readable information and summaries about skipped versions, e.g that a file was renamed
     // but not being visible/tracked in the file change set. also we want some format. Maybe we can use some kind
