@@ -90,6 +90,9 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         // TODO: retrieve the current values from database.
         // TODO: the crawler will put that info into the database.
 
+        // -----------------------------------------
+        // TODO: refactor this to Database retrieval
+        // -----------------------------------------
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
 
@@ -108,6 +111,9 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         // TODO: retrieve the current values from database.
         // TODO: the crawler will put that info into the database.
 
+        // -----------------------------------------
+        // TODO: refactor this to Database retrieval
+        // -----------------------------------------
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
             ScmHistory nRecentHistory = gitHistoryProvider.getRecentRevisionsFromStartingRevision( toScmRepository( scmConfiguration ), fromRevision );
@@ -149,6 +155,9 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         // TODO: if not, we should have an information, whether we can retrieve this from the Database
         // TODO: only if not in the database, retrieve from SCM, then update the database, then update the cache.
 
+        // -----------------------------------------
+        // TODO: refactor this to Database retrieval
+        // -----------------------------------------
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
             ScmRepository scmRepository = toScmRepository( scmConfiguration );
@@ -167,6 +176,9 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         // TODO: if not, we should have an information, whether we can retrieve this from the Database
         // TODO: only if not in the database, retrieve from SCM, then update the database, then update the cache.
 
+        // -----------------------------------------
+        // TODO: refactor this to Database retrieval
+        // -----------------------------------------
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
             ScmRepository scmRepository = toScmRepository( scmConfiguration );
@@ -272,6 +284,10 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
     @Override
     public FSqrRevisionFullChangeSet getRevisionFullChangeSet( String projectId, String revisionId ) {
+
+        // -----------------------------------------
+        // TODO: refactor this to Database retrieval
+        // -----------------------------------------
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
             ScmRepository scmRepository = toScmRepository( scmConfiguration );
@@ -300,6 +316,10 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
     @Override
     public FSqrFileContentForRevision getFileContentForRevision( String projectId, String revisionId, String filePath ) {
+
+        // -----------------------------------------
+        // TODO: refactor this to Database retrieval
+        // -----------------------------------------
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
             ScmRepository scmRepository = toScmRepository( scmConfiguration );
@@ -315,8 +335,11 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     public FSqrFileHistory getParticularFileHistory( String projectId, String revisionId, String filePath ) {
         // TODO: test in in-memory database
         // TODO: get this from databse
-        // TODO: use the crawler to put file history into the database 
+        // TODO: use the crawler to put file history into the database
 
+        // -----------------------------------------
+        // TODO: refactor this to Database retrieval
+        // -----------------------------------------
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
             ScmRepository scmRepository = toScmRepository( scmConfiguration );
@@ -337,6 +360,9 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         // TODO: This is just a helper as long as we have no crawler, which retrieves the data from the SCM and puts 
         //       these information into a database.
 
+        // -----------------------------------------
+        // TODO: refactor this to Database retrieval
+        // -----------------------------------------
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
             ScmRepository scmRepository = toScmRepository( scmConfiguration );
