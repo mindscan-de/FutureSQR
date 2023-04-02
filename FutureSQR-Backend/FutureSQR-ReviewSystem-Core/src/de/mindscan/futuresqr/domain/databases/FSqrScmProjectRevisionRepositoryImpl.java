@@ -143,22 +143,6 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         return result;
     }
 
-    private ScmRepository toScmRepository( FSqrScmProjectConfiguration scmConfiguration ) {
-        String repoCachePath = applicationServices.getSystemConfiguration().getSystemRepoCachePath();
-
-        if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
-            if (scmConfiguration.hasLocalRepoPath()) {
-                // not yet nice but better than before.
-                return new ScmRepository( repoCachePath + scmConfiguration.getScmGitAdminConfiguration().localPath );
-            }
-        }
-
-        // TODO: this has to be fixed soon...
-        ScmRepository result = new ScmRepository( repoCachePath + "FutureSQR" );
-
-        return result;
-    }
-
     @Override
     public FSqrRevision getSimpleRevisionInformation( String projectId, String revisionId ) {
         // TODO: this should be tested, whether it is already cached in-memory database.
@@ -368,7 +352,24 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     }
 
     private FSqrScmProjectConfiguration toScmConfiguration( String projectId ) {
+        // this is already cached...
         return applicationServices.getConfigurationRepository().getProjectConfiguration( projectId );
+    }
+
+    private ScmRepository toScmRepository( FSqrScmProjectConfiguration scmConfiguration ) {
+        String repoCachePath = applicationServices.getSystemConfiguration().getSystemRepoCachePath();
+
+        if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
+            if (scmConfiguration.hasLocalRepoPath()) {
+                // not yet nice but better than before.
+                return new ScmRepository( repoCachePath + scmConfiguration.getScmGitAdminConfiguration().localPath );
+            }
+        }
+
+        // TODO: this has to be fixed soon...
+        ScmRepository result = new ScmRepository( repoCachePath + "FutureSQR" );
+
+        return result;
     }
 
 }
