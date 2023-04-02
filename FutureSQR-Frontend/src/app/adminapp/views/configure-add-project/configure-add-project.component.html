@@ -1,1 +1,22 @@
-<p>configure-add-project works!</p>
+<div class="row">
+	<div class="col col-4">
+		<div class="card mt-2">
+			<div class="card-header">Add Project</div>
+			<div class="card-body">
+				<form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+				
+				
+				
+					<div class="form-group">
+		 				<button [disabled]="loading" class="btn btn-primary">
+		                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+		                    Add Project
+		                </button>
+					</div>
+				
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+

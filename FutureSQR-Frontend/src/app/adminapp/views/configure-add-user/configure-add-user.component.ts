@@ -68,6 +68,7 @@ export class ConfigureAddUserComponent implements OnInit {
 		
 		let that:ConfigureAddUserComponent = this; 
 
+		// TODO: THIS is Wrong right now.
 		this.loading = false;
 				
 		this.adminDataQueryBackend.postAddUser(
