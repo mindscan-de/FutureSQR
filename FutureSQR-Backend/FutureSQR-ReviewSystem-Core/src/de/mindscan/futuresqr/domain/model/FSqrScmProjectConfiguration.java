@@ -103,6 +103,10 @@ public class FSqrScmProjectConfiguration {
         return scmProjectType;
     }
 
+    public boolean isScmProjectType( FSqrScmProjectType projectType ) {
+        return scmProjectType == projectType;
+    }
+
     public void setProjectReviewPrefix( String projectReviewPrefix ) {
         this.projectReviewPrefix = projectReviewPrefix;
     }

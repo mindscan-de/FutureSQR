@@ -91,7 +91,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         // TODO: the crawler will put that info into the database.
 
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
-        if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
+        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
 
             ScmHistory nRecentHistory = gitHistoryProvider.getNRecentRevisions( toScmRepository( scmConfiguration ), 75 );
             return translate( nRecentHistory, projectId );
@@ -109,7 +109,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         // TODO: the crawler will put that info into the database.
 
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
-        if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
+        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
             ScmHistory nRecentHistory = gitHistoryProvider.getRecentRevisionsFromStartingRevision( toScmRepository( scmConfiguration ), fromRevision );
             return translate( nRecentHistory, projectId );
         }
@@ -150,7 +150,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         // TODO: only if not in the database, retrieve from SCM, then update the database, then update the cache.
 
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
-        if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
+        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
             ScmRepository scmRepository = toScmRepository( scmConfiguration );
             ScmHistory scmHistory = gitHistoryProvider.getSimpleRevisionInformation( scmRepository, revisionId );
             FSqrScmHistory result = translate( scmHistory, projectId );
@@ -168,7 +168,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         // TODO: only if not in the database, retrieve from SCM, then update the database, then update the cache.
 
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
-        if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
+        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
             ScmRepository scmRepository = toScmRepository( scmConfiguration );
             ScmSingleRevisionFileChangeList fileChangeList = gitHistoryProvider.getFileChangeListForRevision( scmRepository, revisionId );
 
@@ -181,7 +181,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     @Override
     public FSqrRevisionFileChangeList getAllRevisionsFileChangeList( String projectId, List<FSqrRevision> revisions ) {
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
-        if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
+        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
             ScmRepository scmRepository = toScmRepository( scmConfiguration );
 
             ArrayList<FSqrRevision> revisionCopy = new ArrayList<>( revisions );
@@ -273,7 +273,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     @Override
     public FSqrRevisionFullChangeSet getRevisionFullChangeSet( String projectId, String revisionId ) {
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
-        if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
+        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
             ScmRepository scmRepository = toScmRepository( scmConfiguration );
             ScmFullChangeSet fullChangeSet = gitScmContentProvider.getFullChangeSetForRevision( scmRepository, revisionId );
 
@@ -286,7 +286,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         List<FSqrRevisionFullChangeSet> result = new ArrayList<>();
 
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
-        if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
+        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
             ScmRepository scmRepository = toScmRepository( scmConfiguration );
 
             List<ScmFullChangeSet> fullChangeSet = gitScmContentProvider.getFullChangeSetFromRevisionToRevision( scmRepository, firstRevisionId,
@@ -301,7 +301,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     @Override
     public FSqrFileContentForRevision getFileContentForRevision( String projectId, String revisionId, String filePath ) {
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
-        if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
+        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
             ScmRepository scmRepository = toScmRepository( scmConfiguration );
             ScmFileContent fileContent = gitScmContentProvider.getFileContentForRevision( scmRepository, revisionId, new ScmPath( filePath ) );
 
@@ -318,7 +318,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         // TODO: use the crawler to put file history into the database 
 
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
-        if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
+        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
             ScmRepository scmRepository = toScmRepository( scmConfiguration );
             ScmFileHistory filePathHistory = gitHistoryProvider.getFilePathHistory( scmRepository, new ScmPath( filePath ) );
 
@@ -338,7 +338,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         //       these information into a database.
 
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
-        if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
+        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
             ScmRepository scmRepository = toScmRepository( scmConfiguration );
             String branchName = scmConfiguration.getScmGitAdminConfiguration().getDefaultBranchName();
 
@@ -359,7 +359,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     private ScmRepository toScmRepository( FSqrScmProjectConfiguration scmConfiguration ) {
         String repoCachePath = applicationServices.getSystemConfiguration().getSystemRepoCachePath();
 
-        if (scmConfiguration.getScmProjectType() == FSqrScmProjectType.git) {
+        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
             if (scmConfiguration.hasLocalRepoPath()) {
                 // not yet nice but better than before.
                 return new ScmRepository( repoCachePath + scmConfiguration.getScmGitAdminConfiguration().localPath );
