@@ -25,6 +25,7 @@
  */
 package de.mindscan.futuresqr.domain.repository.cache;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,4 +62,12 @@ public class InMemoryCacheProjectConfigurationTableImpl {
         return null;
     }
 
+    public Collection<FSqrScmProjectConfiguration> getAllCachedScmConfigurations() {
+        // TODO either have a List of all projects, or create from the map.
+        return scmProjectConfigurationsByProjectId.values();
+    }
+
+    // TODO: get all project configurations with a provided loader.
+
+    // TODO: implement getter with provided loader.
 }

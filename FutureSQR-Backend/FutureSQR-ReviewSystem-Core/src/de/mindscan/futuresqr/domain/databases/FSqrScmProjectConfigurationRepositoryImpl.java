@@ -26,8 +26,6 @@
 package de.mindscan.futuresqr.domain.databases;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
@@ -53,9 +51,6 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
 
     private FSqrApplicationServices applicationServices;
 
-    // TODO implement cache for the scm configuration table
-    private Map<String, FSqrScmProjectConfiguration> scmProjectConfigurationsByProjectId;
-
     // search key ( projectid:string ) -> ( projectconfiguration:FSqrScmProjectConfiguration )
     private InMemoryCacheProjectConfigurationTableImpl scmProjectConfigurationCache;
 
@@ -65,7 +60,6 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
     public FSqrScmProjectConfigurationRepositoryImpl() {
         this.applicationServices = new FSqrApplicationServicesUnitialized();
         this.scmProjectConfigurationCache = new InMemoryCacheProjectConfigurationTableImpl();
-        this.scmProjectConfigurationsByProjectId = new HashMap<>();
     }
 
     @Override
@@ -78,17 +72,27 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
 
     @Override
     public Collection<FSqrScmProjectConfiguration> getAllProjectConfigurations() {
-        return scmProjectConfigurationsByProjectId.values();
+        return scmProjectConfigurationCache.getAllCachedScmConfigurations();
     }
 
     @Override
     public FSqrScmProjectConfiguration getProjectConfiguration( String projectId ) {
-        return scmProjectConfigurationsByProjectId.getOrDefault( projectId, null );
+        if (scmProjectConfigurationCache.isCached( projectId )) {
+            return scmProjectConfigurationCache.getScmConfiguration( projectId );
+        }
+
+        return null;
     }
 
     @Override
     public boolean hasProjectConfiguration( String projectId ) {
-        return scmProjectConfigurationsByProjectId.containsKey( projectId );
+        if (scmProjectConfigurationCache.isCached( projectId )) {
+            return true;
+        }
+
+        // try to retrieve with loader, if unsuccessful we might want to cache the absence
+
+        return false;
     }
 
     @Override
@@ -96,7 +100,10 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
         if (!hasProjectConfiguration( projectId )) {
             throw new RuntimeException( "ProjectId is unknown" );
         }
-        return scmProjectConfigurationsByProjectId.get( projectId ).createNewReviewIdentifierWithPrefix();
+
+        FSqrScmProjectConfiguration projectConfiguratopm = scmProjectConfigurationCache.getScmConfiguration( projectId );
+
+        return projectConfiguratopm.createNewReviewIdentifierWithPrefix();
     }
 
     @Override
@@ -112,7 +119,7 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
             return;
         }
 
-        scmProjectConfigurationsByProjectId.put( projectId, projectConfiguration );
+        this.scmProjectConfigurationCache.putProjectConfiguration( projectId, projectConfiguration );
     }
 
 }
