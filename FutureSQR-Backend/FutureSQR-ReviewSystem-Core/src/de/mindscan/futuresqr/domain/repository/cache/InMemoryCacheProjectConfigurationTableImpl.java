@@ -25,9 +25,28 @@
  */
 package de.mindscan.futuresqr.domain.repository.cache;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
+
 /**
  * search key ( projectid:string ) -> ( projectconfiguration:FSqrScmProjectConfiguration )
  */
-public class InMemoryCacheProjectConfigurationTybleImpl {
+public class InMemoryCacheProjectConfigurationTableImpl {
+
+    // search key ( projectid:string ) -> ( projectconfiguration:FSqrScmProjectConfiguration )
+    private Map<String, FSqrScmProjectConfiguration> scmProjectConfigurationsByProjectId;
+
+    /**
+     * 
+     */
+    public InMemoryCacheProjectConfigurationTableImpl() {
+        this.scmProjectConfigurationsByProjectId = new HashMap<>();
+    }
+
+    public boolean isCached( String projectId ) {
+        return this.scmProjectConfigurationsByProjectId.containsKey( projectId );
+    }
 
 }
