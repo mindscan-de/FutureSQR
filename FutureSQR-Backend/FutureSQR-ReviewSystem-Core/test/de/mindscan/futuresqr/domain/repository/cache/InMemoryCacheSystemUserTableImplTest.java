@@ -26,7 +26,7 @@ public class InMemoryCacheSystemUserTableImplTest {
     }
 
     @Test
-    public void testIsCached_OnlyCtorRequestUnknownUser_returnsFalse() throws Exception {
+    public void testIsCached_OnlyCtorRequestUncachedUser_returnsFalse() throws Exception {
         // arrange
         InMemoryCacheSystemUserTableImpl userTable = new InMemoryCacheSystemUserTableImpl();
 
@@ -38,7 +38,7 @@ public class InMemoryCacheSystemUserTableImplTest {
     }
 
     @Test
-    public void testIsLoginNamePresent_OnlyCtorRequestUnknownUser_returnsFalse() throws Exception {
+    public void testIsLoginNamePresent_OnlyCtorRequestUncachedUser_returnsFalse() throws Exception {
         // arrange
         InMemoryCacheSystemUserTableImpl userTable = new InMemoryCacheSystemUserTableImpl();
 
@@ -50,7 +50,7 @@ public class InMemoryCacheSystemUserTableImplTest {
     }
 
     @Test
-    public void testGetSystemUserString_OnlyCtorRequestUnknownUser_returnsNull() throws Exception {
+    public void testGetSystemUserString_OnlyCtorRequestUncachedUser_returnsNull() throws Exception {
         // arrange
         InMemoryCacheSystemUserTableImpl userTable = new InMemoryCacheSystemUserTableImpl();
 
@@ -118,7 +118,7 @@ public class InMemoryCacheSystemUserTableImplTest {
     }
 
     @Test
-    public void testGetSystemUser_CtorOnlyUnknownUserAndLoaderFunctionIsNull_returnsNull() throws Exception {
+    public void testGetSystemUser_CtorOnlyUncachedUserWithLoaderFunctionIsNull_returnsNull() throws Exception {
         // arrange
         InMemoryCacheSystemUserTableImpl userTable = new InMemoryCacheSystemUserTableImpl();
 
@@ -130,7 +130,7 @@ public class InMemoryCacheSystemUserTableImplTest {
     }
 
     @Test
-    public void testGetSystemUser_CtorOnlyUnknownUserAndLoaderFunctionReturnsNull_returnsNull() throws Exception {
+    public void testGetSystemUser_CtorOnlyUncachedUserWithLoaderFunctionReturnsNull_returnsNull() throws Exception {
         // arrange
         InMemoryCacheSystemUserTableImpl userTable = new InMemoryCacheSystemUserTableImpl();
 
@@ -142,7 +142,7 @@ public class InMemoryCacheSystemUserTableImplTest {
     }
 
     @Test
-    public void testGetSystemUser_CtorOnlyUnknownUserAndLoaderFunctionReturnsUser_returnsSameUser() throws Exception {
+    public void testGetSystemUser_CtorOnlyUncachedUserWithLoaderFunctionReturnsUser_returnsSameUser() throws Exception {
         // arrange
         InMemoryCacheSystemUserTableImpl userTable = new InMemoryCacheSystemUserTableImpl();
         FSqrSystemUser expectedSystemUser = new FSqrSystemUser( USERID_11111_11111_11111, TESTACCOUNT_LOGONNAME, "", "a@b.cc.local" );
@@ -155,7 +155,7 @@ public class InMemoryCacheSystemUserTableImplTest {
     }
 
     @Test
-    public void testGetSystemUser_SetupUser_returnsExpecteduser() throws Exception {
+    public void testGetSystemUser_SetupUserThenRequestWithLoader_returnsExpecteduser() throws Exception {
         // arrange
         InMemoryCacheSystemUserTableImpl userTable = new InMemoryCacheSystemUserTableImpl();
         FSqrSystemUser expectedSystemUser = new FSqrSystemUser( USERID_11111_11111_11111, TESTACCOUNT_LOGONNAME, "", "a@b.cc.local" );
