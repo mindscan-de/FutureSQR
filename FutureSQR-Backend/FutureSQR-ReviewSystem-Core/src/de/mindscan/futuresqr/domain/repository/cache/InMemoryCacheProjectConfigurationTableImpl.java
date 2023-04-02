@@ -49,4 +49,16 @@ public class InMemoryCacheProjectConfigurationTableImpl {
         return this.scmProjectConfigurationsByProjectId.containsKey( projectId );
     }
 
+    public void putProjectConfiguration( String projectId, FSqrScmProjectConfiguration scmConfiguration ) {
+        this.scmProjectConfigurationsByProjectId.put( projectId, scmConfiguration );
+    }
+
+    public FSqrScmProjectConfiguration getScmConfiguration( String projectId ) {
+        if (isCached( projectId )) {
+            return this.scmProjectConfigurationsByProjectId.get( projectId );
+        }
+
+        return null;
+    }
+
 }
