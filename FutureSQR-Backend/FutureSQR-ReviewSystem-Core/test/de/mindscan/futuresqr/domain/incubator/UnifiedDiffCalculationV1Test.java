@@ -171,7 +171,6 @@ public class UnifiedDiffCalculationV1Test {
         assertThat( fileChangeSet.getFileContentChangeSet(), hasSize( 3 ) );
     }
 
-// TODO: do some approval tests, for the output list for the file change sets and their content changesets.    
     @Test
     public void testSquashDiffs_threeRevisionsInRowSelectFirstTwo() throws Exception {
         // arrange
