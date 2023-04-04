@@ -182,6 +182,9 @@ public class UnifiedDiffCalculationV1 {
                     // if there is no entry in pathToFileChangeSetMap, we simply ignore this file change set
                     // because we have no previous record for this file
                     if (!pathToFileChangeSetMap.containsKey( toPath )) {
+                        // TODO: actually we might need keep a record for this, because this can influence file positions
+                        //       in the final merged commit?
+                        // TODO: maybe we still do not need this.
                         continue;
                     }
 
