@@ -34,12 +34,23 @@ import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
  */
 public interface FSqrDiscussionThreadRepository {
 
+    // create
+
     FSqrDiscussionThread createNewReviewThread( String projectId, String reviewId, String messageText, String messageAuthorUUID );
+
+    // update
 
     void updateMessage( String projectId, String reviewId, String threadUUID, String messageUUID, String newMessageText, String messageAuthorUUID );
 
+    // replyto
+
     void replyToThread( String projectId, String reviewId, String threadUUID, String replytoMessageId, String messageText, String messageAuthorUUID );
 
+    // All threads for review 
+
     List<FSqrDiscussionThread> getDirectThreadsForReview( String projectId, String reviewId );
+
+    // TODO: Maybe....
+    // FSqrDiscussionThread getDiscussionThread ( projectId, reviewId, threadId )
 
 }
