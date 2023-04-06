@@ -32,11 +32,17 @@ import java.util.Collection;
  */
 public interface FSqrUserToProjectRepository {
 
+    // test if project is starred by user 
+
     boolean isStarred( String userId, String projectId );
+
+    // star and unstar
+
+    void starProject( String userId, String projectId );
 
     void unstarProject( String userId, String projectId );
 
-    void starProject( String userId, String projectId );
+    // get starred projects for user
 
     Collection<String> getAllStarredProjectsForUser( String userId );
 
