@@ -34,14 +34,22 @@ import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
  */
 public interface FSqrScmProjectConfigurationRepository {
 
-    void addScmProjectConfiguration( FSqrScmProjectConfiguration projectConfiguration );
-
-    String getNewProjectReviewIdentifier( String projectId );
+    // test for project existence
 
     boolean hasProjectConfiguration( String projectId );
+
+    // retrieve/get configuration
 
     FSqrScmProjectConfiguration getProjectConfiguration( String projectId );
 
     Collection<FSqrScmProjectConfiguration> getAllProjectConfigurations();
+
+    // insert project configuration
+
+    void addScmProjectConfiguration( FSqrScmProjectConfiguration projectConfiguration );
+
+    // review identifier, is this required here?
+
+    String getNewProjectReviewIdentifier( String projectId );
 
 }
