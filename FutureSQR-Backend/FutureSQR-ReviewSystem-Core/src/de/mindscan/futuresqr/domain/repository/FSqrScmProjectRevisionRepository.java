@@ -39,11 +39,19 @@ import de.mindscan.futuresqr.domain.model.history.FSqrFileHistory;
  */
 public interface FSqrScmProjectRevisionRepository {
 
+    // update local project cache.
+
     void updateProjectCache( String projectId );
+
+    // file history
 
     FSqrFileHistory getParticularFileHistory( String projectId, String revisionId, String filePath );
 
+    // file content for revision
+
     FSqrFileContentForRevision getFileContentForRevision( String projectId, String revisionId, String filePath );
+
+    // changeset info
 
     FSqrRevisionFullChangeSet getRevisionFullChangeSet( String projectId, String revisionId );
 
@@ -53,7 +61,11 @@ public interface FSqrScmProjectRevisionRepository {
 
     FSqrRevisionFileChangeList getRevisionFileChangeList( String projectId, String revisionId );
 
+    // revision info
+
     FSqrRevision getSimpleRevisionInformation( String projectId, String revisionId );
+
+    // project history 
 
     FSqrScmHistory getRecentRevisionHistoryStartingFrom( String projectId, String fromRevision );
 
