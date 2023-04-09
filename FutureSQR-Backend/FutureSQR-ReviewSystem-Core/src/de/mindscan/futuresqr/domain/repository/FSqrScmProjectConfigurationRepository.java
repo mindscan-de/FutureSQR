@@ -31,14 +31,17 @@ import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 
 /**
  * 
+ * 
+ * TODO: think about useful extensions to the configuration repository. Will be extended as soon as there is enough stuff what can be edited.
+ *    
+ * TODO: archive project, it will disable the project and will no longer track the updates.
+ * TODO: also we want to update the scm configuration git/svn/local cache, we want to configure this 
  */
 public interface FSqrScmProjectConfigurationRepository {
 
-    // test for project existence
+    // retrieve/get configuration
 
     boolean hasProjectConfiguration( String projectId );
-
-    // retrieve/get configuration
 
     FSqrScmProjectConfiguration getProjectConfiguration( String projectId );
 
@@ -48,7 +51,7 @@ public interface FSqrScmProjectConfigurationRepository {
 
     void addScmProjectConfiguration( FSqrScmProjectConfiguration projectConfiguration );
 
-    // review identifier, is this required here?
+    // get review identifier, is this required here?
 
     String getNewProjectReviewIdentifier( String projectId );
 
