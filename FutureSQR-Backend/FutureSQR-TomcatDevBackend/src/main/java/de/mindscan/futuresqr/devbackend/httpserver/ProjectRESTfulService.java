@@ -804,7 +804,7 @@ public class ProjectRESTfulService {
 
             FSqrDiscussionThreadRepository discussionRepository = FSqrApplication.getInstance().getServices().getDiscussionThreadRepository();
 
-            discussionRepository.updateMessage( projectId, reviewId, threadUUID, messageUUID, newMessageText, messageAuthorUUID );
+            discussionRepository.editMessage( projectId, reviewId, threadUUID, messageUUID, newMessageText, messageAuthorUUID );
 
             return "{}";
         }

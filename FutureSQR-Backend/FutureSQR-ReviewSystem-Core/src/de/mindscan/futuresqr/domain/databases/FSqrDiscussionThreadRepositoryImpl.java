@@ -109,7 +109,7 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
     }
 
     @Override
-    public void updateMessage( String projectId, String reviewId, String threadUUID, String messageUUID, String newMessageText, String messageAuthorUUID ) {
+    public void editMessage( String projectId, String reviewId, String threadUUID, String messageUUID, String newMessageText, String messageAuthorUUID ) {
         if (!this.projectAndReviewToThreadsCache.hasDiscussionThreadUUID( projectId, reviewId, threadUUID )) {
             return;
         }

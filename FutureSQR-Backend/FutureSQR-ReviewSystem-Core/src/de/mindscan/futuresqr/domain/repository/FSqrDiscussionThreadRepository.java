@@ -40,7 +40,7 @@ public interface FSqrDiscussionThreadRepository {
 
     // update
 
-    void updateMessage( String projectId, String reviewId, String threadUUID, String messageUUID, String newMessageText, String messageAuthorUUID );
+    void editMessage( String projectId, String reviewId, String threadUUID, String messageUUID, String newMessageText, String messageAuthorUUID );
 
     // replyto
 
