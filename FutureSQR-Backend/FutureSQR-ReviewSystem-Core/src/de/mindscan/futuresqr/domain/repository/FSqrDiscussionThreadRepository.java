@@ -38,11 +38,11 @@ public interface FSqrDiscussionThreadRepository {
 
     FSqrDiscussionThread createNewReviewThread( String projectId, String reviewId, String messageText, String messageAuthorUUID );
 
-    // update
+    // update: todo maybe return the whole updated discussion thread?
 
     void editMessage( String projectId, String reviewId, String threadUUID, String messageUUID, String newMessageText, String messageAuthorUUID );
 
-    // replyto
+    // replyto: todo maybe return the whole updated discussion thread?
 
     void replyToThread( String projectId, String reviewId, String threadUUID, String replytoMessageId, String messageText, String messageAuthorUUID );
 
@@ -50,7 +50,7 @@ public interface FSqrDiscussionThreadRepository {
 
     List<FSqrDiscussionThread> getDirectThreadsForReview( String projectId, String reviewId );
 
-    // TODO: Maybe....
+    // TODO: Maybe...., when we added a message to a thread
     // FSqrDiscussionThread getDiscussionThread ( projectId, reviewId, threadId )
 
 }
