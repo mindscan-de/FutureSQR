@@ -477,7 +477,8 @@ public class ProjectRESTfulService {
             System.out.println( "[CR-CREATE]: revisionid: " + revisionId );
             System.out.println( "[CR-CREATE]: openerUserUUID: " + openerUserUUID );
 
-            FSqrCodeReview codeReview = FSqrApplication.getInstance().getServices().getReviewRepository().createReviewFromRevision( projectId, revisionId );
+            FSqrCodeReview codeReview = FSqrApplication.getInstance().getServices().getReviewRepository().createReviewFromRevision( projectId, revisionId,
+                            openerUserUUID );
 
             OutputReviewModel outputReview = new OutputReviewModel( codeReview );
 

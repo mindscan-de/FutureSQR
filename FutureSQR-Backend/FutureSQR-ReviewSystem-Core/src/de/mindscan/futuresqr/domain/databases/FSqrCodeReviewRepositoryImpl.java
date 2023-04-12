@@ -193,7 +193,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
     }
 
     @Override
-    public FSqrCodeReview createReviewFromRevision( String projectid, String revisionid ) {
+    public FSqrCodeReview createReviewFromRevision( String projectid, String revisionid, String userid ) {
         FSqrScmProjectConfigurationRepositoryImpl configurationRepository = applicationServices.getConfigurationRepository();
 
         FSqrRevision revision = applicationServices.getRevisionRepository().getSimpleRevisionInformation( projectid, revisionid );

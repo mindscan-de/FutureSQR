@@ -66,447 +66,430 @@ import de.mindscan.futuresqr.domain.repository.FSqrUserToProjectRepository;
  */
 @RestController
 /* URL is FutureSQR/rest/project */
-@RequestMapping("/rest/project")
+@RequestMapping( "/rest/project" )
 public class ProjectRESTfulService {
 
-	// TODO: get rid of it as soon as possible.
-	private static final String HARDCODED_MINDSCAN_DE_UUID = "8ce74ee9-48ff-3dde-b678-58a632887e31";
+    // TODO: get rid of it as soon as possible.
+    private static final String HARDCODED_MINDSCAN_DE_UUID = "8ce74ee9-48ff-3dde-b678-58a632887e31";
 
-	// -------------------------------------------------------------------------------------------
-	// this should be provided by a web-application instance, instead of a new
-	// instance each time.
-	private static FSqrLazyProjectDatabaseImpl projectDB = new FSqrLazyProjectDatabaseImpl();
+    // -------------------------------------------------------------------------------------------
+    // this should be provided by a web-application instance, instead of a new
+    // instance each time.
+    private static FSqrLazyProjectDatabaseImpl projectDB = new FSqrLazyProjectDatabaseImpl();
 
-	@GetMapping(path = "/testme", produces = MediaType.APPLICATION_JSON_VALUE)
-	public String getTest_JSON() {
-		return "{\"hello\":\"world\"}";
-	}
+    @GetMapping( path = "/testme", produces = MediaType.APPLICATION_JSON_VALUE )
+    public String getTest_JSON() {
+        return "{\"hello\":\"world\"}";
+    }
 
-	@GetMapping(path = "/{projectid}/information", produces = MediaType.APPLICATION_JSON_VALUE)
-	public OutputSimpleProjectInformation getSimpleProjectInformation(@PathVariable("projectid") String projectId) {
-		FSqrScmProjectConfiguration projectConfiguration = projectDB.getProjectConfiguration(projectId);
+    @GetMapping( path = "/{projectid}/information", produces = MediaType.APPLICATION_JSON_VALUE )
+    public OutputSimpleProjectInformation getSimpleProjectInformation( @PathVariable( "projectid" ) String projectId ) {
+        FSqrScmProjectConfiguration projectConfiguration = projectDB.getProjectConfiguration( projectId );
 
-		// TODO: problem is that this project project information is user specific,
-		// because it may be starred by the user.
-		// TODO: we might have to consider the current session context here.
+        // TODO: problem is that this project project information is user specific,
+        // because it may be starred by the user.
+        // TODO: we might have to consider the current session context here.
 
-		OutputSimpleProjectInformation response = transform(HARDCODED_MINDSCAN_DE_UUID, projectConfiguration);
+        OutputSimpleProjectInformation response = transform( HARDCODED_MINDSCAN_DE_UUID, projectConfiguration );
 
-		return response;
-	}
+        return response;
+    }
 
-	private OutputSimpleProjectInformation transform(String userUUID,
-			FSqrScmProjectConfiguration projectConfiguration) {
-		OutputSimpleProjectInformation transformed = new OutputSimpleProjectInformation();
+    private OutputSimpleProjectInformation transform( String userUUID, FSqrScmProjectConfiguration projectConfiguration ) {
+        OutputSimpleProjectInformation transformed = new OutputSimpleProjectInformation();
 
-		transformed.projectID = projectConfiguration.getProjectId();
-		transformed.projectDisplayName = projectConfiguration.getProjectDisplayName();
-		transformed.projectDescription = projectConfiguration.getProjectDescription();
-		transformed.projectUuid = projectConfiguration.getProjectUuid();
+        transformed.projectID = projectConfiguration.getProjectId();
+        transformed.projectDisplayName = projectConfiguration.getProjectDisplayName();
+        transformed.projectDescription = projectConfiguration.getProjectDescription();
+        transformed.projectUuid = projectConfiguration.getProjectUuid();
 
-		FSqrUserToProjectRepository userToProjectRepository = FSqrApplication.getInstance().getServices()
-				.getUserToProjectRepository();
-		transformed.projectIsStarred = userToProjectRepository.isStarred(userUUID, projectConfiguration.getProjectId());
+        FSqrUserToProjectRepository userToProjectRepository = FSqrApplication.getInstance().getServices().getUserToProjectRepository();
+        transformed.projectIsStarred = userToProjectRepository.isStarred( userUUID, projectConfiguration.getProjectId() );
 
-		return transformed;
-	}
+        return transformed;
+    }
 
-	@GetMapping(path = "{projectid}/recentcommits", produces = MediaType.APPLICATION_JSON_VALUE)
-	public OutputProjectRevisionsModel getProjectRevisions(@PathVariable("projectid") String projectId) {
-		if (projectDB.hasProjectLocalPath(projectId)) {
-			OutputProjectRevisionsModel response = new OutputProjectRevisionsModel();
+    @GetMapping( path = "{projectid}/recentcommits", produces = MediaType.APPLICATION_JSON_VALUE )
+    public OutputProjectRevisionsModel getProjectRevisions( @PathVariable( "projectid" ) String projectId ) {
+        if (projectDB.hasProjectLocalPath( projectId )) {
+            OutputProjectRevisionsModel response = new OutputProjectRevisionsModel();
 
-			FSqrScmProjectRevisionRepository revisionProvider = FSqrApplication.getInstance().getServices()
-					.getRevisionRepository();
-			FSqrScmHistory scmHistory = revisionProvider.getRecentRevisionHistory(projectId);
+            FSqrScmProjectRevisionRepository revisionProvider = FSqrApplication.getInstance().getServices().getRevisionRepository();
+            FSqrScmHistory scmHistory = revisionProvider.getRecentRevisionHistory( projectId );
 
-			scmHistory.getRevisions().stream().forEach(rev -> response.revisions.add(translate(rev)));
+            scmHistory.getRevisions().stream().forEach( rev -> response.revisions.add( translate( rev ) ) );
 
-			return response;
-		}
+            return response;
+        }
 
-		// return empty revision.
-		OutputProjectRevisionsModel response = new OutputProjectRevisionsModel();
+        // return empty revision.
+        OutputProjectRevisionsModel response = new OutputProjectRevisionsModel();
 
-		return response;
-	}
+        return response;
+    }
 
-	private OutputProjectRevisionsRevisionEntry translate(FSqrRevision rev) {
-		return new OutputProjectRevisionsRevisionEntry(rev);
-	}
+    private OutputProjectRevisionsRevisionEntry translate( FSqrRevision rev ) {
+        return new OutputProjectRevisionsRevisionEntry( rev );
+    }
 
-	@GetMapping(path = "/{projectid}/recentcommitsfromrevid/{fromrevisionid}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public OutputProjectRevisionsModel getProjectRevisionsSinceDefinedRevision(
-			@PathVariable("projectid") String projectId, @PathVariable("fromrevisionid") String fromRevision) {
-		if (projectDB.hasProjectLocalPath(projectId)) {
-			FSqrScmProjectRevisionRepository revisionProvider = FSqrApplication.getInstance().getServices()
-					.getRevisionRepository();
-			FSqrScmHistory scmHistory = revisionProvider.getRecentRevisionHistoryStartingFrom(projectId, fromRevision);
+    @GetMapping( path = "/{projectid}/recentcommitsfromrevid/{fromrevisionid}", produces = MediaType.APPLICATION_JSON_VALUE )
+    public OutputProjectRevisionsModel getProjectRevisionsSinceDefinedRevision( @PathVariable( "projectid" ) String projectId,
+                    @PathVariable( "fromrevisionid" ) String fromRevision ) {
+        if (projectDB.hasProjectLocalPath( projectId )) {
+            FSqrScmProjectRevisionRepository revisionProvider = FSqrApplication.getInstance().getServices().getRevisionRepository();
+            FSqrScmHistory scmHistory = revisionProvider.getRecentRevisionHistoryStartingFrom( projectId, fromRevision );
 
-			OutputProjectRevisionsModel response = new OutputProjectRevisionsModel();
-			scmHistory.getRevisions().stream().forEach(rev -> response.revisions.add(translate(rev)));
+            OutputProjectRevisionsModel response = new OutputProjectRevisionsModel();
+            scmHistory.getRevisions().stream().forEach( rev -> response.revisions.add( translate( rev ) ) );
 
-			return response;
-		}
+            return response;
+        }
 
-		// return empty revision.
-		OutputProjectRevisionsModel response = new OutputProjectRevisionsModel();
+        // return empty revision.
+        OutputProjectRevisionsModel response = new OutputProjectRevisionsModel();
 
-		return response;
-	}
+        return response;
+    }
 
-	@GetMapping(path = "/{projectid}/revision/{revisionid}/information", produces = MediaType.APPLICATION_JSON_VALUE)
-	public OutputProjectRevisionsRevisionEntry getRevisionInformation(@PathVariable("projectid") String projectId,
-			@PathVariable("revisionid") String revisionId) {
-		if (projectDB.hasProjectLocalPath(projectId)) {
-			FSqrScmProjectRevisionRepository revisionProvider = FSqrApplication.getInstance().getServices()
-					.getRevisionRepository();
-			FSqrRevision revisionInfo = revisionProvider.getSimpleRevisionInformation(projectId, revisionId);
+    @GetMapping( path = "/{projectid}/revision/{revisionid}/information", produces = MediaType.APPLICATION_JSON_VALUE )
+    public OutputProjectRevisionsRevisionEntry getRevisionInformation( @PathVariable( "projectid" ) String projectId,
+                    @PathVariable( "revisionid" ) String revisionId ) {
+        if (projectDB.hasProjectLocalPath( projectId )) {
+            FSqrScmProjectRevisionRepository revisionProvider = FSqrApplication.getInstance().getServices().getRevisionRepository();
+            FSqrRevision revisionInfo = revisionProvider.getSimpleRevisionInformation( projectId, revisionId );
 
-			OutputProjectRevisionsRevisionEntry response = new OutputProjectRevisionsRevisionEntry(revisionInfo);
+            OutputProjectRevisionsRevisionEntry response = new OutputProjectRevisionsRevisionEntry( revisionInfo );
 
-			return response;
-		}
+            return response;
+        }
 
-		OutputProjectRevisionsRevisionEntry response = new OutputProjectRevisionsRevisionEntry();
+        OutputProjectRevisionsRevisionEntry response = new OutputProjectRevisionsRevisionEntry();
 
-		return response;
-	}
+        return response;
+    }
 
-	@GetMapping(path = "/{projectid}/revisionfilelist/{revisionid}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public OutputFileChangeInformation getRevisionFileList(@PathVariable("projectid") String projectId,
-			@PathVariable("revisionid") String revisionId) {
-		if (projectDB.hasProjectLocalPath(projectId)) {
-			FSqrScmProjectRevisionRepository revisionProvider = FSqrApplication.getInstance().getServices()
-					.getRevisionRepository();
-			FSqrRevisionFileChangeList fileChangeList = revisionProvider.getRevisionFileChangeList(projectId,
-					revisionId);
+    @GetMapping( path = "/{projectid}/revisionfilelist/{revisionid}", produces = MediaType.APPLICATION_JSON_VALUE )
+    public OutputFileChangeInformation getRevisionFileList( @PathVariable( "projectid" ) String projectId, @PathVariable( "revisionid" ) String revisionId ) {
+        if (projectDB.hasProjectLocalPath( projectId )) {
+            FSqrScmProjectRevisionRepository revisionProvider = FSqrApplication.getInstance().getServices().getRevisionRepository();
+            FSqrRevisionFileChangeList fileChangeList = revisionProvider.getRevisionFileChangeList( projectId, revisionId );
 
-			OutputFileChangeInformation response = new OutputFileChangeInformation(fileChangeList);
+            OutputFileChangeInformation response = new OutputFileChangeInformation( fileChangeList );
 
-			return response;
-		}
+            return response;
+        }
 
-		OutputFileChangeInformation response = new OutputFileChangeInformation();
+        OutputFileChangeInformation response = new OutputFileChangeInformation();
 
-		return response;
-	}
+        return response;
+    }
 
-	@GetMapping(path = "/{projectid}/revisiondiff/{revisionid}")
-	public OutputSingleCommitFullChangeSet getRevisionFullChangeset(@PathVariable("projectid") String projectId,
-			@PathVariable("revisionid") String revisionId) {
-		if (projectDB.hasProjectLocalPath(projectId)) {
-			FSqrScmProjectRevisionRepository revisionRepository = FSqrApplication.getInstance().getServices()
-					.getRevisionRepository();
-			FSqrRevisionFullChangeSet fullChangeSet = revisionRepository.getRevisionFullChangeSet(projectId,
-					revisionId);
+    @GetMapping( path = "/{projectid}/revisiondiff/{revisionid}" )
+    public OutputSingleCommitFullChangeSet getRevisionFullChangeset( @PathVariable( "projectid" ) String projectId,
+                    @PathVariable( "revisionid" ) String revisionId ) {
+        if (projectDB.hasProjectLocalPath( projectId )) {
+            FSqrScmProjectRevisionRepository revisionRepository = FSqrApplication.getInstance().getServices().getRevisionRepository();
+            FSqrRevisionFullChangeSet fullChangeSet = revisionRepository.getRevisionFullChangeSet( projectId, revisionId );
 
-			OutputSingleCommitFullChangeSet response = new OutputSingleCommitFullChangeSet(fullChangeSet);
+            OutputSingleCommitFullChangeSet response = new OutputSingleCommitFullChangeSet( fullChangeSet );
 
-			return response;
-		}
+            return response;
+        }
 
-		OutputSingleCommitFullChangeSet response = new OutputSingleCommitFullChangeSet();
+        OutputSingleCommitFullChangeSet response = new OutputSingleCommitFullChangeSet();
 
-		return response;
-	}
+        return response;
+    }
 
-	@GetMapping(path = "/{projectid}/revisionfilecontent/{revisionid}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public OutputFileContentForRevisionModel getRevisionFileContent(@PathVariable("projectid") String projectId,
-			@PathVariable("revisionid") String revisionId, @RequestParam("filepath") String filePath) {
-		if (projectDB.hasProjectLocalPath(projectId)) {
-			FSqrScmProjectRevisionRepository revisionRepository = FSqrApplication.getInstance().getServices()
-					.getRevisionRepository();
-			FSqrFileContentForRevision fileContent = revisionRepository.getFileContentForRevision(projectId, revisionId,
-					filePath);
+    @GetMapping( path = "/{projectid}/revisionfilecontent/{revisionid}", produces = MediaType.APPLICATION_JSON_VALUE )
+    public OutputFileContentForRevisionModel getRevisionFileContent( @PathVariable( "projectid" ) String projectId,
+                    @PathVariable( "revisionid" ) String revisionId, @RequestParam( "filepath" ) String filePath ) {
+        if (projectDB.hasProjectLocalPath( projectId )) {
+            FSqrScmProjectRevisionRepository revisionRepository = FSqrApplication.getInstance().getServices().getRevisionRepository();
+            FSqrFileContentForRevision fileContent = revisionRepository.getFileContentForRevision( projectId, revisionId, filePath );
 
-			OutputFileContentForRevisionModel response = new OutputFileContentForRevisionModel(fileContent);
+            OutputFileContentForRevisionModel response = new OutputFileContentForRevisionModel( fileContent );
 
-			return response;
-		}
+            return response;
+        }
 
-		OutputFileContentForRevisionModel response = new OutputFileContentForRevisionModel();
+        OutputFileContentForRevisionModel response = new OutputFileContentForRevisionModel();
 
-		return response;
-	}
+        return response;
+    }
 
-	@GetMapping(path = "{projectid}/filehistory", produces = MediaType.APPLICATION_JSON_VALUE)
-	public OutputFileHistoryModel getParticularFileHistory(@PathVariable("projectid") String projectId,
-			@PathVariable("revisionid") String revisionId, @RequestParam("filepath") String filePath) {
-		if (projectDB.hasProjectLocalPath(projectId)) {
-			FSqrScmProjectRevisionRepository revisionRepository = FSqrApplication.getInstance().getServices()
-					.getRevisionRepository();
-			FSqrFileHistory fileHistory = revisionRepository.getParticularFileHistory(projectId, revisionId, filePath);
+    @GetMapping( path = "{projectid}/filehistory", produces = MediaType.APPLICATION_JSON_VALUE )
+    public OutputFileHistoryModel getParticularFileHistory( @PathVariable( "projectid" ) String projectId, @PathVariable( "revisionid" ) String revisionId,
+                    @RequestParam( "filepath" ) String filePath ) {
+        if (projectDB.hasProjectLocalPath( projectId )) {
+            FSqrScmProjectRevisionRepository revisionRepository = FSqrApplication.getInstance().getServices().getRevisionRepository();
+            FSqrFileHistory fileHistory = revisionRepository.getParticularFileHistory( projectId, revisionId, filePath );
 
-			OutputFileHistoryModel response = new OutputFileHistoryModel(fileHistory);
+            OutputFileHistoryModel response = new OutputFileHistoryModel( fileHistory );
 
-			return response;
+            return response;
 
-		}
+        }
 
-		OutputFileHistoryModel response = new OutputFileHistoryModel();
+        OutputFileHistoryModel response = new OutputFileHistoryModel();
 
-		return response;
-	}
+        return response;
+    }
 
-	// TODO: @app.get("/FutureSQR/rest/project/{projectid}/reviewdiff/{reviewid}",
-	// response_class=JSONResponse) <<-- refactor from this
-	// TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/diff",
-	// response_class=JSONResponse) <<-- refactor to this
+    // TODO: @app.get("/FutureSQR/rest/project/{projectid}/reviewdiff/{reviewid}",
+    // response_class=JSONResponse) <<-- refactor from this
+    // TODO: @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/diff",
+    // response_class=JSONResponse) <<-- refactor to this
 
-	// TODO:
-	// @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/filelist",
-	// response_class=JSONResponse)
+    // TODO:
+    // @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/filelist",
+    // response_class=JSONResponse)
 
-	// TODO:
-	// @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/information",
-	// response_class=JSONResponse)
+    // TODO:
+    // @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/information",
+    // response_class=JSONResponse)
 
-	// TODO:
-	// @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/revisiondetails",
-	// response_class=JSONResponse)
+    // TODO:
+    // @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/revisiondetails",
+    // response_class=JSONResponse)
 
-	// TODO:
-	// @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/suggestedreviewers",
-	// response_class=JSONResponse)
+    // TODO:
+    // @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/suggestedreviewers",
+    // response_class=JSONResponse)
 
-	// TODO:
-	// @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/threads",
-	// response_class=JSONResponse)
+    // TODO:
+    // @app.get("/FutureSQR/rest/project/{projectid}/review/{reviewid}/threads",
+    // response_class=JSONResponse)
 
-	@GetMapping(path = "/{projectid}/recentreviews", produces = MediaType.APPLICATION_JSON_VALUE)
-	public OutputRecentReviewsModel getRecentReviews(@PathVariable("projectid") String projectId) {
-		if (projectDB.hasProjectLocalPath(projectId)) {
-			// TODO: implement loading the open and recently reviews.
-			FSqrCodeReviewRepository reviewRepository = FSqrApplication.getInstance().getServices()
-					.getReviewRepository();
+    @GetMapping( path = "/{projectid}/recentreviews", produces = MediaType.APPLICATION_JSON_VALUE )
+    public OutputRecentReviewsModel getRecentReviews( @PathVariable( "projectid" ) String projectId ) {
+        if (projectDB.hasProjectLocalPath( projectId )) {
+            // TODO: implement loading the open and recently reviews.
+            FSqrCodeReviewRepository reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
 
-			List<FSqrCodeReview> openReviews = reviewRepository.selectOpenReviews(projectId);
-			List<FSqrCodeReview> closedReviews = reviewRepository.selectRecentlyClosedReviews(projectId);
+            List<FSqrCodeReview> openReviews = reviewRepository.selectOpenReviews( projectId );
+            List<FSqrCodeReview> closedReviews = reviewRepository.selectRecentlyClosedReviews( projectId );
 
-			OutputRecentReviewsModel response = new OutputRecentReviewsModel(openReviews, closedReviews);
+            OutputRecentReviewsModel response = new OutputRecentReviewsModel( openReviews, closedReviews );
 
-			return response;
-		}
+            return response;
+        }
 
-		OutputRecentReviewsModel response = new OutputRecentReviewsModel();
+        OutputRecentReviewsModel response = new OutputRecentReviewsModel();
 
-		return response;
-	}
+        return response;
+    }
 
-	// -------------------------------------------
-	// Starring and unstarring of projects by user
-	// -------------------------------------------
+    // -------------------------------------------
+    // Starring and unstarring of projects by user
+    // -------------------------------------------
 
-	@PostMapping(path = "/{projectid}/star", produces = MediaType.APPLICATION_JSON_VALUE)
-	public String postProjectStarred(@PathVariable("projectid") String projectId, String requestBody,
-			@RequestPart("userid") String userid) {
-		// System.out.println( requestBody );
+    @PostMapping( path = "/{projectid}/star", produces = MediaType.APPLICATION_JSON_VALUE )
+    public String postProjectStarred( @PathVariable( "projectid" ) String projectId, String requestBody, @RequestPart( "userid" ) String userid ) {
+        // System.out.println( requestBody );
 
-		if (projectDB.isProjectIdPresent(projectId)) {
+        if (projectDB.isProjectIdPresent( projectId )) {
 
-			FSqrApplication.getInstance().getServices().getUserToProjectRepository().starProject(userid, projectId);
-		}
+            FSqrApplication.getInstance().getServices().getUserToProjectRepository().starProject( userid, projectId );
+        }
 
-		return "";
-	}
+        return "";
+    }
 
-	@PostMapping(path = "/{projectid}/unstar", produces = MediaType.APPLICATION_JSON_VALUE)
-	public String postProjectUnstarred(@PathVariable("projectid") String projectId,
-			@RequestPart("userid") String userid) {
-		// System.out.println( requestBody );
+    @PostMapping( path = "/{projectid}/unstar", produces = MediaType.APPLICATION_JSON_VALUE )
+    public String postProjectUnstarred( @PathVariable( "projectid" ) String projectId, @RequestPart( "userid" ) String userid ) {
+        // System.out.println( requestBody );
 
-		if (projectDB.isProjectIdPresent(projectId)) {
+        if (projectDB.isProjectIdPresent( projectId )) {
 
-			// System.out.println( userid );
+            // System.out.println( userid );
 
-			FSqrApplication.getInstance().getServices().getUserToProjectRepository().unstarProject(userid, projectId);
-		}
+            FSqrApplication.getInstance().getServices().getUserToProjectRepository().unstarProject( userid, projectId );
+        }
 
-		return "";
-	}
+        return "";
+    }
 
-	// TODO: @app.post * discussion related
-	// @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/createthread",
-	// response_class=JSONResponse)
-	// @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/replythread",
-	// response_class=JSONResponse)
-	// @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/editmessage",
-	// response_class=JSONResponse)
+    // TODO: @app.post * discussion related
+    // @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/createthread",
+    // response_class=JSONResponse)
+    // @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/replythread",
+    // response_class=JSONResponse)
+    // @app.post("/FutureSQR/rest/project/{projectid}/review/{reviewid}/editmessage",
+    // response_class=JSONResponse)
 
-	// ------------------------------
-	// Code review state related code
-	// ------------------------------
+    // ------------------------------
+    // Code review state related code
+    // ------------------------------
 
-	@PostMapping(path = "/{projectid}/review/create", produces = MediaType.APPLICATION_JSON_VALUE)
-	public OutputReviewCreatedModel postCreateReviewFromRevision(@PathVariable("projectid") String projectId,
-			@RequestPart("revisionid") String revisionId, @RequestPart("opening_userid") String openerUserUUID) {
+    @PostMapping( path = "/{projectid}/review/create", produces = MediaType.APPLICATION_JSON_VALUE )
+    public OutputReviewCreatedModel postCreateReviewFromRevision( @PathVariable( "projectid" ) String projectId, @RequestPart( "revisionid" ) String revisionId,
+                    @RequestPart( "opening_userid" ) String openerUserUUID ) {
 
-		if (projectDB.isProjectIdPresent(projectId)) {
+        if (projectDB.isProjectIdPresent( projectId )) {
 
-			System.out.println("[CR-CREATE]: revisionid: " + revisionId);
-			System.out.println("[CR-CREATE]: openerUserUUID: " + openerUserUUID);
+            System.out.println( "[CR-CREATE]: revisionid: " + revisionId );
+            System.out.println( "[CR-CREATE]: openerUserUUID: " + openerUserUUID );
 
-			FSqrCodeReview codeReview = FSqrApplication.getInstance().getServices().getReviewRepository()
-					.createReviewFromRevision(projectId, revisionId);
+            FSqrCodeReview codeReview = FSqrApplication.getInstance().getServices().getReviewRepository().createReviewFromRevision( projectId, revisionId,
+                            openerUserUUID );
 
-			// TODO: create the code review itself from a revision - currently not
-			// completed.
-			OutputReviewModel outputReview = new OutputReviewModel(codeReview);
+            // TODO: create the code review itself from a revision - currently not
+            // completed.
+            OutputReviewModel outputReview = new OutputReviewModel( codeReview );
 
-			// TODO: take that code review and fill the response model.
-			OutputReviewCreatedModel response = new OutputReviewCreatedModel();
-			response.projectId = projectId;
-			response.revisionId = revisionId;
-			response.reviewId = outputReview.reviewId;
-			response.reviewData = outputReview;
+            // TODO: take that code review and fill the response model.
+            OutputReviewCreatedModel response = new OutputReviewCreatedModel();
+            response.projectId = projectId;
+            response.revisionId = revisionId;
+            response.reviewId = outputReview.reviewId;
+            response.reviewData = outputReview;
 
-			return response;
-		}
+            return response;
+        }
 
-		// TODO maybe a null is not nice here
-		return null;
-	}
+        // TODO maybe a null is not nice here
+        return null;
+    }
 
-	@PostMapping(path = "/{projectid}/review/close", produces = MediaType.APPLICATION_JSON_VALUE)
-	public String postCloseReview(@PathVariable("projectid") String projectId) {
+    @PostMapping( path = "/{projectid}/review/close", produces = MediaType.APPLICATION_JSON_VALUE )
+    public String postCloseReview( @PathVariable( "projectid" ) String projectId ) {
 
-		if (projectDB.isProjectIdPresent(projectId)) {
-			// TODO: implement me
-			return "{}";
-		}
+        if (projectDB.isProjectIdPresent( projectId )) {
+            // TODO: implement me
+            return "{}";
+        }
 
-		return "{}";
-	}
+        return "{}";
+    }
 
-	@PostMapping(path = "/{projectid}/review/reopen", produces = MediaType.APPLICATION_JSON_VALUE)
-	public String postReopenReview(@PathVariable("projectid") String projectId, String requestBody) {
+    @PostMapping( path = "/{projectid}/review/reopen", produces = MediaType.APPLICATION_JSON_VALUE )
+    public String postReopenReview( @PathVariable( "projectid" ) String projectId, String requestBody ) {
 
-		if (projectDB.isProjectIdPresent(projectId)) {
-			// TODO: implement me
-			return "{}";
-		}
+        if (projectDB.isProjectIdPresent( projectId )) {
+            // TODO: implement me
+            return "{}";
+        }
 
-		return "{}";
-	}
+        return "{}";
+    }
 
-	@PostMapping(path = "/{projectid}/review/delete", produces = MediaType.APPLICATION_JSON_VALUE)
-	public String postDeleteReview(@PathVariable("projectid") String projectId) {
+    @PostMapping( path = "/{projectid}/review/delete", produces = MediaType.APPLICATION_JSON_VALUE )
+    public String postDeleteReview( @PathVariable( "projectid" ) String projectId ) {
 
-		if (projectDB.isProjectIdPresent(projectId)) {
-			// TODO: implement me
-			return "{}";
-		}
+        if (projectDB.isProjectIdPresent( projectId )) {
+            // TODO: implement me
+            return "{}";
+        }
 
-		return "{}";
-	}
+        return "{}";
+    }
 
-	// ------------------------------
-	// code review reviewers related.
-	// ------------------------------
+    // ------------------------------
+    // code review reviewers related.
+    // ------------------------------
 
-	@PostMapping(path = "/{projectid}/review/addreviewer", produces = MediaType.APPLICATION_JSON_VALUE)
-	public String postReviewAddReviewer(@PathVariable("projectid") String projectId) {
+    @PostMapping( path = "/{projectid}/review/addreviewer", produces = MediaType.APPLICATION_JSON_VALUE )
+    public String postReviewAddReviewer( @PathVariable( "projectid" ) String projectId ) {
 
-		if (projectDB.isProjectIdPresent(projectId)) {
-			// TODO: implement me
-			return "{}";
-		}
+        if (projectDB.isProjectIdPresent( projectId )) {
+            // TODO: implement me
+            return "{}";
+        }
 
-		return "{}";
-	}
+        return "{}";
+    }
 
-	@PostMapping(path = "/{projectid}/review/removereviewer", produces = MediaType.APPLICATION_JSON_VALUE)
-	public String postReviewRemoveReviewer(@PathVariable("projectid") String projectId) {
+    @PostMapping( path = "/{projectid}/review/removereviewer", produces = MediaType.APPLICATION_JSON_VALUE )
+    public String postReviewRemoveReviewer( @PathVariable( "projectid" ) String projectId ) {
 
-		if (projectDB.isProjectIdPresent(projectId)) {
-			// TODO: implement me
-			return "{}";
-		}
+        if (projectDB.isProjectIdPresent( projectId )) {
+            // TODO: implement me
+            return "{}";
+        }
 
-		return "{}";
-	}
+        return "{}";
+    }
 
-	@PostMapping(path = "/{projectid}/review/approvereview", produces = MediaType.APPLICATION_JSON_VALUE)
-	public String postReviewApproveReview(@PathVariable("projectid") String projectId) {
+    @PostMapping( path = "/{projectid}/review/approvereview", produces = MediaType.APPLICATION_JSON_VALUE )
+    public String postReviewApproveReview( @PathVariable( "projectid" ) String projectId ) {
 
-		if (projectDB.isProjectIdPresent(projectId)) {
-			// TODO: implement me
-			return "{}";
-		}
+        if (projectDB.isProjectIdPresent( projectId )) {
+            // TODO: implement me
+            return "{}";
+        }
 
-		return "{}";
-	}
+        return "{}";
+    }
 
-	@PostMapping(path = "{projectid}/review/concernreview", produces = MediaType.APPLICATION_JSON_VALUE)
-	public String postReviewConcernReview(@PathVariable("projectid") String projectId) {
+    @PostMapping( path = "{projectid}/review/concernreview", produces = MediaType.APPLICATION_JSON_VALUE )
+    public String postReviewConcernReview( @PathVariable( "projectid" ) String projectId ) {
 
-		if (projectDB.isProjectIdPresent(projectId)) {
-			// TODO: implement me
-			return "{}";
-		}
+        if (projectDB.isProjectIdPresent( projectId )) {
+            // TODO: implement me
+            return "{}";
+        }
 
-		return "{}";
-	}
+        return "{}";
+    }
 
-	@PostMapping(path = "/{projectid}/review/resetreview", produces = MediaType.APPLICATION_JSON_VALUE)
-	public String postReviewResetReview(@PathVariable("projectid") String projectId) {
+    @PostMapping( path = "/{projectid}/review/resetreview", produces = MediaType.APPLICATION_JSON_VALUE )
+    public String postReviewResetReview( @PathVariable( "projectid" ) String projectId ) {
 
-		if (projectDB.isProjectIdPresent(projectId)) {
-			// TODO: implement me
-			return "{}";
-		}
+        if (projectDB.isProjectIdPresent( projectId )) {
+            // TODO: implement me
+            return "{}";
+        }
 
-		return "{}";
-	}
+        return "{}";
+    }
 
-	// ------------------------------
-	// code review revisions related.
-	// ------------------------------
+    // ------------------------------
+    // code review revisions related.
+    // ------------------------------
 
-	@PostMapping(path = "/{projectid}/review/appendrevision", produces = MediaType.APPLICATION_JSON_VALUE)
-	public String postReviewAppendRevisionToReview(@PathVariable("projectid") String projectId, String requestBody) {
+    @PostMapping( path = "/{projectid}/review/appendrevision", produces = MediaType.APPLICATION_JSON_VALUE )
+    public String postReviewAppendRevisionToReview( @PathVariable( "projectid" ) String projectId, String requestBody ) {
 
-		if (projectDB.isProjectIdPresent(projectId)) {
-			// TODO: implement me
-			return "{}";
-		}
+        if (projectDB.isProjectIdPresent( projectId )) {
+            // TODO: implement me
+            return "{}";
+        }
 
-		return "{}";
-	}
+        return "{}";
+    }
 
-	@PostMapping(path = "/{projectid}/review/removerevision", produces = MediaType.APPLICATION_JSON_VALUE)
-	public String postReviewRemoveRevisionFromReview(@PathVariable("projectid") String projectId) {
+    @PostMapping( path = "/{projectid}/review/removerevision", produces = MediaType.APPLICATION_JSON_VALUE )
+    public String postReviewRemoveRevisionFromReview( @PathVariable( "projectid" ) String projectId ) {
 
-		if (projectDB.isProjectIdPresent(projectId)) {
-			// TODO: implement me
-			return "{}";
-		}
+        if (projectDB.isProjectIdPresent( projectId )) {
+            // TODO: implement me
+            return "{}";
+        }
 
-		return "{}";
-	}
+        return "{}";
+    }
 
-	// ------------------------------------
-	// update the temporary cache on demand
-	// ------------------------------------
+    // ------------------------------------
+    // update the temporary cache on demand
+    // ------------------------------------
 
-	@PostMapping(path = "/{projectid}/updatecache", produces = MediaType.APPLICATION_JSON_VALUE)
-	public OutputStatusOkayModel postUpdateCache(@PathVariable("projectid") String projectId) {
-		if (projectDB.hasProjectLocalPath(projectId)) {
-			FSqrScmProjectRevisionRepository revisionRepository = FSqrApplication.getInstance().getServices()
-					.getRevisionRepository();
+    @PostMapping( path = "/{projectid}/updatecache", produces = MediaType.APPLICATION_JSON_VALUE )
+    public OutputStatusOkayModel postUpdateCache( @PathVariable( "projectid" ) String projectId ) {
+        if (projectDB.hasProjectLocalPath( projectId )) {
+            FSqrScmProjectRevisionRepository revisionRepository = FSqrApplication.getInstance().getServices().getRevisionRepository();
 
-			revisionRepository.updateProjectCache(projectId);
+            revisionRepository.updateProjectCache( projectId );
 
-			OutputStatusOkayModel response = new OutputStatusOkayModel();
+            OutputStatusOkayModel response = new OutputStatusOkayModel();
 
-			return response;
-		}
+            return response;
+        }
 
-		OutputStatusOkayModel response = new OutputStatusOkayModel();
+        OutputStatusOkayModel response = new OutputStatusOkayModel();
 
-		return response;
+        return response;
 
-	}
+    }
 
 }

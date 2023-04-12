@@ -72,7 +72,7 @@ public interface FSqrCodeReviewRepository {
 
     // CodeFReview actions - Create from Revision
 
-    FSqrCodeReview createReviewFromRevision( String projectid, String revisionid );
+    FSqrCodeReview createReviewFromRevision( String projectid, String revisionid, String userid );
 
     // Retrieve Recent Reviews (by Project)
 
