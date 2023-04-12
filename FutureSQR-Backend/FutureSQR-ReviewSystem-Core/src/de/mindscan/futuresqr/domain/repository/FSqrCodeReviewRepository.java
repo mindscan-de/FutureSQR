@@ -84,8 +84,8 @@ public interface FSqrCodeReviewRepository {
 
     List<FSqrRevision> getRevisionsForReview( String projectId, String reviewId );
 
-    void removeRevisionFromReview( String projectId, String reviewId, String revisionId );
+    void removeRevisionFromReview( String projectId, String reviewId, String revisionId, String userId );
 
-    void addRevisionToReview( String projectId, String reviewId, String revisionId );
+    void addRevisionToReview( String projectId, String reviewId, String revisionId, String userId );
 
 }

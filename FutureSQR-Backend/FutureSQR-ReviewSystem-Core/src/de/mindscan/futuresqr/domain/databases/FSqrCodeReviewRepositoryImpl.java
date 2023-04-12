@@ -164,7 +164,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
     }
 
     @Override
-    public void addRevisionToReview( String projectId, String reviewId, String revisionId ) {
+    public void addRevisionToReview( String projectId, String reviewId, String revisionId, String userId ) {
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
             // we need to retrieve this revison ... THEN ADD IT
@@ -179,7 +179,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
     }
 
     @Override
-    public void removeRevisionFromReview( String projectId, String reviewId, String revisionId ) {
+    public void removeRevisionFromReview( String projectId, String reviewId, String revisionId, String userId ) {
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
             // FSqrRevision revisionToRemove = applicationServices.getRevisionRepository().getSimpleRevisionInformation( projectId, revisionId );

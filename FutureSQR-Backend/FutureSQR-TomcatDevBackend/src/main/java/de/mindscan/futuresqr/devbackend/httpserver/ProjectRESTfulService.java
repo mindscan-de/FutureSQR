@@ -668,7 +668,7 @@ public class ProjectRESTfulService {
             String revisionId = postParams.getStringOrThrow( "revisionid" );
             String userUUID = postParams.getStringOrThrow( "userid" );
 
-            FSqrApplication.getInstance().getServices().getReviewRepository().addRevisionToReview( projectId, reviewId, revisionId );
+            FSqrApplication.getInstance().getServices().getReviewRepository().addRevisionToReview( projectId, reviewId, revisionId, userUUID );
 
             return "{}";
         }
@@ -687,7 +687,7 @@ public class ProjectRESTfulService {
             String revisionId = postParams.getStringOrThrow( "revisionid" );
             String userUUID = postParams.getStringOrThrow( "userid" );
 
-            FSqrApplication.getInstance().getServices().getReviewRepository().removeRevisionFromReview( projectId, reviewId, revisionId );
+            FSqrApplication.getInstance().getServices().getReviewRepository().removeRevisionFromReview( projectId, reviewId, revisionId, userUUID );
 
             return "{}";
         }
