@@ -21,7 +21,9 @@ export class ConfigureAddProjectComponent implements OnInit {
 	ngOnInit(): void {
 		this.addForm = this.formBuilder.group({
 			scmRepositoryURL: ['', Validators.required],
-			scmProjectDisplayName: ['', Validators.required]
+			scmProjectDisplayName: ['', Validators.required],
+			scmProjectId: ['', Validators.required],
+			scmProjectDescription: ['', Validators.required]
 		});
 	}
 	

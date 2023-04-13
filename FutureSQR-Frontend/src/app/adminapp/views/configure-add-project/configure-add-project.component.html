@@ -5,7 +5,6 @@
 			<div class="card-body">
 				<ul>
 					<li>projectId (must be unique), will be queried, each time it is updated, and is derived from displayname.</li>
-					<li>projectDescription</li>
 					<li>projectUUID - will be generated.</li>
 					<li>projectReviewPrefix</li>
 					
@@ -36,11 +35,26 @@
 						</div>
 					</div>
 					
+					<div class="form-row">
+						<div class="form-group col-4">
+							<label for="scmProjectDisplayName">Display name</label>
+							<input type="text" formControlName="scmProjectDisplayName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.scmProjectDisplayName.errors}"/>
+							<div *ngIf="submitted && f.scmProjectDisplayName.errors" class="invalid-feedback">
+								<div *ngIf="f.scmProjectDisplayName.errors.required">Please provide a Display Name</div>
+							</div>
+						</div>
+						
+						<div class="form-group col-4">
+							<label for="scmProjectId">ProjectId (TODO unique and lowercase and limited chars)</label>
+							<input type="text" formControlName="scmProjectId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.scmProjectId.errors}"/>
+						</div>
+					</div>
+					
 					<div class="form-group">
-						<label for="scmProjectDisplayName">Display name</label>
-						<input type="text" formControlName="scmProjectDisplayName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.scmProjectDisplayName.errors}"/>
-						<div *ngIf="submitted && f.scmProjectDisplayName.errors" class="invalid-feedback">
-							<div *ngIf="f.scmProjectDisplayName.errors.required">Please provide a Display Name</div>
+						<label for="scmProjectDescription">Project description</label>
+						<textarea formControlName="scmProjectDescription" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.scmProjectDescription.errors}" rows="3"></textarea>
+						<div>
+						
 						</div>
 					</div>
 				
