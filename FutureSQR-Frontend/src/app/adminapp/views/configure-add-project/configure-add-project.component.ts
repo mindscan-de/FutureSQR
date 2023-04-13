@@ -23,6 +23,7 @@ export class ConfigureAddProjectComponent implements OnInit {
 			scmRepositoryURL: ['', Validators.required],
 			scmProjectDisplayName: ['', Validators.required],
 			scmProjectId: ['', Validators.required],
+			scmProjectReviewPrefix: ['', Validators.required],
 			scmProjectDescription: ['', Validators.required]
 		});
 	}
