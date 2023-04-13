@@ -12,7 +12,6 @@ export class ConfigureAddProjectComponent implements OnInit {
 	public addForm: FormGroup;
 	public loading = false;	
 	public submitted = false;
-s	
 	
 
 	constructor(
@@ -20,7 +19,10 @@ s
 	) { }
 
 	ngOnInit(): void {
-		
+		this.addForm = this.formBuilder.group({
+			scmRepositoryURL: ['', Validators.required],
+			scmProjectDisplayName: ['', Validators.required]
+		});
 	}
 	
 	public onSubmit(): void {

@@ -4,8 +4,6 @@
 			<div class="card-header">Add Project</div>
 			<div class="card-body">
 				<ul>
-					<li>ServerURL?</li>
-					<li>projectDisplayName</li>
 					<li>projectId (must be unique), will be queried, each time it is updated, and is derived from displayname.</li>
 					<li>projectDescription</li>
 					<li>projectUUID - will be generated.</li>
@@ -29,6 +27,22 @@
 				</ul>
 				
 				<form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+				
+					<div class="form-group">
+						<label for="scmRepositoryURL">Repository URL</label>
+						<input type="text" formControlName="scmRepositoryURL" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.scmRepositoryURL.errors}"/>
+						<div *ngIf="submitted && f.scmRepositoryURL.errors" class="invalid-feedback">
+							<div *ngIf="f.scmRepositoryURL.errors.required">Please provide a repository URL.</div>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="scmProjectDisplayName">Display name</label>
+						<input type="text" formControlName="scmProjectDisplayName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.scmProjectDisplayName.errors}"/>
+						<div *ngIf="submitted && f.scmProjectDisplayName.errors" class="invalid-feedback">
+							<div *ngIf="f.scmProjectDisplayName.errors.required">Please provide a Display Name</div>
+						</div>
+					</div>
 				
 					<div class="form-group">
 		 				<button [disabled]="loading" class="btn btn-primary">
