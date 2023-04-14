@@ -3,26 +3,6 @@
 		<div class="card mt-2">
 			<div class="card-header">Add Project</div>
 			<div class="card-body">
-				<ul>
-					<li>projectId (must be unique), will be queried, each time it is updated, and is derived from displayname.</li>
-					<li>projectUUID - will be generated.</li>
-					<ul>
-						<li>the following configurations should be part of the edit configuration instead of the create operation</li>
-						<ul>
-							<li>projectType</li>
-							<li>projectDefaultBranch</li>
-							<li>branches</li>
-							<li>gitconfiguration</li>
-							<ul>
-								<li>localpath</li>
-								<li>defaultbranchname</li>
-								<li>server, etc....</li>
-							</ul>
-							<li>svnconfiguration</li>
-						</ul>
-					</ul>
-				</ul>
-				
 				<form [formGroup]="addForm" (ngSubmit)="onSubmit()">
 				
 					<div class="form-group">
@@ -75,6 +55,27 @@
 					</div>
 				
 				</form>
+				
+				<ul>
+					<li>projectId (must be unique), will be queried, each time it is updated, and is derived from displayname.</li>
+					<li>projectUUID - will be generated.</li>
+					<ul>
+						<li>the following configurations should be part of the edit configuration instead of the create operation</li>
+						<ul>
+							<li>projectType</li>
+							<li>projectDefaultBranch</li>
+							<li>branches</li>
+							<li>gitconfiguration</li>
+							<ul>
+								<li>localpath</li>
+								<li>defaultbranchname</li>
+								<li>server, etc....</li>
+							</ul>
+							<li>svnconfiguration</li>
+						</ul>
+					</ul>
+				</ul>
+				
 			</div>
 		</div>
 	</div>
