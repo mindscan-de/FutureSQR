@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup,  Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+// Admin App Services
+import { AdminNavigationBarService }  from '../../services/admin-navigation-bar.service';
+import { AdminNavbarBreadcrumbItem } from '../../services/model/admin-navbar-breadcrumb-item';
+
+
 @Component({
   selector: 'app-configure-add-project',
   templateUrl: './configure-add-project.component.html',
@@ -15,6 +20,7 @@ export class ConfigureAddProjectComponent implements OnInit {
 	
 
 	constructor(
+		private adminNavigationBarService : AdminNavigationBarService,
 		private formBuilder : FormBuilder		
 	) { }
 
@@ -32,7 +38,18 @@ export class ConfigureAddProjectComponent implements OnInit {
 			// basically this should be optional. (html?)
 			scmProjectDescription: ['', Validators.required]
 		});
+		
+		this.updateNavigationBar();		
 	}
+	
+	updateNavigationBar() : void {
+		let x:AdminNavbarBreadcrumbItem[] = []
+		
+		x.push(new AdminNavbarBreadcrumbItem('projects', ['projects'], false));
+		
+		this.adminNavigationBarService.setAdminBreadCrumbNavigation(x);
+	}
+	
 	
 	public onSubmit(): void {
 		console.log("onSumbit invoked...");
