@@ -20,10 +20,16 @@ export class ConfigureAddProjectComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.addForm = this.formBuilder.group({
+			// TODO: after setting this, the displayname, the projectid, the prefix should be prefilled.
 			scmRepositoryURL: ['', Validators.required],
+			// 
 			scmProjectDisplayName: ['', Validators.required],
+			// TODO: this input should be checked every keystroke, whether this is a legal project name.
+			// TODO: lowercase the input, also check the rules for the characters.
 			scmProjectId: ['', Validators.required],
+			// TODO: update this value, when the DisplayName is configured. ToUppercase
 			scmProjectReviewPrefix: ['', Validators.required],
+			// basically this should be optional. (html?)
 			scmProjectDescription: ['', Validators.required]
 		});
 	}
