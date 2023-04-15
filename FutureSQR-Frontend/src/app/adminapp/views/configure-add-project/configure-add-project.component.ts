@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup,  Validators } from '@angular/forms';
+import { FormBuilder, FormGroup,  Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 
 // Admin App Services
@@ -74,5 +74,15 @@ export class ConfigureAddProjectComponent implements OnInit {
 
 	// accessor for the form.
 	get f() { return this.addForm.controls; }
+	
+	myValidatorForSomething(myRequirement): ValidatorFn {
+		return (control: AbstractControl): ValidationErrors | null => {
+			// TODO must be boolean
+			const newValue = control.value;
+			
+			// TODO if problem return dictionary of { myPropertyName: {value: control.value}} of null instead: 
+			return null;
+		};
+	}
 
 }
