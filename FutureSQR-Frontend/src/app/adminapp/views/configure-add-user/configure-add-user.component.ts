@@ -76,26 +76,23 @@ export class ConfigureAddUserComponent implements OnInit {
 			this.f.displayname.value,
 			this.f.contactemail.value,
 			this.f.password.value
-			).subscribe( {
-				next : (data) => {
-					// TODO navigate to userpage - not part of the backend
-					// to tell frontend which state the frontend should take
-					console.log("User created");
-					console.log(data);
-					
-					// will trigger a navigation and a page reload
-					// where we want to navigate ? to the new user or to the userlist?
-					// actually we want to further configure a created user (like groups, accounts for different SCMs)
-					this.router.navigate(['/','admin','user',data.uuid]);
-				},
-				error : error => { 
-					that.loading = false;
-					}
+		).subscribe( {
+			next : (data) => {
+				// TODO navigate to userpage - not part of the backend
+				// to tell frontend which state the frontend should take
+				console.log("User created");
+				console.log(data);
+				
+				// will trigger a navigation and a page reload
+				// where we want to navigate ? to the new user or to the userlist?
+				// actually we want to further configure a created user (like groups, accounts for different SCMs)
+				this.router.navigate(['/','admin','user',data.uuid]);
+			},
+			error : error => { 
+				that.loading = false;
 				}
-			)
-		
+			}
+		);
 	}
-	
-	
 
 }
