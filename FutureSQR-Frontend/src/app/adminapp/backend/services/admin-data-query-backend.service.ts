@@ -60,4 +60,16 @@ export class AdminDataQueryBackendService {
 		return this.httpClient.post<AdminBackendModelSimpleUserItem>( restURL, formdata).pipe(first());
 	}
 	
+	public postAddProject( repositoryURL: string, displayname: string, projectid: string, reviewprefix: string, projectdescription: string):Observable<any> {
+		let restURL = '/FutureSQR/rest/admin/project/add';
+		
+		let formdata = new FormData();
+		formdata.append('scmRepositoryURL', repositoryURL);
+		formdata.append('scmProjectDisplayName', displayname);
+		formdata.append('scmProjectId', projectid);
+		formdata.append('scmProjectReviewPrefix',reviewprefix);
+		formdata.append('scmProjectDescription', projectdescription);
+		
+		return this.httpClient.post<any>(restURL, formdata).pipe(first());
+	}
 }
