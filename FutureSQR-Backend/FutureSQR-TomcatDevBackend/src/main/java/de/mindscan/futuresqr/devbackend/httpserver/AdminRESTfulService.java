@@ -29,11 +29,13 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import de.mindscan.futuresqr.core.uuid.UuidUtil;
 import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParameters;
 import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParser;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
 import de.mindscan.futuresqr.domain.databases.FSqrScmProjectConfigurationRepositoryImpl;
+import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 
 /**
  * 
@@ -51,15 +53,24 @@ public class AdminRESTfulService {
     public String postAddProject( String requestBody ) {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
-        postParams.getStringOrThrow( "scmRepositoryURL" );
-        postParams.getStringOrThrow( "scmProjectDisplayName" );
-        postParams.getStringOrThrow( "scmProjectId" );
-        postParams.getStringOrThrow( "scmProjectReviewPrefix" );
-        postParams.getStringOrDefault( "scmProjectDescription", "" );
+        String repoURL = postParams.getStringOrThrow( "scmRepositoryURL" );
+        String displayName = postParams.getStringOrThrow( "scmProjectDisplayName" );
+        String projectId = postParams.getStringOrThrow( "scmProjectId" );
+        String reviewPrefix = postParams.getStringOrThrow( "scmProjectReviewPrefix" );
+        String description = postParams.getStringOrDefault( "scmProjectDescription", "" );
 
         FSqrScmProjectConfigurationRepositoryImpl configurationRepository = FSqrApplication.getInstance().getServices().getConfigurationRepository();
 
-        // configurationRepository.addScmProjectConfiguration( newProjectConfiguration );
+        String projectUUID = UuidUtil.getRandomUUID().toString();
+
+        FSqrScmProjectConfiguration newProjectConfiguration = new FSqrScmProjectConfiguration( projectId, displayName, projectUUID, 1 );
+        newProjectConfiguration.setProjectDescription( description );
+        newProjectConfiguration.setProjectReviewPrefix( reviewPrefix );
+
+        configurationRepository.addScmProjectConfiguration( newProjectConfiguration );
+
+        // actually we want to return the new project data, that we can then provide more configurations.
+        // TODO: we want to provide the additional configurations after adding this project.
 
         return "{}";
     }
