@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { AdminNavigationBarService }  from '../../services/admin-navigation-bar.service';
 import { AdminNavbarBreadcrumbItem } from '../../services/model/admin-navbar-breadcrumb-item';
 
+// Backend Services
+import { AdminDataQueryBackendService } from '../../backend/services/admin-data-query-backend.service';
 
 @Component({
   selector: 'app-configure-add-project',
@@ -21,7 +23,8 @@ export class ConfigureAddProjectComponent implements OnInit {
 
 	constructor(
 		private adminNavigationBarService : AdminNavigationBarService,
-		private formBuilder : FormBuilder		
+		private formBuilder : FormBuilder,
+		private adminDataQueryBackend : AdminDataQueryBackendService
 	) { }
 
 	ngOnInit(): void {
@@ -67,7 +70,26 @@ export class ConfigureAddProjectComponent implements OnInit {
 		this.loading = false;
 		
 		// @TODO: send this to the backend admin interface 
-		
+		this.adminDataQueryBackend.postAddProject(
+			this.f.scmRepositoryURL.value,
+			this.f.scmProjectDisplayName.value,
+			this.f.scmProjectId.value,
+			this.f.scmProjectReviewPrefix.value,
+			this.f.scmProjectDescription.value
+		).subscribe( {
+			next : (data) => {
+				that.loading = false;
+				
+				// TODO: check the answer for what we look for, eg. project id and such.
+				
+				// TODO: in case of success we want to navigate to the newly created project, such that we can setup more...
+				// that.router.navigate
+			},
+			error : (error) => {
+				that.loading = false;
+				}
+			}
+		);
 	}
 
 
