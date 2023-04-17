@@ -8,6 +8,7 @@ import { AdminNavbarBreadcrumbItem } from '../../services/model/admin-navbar-bre
 
 // Backend Services
 import { AdminDataQueryBackendService } from '../../backend/services/admin-data-query-backend.service';
+import { AdminBackendScmProjectConfiguration } from '../../backend/model/admin-backend-scm-project-configuration';
 
 @Component({
   selector: 'app-configure-add-project',
@@ -24,6 +25,7 @@ export class ConfigureAddProjectComponent implements OnInit {
 	constructor(
 		private adminNavigationBarService : AdminNavigationBarService,
 		private formBuilder : FormBuilder,
+		private router: Router,		
 		private adminDataQueryBackend : AdminDataQueryBackendService
 	) { }
 
@@ -79,11 +81,12 @@ export class ConfigureAddProjectComponent implements OnInit {
 		).subscribe( {
 			next : (data) => {
 				that.loading = false;
+				const scmNewConfiguration:AdminBackendScmProjectConfiguration = data
 				
 				// TODO: check the answer for what we look for, eg. project id and such.
 				
 				// TODO: in case of success we want to navigate to the newly created project, such that we can setup more...
-				// that.router.navigate
+				that.router.navigate(["/","admin","project",scmNewConfiguration.projectId]);
 			},
 			error : (error) => {
 				that.loading = false;
