@@ -6,6 +6,7 @@ import { map,first } from 'rxjs/operators';
 
 
 import { AdminBackendModelSimpleUserItem } from '../model/admin-backend-model-simple-user-item';
+import { AdminBackendScmProjectConfiguration } from '../model/admin-backend-scm-project-configuration';
 
 @Injectable({
   providedIn: 'root'
@@ -60,7 +61,7 @@ export class AdminDataQueryBackendService {
 		return this.httpClient.post<AdminBackendModelSimpleUserItem>( restURL, formdata).pipe(first());
 	}
 	
-	public postAddProject( repositoryURL: string, displayname: string, projectid: string, reviewprefix: string, projectdescription: string):Observable<any> {
+	public postAddProject( repositoryURL: string, displayname: string, projectid: string, reviewprefix: string, projectdescription: string):Observable<AdminBackendScmProjectConfiguration> {
 		let restURL = '/FutureSQR/rest/admin/project/add';
 		
 		let formdata = new FormData();
@@ -70,6 +71,6 @@ export class AdminDataQueryBackendService {
 		formdata.append('scmProjectReviewPrefix',reviewprefix);
 		formdata.append('scmProjectDescription', projectdescription);
 		
-		return this.httpClient.post<any>(restURL, formdata).pipe(first());
+		return this.httpClient.post<AdminBackendScmProjectConfiguration>(restURL, formdata).pipe(first());
 	}
 }
