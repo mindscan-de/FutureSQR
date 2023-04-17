@@ -90,9 +90,8 @@ export class ConfigureAddProjectComponent implements OnInit {
 			},
 			error : (error) => {
 				that.loading = false;
-				}
 			}
-		);
+		});
 	}
 
 
