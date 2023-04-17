@@ -32,6 +32,7 @@ import javax.ws.rs.core.MediaType;
 import com.google.gson.Gson;
 
 import de.mindscan.futuresqr.core.uuid.UuidUtil;
+import de.mindscan.futuresqr.devbackend.httpresponse.OutputAdminScmProjectConfigurationModel;
 import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParameters;
 import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParser;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
@@ -73,8 +74,11 @@ public class AdminRESTfulService {
             // actually we want to return the new project data, that we can then provide more configurations.
             // TODO: we want to provide the additional configurations after adding this project.
             configurationRepository.addScmProjectConfiguration( newProjectConfiguration );
+
+            OutputAdminScmProjectConfigurationModel outputModel = new OutputAdminScmProjectConfigurationModel( newProjectConfiguration );
+
             Gson gson = new Gson();
-            return gson.toJson( newProjectConfiguration );
+            return gson.toJson( outputModel );
         }
 
         return "{}";
