@@ -29,6 +29,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.google.gson.Gson;
+
 import de.mindscan.futuresqr.core.uuid.UuidUtil;
 import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParameters;
 import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParser;
@@ -67,11 +69,18 @@ public class AdminRESTfulService {
         newProjectConfiguration.setProjectDescription( description );
         newProjectConfiguration.setProjectReviewPrefix( reviewPrefix );
 
-        configurationRepository.addScmProjectConfiguration( newProjectConfiguration );
-
-        // actually we want to return the new project data, that we can then provide more configurations.
-        // TODO: we want to provide the additional configurations after adding this project.
+        if (isValidProjectConfiguration( newProjectConfiguration )) {
+            // actually we want to return the new project data, that we can then provide more configurations.
+            // TODO: we want to provide the additional configurations after adding this project.
+            configurationRepository.addScmProjectConfiguration( newProjectConfiguration );
+            Gson gson = new Gson();
+            return gson.toJson( newProjectConfiguration );
+        }
 
         return "{}";
+    }
+
+    private boolean isValidProjectConfiguration( FSqrScmProjectConfiguration newProjectConfiguration ) {
+        return newProjectConfiguration != null;
     }
 }
