@@ -25,7 +25,9 @@
  */
 package de.mindscan.futuresqr.devbackend.httpserver;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -81,6 +83,23 @@ public class AdminRESTfulService {
             return gson.toJson( outputModel );
         }
 
+        return "{}";
+    }
+
+    @javax.ws.rs.Path( "/project/{projectid}/configuration" )
+    @GET
+    @Produces( MediaType.APPLICATION_JSON )
+    public String getProjectConfiguration( @PathParam( "projectid" ) String projectId ) {
+        FSqrScmProjectConfigurationRepositoryImpl configurationRepository = FSqrApplication.getInstance().getServices().getConfigurationRepository();
+
+        FSqrScmProjectConfiguration projectConfiguration = configurationRepository.getProjectConfiguration( projectId );
+
+        if (projectConfiguration != null) {
+            OutputAdminScmProjectConfigurationModel outputModel = new OutputAdminScmProjectConfigurationModel( projectConfiguration );
+
+            Gson gson = new Gson();
+            return gson.toJson( outputModel );
+        }
         return "{}";
     }
 
