@@ -73,4 +73,10 @@ export class AdminDataQueryBackendService {
 		
 		return this.httpClient.post<AdminBackendScmProjectConfiguration>(restURL, formdata).pipe(first());
 	}
+	
+	public getProjectConfiguration( projectid:string ):Observable<AdminBackendScmProjectConfiguration> {
+		let restURL = `/FutureSQR/rest/admin/project/${projectid}/configuration`;
+		
+		return this.httpClient.get<AdminBackendScmProjectConfiguration>(restURL).pipe(first());
+	} 
 }
