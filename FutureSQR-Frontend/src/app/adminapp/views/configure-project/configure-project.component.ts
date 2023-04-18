@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup,  Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 // Admin App Services
@@ -16,17 +17,27 @@ import { AdminBackendScmProjectConfiguration } from '../../backend/model/admin-b
 })
 export class ConfigureProjectComponent implements OnInit {
 	
+	public changeForm: FormGroup;
 	public activeProjectID : string = '';
-	public activeProjectConfiguration : AdminBackendScmProjectConfiguration = new AdminBackendScmProjectConfiguration(); 
+	public activeProjectConfiguration : AdminBackendScmProjectConfiguration = new AdminBackendScmProjectConfiguration();
+	
+	public loading = false;	
+	public submitted = false;
+	 
 
 	constructor(
 		private adminNavigationBarService : AdminNavigationBarService,
 		private adminDataQueryBackend : AdminDataQueryBackendService,
+		private formBuilder : FormBuilder,
 		private route: ActivatedRoute, 
 		private router: Router
 	) { }
 
 	ngOnInit(): void {
+		this.changeForm = this.formBuilder.group({
+			
+		});
+		
 		this.activeProjectID = this.route.snapshot.paramMap.get('projectid');
 		
 		this.adminDataQueryBackend.getProjectConfiguration(this.activeProjectID).subscribe(
@@ -51,5 +62,13 @@ export class ConfigureProjectComponent implements OnInit {
 		 
 		this.adminNavigationBarService.setAdminBreadCrumbNavigation(x);
 	}
+	
+	public onSubmit(): void {
+		
+	}
+
+
+	// accessor for the form.
+	get f() { return this.changeForm.controls; }
 
 }
