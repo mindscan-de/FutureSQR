@@ -26,9 +26,24 @@
 						</div>
 					</div>
 
+					<p>TODO: provide editable details of this project from admin perspective.</p>
+
+					<div class="form-group">
+					    <label for="scmProjectType">Project Repository Type</label>
+					    <select formControlName="scmProjectType" class="form-control" value="{{activeProjectConfiguration.scmProjectType}}">
+					      <option value="none">none</option>
+					      <option value="git">git</option>
+					      <option value="svn">svn</option>
+					      <!-- TODO:csv? -->
+					      <!-- TODO:hg? -->
+					      <!-- TODO:p4/perforce? -->
+					    </select>
+					</div>
+
+					<!-- tabs for git / svn / etc. -->
+					  
 					<!-- TODO save button. -->					
 				</form>
-				provide editable details of this project from admin perspective.
 			</div>
 			<div class="card-body">
 				maybe we also want to provide some last/latest activities of the project.

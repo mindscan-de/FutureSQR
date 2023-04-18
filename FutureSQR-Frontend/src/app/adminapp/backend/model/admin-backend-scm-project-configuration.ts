@@ -6,6 +6,6 @@ export class AdminBackendScmProjectConfiguration {
 	public projectId: string = "";
 	public projectReviewPrefix: string = "";
 	public projectUuid: string = "";
-	public scmProjectType: string = "";
+	public scmProjectType: string = "none";
 	
 }
