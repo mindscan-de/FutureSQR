@@ -1,5 +1,6 @@
 export class AdminBackendScmProjectConfiguration {
 
+	// TODO: project URL
 	public projectDisplayName: string = "";
 	public projectDescription: string = "";
 	public projectId: string = "";

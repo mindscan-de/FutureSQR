@@ -6,6 +6,28 @@
 				Edit
 			</div>
 			<div class="card-body">
+			
+				<!-- TODO: editform -->
+				<form [formGroup]="changeForm" (ngSubmit)="onSubmit()">
+					<div class="form-group">
+						<label for="scmRepositoryURL">Repository URL</label>
+						<input type="text" formControlName="scmRepositoryURL" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.scmRepositoryURL.errors}" value="TODO: URL"/>
+						<div *ngIf="submitted && f.scmRepositoryURL.errors" class="invalid-feedback">
+							<div *ngIf="f.scmRepositoryURL.errors.required">Please provide a repository URL.</div>
+						</div>
+					</div>
+					
+					
+					<div class="form-group">
+						<label for="scmProjectDescription">Project description</label>
+						<textarea formControlName="scmProjectDescription" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.scmProjectDescription.errors}" rows="3">{{activeProjectConfiguration.projectDescription}}</textarea>
+						<div *ngIf="submitted && f.scmProjectDescription.errors" class="invalid-feedback">
+							<!-- TODO: add some error classes and descriptions here. -->
+						</div>
+					</div>
+
+					<!-- TODO save button. -->					
+				</form>
 				provide editable details of this project from admin perspective.
 			</div>
 			<div class="card-body">
