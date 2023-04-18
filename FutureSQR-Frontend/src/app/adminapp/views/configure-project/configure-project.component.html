@@ -10,7 +10,7 @@
 				<!-- TODO: editform -->
 				<form [formGroup]="changeForm" (ngSubmit)="onSubmit()">
 					<div class="form-group">
-						<label for="scmRepositoryURL">Repository URL</label>
+						<label for="scmRepositoryURL">Repository / Project URL</label>
 						<input type="text" formControlName="scmRepositoryURL" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.scmRepositoryURL.errors}" value="TODO: URL"/>
 						<div *ngIf="submitted && f.scmRepositoryURL.errors" class="invalid-feedback">
 							<div *ngIf="f.scmRepositoryURL.errors.required">Please provide a repository URL.</div>
