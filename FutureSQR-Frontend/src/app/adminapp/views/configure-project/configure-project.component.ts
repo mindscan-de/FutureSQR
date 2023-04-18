@@ -5,6 +5,9 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { AdminNavigationBarService }  from '../../services/admin-navigation-bar.service';
 import { AdminNavbarBreadcrumbItem } from '../../services/model/admin-navbar-breadcrumb-item';
 
+// Backend Service
+import { AdminDataQueryBackendService } from '../../backend/services/admin-data-query-backend.service';
+import { AdminBackendScmProjectConfiguration } from '../../backend/model/admin-backend-scm-project-configuration';
 
 @Component({
   selector: 'app-configure-project',
@@ -13,10 +16,12 @@ import { AdminNavbarBreadcrumbItem } from '../../services/model/admin-navbar-bre
 })
 export class ConfigureProjectComponent implements OnInit {
 	
-	public activeProjectID: string = '';
+	public activeProjectID : string = '';
+	public activeProjectConfiguration : AdminBackendScmProjectConfiguration = new AdminBackendScmProjectConfiguration(); 
 
 	constructor(
 		private adminNavigationBarService : AdminNavigationBarService,
+		private adminDataQueryBackend : AdminDataQueryBackendService,
 		private route: ActivatedRoute, 
 		private router: Router
 	) { }
@@ -24,7 +29,18 @@ export class ConfigureProjectComponent implements OnInit {
 	ngOnInit(): void {
 		this.activeProjectID = this.route.snapshot.paramMap.get('projectid');
 		
+		this.adminDataQueryBackend.getProjectConfiguration(this.activeProjectID).subscribe(
+			data => { 
+				this.onConfigurationProvided(data);
+			},
+			error => {}
+		);
+		
 		this.updateNavigationBar();
+	}
+	
+	private onConfigurationProvided( configration : AdminBackendScmProjectConfiguration ) : void {
+		this.activeProjectConfiguration = configration;
 	}
 
 	updateNavigationBar() : void {
