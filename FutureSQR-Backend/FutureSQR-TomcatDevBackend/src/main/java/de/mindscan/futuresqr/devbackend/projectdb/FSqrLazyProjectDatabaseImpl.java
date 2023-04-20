@@ -108,8 +108,7 @@ public class FSqrLazyProjectDatabaseImpl {
                 FSqrLazyProjectAdministrationEntry adminentry = projectEntry.administration;
                 if (adminentry.hasLocalPath()) {
                     if ("svn".equals( adminentry.scmBackend )) {
-                        // 
-                        // scmProjectConfig.addSvnConfiguration();
+                        scmProjectConfig.addSvnConfiguration( null );
                     }
                     else {
                         FSqrScmProjectGitAdminConfiguration gitAdminConfig = new FSqrScmProjectGitAdminConfiguration();

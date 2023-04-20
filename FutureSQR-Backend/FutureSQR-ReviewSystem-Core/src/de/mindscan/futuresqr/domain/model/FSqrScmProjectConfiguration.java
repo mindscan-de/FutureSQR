@@ -155,6 +155,11 @@ public class FSqrScmProjectConfiguration {
         this.scmGitAdminConfiguration = gitAdminConfig;
     }
 
+    public void addSvnConfiguration( FSqrScmProjectSvnAdminConfiguration svnAdminConfig ) {
+        this.scmProjectType = FSqrScmProjectType.svn;
+        // TODO: set scmSvnAdminConfiguration = svnAdminConfig;
+    }
+
     public FSqrScmProjectGitAdminConfiguration getScmGitAdminConfiguration() {
         return scmGitAdminConfiguration;
     }
@@ -170,4 +175,5 @@ public class FSqrScmProjectConfiguration {
     public List<String> getBranches() {
         return new ArrayList<>( branches );
     }
+
 }
