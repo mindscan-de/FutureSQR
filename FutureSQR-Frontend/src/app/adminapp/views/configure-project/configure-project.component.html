@@ -40,10 +40,48 @@
 					    </select>
 					</div>
 
-					<!-- tabs for git / svn / etc. -->
-					  
-					<!-- TODO save button. -->					
+					<button class="btn btn-primary" type="submit">save</button>
+										
 				</form>
+			</div>
+			
+			<!-- tabs for git / svn / etc. -->
+			<div class="card-body">
+				<!-- tabs for git / svn / etc.for some effing this doesn't work right now. But i don't care enough right now i guess. -->
+				<ul class="nav nav-tabs" id="scmTab" role="tablist">
+					<li class="nav-item" role="presentation">
+						<button class="nav-link active" id="git-tab" data-bs-toggle="tab" data-bs-target="#git" type="button" role="tab" aria-controls="git" aria-selected="true">git</button>
+					</li>
+					<li class="nav-item" role="presentation">
+						<button class="nav-link" id="svn-tab" data-bs-toggle="tab" data-bs-target="#svn" type="button" role="tab" aria-controls="svn" aria-selected="false">svn</button>
+					</li>
+<!-- 					<li class="nav-item" role="presentation">
+							<button class="nav-link" id="csv-tab" data-bs-toggle="tab" data-bs-target="#csv" type="button" role="tab" aria-controls="csv" aria-selected="false" aria-disabled="true">csv</button>						
+						</li>
+						<li class="nav-item" role="presentation">
+							<button class="nav-link" id="hg-tab" data-bs-toggle="tab" data-bs-target="#hg" type="button" role="tab" aria-controls="hg" aria-selected="false" aria-disabled="true">hg</button>
+						</li>
+ -->					
+				</ul>
+				<div class="tab-content" id="scmTabContent">
+					<div class="tab-pane fade show active" id="git" role="tabpanel" aria-labelledby="git-tab">
+						<div class="card list-group-flush" style="border-top:none;">
+							<div class="card-body">
+								GIT CONTENT for some reason tab selection doesn't works now, anyhow i digress...
+							</div>
+						</div>								
+					</div>
+					<div class="tab-pane fade" id="svn" role="tabpanel" aria-labelledby="svn-tab">
+						<div class="card list-group-flush" style="border-top:none;">
+							<div class="card-body">
+								SVN CONTENT for some reason tab selection doesn't works now, anyhow i digress...
+							</div>
+						</div>								
+					</div>
+					<div class="tab-pane fade" id="csv" role="tabpanel" aria-labelledby="csv-tab">CSV CONTENT</div>
+					<div class="tab-pane fade" id="hg" role="tabpanel" aria-labelledby="hg-tab">HG CONTENT</div>
+				</div>
+				
 			</div>
 			<div class="card-body">
 				maybe we also want to provide some last/latest activities of the project.
