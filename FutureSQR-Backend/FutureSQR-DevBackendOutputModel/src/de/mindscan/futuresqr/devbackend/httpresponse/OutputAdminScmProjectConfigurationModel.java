@@ -39,6 +39,9 @@ public class OutputAdminScmProjectConfigurationModel {
     public String projectUuid = "";
     public String scmProjectType = "";
 
+    // TODO: git configuration - but will still be useless...
+    // TODO: svn configuration - but will still be useless...
+
     public OutputAdminScmProjectConfigurationModel( FSqrScmProjectConfiguration projectConfiguration ) {
         this.projectDescription = projectConfiguration.getProjectDescription();
         this.projectDisplayName = projectConfiguration.getProjectDisplayName();
