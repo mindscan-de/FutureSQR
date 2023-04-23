@@ -71,4 +71,9 @@ public interface FSqrScmProjectRevisionRepository {
 
     FSqrScmHistory getRecentRevisionHistory( String projectId );
 
+    // TODO: get most recent revision known to repository. - we would need this feature for a crawler.
+    // TODO: when working with crawlers, we have to consider threading issues and locking issues as well.
+    // TODO: maybe we should not use the project revision repositoy for wite to database interactions at 
+    //       all.
+
 }
