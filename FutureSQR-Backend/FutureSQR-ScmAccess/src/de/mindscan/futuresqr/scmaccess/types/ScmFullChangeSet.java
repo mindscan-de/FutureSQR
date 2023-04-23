@@ -28,7 +28,8 @@ package de.mindscan.futuresqr.scmaccess.types;
 import java.util.ArrayList;
 
 /**
- * 
+ * TODO: add basic revision info here, which contains author, date, message etc
+ *       instead of duplicating this information.
  */
 public class ScmFullChangeSet {
 
