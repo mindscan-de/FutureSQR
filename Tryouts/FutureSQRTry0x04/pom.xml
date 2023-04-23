@@ -10,9 +10,29 @@
   </properties>  
 
 	<dependencies>
-	
-	
-	</dependencies>
+		<dependency>
+		    <groupId>com.datastax.cassandra</groupId>
+		    <artifactId>cassandra-driver-core</artifactId>
+		    <version>3.11.3</version>
+		</dependency>
+
+		<!--  TODO later.. we will start with version 3 because tutorials are available
+		
+<dependency>
+    <groupId>com.datastax.oss</groupId>
+    <artifactId>java-driver-core</artifactId>
+    <version>4.15.0</version>
+</dependency>		
+		
+		 -->
+
+		<!-- TODO for unit tests? -->		
+<!-- 		<dependency>
+		    <groupId>org.cassandraunit</groupId>
+		    <artifactId>cassandra-unit</artifactId>
+		    <version>3.0.0.1</version>
+		</dependency>  -->	
+ 	</dependencies>
   
   <build>
     <sourceDirectory>src</sourceDirectory>
