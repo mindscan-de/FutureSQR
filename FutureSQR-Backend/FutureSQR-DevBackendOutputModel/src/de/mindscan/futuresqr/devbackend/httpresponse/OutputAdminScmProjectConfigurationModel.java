@@ -32,6 +32,10 @@ import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
  */
 public class OutputAdminScmProjectConfigurationModel {
 
+    // TODO: rework this type, to accomodate for 'svn' and 'git' branches and urls either for branches etc.
+    //     : this is not yet useful enough / will work this out later, when the database stuff is implemented
+    //     : and when we need a svn and git crawler.
+
     public String projectDisplayName = "";
     public String projectDescription = "";
     public String projectId = "";
