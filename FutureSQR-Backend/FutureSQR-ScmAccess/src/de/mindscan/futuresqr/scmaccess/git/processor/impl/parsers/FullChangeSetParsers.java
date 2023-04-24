@@ -35,10 +35,12 @@ public class FullChangeSetParsers {
     private static final String GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER = "commit ";
     private static final String GIT_DIFF_NEWCOMMIT_AUTHOR_LINE_IDENTIFIER = "Author: ";
     private static final String GIT_DIFF_NEWCOMMIT_DATE_LINE_IDENTIFIER = "Date: ";
+    private static final int GIT_SHORT_REVISION_LENGTH = 7;
 
     public static void parseCommitRevisionLineToFullChangeSet( String commitRevisionIdLine, ScmFullChangeSet scmFullChangeSet ) {
         if (commitRevisionIdLine.startsWith( GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER )) {
             scmFullChangeSet.revisionId = commitRevisionIdLine.substring( GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER.length() );
+            scmFullChangeSet.shortRevisionId = scmFullChangeSet.revisionId.substring( 0, GIT_SHORT_REVISION_LENGTH );
         }
     }
 
