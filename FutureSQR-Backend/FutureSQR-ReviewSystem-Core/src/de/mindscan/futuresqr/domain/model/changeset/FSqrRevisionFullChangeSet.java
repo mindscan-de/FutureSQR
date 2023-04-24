@@ -37,6 +37,7 @@ import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
 public class FSqrRevisionFullChangeSet {
 
     private String revisionId = "";
+    private String shortRevisionId = "";
     private List<FSqrFileChangeSet> fileChangeSet = new ArrayList<>();
 
     private String commitMessageDetails;
@@ -52,6 +53,7 @@ public class FSqrRevisionFullChangeSet {
 
     public FSqrRevisionFullChangeSet( ScmFullChangeSet scmFullChangeSet ) {
         this.revisionId = scmFullChangeSet.revisionId;
+        this.shortRevisionId = scmFullChangeSet.shortRevisionId;
         this.commitMessageDetails = scmFullChangeSet.revisionCommitMessageDetails;
         this.commitMessageFull = scmFullChangeSet.revisionCommitMessageFull;
         this.commitMessageHead = scmFullChangeSet.revisionCommitMessageHead;
@@ -69,6 +71,10 @@ public class FSqrRevisionFullChangeSet {
 
     public String getRevisionId() {
         return revisionId;
+    }
+
+    public String getShortRevisionId() {
+        return shortRevisionId;
     }
 
     public String getCommitMessageDetails() {
@@ -93,5 +99,9 @@ public class FSqrRevisionFullChangeSet {
 
     public void setRevisionId( String revisionId ) {
         this.revisionId = revisionId;
+    }
+
+    public void setShortRevisionId( String shortRevisionId ) {
+        this.shortRevisionId = shortRevisionId;
     }
 }
