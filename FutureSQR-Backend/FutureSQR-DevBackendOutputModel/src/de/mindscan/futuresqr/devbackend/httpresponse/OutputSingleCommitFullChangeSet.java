@@ -38,6 +38,7 @@ public class OutputSingleCommitFullChangeSet {
     public List<OutputSingleCommitFileChangeSet> fileChangeSet = new ArrayList<>();
     public String revisionId = "";
     public String shortRevisionId = "";
+    public String date = "";
 
     public OutputSingleCommitFullChangeSet() {
         // intentionally left blank
@@ -46,6 +47,7 @@ public class OutputSingleCommitFullChangeSet {
     public OutputSingleCommitFullChangeSet( FSqrRevisionFullChangeSet fullChangeSet ) {
         this.revisionId = fullChangeSet.getRevisionId();
         this.shortRevisionId = fullChangeSet.getShortRevisionId();
+        this.date = fullChangeSet.getDate();
 
         fullChangeSet.getFileChangeSet().stream().forEach( x -> fileChangeSet.add( new OutputSingleCommitFileChangeSet( x ) ) );
     }
