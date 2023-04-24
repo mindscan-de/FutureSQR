@@ -35,7 +35,7 @@ public class FullChangeSetParsers {
     private static final String GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER = "commit ";
     private static final String GIT_DIFF_NEWCOMMIT_AUTHOR_LINE_IDENTIFIER = "Author: ";
     private static final String GIT_DIFF_NEWCOMMIT_DATE_LINE_IDENTIFIER = "Date: ";
-    private static final int GIT_SHORT_REVISION_LENGTH = 7;
+    private static final int GIT_SHORT_REVISION_LENGTH = 8;
 
     public static void parseCommitRevisionLineToFullChangeSet( String commitRevisionIdLine, ScmFullChangeSet scmFullChangeSet ) {
         if (commitRevisionIdLine.startsWith( GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER )) {
@@ -54,7 +54,9 @@ public class FullChangeSetParsers {
     public static void parseCommitDateToFullChangeSet( String commitDateLine, ScmFullChangeSet scmFullChangeSet ) {
         System.out.println( "Dateline: '" + commitDateLine + "'" );
         if (commitDateLine.startsWith( GIT_DIFF_NEWCOMMIT_DATE_LINE_IDENTIFIER )) {
-
+            scmFullChangeSet.date = commitDateLine.substring( GIT_DIFF_NEWCOMMIT_DATE_LINE_IDENTIFIER.length() ).trim();
+            // TODO: shortDate
+            // TODO: relDate
         }
     }
 

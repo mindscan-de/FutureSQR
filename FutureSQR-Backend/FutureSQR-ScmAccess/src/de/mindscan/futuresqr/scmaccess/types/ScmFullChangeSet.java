@@ -40,7 +40,8 @@ public class ScmFullChangeSet {
 
     // TODO: author email
 
-    // TODO: Date?
+    public String date;
+    // TODO: shortdate and reldate, which are not part of this view.... from git...
 
     // TODO: branch name?
 
