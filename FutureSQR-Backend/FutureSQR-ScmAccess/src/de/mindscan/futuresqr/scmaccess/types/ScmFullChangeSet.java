@@ -34,6 +34,7 @@ import java.util.ArrayList;
 public class ScmFullChangeSet {
 
     public String revisionId;
+    public String shortRevisionId;
 
     // TODO: authorName / AuthorId / AuthorEmail
 
