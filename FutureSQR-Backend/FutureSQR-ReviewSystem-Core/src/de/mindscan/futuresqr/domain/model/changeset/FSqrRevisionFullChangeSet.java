@@ -38,6 +38,9 @@ public class FSqrRevisionFullChangeSet {
 
     private String revisionId = "";
     private String shortRevisionId = "";
+
+    private String date = "";
+
     private List<FSqrFileChangeSet> fileChangeSet = new ArrayList<>();
 
     private String commitMessageDetails;
@@ -54,6 +57,7 @@ public class FSqrRevisionFullChangeSet {
     public FSqrRevisionFullChangeSet( ScmFullChangeSet scmFullChangeSet ) {
         this.revisionId = scmFullChangeSet.revisionId;
         this.shortRevisionId = scmFullChangeSet.shortRevisionId;
+        this.date = scmFullChangeSet.date;
         this.commitMessageDetails = scmFullChangeSet.revisionCommitMessageDetails;
         this.commitMessageFull = scmFullChangeSet.revisionCommitMessageFull;
         this.commitMessageHead = scmFullChangeSet.revisionCommitMessageHead;
@@ -75,6 +79,10 @@ public class FSqrRevisionFullChangeSet {
 
     public String getShortRevisionId() {
         return shortRevisionId;
+    }
+
+    public String getDate() {
+        return date;
     }
 
     public String getCommitMessageDetails() {
@@ -103,5 +111,9 @@ public class FSqrRevisionFullChangeSet {
 
     public void setShortRevisionId( String shortRevisionId ) {
         this.shortRevisionId = shortRevisionId;
+    }
+
+    public void setDate( String date ) {
+        this.date = date;
     }
 }
