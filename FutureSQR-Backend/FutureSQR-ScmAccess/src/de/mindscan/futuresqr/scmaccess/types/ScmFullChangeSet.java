@@ -33,6 +33,7 @@ import java.util.ArrayList;
  */
 public class ScmFullChangeSet {
 
+    // TODO: actually this can be used as a query key to look up the basic revision info from the right table.
     public String revisionId;
     public String shortRevisionId;
 
