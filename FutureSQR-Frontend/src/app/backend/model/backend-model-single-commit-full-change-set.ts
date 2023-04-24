@@ -5,6 +5,7 @@ export class BackendModelSingleCommitFullChangeSet {
 	// * commiter, date, message etc.
 	
 	public revisionId: string = "";
+	public shortRevisionId: string = "";
 	
 	// contains an array with every changed file and their particular changes
 	public fileChangeSet: BackendModelSingleCommitFileChangeSet[] = [];
