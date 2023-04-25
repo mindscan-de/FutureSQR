@@ -52,7 +52,7 @@ public class FullChangeSetParsers {
     }
 
     public static void parseCommitDateToFullChangeSet( String commitDateLine, ScmFullChangeSet scmFullChangeSet ) {
-        System.out.println( "Dateline: '" + commitDateLine + "'" );
+        // System.out.println( "Dateline: '" + commitDateLine + "'" );
         if (commitDateLine.startsWith( GIT_DIFF_NEWCOMMIT_DATE_LINE_IDENTIFIER )) {
             scmFullChangeSet.date = commitDateLine.substring( GIT_DIFF_NEWCOMMIT_DATE_LINE_IDENTIFIER.length() ).trim();
             // TODO: shortDate
