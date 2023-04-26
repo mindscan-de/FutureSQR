@@ -250,9 +250,8 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
         }
 
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_BINARY_FILES_IDENTIFIER )) {
-            // TODO: parse and consume this info and add info to current file change set.            
-            currentFileChangeSet.isBinaryFile = true;
-            currentFileChangeSet.binary_file_info_line = lineLexer.consumeCurrentLine();
+            String binaryFileInfoLine = lineLexer.consumeCurrentLine();
+            FileChangeSetParsers.parseBinaryFileInfoLine( binaryFileInfoLine, currentFileChangeSet );
         }
 
         // ----------------------------

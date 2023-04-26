@@ -112,4 +112,10 @@ public class FileChangeSetParsers {
         }
     }
 
+    public static void parseBinaryFileInfoLine( String binaryFileInfoLine, ScmFileChangeSet currentFileChangeSet ) {
+        // TODO: parse and consume this info and add info to current file change set.        
+        currentFileChangeSet.isBinaryFile = true;
+        currentFileChangeSet.binary_file_info_line = binaryFileInfoLine;
+    }
+
 }
