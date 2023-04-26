@@ -88,6 +88,15 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
         // TODO: analyze the standard changesets, UTF_8 ...
         // TODO: Actually each file can have it's own encoding, such that we must provide a scanner with different charset modes
         // this needs to be fixed longer term.
+
+        // links on this page are outdated but provides a good overview. http://www.i18nguy.com/unicode/codepages.html
+        //-
+        // byte to unicode tables e.g. for windows codepages
+        // https://www.unicode.org/Public/MAPPINGS/VENDORS/MICSFT/WINDOWS/
+        // ....
+        // http://www.unicode.org/Public/MAPPINGS/VENDORS/MICSFT/WINDOWS/CP1251.TXT
+        // http://www.unicode.org/Public/MAPPINGS/VENDORS/MICSFT/WINDOWS/CP1252.TXT
+        // ....
         List<ScmFullChangeSet> resultList = parseFullChangeSetList( new String( output.getProcessOutput(), StandardCharsets.UTF_8 ) );
 
         return resultList;
