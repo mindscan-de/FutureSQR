@@ -36,4 +36,8 @@ public class ScmFileContent {
     public String fileRevisionId;
 
     public String fileContent;
+
+    // TODO: maybe we want to classify the charset of the originating file.
+    // public String detectedCharset
+
 }
