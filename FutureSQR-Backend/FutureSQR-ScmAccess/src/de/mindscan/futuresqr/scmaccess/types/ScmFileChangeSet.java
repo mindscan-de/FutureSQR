@@ -51,6 +51,9 @@ public class ScmFileChangeSet {
     // -----------------------------
     public String binary_file_info_line = "";
 
+    // TODO: maybe we want to classify the charset of the originating file.
+    // public String detectedCharset
+
     // ---------------------
     // TODO parsed FILE INFO
     // ---------------------
