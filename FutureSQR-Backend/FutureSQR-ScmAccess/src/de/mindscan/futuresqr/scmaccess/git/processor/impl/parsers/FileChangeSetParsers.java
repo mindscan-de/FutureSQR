@@ -93,6 +93,10 @@ public class FileChangeSetParsers {
             // TODO: parse and consume this info and add info to current file change set.
             String leftFilePath = leftFilePathLine.substring( GIT_DIFF_LEFT_FILEPATH_IDENTIFIER.length() ).trim();
             System.out.println( "Left Filepath: " + leftFilePath );
+
+            if (!leftFilePath.equals( currentFileChangeSet.scmFromPath )) {
+                System.out.println( "XXX Differs from scmFromPath: " + currentFileChangeSet.scmFromPath );
+            }
         }
     }
 
@@ -101,6 +105,10 @@ public class FileChangeSetParsers {
             // TODO: parse and consume this info and add info to current file change set.
             String rightFilePath = rightFilePathLine.substring( GIT_DIFF_RIGHT_FILEPATH_IDENTIFIER.length() ).trim();
             System.out.println( "Right Filepath: " + rightFilePath );
+
+            if (!rightFilePath.equals( currentFileChangeSet.scmToPath )) {
+                System.out.println( "XXX Differs from scmToPath: " + currentFileChangeSet.scmToPath );
+            }
         }
     }
 
