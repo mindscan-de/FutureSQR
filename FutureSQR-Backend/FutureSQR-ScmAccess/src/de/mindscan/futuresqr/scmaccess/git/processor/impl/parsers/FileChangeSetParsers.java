@@ -89,11 +89,19 @@ public class FileChangeSetParsers {
     }
 
     public static void parseLeftFilePath( String leftFilePathLine, ScmFileChangeSet currentFileChangeSet ) {
-        // TODO: parse and consume this info and add info to current file change set.
+        if (leftFilePathLine.startsWith( GIT_DIFF_LEFT_FILEPATH_IDENTIFIER )) {
+            // TODO: parse and consume this info and add info to current file change set.
+            String leftFilePath = leftFilePathLine.substring( GIT_DIFF_LEFT_FILEPATH_IDENTIFIER.length() ).trim();
+            System.out.println( "Left Filepath: " + leftFilePath );
+        }
     }
 
     public static void parseRightFilePath( String rightFilePathLine, ScmFileChangeSet currentFileChangeSet ) {
-        // TODO: parse and consume this info and add info to current file change set.
+        if (rightFilePathLine.startsWith( GIT_DIFF_RIGHT_FILEPATH_IDENTIFIER )) {
+            // TODO: parse and consume this info and add info to current file change set.
+            String rightFilePath = rightFilePathLine.substring( GIT_DIFF_RIGHT_FILEPATH_IDENTIFIER.length() ).trim();
+            System.out.println( "Right Filepath: " + rightFilePath );
+        }
     }
 
 }
