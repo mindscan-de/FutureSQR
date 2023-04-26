@@ -38,6 +38,9 @@ public class FileChangeSetParsers {
     private static final String GIT_DIFF_NEW_FILE_MODE = "new file mode ";
     private static final String GIT_DIFF_RENAME_SIMILARITY_INDEX = "similarity index ";
 
+    private static final String GIT_DIFF_LEFT_FILEPATH_IDENTIFIER = "---";
+    private static final String GIT_DIFF_RIGHT_FILEPATH_IDENTIFIER = "+++";
+
     public static void parseGitDiffLineToFileChangeSet( String currentGitDiffLine, ScmFileChangeSet currentFileChangeSet ) {
 
         if (!currentGitDiffLine.startsWith( GIT_DIFF_FILENAMEINFO_IDENTIFIER )) {
@@ -83,6 +86,14 @@ public class FileChangeSetParsers {
         catch (Exception ex) {
             currentFileChangeSet.renameSimilarity = 100;
         }
+    }
+
+    public static void parseLeftFilePath( String leftFilePathLine, ScmFileChangeSet currentFileChangeSet ) {
+        // TODO: parse and consume this info and add info to current file change set.
+    }
+
+    public static void parseRightFilePath( String rightFilePathLine, ScmFileChangeSet currentFileChangeSet ) {
+        // TODO: parse and consume this info and add info to current file change set.
     }
 
 }

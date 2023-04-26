@@ -259,13 +259,13 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
         // left and right file path
         // ----------------------------
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_LEFT_FILEPATH_IDENTIFIER )) {
-            // TODO: parse and consume this info and add info to current file change set.
-            lineLexer.consumeCurrentLine();
+            String leftFilePathLine = lineLexer.consumeCurrentLine();
+            FileChangeSetParsers.parseLeftFilePath( leftFilePathLine, currentFileChangeSet );
         }
 
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_RIGHT_FILEPATH_IDENTIFIER )) {
-            // TODO: parse and consume this info and add info to current file change set.
-            lineLexer.consumeCurrentLine();
+            String rightFilePathLine = lineLexer.consumeCurrentLine();
+            FileChangeSetParsers.parseRightFilePath( rightFilePathLine, currentFileChangeSet );
         }
 
         if (!lineLexer.hasNextLine()) {
