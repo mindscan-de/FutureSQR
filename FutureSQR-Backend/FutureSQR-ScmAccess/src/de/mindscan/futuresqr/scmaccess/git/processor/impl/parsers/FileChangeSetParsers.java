@@ -95,7 +95,7 @@ public class FileChangeSetParsers {
             System.out.println( "Left Filepath: " + leftFilePath );
 
             if (!leftFilePath.equals( currentFileChangeSet.scmFromPath )) {
-                System.out.println( "XXX Differs from scmFromPath: " + currentFileChangeSet.scmFromPath );
+                System.out.println( "XXX: Differs from scmFromPath: " + currentFileChangeSet.scmFromPath );
             }
         }
     }
@@ -107,7 +107,7 @@ public class FileChangeSetParsers {
             System.out.println( "Right Filepath: " + rightFilePath );
 
             if (!rightFilePath.equals( currentFileChangeSet.scmToPath )) {
-                System.out.println( "XXX Differs from scmToPath: " + currentFileChangeSet.scmToPath );
+                System.out.println( "XXX: Differs from scmToPath: " + currentFileChangeSet.scmToPath );
             }
         }
     }
@@ -116,6 +116,7 @@ public class FileChangeSetParsers {
         // TODO: parse and consume this info and add info to current file change set.        
         currentFileChangeSet.isBinaryFile = true;
         currentFileChangeSet.binary_file_info_line = binaryFileInfoLine;
+        System.out.println( "XXX: binaryFileInfoLine: " + binaryFileInfoLine );
     }
 
 }
