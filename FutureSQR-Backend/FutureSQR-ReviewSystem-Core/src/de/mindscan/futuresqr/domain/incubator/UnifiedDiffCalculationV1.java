@@ -270,6 +270,12 @@ public class UnifiedDiffCalculationV1 {
         return files;
     }
 
+    // TODO basically we have a diff application. And it should be handled as such.
+    // we have a left side and a right side from the previous diff and a left and a right side for the next diff,
+    // so we basically do line number adjustments and line substitutions and can be applied straight forward as
+    // if we patch a file, difference is we just don't know the content of the file, we only know the diffs.
+    // so basically this is a simple diff application mechanism, where we simply don't know every line.
+
     // These are the interesting transitions, but we also need to distinguish, whether, it is a hidden/ignored or 
     // selected revision. Some transitions might be "impossible", but we never know, how "impossible" these are. 
     // A - ADD, M - Modified, R - Renamed/Moved, D-Deleted
