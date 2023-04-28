@@ -53,7 +53,7 @@ public class DiffPatcherAlgorithmV1Test {
     }
 
     @Test
-    public void testIsPatchCollision_leftStartsBeforeRightOneLineOverlap1to5_5to7_IsACollision() throws Exception {
+    public void testIsPatchCollision_leftStartsBeforeRightWithOneLineOverlap1to5_5to7_IsACollision() throws Exception {
         // arrange
         DiffPatcherAlgorithmV1 algorithmV1 = new DiffPatcherAlgorithmV1();
         ScmFileContentChangeSet lscm = new ScmFileContentChangeSet();
