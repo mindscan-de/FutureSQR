@@ -43,7 +43,7 @@ public class DiffPatcherAlgorithmV1 {
 
     public boolean isPatchCollision( FSqrFileContentChangeSet left, FSqrFileContentChangeSet right ) {
         // if left block is completely before right block, they don't collide
-        if ((left.getDiffRightLineCountStart() + left.getDiffRightLineCountDelta()) < right.getDiffLeftLineCountStart()) {
+        if ((left.getDiffRightLineCountStart() - 1 + left.getDiffRightLineCountDelta()) < right.getDiffLeftLineCountStart()) {
             return false;
         }
 
