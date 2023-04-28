@@ -52,4 +52,25 @@ public class DiffPatcherAlgorithmV1Test {
         assertThat( result, equalTo( false ) );
     }
 
+    @Test
+    public void testIsPatchCollision_leftStartsBeforeRightOneLineOverlap1to5_5to7_IsACollision() throws Exception {
+        // arrange
+        DiffPatcherAlgorithmV1 algorithmV1 = new DiffPatcherAlgorithmV1();
+        ScmFileContentChangeSet lscm = new ScmFileContentChangeSet();
+        // left diff on right side 1,2,3,4,5
+        lscm.diffRightLineCountStart = 1;
+        lscm.diffRightLineCountDelta = 5;
+
+        ScmFileContentChangeSet rscm = new ScmFileContentChangeSet();
+        // right diff on left side 5,6,7
+        rscm.diffLeftLineCountStart = 5;
+        rscm.diffLeftLineCountDelta = 3;
+
+        // act
+        boolean result = algorithmV1.isPatchCollision( new FSqrFileContentChangeSet( lscm ), new FSqrFileContentChangeSet( rscm ) );
+
+        // assert
+        assertThat( result, equalTo( true ) );
+    }
+
 }
