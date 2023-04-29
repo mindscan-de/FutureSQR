@@ -35,7 +35,7 @@ import de.mindscan.futuresqr.domain.model.changeset.FSqrFileContentChangeSet;
  */
 public class DiffPatcherAlgorithmV1 {
 
-    // TODO: patch... sort... merge adjacent....
+    // TODO: patch... sort... merge adjacent in case they touch or they are slightly overlayed into one single truth.
 
     // TDD this?
     public List<FSqrFileContentChangeSet> patch( FSqrFileContentChangeSet left, FSqrFileContentChangeSet right ) {
