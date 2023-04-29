@@ -35,20 +35,37 @@ import de.mindscan.futuresqr.domain.model.changeset.FSqrFileContentChangeSet;
  */
 public class DiffPatcherAlgorithmV1 {
 
+    // TODO: patch... sort... merge adjacent....
+
     // TDD this?
     public List<FSqrFileContentChangeSet> patch( FSqrFileContentChangeSet left, FSqrFileContentChangeSet right ) {
         ArrayList<FSqrFileContentChangeSet> result = new ArrayList<>();
 
+        if (!isPatchCollision( left, right )) {
+            // add both to results, according to the order of both ordered by left element by right and right element by left. 
+            // figure out which start values for the line numbers are the truth, and whether we have to patch it.
+
+            return result;
+        }
+
         return result;
     }
 
-    public boolean isPatchCollision( FSqrFileContentChangeSet left, FSqrFileContentChangeSet right ) {
+    /**
+     * This method calculates, whether the left and right block collide, in terms of the join left 
+     * --&gt; ? &lt;-- right.
+     * 
+     * @param leftCCS
+     * @param rightCCS
+     * @return
+     */
+    public boolean isPatchCollision( FSqrFileContentChangeSet leftCCS, FSqrFileContentChangeSet rightCCS ) {
         // if left block is completely before right block, they don't collide
-        if ((left.getDiffRightLineCountStart() - 1 + left.getDiffRightLineCountDelta()) < right.getDiffLeftLineCountStart()) {
+        if ((leftCCS.getDiffRightLineCountStart() - 1 + leftCCS.getDiffRightLineCountDelta()) < rightCCS.getDiffLeftLineCountStart()) {
             return false;
         }
 
-        if ((right.getDiffLeftLineCountStart() - 1 + right.getDiffLeftLineCountDelta()) < left.getDiffRightLineCountStart()) {
+        if ((rightCCS.getDiffLeftLineCountStart() - 1 + rightCCS.getDiffLeftLineCountDelta()) < leftCCS.getDiffRightLineCountStart()) {
             return false;
         }
 
