@@ -73,4 +73,67 @@ public class DiffPatcherAlgorithmV1Test {
         assertThat( result, equalTo( true ) );
     }
 
+    @Test
+    public void testIsPatchCollision_rightBeforeLeft7to9_1to5_IsNotACollision() throws Exception {
+        // arrange
+        DiffPatcherAlgorithmV1 algorithmV1 = new DiffPatcherAlgorithmV1();
+        ScmFileContentChangeSet lscm = new ScmFileContentChangeSet();
+        // left diff on right side 7,8,9
+        lscm.diffRightLineCountStart = 7;
+        lscm.diffRightLineCountDelta = 3;
+
+        ScmFileContentChangeSet rscm = new ScmFileContentChangeSet();
+        // right diff on left side 1,2,3,4,5
+        rscm.diffLeftLineCountStart = 1;
+        rscm.diffLeftLineCountDelta = 5;
+
+        // act
+        boolean result = algorithmV1.isPatchCollision( new FSqrFileContentChangeSet( lscm ), new FSqrFileContentChangeSet( rscm ) );
+
+        // assert
+        assertThat( result, equalTo( false ) );
+    }
+
+    @Test
+    public void testIsPatchCollision_rightBeforeLeft6to8_1to5_IsNotACollision() throws Exception {
+        // arrange
+        DiffPatcherAlgorithmV1 algorithmV1 = new DiffPatcherAlgorithmV1();
+        ScmFileContentChangeSet lscm = new ScmFileContentChangeSet();
+        // left diff on right side 6,7,8
+        lscm.diffRightLineCountStart = 6;
+        lscm.diffRightLineCountDelta = 3;
+
+        ScmFileContentChangeSet rscm = new ScmFileContentChangeSet();
+        // right diff on left side 1,2,3,4,5
+        rscm.diffLeftLineCountStart = 1;
+        rscm.diffLeftLineCountDelta = 5;
+
+        // act
+        boolean result = algorithmV1.isPatchCollision( new FSqrFileContentChangeSet( lscm ), new FSqrFileContentChangeSet( rscm ) );
+
+        // assert
+        assertThat( result, equalTo( false ) );
+    }
+
+    @Test
+    public void testIsPatchCollision_rightBeforeLeftWithOneLineOverlap5to7_1to5_IsACollision() throws Exception {
+        // arrange
+        DiffPatcherAlgorithmV1 algorithmV1 = new DiffPatcherAlgorithmV1();
+        ScmFileContentChangeSet lscm = new ScmFileContentChangeSet();
+        // left diff on right side 5,6,7
+        lscm.diffRightLineCountStart = 5;
+        lscm.diffRightLineCountDelta = 3;
+
+        ScmFileContentChangeSet rscm = new ScmFileContentChangeSet();
+        // right diff on left side 1,2,3,4,5
+        rscm.diffLeftLineCountStart = 1;
+        rscm.diffLeftLineCountDelta = 5;
+
+        // act
+        boolean result = algorithmV1.isPatchCollision( new FSqrFileContentChangeSet( lscm ), new FSqrFileContentChangeSet( rscm ) );
+
+        // assert
+        assertThat( result, equalTo( true ) );
+    }
+
 }

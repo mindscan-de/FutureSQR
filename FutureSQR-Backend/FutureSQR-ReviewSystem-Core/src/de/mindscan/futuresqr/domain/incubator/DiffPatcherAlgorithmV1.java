@@ -47,6 +47,10 @@ public class DiffPatcherAlgorithmV1 {
             return false;
         }
 
+        if ((right.getDiffLeftLineCountStart() - 1 + right.getDiffLeftLineCountDelta()) < left.getDiffRightLineCountStart()) {
+            return false;
+        }
+
         return true;
     }
 }
