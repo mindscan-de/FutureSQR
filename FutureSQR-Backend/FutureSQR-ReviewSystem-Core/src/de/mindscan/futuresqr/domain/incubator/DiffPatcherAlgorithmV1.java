@@ -71,4 +71,12 @@ public class DiffPatcherAlgorithmV1 {
 
         return true;
     }
+
+    // This is only here to understand the machanics of patching a file before we "patch" an incomplete file.
+    public List<String> applyPatchToText( List<String> contentBeforePatch, FSqrFileContentChangeSet changeSet ) {
+        // let's assume we have a complete file.
+        List<String> patchedResult = new ArrayList<>();
+
+        return patchedResult;
+    }
 }
