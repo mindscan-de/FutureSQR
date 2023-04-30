@@ -77,8 +77,18 @@ public class DiffPatcherAlgorithmV1 {
         // let's assume we have a complete file.
         List<String> contentAfterPatch = new ArrayList<>();
 
-        // TODO copy everything before the changeset starts.
+        // copy everything before the changeset starts.
+        if (changeSet.getDiffLeftLineCountStart() > 1) {
+            for (int beforeStartIndex = 0; beforeStartIndex < changeSet.getDiffLeftLineCountStart(); beforeStartIndex++) {
+                contentAfterPatch.add( contentBeforePatch.get( beforeStartIndex ) );
+            }
+        }
+
         // TODO "execute" changeset
+        // test current line for equivalency.
+        // Actually a "-" is a delete operation and a "+" is an add operation
+        // A " " is a copy operation
+
         // TODO copy everything after the changeset ends.
 
         return contentAfterPatch;
