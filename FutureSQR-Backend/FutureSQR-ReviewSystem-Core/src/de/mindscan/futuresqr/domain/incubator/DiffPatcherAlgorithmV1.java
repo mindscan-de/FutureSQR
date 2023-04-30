@@ -73,10 +73,16 @@ public class DiffPatcherAlgorithmV1 {
     }
 
     // This is only here to understand the machanics of patching a file before we "patch" an incomplete file.
-    public List<String> applyPatchToText( List<String> contentBeforePatch, FSqrFileContentChangeSet changeSet ) {
+    public List<String> applyPatchToTextForward( List<String> contentBeforePatch, FSqrFileContentChangeSet changeSet ) {
         // let's assume we have a complete file.
-        List<String> patchedResult = new ArrayList<>();
+        List<String> contentAfterPatch = new ArrayList<>();
 
-        return patchedResult;
+        // TODO copy everything before the changeset starts.
+        // TODO "execute" changeset
+        // TODO copy everything after the changeset ends.
+
+        return contentAfterPatch;
     }
+
+    // 
 }
