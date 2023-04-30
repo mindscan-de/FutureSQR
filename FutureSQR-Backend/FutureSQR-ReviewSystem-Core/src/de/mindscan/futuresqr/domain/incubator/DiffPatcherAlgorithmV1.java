@@ -88,7 +88,7 @@ public class DiffPatcherAlgorithmV1 {
             }
         }
 
-        // TODO "execute" changeset
+        // TODO "execute" - change set
         // test current line for equality "-", " " must and "+" add should not 
         // A " " is a copy operation
         // Actually a "-" is a delete operation and a "+" is an add operation
