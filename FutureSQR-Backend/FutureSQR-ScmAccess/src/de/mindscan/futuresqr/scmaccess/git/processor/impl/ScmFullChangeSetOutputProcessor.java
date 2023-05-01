@@ -203,14 +203,14 @@ public class ScmFullChangeSetOutputProcessor implements GitCLICommandOutputProce
 
         // parse from name / from directory
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_RENAME_FROM )) {
-            // TODO: parse and consume this info and add info to current file change set.
-            currentFileChangeSet.renamed_from = lineLexer.consumeCurrentLine();
+            String renameFromLine = lineLexer.consumeCurrentLine();
+            FileChangeSetParsers.parseRenameFrom( renameFromLine, currentFileChangeSet );
         }
 
         // parse to name / to directory
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_RENAME_TO )) {
-            // TODO: parse and consume this info and add info to current file change set.
-            currentFileChangeSet.renamed_to = lineLexer.consumeCurrentLine();
+            String renameToLine = lineLexer.consumeCurrentLine();
+            FileChangeSetParsers.parseRenameTo( renameToLine, currentFileChangeSet );
         }
 
         // ----------------------------
