@@ -72,8 +72,6 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
     private static final String GIT_DIFF_NEWCOMMIT_FOUR_SAPCE_INDENT = GitOutputParsingConstants.GIT_DIFF_NEWCOMMIT_FOUR_SAPCE_INDENT;
     private static final String GIT_DIFF_EMPTY_LINE = "";
 
-    // TODO NEXT: a new line and a space on the next followed by newline is a newline in the file.
-
     /**
      * 
      */
