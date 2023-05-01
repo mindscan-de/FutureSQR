@@ -131,4 +131,16 @@ public class FileChangeSetParsers {
         System.out.println( "XXX: binaryFileInfoLine: " + binaryFileInfoLine );
     }
 
+    public static void parseRenameTo( String renameToLine, ScmFileChangeSet currentFileChangeSet ) {
+        // TODO: parse and consume this info and add info to current file change set.
+        currentFileChangeSet.renamed_to = renameToLine;
+        System.out.println( "TODO PARSEME: rename_to_line: '" + renameToLine + "'" );
+    }
+
+    public static void parseRenameFrom( String renameFromLine, ScmFileChangeSet currentFileChangeSet ) {
+        // TODO: parse and consume this info and add info to current file change set.
+        currentFileChangeSet.renamed_from = renameFromLine;
+        System.out.println( "TODO PARSEME: rename_from_line: '" + renameFromLine + "'" );
+    }
+
 }
