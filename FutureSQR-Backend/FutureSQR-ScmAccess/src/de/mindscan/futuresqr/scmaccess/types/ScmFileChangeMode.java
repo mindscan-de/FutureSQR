@@ -25,39 +25,16 @@
  */
 package de.mindscan.futuresqr.scmaccess.types;
 
-import java.util.ArrayList;
-
 /**
  * 
  */
-public class ScmFileChangeSet {
-    public String scmFromPath = "";
-    public String scmToPath = "";
+public class ScmFileChangeMode {
 
-    public String fileAction = "";
+    public static final String FILEMODE_UNKNOWN = "";
 
-    public String fileMode = ScmFileChangeMode.FILEMODE_UNKNOWN;
-    public String fileCurrentRevId;
-    public String fileParentRevId;
-
-    public String renamed_from = "";
-    public String renamed_to = "";
-    public int renameSimilarity;
-
-    public boolean isBinaryFile = false;
-
-    // -----------------------------
-    // TODO also process this better
-    // -----------------------------
-    public String binary_file_info_line = "";
-
-    // TODO: maybe we want to classify the charset of the originating file.
-    // public String detectedCharset
-
-    // ---------------------
-    // TODO parsed FILE INFO
-    // ---------------------
-
-    public ArrayList<ScmFileContentChangeSet> fileContentChangeSet = new ArrayList<>();
+    public static final String FILEMODE_ADD = "A";
+    public static final String FILEMODE_DELETE = "D";
+    public static final String FILEMODE_MODIFY = "M";
+    public static final String FILEMODE_RENAME = "R";
 
 }
