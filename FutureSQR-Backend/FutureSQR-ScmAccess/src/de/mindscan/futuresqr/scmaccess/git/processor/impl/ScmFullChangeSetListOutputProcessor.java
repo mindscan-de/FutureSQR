@@ -35,6 +35,7 @@ import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.git.processor.impl.parsers.ContentChangeSetParsers;
 import de.mindscan.futuresqr.scmaccess.git.processor.impl.parsers.FileChangeSetParsers;
 import de.mindscan.futuresqr.scmaccess.git.processor.impl.parsers.FullChangeSetParsers;
+import de.mindscan.futuresqr.scmaccess.git.processor.impl.parsers.GitOutputParsingConstants;
 import de.mindscan.futuresqr.scmaccess.types.ScmDiffLine;
 import de.mindscan.futuresqr.scmaccess.types.ScmDiffLineType;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileChangeSet;
@@ -46,28 +47,28 @@ import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
  */
 public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputProcessor<List<ScmFullChangeSet>> {
 
-    private static final String GIT_DIFF_FILENAMEINFO_IDENTIFIER = "diff --git ";
-    private static final String GIT_DIFF_NEW_FILE_MODE = "new file mode ";
-    private static final String GIT_DIFF_DELETED_FILE_MODE = "deleted file mode";
+    private static final String GIT_DIFF_FILENAMEINFO_IDENTIFIER = GitOutputParsingConstants.GIT_DIFF_FILENAMEINFO_IDENTIFIER;
+    private static final String GIT_DIFF_NEW_FILE_MODE = GitOutputParsingConstants.GIT_DIFF_NEW_FILE_MODE;
+    private static final String GIT_DIFF_DELETED_FILE_MODE = GitOutputParsingConstants.GIT_DIFF_DELETED_FILE_MODE;
 
-    private static final String GIT_DIFF_RENAME_SIMILARITY_INDEX = "similarity index";
-    private static final String GIT_DIFF_RENAME_FROM = "rename from";
-    private static final String GIT_DIFF_RENAME_TO = "rename to";
+    private static final String GIT_DIFF_RENAME_SIMILARITY_INDEX = GitOutputParsingConstants.GIT_DIFF_RENAME_SIMILARITY_INDEX;
+    private static final String GIT_DIFF_RENAME_FROM = GitOutputParsingConstants.GIT_DIFF_RENAME_FROM;
+    private static final String GIT_DIFF_RENAME_TO = GitOutputParsingConstants.GIT_DIFF_RENAME_TO;
 
     private static final String GIT_DIFF_INDEX_IDENTIFIER = "index";
-    private static final String GIT_DIFF_BINARY_FILES_IDENTIFIER = "Binary files";
+    private static final String GIT_DIFF_BINARY_FILES_IDENTIFIER = GitOutputParsingConstants.GIT_DIFF_BINARY_FILES_IDENTIFIER;
 
-    private static final String GIT_DIFF_LEFT_FILEPATH_IDENTIFIER = "---";
-    private static final String GIT_DIFF_RIGHT_FILEPATH_IDENTIFIER = "+++";
+    private static final String GIT_DIFF_LEFT_FILEPATH_IDENTIFIER = GitOutputParsingConstants.GIT_DIFF_LEFT_FILEPATH_IDENTIFIER;
+    private static final String GIT_DIFF_RIGHT_FILEPATH_IDENTIFIER = GitOutputParsingConstants.GIT_DIFF_RIGHT_FILEPATH_IDENTIFIER;
 
     private static final String GIT_DIFF_CONTENT_CHANGESET_IDENTIFIER = "@@ ";
 
-    private static final String GIT_DIFF_NO_NEWLINE_AT_END_OF_FILE_INDICATOR = "\\ No newline at end of file";
+    private static final String GIT_DIFF_NO_NEWLINE_AT_END_OF_FILE_INDICATOR = GitOutputParsingConstants.GIT_DIFF_NO_NEWLINE_AT_END_OF_FILE_INDICATOR;
 
-    private static final String GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER = "commit ";
-    private static final String GIT_DIFF_NEWCOMMIT_AUTHOR_LINE_IDENTIFIER = "Author: ";
-    private static final String GIT_DIFF_NEWCOMMIT_DATE_LINE_IDENTIFIER = "Date: ";
-    private static final String GIT_DIFF_FOUR_SAPCE_INDENT = "    ";
+    private static final String GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER = GitOutputParsingConstants.GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER;
+    private static final String GIT_DIFF_NEWCOMMIT_AUTHOR_LINE_IDENTIFIER = GitOutputParsingConstants.GIT_DIFF_NEWCOMMIT_AUTHOR_LINE_IDENTIFIER;
+    private static final String GIT_DIFF_NEWCOMMIT_DATE_LINE_IDENTIFIER = GitOutputParsingConstants.GIT_DIFF_NEWCOMMIT_DATE_LINE_IDENTIFIER;
+    private static final String GIT_DIFF_NEWCOMMIT_FOUR_SAPCE_INDENT = GitOutputParsingConstants.GIT_DIFF_NEWCOMMIT_FOUR_SAPCE_INDENT;
     private static final String GIT_DIFF_EMPTY_LINE = "";
 
     // TODO NEXT: a new line and a space on the next followed by newline is a newline in the file.
@@ -161,9 +162,9 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
             while (!GIT_DIFF_EMPTY_LINE.equals( lineLexer.peekCurrentLine() )) {
                 String commentline = lineLexer.consumeCurrentLine();
 
-                if (commentline.startsWith( GIT_DIFF_FOUR_SAPCE_INDENT )) {
-                    // remove 4 space indent
-                    commitLines.add( commentline.substring( GIT_DIFF_FOUR_SAPCE_INDENT.length() ) );
+                if (commentline.startsWith( GIT_DIFF_NEWCOMMIT_FOUR_SAPCE_INDENT )) {
+                    // truncate 4 space indent from new commit comment line
+                    commitLines.add( commentline.substring( GIT_DIFF_NEWCOMMIT_FOUR_SAPCE_INDENT.length() ) );
                 }
             }
 

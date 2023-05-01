@@ -33,6 +33,7 @@ public class GitOutputParsingConstants {
     public static final String GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER = "commit ";
     public static final String GIT_DIFF_NEWCOMMIT_AUTHOR_LINE_IDENTIFIER = "Author: ";
     public static final String GIT_DIFF_NEWCOMMIT_DATE_LINE_IDENTIFIER = "Date: ";
+    public static final String GIT_DIFF_NEWCOMMIT_FOUR_SAPCE_INDENT = "    ";
 
     public static final String GIT_DIFF_A_SLASH_PATH = "a/";
     public static final String GIT_DIFF_SAPCE_A_SLASH_PATH = " a/";
@@ -50,5 +51,8 @@ public class GitOutputParsingConstants {
 
     public static final String GIT_DIFF_LEFT_FILEPATH_IDENTIFIER = "---";
     public static final String GIT_DIFF_RIGHT_FILEPATH_IDENTIFIER = "+++";
+
+    public static final String GIT_DIFF_BINARY_FILES_IDENTIFIER = "Binary files";
+    public static final String GIT_DIFF_NO_NEWLINE_AT_END_OF_FILE_INDICATOR = "\\ No newline at end of file";
 
 }
