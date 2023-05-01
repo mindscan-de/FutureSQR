@@ -90,24 +90,30 @@ public class FileChangeSetParsers {
 
     public static void parseLeftFilePath( String leftFilePathLine, ScmFileChangeSet currentFileChangeSet ) {
         if (leftFilePathLine.startsWith( GIT_DIFF_LEFT_FILEPATH_IDENTIFIER )) {
-            // TODO: parse and consume this info and add info to current file change set.
+
             String leftFilePath = leftFilePathLine.substring( GIT_DIFF_LEFT_FILEPATH_IDENTIFIER.length() ).trim();
-            System.out.println( "Left Filepath: " + leftFilePath );
+
+            if (leftFilePath.startsWith( "a/" )) {
+                leftFilePath = leftFilePath.substring( "a/".length() );
+            }
 
             if (!leftFilePath.equals( currentFileChangeSet.scmFromPath )) {
-                System.out.println( "XXX: Differs from scmFromPath: " + currentFileChangeSet.scmFromPath );
+                System.out.println( "XXX: Differs from scmFromPath: '" + leftFilePath + "' instead of: '" + currentFileChangeSet.scmFromPath + "'" );
             }
         }
     }
 
     public static void parseRightFilePath( String rightFilePathLine, ScmFileChangeSet currentFileChangeSet ) {
         if (rightFilePathLine.startsWith( GIT_DIFF_RIGHT_FILEPATH_IDENTIFIER )) {
-            // TODO: parse and consume this info and add info to current file change set.
+
             String rightFilePath = rightFilePathLine.substring( GIT_DIFF_RIGHT_FILEPATH_IDENTIFIER.length() ).trim();
-            System.out.println( "Right Filepath: " + rightFilePath );
+
+            if (rightFilePath.startsWith( "b/" )) {
+                rightFilePath = rightFilePath.substring( "b/".length() );
+            }
 
             if (!rightFilePath.equals( currentFileChangeSet.scmToPath )) {
-                System.out.println( "XXX: Differs from scmToPath: " + currentFileChangeSet.scmToPath );
+                System.out.println( "XXX: Differs from scmToPath: '" + rightFilePath + "' instead of: '" + currentFileChangeSet.scmToPath + "'" );
             }
         }
     }
