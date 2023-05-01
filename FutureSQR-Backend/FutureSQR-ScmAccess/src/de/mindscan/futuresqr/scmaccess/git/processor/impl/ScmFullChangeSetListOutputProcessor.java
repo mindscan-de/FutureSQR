@@ -38,6 +38,7 @@ import de.mindscan.futuresqr.scmaccess.git.processor.impl.parsers.FullChangeSetP
 import de.mindscan.futuresqr.scmaccess.git.processor.impl.parsers.GitOutputParsingConstants;
 import de.mindscan.futuresqr.scmaccess.types.ScmDiffLine;
 import de.mindscan.futuresqr.scmaccess.types.ScmDiffLineType;
+import de.mindscan.futuresqr.scmaccess.types.ScmFileChangeMode;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileChangeSet;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContentChangeSet;
 import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
@@ -213,14 +214,14 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_NEW_FILE_MODE )) {
             String newFileModeLine = lineLexer.consumeCurrentLine();
             FileChangeSetParsers.parseNewFileModeLineToFileChangeSet( newFileModeLine, currentFileChangeSet );
-            currentFileChangeSet.fileAction = "A";
+            currentFileChangeSet.fileAction = ScmFileChangeMode.FILEMODE_ADD;
         }
 
         // Parse deleted file mode
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_DELETED_FILE_MODE )) {
             // TODO: parse and consume this info and add info to current file change set.
             lineLexer.consumeCurrentLine();
-            currentFileChangeSet.fileAction = "D";
+            currentFileChangeSet.fileAction = ScmFileChangeMode.FILEMODE_DELETE;
         }
 
         // ---------------------
@@ -231,7 +232,7 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_RENAME_SIMILARITY_INDEX )) {
             String similarityLine = lineLexer.consumeCurrentLine();
             FileChangeSetParsers.parseRenameSimilarityToFileChangeSet( similarityLine, currentFileChangeSet );
-            currentFileChangeSet.fileAction = "R";
+            currentFileChangeSet.fileAction = ScmFileChangeMode.FILEMODE_RENAME;
         }
 
         // parse from name / from directory
@@ -253,9 +254,8 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_INDEX_IDENTIFIER )) {
             String currentIndexLine = lineLexer.consumeCurrentLine();
             FileChangeSetParsers.parseIndexLineToFileChangeSet( currentIndexLine, currentFileChangeSet );
-            if (currentFileChangeSet.fileAction.isEmpty()) {
-                // set fileAction("M") if not already marked as "R", R is more important than "M")
-                currentFileChangeSet.fileAction = "M";
+            if (ScmFileChangeMode.FILEMODE_UNKNOWN.equals( currentFileChangeSet.fileAction )) {
+                currentFileChangeSet.fileAction = ScmFileChangeMode.FILEMODE_MODIFY;
             }
         }
 
