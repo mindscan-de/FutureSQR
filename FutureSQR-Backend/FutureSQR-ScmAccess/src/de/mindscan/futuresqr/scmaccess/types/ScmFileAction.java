@@ -28,13 +28,13 @@ package de.mindscan.futuresqr.scmaccess.types;
 /**
  * 
  */
-public class ScmFileChangeMode {
+public class ScmFileAction {
 
-    public static final String FILEMODE_UNKNOWN = "";
+    public static final String FILEACTION_UNKNOWN = "";
 
-    public static final String FILEMODE_ADD = "A";
-    public static final String FILEMODE_DELETE = "D";
-    public static final String FILEMODE_MODIFY = "M";
-    public static final String FILEMODE_RENAME = "R";
+    public static final String FILEACTION_ADD = "A";
+    public static final String FILEACTION_DELETE = "D";
+    public static final String FILEACTION_MODIFY = "M";
+    public static final String FILEACTION_RENAME = "R";
 
 }
