@@ -46,6 +46,8 @@ public class FileChangeSetParsers {
     private static final String GIT_DIFF_RENAME_TO = GitOutputParsingConstants.GIT_DIFF_RENAME_TO;
     private static final String GIT_DIFF_RENAME_FROM = GitOutputParsingConstants.GIT_DIFF_RENAME_FROM;
 
+    private static final String GIT_DEV_NULL = "/dev/null";
+
     public static void parseGitDiffLineToFileChangeSet( String currentGitDiffLine, ScmFileChangeSet currentFileChangeSet ) {
 
         if (!currentGitDiffLine.startsWith( GIT_DIFF_FILENAMEINFO_IDENTIFIER )) {
@@ -102,9 +104,9 @@ public class FileChangeSetParsers {
                 leftFilePath = leftFilePath.substring( GIT_DIFF_A_SLASH_PATH.length() );
             }
 
-            if ((leftFilePath.length() != 0) && !leftFilePath.equals( currentFileChangeSet.scmFromPath )) {
+            if ((leftFilePath.length() != 0) && !GIT_DEV_NULL.equals( leftFilePath ) && !leftFilePath.equals( currentFileChangeSet.scmFromPath )) {
                 // System.out.println( "XXX: Differs from scmFromPath: '" + leftFilePath + "' instead of: '" + currentFileChangeSet.scmFromPath + "'" );
-                // correcting file path - because parsing the git --diff line may not be robust enough 
+                // correcting file path - because parsing the diff --git line may not be robust enough 
                 currentFileChangeSet.scmFromPath = leftFilePath;
             }
         }
@@ -119,9 +121,9 @@ public class FileChangeSetParsers {
                 rightFilePath = rightFilePath.substring( GIT_DIFF_B_SLASH_PATH.length() );
             }
 
-            if ((rightFilePath.length() != 0) && !rightFilePath.equals( currentFileChangeSet.scmToPath )) {
+            if ((rightFilePath.length() != 0) && !GIT_DEV_NULL.equals( rightFilePath ) && !rightFilePath.equals( currentFileChangeSet.scmToPath )) {
                 // System.out.println( "XXX: Differs from scmToPath: '" + rightFilePath + "' instead of: '" + currentFileChangeSet.scmToPath + "'" );
-                // correcting file path - because parsing the git --diff line may not be robust enough
+                // correcting file path - because parsing the diff --git line may not be robust enough
                 currentFileChangeSet.scmToPath = rightFilePath;
             }
         }
@@ -137,20 +139,14 @@ public class FileChangeSetParsers {
     public static void parseRenameTo( String renameToLine, ScmFileChangeSet currentFileChangeSet ) {
         if (renameToLine.startsWith( GIT_DIFF_RENAME_TO )) {
             String renameToFilename = renameToLine.substring( GIT_DIFF_RENAME_TO.length() ).trim();
-
-            // TODO: parse and consume this info and add info to current file change set.
             currentFileChangeSet.renamed_to = renameToFilename;
-            System.out.println( "TODO PARSEME?: renameToFilename: '" + renameToFilename + "'" );
         }
     }
 
     public static void parseRenameFrom( String renameFromLine, ScmFileChangeSet currentFileChangeSet ) {
         if (renameFromLine.startsWith( GIT_DIFF_RENAME_FROM )) {
             String renameFromFilename = renameFromLine.substring( GIT_DIFF_RENAME_FROM.length() ).trim();
-
-            // TODO: parse and consume this info and add info to current file change set.
             currentFileChangeSet.renamed_from = renameFromFilename;
-            System.out.println( "TODO PARSEME?: renameFromFilename: '" + renameFromFilename + "'" );
         }
     }
 
