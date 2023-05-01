@@ -32,14 +32,16 @@ import de.mindscan.futuresqr.scmaccess.types.ScmFileChangeSet;
  */
 public class FileChangeSetParsers {
 
-    private static final String GIT_DIFF_A_SLASH_PATH = " a/";
-    private static final String GIT_DIFF_B_SLASH_PATH = " b/";
-    private static final String GIT_DIFF_FILENAMEINFO_IDENTIFIER = "diff --git ";
-    private static final String GIT_DIFF_NEW_FILE_MODE = "new file mode ";
-    private static final String GIT_DIFF_RENAME_SIMILARITY_INDEX = "similarity index ";
+    private static final String GIT_DIFF_A_SLASH_PATH = GitOutputParsingConstants.GIT_DIFF_A_SLASH_PATH;
+    private static final String GIT_DIFF_SAPCE_A_SLASH_PATH = GitOutputParsingConstants.GIT_DIFF_SAPCE_A_SLASH_PATH;
+    private static final String GIT_DIFF_B_SLASH_PATH = GitOutputParsingConstants.GIT_DIFF_B_SLASH_PATH;
+    private static final String GIT_DIFF_SPACE_B_SLASH_PATH = GitOutputParsingConstants.GIT_DIFF_SPACE_B_SLASH_PATH;
+    private static final String GIT_DIFF_FILENAMEINFO_IDENTIFIER = GitOutputParsingConstants.GIT_DIFF_FILENAMEINFO_IDENTIFIER;
+    private static final String GIT_DIFF_NEW_FILE_MODE = GitOutputParsingConstants.GIT_DIFF_NEW_FILE_MODE;
+    private static final String GIT_DIFF_RENAME_SIMILARITY_INDEX = GitOutputParsingConstants.GIT_DIFF_RENAME_SIMILARITY_INDEX;
 
-    private static final String GIT_DIFF_LEFT_FILEPATH_IDENTIFIER = "---";
-    private static final String GIT_DIFF_RIGHT_FILEPATH_IDENTIFIER = "+++";
+    private static final String GIT_DIFF_LEFT_FILEPATH_IDENTIFIER = GitOutputParsingConstants.GIT_DIFF_LEFT_FILEPATH_IDENTIFIER;
+    private static final String GIT_DIFF_RIGHT_FILEPATH_IDENTIFIER = GitOutputParsingConstants.GIT_DIFF_RIGHT_FILEPATH_IDENTIFIER;
 
     public static void parseGitDiffLineToFileChangeSet( String currentGitDiffLine, ScmFileChangeSet currentFileChangeSet ) {
 
@@ -49,14 +51,14 @@ public class FileChangeSetParsers {
             return;
         }
 
-        int firstIndexASlash = currentGitDiffLine.indexOf( GIT_DIFF_A_SLASH_PATH );
+        int firstIndexASlash = currentGitDiffLine.indexOf( GIT_DIFF_SAPCE_A_SLASH_PATH );
         // int lastIndexASlash = currentLazyDiffLine.lastIndexOf( " a/" );
 
-        int firstIndexBSlash = currentGitDiffLine.indexOf( GIT_DIFF_B_SLASH_PATH );
-        int lastIndexBSlash = currentGitDiffLine.lastIndexOf( GIT_DIFF_B_SLASH_PATH );
+        int firstIndexBSlash = currentGitDiffLine.indexOf( GIT_DIFF_SPACE_B_SLASH_PATH );
+        int lastIndexBSlash = currentGitDiffLine.lastIndexOf( GIT_DIFF_SPACE_B_SLASH_PATH );
 
-        currentFileChangeSet.scmFromPath = currentGitDiffLine.substring( firstIndexASlash + GIT_DIFF_A_SLASH_PATH.length(), lastIndexBSlash );
-        currentFileChangeSet.scmToPath = currentGitDiffLine.substring( firstIndexBSlash + GIT_DIFF_B_SLASH_PATH.length() );
+        currentFileChangeSet.scmFromPath = currentGitDiffLine.substring( firstIndexASlash + GIT_DIFF_SAPCE_A_SLASH_PATH.length(), lastIndexBSlash );
+        currentFileChangeSet.scmToPath = currentGitDiffLine.substring( firstIndexBSlash + GIT_DIFF_SPACE_B_SLASH_PATH.length() );
     }
 
     public static void parseIndexLineToFileChangeSet( String currentIndexLine, ScmFileChangeSet currentFileChangeSet ) {
@@ -93,8 +95,8 @@ public class FileChangeSetParsers {
 
             String leftFilePath = leftFilePathLine.substring( GIT_DIFF_LEFT_FILEPATH_IDENTIFIER.length() ).trim();
 
-            if (leftFilePath.startsWith( "a/" )) {
-                leftFilePath = leftFilePath.substring( "a/".length() );
+            if (leftFilePath.startsWith( GIT_DIFF_A_SLASH_PATH )) {
+                leftFilePath = leftFilePath.substring( GIT_DIFF_A_SLASH_PATH.length() );
             }
 
             if ((leftFilePath.length() != 0) && !leftFilePath.equals( currentFileChangeSet.scmFromPath )) {
@@ -110,8 +112,8 @@ public class FileChangeSetParsers {
 
             String rightFilePath = rightFilePathLine.substring( GIT_DIFF_RIGHT_FILEPATH_IDENTIFIER.length() ).trim();
 
-            if (rightFilePath.startsWith( "b/" )) {
-                rightFilePath = rightFilePath.substring( "b/".length() );
+            if (rightFilePath.startsWith( GIT_DIFF_B_SLASH_PATH )) {
+                rightFilePath = rightFilePath.substring( GIT_DIFF_B_SLASH_PATH.length() );
             }
 
             if ((rightFilePath.length() != 0) && !rightFilePath.equals( currentFileChangeSet.scmToPath )) {

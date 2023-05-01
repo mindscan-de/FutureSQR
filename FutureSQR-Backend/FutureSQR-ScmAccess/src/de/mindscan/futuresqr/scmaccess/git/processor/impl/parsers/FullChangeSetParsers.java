@@ -32,9 +32,9 @@ import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
  */
 public class FullChangeSetParsers {
 
-    private static final String GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER = "commit ";
-    private static final String GIT_DIFF_NEWCOMMIT_AUTHOR_LINE_IDENTIFIER = "Author: ";
-    private static final String GIT_DIFF_NEWCOMMIT_DATE_LINE_IDENTIFIER = "Date: ";
+    private static final String GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER = GitOutputParsingConstants.GIT_DIFF_NEWCOMMIT_COMMIT_IDENTIFIER;
+    private static final String GIT_DIFF_NEWCOMMIT_AUTHOR_LINE_IDENTIFIER = GitOutputParsingConstants.GIT_DIFF_NEWCOMMIT_AUTHOR_LINE_IDENTIFIER;
+    private static final String GIT_DIFF_NEWCOMMIT_DATE_LINE_IDENTIFIER = GitOutputParsingConstants.GIT_DIFF_NEWCOMMIT_DATE_LINE_IDENTIFIER;
     private static final int GIT_SHORT_REVISION_LENGTH = 8;
 
     public static void parseCommitRevisionLineToFullChangeSet( String commitRevisionIdLine, ScmFullChangeSet scmFullChangeSet ) {
