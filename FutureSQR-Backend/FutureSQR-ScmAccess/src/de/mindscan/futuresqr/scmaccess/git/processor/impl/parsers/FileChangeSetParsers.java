@@ -43,6 +43,9 @@ public class FileChangeSetParsers {
     private static final String GIT_DIFF_LEFT_FILEPATH_IDENTIFIER = GitOutputParsingConstants.GIT_DIFF_LEFT_FILEPATH_IDENTIFIER;
     private static final String GIT_DIFF_RIGHT_FILEPATH_IDENTIFIER = GitOutputParsingConstants.GIT_DIFF_RIGHT_FILEPATH_IDENTIFIER;
 
+    private static final String GIT_DIFF_RENAME_TO = GitOutputParsingConstants.GIT_DIFF_RENAME_TO;
+    private static final String GIT_DIFF_RENAME_FROM = GitOutputParsingConstants.GIT_DIFF_RENAME_FROM;
+
     public static void parseGitDiffLineToFileChangeSet( String currentGitDiffLine, ScmFileChangeSet currentFileChangeSet ) {
 
         if (!currentGitDiffLine.startsWith( GIT_DIFF_FILENAMEINFO_IDENTIFIER )) {
@@ -132,15 +135,23 @@ public class FileChangeSetParsers {
     }
 
     public static void parseRenameTo( String renameToLine, ScmFileChangeSet currentFileChangeSet ) {
-        // TODO: parse and consume this info and add info to current file change set.
-        currentFileChangeSet.renamed_to = renameToLine;
-        System.out.println( "TODO PARSEME: rename_to_line: '" + renameToLine + "'" );
+        if (renameToLine.startsWith( GIT_DIFF_RENAME_TO )) {
+            String renameToFilename = renameToLine.substring( GIT_DIFF_RENAME_TO.length() ).trim();
+
+            // TODO: parse and consume this info and add info to current file change set.
+            currentFileChangeSet.renamed_to = renameToFilename;
+            System.out.println( "TODO PARSEME?: renameToFilename: '" + renameToFilename + "'" );
+        }
     }
 
     public static void parseRenameFrom( String renameFromLine, ScmFileChangeSet currentFileChangeSet ) {
-        // TODO: parse and consume this info and add info to current file change set.
-        currentFileChangeSet.renamed_from = renameFromLine;
-        System.out.println( "TODO PARSEME: rename_from_line: '" + renameFromLine + "'" );
+        if (renameFromLine.startsWith( GIT_DIFF_RENAME_FROM )) {
+            String renameFromFilename = renameFromLine.substring( GIT_DIFF_RENAME_FROM.length() ).trim();
+
+            // TODO: parse and consume this info and add info to current file change set.
+            currentFileChangeSet.renamed_from = renameFromFilename;
+            System.out.println( "TODO PARSEME?: renameFromFilename: '" + renameFromFilename + "'" );
+        }
     }
 
 }
