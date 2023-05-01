@@ -32,6 +32,8 @@ import de.mindscan.futuresqr.scmaccess.types.ScmFileContentChangeSet;
  */
 public class ContentChangeSetParsers {
 
+    private static final String LINE_INFO_MARKER = "@@";
+
     public static void parseLineInfoIntoContentChangeSet( String lineInfo, ScmFileContentChangeSet contentChangeset ) {
         // setup some default values, in case we run into parsing errors.
         contentChangeset.diffLeftLineCountStart = 1;
@@ -39,7 +41,7 @@ public class ContentChangeSetParsers {
         contentChangeset.diffRightLineCountStart = 1;
         contentChangeset.diffRightLineCountDelta = 0;
 
-        String[] lineInfoSplitted = lineInfo.split( "@@" );
+        String[] lineInfoSplitted = lineInfo.split( LINE_INFO_MARKER );
 
         // TODO: in case that the lineInfoSplitted contains a third item, we want to save that as a locator / context info.
 
