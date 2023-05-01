@@ -97,8 +97,10 @@ public class FileChangeSetParsers {
                 leftFilePath = leftFilePath.substring( "a/".length() );
             }
 
-            if (!leftFilePath.equals( currentFileChangeSet.scmFromPath )) {
-                System.out.println( "XXX: Differs from scmFromPath: '" + leftFilePath + "' instead of: '" + currentFileChangeSet.scmFromPath + "'" );
+            if ((leftFilePath.length() != 0) && !leftFilePath.equals( currentFileChangeSet.scmFromPath )) {
+                // System.out.println( "XXX: Differs from scmFromPath: '" + leftFilePath + "' instead of: '" + currentFileChangeSet.scmFromPath + "'" );
+                // correcting file path - because parsing the git --diff line may not be robust enough 
+                currentFileChangeSet.scmFromPath = leftFilePath;
             }
         }
     }
@@ -112,8 +114,10 @@ public class FileChangeSetParsers {
                 rightFilePath = rightFilePath.substring( "b/".length() );
             }
 
-            if (!rightFilePath.equals( currentFileChangeSet.scmToPath )) {
-                System.out.println( "XXX: Differs from scmToPath: '" + rightFilePath + "' instead of: '" + currentFileChangeSet.scmToPath + "'" );
+            if ((rightFilePath.length() != 0) && !rightFilePath.equals( currentFileChangeSet.scmToPath )) {
+                // System.out.println( "XXX: Differs from scmToPath: '" + rightFilePath + "' instead of: '" + currentFileChangeSet.scmToPath + "'" );
+                // correcting file path - because parsing the git --diff line may not be robust enough
+                currentFileChangeSet.scmToPath = rightFilePath;
             }
         }
     }
