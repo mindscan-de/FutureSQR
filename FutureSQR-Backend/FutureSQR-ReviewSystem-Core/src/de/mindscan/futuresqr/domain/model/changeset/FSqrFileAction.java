@@ -39,18 +39,22 @@ public class FSqrFileAction {
     public static final String FILEACTION_MODIFY = "M";
     public static final String FILEACTION_RENAME = "R";
 
-    public static String fromScmFileAction( String scmFileAction ) {
+    public static String fromScmFileAction( ScmFileAction scmFileAction ) {
         switch (scmFileAction) {
-            case ScmFileAction.FILEACTION_ADD:
-                return FILEACTION_ADD;
-            case ScmFileAction.FILEACTION_DELETE:
-                return FILEACTION_DELETE;
-            case ScmFileAction.FILEACTION_MODIFY:
-                return FILEACTION_MODIFY;
-            case ScmFileAction.FILEACTION_RENAME:
-                return FILEACTION_RENAME;
+            case FILEACTION_ADD:
+                return FSqrFileAction.FILEACTION_ADD;
+
+            case FILEACTION_DELETE:
+                return FSqrFileAction.FILEACTION_DELETE;
+
+            case FILEACTION_MODIFY:
+                return FSqrFileAction.FILEACTION_MODIFY;
+
+            case FILEACTION_RENAME:
+                return FSqrFileAction.FILEACTION_RENAME;
+
             default:
-                return FILEACTION_UNKNOWN;
+                return FSqrFileAction.FILEACTION_UNKNOWN;
         }
     }
 }

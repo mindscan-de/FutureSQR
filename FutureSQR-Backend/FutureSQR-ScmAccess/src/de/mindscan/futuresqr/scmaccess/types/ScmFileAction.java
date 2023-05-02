@@ -28,13 +28,21 @@ package de.mindscan.futuresqr.scmaccess.types;
 /**
  * 
  */
-public class ScmFileAction {
+public enum ScmFileAction {
 
-    public static final String FILEACTION_UNKNOWN = "";
+    // FileAction is unknown
+    FILEACTION_UNKNOWN,
 
-    public static final String FILEACTION_ADD = "A";
-    public static final String FILEACTION_DELETE = "D";
-    public static final String FILEACTION_MODIFY = "M";
-    public static final String FILEACTION_RENAME = "R";
+    // a file was added
+    FILEACTION_ADD,
+
+    // a file was deleted
+    FILEACTION_DELETE,
+
+    // a file was modified
+    FILEACTION_MODIFY,
+
+    // a file was renamed
+    FILEACTION_RENAME;
 
 }
