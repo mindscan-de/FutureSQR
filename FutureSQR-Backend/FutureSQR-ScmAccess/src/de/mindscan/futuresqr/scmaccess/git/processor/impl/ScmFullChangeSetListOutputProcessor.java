@@ -217,8 +217,8 @@ public class ScmFullChangeSetListOutputProcessor implements GitCLICommandOutputP
 
         // Parse deleted file mode
         if (lineLexer.peekCurrentLine().startsWith( GIT_DIFF_DELETED_FILE_MODE )) {
-            // TODO: parse and consume this info and add info to current file change set.
-            lineLexer.consumeCurrentLine();
+            String deleteFileModeLine = lineLexer.consumeCurrentLine();
+            FileChangeSetParsers.parseDeleteFileModeLineToFileChangeSet( deleteFileModeLine, currentFileChangeSet );
             currentFileChangeSet.fileAction = ScmFileAction.FILEACTION_DELETE;
         }
 
