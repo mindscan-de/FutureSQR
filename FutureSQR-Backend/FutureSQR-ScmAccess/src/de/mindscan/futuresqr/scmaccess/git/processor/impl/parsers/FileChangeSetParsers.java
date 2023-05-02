@@ -38,6 +38,7 @@ public class FileChangeSetParsers {
     private static final String GIT_DIFF_SPACE_B_SLASH_PATH = GitOutputParsingConstants.GIT_DIFF_SPACE_B_SLASH_PATH;
     private static final String GIT_DIFF_FILENAMEINFO_IDENTIFIER = GitOutputParsingConstants.GIT_DIFF_FILENAMEINFO_IDENTIFIER;
     private static final String GIT_DIFF_NEW_FILE_MODE = GitOutputParsingConstants.GIT_DIFF_NEW_FILE_MODE;
+    private static final String GIT_DIFF_DELETED_FILE_MODE = GitOutputParsingConstants.GIT_DIFF_DELETED_FILE_MODE;
     private static final String GIT_DIFF_RENAME_SIMILARITY_INDEX = GitOutputParsingConstants.GIT_DIFF_RENAME_SIMILARITY_INDEX;
 
     private static final String GIT_DIFF_LEFT_FILEPATH_IDENTIFIER = GitOutputParsingConstants.GIT_DIFF_LEFT_FILEPATH_IDENTIFIER;
@@ -154,6 +155,13 @@ public class FileChangeSetParsers {
         if (renameFromLine.startsWith( GIT_DIFF_RENAME_FROM )) {
             String renameFromFilename = renameFromLine.substring( GIT_DIFF_RENAME_FROM.length() ).trim();
             currentFileChangeSet.renamed_from = renameFromFilename;
+        }
+    }
+
+    public static void parseDeleteFileModeLineToFileChangeSet( String deleteFileModeLine, ScmFileChangeSet currentFileChangeSet ) {
+        // TODO: parse and consume this info and add info to current file change set.
+        if (deleteFileModeLine.startsWith( GIT_DIFF_DELETED_FILE_MODE )) {
+
         }
     }
 
