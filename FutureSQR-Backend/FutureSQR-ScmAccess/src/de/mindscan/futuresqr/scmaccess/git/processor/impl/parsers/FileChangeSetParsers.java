@@ -46,6 +46,8 @@ public class FileChangeSetParsers {
     private static final String GIT_DIFF_RENAME_TO = GitOutputParsingConstants.GIT_DIFF_RENAME_TO;
     private static final String GIT_DIFF_RENAME_FROM = GitOutputParsingConstants.GIT_DIFF_RENAME_FROM;
 
+    private static final String GIT_DIFF_BINARY_FILES_IDENTIFIER = GitOutputParsingConstants.GIT_DIFF_BINARY_FILES_IDENTIFIER;
+
     private static final String GIT_DEV_NULL = "/dev/null";
 
     public static void parseGitDiffLineToFileChangeSet( String currentGitDiffLine, ScmFileChangeSet currentFileChangeSet ) {
@@ -130,10 +132,15 @@ public class FileChangeSetParsers {
     }
 
     public static void parseBinaryFileInfoLine( String binaryFileInfoLine, ScmFileChangeSet currentFileChangeSet ) {
-        // TODO: parse and consume this info and add info to current file change set.        
-        currentFileChangeSet.isBinaryFile = true;
-        currentFileChangeSet.binary_file_info_line = binaryFileInfoLine;
-        System.out.println( "XXX: binaryFileInfoLine: " + binaryFileInfoLine );
+        if (binaryFileInfoLine.startsWith( GIT_DIFF_BINARY_FILES_IDENTIFIER )) {
+            String binaryInfoLineData = binaryFileInfoLine.substring( GIT_DIFF_BINARY_FILES_IDENTIFIER.length() ).trim();
+
+            // TODO: we still need to do something with it.
+            System.out.println( "XXX: binaryInfoLineData: " + binaryInfoLineData );
+
+            currentFileChangeSet.isBinaryFile = true;
+            currentFileChangeSet.binary_file_info_line = binaryInfoLineData;
+        }
     }
 
     public static void parseRenameTo( String renameToLine, ScmFileChangeSet currentFileChangeSet ) {
