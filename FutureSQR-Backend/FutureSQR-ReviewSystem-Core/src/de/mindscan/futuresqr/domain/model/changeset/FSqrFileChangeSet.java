@@ -46,7 +46,7 @@ public class FSqrFileChangeSet {
     private String fromPath = "";
     private String toPath = "";
 
-    private String fileAction = "";
+    private String fileAction = FSqrFileAction.FILEACTION_UNKNOWN;
     private String fileMode = "";
     private String fileParentRevId = "";
     private String fileCurrentRevId = "";
@@ -79,7 +79,7 @@ public class FSqrFileChangeSet {
         this.fileMode = scmFileChangeSet.fileMode;
         this.fileCurrentRevId = scmFileChangeSet.fileCurrentRevId;
         this.fileParentRevId = scmFileChangeSet.fileParentRevId;
-        this.fileAction = scmFileChangeSet.fileAction;
+        this.fileAction = FSqrFileAction.fromScmFileAction( scmFileChangeSet.fileAction );
 
         this.renamedFrom = scmFileChangeSet.renamed_from;
         this.renamedTo = scmFileChangeSet.renamed_to;
