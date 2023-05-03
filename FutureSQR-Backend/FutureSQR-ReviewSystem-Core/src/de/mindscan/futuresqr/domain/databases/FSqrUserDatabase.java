@@ -30,4 +30,8 @@ package de.mindscan.futuresqr.domain.databases;
  */
 public interface FSqrUserDatabase {
 
+    // actually we want to retrieve a FSqrUser by UUID from the "database"
+    // actually we want to retrieve a FSqrUser by Logon from the "database"
+    // actually we want to persist the current state of a user
+
 }
