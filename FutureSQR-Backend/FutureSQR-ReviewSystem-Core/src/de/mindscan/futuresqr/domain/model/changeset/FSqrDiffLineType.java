@@ -67,6 +67,7 @@ public enum FSqrDiffLineType {
             case DELETED:
                 return FSqrDiffLineType.DELETED;
             case UNMODIFIED:
+                return FSqrDiffLineType.UNMODIFIED;
             default:
                 return FSqrDiffLineType.UNMODIFIED;
         }
