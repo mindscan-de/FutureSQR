@@ -98,16 +98,26 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
 
     @Override
     public boolean isUserUUIDPresent( String uuid ) {
+        if (systemUserCache.isCached( uuid )) {
+            return true;
+        }
+
+        // TODO use a UserPersistenceProvider
+
         return systemUserCache.isCached( uuid );
     }
 
     @Override
     public boolean isLogonNamePresent( String logonName ) {
+        if (this.systemUserCache.isLoginNamePresent( logonName )) {
+            return true;
+        }
+
         // actually if not yet present, we might want to attempt to load this user
-        // but we want to have some timeout, if such a user can't be laoded.
+        // but we want to have some timeout, if such a user can't be laoded, for some certain non-available values.
         // this should implement a kind of second chance algorithm.
 
-        return this.systemUserCache.isLoginNamePresent( logonName );
+        return false;
     }
 
     @Override
