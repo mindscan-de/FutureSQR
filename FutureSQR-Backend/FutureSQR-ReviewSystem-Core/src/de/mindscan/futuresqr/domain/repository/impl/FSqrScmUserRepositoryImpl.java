@@ -30,6 +30,8 @@ import java.util.function.Function;
 import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
+import de.mindscan.futuresqr.domain.databases.FSqrUserDatabase;
+import de.mindscan.futuresqr.domain.databases.impl.FSqrUserDatabaseImpl;
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 import de.mindscan.futuresqr.domain.repository.FSqrScmUserRepository;
 import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheAlternateScmAliasTableImpl;
@@ -58,6 +60,9 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
     // Proof of Concept
     private Function<String, FSqrSystemUser> systemUserPersistenceLoader;
 
+    // Proof of Concept - this will be derived from the database session for now it is good enough for a POC
+    private FSqrUserDatabase userDatabaseAccess;
+
     // TODO: we need some filters?
     // TODO: we need some uuid list to FSqrSystemUser list implementation, which we need for some operations, so
     //       that we can save some local user data. / Sort this?
@@ -70,6 +75,7 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
         this.systemUserCache = new InMemoryCacheSystemUserTableImpl();
         this.aliasScmNameCache = new InMemoryCacheAlternateScmAliasTableImpl();
         this.setPersistenceSystemUserLoader( this::uninitializedPersistenceLoader );
+        this.userDatabaseAccess = new FSqrUserDatabaseImpl();
     }
 
     private FSqrSystemUser uninitializedPersistenceLoader( String userid ) {
