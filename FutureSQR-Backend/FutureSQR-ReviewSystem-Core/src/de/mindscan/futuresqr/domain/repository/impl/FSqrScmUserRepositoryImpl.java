@@ -167,5 +167,8 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
         if (loader != null) {
             this.systemUserPersistenceLoader = loader;
         }
+        else {
+            this.systemUserPersistenceLoader = this::uninitializedPersistenceLoader;
+        }
     }
 }
