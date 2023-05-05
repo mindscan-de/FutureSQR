@@ -108,7 +108,7 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
             return true;
         }
 
-        // TODO: test if a negative answer for this uuid is cached and save unsuccessful loading operations
+        // TODO: test if a negative answer for this uuid is cached and save unsuccessful database operation.
 
         // getUserByUUID operation will invoke the systemUserPersistenceLoader.
         FSqrSystemUser user = getUserByUUID( uuid );
@@ -127,9 +127,13 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
             return true;
         }
 
-        // actually if not yet present, we might want to attempt to load this user
-        // but we want to have some timeout, if such a user can't be laoded, for some certain non-available values.
-        // this should implement a kind of second chance algorithm.
+        // TODO: test if a negative answer for this logonname is cached and save unsuccessful database operation.
+
+        if (userDatabaseAccess.isLoginNamePresent( logonName )) {
+            return true;
+        }
+
+        // TODO: actually we should cahce the negative answer fot some time.
 
         return false;
     }

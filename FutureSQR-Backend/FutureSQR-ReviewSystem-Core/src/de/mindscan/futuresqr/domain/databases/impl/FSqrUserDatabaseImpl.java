@@ -34,4 +34,12 @@ import de.mindscan.futuresqr.domain.databases.FSqrUserDatabase;
  */
 public class FSqrUserDatabaseImpl implements FSqrUserDatabase {
 
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isLoginNamePresent( String logonName ) {
+        return false;
+    }
+
 }

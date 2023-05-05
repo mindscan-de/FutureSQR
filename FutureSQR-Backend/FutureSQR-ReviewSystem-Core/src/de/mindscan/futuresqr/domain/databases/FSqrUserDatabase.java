@@ -30,6 +30,8 @@ package de.mindscan.futuresqr.domain.databases;
  */
 public interface FSqrUserDatabase {
 
+    boolean isLoginNamePresent( String logonName );
+
     // actually we want to retrieve a FSqrUser by UUID from the "database"
     // actually we want to retrieve a FSqrUser by Logon from the "database"
     // actually we want to persist the current state of a user
