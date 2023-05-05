@@ -75,6 +75,9 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
         this.systemUserCache = new InMemoryCacheSystemUserTableImpl();
         this.aliasScmNameCache = new InMemoryCacheAlternateScmAliasTableImpl();
         this.setPersistenceSystemUserLoader( this::uninitializedPersistenceLoader );
+
+        // TODO: the userdatabase actually should provide persistenceSystemUserLoader...
+        // TODO: maybe use a Factory of the application service to get the system user persistence loader.
         this.userDatabaseAccess = new FSqrUserDatabaseImpl();
     }
 
@@ -133,7 +136,7 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
             return true;
         }
 
-        // TODO: actually we should cahce the negative answer fot some time.
+        // TODO: actually we should cache the negative answer for some time.
 
         return false;
     }
