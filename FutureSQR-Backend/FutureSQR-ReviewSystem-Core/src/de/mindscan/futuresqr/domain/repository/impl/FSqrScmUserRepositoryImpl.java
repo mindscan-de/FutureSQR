@@ -108,9 +108,17 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
             return true;
         }
 
-        // TODO use a UserPersistenceProvider
+        // TODO: test if a negative answer for this uuid is cached and save unsuccessful loading operations
 
-        return systemUserCache.isCached( uuid );
+        // getUserByUUID operation will invoke the systemUserPersistenceLoader.
+        FSqrSystemUser user = getUserByUUID( uuid );
+        if (user != null) {
+            return true;
+        }
+
+        // TODO: Actually we should cache the negative answer for some time.
+
+        return false;
     }
 
     @Override
