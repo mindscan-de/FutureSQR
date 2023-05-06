@@ -88,6 +88,8 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
     @Override
     public void setApplicationServices( FSqrApplicationServices services ) {
         this.applicationServices = services;
+
+        //. we may have to reinitialize the userdatabase, or we provide a constructor with the application servcies....
     }
 
     @Override
