@@ -184,6 +184,13 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
      */
     @Override
     public FSqrSystemUser getUserByLogonName( String username ) {
-        return null;
+        FSqrSystemUser userEntry = this.userDatabaseAccess.selectUserByLoginName( username );
+
+        if (userEntry != null) {
+            // If someone requested this user by logon, we will need this user soon in the system cache as well...
+            this.systemUserCache.putSystemUser( userEntry.getUserUUID(), userEntry );
+        }
+
+        return userEntry;
     }
 }
