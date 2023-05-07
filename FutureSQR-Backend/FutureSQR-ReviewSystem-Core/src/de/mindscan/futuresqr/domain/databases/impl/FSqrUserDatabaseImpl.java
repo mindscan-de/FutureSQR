@@ -26,13 +26,27 @@
 package de.mindscan.futuresqr.domain.databases.impl;
 
 import de.mindscan.futuresqr.domain.databases.FSqrUserDatabase;
+import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 
 /**
- * This is a hardcoded user database, which we want to transform into a real user persistence, but we also
+ * This is a hard-coded user database, which we want to transform into a real user persistence, but we also
  * want to explore how to separate these two concerns correctly and how the update logic should be handled
  * by using the user database /  user repository first.
  */
 public class FSqrUserDatabaseImpl implements FSqrUserDatabase {
+
+    protected void initHardcodedData() {
+        new FSqrSystemUser( "35c94b55-559f-30e4-a2f4-ee16d31fc276", "rbreunung", "Robert Breunung", "rb@localhost", false,
+                        "/FutureSQR/assets/avatars/35c94b55-559f-30e4-a2f4-ee16d31fc276.256px.jpg" );
+
+        new FSqrSystemUser( "6822a80d-1854-304c-a26d-81acd2c008f3", "mindscan-banned", "Maxim Gansert Banned Testuser", "mindscan@local.localhost", true, "" );
+
+        new FSqrSystemUser( "8ce74ee9-48ff-3dde-b678-58a632887e31", "mindscan-de", "Maxim Gansert", "contact@themail.local", false,
+                        "/FutureSQR/assets/avatars/8ce74ee9-48ff-3dde-b678-58a632887e31.256px.jpg" );
+
+        new FSqrSystemUser( "f5fc8449-3049-3498-9f6b-ce828515bba2", "someoneelsa", "Elsa Someone", "contact@elsamail.local", false,
+                        "/FutureSQR/assets/avatars/f5fc8449-3049-3498-9f6b-ce828515bba2.256px.jpg" );
+    }
 
     /** 
      * {@inheritDoc}
