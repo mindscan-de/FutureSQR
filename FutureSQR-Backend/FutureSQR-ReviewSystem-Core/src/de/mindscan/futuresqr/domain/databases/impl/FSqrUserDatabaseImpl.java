@@ -77,6 +77,7 @@ public class FSqrUserDatabaseImpl implements FSqrUserDatabase {
         return tmpUserDatabaseTable.get( uuid );
     }
 
+    @Override
     public FSqrSystemUser selectUserByLoginName( String loginName ) {
         if (loginName == null) {
             return null;
