@@ -44,6 +44,15 @@ public class FSqrSystemUser {
         this.userEmail = email;
     }
 
+    public FSqrSystemUser( String uuid, String loginName, String displayname, String email, boolean isBanned, String avatarlocation ) {
+        this.userUUID = uuid;
+        this.userLoginName = loginName;
+        this.userDisplayName = displayname;
+        this.userEmail = email;
+        this.isBanned = isBanned;
+        this.avatarLocation = avatarlocation;
+    }
+
     public void setAvatarLocation( String avatarLocation ) {
         this.avatarLocation = avatarLocation;
     }
