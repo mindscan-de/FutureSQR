@@ -25,15 +25,32 @@
  */
 package de.mindscan.futuresqr.devbackend.httpresponse;
 
+import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
+
 /**
  * 
  */
 public class OutputLoginDataModel {
+
     public String uuid;
     public String loginname;
     public String displayname;
     public String avatarlocation;
     public String email;
     public OutputLoginDataCapabilitiesModel capabilities = new OutputLoginDataCapabilitiesModel();
+
+    /**
+     * 
+     */
+    public OutputLoginDataModel() {
+    }
+
+    public OutputLoginDataModel( FSqrSystemUser userEntry ) {
+        this.uuid = userEntry.getUserUUID();
+        this.loginname = userEntry.getUserLoginName();
+        this.displayname = userEntry.getUserDisplayName();
+        this.avatarlocation = userEntry.getAvatarLocation();
+        this.email = userEntry.getUserEmail();
+    }
 
 }
