@@ -25,12 +25,16 @@
  */
 package de.mindscan.futuresqr.domain.databases;
 
+import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
+
 /**
  * 
  */
 public interface FSqrUserDatabase {
 
     boolean isLoginNamePresent( String logonName );
+
+    FSqrSystemUser selectUserByUUID( String uuid );
 
     // actually we want to retrieve a FSqrUser by UUID from the "database"
     // actually we want to retrieve a FSqrUser by Logon from the "database"

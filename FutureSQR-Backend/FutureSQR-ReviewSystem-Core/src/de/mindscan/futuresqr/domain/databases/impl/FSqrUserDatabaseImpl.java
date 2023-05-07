@@ -69,6 +69,10 @@ public class FSqrUserDatabaseImpl implements FSqrUserDatabase {
         tmpUserDatabaseTable.put( user.getUserUUID(), user );
     }
 
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
     public FSqrSystemUser selectUserByUUID( String uuid ) {
         return tmpUserDatabaseTable.get( uuid );
     }
