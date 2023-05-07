@@ -85,11 +85,16 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
         return null;
     }
 
+    private FSqrSystemUser initializedDatabaseLoader( String userUuid ) {
+        return this.userDatabaseAccess.selectUserByUUID( userUuid );
+    }
+
     @Override
     public void setApplicationServices( FSqrApplicationServices services ) {
         this.applicationServices = services;
 
         //. we may have to reinitialize the userdatabase, or we provide a constructor with the application servcies....
+        this.setPersistenceSystemUserLoader( this::initializedDatabaseLoader );
     }
 
     @Override
