@@ -44,4 +44,6 @@ public interface FSqrScmUserRepository {
 
     FSqrSystemUser getUserByUUID( String uuid );
 
+    FSqrSystemUser getUserByLogonName( String username );
+
 }

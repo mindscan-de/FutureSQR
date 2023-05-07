@@ -178,4 +178,12 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
             this.systemUserPersistenceLoader = this::uninitializedPersistenceLoader;
         }
     }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public FSqrSystemUser getUserByLogonName( String username ) {
+        return null;
+    }
 }
