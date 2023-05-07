@@ -47,10 +47,10 @@ import de.mindscan.futuresqr.devbackend.httpresponse.OutputUserProjectEntry;
 import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParameters;
 import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParser;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
-import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserDBEntry;
 import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserDatabaseImpl;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
+import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 import de.mindscan.futuresqr.domain.repository.FSqrUserToProjectRepository;
 
 /**
@@ -92,16 +92,11 @@ public class LazyImplUserRESTfulService {
         }
 
         // #2 get user entry using the username
-        FSqrLazyUserDBEntry userEntry = userDB.getUserEntryByLogonName( username );
+        FSqrSystemUser userEntry = userDB.getUserEntryByLogonName( username );
 
         // #3 TODO: register the user as an authenticated user
 
-        OutputLoginDataModel response = new OutputLoginDataModel();
-        response.uuid = userEntry.uuid;
-        response.loginname = userEntry.loginname;
-        response.displayname = userEntry.displayname;
-        response.avatarlocation = userEntry.avatarlocation;
-        response.email = userEntry.email;
+        OutputLoginDataModel response = new OutputLoginDataModel( userEntry );
 
         // #4 figure out the roles and featureflags for this user
         // #5 if admin, add admin role to capabilities
@@ -133,16 +128,11 @@ public class LazyImplUserRESTfulService {
         if (isAuthSession( assumedUserName )) {
 
             // #2 get user entry using the username
-            FSqrLazyUserDBEntry userEntry = userDB.getUserEntryByLogonName( assumedUserName );
+            FSqrSystemUser userEntry = userDB.getUserEntryByLogonName( assumedUserName );
 
             // #3 TODO: register the user as an authenticated user
 
-            OutputLoginDataModel response = new OutputLoginDataModel();
-            response.uuid = userEntry.uuid;
-            response.loginname = userEntry.loginname;
-            response.displayname = userEntry.displayname;
-            response.avatarlocation = userEntry.avatarlocation;
-            response.email = userEntry.email;
+            OutputLoginDataModel response = new OutputLoginDataModel( userEntry );
 
             // #4 figure out the roles and featureflags for this user
             // #5 if admin, add admin role to capabilities

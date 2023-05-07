@@ -95,16 +95,15 @@ public class FSqrLazyUserDatabaseImpl {
     private void initializeScmUserRepository( Collection<FSqrLazyUserDBEntry> userEntries ) {
         for (FSqrLazyUserDBEntry fSqrLazyUserDBEntry : userEntries) {
 
-            String uuid = fSqrLazyUserDBEntry.uuid;
-            String loginname = fSqrLazyUserDBEntry.loginname;
-            String displayname = fSqrLazyUserDBEntry.displayname;
-            String email = fSqrLazyUserDBEntry.email;
-            FSqrSystemUser systemUserEntry = new FSqrSystemUser( uuid, loginname, displayname, email );
-
-            systemUserEntry.setAvatarLocation( fSqrLazyUserDBEntry.avatarlocation );
-            systemUserEntry.setBanned( fSqrLazyUserDBEntry.isbanned );
-
-            userRepository.addUserEntry( systemUserEntry );
+//            String uuid = fSqrLazyUserDBEntry.uuid;
+//            String loginname = fSqrLazyUserDBEntry.loginname;
+//            String displayname = fSqrLazyUserDBEntry.displayname;
+//            String email = fSqrLazyUserDBEntry.email;
+//            boolean banned = fSqrLazyUserDBEntry.isbanned;
+//            String avatarLocation = fSqrLazyUserDBEntry.avatarlocation;
+//            FSqrSystemUser systemUserEntry = new FSqrSystemUser( uuid, loginname, displayname, email, banned, avatarLocation );
+//
+//            userRepository.addUserEntry( systemUserEntry );
         }
     }
 
@@ -112,14 +111,8 @@ public class FSqrLazyUserDatabaseImpl {
         return this.userRepository.isLogonNamePresent( username );
     }
 
-    // TOOD NEXT: move to user repository
-    public FSqrLazyUserDBEntry getUserEntryByLogonName( String username ) {
-        for (FSqrLazyUserDBEntry fSqrUserDBEntry : userDatabaseMap.values()) {
-            if (fSqrUserDBEntry.loginname.equals( username )) {
-                return fSqrUserDBEntry;
-            }
-        }
-        return null;
+    public FSqrSystemUser getUserEntryByLogonName( String username ) {
+        return this.userRepository.getUserByLogonName( username );
     }
 
     private boolean hasUserEntryByUUID( String uuid ) {
