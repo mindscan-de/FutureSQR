@@ -25,6 +25,11 @@
  */
 package de.mindscan.futuresqr.domain.databases.impl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import de.mindscan.futuresqr.domain.databases.FSqrUserDatabase;
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 
@@ -35,17 +40,52 @@ import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
  */
 public class FSqrUserDatabaseImpl implements FSqrUserDatabase {
 
+    private Map<String, FSqrSystemUser> tmpUserDatabaseTable = new HashMap<>();
+
+    /**
+     * 
+     */
+    public FSqrUserDatabaseImpl() {
+
+        // TODO: remove me, when we have a database and a database session object.
+        initHardcodedData();
+    }
+
     protected void initHardcodedData() {
-        new FSqrSystemUser( "35c94b55-559f-30e4-a2f4-ee16d31fc276", "rbreunung", "Robert Breunung", "rb@localhost", false,
-                        "/FutureSQR/assets/avatars/35c94b55-559f-30e4-a2f4-ee16d31fc276.256px.jpg" );
+        insertUser( new FSqrSystemUser( "35c94b55-559f-30e4-a2f4-ee16d31fc276", "rbreunung", "Robert Breunung", "rb@localhost", false,
+                        "/FutureSQR/assets/avatars/35c94b55-559f-30e4-a2f4-ee16d31fc276.256px.jpg" ) );
 
-        new FSqrSystemUser( "6822a80d-1854-304c-a26d-81acd2c008f3", "mindscan-banned", "Maxim Gansert Banned Testuser", "mindscan@local.localhost", true, "" );
+        insertUser( new FSqrSystemUser( "6822a80d-1854-304c-a26d-81acd2c008f3", "mindscan-banned", "Maxim Gansert Banned Testuser", "mindscan@local.localhost",
+                        true, "" ) );
 
-        new FSqrSystemUser( "8ce74ee9-48ff-3dde-b678-58a632887e31", "mindscan-de", "Maxim Gansert", "contact@themail.local", false,
-                        "/FutureSQR/assets/avatars/8ce74ee9-48ff-3dde-b678-58a632887e31.256px.jpg" );
+        insertUser( new FSqrSystemUser( "8ce74ee9-48ff-3dde-b678-58a632887e31", "mindscan-de", "Maxim Gansert", "contact@themail.local", false,
+                        "/FutureSQR/assets/avatars/8ce74ee9-48ff-3dde-b678-58a632887e31.256px.jpg" ) );
 
-        new FSqrSystemUser( "f5fc8449-3049-3498-9f6b-ce828515bba2", "someoneelsa", "Elsa Someone", "contact@elsamail.local", false,
-                        "/FutureSQR/assets/avatars/f5fc8449-3049-3498-9f6b-ce828515bba2.256px.jpg" );
+        insertUser( new FSqrSystemUser( "f5fc8449-3049-3498-9f6b-ce828515bba2", "someoneelsa", "Elsa Someone", "contact@elsamail.local", false,
+                        "/FutureSQR/assets/avatars/f5fc8449-3049-3498-9f6b-ce828515bba2.256px.jpg" ) );
+    }
+
+    public void insertUser( FSqrSystemUser user ) {
+        tmpUserDatabaseTable.put( user.getUserUUID(), user );
+    }
+
+    public FSqrSystemUser selectUserByUUID( String uuid ) {
+        return tmpUserDatabaseTable.get( uuid );
+    }
+
+    public FSqrSystemUser selectUserByLoginName( String loginName ) {
+        if (loginName == null) {
+            return null;
+        }
+
+        List<FSqrSystemUser> collected = tmpUserDatabaseTable.values().stream().filter( u -> loginName.equals( u.getUserLoginName() ) )
+                        .collect( Collectors.toList() );
+
+        if (collected.isEmpty()) {
+            return null;
+        }
+
+        return collected.get( 0 );
     }
 
     /** 
@@ -53,7 +93,7 @@ public class FSqrUserDatabaseImpl implements FSqrUserDatabase {
      */
     @Override
     public boolean isLoginNamePresent( String logonName ) {
-        return false;
+        return !(tmpUserDatabaseTable.values().stream().noneMatch( u -> logonName.equals( u.getUserLoginName() ) ));
     }
 
 }
