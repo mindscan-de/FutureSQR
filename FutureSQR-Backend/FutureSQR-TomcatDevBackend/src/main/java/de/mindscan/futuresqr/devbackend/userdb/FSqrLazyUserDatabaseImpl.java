@@ -98,8 +98,4 @@ public class FSqrLazyUserDatabaseImpl {
         return this.userRepository.getUserByLogonName( username );
     }
 
-    private boolean hasUserEntryByUUID( String uuid ) {
-        return userRepository.isUserUUIDPresent( uuid );
-    }
-
 }
