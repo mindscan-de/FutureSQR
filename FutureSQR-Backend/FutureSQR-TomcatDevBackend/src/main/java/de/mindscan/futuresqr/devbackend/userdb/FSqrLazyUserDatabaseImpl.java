@@ -33,7 +33,6 @@ import java.io.Reader;
 import java.lang.reflect.Type;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collection;
 import java.util.HashMap;
 
 import com.google.gson.Gson;
@@ -89,22 +88,6 @@ public class FSqrLazyUserDatabaseImpl {
             }
         }
 
-        this.initializeScmUserRepository( this.userDatabaseMap.values() );
-    }
-
-    private void initializeScmUserRepository( Collection<FSqrLazyUserDBEntry> userEntries ) {
-        for (FSqrLazyUserDBEntry fSqrLazyUserDBEntry : userEntries) {
-
-//            String uuid = fSqrLazyUserDBEntry.uuid;
-//            String loginname = fSqrLazyUserDBEntry.loginname;
-//            String displayname = fSqrLazyUserDBEntry.displayname;
-//            String email = fSqrLazyUserDBEntry.email;
-//            boolean banned = fSqrLazyUserDBEntry.isbanned;
-//            String avatarLocation = fSqrLazyUserDBEntry.avatarlocation;
-//            FSqrSystemUser systemUserEntry = new FSqrSystemUser( uuid, loginname, displayname, email, banned, avatarLocation );
-//
-//            userRepository.addUserEntry( systemUserEntry );
-        }
     }
 
     public boolean hasUser( String username ) {
