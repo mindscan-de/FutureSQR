@@ -39,6 +39,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
 
+import de.mindscan.futuresqr.devbackend.httpresponse.OutputDiscussionThreadModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputFileChangeInformation;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputFileContentForRevisionModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputFileHistoryModel;
@@ -358,10 +359,8 @@ public class ProjectRESTfulService {
     public String getCodeReviewRevisionDetails( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId ) {
         if (projectDB.hasProjectLocalPath( projectId )) {
             FSqrCodeReviewRepository reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
-            FSqrScmProjectRevisionRepository revisionRepository = FSqrApplication.getInstance().getServices().getRevisionRepository();
 
             List<FSqrRevision> revisions = reviewRepository.getRevisionsForReview( projectId, reviewId );
-            // TODO: revisions should be improved by the annotated author uuids.
 
             // TODO NEXT: read revision history, either from list of codereview revisions,
             // TODO NEXT: or just read them and filter them with the codereview revisions.
@@ -369,7 +368,6 @@ public class ProjectRESTfulService {
             //            this has better time constraints, but then revisions must be in order.
             // TODO NEXT: Both things seem to be valid approaches.
 
-            // TODO NEXT: figure out output type from python code.
             List<OutputProjectRevisionsRevisionEntry> response = new ArrayList<>();
             revisions.stream().forEach( r -> response.add( new OutputProjectRevisionsRevisionEntry( r ) ) );
 
