@@ -25,19 +25,6 @@
  */
 package de.mindscan.futuresqr.devbackend.userdb;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.lang.reflect.Type;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.HashMap;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 import de.mindscan.futuresqr.domain.repository.FSqrScmUserRepository;
@@ -47,47 +34,12 @@ import de.mindscan.futuresqr.domain.repository.FSqrScmUserRepository;
  */
 public class FSqrLazyUserDatabaseImpl {
 
-    private Gson gson = new Gson();
-
     private FSqrScmUserRepository userRepository = FSqrApplication.getInstance().getServices().getUserRepository();
-
-    private HashMap<String, FSqrLazyUserDBEntry> userDatabaseMap = new HashMap<>();
-
-    private Type userDatabaseMapType = new TypeToken<HashMap<String, FSqrLazyUserDBEntry>>() {
-    }.getType();
 
     /**
      * 
      */
     public FSqrLazyUserDatabaseImpl() {
-        this.loadUserDatabaseFromResource();
-    }
-
-    /**
-     * 
-     */
-    private void loadUserDatabaseFromResource() {
-        // actually we should use the class loader to access and deal with this resource
-        Path userdbPath = Paths.get( "src/main/resources/userdb/userdatabase.json" );
-
-        try (FileReader fileReader = new FileReader( userdbPath.toAbsolutePath().toString() )) {
-            this.userDatabaseMap = gson.fromJson( fileReader, userDatabaseMapType );
-        }
-        catch (IOException e) {
-            System.err.println( "could not find userdatabase..." );
-            e.printStackTrace();
-
-            ClassLoader cl = this.getClass().getClassLoader();
-            System.err.println( cl.getResource( "userdb/userdatabase.json" ) );
-            try (InputStream is = cl.getResourceAsStream( "userdb/userdatabase.json" ); Reader isr = new InputStreamReader( is )) {
-                this.userDatabaseMap = gson.fromJson( isr, userDatabaseMapType );
-            }
-            catch (Exception ex) {
-                System.err.println( "yould not access alternate userdatabase" );
-                ex.printStackTrace();
-            }
-        }
-
     }
 
     public boolean hasUser( String username ) {
