@@ -759,9 +759,9 @@ public class ProjectRESTfulService {
 
             FSqrDiscussionThread newThread = discussionRepository.createNewReviewThread( projectId, reviewId, messageText, messageAuthorUUID );
 
-            // TODO provide new Thread data to the frontend, such that the new thread can be loaded.
-
-            return "{}";
+            OutputDiscussionThreadModel response = new OutputDiscussionThreadModel( newThread );
+            Gson gson = new Gson();
+            return gson.toJson( response );
         }
 
         return "{}";
