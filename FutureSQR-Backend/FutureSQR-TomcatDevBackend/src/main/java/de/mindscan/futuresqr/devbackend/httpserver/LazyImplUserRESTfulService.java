@@ -47,10 +47,10 @@ import de.mindscan.futuresqr.devbackend.httpresponse.OutputUserProjectEntry;
 import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParameters;
 import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParser;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
-import de.mindscan.futuresqr.devbackend.userdb.FSqrLazyUserDatabaseImpl;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
+import de.mindscan.futuresqr.domain.repository.FSqrScmUserRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrUserToProjectRepository;
 
 /**
@@ -59,10 +59,11 @@ import de.mindscan.futuresqr.domain.repository.FSqrUserToProjectRepository;
 @javax.ws.rs.Path( "/user" )
 public class LazyImplUserRESTfulService {
 
+    private FSqrScmUserRepository userRepository = FSqrApplication.getInstance().getServices().getUserRepository();
+
     // TODO: implement singleton, which loads the UserDatabase and the ProjectDatabase.
     //       is important to provide data to the review system core, as long as we dont
     //       have any persistence.
-    private static FSqrLazyUserDatabaseImpl userDB = new FSqrLazyUserDatabaseImpl();
     private static FSqrLazyProjectDatabaseImpl projectDB = new FSqrLazyProjectDatabaseImpl();
 
     @javax.ws.rs.Path( "/authenticate" )
@@ -86,13 +87,13 @@ public class LazyImplUserRESTfulService {
 
     private String postLoginDataForAuthentication( String username, String password ) {
         // #1 check if user is present in the userdatabase
-        if (!userDB.hasUser( username )) {
+        if (!this.userRepository.isLogonNamePresent( username )) {
             // todo provide a 404 and a good response
             throw new RuntimeException( "No such user or not authenticated. " + " username:'" + username + "'; password:'" + password + "'" );
         }
 
         // #2 get user entry using the username
-        FSqrSystemUser userEntry = userDB.getUserEntryByLogonName( username );
+        FSqrSystemUser userEntry = this.userRepository.getUserByLogonName( username );
 
         // #3 TODO: register the user as an authenticated user
 
@@ -128,7 +129,7 @@ public class LazyImplUserRESTfulService {
         if (isAuthSession( assumedUserName )) {
 
             // #2 get user entry using the username
-            FSqrSystemUser userEntry = userDB.getUserEntryByLogonName( assumedUserName );
+            FSqrSystemUser userEntry = this.userRepository.getUserByLogonName( assumedUserName );
 
             // #3 TODO: register the user as an authenticated user
 
