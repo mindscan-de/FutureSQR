@@ -64,6 +64,8 @@ public class LazyImplUserRESTfulService {
     // TODO: implement singleton, which loads the UserDatabase and the ProjectDatabase.
     //       is important to provide data to the review system core, as long as we dont
     //       have any persistence.
+
+    // TODO: next scm project database. so that we at least have two reasons and two opportunities to learn.
     private static FSqrLazyProjectDatabaseImpl projectDB = new FSqrLazyProjectDatabaseImpl();
 
     @javax.ws.rs.Path( "/authenticate" )
