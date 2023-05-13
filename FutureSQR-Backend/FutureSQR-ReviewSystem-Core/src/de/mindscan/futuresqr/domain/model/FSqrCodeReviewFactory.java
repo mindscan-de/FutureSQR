@@ -25,7 +25,7 @@
  */
 package de.mindscan.futuresqr.domain.model;
 
-import de.mindscan.futuresqr.domain.databases.FSqrScmProjectConfigurationRepositoryImpl;
+import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
 
 /**
  * 
@@ -33,7 +33,7 @@ import de.mindscan.futuresqr.domain.databases.FSqrScmProjectConfigurationReposit
 public class FSqrCodeReviewFactory {
 
     public static FSqrCodeReview createReviewFromRevision( String projectid, FSqrRevision revision,
-                    FSqrScmProjectConfigurationRepositoryImpl configurationRepository ) {
+                    FSqrScmProjectConfigurationRepository configurationRepository ) {
         FSqrCodeReview codeReview = new FSqrCodeReview();
 
         codeReview.setProjectId( projectid );

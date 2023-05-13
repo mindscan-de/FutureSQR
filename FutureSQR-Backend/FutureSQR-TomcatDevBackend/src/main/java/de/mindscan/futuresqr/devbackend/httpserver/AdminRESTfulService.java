@@ -39,8 +39,8 @@ import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParameters;
 import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParser;
 import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
-import de.mindscan.futuresqr.domain.databases.FSqrScmProjectConfigurationRepositoryImpl;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
+import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
 
 /**
  * 
@@ -64,7 +64,7 @@ public class AdminRESTfulService {
         String reviewPrefix = postParams.getStringOrThrow( "scmProjectReviewPrefix" );
         String description = postParams.getStringOrDefault( "scmProjectDescription", "" );
 
-        FSqrScmProjectConfigurationRepositoryImpl configurationRepository = FSqrApplication.getInstance().getServices().getConfigurationRepository();
+        FSqrScmProjectConfigurationRepository configurationRepository = FSqrApplication.getInstance().getServices().getConfigurationRepository();
 
         String projectUUID = UuidUtil.getRandomUUID().toString();
 
@@ -90,7 +90,7 @@ public class AdminRESTfulService {
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public String getProjectConfiguration( @PathParam( "projectid" ) String projectId ) {
-        FSqrScmProjectConfigurationRepositoryImpl configurationRepository = FSqrApplication.getInstance().getServices().getConfigurationRepository();
+        FSqrScmProjectConfigurationRepository configurationRepository = FSqrApplication.getInstance().getServices().getConfigurationRepository();
 
         FSqrScmProjectConfiguration projectConfiguration = configurationRepository.getProjectConfiguration( projectId );
 

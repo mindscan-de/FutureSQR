@@ -40,9 +40,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
-import de.mindscan.futuresqr.domain.databases.FSqrScmProjectConfigurationRepositoryImpl;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectGitAdminConfiguration;
+import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
 
 /**
  * 
@@ -51,7 +51,7 @@ public class FSqrLazyProjectDatabaseImpl {
 
     private Gson gson = new Gson();
 
-    private FSqrScmProjectConfigurationRepositoryImpl configurationRepository = FSqrApplication.getInstance().getServices().getConfigurationRepository();
+    private FSqrScmProjectConfigurationRepository configurationRepository = FSqrApplication.getInstance().getServices().getConfigurationRepository();
 
     /**
      * 

@@ -39,111 +39,111 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
-import de.mindscan.futuresqr.domain.databases.FSqrScmProjectConfigurationRepositoryImpl;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectGitAdminConfiguration;
+import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
 
 /**
  * 
  */
 public class FSqrLazyProjectDatabaseImpl {
 
-	private FSqrScmProjectConfigurationRepositoryImpl configurationRepository = FSqrApplication.getInstance()
-			.getServices().getConfigurationRepository();
+    private FSqrScmProjectConfigurationRepository configurationRepository = FSqrApplication.getInstance().getServices().getConfigurationRepository();
 
-	/**
-	 * 
-	 */
-	public FSqrLazyProjectDatabaseImpl() {
-		this.loadProjectDatabaseFromResource();
-	}
+    /**
+     * 
+     */
+    public FSqrLazyProjectDatabaseImpl() {
+        this.loadProjectDatabaseFromResource();
+    }
 
-	private void loadProjectDatabaseFromResource() {
+    private void loadProjectDatabaseFromResource() {
 
-		HashMap<String, FSqrLazyProjectDBEntry> projectConfigurationMap = new HashMap<>();
+        HashMap<String, FSqrLazyProjectDBEntry> projectConfigurationMap = new HashMap<>();
 
-		TypeReference<HashMap<String, FSqrLazyProjectDBEntry>> projectConfigurationMapType = new TypeReference<HashMap<String, FSqrLazyProjectDBEntry>>() {
-		};
+        TypeReference<HashMap<String, FSqrLazyProjectDBEntry>> projectConfigurationMapType = new TypeReference<HashMap<String, FSqrLazyProjectDBEntry>>() {
+        };
 
-		// actually we should use the class loader to access and deal with this resource
-		Path userdbPath = Paths.get("src/main/resources/projectdb/projectdatabase.json");
+        // actually we should use the class loader to access and deal with this resource
+        Path userdbPath = Paths.get( "src/main/resources/projectdb/projectdatabase.json" );
 
-		ObjectMapper objectMapper = new ObjectMapper();
-		try (FileReader fileReader = new FileReader(userdbPath.toAbsolutePath().toString())) {
-			projectConfigurationMap = objectMapper.readValue(fileReader, projectConfigurationMapType);
-		} catch (IOException e) {
-			System.err.println("could not find project database...");
-			e.printStackTrace();
+        ObjectMapper objectMapper = new ObjectMapper();
+        try (FileReader fileReader = new FileReader( userdbPath.toAbsolutePath().toString() )) {
+            projectConfigurationMap = objectMapper.readValue( fileReader, projectConfigurationMapType );
+        }
+        catch (IOException e) {
+            System.err.println( "could not find project database..." );
+            e.printStackTrace();
 
-			ClassLoader cl = this.getClass().getClassLoader();
-			System.err.println(cl.getResource("projectdb/projectdatabase.json"));
-			try (InputStream is = cl.getResourceAsStream("userdb/userdatabase.json");
-					Reader isr = new InputStreamReader(is)) {
-				projectConfigurationMap = objectMapper.readValue(isr, projectConfigurationMapType);
-			} catch (Exception ex) {
-				System.err.println("yould not access alternate project database");
-				ex.printStackTrace();
-			}
-		}
+            ClassLoader cl = this.getClass().getClassLoader();
+            System.err.println( cl.getResource( "projectdb/projectdatabase.json" ) );
+            try (InputStream is = cl.getResourceAsStream( "userdb/userdatabase.json" ); Reader isr = new InputStreamReader( is )) {
+                projectConfigurationMap = objectMapper.readValue( isr, projectConfigurationMapType );
+            }
+            catch (Exception ex) {
+                System.err.println( "yould not access alternate project database" );
+                ex.printStackTrace();
+            }
+        }
 
-		this.initializeScmProjectConfigurationRepository(projectConfigurationMap.values());
-	}
+        this.initializeScmProjectConfigurationRepository( projectConfigurationMap.values() );
+    }
 
-	private void initializeScmProjectConfigurationRepository(Collection<FSqrLazyProjectDBEntry> collection) {
-		for (FSqrLazyProjectDBEntry projectEntry : collection) {
+    private void initializeScmProjectConfigurationRepository( Collection<FSqrLazyProjectDBEntry> collection ) {
+        for (FSqrLazyProjectDBEntry projectEntry : collection) {
 
-			String projectId = projectEntry.projectID;
-			String displayName = projectEntry.projectDisplayName;
-			String projectuuid = projectEntry.projectUuid;
-			int autoindexstart = projectEntry.autoIndex;
+            String projectId = projectEntry.projectID;
+            String displayName = projectEntry.projectDisplayName;
+            String projectuuid = projectEntry.projectUuid;
+            int autoindexstart = projectEntry.autoIndex;
 
-			FSqrScmProjectConfiguration scmProjectConfig = new FSqrScmProjectConfiguration(projectId, displayName,
-					projectuuid, autoindexstart);
-			scmProjectConfig.setProjectReviewPrefix(projectEntry.reviewPrefix);
-			scmProjectConfig.setProjectDescription(projectEntry.projectDescription);
+            FSqrScmProjectConfiguration scmProjectConfig = new FSqrScmProjectConfiguration( projectId, displayName, projectuuid, autoindexstart );
+            scmProjectConfig.setProjectReviewPrefix( projectEntry.reviewPrefix );
+            scmProjectConfig.setProjectDescription( projectEntry.projectDescription );
 
-			// TODO: read git configuration and prepare the GIT SCM configuration / later
-			// also SVN SCM configuration
-			if (projectEntry.hasAdministrationData()) {
-				FSqrLazyProjectAdministrationEntry adminentry = projectEntry.administration;
-				if (adminentry.hasLocalPath()) {
-					if ("svn".equals(adminentry.scmBackend)) {
-						//
-						// scmProjectConfig.addSvnConfiguration();
-					} else {
-						FSqrScmProjectGitAdminConfiguration gitAdminConfig = new FSqrScmProjectGitAdminConfiguration();
+            // TODO: read git configuration and prepare the GIT SCM configuration / later
+            // also SVN SCM configuration
+            if (projectEntry.hasAdministrationData()) {
+                FSqrLazyProjectAdministrationEntry adminentry = projectEntry.administration;
+                if (adminentry.hasLocalPath()) {
+                    if ("svn".equals( adminentry.scmBackend )) {
+                        //
+                        // scmProjectConfig.addSvnConfiguration();
+                    }
+                    else {
+                        FSqrScmProjectGitAdminConfiguration gitAdminConfig = new FSqrScmProjectGitAdminConfiguration();
 
-						gitAdminConfig.localPath = adminentry.localPath;
-						gitAdminConfig.defaultBranchName = projectEntry.projectBranchName;
+                        gitAdminConfig.localPath = adminentry.localPath;
+                        gitAdminConfig.defaultBranchName = projectEntry.projectBranchName;
 
-						scmProjectConfig.addGitConfiguration(gitAdminConfig);
-					}
+                        scmProjectConfig.addGitConfiguration( gitAdminConfig );
+                    }
 
-				}
-			}
+                }
+            }
 
-			configurationRepository.addScmProjectConfiguration(scmProjectConfig);
-		}
-	}
+            configurationRepository.addScmProjectConfiguration( scmProjectConfig );
+        }
+    }
 
-	public FSqrScmProjectConfiguration getProjectConfiguration(String projectId) {
-		return configurationRepository.getProjectConfiguration(projectId);
-	}
+    public FSqrScmProjectConfiguration getProjectConfiguration( String projectId ) {
+        return configurationRepository.getProjectConfiguration( projectId );
+    }
 
-	public Collection<FSqrScmProjectConfiguration> getAllProjects() {
-		return configurationRepository.getAllProjectConfigurations();
-	}
+    public Collection<FSqrScmProjectConfiguration> getAllProjects() {
+        return configurationRepository.getAllProjectConfigurations();
+    }
 
-	public boolean isProjectIdPresent(String projectId) {
-		return configurationRepository.hasProjectConfiguration(projectId);
-	}
+    public boolean isProjectIdPresent( String projectId ) {
+        return configurationRepository.hasProjectConfiguration( projectId );
+    }
 
-	public boolean hasProjectLocalPath(String projectId) {
-		if (!isProjectIdPresent(projectId)) {
-			return false;
-		}
+    public boolean hasProjectLocalPath( String projectId ) {
+        if (!isProjectIdPresent( projectId )) {
+            return false;
+        }
 
-		return getProjectConfiguration(projectId).hasLocalRepoPath();
-	}
+        return getProjectConfiguration( projectId ).hasLocalRepoPath();
+    }
 
 }
