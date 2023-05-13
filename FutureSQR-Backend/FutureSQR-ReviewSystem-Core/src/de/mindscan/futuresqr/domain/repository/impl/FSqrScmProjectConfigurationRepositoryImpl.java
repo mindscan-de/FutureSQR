@@ -23,7 +23,7 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.domain.databases;
+package de.mindscan.futuresqr.domain.repository.impl;
 
 import java.util.Collection;
 
