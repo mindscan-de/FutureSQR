@@ -26,6 +26,7 @@
 package de.mindscan.futuresqr.domain.repository.impl;
 
 import java.util.Collection;
+import java.util.function.Function;
 
 import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
@@ -59,6 +60,9 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
     // Proof of Concept - SCM Configuration from a "persistent" storage.
     private FSqrScmConfigurationDatabase scmConfigurationDatabase;
 
+    // Proof of concept
+    private Function<String, FSqrScmProjectConfiguration> configurationPersistenceLoader;
+
     /**
      * 
      */
@@ -71,9 +75,20 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
         this.scmConfigurationDatabase = new FSqrScmConfigurationDatabaseImpl();
     }
 
+    private FSqrScmProjectConfiguration uninitializedPersistenceLoader( String projectId ) {
+        return null;
+    }
+
+    private FSqrScmProjectConfiguration initializedDatabaseLoader( String projectId ) {
+        return this.scmConfigurationDatabase.selectScmConfigurationByProjectId( projectId );
+    }
+
     @Override
     public void setApplicationServices( FSqrApplicationServices services ) {
         this.applicationServices = services;
+
+        // w may have to reinitialite the userdatabase and the cache and such.
+        this.setConfigurationPersistenceLoader( this::initializedDatabaseLoader );
     }
 
     // TODO use an alternate constructor with a projectConfigurationInitialProvider, which 
@@ -86,11 +101,7 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
 
     @Override
     public FSqrScmProjectConfiguration getProjectConfiguration( String projectId ) {
-        if (scmProjectConfigurationCache.isCached( projectId )) {
-            return scmProjectConfigurationCache.getScmConfiguration( projectId );
-        }
-
-        return null;
+        return scmProjectConfigurationCache.getScmConfiguration( projectId, this.configurationPersistenceLoader );
     }
 
     @Override
@@ -99,7 +110,15 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
             return true;
         }
 
+        // TODO: test if negative answer for this project id is cached and save unsuccessful
+
         // try to retrieve with loader, if unsuccessful we might want to cache the absence
+        FSqrScmProjectConfiguration projectConfiguration = this.getProjectConfiguration( projectId );
+        if (projectConfiguration != null) {
+            return true;
+        }
+
+        // TODO: Actually we should cahce the negative answer for some time.
 
         return false;
     }
@@ -110,9 +129,13 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
             throw new RuntimeException( "ProjectId is unknown" );
         }
 
-        FSqrScmProjectConfiguration projectConfiguratopm = scmProjectConfigurationCache.getScmConfiguration( projectId );
+        FSqrScmProjectConfiguration projectConfiguration = scmProjectConfigurationCache.getScmConfiguration( projectId, this.configurationPersistenceLoader );
 
-        return projectConfiguratopm.createNewReviewIdentifierWithPrefix();
+        if (projectConfiguration == null) {
+            throw new RuntimeException( "ProjectId is unknown" );
+        }
+
+        return projectConfiguration.createNewReviewIdentifierWithPrefix();
     }
 
     @Override
@@ -129,6 +152,16 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
         }
 
         this.scmProjectConfigurationCache.putProjectConfiguration( projectId, projectConfiguration );
+    }
+
+    public void setConfigurationPersistenceLoader( Function<String, FSqrScmProjectConfiguration> loader ) {
+        if (loader != null) {
+            this.configurationPersistenceLoader = loader;
+        }
+        else {
+            this.configurationPersistenceLoader = this::uninitializedPersistenceLoader;
+        }
+
     }
 
 }

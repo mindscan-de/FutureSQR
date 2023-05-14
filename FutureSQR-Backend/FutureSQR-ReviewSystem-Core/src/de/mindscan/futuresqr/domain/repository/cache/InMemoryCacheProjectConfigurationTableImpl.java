@@ -28,6 +28,7 @@ package de.mindscan.futuresqr.domain.repository.cache;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 
@@ -54,9 +55,18 @@ public class InMemoryCacheProjectConfigurationTableImpl {
         this.scmProjectConfigurationsByProjectId.put( projectId, scmConfiguration );
     }
 
-    public FSqrScmProjectConfiguration getScmConfiguration( String projectId ) {
+    public FSqrScmProjectConfiguration getScmConfiguration( String projectId, Function<String, FSqrScmProjectConfiguration> loadFunction ) {
         if (isCached( projectId )) {
             return this.scmProjectConfigurationsByProjectId.get( projectId );
+        }
+
+        if (loadFunction != null) {
+
+            FSqrScmProjectConfiguration scmConfiguration = loadFunction.apply( projectId );
+            if (scmConfiguration != null) {
+                this.putProjectConfiguration( projectId, scmConfiguration );
+                return scmConfiguration;
+            }
         }
 
         return null;

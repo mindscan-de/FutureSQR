@@ -42,7 +42,7 @@ public class InMemoryCacheProjectConfigurationTableImplTest {
         InMemoryCacheProjectConfigurationTableImpl configurationCache = new InMemoryCacheProjectConfigurationTableImpl();
 
         // act
-        FSqrScmProjectConfiguration result = configurationCache.getScmConfiguration( PROJECT_A_IDENTIFIER );
+        FSqrScmProjectConfiguration result = configurationCache.getScmConfiguration( PROJECT_A_IDENTIFIER, null );
 
         // assert
         assertThat( result, nullValue() );
@@ -58,7 +58,7 @@ public class InMemoryCacheProjectConfigurationTableImplTest {
         configurationCache.putProjectConfiguration( PROJECT_A_IDENTIFIER, expectedScmConfiguration );
 
         // assert
-        FSqrScmProjectConfiguration result = configurationCache.getScmConfiguration( PROJECT_A_IDENTIFIER );
+        FSqrScmProjectConfiguration result = configurationCache.getScmConfiguration( PROJECT_A_IDENTIFIER, null );
         assertThat( result, not( nullValue() ) );
     }
 
@@ -72,7 +72,7 @@ public class InMemoryCacheProjectConfigurationTableImplTest {
         configurationCache.putProjectConfiguration( PROJECT_A_IDENTIFIER, expectedScmConfiguration );
 
         // assert
-        FSqrScmProjectConfiguration result = configurationCache.getScmConfiguration( PROJECT_A_IDENTIFIER );
+        FSqrScmProjectConfiguration result = configurationCache.getScmConfiguration( PROJECT_A_IDENTIFIER, null );
         assertThat( result, is( sameInstance( expectedScmConfiguration ) ) );
     }
 
