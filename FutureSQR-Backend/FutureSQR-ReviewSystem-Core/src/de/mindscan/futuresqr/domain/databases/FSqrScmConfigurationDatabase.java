@@ -25,9 +25,17 @@
  */
 package de.mindscan.futuresqr.domain.databases;
 
+import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
+
 /**
  * 
  */
 public interface FSqrScmConfigurationDatabase {
+
+    /**
+     * @param projectId
+     * @return
+     */
+    FSqrScmProjectConfiguration selectScmConfigurationByProjectId( String projectId );
 
 }

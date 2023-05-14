@@ -26,10 +26,20 @@
 package de.mindscan.futuresqr.domain.databases.impl;
 
 import de.mindscan.futuresqr.domain.databases.FSqrScmConfigurationDatabase;
+import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 
 /**
  * 
  */
 public class FSqrScmConfigurationDatabaseImpl implements FSqrScmConfigurationDatabase {
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public FSqrScmProjectConfiguration selectScmConfigurationByProjectId( String projectId ) {
+        // TODO implement me.
+        return null;
+    }
 
 }
