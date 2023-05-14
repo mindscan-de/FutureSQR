@@ -90,4 +90,29 @@ public class InMemoryCacheProjectConfigurationTableImplTest {
         assertThat( result, equalTo( true ) );
     }
 
+    @Test
+    public void testGetScmConfiguration_provideFunctionsReturningEmptyConfig_returnsNull() throws Exception {
+        // arrange
+        InMemoryCacheProjectConfigurationTableImpl configurationCache = new InMemoryCacheProjectConfigurationTableImpl();
+
+        // act
+        FSqrScmProjectConfiguration result = configurationCache.getScmConfiguration( PROJECT_A_IDENTIFIER, ( String projectKey ) -> null );
+
+        // assert
+        assertThat( result, nullValue() );
+    }
+
+    @Test
+    public void testGetScmConfiguration_provideFunctionsReturningEmptyExpectedConfiguration_returnsSameConfiguration() throws Exception {
+        // arrange
+        InMemoryCacheProjectConfigurationTableImpl configurationCache = new InMemoryCacheProjectConfigurationTableImpl();
+        FSqrScmProjectConfiguration expectedScmConfiguration = Mockito.mock( FSqrScmProjectConfiguration.class, "expectedScmConfiguration" );
+
+        // act
+        FSqrScmProjectConfiguration result = configurationCache.getScmConfiguration( PROJECT_A_IDENTIFIER, ( String projectKey ) -> expectedScmConfiguration );
+
+        // assert
+        assertThat( result, is( sameInstance( expectedScmConfiguration ) ) );
+    }
+
 }
