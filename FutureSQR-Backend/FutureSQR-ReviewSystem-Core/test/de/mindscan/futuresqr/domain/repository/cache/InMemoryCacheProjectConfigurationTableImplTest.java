@@ -115,4 +115,21 @@ public class InMemoryCacheProjectConfigurationTableImplTest {
         assertThat( result, is( sameInstance( expectedScmConfiguration ) ) );
     }
 
+    @Test
+    public void testGetScmConfiguration_ProjectAlredyCachedWontUseLoader_returnsExpectedCachedConfiguration() throws Exception {
+        // arrange
+        InMemoryCacheProjectConfigurationTableImpl configurationCache = new InMemoryCacheProjectConfigurationTableImpl();
+        FSqrScmProjectConfiguration expectedScmConfiguration = Mockito.mock( FSqrScmProjectConfiguration.class, "expectedScmConfiguration" );
+        FSqrScmProjectConfiguration unExpectedScmConfiguration = Mockito.mock( FSqrScmProjectConfiguration.class, "expectedScmConfiguration" );
+
+        configurationCache.putProjectConfiguration( PROJECT_A_IDENTIFIER, expectedScmConfiguration );
+
+        // act
+        FSqrScmProjectConfiguration result = configurationCache.getScmConfiguration( PROJECT_A_IDENTIFIER,
+                        ( String projectKey ) -> unExpectedScmConfiguration );
+
+        // assert
+        assertThat( result, is( sameInstance( expectedScmConfiguration ) ) );
+    }
+
 }
