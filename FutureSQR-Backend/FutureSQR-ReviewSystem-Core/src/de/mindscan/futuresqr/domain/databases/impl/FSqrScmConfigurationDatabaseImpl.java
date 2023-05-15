@@ -28,6 +28,7 @@ package de.mindscan.futuresqr.domain.databases.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.mindscan.futuresqr.core.uuid.UuidUtil;
 import de.mindscan.futuresqr.domain.databases.FSqrScmConfigurationDatabase;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 
@@ -51,6 +52,31 @@ public class FSqrScmConfigurationDatabaseImpl implements FSqrScmConfigurationDat
      */
     protected void initHardcodedData() {
         // insertProjectScmConfiguration( scmConfig );
+
+        // TODO: project is starred: false, localpath = null, 
+        FSqrScmProjectConfiguration brightflux = new FSqrScmProjectConfiguration( "brightflux", "BrightFlux", UuidUtil.getRandomUUID().toString(), 1 );
+        brightflux.setProjectReviewPrefix( "CR-BRFX" );
+        brightflux.setProjectDescription( "LogFileViewer and LogFileAnalysis with yet unseen Features and written in Java" );
+        insertProjectScmConfiguration( brightflux );
+
+        // TODO: project is starred: false, localpath = null, 
+        FSqrScmProjectConfiguration curiousmyth = new FSqrScmProjectConfiguration( "curiousmyth", "CuriousMyth", UuidUtil.getRandomUUID().toString(), 1 );
+        curiousmyth.setProjectReviewPrefix( "CR-CRSM-" );
+        curiousmyth.setProjectDescription( "Modelling facts, entities and information for knowledge representation" );
+        insertProjectScmConfiguration( curiousmyth );
+
+        // TODO: fluentgenesis-classifier
+        // TODO: fluentgenesis-embedder
+        // TODO: fluentgenesis-plugin
+        // TODO: furiousiron-frontend
+        // TODO: furiousiron-hfb
+        // TODO: furiousiron-indexer
+        // TODO: furiousiron-searchbackend
+        // TODO: futuresqr
+        // TODO: futuresqr-svn-trunk
+        // TODO: orangemoon-backend
+        // TODO: orangemoon-frontend
+
     }
 
     public void insertProjectScmConfiguration( FSqrScmProjectConfiguration scmConfig ) {
