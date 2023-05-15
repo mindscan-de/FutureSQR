@@ -25,6 +25,9 @@
  */
 package de.mindscan.futuresqr.domain.databases.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import de.mindscan.futuresqr.domain.databases.FSqrScmConfigurationDatabase;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 
@@ -33,13 +36,33 @@ import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
  */
 public class FSqrScmConfigurationDatabaseImpl implements FSqrScmConfigurationDatabase {
 
+    private Map<String, FSqrScmProjectConfiguration> tmpScmConfigDatabase = new HashMap<>();
+
+    /**
+     * 
+     */
+    public FSqrScmConfigurationDatabaseImpl() {
+        // TODO: remove me, when we have a database and a database session object
+        initHardcodedData();
+    }
+
+    /**
+     * 
+     */
+    protected void initHardcodedData() {
+        // insertProjectScmConfiguration( scmConfig );
+    }
+
+    public void insertProjectScmConfiguration( FSqrScmProjectConfiguration scmConfig ) {
+        tmpScmConfigDatabase.put( scmConfig.getProjectId(), scmConfig );
+    }
+
     /** 
      * {@inheritDoc}
      */
     @Override
     public FSqrScmProjectConfiguration selectScmConfigurationByProjectId( String projectId ) {
-        // TODO implement me.
-        return null;
+        return tmpScmConfigDatabase.get( projectId );
     }
 
 }
