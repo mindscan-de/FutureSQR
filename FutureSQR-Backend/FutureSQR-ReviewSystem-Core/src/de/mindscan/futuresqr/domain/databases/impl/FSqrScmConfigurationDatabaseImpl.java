@@ -66,6 +66,12 @@ public class FSqrScmConfigurationDatabaseImpl implements FSqrScmConfigurationDat
         insertProjectScmConfiguration( curiousmyth );
 
         // TODO: fluentgenesis-classifier
+        FSqrScmProjectConfiguration fluentgenesis_classifier = new FSqrScmProjectConfiguration( "fluentgenesis-classifier", "FluentGenesis-Classifier",
+                        UuidUtil.getRandomUUID().toString(), 1 );
+        fluentgenesis_classifier.setProjectReviewPrefix( "CR-FLUGEN-CLS-" );
+        fluentgenesis_classifier.setProjectDescription( "" );
+        insertProjectScmConfiguration( fluentgenesis_classifier );
+
         // TODO: fluentgenesis-embedder
         // TODO: fluentgenesis-plugin
         // TODO: furiousiron-frontend
