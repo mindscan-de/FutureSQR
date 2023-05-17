@@ -87,7 +87,7 @@ public class FSqrScmConfigurationDatabaseImpl implements FSqrScmConfigurationDat
         fluentGenesisPlugin.setProjectDescription( "Source Code Language Understanding - Eclipse plugin for Source Code Generation." );
         insertProjectScmConfiguration( fluentGenesisPlugin );
 
-        // TODO: project is starred true, SCM configuration...
+        // TODO: project is starred true
         FSqrScmProjectConfiguration furiousIronFrontend = new FSqrScmProjectConfiguration( "furiousiron-frontend", "FuriousIron-Frontend",
                         UuidUtil.getRandomUUID().toString(), 1 );
         furiousIronFrontend.setProjectReviewPrefix( "CR-FI-FRNT-" );
@@ -98,9 +98,32 @@ public class FSqrScmConfigurationDatabaseImpl implements FSqrScmConfigurationDat
         furiousIronFrontend.addGitConfiguration( fifconfig );
         insertProjectScmConfiguration( furiousIronFrontend );
 
-        // TODO: furiousiron-hfb
-        // TODO: furiousiron-indexer
-        // TODO: furiousiron-searchbackend
+        // TODO: project is starred true
+        FSqrScmProjectConfiguration furiousIronHFB = new FSqrScmProjectConfiguration( "furiousiron-hfb", "FuriousIron-HFB", UuidUtil.getRandomUUID().toString(),
+                        50 );
+        furiousIronHFB.setProjectReviewPrefix( "CR-FI-HFB-" );
+        furiousIronHFB.setProjectDescription( "Hash-Free Bloom-Filter (Proof of concept implementation)" );
+        FSqrScmProjectGitAdminConfiguration fihconfig = new FSqrScmProjectGitAdminConfiguration();
+        fihconfig.localPath = "FuriousIron-HFB";
+        fihconfig.defaultBranchName = "main";
+        furiousIronHFB.addGitConfiguration( fihconfig );
+        insertProjectScmConfiguration( furiousIronHFB );
+
+        // TODO: project is starred: false, localpath = null,
+        FSqrScmProjectConfiguration furiousIronIndexer = new FSqrScmProjectConfiguration( "furiousiron-indexer", "FuriousIron-Indexer",
+                        UuidUtil.getRandomUUID().toString(), 1 );
+        furiousIronIndexer.setProjectReviewPrefix( "CR-FI-NDX-" );
+        furiousIronIndexer.setProjectDescription( "My personal source code search engine project. Indexer. (Java. Windows. No Database. Filesystem only)" );
+        insertProjectScmConfiguration( furiousIronIndexer );
+
+        // TODO: project is starred: false, localpath = null,
+        FSqrScmProjectConfiguration furiousIronSearchBackend = new FSqrScmProjectConfiguration( "furiousiron-searchbackend", "FuriousIron-SearchBackend",
+                        UuidUtil.getRandomUUID().toString(), 1 );
+        furiousIronSearchBackend.setProjectReviewPrefix( "CR-FI-SRND-" );
+        furiousIronSearchBackend.setProjectDescription(
+                        "My personal source code search engine project. Backend. (Java. Tomcat. Windows. No Database. Filesystem only)" );
+        insertProjectScmConfiguration( furiousIronSearchBackend );
+
         // TODO: futuresqr
         // TODO: futuresqr-svn-trunk
         // TODO: orangemoon-backend
