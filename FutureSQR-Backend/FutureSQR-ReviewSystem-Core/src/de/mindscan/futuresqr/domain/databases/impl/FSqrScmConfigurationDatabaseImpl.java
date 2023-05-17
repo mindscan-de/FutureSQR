@@ -147,8 +147,19 @@ public class FSqrScmConfigurationDatabaseImpl implements FSqrScmConfigurationDat
         futureSqrSvnTrunk.addSvnConfiguration( fsqrsvnconfig );
         insertProjectScmConfiguration( futureSqrSvnTrunk );
 
-        // TODO: orangemoon-backend
-        // TODO: orangemoon-frontend
+        // TODO: project is starred: false, localpath = null,
+        FSqrScmProjectConfiguration orangeMoonBackend = new FSqrScmProjectConfiguration( "orangemoon-backend", "OrangeMoon-Backend",
+                        UuidUtil.getRandomUUID().toString(), 1 );
+        orangeMoonBackend.setProjectReviewPrefix( "CR-ORM-BND-" );
+        orangeMoonBackend.setProjectDescription( "Japanese Dictionary Web-App - Backend (based on fastapi and jamdict)" );
+        insertProjectScmConfiguration( orangeMoonBackend );
+
+        // TODO: project is starred: false, localpath = null,
+        FSqrScmProjectConfiguration orangeMoonFrontend = new FSqrScmProjectConfiguration( "orangemoon-frontend", "OrangeMoon-Frontend",
+                        UuidUtil.getRandomUUID().toString(), 1 );
+        orangeMoonFrontend.setProjectReviewPrefix( "CR-ORM-FND-" );
+        orangeMoonFrontend.setProjectDescription( "Japanese Dictionary Web-App - Frontend (based on nodejs and angular)" );
+        insertProjectScmConfiguration( orangeMoonFrontend );
 
     }
 
