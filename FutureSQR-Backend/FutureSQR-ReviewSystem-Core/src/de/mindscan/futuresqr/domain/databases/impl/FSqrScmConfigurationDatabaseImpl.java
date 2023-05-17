@@ -31,6 +31,7 @@ import java.util.Map;
 import de.mindscan.futuresqr.core.uuid.UuidUtil;
 import de.mindscan.futuresqr.domain.databases.FSqrScmConfigurationDatabase;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
+import de.mindscan.futuresqr.domain.model.FSqrScmProjectGitAdminConfiguration;
 
 /**
  * 
@@ -54,27 +55,49 @@ public class FSqrScmConfigurationDatabaseImpl implements FSqrScmConfigurationDat
         // insertProjectScmConfiguration( scmConfig );
 
         // TODO: project is starred: false, localpath = null, 
-        FSqrScmProjectConfiguration brightflux = new FSqrScmProjectConfiguration( "brightflux", "BrightFlux", UuidUtil.getRandomUUID().toString(), 1 );
-        brightflux.setProjectReviewPrefix( "CR-BRFX" );
-        brightflux.setProjectDescription( "LogFileViewer and LogFileAnalysis with yet unseen Features and written in Java" );
-        insertProjectScmConfiguration( brightflux );
+        FSqrScmProjectConfiguration brightFlux = new FSqrScmProjectConfiguration( "brightflux", "BrightFlux", UuidUtil.getRandomUUID().toString(), 1 );
+        brightFlux.setProjectReviewPrefix( "CR-BRFX" );
+        brightFlux.setProjectDescription( "LogFileViewer and LogFileAnalysis with yet unseen Features and written in Java" );
+        insertProjectScmConfiguration( brightFlux );
 
         // TODO: project is starred: false, localpath = null, 
-        FSqrScmProjectConfiguration curiousmyth = new FSqrScmProjectConfiguration( "curiousmyth", "CuriousMyth", UuidUtil.getRandomUUID().toString(), 1 );
-        curiousmyth.setProjectReviewPrefix( "CR-CRSM-" );
-        curiousmyth.setProjectDescription( "Modelling facts, entities and information for knowledge representation" );
-        insertProjectScmConfiguration( curiousmyth );
+        FSqrScmProjectConfiguration curiousMyth = new FSqrScmProjectConfiguration( "curiousmyth", "CuriousMyth", UuidUtil.getRandomUUID().toString(), 1 );
+        curiousMyth.setProjectReviewPrefix( "CR-CRSM-" );
+        curiousMyth.setProjectDescription( "Modelling facts, entities and information for knowledge representation" );
+        insertProjectScmConfiguration( curiousMyth );
 
-        // TODO: fluentgenesis-classifier
-        FSqrScmProjectConfiguration fluentgenesis_classifier = new FSqrScmProjectConfiguration( "fluentgenesis-classifier", "FluentGenesis-Classifier",
+        // TODO: project is starred: false, localpath = null,
+        FSqrScmProjectConfiguration fluentGenesisClassifier = new FSqrScmProjectConfiguration( "fluentgenesis-classifier", "FluentGenesis-Classifier",
                         UuidUtil.getRandomUUID().toString(), 1 );
-        fluentgenesis_classifier.setProjectReviewPrefix( "CR-FLUGEN-CLS-" );
-        fluentgenesis_classifier.setProjectDescription( "" );
-        insertProjectScmConfiguration( fluentgenesis_classifier );
+        fluentGenesisClassifier.setProjectReviewPrefix( "CR-FLUGEN-CLS-" );
+        fluentGenesisClassifier.setProjectDescription( "" );
+        insertProjectScmConfiguration( fluentGenesisClassifier );
 
-        // TODO: fluentgenesis-embedder
-        // TODO: fluentgenesis-plugin
-        // TODO: furiousiron-frontend
+        // TODO: project is starred: false, localpath = null,
+        FSqrScmProjectConfiguration fluentGenesisEmbedder = new FSqrScmProjectConfiguration( "fluentgenesis-embedder", "FluentGenesis-Embedder",
+                        UuidUtil.getRandomUUID().toString(), 1 );
+        fluentGenesisEmbedder.setProjectReviewPrefix( "CR-FLUGEN-EMB-" );
+        fluentGenesisEmbedder.setProjectDescription( "Source Code Language Unserstanding - Calculating the Embedding vectors and such." );
+        insertProjectScmConfiguration( fluentGenesisEmbedder );
+
+        // TODO: project is starred: false, localpath = null,
+        FSqrScmProjectConfiguration fluentGenesisPlugin = new FSqrScmProjectConfiguration( "fluentgenesis-plugin", "FluentGenesis-Plugin",
+                        UuidUtil.getRandomUUID().toString(), 1 );
+        fluentGenesisPlugin.setProjectReviewPrefix( "CR-FLUGEN-PLG-" );
+        fluentGenesisPlugin.setProjectDescription( "Source Code Language Understanding - Eclipse plugin for Source Code Generation." );
+        insertProjectScmConfiguration( fluentGenesisPlugin );
+
+        // TODO: project is starred true, SCM configuration...
+        FSqrScmProjectConfiguration furiousIronFrontend = new FSqrScmProjectConfiguration( "furiousiron-frontend", "FuriousIron-Frontend",
+                        UuidUtil.getRandomUUID().toString(), 1 );
+        furiousIronFrontend.setProjectReviewPrefix( "CR-FI-FRNT-" );
+        furiousIronFrontend.setProjectDescription( "My personal source code engine project. Frontend. (Angular. TS)" );
+        FSqrScmProjectGitAdminConfiguration fifconfig = new FSqrScmProjectGitAdminConfiguration();
+        fifconfig.localPath = "FuriousIron-Frontend";
+        fifconfig.defaultBranchName = "master";
+        furiousIronFrontend.addGitConfiguration( fifconfig );
+        insertProjectScmConfiguration( furiousIronFrontend );
+
         // TODO: furiousiron-hfb
         // TODO: furiousiron-indexer
         // TODO: furiousiron-searchbackend
