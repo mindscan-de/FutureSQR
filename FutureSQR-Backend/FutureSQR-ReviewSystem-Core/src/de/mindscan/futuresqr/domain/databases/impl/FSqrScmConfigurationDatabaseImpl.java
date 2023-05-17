@@ -32,6 +32,7 @@ import de.mindscan.futuresqr.core.uuid.UuidUtil;
 import de.mindscan.futuresqr.domain.databases.FSqrScmConfigurationDatabase;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectGitAdminConfiguration;
+import de.mindscan.futuresqr.domain.model.FSqrScmProjectSvnAdminConfiguration;
 
 /**
  * 
@@ -124,8 +125,28 @@ public class FSqrScmConfigurationDatabaseImpl implements FSqrScmConfigurationDat
                         "My personal source code search engine project. Backend. (Java. Tomcat. Windows. No Database. Filesystem only)" );
         insertProjectScmConfiguration( furiousIronSearchBackend );
 
-        // TODO: futuresqr
-        // TODO: futuresqr-svn-trunk
+        // TODO: project is starred: true,
+        FSqrScmProjectConfiguration futureSqr = new FSqrScmProjectConfiguration( "futuresqr", "FutureSQR", UuidUtil.getRandomUUID().toString(), 100 );
+        futureSqr.setProjectReviewPrefix( "CR-FSQR-" );
+        futureSqr.setProjectDescription( "Future Source Quality Review -- Code Review Tool for Trunk-Based-Development" );
+        FSqrScmProjectGitAdminConfiguration fsqrconfig = new FSqrScmProjectGitAdminConfiguration();
+        fsqrconfig.localPath = "FutureSQR";
+        fsqrconfig.defaultBranchName = "main";
+        futureSqr.addGitConfiguration( fsqrconfig );
+        insertProjectScmConfiguration( futureSqr );
+
+        // TODO: project is starred: true,
+        FSqrScmProjectConfiguration futureSqrSvnTrunk = new FSqrScmProjectConfiguration( "futuresqr-svn-trunk", "FutureSQR (SVN)",
+                        UuidUtil.getRandomUUID().toString(), 100 );
+        futureSqrSvnTrunk.setProjectReviewPrefix( "CR-FSQR-SVN-" );
+        futureSqrSvnTrunk.setProjectDescription(
+                        "Future Source Quality Review -- Code Review Tool for Trunk-Based-Development -- https://github.com/mindscan-de/FutureSQR.git/trunk" );
+        FSqrScmProjectSvnAdminConfiguration fsqrsvnconfig = new FSqrScmProjectSvnAdminConfiguration();
+        // TODO: fsqrsvnconfig.  "localPath": "FutureSQR_SVN_TrunkOnly"
+        // TODO: fsqrsvnconfig.  "branchname": "main"
+        futureSqrSvnTrunk.addSvnConfiguration( fsqrsvnconfig );
+        insertProjectScmConfiguration( futureSqrSvnTrunk );
+
         // TODO: orangemoon-backend
         // TODO: orangemoon-frontend
 
