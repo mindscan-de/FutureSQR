@@ -102,11 +102,7 @@ public class FSqrLazyProjectDatabaseImpl {
     }
 
     public boolean hasProjectLocalPath( String projectId ) {
-        if (!isProjectIdPresent( projectId )) {
-            return false;
-        }
-
-        return getProjectConfiguration( projectId ).hasLocalRepoPath();
+        return configurationRepository.hasProjectLocalPath( projectId );
     }
 
 }

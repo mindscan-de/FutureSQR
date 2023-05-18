@@ -173,4 +173,16 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
 
     }
 
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean hasProjectLocalPath( String projectId ) {
+        if (!hasProjectConfiguration( projectId )) {
+            return false;
+        }
+
+        return getProjectConfiguration( projectId ).hasLocalRepoPath();
+    }
+
 }

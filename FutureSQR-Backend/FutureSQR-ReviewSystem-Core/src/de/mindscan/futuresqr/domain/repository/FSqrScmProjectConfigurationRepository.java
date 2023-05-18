@@ -55,4 +55,6 @@ public interface FSqrScmProjectConfigurationRepository {
 
     String getNewProjectReviewIdentifier( String projectId );
 
+    boolean hasProjectLocalPath( String projectId );
+
 }
