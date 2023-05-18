@@ -23,7 +23,7 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.domain.databases;
+package de.mindscan.futuresqr.domain.repository.impl;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -31,6 +31,7 @@ import java.util.HashSet;
 import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
+import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectDatabase;
 import de.mindscan.futuresqr.domain.databases.impl.FSqrUserToProjectDatabaseImpl;
 import de.mindscan.futuresqr.domain.repository.FSqrUserToProjectRepository;
 import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheUserStarredProjectTableImpl;

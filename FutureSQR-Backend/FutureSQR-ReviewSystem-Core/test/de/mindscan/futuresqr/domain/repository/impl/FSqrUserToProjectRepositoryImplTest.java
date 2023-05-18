@@ -1,4 +1,4 @@
-package de.mindscan.futuresqr.domain.databases;
+package de.mindscan.futuresqr.domain.repository.impl;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesImpl;
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
+import de.mindscan.futuresqr.domain.repository.impl.FSqrUserToProjectRepositoryImpl;
 
 public class FSqrUserToProjectRepositoryImplTest {
 
