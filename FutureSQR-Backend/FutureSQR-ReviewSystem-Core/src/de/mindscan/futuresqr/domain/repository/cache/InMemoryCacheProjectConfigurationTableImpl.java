@@ -73,11 +73,9 @@ public class InMemoryCacheProjectConfigurationTableImpl {
     }
 
     public Collection<FSqrScmProjectConfiguration> getAllCachedScmConfigurations() {
-        // TODO either have a List of all projects, or create from the map.
         return scmProjectConfigurationsByProjectId.values();
     }
 
     // TODO: get all project configurations with a provided loader.
 
-    // TODO: implement getter with provided loader.
 }
