@@ -41,7 +41,6 @@ import com.google.gson.reflect.TypeToken;
 
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
-import de.mindscan.futuresqr.domain.model.FSqrScmProjectGitAdminConfiguration;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
 
 /**
@@ -88,42 +87,6 @@ public class FSqrLazyProjectDatabaseImpl {
             }
         }
 
-        this.initializeScmProjectConfigurationRepository( projectConfigurationMap.values() );
-    }
-
-    private void initializeScmProjectConfigurationRepository( Collection<FSqrLazyProjectDBEntry> collection ) {
-        for (FSqrLazyProjectDBEntry projectEntry : collection) {
-
-            String projectId = projectEntry.projectID;
-            String displayName = projectEntry.projectDisplayName;
-            String projectuuid = projectEntry.projectUuid;
-            int autoindexstart = projectEntry.autoIndex;
-
-            FSqrScmProjectConfiguration scmProjectConfig = new FSqrScmProjectConfiguration( projectId, displayName, projectuuid, autoindexstart );
-            scmProjectConfig.setProjectReviewPrefix( projectEntry.reviewPrefix );
-            scmProjectConfig.setProjectDescription( projectEntry.projectDescription );
-
-            // TODO: read git configuration and prepare the GIT SCM configuration / later also SVN SCM configuration
-            if (projectEntry.hasAdministrationData()) {
-                FSqrLazyProjectAdministrationEntry adminentry = projectEntry.administration;
-                if (adminentry.hasLocalPath()) {
-                    if ("svn".equals( adminentry.scmBackend )) {
-                        scmProjectConfig.addSvnConfiguration( null );
-                    }
-                    else {
-                        FSqrScmProjectGitAdminConfiguration gitAdminConfig = new FSqrScmProjectGitAdminConfiguration();
-
-                        gitAdminConfig.localPath = adminentry.localPath;
-                        gitAdminConfig.defaultBranchName = projectEntry.projectBranchName;
-
-                        scmProjectConfig.addGitConfiguration( gitAdminConfig );
-                    }
-
-                }
-            }
-
-            configurationRepository.addScmProjectConfiguration( scmProjectConfig );
-        }
     }
 
     public FSqrScmProjectConfiguration getProjectConfiguration( String projectId ) {
