@@ -111,9 +111,7 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
     // TODO: maybe we also want the reverse table, where we look at the project, and want to know who gave a star to this project
 
     private boolean isValidUser( String userUUID ) {
-        // TODO this won't work if the lazy userdatabase is not yet initialized, and we want to provide preinitialized data...
-        // return this.applicationServices.getUserRepository().isUserUUIDPresent( userUUID );
-        return true;
+        return this.applicationServices.getUserRepository().isUserUUIDPresent( userUUID );
     }
 
 }
