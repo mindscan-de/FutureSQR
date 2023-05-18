@@ -31,6 +31,7 @@ import java.util.HashSet;
 import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
+import de.mindscan.futuresqr.domain.databases.impl.FSqrUserToProjectDatabaseImpl;
 import de.mindscan.futuresqr.domain.repository.FSqrUserToProjectRepository;
 import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheUserStarredProjectTableImpl;
 
@@ -50,12 +51,15 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
 
     private InMemoryCacheUserStarredProjectTableImpl starredProjectsCache;
 
+    private FSqrUserToProjectDatabase userToProjectDatabase;
+
     /**
      * 
      */
     public FSqrUserToProjectRepositoryImpl() {
         this.starredProjectsCache = new InMemoryCacheUserStarredProjectTableImpl();
         this.applicationServices = new FSqrApplicationServicesUnitialized();
+        this.userToProjectDatabase = new FSqrUserToProjectDatabaseImpl();
     }
 
     @Override
