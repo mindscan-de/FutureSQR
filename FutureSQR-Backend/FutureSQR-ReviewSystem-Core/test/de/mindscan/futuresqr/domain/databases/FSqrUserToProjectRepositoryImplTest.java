@@ -183,7 +183,7 @@ public class FSqrUserToProjectRepositoryImplTest {
         applicationServices.getUserRepository().addUserEntry( known_user );
         applicationServices.getUserRepository().addUserEntry( another_user );
 
-        return applicationServices.getUserToProjectRepository();
+        return (FSqrUserToProjectRepositoryImpl) applicationServices.getUserToProjectRepository();
     }
 
 }

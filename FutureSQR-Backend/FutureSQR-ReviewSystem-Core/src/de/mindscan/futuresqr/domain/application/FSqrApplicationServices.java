@@ -29,8 +29,8 @@ import de.mindscan.futuresqr.domain.configuration.FSqrSystemInstanceConfiguratio
 import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrDiscussionThreadRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrScmProjectRevisionRepositoryImpl;
-import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectRepositoryImpl;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
+import de.mindscan.futuresqr.domain.repository.FSqrUserToProjectRepository;
 import de.mindscan.futuresqr.domain.repository.impl.FSqrScmUserRepositoryImpl;
 
 /**
@@ -47,7 +47,7 @@ public interface FSqrApplicationServices {
 
     FSqrSystemInstanceConfigurationImpl getSystemConfiguration();
 
-    FSqrUserToProjectRepositoryImpl getUserToProjectRepository();
+    FSqrUserToProjectRepository getUserToProjectRepository();
 
     FSqrDiscussionThreadRepositoryImpl getDiscussionThreadRepository();
 }
