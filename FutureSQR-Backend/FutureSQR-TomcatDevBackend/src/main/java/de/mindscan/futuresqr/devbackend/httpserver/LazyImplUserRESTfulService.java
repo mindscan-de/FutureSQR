@@ -50,6 +50,7 @@ import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
+import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrScmUserRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrUserToProjectRepository;
 
@@ -60,6 +61,7 @@ import de.mindscan.futuresqr.domain.repository.FSqrUserToProjectRepository;
 public class LazyImplUserRESTfulService {
 
     private FSqrScmUserRepository userRepository = FSqrApplication.getInstance().getServices().getUserRepository();
+    private FSqrScmProjectConfigurationRepository configurationRepository = FSqrApplication.getInstance().getServices().getConfigurationRepository();
 
     // TODO: implement singleton, which loads the UserDatabase and the ProjectDatabase.
     //       is important to provide data to the review system core, as long as we dont
@@ -187,7 +189,7 @@ public class LazyImplUserRESTfulService {
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public String getUserStarredProjects( @QueryParam( "userid" ) String userUUID ) {
-        Collection<FSqrScmProjectConfiguration> allProjects = projectDB.getAllProjects();
+        Collection<FSqrScmProjectConfiguration> allProjects = this.configurationRepository.getAllProjectConfigurations();
 
         FSqrUserToProjectRepository userToProjectRepository = FSqrApplication.getInstance().getServices().getUserToProjectRepository();
         Collection<String> starredProjects = userToProjectRepository.getAllStarredProjectsForUser( userUUID );
@@ -217,7 +219,7 @@ public class LazyImplUserRESTfulService {
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public <T> String getUserAccessibleProjects( @QueryParam( "userid" ) String userUUID ) {
-        Collection<FSqrScmProjectConfiguration> allProjects = projectDB.getAllProjects();
+        Collection<FSqrScmProjectConfiguration> allProjects = this.configurationRepository.getAllProjectConfigurations();
 
         // TODO actually also filter the accessible projects, since they could be starred, before
         //      user lost access.
