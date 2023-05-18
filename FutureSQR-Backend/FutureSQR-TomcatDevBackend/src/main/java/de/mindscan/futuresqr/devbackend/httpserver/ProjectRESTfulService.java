@@ -55,7 +55,6 @@ import de.mindscan.futuresqr.devbackend.httpresponse.OutputStatusOkayModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputSuggestedReviewersModel;
 import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParameters;
 import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParser;
-import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 import de.mindscan.futuresqr.domain.model.FSqrRevision;
@@ -82,10 +81,6 @@ public class ProjectRESTfulService {
 
     // TODO: get rid of it as soon as possible.
     private static final String HARDCODED_MINDSCAN_DE_UUID = "8ce74ee9-48ff-3dde-b678-58a632887e31";
-
-    // -------------------------------------------------------------------------------------------
-    // this should be provided by a web-application instance, instead of a new instance each time.
-    private static FSqrLazyProjectDatabaseImpl projectDB = new FSqrLazyProjectDatabaseImpl();
 
     private FSqrScmProjectConfigurationRepository configurationRepository = FSqrApplication.getInstance().getServices().getConfigurationRepository();
 
@@ -129,7 +124,7 @@ public class ProjectRESTfulService {
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public String getProjectRevisions( @PathParam( "projectid" ) String projectId ) {
-        if (projectDB.hasProjectLocalPath( projectId )) {
+        if (configurationRepository.hasProjectLocalPath( projectId )) {
             OutputProjectRevisionsModel response = new OutputProjectRevisionsModel();
 
             FSqrScmProjectRevisionRepository revisionProvider = FSqrApplication.getInstance().getServices().getRevisionRepository();
@@ -154,7 +149,7 @@ public class ProjectRESTfulService {
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public String getProjectRevisionsSinceDefinedRevision( @PathParam( "projectid" ) String projectId, @PathParam( "fromrevisionid" ) String fromRevision ) {
-        if (projectDB.hasProjectLocalPath( projectId )) {
+        if (configurationRepository.hasProjectLocalPath( projectId )) {
             FSqrScmProjectRevisionRepository revisionProvider = FSqrApplication.getInstance().getServices().getRevisionRepository();
             FSqrScmHistory scmHistory = revisionProvider.getRecentRevisionHistoryStartingFrom( projectId, fromRevision );
 
@@ -175,7 +170,7 @@ public class ProjectRESTfulService {
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public String getRevisionInformation( @PathParam( "projectid" ) String projectId, @PathParam( "revisionid" ) String revisionId ) {
-        if (projectDB.hasProjectLocalPath( projectId )) {
+        if (configurationRepository.hasProjectLocalPath( projectId )) {
             FSqrScmProjectRevisionRepository revisionProvider = FSqrApplication.getInstance().getServices().getRevisionRepository();
             FSqrRevision revisionInfo = revisionProvider.getSimpleRevisionInformation( projectId, revisionId );
 
@@ -194,7 +189,7 @@ public class ProjectRESTfulService {
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public String getRevisionFileList( @PathParam( "projectid" ) String projectId, @PathParam( "revisionid" ) String revisionId ) {
-        if (projectDB.hasProjectLocalPath( projectId )) {
+        if (configurationRepository.hasProjectLocalPath( projectId )) {
             FSqrScmProjectRevisionRepository revisionProvider = FSqrApplication.getInstance().getServices().getRevisionRepository();
             FSqrRevisionFileChangeList fileChangeList = revisionProvider.getRevisionFileChangeList( projectId, revisionId );
 
@@ -212,7 +207,7 @@ public class ProjectRESTfulService {
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public String getRevisionFullChangeset( @PathParam( "projectid" ) String projectId, @PathParam( "revisionid" ) String revisionId ) {
-        if (projectDB.hasProjectLocalPath( projectId )) {
+        if (configurationRepository.hasProjectLocalPath( projectId )) {
             FSqrScmProjectRevisionRepository revisionRepository = FSqrApplication.getInstance().getServices().getRevisionRepository();
             FSqrRevisionFullChangeSet fullChangeSet = revisionRepository.getRevisionFullChangeSet( projectId, revisionId );
 
@@ -232,7 +227,7 @@ public class ProjectRESTfulService {
     @Produces( MediaType.APPLICATION_JSON )
     public String getRevisionFileContent( @PathParam( "projectid" ) String projectId, @PathParam( "revisionid" ) String revisionId,
                     @QueryParam( "filepath" ) String filePath ) {
-        if (projectDB.hasProjectLocalPath( projectId )) {
+        if (configurationRepository.hasProjectLocalPath( projectId )) {
             FSqrScmProjectRevisionRepository revisionRepository = FSqrApplication.getInstance().getServices().getRevisionRepository();
             FSqrFileContentForRevision fileContent = revisionRepository.getFileContentForRevision( projectId, revisionId, filePath );
 
@@ -251,7 +246,7 @@ public class ProjectRESTfulService {
     @Produces( MediaType.APPLICATION_JSON )
     public String getParticularFileHistory( @PathParam( "projectid" ) String projectId, @PathParam( "revisionid" ) String revisionId,
                     @QueryParam( "filepath" ) String filePath ) {
-        if (projectDB.hasProjectLocalPath( projectId )) {
+        if (configurationRepository.hasProjectLocalPath( projectId )) {
             FSqrScmProjectRevisionRepository revisionRepository = FSqrApplication.getInstance().getServices().getRevisionRepository();
             FSqrFileHistory fileHistory = revisionRepository.getParticularFileHistory( projectId, revisionId, filePath );
 
@@ -271,7 +266,7 @@ public class ProjectRESTfulService {
     @Produces( MediaType.APPLICATION_JSON )
     public String getCodeReviewUnifiedDiff( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId,
                     @DefaultValue( "" ) @QueryParam( "selected" ) String selectedRevisions ) {
-        if (projectDB.hasProjectLocalPath( projectId )) {
+        if (configurationRepository.hasProjectLocalPath( projectId )) {
             FSqrCodeReviewRepository reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
             FSqrCodeReview codeReview = reviewRepository.getReview( projectId, reviewId );
             List<FSqrRevision> revisionList = codeReview.getRevisions();
@@ -320,7 +315,7 @@ public class ProjectRESTfulService {
     @Produces( MediaType.APPLICATION_JSON )
     public String getCodeReviewFileList( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId ) {
 
-        if (projectDB.hasProjectLocalPath( projectId )) {
+        if (configurationRepository.hasProjectLocalPath( projectId )) {
             FSqrCodeReviewRepository reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
             FSqrCodeReview codeReview = reviewRepository.getReview( projectId, reviewId );
 
@@ -341,7 +336,7 @@ public class ProjectRESTfulService {
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public String getCodeReviewInformation( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId ) {
-        if (projectDB.hasProjectLocalPath( projectId )) {
+        if (configurationRepository.hasProjectLocalPath( projectId )) {
             FSqrCodeReviewRepository reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
             FSqrCodeReview codeReview = reviewRepository.getReview( projectId, reviewId );
 
@@ -360,7 +355,7 @@ public class ProjectRESTfulService {
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public String getCodeReviewRevisionDetails( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId ) {
-        if (projectDB.hasProjectLocalPath( projectId )) {
+        if (configurationRepository.hasProjectLocalPath( projectId )) {
             FSqrCodeReviewRepository reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
 
             List<FSqrRevision> revisions = reviewRepository.getRevisionsForReview( projectId, reviewId );
@@ -391,7 +386,7 @@ public class ProjectRESTfulService {
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public String getSuggestedReviewers( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId ) {
-        if (projectDB.hasProjectLocalPath( projectId )) {
+        if (configurationRepository.hasProjectLocalPath( projectId )) {
             FSqrCodeReviewRepository reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
             List<FSqrSystemUser> suggestedReviewers = reviewRepository.getSuggestedReviewers( projectId, reviewId );
 
@@ -409,7 +404,7 @@ public class ProjectRESTfulService {
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public String getRecentReviews( @PathParam( "projectid" ) String projectId ) {
-        if (projectDB.hasProjectLocalPath( projectId )) {
+        if (configurationRepository.hasProjectLocalPath( projectId )) {
             FSqrCodeReviewRepository reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
 
             List<FSqrCodeReview> openReviews = reviewRepository.selectOpenReviews( projectId );
@@ -705,7 +700,7 @@ public class ProjectRESTfulService {
     @POST
     @Produces( MediaType.APPLICATION_JSON )
     public String postUpdateCache( @PathParam( "projectid" ) String projectId ) {
-        if (projectDB.hasProjectLocalPath( projectId )) {
+        if (configurationRepository.hasProjectLocalPath( projectId )) {
             FSqrScmProjectRevisionRepository revisionRepository = FSqrApplication.getInstance().getServices().getRevisionRepository();
 
             revisionRepository.updateProjectCache( projectId );
@@ -730,7 +725,7 @@ public class ProjectRESTfulService {
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public String getDiscussionThreads( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId ) {
-        if (projectDB.hasProjectLocalPath( projectId )) {
+        if (configurationRepository.hasProjectLocalPath( projectId )) {
             FSqrDiscussionThreadRepository discussionRepository = FSqrApplication.getInstance().getServices().getDiscussionThreadRepository();
 
             // Get only direct review discussions, opposed to inherited code discussions, and opposed to direct code discussions
@@ -752,7 +747,7 @@ public class ProjectRESTfulService {
     @POST
     @Produces( MediaType.APPLICATION_JSON )
     public String postCreateNewDiscussionThread( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId, String requestBody ) {
-        if (projectDB.hasProjectLocalPath( projectId )) {
+        if (configurationRepository.hasProjectLocalPath( projectId )) {
             MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
             String messageAuthorUUID = postParams.getStringOrThrow( "authorid" );
@@ -774,7 +769,7 @@ public class ProjectRESTfulService {
     @POST
     @Produces( MediaType.APPLICATION_JSON )
     public String postReplyToDiscussionMessage( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId, String requestBody ) {
-        if (projectDB.hasProjectLocalPath( projectId )) {
+        if (configurationRepository.hasProjectLocalPath( projectId )) {
             MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
             String messageAuthorUUID = postParams.getStringOrThrow( "authorid" );
@@ -796,7 +791,7 @@ public class ProjectRESTfulService {
     @POST
     @Produces( MediaType.APPLICATION_JSON )
     public String postEditDiscussionMessage( @PathParam( "projectid" ) String projectId, @PathParam( "reviewid" ) String reviewId, String requestBody ) {
-        if (projectDB.hasProjectLocalPath( projectId )) {
+        if (configurationRepository.hasProjectLocalPath( projectId )) {
             MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
             String messageAuthorUUID = postParams.getStringOrThrow( "authorid" );
