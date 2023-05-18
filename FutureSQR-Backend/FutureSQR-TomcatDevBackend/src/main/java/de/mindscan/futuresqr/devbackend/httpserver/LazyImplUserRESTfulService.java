@@ -46,7 +46,6 @@ import de.mindscan.futuresqr.devbackend.httpresponse.OutputStatusOkayModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputUserProjectEntry;
 import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParameters;
 import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParser;
-import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
@@ -66,9 +65,6 @@ public class LazyImplUserRESTfulService {
     // TODO: implement singleton, which loads the UserDatabase and the ProjectDatabase.
     //       is important to provide data to the review system core, as long as we dont
     //       have any persistence.
-
-    // TODO: next scm project database. so that we at least have two reasons and two opportunities to learn.
-    private static FSqrLazyProjectDatabaseImpl projectDB = new FSqrLazyProjectDatabaseImpl();
 
     @javax.ws.rs.Path( "/authenticate" )
     @POST
