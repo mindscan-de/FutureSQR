@@ -44,10 +44,6 @@ public class FSqrLazyProjectDatabaseImpl {
     public FSqrLazyProjectDatabaseImpl() {
     }
 
-    public FSqrScmProjectConfiguration getProjectConfiguration( String projectId ) {
-        return configurationRepository.getProjectConfiguration( projectId );
-    }
-
     public Collection<FSqrScmProjectConfiguration> getAllProjects() {
         return configurationRepository.getAllProjectConfigurations();
     }

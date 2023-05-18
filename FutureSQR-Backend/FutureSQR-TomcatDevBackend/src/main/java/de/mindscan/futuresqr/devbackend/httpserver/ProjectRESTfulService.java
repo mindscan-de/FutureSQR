@@ -69,6 +69,7 @@ import de.mindscan.futuresqr.domain.model.history.FSqrFileHistory;
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrDiscussionThreadRepository;
+import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectRevisionRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrUserToProjectRepository;
 
@@ -86,6 +87,8 @@ public class ProjectRESTfulService {
     // this should be provided by a web-application instance, instead of a new instance each time.
     private static FSqrLazyProjectDatabaseImpl projectDB = new FSqrLazyProjectDatabaseImpl();
 
+    private FSqrScmProjectConfigurationRepository configurationRepository = FSqrApplication.getInstance().getServices().getConfigurationRepository();
+
     @javax.ws.rs.Path( "/testme" )
     @GET
     @Produces( "application/json" )
@@ -97,7 +100,7 @@ public class ProjectRESTfulService {
     @GET
     @Produces( MediaType.APPLICATION_JSON )
     public String getSimpleProjectInformation( @PathParam( "projectid" ) String projectId ) {
-        FSqrScmProjectConfiguration projectConfiguration = projectDB.getProjectConfiguration( projectId );
+        FSqrScmProjectConfiguration projectConfiguration = this.configurationRepository.getProjectConfiguration( projectId );
 
         // TODO: problem is that this project project information is user specific, because it may be starred by the user.
         // TODO: we might have to consider the current session context here.
