@@ -37,7 +37,6 @@ import de.mindscan.futuresqr.core.uuid.UuidUtil;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputAdminScmProjectConfigurationModel;
 import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParameters;
 import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParser;
-import de.mindscan.futuresqr.devbackend.projectdb.FSqrLazyProjectDatabaseImpl;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
@@ -47,10 +46,6 @@ import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationReposi
  */
 @javax.ws.rs.Path( "/admin" )
 public class AdminRESTfulService {
-
-    // -------------------------------------------------------------------------------------------
-    // this should be provided by a web-application instance, instead of a new instance each time.
-    private static FSqrLazyProjectDatabaseImpl projectDB = new FSqrLazyProjectDatabaseImpl();
 
     @javax.ws.rs.Path( "/project/add" )
     @POST
