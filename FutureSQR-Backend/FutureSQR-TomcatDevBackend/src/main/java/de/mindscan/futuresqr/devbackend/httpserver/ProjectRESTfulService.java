@@ -437,7 +437,7 @@ public class ProjectRESTfulService {
     public String postProjectStarred( @PathParam( "projectid" ) String projectId, String requestBody ) {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
-        if (projectDB.isProjectIdPresent( projectId )) {
+        if (configurationRepository.hasProjectConfiguration( projectId )) {
             String userid = postParams.getStringOrThrow( "userid" );
 
             FSqrApplication.getInstance().getServices().getUserToProjectRepository().starProject( userid, projectId );
@@ -452,7 +452,7 @@ public class ProjectRESTfulService {
     public String postProjectUnstarred( @PathParam( "projectid" ) String projectId, String requestBody ) {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
-        if (projectDB.isProjectIdPresent( projectId )) {
+        if (configurationRepository.hasProjectConfiguration( projectId )) {
             String userid = postParams.getStringOrThrow( "userid" );
 
             FSqrApplication.getInstance().getServices().getUserToProjectRepository().unstarProject( userid, projectId );
@@ -471,7 +471,7 @@ public class ProjectRESTfulService {
     public String postCreateReviewFromRevision( @PathParam( "projectid" ) String projectId, String requestBody ) {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
-        if (projectDB.isProjectIdPresent( projectId )) {
+        if (configurationRepository.hasProjectConfiguration( projectId )) {
             String revisionId = postParams.getStringOrThrow( "revisionid" );
             String openerUserUUID = postParams.getStringOrThrow( "opening_userid" );
 
@@ -502,7 +502,7 @@ public class ProjectRESTfulService {
     public String postCloseReview( @PathParam( "projectid" ) String projectId, String requestBody ) {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
-        if (projectDB.isProjectIdPresent( projectId )) {
+        if (configurationRepository.hasProjectConfiguration( projectId )) {
             String reviewId = postParams.getStringOrThrow( "reviewid" );
             String whoIsClosingUUID = postParams.getStringOrThrow( "closing_userid" );
 
@@ -520,7 +520,7 @@ public class ProjectRESTfulService {
     public String postReopenReview( @PathParam( "projectid" ) String projectId, String requestBody ) {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
-        if (projectDB.isProjectIdPresent( projectId )) {
+        if (configurationRepository.hasProjectConfiguration( projectId )) {
             String reviewId = postParams.getStringOrThrow( "reviewid" );
             String whoReopenedUUID = postParams.getStringOrThrow( "reopening_userid" );
 
@@ -538,7 +538,7 @@ public class ProjectRESTfulService {
     public String postDeleteReview( @PathParam( "projectid" ) String projectId, String requestBody ) {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
-        if (projectDB.isProjectIdPresent( projectId )) {
+        if (configurationRepository.hasProjectConfiguration( projectId )) {
             String reviewId = postParams.getStringOrThrow( "reviewid" );
             String whoDeletedUUID = postParams.getStringOrDefault( "deleting_userid", HARDCODED_MINDSCAN_DE_UUID );
 
@@ -560,7 +560,7 @@ public class ProjectRESTfulService {
     public String postReviewAddReviewer( @PathParam( "projectid" ) String projectId, String requestBody ) {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
-        if (projectDB.isProjectIdPresent( projectId )) {
+        if (configurationRepository.hasProjectConfiguration( projectId )) {
             FSqrCodeReviewRepository reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
 
             String reviewId = postParams.getStringOrThrow( "reviewid" );
@@ -580,7 +580,7 @@ public class ProjectRESTfulService {
     public String postReviewRemoveReviewer( @PathParam( "projectid" ) String projectId, String requestBody ) {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
-        if (projectDB.isProjectIdPresent( projectId )) {
+        if (configurationRepository.hasProjectConfiguration( projectId )) {
             FSqrCodeReviewRepository reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
 
             String reviewId = postParams.getStringOrThrow( "reviewid" );
@@ -601,7 +601,7 @@ public class ProjectRESTfulService {
     public String postReviewApproveReview( @PathParam( "projectid" ) String projectId, String requestBody ) {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
-        if (projectDB.isProjectIdPresent( projectId )) {
+        if (configurationRepository.hasProjectConfiguration( projectId )) {
             FSqrCodeReviewRepository reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
 
             String reviewId = postParams.getStringOrThrow( "reviewid" );
@@ -621,7 +621,7 @@ public class ProjectRESTfulService {
     public String postReviewConcernReview( @PathParam( "projectid" ) String projectId, String requestBody ) {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
-        if (projectDB.isProjectIdPresent( projectId )) {
+        if (configurationRepository.hasProjectConfiguration( projectId )) {
             FSqrCodeReviewRepository reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
 
             String reviewId = postParams.getStringOrThrow( "reviewid" );
@@ -641,7 +641,7 @@ public class ProjectRESTfulService {
     public String postReviewResetReview( @PathParam( "projectid" ) String projectId, String requestBody ) {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
-        if (projectDB.isProjectIdPresent( projectId )) {
+        if (configurationRepository.hasProjectConfiguration( projectId )) {
             FSqrCodeReviewRepository reviewRepository = FSqrApplication.getInstance().getServices().getReviewRepository();
 
             String reviewId = postParams.getStringOrThrow( "reviewid" );
@@ -665,7 +665,7 @@ public class ProjectRESTfulService {
     public String postReviewAppendRevisionToReview( @PathParam( "projectid" ) String projectId, String requestBody ) {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
-        if (projectDB.isProjectIdPresent( projectId )) {
+        if (configurationRepository.hasProjectConfiguration( projectId )) {
             String reviewId = postParams.getStringOrThrow( "reviewid" );
             String revisionId = postParams.getStringOrThrow( "revisionid" );
             String userUUID = postParams.getStringOrThrow( "userid" );
@@ -684,7 +684,7 @@ public class ProjectRESTfulService {
     public String postReviewRemoveRevisionFromReview( @PathParam( "projectid" ) String projectId, String requestBody ) {
         MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
 
-        if (projectDB.isProjectIdPresent( projectId )) {
+        if (configurationRepository.hasProjectConfiguration( projectId )) {
             String reviewId = postParams.getStringOrThrow( "reviewid" );
             String revisionId = postParams.getStringOrThrow( "revisionid" );
             String userUUID = postParams.getStringOrThrow( "userid" );

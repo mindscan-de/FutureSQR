@@ -25,10 +25,7 @@
  */
 package de.mindscan.futuresqr.devbackend.projectdb;
 
-import java.util.Collection;
-
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
-import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
 
 /**
@@ -42,14 +39,6 @@ public class FSqrLazyProjectDatabaseImpl {
      * 
      */
     public FSqrLazyProjectDatabaseImpl() {
-    }
-
-    public Collection<FSqrScmProjectConfiguration> getAllProjects() {
-        return configurationRepository.getAllProjectConfigurations();
-    }
-
-    public boolean isProjectIdPresent( String projectId ) {
-        return configurationRepository.hasProjectConfiguration( projectId );
     }
 
     public boolean hasProjectLocalPath( String projectId ) {
