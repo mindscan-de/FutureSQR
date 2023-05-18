@@ -25,6 +25,8 @@
  */
 package de.mindscan.futuresqr.domain.databases;
 
+import java.util.Collection;
+
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 
 /**
@@ -32,10 +34,8 @@ import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
  */
 public interface FSqrScmConfigurationDatabase {
 
-    /**
-     * @param projectId
-     * @return
-     */
     FSqrScmProjectConfiguration selectScmConfigurationByProjectId( String projectId );
+
+    Collection<FSqrScmProjectConfiguration> selectAllScmConfigurations();
 
 }

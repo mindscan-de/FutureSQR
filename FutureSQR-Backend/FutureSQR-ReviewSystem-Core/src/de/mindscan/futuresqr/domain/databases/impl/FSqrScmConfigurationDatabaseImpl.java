@@ -25,6 +25,7 @@
  */
 package de.mindscan.futuresqr.domain.databases.impl;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -173,6 +174,14 @@ public class FSqrScmConfigurationDatabaseImpl implements FSqrScmConfigurationDat
     @Override
     public FSqrScmProjectConfiguration selectScmConfigurationByProjectId( String projectId ) {
         return tmpScmConfigDatabase.get( projectId );
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<FSqrScmProjectConfiguration> selectAllScmConfigurations() {
+        return tmpScmConfigDatabase.values();
     }
 
 }
