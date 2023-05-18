@@ -69,6 +69,7 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
     public FSqrScmProjectConfigurationRepositoryImpl() {
         this.applicationServices = new FSqrApplicationServicesUnitialized();
         this.scmProjectConfigurationCache = new InMemoryCacheProjectConfigurationTableImpl();
+        this.setConfigurationPersistenceLoader( this::uninitializedPersistenceLoader );
 
         // TODO: finally begin to implement a persistent storage for the Scm Project Configurations
         // TODO: maybe use a factory to derive this instance from the application Services.
@@ -96,12 +97,19 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
 
     @Override
     public Collection<FSqrScmProjectConfiguration> getAllProjectConfigurations() {
+
+        //  TODO implement that the select statement on the persistence instead of the cache.
+
         return scmProjectConfigurationCache.getAllCachedScmConfigurations();
     }
 
     @Override
     public FSqrScmProjectConfiguration getProjectConfiguration( String projectId ) {
         return scmProjectConfigurationCache.getScmConfiguration( projectId, this.configurationPersistenceLoader );
+
+        // TODO implement that select statement on the persistence instead of only the cache.
+
+        // return scmProjectConfigurationCache.getScmConfiguration( projectId, this.configurationPersistenceLoader );
     }
 
     @Override
