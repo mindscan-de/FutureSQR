@@ -97,10 +97,11 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
 
     @Override
     public Collection<FSqrScmProjectConfiguration> getAllProjectConfigurations() {
+        // TODO: Do we want to cache these entries in the cache, or will we just do them when they are requested?
+        return this.scmConfigurationDatabase.selectAllScmConfigurations();
 
         //  TODO implement that the select statement on the persistence instead of the cache.
-
-        return scmProjectConfigurationCache.getAllCachedScmConfigurations();
+        // return scmProjectConfigurationCache.getAllCachedScmConfigurations();
     }
 
     @Override
