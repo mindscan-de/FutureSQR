@@ -31,8 +31,8 @@ import java.util.HashSet;
 import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
-import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectDatabase;
-import de.mindscan.futuresqr.domain.databases.impl.FSqrUserToProjectDatabaseImpl;
+import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectDatabaseTable;
+import de.mindscan.futuresqr.domain.databases.impl.FSqrUserToProjectDatabaseTableImpl;
 import de.mindscan.futuresqr.domain.repository.FSqrUserToProjectRepository;
 import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheUserStarredProjectTableImpl;
 
@@ -52,7 +52,7 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
 
     private InMemoryCacheUserStarredProjectTableImpl starredProjectsCache;
 
-    private FSqrUserToProjectDatabase userToProjectDatabaseTable;
+    private FSqrUserToProjectDatabaseTable userToProjectDatabaseTable;
 
     /**
      * 
@@ -60,7 +60,7 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
     public FSqrUserToProjectRepositoryImpl() {
         this.starredProjectsCache = new InMemoryCacheUserStarredProjectTableImpl();
         this.applicationServices = new FSqrApplicationServicesUnitialized();
-        this.userToProjectDatabaseTable = new FSqrUserToProjectDatabaseImpl();
+        this.userToProjectDatabaseTable = new FSqrUserToProjectDatabaseTableImpl();
     }
 
     @Override

@@ -30,12 +30,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectDatabase;
+import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectDatabaseTable;
 
 /**
  * 
  */
-public class FSqrUserToProjectDatabaseImpl implements FSqrUserToProjectDatabase {
+public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectDatabaseTable {
 
     private static final HashSet<String> EMPTY_HASH_SET = new HashSet<>();
 
@@ -45,7 +45,7 @@ public class FSqrUserToProjectDatabaseImpl implements FSqrUserToProjectDatabase 
     /**
      * 
      */
-    public FSqrUserToProjectDatabaseImpl() {
+    public FSqrUserToProjectDatabaseTableImpl() {
         this.tmpUserToProjectStarsTable = new HashMap<>();
 
         // TODO: remove me, when we have a database and a database session object.
