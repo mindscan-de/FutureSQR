@@ -40,12 +40,13 @@ import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
  */
 public class FSqrUserDatabaseImpl implements FSqrUserDatabase {
 
-    private Map<String, FSqrSystemUser> tmpUserDatabaseTable = new HashMap<>();
+    private Map<String, FSqrSystemUser> tmpUserDatabaseTable;
 
     /**
      * 
      */
     public FSqrUserDatabaseImpl() {
+        this.tmpUserDatabaseTable = new HashMap<>();
 
         // TODO: remove me, when we have a database and a database session object.
         initHardcodedData();
