@@ -25,9 +25,17 @@
  */
 package de.mindscan.futuresqr.domain.databases;
 
+import java.util.Set;
+
 /**
  * 
  */
 public interface FSqrUserToProjectDatabase {
+
+    void insertStar( String userId, String projectId );
+
+    void deleteStar( String userId, String projectId );
+
+    Set<String> selectAllStarredProjectsByUserId( String userId );
 
 }

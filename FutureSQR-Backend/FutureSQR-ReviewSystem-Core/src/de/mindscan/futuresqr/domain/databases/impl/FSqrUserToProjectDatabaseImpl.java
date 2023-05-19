@@ -25,11 +25,70 @@
  */
 package de.mindscan.futuresqr.domain.databases.impl;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectDatabase;
 
 /**
  * 
  */
 public class FSqrUserToProjectDatabaseImpl implements FSqrUserToProjectDatabase {
+
+    private static final HashSet<String> EMPTY_HASH_SET = new HashSet<>();
+
+    // search key: (useruuid:string) -> (projectid:Collection)
+    private Map<String, Set<String>> tmpUserToProjectStarsTable;
+
+    /**
+     * 
+     */
+    public FSqrUserToProjectDatabaseImpl() {
+        this.tmpUserToProjectStarsTable = new HashMap<>();
+
+        // TODO: remove me, when we have a database and a database session object.
+        initHardCodedData();
+    }
+
+    /**
+     * 
+     */
+    protected void initHardCodedData() {
+        String mindscanUserId = "8ce74ee9-48ff-3dde-b678-58a632887e31";
+        insertStar( mindscanUserId, "furiousiron-frontend" );
+        insertStar( mindscanUserId, "furiousiron-hfb" );
+        insertStar( mindscanUserId, "futuresqr" );
+        insertStar( mindscanUserId, "futuresqr-svn-trunk" );
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void insertStar( String userId, String projectId ) {
+        this.tmpUserToProjectStarsTable.computeIfAbsent( userId, id -> new HashSet<>() ).add( projectId );
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void deleteStar( String userId, String projectId ) {
+        this.tmpUserToProjectStarsTable.getOrDefault( userId, EMPTY_HASH_SET ).remove( userId );
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public Set<String> selectAllStarredProjectsByUserId( String userId ) {
+        if (tmpUserToProjectStarsTable.containsKey( userId )) {
+            return new HashSet<>( tmpUserToProjectStarsTable.get( userId ) );
+        }
+
+        return new HashSet<>();
+    }
 
 }
