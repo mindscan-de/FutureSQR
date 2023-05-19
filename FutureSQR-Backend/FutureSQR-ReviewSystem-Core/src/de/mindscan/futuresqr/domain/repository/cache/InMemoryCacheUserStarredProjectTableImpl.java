@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 
 /**
  * 
@@ -72,6 +73,23 @@ public class InMemoryCacheUserStarredProjectTableImpl {
         if (isCached( userId )) {
             return this.starredProjectsByUser.get( userId );
         }
+        return new HashSet<>();
+    }
+
+    public Set<String> getStarredProjects( String userId, Function<String, Set<String>> loadFunction ) {
+        if (isCached( userId )) {
+            return this.starredProjectsByUser.get( userId );
+        }
+
+        if (loadFunction != null) {
+            Set<String> starredProjects = loadFunction.apply( userId );
+            if (starredProjects != null && !starredProjects.isEmpty()) {
+                HashSet<String> newSet = new HashSet<>( starredProjects );
+                this.starredProjectsByUser.put( userId, newSet );
+                return newSet;
+            }
+        }
+
         return new HashSet<>();
     }
 
