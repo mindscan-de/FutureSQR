@@ -52,7 +52,7 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
 
     private InMemoryCacheUserStarredProjectTableImpl starredProjectsCache;
 
-    private FSqrUserToProjectDatabase userToProjectDatabase;
+    private FSqrUserToProjectDatabase userToProjectDatabaseTable;
 
     /**
      * 
@@ -60,7 +60,7 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
     public FSqrUserToProjectRepositoryImpl() {
         this.starredProjectsCache = new InMemoryCacheUserStarredProjectTableImpl();
         this.applicationServices = new FSqrApplicationServicesUnitialized();
-        this.userToProjectDatabase = new FSqrUserToProjectDatabaseImpl();
+        this.userToProjectDatabaseTable = new FSqrUserToProjectDatabaseImpl();
     }
 
     @Override
@@ -80,7 +80,7 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
             return new HashSet<>( this.starredProjectsCache.getStarredProjects( userId ) );
         }
 
-        return new HashSet<>();
+        return this.starredProjectsCache.getStarredProjects( userId, this.userToProjectDatabaseTable::selectAllStarredProjectsByUserId );
     }
 
     @Override
@@ -90,6 +90,7 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
             return;
         }
 
+        this.userToProjectDatabaseTable.insertStar( userId, projectId );
         this.starredProjectsCache.addStarredProject( userId, projectId );
     }
 
@@ -100,6 +101,7 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
             return;
         }
 
+        this.userToProjectDatabaseTable.deleteStar( userId, projectId );
         this.starredProjectsCache.removeStarredProject( userId, projectId );
     }
 
@@ -110,7 +112,11 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
             return false;
         }
 
-        return this.starredProjectsCache.isStarred( userId, projectId );
+        if (this.starredProjectsCache.isCached( userId )) {
+            return this.starredProjectsCache.isStarred( userId, projectId );
+        }
+
+        return getAllStarredProjectsForUser( userId ).contains( projectId );
     }
 
     // TODO: maybe we also want the reverse table, where we look at the project, and want to know who gave a star to this project
