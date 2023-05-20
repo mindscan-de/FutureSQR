@@ -32,6 +32,8 @@ import java.util.List;
 import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
+import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewTable;
+import de.mindscan.futuresqr.domain.databases.impl.FSqrCodeReviewTableImpl;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReviewFactory;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReviewLifecycleState;
@@ -52,6 +54,8 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
 
     // search key: ( projectId:string , reviewId:string ) -> codereview:FSqrCodeReview
     private InMemoryCacheCodeReviewTableImpl codeReviewTableCache;
+    // the database access...
+    private FSqrCodeReviewTable codeReviewDatabaseTable;
 
     // search key: ( projectId:string , revisionId:string ) -> CodeReviewId:string
     private InMemoryCacheRevisionToCodeReviewIdTableImpl codeReviewIdTableCache;
@@ -62,6 +66,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
     public FSqrCodeReviewRepositoryImpl() {
         this.applicationServices = new FSqrApplicationServicesUnitialized();
         this.codeReviewTableCache = new InMemoryCacheCodeReviewTableImpl();
+        this.codeReviewDatabaseTable = new FSqrCodeReviewTableImpl();
         this.codeReviewIdTableCache = new InMemoryCacheRevisionToCodeReviewIdTableImpl();
     }
 
