@@ -30,7 +30,9 @@ import java.util.function.Function;
 import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
+import de.mindscan.futuresqr.domain.databases.FSqrAlternateScmAliasesDatabaseTable;
 import de.mindscan.futuresqr.domain.databases.FSqrUserDatabase;
+import de.mindscan.futuresqr.domain.databases.impl.FSqrAlternateScmAliasesDatabaseTableImpl;
 import de.mindscan.futuresqr.domain.databases.impl.FSqrUserDatabaseImpl;
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 import de.mindscan.futuresqr.domain.repository.FSqrScmUserRepository;
@@ -62,6 +64,7 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
 
     // Proof of Concept - this will be derived from the database session for now it is good enough for a POC
     private FSqrUserDatabase userDatabaseAccess;
+    private FSqrAlternateScmAliasesDatabaseTable userAliasesDatabaseTable;
 
     // TODO: we need some filters?
     // TODO: we need some uuid list to FSqrSystemUser list implementation, which we need for some operations, so
@@ -79,6 +82,7 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
         // TODO: the userdatabase actually should provide persistenceSystemUserLoader...
         // TODO: maybe use a Factory of the application service to get the system user persistence loader.
         this.userDatabaseAccess = new FSqrUserDatabaseImpl();
+        this.userAliasesDatabaseTable = new FSqrAlternateScmAliasesDatabaseTableImpl();
     }
 
     private FSqrSystemUser uninitializedPersistenceLoader( String userid ) {
@@ -99,11 +103,12 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
 
     @Override
     public String getUserUUID( String scmAlias ) {
-        return aliasScmNameCache.getUserIdForScmAlias( scmAlias );
+        return aliasScmNameCache.getUserIdForScmAlias( scmAlias, userAliasesDatabaseTable::getUuidForScmAlias );
     }
 
     @Override
     public void addUserHandle( String scmAlias, String authorUUID ) {
+        this.userAliasesDatabaseTable.insertUserAlias( scmAlias, authorUUID );
         this.aliasScmNameCache.addScmAlias( scmAlias, authorUUID );
     }
 
