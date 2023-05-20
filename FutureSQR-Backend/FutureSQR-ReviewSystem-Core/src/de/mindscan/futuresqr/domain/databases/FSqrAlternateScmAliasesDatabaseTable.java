@@ -32,4 +32,6 @@ public interface FSqrAlternateScmAliasesDatabaseTable {
 
     void insertUserAlias( String aliasName, String userUuid );
 
+    String getUuidForScmAlias( String scmAlias );
+
 }

@@ -25,6 +25,9 @@
  */
 package de.mindscan.futuresqr.domain.databases.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import de.mindscan.futuresqr.domain.databases.FSqrAlternateScmAliasesDatabaseTable;
 
 /**
@@ -32,10 +35,14 @@ import de.mindscan.futuresqr.domain.databases.FSqrAlternateScmAliasesDatabaseTab
  */
 public class FSqrAlternateScmAliasesDatabaseTableImpl implements FSqrAlternateScmAliasesDatabaseTable {
 
+    private Map<String, String> tmpScmToUUIDMap;
+
     /**
      * 
      */
     public FSqrAlternateScmAliasesDatabaseTableImpl() {
+        this.tmpScmToUUIDMap = new HashMap<>();
+
         // TODO: remove me, when we have a database and a database session object.
         initHardcodedData();
     }
@@ -54,7 +61,12 @@ public class FSqrAlternateScmAliasesDatabaseTableImpl implements FSqrAlternateSc
 
     @Override
     public void insertUserAlias( String aliasName, String userUuid ) {
-        // TODO implement me.
+        this.tmpScmToUUIDMap.put( aliasName, userUuid );
+    }
+
+    @Override
+    public String getUuidForScmAlias( String scmAlias ) {
+        return tmpScmToUUIDMap.getOrDefault( scmAlias, scmAlias );
     }
 
 }
