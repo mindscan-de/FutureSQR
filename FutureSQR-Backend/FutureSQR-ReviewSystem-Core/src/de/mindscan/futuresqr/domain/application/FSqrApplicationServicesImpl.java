@@ -30,6 +30,7 @@ import de.mindscan.futuresqr.domain.databases.FSqrScmProjectRevisionRepositoryIm
 import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrDiscussionThreadRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
+import de.mindscan.futuresqr.domain.repository.FSqrScmUserRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrUserToProjectRepository;
 import de.mindscan.futuresqr.domain.repository.impl.FSqrCodeReviewRepositoryImpl;
 import de.mindscan.futuresqr.domain.repository.impl.FSqrDiscussionThreadRepositoryImpl;
@@ -102,7 +103,7 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
      * {@inheritDoc}
      */
     @Override
-    public FSqrScmUserRepositoryImpl getUserRepository() {
+    public FSqrScmUserRepository getUserRepository() {
         return this.userRepository;
     }
 

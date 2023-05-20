@@ -39,6 +39,7 @@ import de.mindscan.futuresqr.domain.model.FSqrRevision;
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
+import de.mindscan.futuresqr.domain.repository.FSqrScmUserRepository;
 import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheCodeReviewTableImpl;
 import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheRevisionToCodeReviewIdTableImpl;
 
@@ -219,7 +220,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
 
     @Override
     public List<FSqrSystemUser> getSuggestedReviewers( String projectId, String reviewId ) {
-        FSqrScmUserRepositoryImpl userRepository = this.applicationServices.getUserRepository();
+        FSqrScmUserRepository userRepository = this.applicationServices.getUserRepository();
 
         // TODO: calculate the suggested reviewers somehow.
 
