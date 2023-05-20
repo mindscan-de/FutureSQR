@@ -23,7 +23,7 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.domain.databases;
+package de.mindscan.futuresqr.domain.repository.impl;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -41,7 +41,6 @@ import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
 import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheCodeReviewTableImpl;
 import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheRevisionToCodeReviewIdTableImpl;
-import de.mindscan.futuresqr.domain.repository.impl.FSqrScmUserRepositoryImpl;
 
 /**
  * TODO: rework the repository to use a database instead of the in-memory + scm data pull implementation

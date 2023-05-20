@@ -26,12 +26,12 @@
 package de.mindscan.futuresqr.domain.application;
 
 import de.mindscan.futuresqr.domain.configuration.FSqrSystemInstanceConfigurationImpl;
-import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewRepositoryImpl;
 import de.mindscan.futuresqr.domain.databases.FSqrScmProjectRevisionRepositoryImpl;
 import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrDiscussionThreadRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrUserToProjectRepository;
+import de.mindscan.futuresqr.domain.repository.impl.FSqrCodeReviewRepositoryImpl;
 import de.mindscan.futuresqr.domain.repository.impl.FSqrDiscussionThreadRepositoryImpl;
 import de.mindscan.futuresqr.domain.repository.impl.FSqrScmProjectConfigurationRepositoryImpl;
 import de.mindscan.futuresqr.domain.repository.impl.FSqrScmUserRepositoryImpl;
