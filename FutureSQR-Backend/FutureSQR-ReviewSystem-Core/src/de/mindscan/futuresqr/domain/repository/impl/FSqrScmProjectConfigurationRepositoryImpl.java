@@ -32,7 +32,7 @@ import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.databases.FSqrScmConfigurationDatabaseTable;
-import de.mindscan.futuresqr.domain.databases.impl.FSqrScmConfigurationDatabaseImpl;
+import de.mindscan.futuresqr.domain.databases.impl.FSqrScmConfigurationDatabaseTableImpl;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
 import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheProjectConfigurationTableImpl;
@@ -73,7 +73,7 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
 
         // TODO: finally begin to implement a persistent storage for the Scm Project Configurations
         // TODO: maybe use a factory to derive this instance from the application Services.
-        this.scmConfigurationDatabase = new FSqrScmConfigurationDatabaseImpl();
+        this.scmConfigurationDatabase = new FSqrScmConfigurationDatabaseTableImpl();
     }
 
     private FSqrScmProjectConfiguration uninitializedPersistenceLoader( String projectId ) {

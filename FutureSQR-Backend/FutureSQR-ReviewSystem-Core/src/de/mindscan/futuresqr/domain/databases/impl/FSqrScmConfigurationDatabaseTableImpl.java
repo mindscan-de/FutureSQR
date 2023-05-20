@@ -38,14 +38,14 @@ import de.mindscan.futuresqr.domain.model.FSqrScmProjectSvnAdminConfiguration;
 /**
  * 
  */
-public class FSqrScmConfigurationDatabaseImpl implements FSqrScmConfigurationDatabaseTable {
+public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurationDatabaseTable {
 
     private Map<String, FSqrScmProjectConfiguration> tmpScmConfigDatabase = new HashMap<>();
 
     /**
      * 
      */
-    public FSqrScmConfigurationDatabaseImpl() {
+    public FSqrScmConfigurationDatabaseTableImpl() {
         // TODO: remove me, when we have a database and a database session object
         initHardcodedData();
     }
