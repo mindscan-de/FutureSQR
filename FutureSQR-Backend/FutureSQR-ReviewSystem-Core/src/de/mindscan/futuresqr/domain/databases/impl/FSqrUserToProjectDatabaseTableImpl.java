@@ -33,7 +33,8 @@ import java.util.Set;
 import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectDatabaseTable;
 
 /**
- * 
+ * This is a fake implementation of the User To Starred Projects Database table. This is half way to
+ * through to implement an access for a real database table. 
  */
 public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectDatabaseTable {
 

@@ -31,7 +31,10 @@ import java.util.Map;
 import de.mindscan.futuresqr.domain.databases.FSqrAlternateScmAliasesDatabaseTable;
 
 /**
+ * This is currently a fake implementation of the SCM Aliases Database table, where each user can have different
+ * SCM Aliases basically in case of different accounts on different SCM Repositories.
  * 
+ *  This is half way through to implement an access for a real database table.
  */
 public class FSqrAlternateScmAliasesDatabaseTableImpl implements FSqrAlternateScmAliasesDatabaseTable {
 
