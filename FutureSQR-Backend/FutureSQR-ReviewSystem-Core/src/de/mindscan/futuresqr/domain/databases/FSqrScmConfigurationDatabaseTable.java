@@ -32,7 +32,7 @@ import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 /**
  * 
  */
-public interface FSqrScmConfigurationDatabase {
+public interface FSqrScmConfigurationDatabaseTable {
 
     FSqrScmProjectConfiguration selectScmConfigurationByProjectId( String projectId );
 

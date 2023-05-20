@@ -31,7 +31,7 @@ import java.util.function.Function;
 import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
-import de.mindscan.futuresqr.domain.databases.FSqrScmConfigurationDatabase;
+import de.mindscan.futuresqr.domain.databases.FSqrScmConfigurationDatabaseTable;
 import de.mindscan.futuresqr.domain.databases.impl.FSqrScmConfigurationDatabaseImpl;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
@@ -58,7 +58,7 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
     private InMemoryCacheProjectConfigurationTableImpl scmProjectConfigurationCache;
 
     // Proof of Concept - SCM Configuration from a "persistent" storage.
-    private FSqrScmConfigurationDatabase scmConfigurationDatabase;
+    private FSqrScmConfigurationDatabaseTable scmConfigurationDatabase;
 
     // Proof of concept
     private Function<String, FSqrScmProjectConfiguration> configurationPersistenceLoader;

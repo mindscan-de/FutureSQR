@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.mindscan.futuresqr.core.uuid.UuidUtil;
-import de.mindscan.futuresqr.domain.databases.FSqrScmConfigurationDatabase;
+import de.mindscan.futuresqr.domain.databases.FSqrScmConfigurationDatabaseTable;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectGitAdminConfiguration;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectSvnAdminConfiguration;
@@ -38,7 +38,7 @@ import de.mindscan.futuresqr.domain.model.FSqrScmProjectSvnAdminConfiguration;
 /**
  * 
  */
-public class FSqrScmConfigurationDatabaseImpl implements FSqrScmConfigurationDatabase {
+public class FSqrScmConfigurationDatabaseImpl implements FSqrScmConfigurationDatabaseTable {
 
     private Map<String, FSqrScmProjectConfiguration> tmpScmConfigDatabase = new HashMap<>();
 
