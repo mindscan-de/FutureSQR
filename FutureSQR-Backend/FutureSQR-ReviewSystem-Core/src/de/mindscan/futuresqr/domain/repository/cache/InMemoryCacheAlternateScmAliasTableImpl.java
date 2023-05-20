@@ -28,6 +28,7 @@ package de.mindscan.futuresqr.domain.repository.cache;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 /**
  * 
@@ -49,6 +50,10 @@ public class InMemoryCacheAlternateScmAliasTableImpl {
 
     public String getUserIdForScmAlias( String scmAlias ) {
         return alternateScmAliases.getOrDefault( scmAlias, scmAlias );
+    }
+
+    public String getUserIdForScmAlias( String scmAlias, Function<String, String> loader ) {
+        return alternateScmAliases.computeIfAbsent( scmAlias, loader );
     }
 
     public void addScmAlias( String scmAlias, String systemUserId ) {
