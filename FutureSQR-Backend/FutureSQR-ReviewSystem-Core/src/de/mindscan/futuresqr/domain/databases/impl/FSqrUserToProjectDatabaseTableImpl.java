@@ -63,7 +63,7 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
         insertStar( mindscanUserId, "futuresqr" );
         insertStar( mindscanUserId, "futuresqr-svn-trunk" );
         insertStar( mindscanUserId, "stable-diffusion-webui" );
-        insertStar( mindscanUserId, "stable-diffusion-webui.wiki" );
+        insertStar( mindscanUserId, "stable-diffusion-webui-wiki" );
     }
 
     /** 
