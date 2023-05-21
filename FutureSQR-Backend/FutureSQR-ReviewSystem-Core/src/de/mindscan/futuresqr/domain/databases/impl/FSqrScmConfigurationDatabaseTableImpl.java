@@ -162,6 +162,26 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
         orangeMoonFrontend.setProjectDescription( "Japanese Dictionary Web-App - Frontend (based on nodejs and angular)" );
         insertProjectScmConfiguration( orangeMoonFrontend );
 
+        FSqrScmProjectConfiguration stableDiffusionWiki = new FSqrScmProjectConfiguration( "stable-diffusion-webui-wiki", "Stable Diffusion WebUI Wiki",
+                        UuidUtil.getRandomUUID().toString(), 1 );
+        stableDiffusionWiki.setProjectDescription( "Wiki of the stable diffusion WebUI." );
+        stableDiffusionWiki.setProjectReviewPrefix( "CR-SDW-" );
+        FSqrScmProjectGitAdminConfiguration sdwuiwikiconfig = new FSqrScmProjectGitAdminConfiguration();
+        sdwuiwikiconfig.localPath = "stable-diffusion-webui.wiki";
+        sdwuiwikiconfig.defaultBranchName = "master";
+        stableDiffusionWiki.addGitConfiguration( sdwuiwikiconfig );
+        insertProjectScmConfiguration( stableDiffusionWiki );
+
+        FSqrScmProjectConfiguration stabeDiffusion = new FSqrScmProjectConfiguration( "stable-diffusion-webui", "Stable Diffusion WebUI",
+                        UuidUtil.getRandomUUID().toString(), 1 );
+        stabeDiffusion.setProjectDescription( "Stable Diffusion web UI" );
+        stableDiffusionWiki.setProjectReviewPrefix( "CR_SD-" );
+        FSqrScmProjectGitAdminConfiguration sdwuiconfig = new FSqrScmProjectGitAdminConfiguration();
+        sdwuiconfig.localPath = "stable-diffusion-webui";
+        sdwuiwikiconfig.defaultBranchName = "master";
+        stabeDiffusion.addGitConfiguration( sdwuiconfig );
+        insertProjectScmConfiguration( stabeDiffusion );
+
     }
 
     public void insertProjectScmConfiguration( FSqrScmProjectConfiguration scmConfig ) {
