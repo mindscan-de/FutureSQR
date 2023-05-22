@@ -55,7 +55,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
     // search key: ( projectId:string , reviewId:string ) -> codereview:FSqrCodeReview
     private InMemoryCacheCodeReviewTableImpl codeReviewTableCache;
     // the database access...
-    private FSqrCodeReviewTable codeReviewDatabaseTable;
+    private FSqrCodeReviewTable codeReviewTable;
 
     // search key: ( projectId:string , revisionId:string ) -> CodeReviewId:string
     private InMemoryCacheRevisionToCodeReviewIdTableImpl codeReviewIdTableCache;
@@ -66,7 +66,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
     public FSqrCodeReviewRepositoryImpl() {
         this.applicationServices = new FSqrApplicationServicesUnitialized();
         this.codeReviewTableCache = new InMemoryCacheCodeReviewTableImpl();
-        this.codeReviewDatabaseTable = new FSqrCodeReviewTableImpl();
+        this.codeReviewTable = new FSqrCodeReviewTableImpl();
         this.codeReviewIdTableCache = new InMemoryCacheRevisionToCodeReviewIdTableImpl();
     }
 
@@ -82,9 +82,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         }
 
         // TODO: query the persistence / database here - actually combine it with this API call ... 
-        // this.codeReviewTableCache.getCodeReviewOrComputeIfAbsent( projectId, reviewId, computeCodeReview )
-
-        return null;
+        return this.codeReviewTableCache.getCodeReviewOrComputeIfAbsent( projectId, reviewId, codeReviewTable::selectCodeReview );
     }
 
     @Override
