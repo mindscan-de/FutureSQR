@@ -23,11 +23,12 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.domain.configuration;
+package de.mindscan.futuresqr.domain.configuration.impl;
 
 import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
+import de.mindscan.futuresqr.domain.configuration.FSqrSystemInstanceConfiguration;
 
 /**
  * 
