@@ -35,6 +35,7 @@ import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitializ
 import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewTable;
 import de.mindscan.futuresqr.domain.databases.FSqrProjectAssignedCodeReviewsTable;
 import de.mindscan.futuresqr.domain.databases.impl.FSqrCodeReviewTableImpl;
+import de.mindscan.futuresqr.domain.databases.impl.FSqrProjectAssignedCodeReviewsTableImpl;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReviewFactory;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReviewLifecycleState;
@@ -71,6 +72,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         this.codeReviewTableCache = new InMemoryCacheCodeReviewTableImpl();
         this.codeReviewTable = new FSqrCodeReviewTableImpl();
         this.codeReviewIdTableCache = new InMemoryCacheRevisionToCodeReviewIdTableImpl();
+        this.assignedCodeReviewsTable = new FSqrProjectAssignedCodeReviewsTableImpl();
     }
 
     @Override
@@ -93,6 +95,8 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         if (this.codeReviewIdTableCache.isCached( projectid, revisionid )) {
             return !"".equals( this.codeReviewIdTableCache.getCodeReviewId( projectid, revisionid ) );
         }
+
+        // TODO: use assignedCodeReviewsTable.
 
         // TODO: query the persistence / database here - actually combine it with this API call ... 
         // this.codeReviewIdTableCache.getCodeReviewOrComputeIfAbsent( projectId, reviewId, computeCodeReview )
@@ -183,6 +187,8 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
 
             // add revision also to (project x revision) table - to associate revision with review. 
             this.codeReviewIdTableCache.putCodeReviewId( projectId, revisionId, reviewId );
+
+            // TODO update assignedCodeReviewsTable
         }
     }
 
@@ -197,6 +203,8 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
 
             // remove revision from (project x revision) table - to mark it free again.
             this.codeReviewIdTableCache.removeCodeReviewId( projectId, revisionId );
+
+            // TODO update assignedCodeReviewsTable
         }
     }
 
@@ -215,11 +223,14 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
 
     public void insertReview( String projectId, FSqrCodeReview review ) {
         this.codeReviewTableCache.putCodeReview( projectId, review.getReviewId(), review );
+        // TODO: codeReviewTable
         this.codeReviewIdTableCache.putCodeReviewId( projectId, review.getFirstRevisionId(), review.getReviewId() );
+        // TODO: assignedCodeReviewsTable
     }
 
     @Override
     public List<FSqrRevision> getRevisionsForReview( String projectId, String reviewId ) {
+        // get From assignedCodeReviewsTable?
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         return codeReview.getRevisions();
     }
