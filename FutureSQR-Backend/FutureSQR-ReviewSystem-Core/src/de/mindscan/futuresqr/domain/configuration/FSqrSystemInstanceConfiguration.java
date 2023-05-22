@@ -25,30 +25,9 @@
  */
 package de.mindscan.futuresqr.domain.configuration;
 
-import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
-import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
-import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
-
 /**
  * 
  */
-public class FSqrSystemInstanceConfigurationImpl implements FSqrSystemInstanceConfiguration, ApplicationServicesSetter {
-
-    private FSqrApplicationServices applicationServices;
-
-    /**
-     * 
-     */
-    public FSqrSystemInstanceConfigurationImpl() {
-        this.applicationServices = new FSqrApplicationServicesUnitialized();
-    }
-
-    public void setApplicationServices( FSqrApplicationServices services ) {
-        this.applicationServices = services;
-    }
-
-    public String getSystemRepoCachePath() {
-        return "D:\\Temp\\future-square-cache\\";
-    }
+public interface FSqrSystemInstanceConfiguration {
 
 }
