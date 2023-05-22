@@ -33,6 +33,8 @@ import de.mindscan.futuresqr.domain.configuration.FSqrSystemInstanceConfiguratio
 /**
  * This  is a hard coded fake implementation for the SystemInstanceConfiguration Provider.
  * Here we should also provide some more hard coded values, like the git executable path, etc. 
+ * 
+ * TODO: create an SCM-Access System configuration / or use a factory an provide this instance to the factory. 
  */
 public class FSqrSystemInstanceConfigurationImpl implements FSqrSystemInstanceConfiguration, ApplicationServicesSetter {
 
