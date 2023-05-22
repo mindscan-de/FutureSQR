@@ -25,6 +25,7 @@
  */
 package de.mindscan.futuresqr.domain.application;
 
+import de.mindscan.futuresqr.domain.configuration.FSqrSystemInstanceConfiguration;
 import de.mindscan.futuresqr.domain.configuration.FSqrSystemInstanceConfigurationImpl;
 import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrDiscussionThreadRepository;
@@ -128,7 +129,7 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
      * {@inheritDoc}
      */
     @Override
-    public FSqrSystemInstanceConfigurationImpl getSystemConfiguration() {
+    public FSqrSystemInstanceConfiguration getSystemConfiguration() {
         return systemConfiguration;
     }
 

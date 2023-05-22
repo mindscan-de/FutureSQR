@@ -30,4 +30,6 @@ package de.mindscan.futuresqr.domain.configuration;
  */
 public interface FSqrSystemInstanceConfiguration {
 
+    String getSystemRepoCachePath();
+
 }

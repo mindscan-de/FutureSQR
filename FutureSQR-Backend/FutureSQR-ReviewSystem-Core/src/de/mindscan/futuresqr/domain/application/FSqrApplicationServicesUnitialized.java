@@ -25,7 +25,7 @@
  */
 package de.mindscan.futuresqr.domain.application;
 
-import de.mindscan.futuresqr.domain.configuration.FSqrSystemInstanceConfigurationImpl;
+import de.mindscan.futuresqr.domain.configuration.FSqrSystemInstanceConfiguration;
 import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrDiscussionThreadRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
@@ -74,7 +74,7 @@ public class FSqrApplicationServicesUnitialized implements FSqrApplicationServic
      * {@inheritDoc}
      */
     @Override
-    public FSqrSystemInstanceConfigurationImpl getSystemConfiguration() {
+    public FSqrSystemInstanceConfiguration getSystemConfiguration() {
         throw new RuntimeException( "Please initialize Application Services first before using this method. See Stack." );
     }
 
