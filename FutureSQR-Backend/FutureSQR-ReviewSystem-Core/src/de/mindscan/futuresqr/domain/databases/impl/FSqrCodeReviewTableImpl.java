@@ -69,4 +69,20 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
     public Collection<FSqrCodeReview> selectRecentlyClosedReviews( String projectId ) {
         return new ArrayList<>();
     }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void insertNewCodeReview( FSqrCodeReview codeReview ) {
+        // TODO intentionally left blank
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateCodeReview( FSqrCodeReview coderReview ) {
+        // TODO intentionally left blank
+    }
 }

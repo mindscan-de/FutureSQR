@@ -39,4 +39,9 @@ public interface FSqrCodeReviewTable {
     Collection<FSqrCodeReview> selectOpenCodeReviews( String projectId );
 
     Collection<FSqrCodeReview> selectRecentlyClosedReviews( String projectId );
+
+    void insertNewCodeReview( FSqrCodeReview codeReview );
+
+    void updateCodeReview( FSqrCodeReview coderReview );
+
 }
