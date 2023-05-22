@@ -25,6 +25,9 @@
  */
 package de.mindscan.futuresqr.domain.databases.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewTable;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 
@@ -49,5 +52,21 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
     public FSqrCodeReview selectCodeReview( String projectId, String reviewId ) {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<FSqrCodeReview> selectOpenCodeReviews( String projectId ) {
+        return new ArrayList<>();
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<FSqrCodeReview> selectRecentlyClosedReviews( String projectId ) {
+        return new ArrayList<>();
     }
 }
