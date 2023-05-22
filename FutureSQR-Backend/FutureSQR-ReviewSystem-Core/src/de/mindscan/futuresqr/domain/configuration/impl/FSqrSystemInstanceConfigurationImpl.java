@@ -31,7 +31,8 @@ import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitializ
 import de.mindscan.futuresqr.domain.configuration.FSqrSystemInstanceConfiguration;
 
 /**
- * 
+ * This  is a hard coded fake implementation for the SystemInstanceConfiguration Provider.
+ * Here we should also provide some more hard coded values, like the git executable path, etc. 
  */
 public class FSqrSystemInstanceConfigurationImpl implements FSqrSystemInstanceConfiguration, ApplicationServicesSetter {
 
