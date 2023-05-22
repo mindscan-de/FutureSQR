@@ -69,14 +69,18 @@ public class InMemoryCacheCodeReviewTableImpl {
         return null;
     }
 
-    public FSqrCodeReview getCodeReviewOrComputeIfAbsent( String projectId, String reviewId, BiFunction<String, String, FSqrCodeReview> computeCodeReview ) {
+    public FSqrCodeReview getCodeReviewOrComputeIfAbsent( String projectId, String reviewId, BiFunction<String, String, FSqrCodeReview> codeReviewLoader ) {
         if (isCached( projectId, reviewId )) {
             return getCodeReview( projectId, reviewId );
         }
 
-        FSqrCodeReview codeReview = computeCodeReview.apply( projectId, reviewId );
-        putCodeReview( projectId, reviewId, codeReview );
-        return codeReview;
+        if (codeReviewLoader != null) {
+            FSqrCodeReview codeReview = codeReviewLoader.apply( projectId, reviewId );
+            putCodeReview( projectId, reviewId, codeReview );
+            return codeReview;
+        }
+
+        return null;
     }
 
     public List<FSqrCodeReview> filterCodeReviewsByProject( String projectId, Predicate<FSqrCodeReview> predicate ) {
