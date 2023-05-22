@@ -33,6 +33,7 @@ import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewTable;
+import de.mindscan.futuresqr.domain.databases.FSqrProjectAssignedCodeReviewsTable;
 import de.mindscan.futuresqr.domain.databases.impl.FSqrCodeReviewTableImpl;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReviewFactory;
@@ -59,6 +60,8 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
 
     // search key: ( projectId:string , revisionId:string ) -> CodeReviewId:string
     private InMemoryCacheRevisionToCodeReviewIdTableImpl codeReviewIdTableCache;
+    // database access for the Project x revision -> codeReviewId
+    private FSqrProjectAssignedCodeReviewsTable assignedCodeReviewsTable;
 
     /**
      * 
@@ -248,6 +251,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         if (codeReview != null) {
             codeReview.addReviewer( reviewerId, whoAddedId );
             // TODO: update code review result list in the persistence
+            // maybe provide a listener to the codeReview.
         }
     }
 
@@ -257,6 +261,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         if (codeReview != null) {
             codeReview.removeReviewer( reviewerId, whoRemovedId );
             // TODO: update code review result list in the persistence
+            // maybe provide a listener to the codeReview.
         }
     }
 
@@ -266,6 +271,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         if (codeReview != null) {
             codeReview.approveReview( reviewerId );
             // TODO: update code review result list in the persistence
+            // maybe provide a listener to the codeReview.
         }
     }
 
@@ -275,6 +281,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         if (codeReview != null) {
             codeReview.concernReview( reviewerId );
             // TODO: update code review result list in the persistence
+            // maybe provide a listener to the codeReview.
         }
     }
 
@@ -284,6 +291,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         if (codeReview != null) {
             codeReview.rollbackReview( reviewerId );
             // TODO: update code review result list in the persistence
+            // maybe provide a listener to the codeReview.
         }
     }
 
