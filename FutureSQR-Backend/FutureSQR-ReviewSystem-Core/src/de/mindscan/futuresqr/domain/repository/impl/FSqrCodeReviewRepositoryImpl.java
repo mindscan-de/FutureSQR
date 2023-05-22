@@ -247,6 +247,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
             codeReview.addReviewer( reviewerId, whoAddedId );
+            // TODO: update code review result list in the persistence
         }
     }
 
@@ -255,6 +256,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
             codeReview.removeReviewer( reviewerId, whoRemovedId );
+            // TODO: update code review result list in the persistence
         }
     }
 
@@ -263,6 +265,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
             codeReview.approveReview( reviewerId );
+            // TODO: update code review result list in the persistence
         }
     }
 
@@ -271,6 +274,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
             codeReview.concernReview( reviewerId );
+            // TODO: update code review result list in the persistence
         }
     }
 
@@ -279,6 +283,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
             codeReview.rollbackReview( reviewerId );
+            // TODO: update code review result list in the persistence
         }
     }
 
