@@ -26,9 +26,12 @@
 package de.mindscan.futuresqr.domain.databases.impl;
 
 import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewTable;
+import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 
 /**
- * 
+ * This is a fake implementation for the Database CodeReview table, to work
+ * on the logic and handling of a database persistence before adopting a 
+ * certain database.
  */
 public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
 
@@ -37,5 +40,14 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
      */
     public FSqrCodeReviewTableImpl() {
         // intentionally left blank
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public FSqrCodeReview selectCodeReview( String projectId, String reviewId ) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

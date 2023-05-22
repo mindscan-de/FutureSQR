@@ -25,9 +25,12 @@
  */
 package de.mindscan.futuresqr.domain.databases;
 
+import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
+
 /**
  * 
  */
 public interface FSqrCodeReviewTable {
 
+    FSqrCodeReview selectCodeReview( String projectId, String reviewId );
 }
