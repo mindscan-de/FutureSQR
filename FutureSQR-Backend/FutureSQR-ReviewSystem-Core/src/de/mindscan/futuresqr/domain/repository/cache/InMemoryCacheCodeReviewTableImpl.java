@@ -94,6 +94,10 @@ public class InMemoryCacheCodeReviewTableImpl {
     }
 
     public void putCodeReview( String projectId, String reviewId, FSqrCodeReview codeReview ) {
+        if (codeReview == null) {
+            return;
+        }
+
         getOrCreateProjectToCodeReviewMap( projectId ).put( reviewId, codeReview );
     }
 
