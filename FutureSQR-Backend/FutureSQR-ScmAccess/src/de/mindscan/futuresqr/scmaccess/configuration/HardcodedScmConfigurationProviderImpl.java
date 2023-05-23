@@ -31,7 +31,7 @@ import de.mindscan.futuresqr.scmaccess.ScmConfigurationProvider;
 /**
  * 
  */
-public class ScmConfigurationProviderImpl implements ScmConfigurationProvider {
+public class HardcodedScmConfigurationProviderImpl implements ScmConfigurationProvider {
 
     /** 
      * {@inheritDoc}
