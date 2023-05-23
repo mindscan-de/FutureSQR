@@ -40,7 +40,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import de.mindscan.futuresqr.scmaccess.ScmConfigurationProvider;
-import de.mindscan.futuresqr.scmaccess.configuration.HardcodedScmConfigurationProviderImpl;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
 /**
@@ -77,8 +76,8 @@ public class FakeGitCLICommandExecutor extends GitCLICommandExecutor {
     /**
      * 
      */
-    public FakeGitCLICommandExecutor() {
-        this( new HardcodedScmConfigurationProviderImpl(), true );
+    public FakeGitCLICommandExecutor( ScmConfigurationProvider configProvider ) {
+        this( configProvider, true );
     }
 
     /**
