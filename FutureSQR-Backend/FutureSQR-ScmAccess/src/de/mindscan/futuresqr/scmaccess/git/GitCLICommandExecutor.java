@@ -31,6 +31,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.mindscan.futuresqr.scmaccess.ScmConfigurationProvider;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
 /**
@@ -44,8 +45,8 @@ public class GitCLICommandExecutor {
 
     private final String executablePath;
 
-    public GitCLICommandExecutor( String executablePath ) {
-        this.executablePath = executablePath;
+    public GitCLICommandExecutor( ScmConfigurationProvider configProvider ) {
+        this.executablePath = configProvider.getGitExecutablePath();
     }
 
     public GitCLICommandOutput execute( ScmRepository repository, GitCommand command ) {

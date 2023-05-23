@@ -39,7 +39,7 @@ import java.security.NoSuchAlgorithmException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import de.mindscan.futuresqr.scmaccess.HardCodedConstants;
+import de.mindscan.futuresqr.scmaccess.configuration.HardcodedScmConfigurationProviderImpl;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
 /**
@@ -84,7 +84,7 @@ public class FakeGitCLICommandExecutor extends GitCLICommandExecutor {
      * 
      */
     public FakeGitCLICommandExecutor( boolean neverInvokeSuperOnExecute ) {
-        super( HardCodedConstants.GIT_EXECUTABLE_PATH );
+        super( new HardcodedScmConfigurationProviderImpl() );
 
         this.neverInvokeSuperOnExecute = neverInvokeSuperOnExecute;
     }
