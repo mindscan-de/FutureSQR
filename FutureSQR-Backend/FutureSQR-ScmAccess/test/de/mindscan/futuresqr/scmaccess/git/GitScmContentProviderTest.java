@@ -7,6 +7,7 @@ import java.util.List;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
+import de.mindscan.futuresqr.scmaccess.configuration.HardcodedScmConfigurationProviderImpl;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
 import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
 import de.mindscan.futuresqr.scmaccess.types.ScmPath;
@@ -37,7 +38,7 @@ public class GitScmContentProviderTest {
     public void testGetFullChangeSetForRevision_RevOneModifiedFile_hasOneFileInChangeSet() throws Exception {
         // arrange
         GitScmContentProvider provider = new GitScmContentProvider();
-        provider.setGitCLICommandExecutor( new FakeGitCLICommandExecutor( true ) );
+        provider.setGitCLICommandExecutor( getFakeGitExecutor() );
 
         // act
         ScmFullChangeSet result = provider.getFullChangeSetForRevision( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ),
@@ -51,7 +52,7 @@ public class GitScmContentProviderTest {
     public void testGetFullChangeSetForRevision_RevOneAddedFile_hasOneFileInChangeSet() throws Exception {
         // arrange
         GitScmContentProvider provider = new GitScmContentProvider();
-        provider.setGitCLICommandExecutor( new FakeGitCLICommandExecutor( true ) );
+        provider.setGitCLICommandExecutor( getFakeGitExecutor() );
 
         // act
         ScmFullChangeSet result = provider.getFullChangeSetForRevision( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ),
@@ -65,7 +66,7 @@ public class GitScmContentProviderTest {
     public void testGetFullChangeSetForRevision_RevTwoAddedFiles_hasTwoFilesInChangeSet() throws Exception {
         // arrange
         GitScmContentProvider provider = new GitScmContentProvider();
-        provider.setGitCLICommandExecutor( new FakeGitCLICommandExecutor( true ) );
+        provider.setGitCLICommandExecutor( getFakeGitExecutor() );
 
         // act
         ScmFullChangeSet result = provider.getFullChangeSetForRevision( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ),
@@ -79,7 +80,7 @@ public class GitScmContentProviderTest {
     public void testGetFullChangeSetFromRevisionToRevision_TwoRevisionsInARow_hasTwoElementsInRevisionList() throws Exception {
         // arrange  ed0abce8fa030c9a29f821c4961d2fd8ba171869  to 76553c9b515e700227753731cb8c2266b8965aa0
         GitScmContentProvider provider = new GitScmContentProvider();
-        provider.setGitCLICommandExecutor( new FakeGitCLICommandExecutor( true ) );
+        provider.setGitCLICommandExecutor( getFakeGitExecutor() );
 
         // act
         List<ScmFullChangeSet> result = provider.getFullChangeSetFromRevisionToRevision( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ),
@@ -87,6 +88,10 @@ public class GitScmContentProviderTest {
 
         // assert
         assertThat( result, Matchers.hasSize( 2 ) );
+    }
+
+    private FakeGitCLICommandExecutor getFakeGitExecutor() {
+        return new FakeGitCLICommandExecutor( new HardcodedScmConfigurationProviderImpl(), true );
     }
 
 }
