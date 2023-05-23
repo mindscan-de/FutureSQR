@@ -26,13 +26,13 @@
 package de.mindscan.futuresqr.scmaccess.configuration;
 
 /**
- * 
+ * TODO: get rid of these hard coded values, using a config file or else. 
  */
-public class HardCodedConstants {
+class HardCodedConstants {
 
     // FIXME: make the GitExecutablePath Configurable, and initialize instance with this configuration 
     // start with hard coded git executable to make things work first
-    public static final String GIT_EXECUTABLE_PATH = "C:\\Program Files\\Git\\cmd\\git.exe";
+    static final String GIT_EXECUTABLE_PATH = "C:\\Program Files\\Git\\cmd\\git.exe";
 
-    public static final String SVN_EXECUTABLE_PATH = "C:\\Program Files\\TortoiseSVN\\bin\\svn.exe";
+    static final String SVN_EXECUTABLE_PATH = "C:\\Program Files\\TortoiseSVN\\bin\\svn.exe";
 }
