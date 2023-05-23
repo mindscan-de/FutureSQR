@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import de.mindscan.futuresqr.scmaccess.configuration.HardcodedScmConfigurationProviderImpl;
 import de.mindscan.futuresqr.scmaccess.types.ScmBasicRevisionInformation;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileHistory;
 import de.mindscan.futuresqr.scmaccess.types.ScmHistory;
@@ -16,7 +17,7 @@ public class GitScmHistoryProviderTest {
     public void testGetFilePathHistory() throws Exception {
         // arrange
         GitScmHistoryProvider provider = new GitScmHistoryProvider();
-        provider.setGitCLICommandExecutor( new FakeGitCLICommandExecutor() );
+        provider.setGitCLICommandExecutor( getFakeGitCommandExecutor() );
 
         // act
         ScmFileHistory result = provider.getFilePathHistory( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ), new ScmPath(
@@ -26,11 +27,15 @@ public class GitScmHistoryProviderTest {
 
     }
 
+    private FakeGitCLICommandExecutor getFakeGitCommandExecutor() {
+        return new FakeGitCLICommandExecutor( new HardcodedScmConfigurationProviderImpl() );
+    }
+
     @Test
     public void testGetNRecentRevisions() throws Exception {
         // arrange
         GitScmHistoryProvider provider = new GitScmHistoryProvider();
-        provider.setGitCLICommandExecutor( new FakeGitCLICommandExecutor() );
+        provider.setGitCLICommandExecutor( getFakeGitCommandExecutor() );
 
         // act
         ScmHistory result = provider.getNRecentRevisions( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ), 8 );
@@ -47,7 +52,7 @@ public class GitScmHistoryProviderTest {
     public void testGetFileChangeListForRevision_FileChangesListContainsModificationsAndRenames_() throws Exception {
         // arrange
         GitScmHistoryProvider provider = new GitScmHistoryProvider();
-        provider.setGitCLICommandExecutor( new FakeGitCLICommandExecutor() );
+        provider.setGitCLICommandExecutor( getFakeGitCommandExecutor() );
 
         // act
         provider.getFileChangeListForRevision( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ), "fbf54da649b05f3cdd372e08543435c7d0d30356" );
@@ -59,7 +64,7 @@ public class GitScmHistoryProviderTest {
     public void testGetFileChangeListForRevision_FileChangesListContainsAddedBinaryFiles_() throws Exception {
         // arrange
         GitScmHistoryProvider provider = new GitScmHistoryProvider();
-        provider.setGitCLICommandExecutor( new FakeGitCLICommandExecutor() );
+        provider.setGitCLICommandExecutor( getFakeGitCommandExecutor() );
 
         // act
         provider.getFileChangeListForRevision( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ), "dec95d157e4df48bd1c112d9b69630ed96c38a88" );
@@ -72,7 +77,7 @@ public class GitScmHistoryProviderTest {
     public void testGetFileChangeListForRevision_FileChangesListContainsDeletedBinaryFiles_() throws Exception {
         // arrange
         GitScmHistoryProvider provider = new GitScmHistoryProvider();
-        provider.setGitCLICommandExecutor( new FakeGitCLICommandExecutor() );
+        provider.setGitCLICommandExecutor( getFakeGitCommandExecutor() );
 
         // act
         provider.getFileChangeListForRevision( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ), "ce0a59f3635ade74969709f59aa517e7adbc846e" );
@@ -84,7 +89,7 @@ public class GitScmHistoryProviderTest {
     public void testGetFileChangeListForRevision_FileChangesListContainsDeletedFiles_() throws Exception {
         // arrange
         GitScmHistoryProvider provider = new GitScmHistoryProvider();
-        provider.setGitCLICommandExecutor( new FakeGitCLICommandExecutor() );
+        provider.setGitCLICommandExecutor( getFakeGitCommandExecutor() );
 
         // act
         provider.getFileChangeListForRevision( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ), "fa7cd0b2ae4057f8a0b2acdf057082ffa997a268" );
@@ -96,7 +101,7 @@ public class GitScmHistoryProviderTest {
     public void testGetFileChangeListForRevision_FileChangesListContainsEmptyNewFiles_() throws Exception {
         // arrange
         GitScmHistoryProvider provider = new GitScmHistoryProvider();
-        provider.setGitCLICommandExecutor( new FakeGitCLICommandExecutor() );
+        provider.setGitCLICommandExecutor( getFakeGitCommandExecutor() );
 
         // act
         provider.getFileChangeListForRevision( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ), "a33ce773920ad08d74cc8bdda0cdafe66fe5f2a8" );
@@ -108,7 +113,7 @@ public class GitScmHistoryProviderTest {
     public void testGetFileChangeListForRevision_FileChangesListContainsDeletedFilesAndFolders_() throws Exception {
         // arrange
         GitScmHistoryProvider provider = new GitScmHistoryProvider();
-        provider.setGitCLICommandExecutor( new FakeGitCLICommandExecutor() );
+        provider.setGitCLICommandExecutor( getFakeGitCommandExecutor() );
 
         // act
         provider.getFileChangeListForRevision( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ), "f9b185c819c43e8180550603ec9bb7b56c5b184d" );
@@ -120,7 +125,7 @@ public class GitScmHistoryProviderTest {
     public void testGetFileChangeListForRevision_FileChangesListContainsRenamesAndMovedFiles_() throws Exception {
         // arrange
         GitScmHistoryProvider provider = new GitScmHistoryProvider();
-        provider.setGitCLICommandExecutor( new FakeGitCLICommandExecutor() );
+        provider.setGitCLICommandExecutor( getFakeGitCommandExecutor() );
 
         // act
         provider.getFileChangeListForRevision( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ), "8516e0496845798b09ebda5623d0371ce5afbe69" );
@@ -132,7 +137,7 @@ public class GitScmHistoryProviderTest {
     public void testUpdateProjectCache_onlyupdate_() throws Exception {
         // arrange
         GitScmHistoryProvider provider = new GitScmHistoryProvider();
-        provider.setGitCLICommandExecutor( new FakeGitCLICommandExecutor() );
+        provider.setGitCLICommandExecutor( getFakeGitCommandExecutor() );
 
         // assert
         provider.updateProjectCache( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ), "main" );
