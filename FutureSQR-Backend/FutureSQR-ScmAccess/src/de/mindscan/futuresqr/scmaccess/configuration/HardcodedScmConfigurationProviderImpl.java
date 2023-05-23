@@ -25,7 +25,6 @@
  */
 package de.mindscan.futuresqr.scmaccess.configuration;
 
-import de.mindscan.futuresqr.scmaccess.HardCodedConstants;
 import de.mindscan.futuresqr.scmaccess.ScmConfigurationProvider;
 
 /**

@@ -23,7 +23,7 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.scmaccess;
+package de.mindscan.futuresqr.scmaccess.configuration;
 
 /**
  * 
