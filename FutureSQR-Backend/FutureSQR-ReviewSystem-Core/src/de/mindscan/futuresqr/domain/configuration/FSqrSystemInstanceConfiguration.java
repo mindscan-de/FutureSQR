@@ -32,4 +32,8 @@ public interface FSqrSystemInstanceConfiguration {
 
     String getSystemRepoCachePath();
 
+    String getGitExecutablePath();
+
+    String getSvnExecutablePath();
+
 }

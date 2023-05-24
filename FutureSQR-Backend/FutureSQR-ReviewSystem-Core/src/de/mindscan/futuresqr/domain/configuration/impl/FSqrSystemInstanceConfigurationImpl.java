@@ -40,6 +40,11 @@ public class FSqrSystemInstanceConfigurationImpl implements FSqrSystemInstanceCo
 
     private FSqrApplicationServices applicationServices;
 
+    // FIXME: make the GitExecutablePath Configurable, and initialize instance with this configuration 
+    // start with hard coded git executable to make things work first
+    static final String GIT_EXECUTABLE_PATH = "C:\\Program Files\\Git\\cmd\\git.exe";
+    static final String SVN_EXECUTABLE_PATH = "C:\\Program Files\\TortoiseSVN\\bin\\svn.exe";
+
     /**
      * 
      */
@@ -54,6 +59,22 @@ public class FSqrSystemInstanceConfigurationImpl implements FSqrSystemInstanceCo
     @Override
     public String getSystemRepoCachePath() {
         return "D:\\Temp\\future-square-cache\\";
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public String getGitExecutablePath() {
+        return GIT_EXECUTABLE_PATH;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public String getSvnExecutablePath() {
+        return SVN_EXECUTABLE_PATH;
     }
 
 }
