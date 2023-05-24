@@ -25,6 +25,8 @@
  */
 package de.mindscan.futuresqr.scmaccess;
 
+import de.mindscan.futuresqr.scmaccess.git.GitScmContentProvider;
+import de.mindscan.futuresqr.scmaccess.git.GitScmHistoryProvider;
 import de.mindscan.futuresqr.scmaccess.impl.EmptyScmContentProvider;
 import de.mindscan.futuresqr.scmaccess.impl.EmptyScmHistoryProvider;
 
@@ -37,8 +39,16 @@ public class ScmAccessFactory {
         return new EmptyScmContentProvider();
     }
 
+    public static ScmContentProvider getGitContentProvider( ScmConfigurationProvider configProvider ) {
+        return new GitScmContentProvider( configProvider );
+    }
+
     public static ScmHistoryProvider getEmptyHistoryProvider() {
         return new EmptyScmHistoryProvider();
+    }
+
+    public static ScmHistoryProvider getGitHistoryProvider( ScmConfigurationProvider configProvider ) {
+        return new GitScmHistoryProvider( configProvider );
     }
 
 }
