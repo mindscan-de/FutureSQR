@@ -25,6 +25,7 @@
  */
 package de.mindscan.futuresqr.domain.configuration.impl;
 
+import de.mindscan.futuresqr.domain.configuration.FSqrSystemInstanceConfiguration;
 import de.mindscan.futuresqr.scmaccess.ScmConfigurationProvider;
 
 /**
@@ -32,11 +33,15 @@ import de.mindscan.futuresqr.scmaccess.ScmConfigurationProvider;
  */
 public class FSqrScmConfigrationProvider implements ScmConfigurationProvider {
 
+    private String gitExecutablePath;
+    private String svnExecutablePath;
+
     /**
      * 
      */
-    public FSqrScmConfigrationProvider() {
-
+    public FSqrScmConfigrationProvider( FSqrSystemInstanceConfiguration systemInstance ) {
+        this.gitExecutablePath = systemInstance.getGitExecutablePath();
+        this.svnExecutablePath = systemInstance.getSvnExecutablePath();
     }
 
     /** 
@@ -44,8 +49,7 @@ public class FSqrScmConfigrationProvider implements ScmConfigurationProvider {
      */
     @Override
     public String getGitExecutablePath() {
-        // TODO Auto-generated method stub
-        return null;
+        return gitExecutablePath;
     }
 
     /** 
@@ -53,8 +57,7 @@ public class FSqrScmConfigrationProvider implements ScmConfigurationProvider {
      */
     @Override
     public String getSvnExecutablePath() {
-        // TODO Auto-generated method stub
-        return null;
+        return svnExecutablePath;
     }
 
 }
