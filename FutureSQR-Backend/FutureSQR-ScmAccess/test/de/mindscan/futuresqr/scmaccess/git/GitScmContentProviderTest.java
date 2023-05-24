@@ -22,7 +22,7 @@ public class GitScmContentProviderTest {
     @Test
     public void testGetFileContentForRevision() throws Exception {
         // arrange
-        GitScmContentProvider provider = new GitScmContentProvider();
+        GitScmContentProvider provider = new GitScmContentProvider( new HardcodedScmConfigurationProviderImpl() );
         provider.setGitCLICommandExecutor( getFakeGitExecutor() );
 
         // act
@@ -37,7 +37,7 @@ public class GitScmContentProviderTest {
     @Test
     public void testGetFullChangeSetForRevision_RevOneModifiedFile_hasOneFileInChangeSet() throws Exception {
         // arrange
-        GitScmContentProvider provider = new GitScmContentProvider();
+        GitScmContentProvider provider = new GitScmContentProvider( new HardcodedScmConfigurationProviderImpl() );
         provider.setGitCLICommandExecutor( getFakeGitExecutor() );
 
         // act
@@ -51,7 +51,7 @@ public class GitScmContentProviderTest {
     @Test
     public void testGetFullChangeSetForRevision_RevOneAddedFile_hasOneFileInChangeSet() throws Exception {
         // arrange
-        GitScmContentProvider provider = new GitScmContentProvider();
+        GitScmContentProvider provider = new GitScmContentProvider( new HardcodedScmConfigurationProviderImpl() );
         provider.setGitCLICommandExecutor( getFakeGitExecutor() );
 
         // act
@@ -65,7 +65,7 @@ public class GitScmContentProviderTest {
     @Test
     public void testGetFullChangeSetForRevision_RevTwoAddedFiles_hasTwoFilesInChangeSet() throws Exception {
         // arrange
-        GitScmContentProvider provider = new GitScmContentProvider();
+        GitScmContentProvider provider = new GitScmContentProvider( new HardcodedScmConfigurationProviderImpl() );
         provider.setGitCLICommandExecutor( getFakeGitExecutor() );
 
         // act
@@ -79,7 +79,7 @@ public class GitScmContentProviderTest {
     @Test
     public void testGetFullChangeSetFromRevisionToRevision_TwoRevisionsInARow_hasTwoElementsInRevisionList() throws Exception {
         // arrange  ed0abce8fa030c9a29f821c4961d2fd8ba171869  to 76553c9b515e700227753731cb8c2266b8965aa0
-        GitScmContentProvider provider = new GitScmContentProvider();
+        GitScmContentProvider provider = new GitScmContentProvider( new HardcodedScmConfigurationProviderImpl() );
         provider.setGitCLICommandExecutor( getFakeGitExecutor() );
 
         // act

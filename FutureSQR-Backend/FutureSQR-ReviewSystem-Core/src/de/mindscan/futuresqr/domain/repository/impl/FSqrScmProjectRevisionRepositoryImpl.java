@@ -47,6 +47,7 @@ import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
 import de.mindscan.futuresqr.domain.model.content.FSqrFileContentForRevision;
 import de.mindscan.futuresqr.domain.model.history.FSqrFileHistory;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectRevisionRepository;
+import de.mindscan.futuresqr.scmaccess.configuration.HardcodedScmConfigurationProviderImpl;
 import de.mindscan.futuresqr.scmaccess.git.GitScmContentProvider;
 import de.mindscan.futuresqr.scmaccess.git.GitScmHistoryProvider;
 import de.mindscan.futuresqr.scmaccess.types.ScmBasicRevisionInformation;
@@ -75,7 +76,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
     public FSqrScmProjectRevisionRepositoryImpl() {
         this.gitHistoryProvider = new GitScmHistoryProvider();
-        this.gitScmContentProvider = new GitScmContentProvider();
+        this.gitScmContentProvider = new GitScmContentProvider( new HardcodedScmConfigurationProviderImpl() );
         this.applicationServices = new FSqrApplicationServicesUnitialized();
     }
 
