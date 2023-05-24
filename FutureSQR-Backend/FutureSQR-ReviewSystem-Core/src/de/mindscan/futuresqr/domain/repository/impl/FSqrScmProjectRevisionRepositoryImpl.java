@@ -35,6 +35,7 @@ import java.util.stream.Collectors;
 import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
+import de.mindscan.futuresqr.domain.configuration.impl.FSqrScmConfigrationProvider;
 import de.mindscan.futuresqr.domain.incubator.UnifiedDiffCalculationV1;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReviewLifecycleState;
@@ -76,13 +77,18 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
     public FSqrScmProjectRevisionRepositoryImpl() {
         this.gitHistoryProvider = new GitScmHistoryProvider( new HardcodedScmConfigurationProviderImpl() );
+
+        // TODO: get rid of this initialization here: and replace by something which throws exceptions, such that we make sure, that 
+        //       setApplicationServices is been called correctly.
         this.gitScmContentProvider = new GitScmContentProvider( new HardcodedScmConfigurationProviderImpl() );
+
         this.applicationServices = new FSqrApplicationServicesUnitialized();
     }
 
     @Override
     public void setApplicationServices( FSqrApplicationServices services ) {
         this.applicationServices = services;
+        this.gitScmContentProvider = new GitScmContentProvider( new FSqrScmConfigrationProvider( services.getSystemConfiguration() ) );
     }
 
     @Override
