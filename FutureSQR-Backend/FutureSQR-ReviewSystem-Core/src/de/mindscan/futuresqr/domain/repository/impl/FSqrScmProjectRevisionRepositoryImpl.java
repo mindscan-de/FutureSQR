@@ -48,6 +48,8 @@ import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
 import de.mindscan.futuresqr.domain.model.content.FSqrFileContentForRevision;
 import de.mindscan.futuresqr.domain.model.history.FSqrFileHistory;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectRevisionRepository;
+import de.mindscan.futuresqr.scmaccess.ScmContentProvider;
+import de.mindscan.futuresqr.scmaccess.ScmHistoryProvider;
 import de.mindscan.futuresqr.scmaccess.configuration.HardcodedScmConfigurationProviderImpl;
 import de.mindscan.futuresqr.scmaccess.git.GitScmContentProvider;
 import de.mindscan.futuresqr.scmaccess.git.GitScmHistoryProvider;
@@ -69,9 +71,9 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     //       either from in memory storage or from a persistence/database
 
     // TODO: implement Caching for the history provider ?
-    private GitScmHistoryProvider gitHistoryProvider;
+    private ScmHistoryProvider gitHistoryProvider;
     // TODO: implement Cache for content Provider ?
-    private GitScmContentProvider gitScmContentProvider;
+    private ScmContentProvider gitScmContentProvider;
 
     private FSqrApplicationServices applicationServices;
 
