@@ -75,7 +75,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     private FSqrApplicationServices applicationServices;
 
     public FSqrScmProjectRevisionRepositoryImpl() {
-        this.gitHistoryProvider = new GitScmHistoryProvider();
+        this.gitHistoryProvider = new GitScmHistoryProvider( new HardcodedScmConfigurationProviderImpl() );
         this.gitScmContentProvider = new GitScmContentProvider( new HardcodedScmConfigurationProviderImpl() );
         this.applicationServices = new FSqrApplicationServicesUnitialized();
     }

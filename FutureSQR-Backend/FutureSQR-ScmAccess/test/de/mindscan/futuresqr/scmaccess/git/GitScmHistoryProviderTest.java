@@ -16,7 +16,7 @@ public class GitScmHistoryProviderTest {
     @Test
     public void testGetFilePathHistory() throws Exception {
         // arrange
-        GitScmHistoryProvider provider = new GitScmHistoryProvider();
+        GitScmHistoryProvider provider = new GitScmHistoryProvider( new HardcodedScmConfigurationProviderImpl() );
         provider.setGitCLICommandExecutor( getFakeGitCommandExecutor() );
 
         // act
@@ -34,7 +34,7 @@ public class GitScmHistoryProviderTest {
     @Test
     public void testGetNRecentRevisions() throws Exception {
         // arrange
-        GitScmHistoryProvider provider = new GitScmHistoryProvider();
+        GitScmHistoryProvider provider = new GitScmHistoryProvider( new HardcodedScmConfigurationProviderImpl() );
         provider.setGitCLICommandExecutor( getFakeGitCommandExecutor() );
 
         // act
@@ -51,7 +51,7 @@ public class GitScmHistoryProviderTest {
     @Test
     public void testGetFileChangeListForRevision_FileChangesListContainsModificationsAndRenames_() throws Exception {
         // arrange
-        GitScmHistoryProvider provider = new GitScmHistoryProvider();
+        GitScmHistoryProvider provider = new GitScmHistoryProvider( new HardcodedScmConfigurationProviderImpl() );
         provider.setGitCLICommandExecutor( getFakeGitCommandExecutor() );
 
         // act
@@ -63,7 +63,7 @@ public class GitScmHistoryProviderTest {
     @Test
     public void testGetFileChangeListForRevision_FileChangesListContainsAddedBinaryFiles_() throws Exception {
         // arrange
-        GitScmHistoryProvider provider = new GitScmHistoryProvider();
+        GitScmHistoryProvider provider = new GitScmHistoryProvider( new HardcodedScmConfigurationProviderImpl() );
         provider.setGitCLICommandExecutor( getFakeGitCommandExecutor() );
 
         // act
@@ -76,7 +76,7 @@ public class GitScmHistoryProviderTest {
     @Test
     public void testGetFileChangeListForRevision_FileChangesListContainsDeletedBinaryFiles_() throws Exception {
         // arrange
-        GitScmHistoryProvider provider = new GitScmHistoryProvider();
+        GitScmHistoryProvider provider = new GitScmHistoryProvider( new HardcodedScmConfigurationProviderImpl() );
         provider.setGitCLICommandExecutor( getFakeGitCommandExecutor() );
 
         // act
@@ -88,7 +88,7 @@ public class GitScmHistoryProviderTest {
     @Test
     public void testGetFileChangeListForRevision_FileChangesListContainsDeletedFiles_() throws Exception {
         // arrange
-        GitScmHistoryProvider provider = new GitScmHistoryProvider();
+        GitScmHistoryProvider provider = new GitScmHistoryProvider( new HardcodedScmConfigurationProviderImpl() );
         provider.setGitCLICommandExecutor( getFakeGitCommandExecutor() );
 
         // act
@@ -100,7 +100,7 @@ public class GitScmHistoryProviderTest {
     @Test
     public void testGetFileChangeListForRevision_FileChangesListContainsEmptyNewFiles_() throws Exception {
         // arrange
-        GitScmHistoryProvider provider = new GitScmHistoryProvider();
+        GitScmHistoryProvider provider = new GitScmHistoryProvider( new HardcodedScmConfigurationProviderImpl() );
         provider.setGitCLICommandExecutor( getFakeGitCommandExecutor() );
 
         // act
@@ -112,7 +112,7 @@ public class GitScmHistoryProviderTest {
     @Test
     public void testGetFileChangeListForRevision_FileChangesListContainsDeletedFilesAndFolders_() throws Exception {
         // arrange
-        GitScmHistoryProvider provider = new GitScmHistoryProvider();
+        GitScmHistoryProvider provider = new GitScmHistoryProvider( new HardcodedScmConfigurationProviderImpl() );
         provider.setGitCLICommandExecutor( getFakeGitCommandExecutor() );
 
         // act
@@ -124,7 +124,7 @@ public class GitScmHistoryProviderTest {
     @Test
     public void testGetFileChangeListForRevision_FileChangesListContainsRenamesAndMovedFiles_() throws Exception {
         // arrange
-        GitScmHistoryProvider provider = new GitScmHistoryProvider();
+        GitScmHistoryProvider provider = new GitScmHistoryProvider( new HardcodedScmConfigurationProviderImpl() );
         provider.setGitCLICommandExecutor( getFakeGitCommandExecutor() );
 
         // act
@@ -136,7 +136,7 @@ public class GitScmHistoryProviderTest {
     @Test
     public void testUpdateProjectCache_onlyupdate_() throws Exception {
         // arrange
-        GitScmHistoryProvider provider = new GitScmHistoryProvider();
+        GitScmHistoryProvider provider = new GitScmHistoryProvider( new HardcodedScmConfigurationProviderImpl() );
         provider.setGitCLICommandExecutor( getFakeGitCommandExecutor() );
 
         // assert
