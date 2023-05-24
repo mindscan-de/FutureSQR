@@ -50,9 +50,10 @@ import de.mindscan.futuresqr.domain.model.history.FSqrFileHistory;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectRevisionRepository;
 import de.mindscan.futuresqr.scmaccess.ScmContentProvider;
 import de.mindscan.futuresqr.scmaccess.ScmHistoryProvider;
-import de.mindscan.futuresqr.scmaccess.configuration.HardcodedScmConfigurationProviderImpl;
 import de.mindscan.futuresqr.scmaccess.git.GitScmContentProvider;
 import de.mindscan.futuresqr.scmaccess.git.GitScmHistoryProvider;
+import de.mindscan.futuresqr.scmaccess.impl.EmptyScmContentProviderImpl;
+import de.mindscan.futuresqr.scmaccess.impl.EmptyScmHistoryProvider;
 import de.mindscan.futuresqr.scmaccess.types.ScmBasicRevisionInformation;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileHistory;
@@ -78,11 +79,9 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     private FSqrApplicationServices applicationServices;
 
     public FSqrScmProjectRevisionRepositoryImpl() {
-        this.gitHistoryProvider = new GitScmHistoryProvider( new HardcodedScmConfigurationProviderImpl() );
-
-        // TODO: get rid of this initialization here: and replace by something which throws exceptions, such that we make sure, that 
-        //       setApplicationServices is been called correctly.
-        this.gitScmContentProvider = new GitScmContentProvider( new HardcodedScmConfigurationProviderImpl() );
+        // TODO: replace both direct class usages by a call to a factory.
+        this.gitHistoryProvider = new EmptyScmHistoryProvider();
+        this.gitScmContentProvider = new EmptyScmContentProviderImpl();
 
         this.applicationServices = new FSqrApplicationServicesUnitialized();
     }
@@ -90,6 +89,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     @Override
     public void setApplicationServices( FSqrApplicationServices services ) {
         this.applicationServices = services;
+        this.gitHistoryProvider = new GitScmHistoryProvider( new FSqrScmConfigrationProvider( services.getSystemConfiguration() ) );
         this.gitScmContentProvider = new GitScmContentProvider( new FSqrScmConfigrationProvider( services.getSystemConfiguration() ) );
     }
 
