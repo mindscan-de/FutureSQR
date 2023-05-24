@@ -36,7 +36,7 @@ import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 /**
  * 
  */
-public class EmptyScmContentProviderImpl implements ScmContentProvider {
+public class EmptyScmContentProvider implements ScmContentProvider {
 
     /** 
      * {@inheritDoc}
