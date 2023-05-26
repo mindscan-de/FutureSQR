@@ -82,18 +82,13 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
 
     @Override
     public FSqrCodeReview getReview( String projectId, String reviewId ) {
-        if (this.codeReviewTableCache.isCached( projectId, reviewId )) {
-            return this.codeReviewTableCache.getCodeReview( projectId, reviewId );
-        }
-
-        // TODO: query the persistence / database here - actually combine it with this API call ... 
         return this.codeReviewTableCache.getCodeReviewOrComputeIfAbsent( projectId, reviewId, codeReviewTable::selectCodeReview );
     }
 
     @Override
     public boolean hasReviewForProjectAndRevision( String projectid, String revisionid ) {
         if (this.codeReviewIdTableCache.isCached( projectid, revisionid )) {
-            return !"".equals( this.codeReviewIdTableCache.getCodeReviewId( projectid, revisionid ) );
+            return !this.codeReviewIdTableCache.getCodeReviewId( projectid, revisionid ).isEmpty();
         }
 
         // TODO: use assignedCodeReviewsTable.
