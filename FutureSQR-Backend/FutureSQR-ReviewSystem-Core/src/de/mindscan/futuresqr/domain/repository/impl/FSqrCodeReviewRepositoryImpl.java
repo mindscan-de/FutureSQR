@@ -94,7 +94,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         // TODO: use assignedCodeReviewsTable.
 
         // TODO: query the persistence / database here - actually combine it with this API call ... 
-        // this.codeReviewIdTableCache.getCodeReviewOrComputeIfAbsent( projectId, reviewId, computeCodeReview )
+        // this.codeReviewIdTableCache.getCodeReviewIdOrComputeIfAbsent( projectid, revisionid, assignedCodeReviewsTable::selectCodeReviewId );
 
         return false;
     }
@@ -109,11 +109,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
     }
 
     private String getReviewIdForProjectAndRevision( String projectid, String revisionid ) {
-        if (hasReviewForProjectAndRevision( projectid, revisionid )) {
-            return this.codeReviewIdTableCache.getCodeReviewId( projectid, revisionid );
-        }
-
-        return "";
+        return this.codeReviewIdTableCache.getCodeReviewId( projectid, revisionid, assignedCodeReviewsTable::selectCodeReviewId );
     }
 
     @Override
