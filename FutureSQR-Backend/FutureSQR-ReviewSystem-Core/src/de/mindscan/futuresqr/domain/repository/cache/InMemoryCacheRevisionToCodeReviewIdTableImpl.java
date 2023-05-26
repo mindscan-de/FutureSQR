@@ -27,6 +27,7 @@ package de.mindscan.futuresqr.domain.repository.cache;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiFunction;
 
 /**
  * search key: ( projectId:string , revisionId:string ) -> CodeReviewId:string
@@ -60,7 +61,31 @@ public class InMemoryCacheRevisionToCodeReviewIdTableImpl {
         return "";
     }
 
+    public String getCodeReviewId( String projectId, String revisionId, BiFunction<String, String, String> codeReviewIdLoader ) {
+        if (isCached( projectId, revisionId )) {
+            return projectIdRevisionIdToCodeReviewIdCache.get( projectId ).get( revisionId );
+        }
+
+        if (codeReviewIdLoader == null) {
+            return "";
+        }
+
+        String codeReviewId = codeReviewIdLoader.apply( projectId, revisionId );
+        putCodeReviewId( projectId, revisionId, codeReviewId );
+
+        return (codeReviewId == null) ? "" : codeReviewId;
+    }
+
     public void putCodeReviewId( String projectId, String revisionId, String codeReviewId ) {
+        if (codeReviewId == null) {
+            return;
+        }
+
+        // TODO: should we keep/cache empty association?
+        if (codeReviewId.isEmpty()) {
+            return;
+        }
+
         getOrCreateProjectToRevisionIdMap( projectId ).put( revisionId, codeReviewId );
     }
 
