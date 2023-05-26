@@ -32,4 +32,12 @@ import de.mindscan.futuresqr.domain.databases.FSqrProjectAssignedCodeReviewsTabl
  */
 public class FSqrProjectAssignedCodeReviewsTableImpl implements FSqrProjectAssignedCodeReviewsTable {
 
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public String selectCodeReviewId( String projectId, String revisionId ) {
+        return "";
+    }
+
 }

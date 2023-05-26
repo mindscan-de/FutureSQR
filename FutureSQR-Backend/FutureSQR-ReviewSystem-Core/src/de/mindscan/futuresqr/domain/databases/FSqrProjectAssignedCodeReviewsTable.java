@@ -30,4 +30,6 @@ package de.mindscan.futuresqr.domain.databases;
  */
 public interface FSqrProjectAssignedCodeReviewsTable {
 
+    String selectCodeReviewId( String projectId, String revisionId );
+
 }
