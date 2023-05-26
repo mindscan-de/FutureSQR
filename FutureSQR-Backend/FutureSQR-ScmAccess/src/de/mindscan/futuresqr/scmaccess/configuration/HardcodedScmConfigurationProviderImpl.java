@@ -28,7 +28,10 @@ package de.mindscan.futuresqr.scmaccess.configuration;
 import de.mindscan.futuresqr.scmaccess.ScmConfigurationProvider;
 
 /**
+ * Only used by tests for now. Tests are located in ReviewSystemCore and ScmAccess Project - this is why this class
+ * is located in the normal package code. 
  * 
+ * TODO: Probably later get rid of this too.
  */
 public class HardcodedScmConfigurationProviderImpl implements ScmConfigurationProvider {
 
