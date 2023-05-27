@@ -25,9 +25,13 @@
  */
 package de.mindscan.futuresqr.scmaccess;
 
+import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
+
 /**
  * 
  */
 public interface ScmRepositoryServicesProvider {
+
+    public void updateProjectCache( ScmRepository repository, String branchName );
 
 }

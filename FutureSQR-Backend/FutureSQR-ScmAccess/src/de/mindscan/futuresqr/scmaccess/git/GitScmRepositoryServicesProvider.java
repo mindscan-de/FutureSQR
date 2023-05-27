@@ -27,17 +27,33 @@ package de.mindscan.futuresqr.scmaccess.git;
 
 import de.mindscan.futuresqr.scmaccess.ScmConfigurationProvider;
 import de.mindscan.futuresqr.scmaccess.ScmRepositoryServicesProvider;
+import de.mindscan.futuresqr.scmaccess.git.command.GitCommands;
+import de.mindscan.futuresqr.scmaccess.git.processor.GitOutputProcessors;
+import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
 /**
  * 
  */
 public class GitScmRepositoryServicesProvider implements ScmRepositoryServicesProvider {
 
+    private GitCLICommandExecutor gitCliExecutor;
+
     /**
      * @param configProvider
      */
     public GitScmRepositoryServicesProvider( ScmConfigurationProvider configProvider ) {
-        // 
+        this.gitCliExecutor = new GitCLICommandExecutor( configProvider );
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateProjectCache( ScmRepository repository, String branchName ) {
+        @SuppressWarnings( "unused" )
+        Void scmVoid = gitCliExecutor // 
+                        .execute( repository, GitCommands.createUpdateLocalRepositoryCommand( branchName ) ) //
+                        .transform( GitOutputProcessors.toScmVoid() );
     }
 
 }

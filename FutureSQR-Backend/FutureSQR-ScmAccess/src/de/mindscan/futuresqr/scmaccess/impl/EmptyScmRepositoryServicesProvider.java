@@ -26,10 +26,19 @@
 package de.mindscan.futuresqr.scmaccess.impl;
 
 import de.mindscan.futuresqr.scmaccess.ScmRepositoryServicesProvider;
+import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
 /**
  * 
  */
 public class EmptyScmRepositoryServicesProvider implements ScmRepositoryServicesProvider {
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateProjectCache( ScmRepository repository, String branchName ) {
+        throw new RuntimeException( "The SCM RepositoryServicesProvider is not properly initialized." );
+    }
 
 }
