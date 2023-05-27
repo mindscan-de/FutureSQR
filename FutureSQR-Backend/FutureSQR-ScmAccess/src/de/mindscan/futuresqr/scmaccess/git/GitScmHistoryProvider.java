@@ -131,15 +131,4 @@ public class GitScmHistoryProvider implements ScmHistoryProvider {
         return scmHistory;
     }
 
-    /** 
-     * {@inheritDoc}
-     */
-    @Override
-    public void updateProjectCache( ScmRepository repository, String branchName ) {
-        @SuppressWarnings( "unused" )
-        Void scmVoid = gitCliExecutor // 
-                        .execute( repository, GitCommands.createUpdateLocalRepositoryCommand( branchName ) ) //
-                        .transform( GitOutputProcessors.toScmVoid() );
-    }
-
 }

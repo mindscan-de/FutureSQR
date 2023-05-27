@@ -133,16 +133,16 @@ public class GitScmHistoryProviderTest {
         // assert
     }
 
-    @Test
-    public void testUpdateProjectCache_onlyupdate_() throws Exception {
-        // arrange
-        GitScmHistoryProvider provider = new GitScmHistoryProvider( new HardcodedScmConfigurationProviderImpl() );
-        provider.setGitCLICommandExecutor( getFakeGitCommandExecutor() );
-
-        // assert
-        provider.updateProjectCache( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ), "main" );
-
-        // assert        
-    }
+//    @Test
+//    public void testUpdateProjectCache_onlyupdate_() throws Exception {
+//        // arrange
+//        GitScmHistoryProvider provider = new GitScmHistoryProvider( new HardcodedScmConfigurationProviderImpl() );
+//        provider.setGitCLICommandExecutor( getFakeGitCommandExecutor() );
+//
+//        // assert
+//        provider.updateProjectCache( new ScmRepository( "D:\\Temp\\future-square-cache\\FutureSQR" ), "main" );
+//
+//        // assert        
+//    }
 
 }

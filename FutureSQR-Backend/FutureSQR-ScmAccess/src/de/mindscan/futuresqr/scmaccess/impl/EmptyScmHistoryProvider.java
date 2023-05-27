@@ -85,12 +85,4 @@ public class EmptyScmHistoryProvider implements ScmHistoryProvider {
         throw new RuntimeException( "The SCM HistoryProvider is not properly initialized." );
     }
 
-    /** 
-     * {@inheritDoc}
-     */
-    @Override
-    public void updateProjectCache( ScmRepository repository, String branchName ) {
-        throw new RuntimeException( "The SCM HistoryProvider is not properly initialized." );
-    }
-
 }

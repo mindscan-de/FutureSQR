@@ -58,7 +58,4 @@ public interface ScmHistoryProvider {
     ScmSingleRevisionFileChangeList getFileChangeListForRevision( ScmRepository repository, String revisionId );
 
     ScmHistory getSimpleRevisionInformation( ScmRepository repository, String revisionId );
-
-    // TODO remove this method from this interface.
-    void updateProjectCache( ScmRepository repository, String branchName );
 }
