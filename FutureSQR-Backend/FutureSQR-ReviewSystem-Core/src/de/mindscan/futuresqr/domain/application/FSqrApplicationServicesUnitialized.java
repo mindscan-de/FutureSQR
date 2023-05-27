@@ -99,7 +99,7 @@ public class FSqrApplicationServicesUnitialized implements FSqrApplicationServic
      * {@inheritDoc}
      */
     @Override
-    public FSqrScmRepositoryServices getFSqrScmRepositoryServices() {
+    public FSqrScmRepositoryServices getScmRepositoryServices() {
         throw new RuntimeException( "Please initialize Application Services first before using this method. See Stack." );
     }
 }

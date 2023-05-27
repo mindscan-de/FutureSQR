@@ -52,5 +52,5 @@ public interface FSqrApplicationServices {
 
     FSqrDiscussionThreadRepository getDiscussionThreadRepository();
 
-    FSqrScmRepositoryServices getFSqrScmRepositoryServices();
+    FSqrScmRepositoryServices getScmRepositoryServices();
 }

@@ -150,7 +150,7 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
      * {@inheritDoc}
      */
     @Override
-    public FSqrScmRepositoryServices getFSqrScmRepositoryServices() {
+    public FSqrScmRepositoryServices getScmRepositoryServices() {
         return scmRepositoryServices;
     }
 
