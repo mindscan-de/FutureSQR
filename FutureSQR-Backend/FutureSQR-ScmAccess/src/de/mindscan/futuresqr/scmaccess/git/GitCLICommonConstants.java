@@ -55,6 +55,11 @@ public class GitCLICommonConstants {
     public static final String GIT_COMMAND_PULL = "pull";
 
     /**
+     * git "close" command
+     */
+    public static final String GIT_COMMAND_CLONE = "clone";
+
+    /**
      * This list contains the meanings of the List in GitCLICommonConstants.GIT_FORMAT_PARAMS.
      */
     public static final String[] GIT_FORMAT_FIELDS = { "shortrev", "revisionid", "authorname", "authorid", "date", "shortdate", "reldate", "parents",
