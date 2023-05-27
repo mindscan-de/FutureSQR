@@ -25,7 +25,10 @@
  */
 package de.mindscan.futuresqr.scmaccess.git.command;
 
+import java.nio.file.Paths;
+
 import de.mindscan.futuresqr.scmaccess.git.GitCommand;
+import de.mindscan.futuresqr.scmaccess.git.command.impl.CloneToLocalRepositoryCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.impl.GetAllLocalRemoteBranchesCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.impl.GetDiffBetweenRevisionsCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.impl.GetDiffForRevisionCommand;
@@ -86,5 +89,9 @@ public class GitCommands {
 
     public static GitCommand createGetAllLocalRemoteBranchesCommand() {
         return new GetAllLocalRemoteBranchesCommand();
+    }
+
+    public static GitCommand createCloneToRepoCacheCommand( String systemRepositoryCache, String projectId, String gitCloneURL ) {
+        return new CloneToLocalRepositoryCommand( Paths.get( systemRepositoryCache ), projectId, gitCloneURL );
     }
 }
