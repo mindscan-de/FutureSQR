@@ -61,7 +61,7 @@ public class InMemoryCacheRevisionToCodeReviewIdTableImpl {
         return "";
     }
 
-    public String getCodeReviewId( String projectId, String revisionId, BiFunction<String, String, String> codeReviewIdLoader ) {
+    public String getCodeReviewIdOrComputeIfAbsent( String projectId, String revisionId, BiFunction<String, String, String> codeReviewIdLoader ) {
         if (isCached( projectId, revisionId )) {
             return projectIdRevisionIdToCodeReviewIdCache.get( projectId ).get( revisionId );
         }

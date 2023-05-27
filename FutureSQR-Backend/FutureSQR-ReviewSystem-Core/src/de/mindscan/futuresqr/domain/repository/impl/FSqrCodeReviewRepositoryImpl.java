@@ -48,7 +48,7 @@ import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheCodeReviewTabl
 import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheRevisionToCodeReviewIdTableImpl;
 
 /**
- * TODO: rework the repository to use a database instead of the in-memory + scm data pull implementation
+ * TODO: rework the repository to use a database instead of the in-memory only implementation
  */
 public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, ApplicationServicesSetter {
 
@@ -87,29 +87,22 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
 
     @Override
     public boolean hasReviewForProjectAndRevision( String projectid, String revisionid ) {
-        if (this.codeReviewIdTableCache.isCached( projectid, revisionid )) {
-            return !this.codeReviewIdTableCache.getCodeReviewId( projectid, revisionid ).isEmpty();
-        }
-
-        // TODO: use assignedCodeReviewsTable.
-
-        // TODO: query the persistence / database here - actually combine it with this API call ... 
-        // this.codeReviewIdTableCache.getCodeReviewIdOrComputeIfAbsent( projectid, revisionid, assignedCodeReviewsTable::selectCodeReviewId );
-
-        return false;
+        return !this.codeReviewIdTableCache.getCodeReviewIdOrComputeIfAbsent( projectid, revisionid, assignedCodeReviewsTable::selectCodeReviewId ).isEmpty();
     }
 
     @Override
     public FSqrCodeReview getReviewForProjectAndRevision( String projectid, String revisionid ) {
         String reviewId = this.getReviewIdForProjectAndRevision( projectid, revisionid );
-        if (!"".equals( reviewId )) {
-            return this.getReview( projectid, reviewId );
+
+        if (reviewId.isEmpty()) {
+            return null;
         }
-        return null;
+
+        return this.getReview( projectid, reviewId );
     }
 
     private String getReviewIdForProjectAndRevision( String projectid, String revisionid ) {
-        return this.codeReviewIdTableCache.getCodeReviewId( projectid, revisionid, assignedCodeReviewsTable::selectCodeReviewId );
+        return this.codeReviewIdTableCache.getCodeReviewIdOrComputeIfAbsent( projectid, revisionid, assignedCodeReviewsTable::selectCodeReviewId );
     }
 
     @Override
