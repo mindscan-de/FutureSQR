@@ -30,6 +30,7 @@ import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrDiscussionThreadRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectRevisionRepository;
+import de.mindscan.futuresqr.domain.repository.FSqrScmRepositoryServices;
 import de.mindscan.futuresqr.domain.repository.FSqrScmUserRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrUserToProjectRepository;
 
@@ -91,6 +92,14 @@ public class FSqrApplicationServicesUnitialized implements FSqrApplicationServic
      */
     @Override
     public FSqrDiscussionThreadRepository getDiscussionThreadRepository() {
+        throw new RuntimeException( "Please initialize Application Services first before using this method. See Stack." );
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public FSqrScmRepositoryServices getFSqrScmRepositoryServices() {
         throw new RuntimeException( "Please initialize Application Services first before using this method. See Stack." );
     }
 }

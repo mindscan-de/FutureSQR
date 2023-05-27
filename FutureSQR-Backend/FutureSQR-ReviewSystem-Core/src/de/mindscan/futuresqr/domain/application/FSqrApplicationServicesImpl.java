@@ -31,12 +31,14 @@ import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrDiscussionThreadRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectRevisionRepository;
+import de.mindscan.futuresqr.domain.repository.FSqrScmRepositoryServices;
 import de.mindscan.futuresqr.domain.repository.FSqrScmUserRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrUserToProjectRepository;
 import de.mindscan.futuresqr.domain.repository.impl.FSqrCodeReviewRepositoryImpl;
 import de.mindscan.futuresqr.domain.repository.impl.FSqrDiscussionThreadRepositoryImpl;
 import de.mindscan.futuresqr.domain.repository.impl.FSqrScmProjectConfigurationRepositoryImpl;
 import de.mindscan.futuresqr.domain.repository.impl.FSqrScmProjectRevisionRepositoryImpl;
+import de.mindscan.futuresqr.domain.repository.impl.FSqrScmRepositoryServicesImpl;
 import de.mindscan.futuresqr.domain.repository.impl.FSqrScmUserRepositoryImpl;
 import de.mindscan.futuresqr.domain.repository.impl.FSqrUserToProjectRepositoryImpl;
 
@@ -52,6 +54,7 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
     private FSqrUserToProjectRepositoryImpl userToProjectRepository;
     private FSqrSystemInstanceConfigurationImpl systemConfiguration;
     private FSqrDiscussionThreadRepositoryImpl discussionRepository;
+    private FSqrScmRepositoryServicesImpl scmRepositoryServices;
 
     /**
      * 
@@ -64,6 +67,7 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
         this.reviewRepository = new FSqrCodeReviewRepositoryImpl();
         this.userToProjectRepository = new FSqrUserToProjectRepositoryImpl();
         this.discussionRepository = new FSqrDiscussionThreadRepositoryImpl();
+        this.scmRepositoryServices = new FSqrScmRepositoryServicesImpl();
 
         // we need to boot the instance
         // and then we actually need a way to provide some data from externalproviders, and then
@@ -79,6 +83,7 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
         this.reviewRepository.setApplicationServices( services );
         this.userToProjectRepository.setApplicationServices( services );
         this.discussionRepository.setApplicationServices( services );
+        this.scmRepositoryServices.setApplicationServices( services );
     }
 
     // TODO we want to provide some dataprovider ability, the application can ask, e.g. on restart or on demand, 
@@ -139,6 +144,14 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
     @Override
     public FSqrDiscussionThreadRepository getDiscussionThreadRepository() {
         return discussionRepository;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public FSqrScmRepositoryServices getFSqrScmRepositoryServices() {
+        return scmRepositoryServices;
     }
 
 }
