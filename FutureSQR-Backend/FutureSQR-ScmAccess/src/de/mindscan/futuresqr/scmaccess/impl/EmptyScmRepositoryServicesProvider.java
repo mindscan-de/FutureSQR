@@ -23,21 +23,13 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.scmaccess.git;
+package de.mindscan.futuresqr.scmaccess.impl;
 
-import de.mindscan.futuresqr.scmaccess.ScmConfigurationProvider;
 import de.mindscan.futuresqr.scmaccess.ScmRepositoryServicesProvider;
 
 /**
  * 
  */
-public class GitScmRepositoryServicesProvider implements ScmRepositoryServicesProvider {
-
-    /**
-     * @param configProvider
-     */
-    public GitScmRepositoryServicesProvider( ScmConfigurationProvider configProvider ) {
-        // 
-    }
+public class EmptyScmRepositoryServicesProvider implements ScmRepositoryServicesProvider {
 
 }
