@@ -70,6 +70,7 @@ import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrDiscussionThreadRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectRevisionRepository;
+import de.mindscan.futuresqr.domain.repository.FSqrScmRepositoryServices;
 import de.mindscan.futuresqr.domain.repository.FSqrUserToProjectRepository;
 
 /**
@@ -701,9 +702,9 @@ public class ProjectRESTfulService {
     @Produces( MediaType.APPLICATION_JSON )
     public String postUpdateCache( @PathParam( "projectid" ) String projectId ) {
         if (configurationRepository.hasProjectLocalPath( projectId )) {
-            FSqrScmProjectRevisionRepository revisionRepository = FSqrApplication.getInstance().getServices().getRevisionRepository();
+            FSqrScmRepositoryServices scmRepositoryServices = FSqrApplication.getInstance().getServices().getScmRepositoryServices();
 
-            revisionRepository.updateProjectCache( projectId );
+            scmRepositoryServices.updateProjectCache( projectId );
 
             OutputStatusOkayModel response = new OutputStatusOkayModel();
 
