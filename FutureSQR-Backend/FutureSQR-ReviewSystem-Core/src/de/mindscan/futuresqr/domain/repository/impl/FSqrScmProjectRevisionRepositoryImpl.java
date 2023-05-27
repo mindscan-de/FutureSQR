@@ -51,6 +51,7 @@ import de.mindscan.futuresqr.domain.repository.FSqrScmProjectRevisionRepository;
 import de.mindscan.futuresqr.scmaccess.ScmAccessFactory;
 import de.mindscan.futuresqr.scmaccess.ScmContentProvider;
 import de.mindscan.futuresqr.scmaccess.ScmHistoryProvider;
+import de.mindscan.futuresqr.scmaccess.ScmRepositoryServicesProvider;
 import de.mindscan.futuresqr.scmaccess.types.ScmBasicRevisionInformation;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileHistory;
@@ -68,10 +69,9 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     // TODO: we want to get rid of the direct SCM interaction in this repository, and retrieve most of the data
     //       either from in memory storage or from a persistence/database
 
-    // TODO: implement Caching for the history provider ?
     private ScmHistoryProvider gitHistoryProvider;
-    // TODO: implement Cache for content Provider ?
     private ScmContentProvider gitScmContentProvider;
+    private ScmRepositoryServicesProvider gitScmRepositoryServicesProvider;
 
     private FSqrApplicationServices applicationServices;
 
@@ -80,6 +80,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
         this.gitHistoryProvider = ScmAccessFactory.getEmptyHistoryProvider();
         this.gitScmContentProvider = ScmAccessFactory.getEmptyContentProvider();
+        this.gitScmRepositoryServicesProvider = ScmAccessFactory.getEmptyRepositoryServicesProvider();
     }
 
     @Override
@@ -88,6 +89,8 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
         this.gitHistoryProvider = ScmAccessFactory.getGitHistoryProvider( new FSqrScmConfigrationProvider( services.getSystemConfiguration() ) );
         this.gitScmContentProvider = ScmAccessFactory.getGitContentProvider( new FSqrScmConfigrationProvider( services.getSystemConfiguration() ) );
+        this.gitScmRepositoryServicesProvider = ScmAccessFactory
+                        .getGitRepositoryServicesProvider( new FSqrScmConfigrationProvider( services.getSystemConfiguration() ) );
     }
 
     @Override
@@ -375,7 +378,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
             String branchName = scmConfiguration.getScmGitAdminConfiguration().getDefaultBranchName();
 
             if (branchName != null && !branchName.trim().isEmpty()) {
-                gitHistoryProvider.updateProjectCache( scmRepository, branchName );
+                gitScmRepositoryServicesProvider.updateProjectCache( scmRepository, branchName );
             }
             else {
                 System.out.println( "[updateProjectCache] - branchName is empty - must be fixed." );
