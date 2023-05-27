@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mindscan.futuresqr.scmaccess.ScmConfigurationProvider;
+import de.mindscan.futuresqr.scmaccess.git.command.GitCommandWithoutLocalRepo;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
 /**
@@ -82,9 +83,11 @@ public class GitCLICommandExecutor {
         gitCliCommand.add( this.executablePath );
 
         // actually depends on repository and repository type
-        if (repository.hasLocalRepositoryPath()) {
-            gitCliCommand.add( "-C" );
-            gitCliCommand.add( repository.getLocalRepositoryPath() );
+        if (!(command instanceof GitCommandWithoutLocalRepo)) {
+            if (repository.hasLocalRepositoryPath()) {
+                gitCliCommand.add( "-C" );
+                gitCliCommand.add( repository.getLocalRepositoryPath() );
+            }
         }
 
         gitCliCommand.addAll( command.getArguments() );
