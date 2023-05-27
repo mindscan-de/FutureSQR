@@ -138,6 +138,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
             codeReview.closeReview( whoClosedUUID );
+            // TODO: save status back to persistence
         }
     }
 
@@ -146,6 +147,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
             codeReview.reopenReview( whoReopenedUUID );
+            // TODO: save status back to persistence
         }
     }
 
@@ -156,6 +158,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
             // TODO NEXT: cleanup/unregister all referenced revisions, such they can again be reviewed 
             // projectIdRevisionIdToCodeReviewIdRepository
             codeReview.deleteReview( whoDeletedUUID );
+            // TODO: save status back to persistence
         }
     }
 
