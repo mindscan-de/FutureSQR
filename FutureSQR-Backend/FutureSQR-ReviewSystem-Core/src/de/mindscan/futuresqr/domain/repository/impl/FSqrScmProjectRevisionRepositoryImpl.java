@@ -364,28 +364,6 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         return new FSqrFileHistory();
     }
 
-    @Override
-    public void updateProjectCache( String projectId ) {
-        // TODO: This is just a helper as long as we have no crawler, which retrieves the data from the SCM and puts 
-        //       these information into a database.
-
-        // -----------------------------------------
-        // TODO: refactor this to Database retrieval
-        // -----------------------------------------
-        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
-        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
-            ScmRepository scmRepository = toScmRepository( scmConfiguration );
-            String branchName = scmConfiguration.getScmGitAdminConfiguration().getDefaultBranchName();
-
-            if (branchName != null && !branchName.trim().isEmpty()) {
-                gitScmRepositoryServicesProvider.updateProjectCache( scmRepository, branchName );
-            }
-            else {
-                System.out.println( "[updateProjectCache] - branchName is empty - must be fixed." );
-            }
-        }
-    }
-
     private FSqrScmProjectConfiguration toScmConfiguration( String projectId ) {
         // this is already cached...
         return applicationServices.getConfigurationRepository().getProjectConfiguration( projectId );
