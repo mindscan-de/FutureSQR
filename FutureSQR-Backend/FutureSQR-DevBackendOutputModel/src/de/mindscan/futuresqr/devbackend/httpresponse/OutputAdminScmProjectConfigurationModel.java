@@ -41,7 +41,9 @@ public class OutputAdminScmProjectConfigurationModel {
     public String projectId = "";
     public String projectReviewPrefix = "";
     public String projectUuid = "";
+    public String projectRemoteRepositoryURL = "";
     public String scmProjectType = "";
+    public boolean hasProjectRemoteReporitoryURL = false;
 
     // TODO: git configuration - but will still be useless...
     // TODO: svn configuration - but will still be useless...
@@ -53,6 +55,8 @@ public class OutputAdminScmProjectConfigurationModel {
         this.projectReviewPrefix = projectConfiguration.getProjectReviewPrefix();
         this.projectUuid = projectConfiguration.getProjectUuid();
         this.scmProjectType = projectConfiguration.getScmProjectType().toString();
+        this.projectRemoteRepositoryURL = projectConfiguration.getProjectRemoteRepoURL();
+        this.hasProjectRemoteReporitoryURL = projectConfiguration.hasProjectRemoteRepoURL();
     }
 
 }
