@@ -66,6 +66,7 @@ public class AdminRESTfulService {
         FSqrScmProjectConfiguration newProjectConfiguration = new FSqrScmProjectConfiguration( projectId, displayName, projectUUID, 1 );
         newProjectConfiguration.setProjectDescription( description );
         newProjectConfiguration.setProjectReviewPrefix( reviewPrefix );
+        newProjectConfiguration.setProjectRemoteRepoURL( repoURL );
 
         if (isValidProjectConfiguration( newProjectConfiguration )) {
             // actually we want to return the new project data, that we can then provide more configurations.
