@@ -187,7 +187,7 @@ public class FSqrScmProjectConfiguration {
     }
 
     public boolean hasProjectRemoteRepoURL() {
-        return this.projectRemoteRepoURL == null || this.projectRemoteRepoURL.isEmpty();
+        return !(this.projectRemoteRepoURL == null || this.projectRemoteRepoURL.isEmpty());
     }
 
 }
