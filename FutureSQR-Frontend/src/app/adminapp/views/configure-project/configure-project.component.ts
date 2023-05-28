@@ -31,7 +31,12 @@ export class ConfigureProjectComponent implements OnInit {
 		private formBuilder : FormBuilder,
 		private route: ActivatedRoute, 
 		private router: Router
-	) { }
+	) { 
+		// TODO: begin FormBuilder and Formvalidation
+		
+		
+		// TODO: FIXME: suscribe to the URL changes - on reaload the clone button is calculated correctly, but on navigation it doesn't'
+	}
 
 	ngOnInit(): void {
 		this.changeForm = this.formBuilder.group({
