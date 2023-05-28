@@ -60,12 +60,14 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
         FSqrScmProjectConfiguration brightFlux = new FSqrScmProjectConfiguration( "brightflux", "BrightFlux", UuidUtil.getRandomUUID().toString(), 1 );
         brightFlux.setProjectReviewPrefix( "CR-BRFX" );
         brightFlux.setProjectDescription( "LogFileViewer and LogFileAnalysis with yet unseen Features and written in Java" );
+        brightFlux.setProjectRemoteRepoURL( "https://github.com/mindscan-de/BrightFlux.git" );
         insertProjectScmConfiguration( brightFlux );
 
         // TODO: project is starred: false, localpath = null, 
         FSqrScmProjectConfiguration curiousMyth = new FSqrScmProjectConfiguration( "curiousmyth", "CuriousMyth", UuidUtil.getRandomUUID().toString(), 1 );
         curiousMyth.setProjectReviewPrefix( "CR-CRSM-" );
         curiousMyth.setProjectDescription( "Modelling facts, entities and information for knowledge representation" );
+        curiousMyth.setProjectRemoteRepoURL( "https://github.com/mindscan-de/CuriousMyth.git" );
         insertProjectScmConfiguration( curiousMyth );
 
         // TODO: project is starred: false, localpath = null,
@@ -73,6 +75,7 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
                         UuidUtil.getRandomUUID().toString(), 1 );
         fluentGenesisClassifier.setProjectReviewPrefix( "CR-FLUGEN-CLS-" );
         fluentGenesisClassifier.setProjectDescription( "" );
+        fluentGenesisClassifier.setProjectRemoteRepoURL( "https://github.com/mindscan-de/FluentGenesis-Classifier.git" );
         insertProjectScmConfiguration( fluentGenesisClassifier );
 
         // TODO: project is starred: false, localpath = null,
@@ -80,6 +83,7 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
                         UuidUtil.getRandomUUID().toString(), 1 );
         fluentGenesisEmbedder.setProjectReviewPrefix( "CR-FLUGEN-EMB-" );
         fluentGenesisEmbedder.setProjectDescription( "Source Code Language Unserstanding - Calculating the Embedding vectors and such." );
+        fluentGenesisEmbedder.setProjectRemoteRepoURL( "https://github.com/mindscan-de/FluentGenesis-Embedder.git" );
         insertProjectScmConfiguration( fluentGenesisEmbedder );
 
         // TODO: project is starred: false, localpath = null,
@@ -87,6 +91,7 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
                         UuidUtil.getRandomUUID().toString(), 1 );
         fluentGenesisPlugin.setProjectReviewPrefix( "CR-FLUGEN-PLG-" );
         fluentGenesisPlugin.setProjectDescription( "Source Code Language Understanding - Eclipse plugin for Source Code Generation." );
+        fluentGenesisPlugin.setProjectRemoteRepoURL( "https://github.com/mindscan-de/FluentGenesis-Plugin.git" );
         insertProjectScmConfiguration( fluentGenesisPlugin );
 
         // TODO: project is starred true
@@ -94,6 +99,7 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
                         UuidUtil.getRandomUUID().toString(), 1 );
         furiousIronFrontend.setProjectReviewPrefix( "CR-FI-FRNT-" );
         furiousIronFrontend.setProjectDescription( "My personal source code engine project. Frontend. (Angular. TS)" );
+        furiousIronFrontend.setProjectRemoteRepoURL( "https://github.com/mindscan-de/FuriousIron-Frontend.git" );
         FSqrScmProjectGitAdminConfiguration fifconfig = new FSqrScmProjectGitAdminConfiguration();
         fifconfig.localPath = "FuriousIron-Frontend";
         fifconfig.defaultBranchName = "master";
@@ -105,6 +111,7 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
                         50 );
         furiousIronHFB.setProjectReviewPrefix( "CR-FI-HFB-" );
         furiousIronHFB.setProjectDescription( "Hash-Free Bloom-Filter (Proof of concept implementation)" );
+        furiousIronHFB.setProjectRemoteRepoURL( "https://github.com/mindscan-de/FuriousIron-HFB.git" );
         FSqrScmProjectGitAdminConfiguration fihconfig = new FSqrScmProjectGitAdminConfiguration();
         fihconfig.localPath = "FuriousIron-HFB";
         fihconfig.defaultBranchName = "main";
@@ -116,6 +123,7 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
                         UuidUtil.getRandomUUID().toString(), 1 );
         furiousIronIndexer.setProjectReviewPrefix( "CR-FI-NDX-" );
         furiousIronIndexer.setProjectDescription( "My personal source code search engine project. Indexer. (Java. Windows. No Database. Filesystem only)" );
+        furiousIronIndexer.setProjectRemoteRepoURL( "https://github.com/mindscan-de/FuriousIron-Indexer.git" );
         insertProjectScmConfiguration( furiousIronIndexer );
 
         // TODO: project is starred: false, localpath = null,
@@ -124,12 +132,14 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
         furiousIronSearchBackend.setProjectReviewPrefix( "CR-FI-SRND-" );
         furiousIronSearchBackend.setProjectDescription(
                         "My personal source code search engine project. Backend. (Java. Tomcat. Windows. No Database. Filesystem only)" );
+        furiousIronSearchBackend.setProjectRemoteRepoURL( "https://github.com/mindscan-de/FuriousIron-SearchBackend.git" );
         insertProjectScmConfiguration( furiousIronSearchBackend );
 
         // TODO: project is starred: true,
         FSqrScmProjectConfiguration futureSqr = new FSqrScmProjectConfiguration( "futuresqr", "FutureSQR", UuidUtil.getRandomUUID().toString(), 100 );
         futureSqr.setProjectReviewPrefix( "CR-FSQR-" );
         futureSqr.setProjectDescription( "Future Source Quality Review -- Code Review Tool for Trunk-Based-Development" );
+        futureSqr.setProjectRemoteRepoURL( "https://github.com/mindscan-de/FutureSQR.git" );
         FSqrScmProjectGitAdminConfiguration fsqrconfig = new FSqrScmProjectGitAdminConfiguration();
         fsqrconfig.localPath = "FutureSQR";
         fsqrconfig.defaultBranchName = "main";
@@ -142,6 +152,7 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
         futureSqrSvnTrunk.setProjectReviewPrefix( "CR-FSQR-SVN-" );
         futureSqrSvnTrunk.setProjectDescription(
                         "Future Source Quality Review -- Code Review Tool for Trunk-Based-Development -- https://github.com/mindscan-de/FutureSQR.git/trunk" );
+        futureSqrSvnTrunk.setProjectRemoteRepoURL( "https://github.com/mindscan-de/FutureSQR.git/trunk" );
         FSqrScmProjectSvnAdminConfiguration fsqrsvnconfig = new FSqrScmProjectSvnAdminConfiguration();
         // TODO: fsqrsvnconfig.  "localPath": "FutureSQR_SVN_TrunkOnly"
         // TODO: fsqrsvnconfig.  "branchname": "main"
@@ -153,6 +164,7 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
                         UuidUtil.getRandomUUID().toString(), 1 );
         orangeMoonBackend.setProjectReviewPrefix( "CR-ORM-BND-" );
         orangeMoonBackend.setProjectDescription( "Japanese Dictionary Web-App - Backend (based on fastapi and jamdict)" );
+        orangeMoonBackend.setProjectRemoteRepoURL( "https://github.com/mindscan-de/OrangeMoon-Backend.git" );
         insertProjectScmConfiguration( orangeMoonBackend );
 
         // TODO: project is starred: false, localpath = null,
@@ -160,27 +172,30 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
                         UuidUtil.getRandomUUID().toString(), 1 );
         orangeMoonFrontend.setProjectReviewPrefix( "CR-ORM-FND-" );
         orangeMoonFrontend.setProjectDescription( "Japanese Dictionary Web-App - Frontend (based on nodejs and angular)" );
+        orangeMoonFrontend.setProjectRemoteRepoURL( "https://github.com/mindscan-de/OrangeMoon-Frontend.git" );
         insertProjectScmConfiguration( orangeMoonFrontend );
 
         FSqrScmProjectConfiguration stableDiffusionWiki = new FSqrScmProjectConfiguration( "stable-diffusion-webui-wiki", "Stable Diffusion WebUI Wiki",
                         UuidUtil.getRandomUUID().toString(), 1 );
         stableDiffusionWiki.setProjectDescription( "Wiki of the stable diffusion WebUI." );
         stableDiffusionWiki.setProjectReviewPrefix( "CR-SDW-" );
+        stableDiffusionWiki.setProjectRemoteRepoURL( "https://github.com/AUTOMATIC1111/stable-diffusion-webui.wiki.git" );
         FSqrScmProjectGitAdminConfiguration sdwuiwikiconfig = new FSqrScmProjectGitAdminConfiguration();
         sdwuiwikiconfig.localPath = "stable-diffusion-webui.wiki";
         sdwuiwikiconfig.defaultBranchName = "master";
         stableDiffusionWiki.addGitConfiguration( sdwuiwikiconfig );
         insertProjectScmConfiguration( stableDiffusionWiki );
 
-        FSqrScmProjectConfiguration stabeDiffusion = new FSqrScmProjectConfiguration( "stable-diffusion-webui", "Stable Diffusion WebUI",
+        FSqrScmProjectConfiguration stableDiffusion = new FSqrScmProjectConfiguration( "stable-diffusion-webui", "Stable Diffusion WebUI",
                         UuidUtil.getRandomUUID().toString(), 1 );
-        stabeDiffusion.setProjectDescription( "Stable Diffusion web UI" );
-        stableDiffusionWiki.setProjectReviewPrefix( "CR_SD-" );
+        stableDiffusion.setProjectDescription( "Stable Diffusion web UI" );
+        stableDiffusion.setProjectReviewPrefix( "CR_SD-" );
+        stableDiffusion.setProjectRemoteRepoURL( "https://github.com/AUTOMATIC1111/stable-diffusion-webui.git" );
         FSqrScmProjectGitAdminConfiguration sdwuiconfig = new FSqrScmProjectGitAdminConfiguration();
         sdwuiconfig.localPath = "stable-diffusion-webui";
         sdwuiwikiconfig.defaultBranchName = "master";
-        stabeDiffusion.addGitConfiguration( sdwuiconfig );
-        insertProjectScmConfiguration( stabeDiffusion );
+        stableDiffusion.addGitConfiguration( sdwuiconfig );
+        insertProjectScmConfiguration( stableDiffusion );
 
     }
 
