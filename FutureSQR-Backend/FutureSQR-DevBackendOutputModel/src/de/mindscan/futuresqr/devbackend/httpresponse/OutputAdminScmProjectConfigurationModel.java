@@ -55,8 +55,13 @@ public class OutputAdminScmProjectConfigurationModel {
         this.projectReviewPrefix = projectConfiguration.getProjectReviewPrefix();
         this.projectUuid = projectConfiguration.getProjectUuid();
         this.scmProjectType = projectConfiguration.getScmProjectType().toString();
-        this.projectRemoteRepositoryURL = projectConfiguration.getProjectRemoteRepoURL();
         this.hasProjectRemoteReporitoryURL = projectConfiguration.hasProjectRemoteRepoURL();
+        if (hasProjectRemoteReporitoryURL) {
+            this.projectRemoteRepositoryURL = projectConfiguration.getProjectRemoteRepoURL();
+        }
+        else {
+            this.projectRemoteRepositoryURL = "";
+        }
     }
 
 }
