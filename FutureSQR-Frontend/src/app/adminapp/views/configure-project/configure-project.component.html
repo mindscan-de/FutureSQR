@@ -11,7 +11,7 @@
 				<form [formGroup]="changeForm" (ngSubmit)="onSubmit()">
 					<div class="form-group">
 						<label for="scmRepositoryURL">Repository / Project URL</label>
-						<input type="text" formControlName="scmRepositoryURL" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.scmRepositoryURL.errors}" value="TODO: URL"/>
+						<input type="text" formControlName="scmRepositoryURL" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.scmRepositoryURL.errors}" value="{{activeProjectConfiguration.projectRemoteRepositoryURL}}"/>
 						<div *ngIf="submitted && f.scmRepositoryURL.errors" class="invalid-feedback">
 							<div *ngIf="f.scmRepositoryURL.errors.required">Please provide a repository URL.</div>
 						</div>
@@ -124,7 +124,14 @@
 	<div class="col col-3">
 		<div class="card mt-2">
 			<div class="card-body">
+				<!-- only provide clone button, when we have no local copy of the project. (missing local cache directory) -->
+				<div *ngIf = "activeProjectConfiguration.hasProjectRemoteReporitoryURL==true" class="mb-2">
+					<!-- TODO disable until cloned - until success - maybe provide a observer url. -->
+					<button class="btn btn-warning" onClick="onCloneProjectToDisk()">Clone Project</button>
+				</div>
+				<div>
 				TODO SOMETHING HERE
+				</div>
 			</div>
 		</div>
 	</div>

@@ -66,6 +66,11 @@ export class ConfigureProjectComponent implements OnInit {
 	public onSubmit(): void {
 		
 	}
+	
+	public onCloneProjectToDisk(): void {
+		// @TODO: start the clone process, it should be queued into a job queue and the option should be 
+		//        blocked until this job is completed. 
+	}
 
 
 	// accessor for the form.
