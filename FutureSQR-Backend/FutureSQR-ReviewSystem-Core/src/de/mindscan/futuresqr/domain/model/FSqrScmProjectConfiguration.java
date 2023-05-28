@@ -51,6 +51,8 @@ public class FSqrScmProjectConfiguration {
     private final String projectUuid;
     private String projectReviewPrefix = DEFAULT_CODEREVIEW_PREFIX;
 
+    private String projectRemoteRepoURL;
+
     private FSqrScmProjectType scmProjectType;
 
     // that means that this project is not active any more, and is not monitored any more, with respect to the SCM
@@ -174,6 +176,18 @@ public class FSqrScmProjectConfiguration {
 
     public List<String> getBranches() {
         return new ArrayList<>( branches );
+    }
+
+    public void setProjectRemoteRepoURL( String projectRemoteRepoURL ) {
+        this.projectRemoteRepoURL = projectRemoteRepoURL;
+    }
+
+    public String getProjectRemoteRepoURL() {
+        return projectRemoteRepoURL;
+    }
+
+    public boolean hasProjectRemoteRepoURL() {
+        return this.projectRemoteRepoURL == null || this.projectRemoteRepoURL.isEmpty();
     }
 
 }
