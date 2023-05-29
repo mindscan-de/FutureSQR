@@ -36,4 +36,6 @@ public interface FSqrSystemInstanceConfiguration {
 
     String getSvnExecutablePath();
 
+    String getFSqrDatabasePath();
+
 }

@@ -44,6 +44,7 @@ public class FSqrSystemInstanceConfigurationImpl implements FSqrSystemInstanceCo
     // start with hard coded git executable to make things work first
     static final String GIT_EXECUTABLE_PATH = "C:\\Program Files\\Git\\cmd\\git.exe";
     static final String SVN_EXECUTABLE_PATH = "C:\\Program Files\\TortoiseSVN\\bin\\svn.exe";
+    static final String LOCAL_DB_PATH = "D:\\Temp\\future-square-db\\";
 
     /**
      * 
@@ -75,6 +76,14 @@ public class FSqrSystemInstanceConfigurationImpl implements FSqrSystemInstanceCo
     @Override
     public String getSvnExecutablePath() {
         return SVN_EXECUTABLE_PATH;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public String getFSqrDatabasePath() {
+        return LOCAL_DB_PATH;
     }
 
 }
