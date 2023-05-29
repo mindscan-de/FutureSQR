@@ -45,6 +45,7 @@ public class FSqrSystemInstanceConfigurationImpl implements FSqrSystemInstanceCo
     static final String GIT_EXECUTABLE_PATH = "C:\\Program Files\\Git\\cmd\\git.exe";
     static final String SVN_EXECUTABLE_PATH = "C:\\Program Files\\TortoiseSVN\\bin\\svn.exe";
     static final String LOCAL_DB_PATH = "D:\\Temp\\future-square-db\\";
+    static final String LOCAL_REPO_CACHE_PATH = "D:\\Temp\\future-square-cache\\";
 
     /**
      * 
@@ -59,7 +60,7 @@ public class FSqrSystemInstanceConfigurationImpl implements FSqrSystemInstanceCo
 
     @Override
     public String getSystemRepoCachePath() {
-        return "D:\\Temp\\future-square-cache\\";
+        return LOCAL_REPO_CACHE_PATH;
     }
 
     /** 
