@@ -159,4 +159,12 @@ public class FSqrCodeReview extends FSqrCodeReviewValue {
         return revisionAuthorUUIDs;
     }
 
+    public boolean isClosedCodeReview( ) {
+        return getCurrentReviewState() == FSqrCodeReviewLifecycleState.Closed;
+    }
+
+    public boolean isOpenCodeReview( ) {
+        return getCurrentReviewState() == FSqrCodeReviewLifecycleState.Open;
+    }
+
 }

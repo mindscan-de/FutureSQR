@@ -38,7 +38,6 @@ import de.mindscan.futuresqr.domain.databases.impl.FSqrCodeReviewTableImpl;
 import de.mindscan.futuresqr.domain.databases.impl.FSqrProjectAssignedCodeReviewsTableImpl;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReviewFactory;
-import de.mindscan.futuresqr.domain.model.FSqrCodeReviewLifecycleState;
 import de.mindscan.futuresqr.domain.model.FSqrRevision;
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
@@ -110,8 +109,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         // TODO: is it a good idea to filter on the in memory database?
         // for the open reviews it should be done from database (restart scenario?)
         // for now: good enough
-        List<FSqrCodeReview> resultList = codeReviewTableCache.filterCodeReviewsByProject( projectId,
-                        r -> r.getCurrentReviewState() == FSqrCodeReviewLifecycleState.Open );
+        List<FSqrCodeReview> resultList = codeReviewTableCache.filterCodeReviewsByProject( projectId, FSqrCodeReview::isOpenCodeReview );
 
         Comparator<FSqrCodeReview> comparing = Comparator.comparing( FSqrCodeReview::getReviewId );
         resultList.sort( comparing );
@@ -124,8 +122,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         // TODO is it a good idea to filter on the in memory database?
         // i guess for closed reviews it should be good enough.
         // for now: good enough        
-        List<FSqrCodeReview> resultList = codeReviewTableCache.filterCodeReviewsByProject( projectId,
-                        r -> r.getCurrentReviewState() == FSqrCodeReviewLifecycleState.Closed );
+        List<FSqrCodeReview> resultList = codeReviewTableCache.filterCodeReviewsByProject( projectId, FSqrCodeReview::isClosedCodeReview );
 
         Comparator<FSqrCodeReview> comparing = Comparator.comparing( FSqrCodeReview::getReviewId );
         resultList.sort( comparing );
