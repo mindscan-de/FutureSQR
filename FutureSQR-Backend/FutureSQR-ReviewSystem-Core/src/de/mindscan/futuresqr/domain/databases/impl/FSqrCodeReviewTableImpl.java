@@ -55,7 +55,10 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
      */
     @Override
     public FSqrCodeReview selectCodeReview( String projectId, String reviewId ) {
-        // TODO Auto-generated method stub
+        // Make sure the list doesn't grow on read operation.
+        if (this.projectIdReviewIdToCodeReviewTable.containsKey( projectId )) {
+            return getProjectMapOrCompute( projectId ).getOrDefault( reviewId, null );
+        }
         return null;
     }
 
@@ -100,14 +103,19 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
      */
     @Override
     public void insertNewCodeReview( FSqrCodeReview codeReview ) {
-        // TODO intentionally left blank
+        this.getProjectMapOrCompute( codeReview.getProjectId() ).put( codeReview.getReviewId(), codeReview );
     }
 
     /** 
      * {@inheritDoc}
      */
     @Override
-    public void updateCodeReview( FSqrCodeReview coderReview ) {
-        // TODO intentionally left blank
+    public void updateCodeReview( FSqrCodeReview codeReview ) {
+        this.getProjectMapOrCompute( codeReview.getProjectId() ).put( codeReview.getReviewId(), codeReview );
     }
+
+    private Map<String, FSqrCodeReview> getProjectMapOrCompute( String projectId ) {
+        return this.projectIdReviewIdToCodeReviewTable.computeIfAbsent( projectId, k -> new HashMap<>() );
+    }
+
 }
