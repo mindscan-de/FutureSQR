@@ -26,10 +26,14 @@
 package de.mindscan.futuresqr.domain.databases.impl;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewTable;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
+import de.mindscan.futuresqr.domain.model.FSqrCodeReviewLifecycleState;
 
 /**
  * This is a fake implementation for the Database CodeReview table, to work
@@ -38,11 +42,13 @@ import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
  */
 public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
 
+    private Map<String, Map<String, FSqrCodeReview>> projectIdReviewIdToCodeReviewTable;
+
     /**
      * 
      */
     public FSqrCodeReviewTableImpl() {
-        // intentionally left blank
+        this.projectIdReviewIdToCodeReviewTable = new HashMap<>();
     }
 
     /** 
@@ -59,7 +65,16 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
      */
     @Override
     public List<FSqrCodeReview> selectOpenCodeReviews( String projectId ) {
-        return new ArrayList<>();
+        ArrayList<FSqrCodeReview> resultList = new ArrayList<>();
+
+        if (this.projectIdReviewIdToCodeReviewTable.containsKey( projectId )) {
+            this.projectIdReviewIdToCodeReviewTable.get( projectId ).values().stream().filter( this::isOpenCodeReview ).forEach( r -> resultList.add( r ) );
+        }
+
+        Comparator<FSqrCodeReview> comparing = Comparator.comparing( FSqrCodeReview::getReviewId );
+        resultList.sort( comparing );
+
+        return resultList;
     }
 
     /** 
@@ -67,7 +82,26 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
      */
     @Override
     public List<FSqrCodeReview> selectRecentlyClosedReviews( String projectId ) {
-        return new ArrayList<>();
+        ArrayList<FSqrCodeReview> resultList = new ArrayList<>();
+
+        if (this.projectIdReviewIdToCodeReviewTable.containsKey( projectId )) {
+            this.projectIdReviewIdToCodeReviewTable.get( projectId ).values().stream().filter( this::isClosedCodeReview ).forEach( r -> resultList.add( r ) );
+        }
+
+        Comparator<FSqrCodeReview> comparing = Comparator.comparing( FSqrCodeReview::getReviewId );
+        resultList.sort( comparing );
+
+        return resultList;
+    }
+
+    // TODO: make this a part of CodeReview class 
+    private boolean isClosedCodeReview( FSqrCodeReview r ) {
+        return r.getCurrentReviewState() == FSqrCodeReviewLifecycleState.Closed;
+    }
+
+    // TODO: make this a part of CodeReview class
+    private boolean isOpenCodeReview( FSqrCodeReview r ) {
+        return r.getCurrentReviewState() == FSqrCodeReviewLifecycleState.Open;
     }
 
     /** 
