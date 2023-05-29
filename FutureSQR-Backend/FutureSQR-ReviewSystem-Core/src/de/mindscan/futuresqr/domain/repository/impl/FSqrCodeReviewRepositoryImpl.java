@@ -135,7 +135,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
             codeReview.closeReview( whoClosedUUID );
-            // TODO: save status back to persistence
+            codeReviewTable.updateCodeReview( codeReview );
         }
     }
 
@@ -144,7 +144,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
             codeReview.reopenReview( whoReopenedUUID );
-            // TODO: save status back to persistence
+            codeReviewTable.updateCodeReview( codeReview );
         }
     }
 
@@ -155,7 +155,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
             // TODO NEXT: cleanup/unregister all referenced revisions, such they can again be reviewed 
             // projectIdRevisionIdToCodeReviewIdRepository
             codeReview.deleteReview( whoDeletedUUID );
-            // TODO: save status back to persistence
+            codeReviewTable.updateCodeReview( codeReview );
         }
     }
 
@@ -207,7 +207,8 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
 
     public void insertReview( String projectId, FSqrCodeReview review ) {
         this.codeReviewTableCache.putCodeReview( projectId, review.getReviewId(), review );
-        // TODO: codeReviewTable
+        this.codeReviewTable.insertNewCodeReview( review );
+
         this.codeReviewIdTableCache.putCodeReviewId( projectId, review.getFirstRevisionId(), review.getReviewId() );
         // TODO: assignedCodeReviewsTable
     }
@@ -245,8 +246,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
             codeReview.addReviewer( reviewerId, whoAddedId );
-            // TODO: update code review result list in the persistence
-            // maybe provide a listener to the codeReview.
+            this.codeReviewTable.updateCodeReview( codeReview );
         }
     }
 
@@ -255,8 +255,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
             codeReview.removeReviewer( reviewerId, whoRemovedId );
-            // TODO: update code review result list in the persistence
-            // maybe provide a listener to the codeReview.
+            this.codeReviewTable.updateCodeReview( codeReview );
         }
     }
 
@@ -265,8 +264,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
             codeReview.approveReview( reviewerId );
-            // TODO: update code review result list in the persistence
-            // maybe provide a listener to the codeReview.
+            this.codeReviewTable.updateCodeReview( codeReview );
         }
     }
 
@@ -275,8 +273,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
             codeReview.concernReview( reviewerId );
-            // TODO: update code review result list in the persistence
-            // maybe provide a listener to the codeReview.
+            this.codeReviewTable.updateCodeReview( codeReview );
         }
     }
 
@@ -285,8 +282,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
             codeReview.rollbackReview( reviewerId );
-            // TODO: update code review result list in the persistence
-            // maybe provide a listener to the codeReview.
+            codeReviewTable.updateCodeReview( codeReview );
         }
     }
 
