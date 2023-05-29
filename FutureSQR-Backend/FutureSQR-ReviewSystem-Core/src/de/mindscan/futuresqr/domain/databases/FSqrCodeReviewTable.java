@@ -42,6 +42,6 @@ public interface FSqrCodeReviewTable {
 
     void insertNewCodeReview( FSqrCodeReview codeReview );
 
-    void updateCodeReview( FSqrCodeReview coderReview );
+    void updateCodeReview( FSqrCodeReview codeReview );
 
 }
