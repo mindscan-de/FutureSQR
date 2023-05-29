@@ -25,7 +25,7 @@
  */
 package de.mindscan.futuresqr.domain.databases;
 
-import java.util.Collection;
+import java.util.List;
 
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 
@@ -36,9 +36,9 @@ public interface FSqrCodeReviewTable {
 
     FSqrCodeReview selectCodeReview( String projectId, String reviewId );
 
-    Collection<FSqrCodeReview> selectOpenCodeReviews( String projectId );
+    List<FSqrCodeReview> selectOpenCodeReviews( String projectId );
 
-    Collection<FSqrCodeReview> selectRecentlyClosedReviews( String projectId );
+    List<FSqrCodeReview> selectRecentlyClosedReviews( String projectId );
 
     void insertNewCodeReview( FSqrCodeReview codeReview );
 
