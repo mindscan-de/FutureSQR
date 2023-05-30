@@ -44,4 +44,6 @@ public interface FSqrCodeReviewTable {
 
     void updateCodeReview( FSqrCodeReview codeReview );
 
+    // TODO: implement a temporary flush implementation to save the data to the disk - want to reduce the write load on disk, so we will have a flush command.
+
 }
