@@ -118,4 +118,9 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
         return this.projectIdReviewIdToCodeReviewTable.computeIfAbsent( projectId, k -> new HashMap<>() );
     }
 
+    // public void flush() {
+    // tODO: save into db filder the codereviewtable to disk, maybe use gson for this, for some time until we have a
+    //       database up and running. But Basically the table is the schema.
+    // }
+
 }
