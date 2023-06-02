@@ -32,7 +32,7 @@ import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 /**
  * 
  */
-public interface FSqrCodeReviewTable {
+public interface FSqrCodeReviewTable extends FSqrDatabaseTable {
 
     FSqrCodeReview selectCodeReview( String projectId, String reviewId );
 
