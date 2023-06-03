@@ -36,10 +36,15 @@ import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
  */
 public class FSqrSqliteDatabaseConnectionImpl implements FSqrDatabaseConnection {
 
+    private String connectionString;
+
+    private Connection sqliteConnection;
+
     /**
      * 
      */
     public FSqrSqliteDatabaseConnectionImpl() {
+        // intentionally left blank
     }
 
     /**
@@ -50,13 +55,14 @@ public class FSqrSqliteDatabaseConnectionImpl implements FSqrDatabaseConnection 
         //       information and when we can boot from here.
         // actually the boot should not be done here, but in a later stage, but for now this should be sufficient.
 
-        String connectionString = services.getSystemConfiguration().getDatabaseConnectionString();
+        connectionString = services.getSystemConfiguration().getDatabaseConnectionString();
 
-        Connection c = null;
+        // TODO: this here should be part of a later lifecycle, anyhow - this is good enough right now.
+        sqliteConnection = null;
         try {
             Class.forName( "org.sqlite.JDBC" );
-            c = DriverManager.getConnection( connectionString );
-            c.close();
+            sqliteConnection = DriverManager.getConnection( connectionString );
+            sqliteConnection.close();
         }
         catch (Exception e) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
