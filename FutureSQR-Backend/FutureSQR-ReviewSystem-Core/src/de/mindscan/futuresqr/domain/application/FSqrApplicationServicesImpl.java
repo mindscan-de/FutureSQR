@@ -27,6 +27,7 @@ package de.mindscan.futuresqr.domain.application;
 
 import de.mindscan.futuresqr.domain.configuration.FSqrSystemInstanceConfiguration;
 import de.mindscan.futuresqr.domain.configuration.impl.FSqrSystemInstanceConfigurationImpl;
+import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrDiscussionThreadRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
@@ -152,6 +153,15 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
     @Override
     public FSqrScmRepositoryServices getScmRepositoryServices() {
         return scmRepositoryServices;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public FSqrDatabaseConnection getDatabaseConnection() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }
