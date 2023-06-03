@@ -26,6 +26,7 @@
 package de.mindscan.futuresqr.domain.application;
 
 import de.mindscan.futuresqr.domain.configuration.FSqrSystemInstanceConfiguration;
+import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrDiscussionThreadRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
@@ -53,4 +54,6 @@ public interface FSqrApplicationServices {
     FSqrDiscussionThreadRepository getDiscussionThreadRepository();
 
     FSqrScmRepositoryServices getScmRepositoryServices();
+
+    FSqrDatabaseConnection getDatabaseConnection();
 }
