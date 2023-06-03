@@ -40,17 +40,6 @@ public class FSqrSqliteDatabaseConnectionImpl implements FSqrDatabaseConnection 
      * 
      */
     public FSqrSqliteDatabaseConnectionImpl() {
-        Connection c = null;
-        try {
-            Class.forName( "org.sqlite.JDBC" );
-            c = DriverManager.getConnection( "jdbc:sqlite:fsqr_test.db" );
-            c.close();
-        }
-        catch (Exception e) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            return;
-        }
-        System.out.println( "XXXX: DB opened and closed successfully." );
     }
 
     /**
@@ -60,6 +49,20 @@ public class FSqrSqliteDatabaseConnectionImpl implements FSqrDatabaseConnection 
         // TODO: this is where we can read the system configuration, to retrieve the database connection 
         //       information and when we can boot from here.
         // actually the boot should not be done here, but in a later stage, but for now this should be sufficient.
+
+        String connectionString = services.getSystemConfiguration().getDatabaseConnectionString();
+
+        Connection c = null;
+        try {
+            Class.forName( "org.sqlite.JDBC" );
+            c = DriverManager.getConnection( connectionString );
+            c.close();
+        }
+        catch (Exception e) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            return;
+        }
+        System.out.println( "XXXX: DB opened and closed successfully." );
     }
 
 }

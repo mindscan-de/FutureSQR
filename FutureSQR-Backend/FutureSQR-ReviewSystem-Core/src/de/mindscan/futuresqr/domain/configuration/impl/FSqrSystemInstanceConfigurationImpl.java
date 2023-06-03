@@ -47,6 +47,8 @@ public class FSqrSystemInstanceConfigurationImpl implements FSqrSystemInstanceCo
     static final String LOCAL_DB_PATH = "D:\\Temp\\future-square-db\\";
     static final String LOCAL_REPO_CACHE_PATH = "D:\\Temp\\future-square-cache\\";
 
+    static final String JDBC_SQLITE_CONNECTION_STRING = "jdbc:sqlite:fsqr_test.db";
+
     /**
      * 
      */
@@ -85,6 +87,14 @@ public class FSqrSystemInstanceConfigurationImpl implements FSqrSystemInstanceCo
     @Override
     public String getFSqrDatabasePath() {
         return LOCAL_DB_PATH;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public String getDatabaseConnectionString() {
+        return JDBC_SQLITE_CONNECTION_STRING;
     }
 
 }

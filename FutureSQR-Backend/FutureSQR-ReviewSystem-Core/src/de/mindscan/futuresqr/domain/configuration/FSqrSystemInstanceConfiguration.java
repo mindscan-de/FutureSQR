@@ -38,4 +38,6 @@ public interface FSqrSystemInstanceConfiguration {
 
     String getFSqrDatabasePath();
 
+    String getDatabaseConnectionString();
+
 }
