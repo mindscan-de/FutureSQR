@@ -30,7 +30,10 @@
 		<!-- temporary dependency for a minimal Database, to get the persistence in a real database going -->
 		<!-- 
 		- this will be replaced by something better in the, when we have more knowledge about the requirements to that database,
-		- for now this is considered good enough. 
+		- for now this is considered good enough.
+		- ****************
+		- APACHE 2 License 
+		- ****************		
 		-->
 		<!-- https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc -->
 		<dependency>

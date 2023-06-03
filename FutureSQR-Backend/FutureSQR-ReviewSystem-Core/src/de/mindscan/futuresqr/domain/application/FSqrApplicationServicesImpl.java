@@ -28,6 +28,7 @@ package de.mindscan.futuresqr.domain.application;
 import de.mindscan.futuresqr.domain.configuration.FSqrSystemInstanceConfiguration;
 import de.mindscan.futuresqr.domain.configuration.impl.FSqrSystemInstanceConfigurationImpl;
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
+import de.mindscan.futuresqr.domain.connection.impl.FSqrSqliteDatabaseConnectionImpl;
 import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrDiscussionThreadRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
@@ -56,12 +57,17 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
     private FSqrSystemInstanceConfigurationImpl systemConfiguration;
     private FSqrDiscussionThreadRepositoryImpl discussionRepository;
     private FSqrScmRepositoryServicesImpl scmRepositoryServices;
+    private FSqrSqliteDatabaseConnectionImpl databaseConnection;
 
     /**
      * 
      */
     public FSqrApplicationServicesImpl() {
+        // Overall System Startup Configuration (Core)
         this.systemConfiguration = new FSqrSystemInstanceConfigurationImpl();
+        this.databaseConnection = new FSqrSqliteDatabaseConnectionImpl();
+
+        // All the individual parts of the Review System (Domain Core)
         this.configurationRepository = new FSqrScmProjectConfigurationRepositoryImpl();
         this.revisionRepository = new FSqrScmProjectRevisionRepositoryImpl();
         this.userRepository = new FSqrScmUserRepositoryImpl();
@@ -78,6 +84,7 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
 
     void initializeServiceInstances( FSqrApplicationServices services ) {
         this.systemConfiguration.setApplicationServices( services );
+        this.databaseConnection.setApplicationServices( services );
         this.configurationRepository.setApplicationServices( services );
         this.revisionRepository.setApplicationServices( services );
         this.userRepository.setApplicationServices( services );
@@ -160,8 +167,7 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
      */
     @Override
     public FSqrDatabaseConnection getDatabaseConnection() {
-        // TODO Auto-generated method stub
-        return null;
+        return databaseConnection;
     }
 
 }
