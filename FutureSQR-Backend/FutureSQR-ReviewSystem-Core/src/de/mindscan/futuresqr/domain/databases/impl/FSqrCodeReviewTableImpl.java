@@ -25,6 +25,9 @@
  */
 package de.mindscan.futuresqr.domain.databases.impl;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -41,6 +44,14 @@ import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
  * certain database.
  */
 public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
+
+    private static final String CODE_REVIEW_TABLENAME = "CodeReviews";
+
+    // TODO: add the columnNames.
+
+    private static final String CREATE_TABLE_CODE_REVIEWS = "CREATE TABLE  " + CODE_REVIEW_TABLENAME + " ();";
+    private static final String DROP_TABLE_IF_EXISTS = "DROP TABLE IF EXISTS " + CODE_REVIEW_TABLENAME + ";";
+    private static final String SELECT_FROM_CODE_REVIEWS = "SELECT * from " + CODE_REVIEW_TABLENAME + " WHERE projectId=? AND reviewId=?";
 
     private Map<String, Map<String, FSqrCodeReview>> projectIdReviewIdToCodeReviewTable;
 
@@ -66,10 +77,30 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
      */
     @Override
     public FSqrCodeReview selectCodeReview( String projectId, String reviewId ) {
+
         // Make sure the list doesn't grow on read operation.
         if (this.projectIdReviewIdToCodeReviewTable.containsKey( projectId )) {
             return getProjectMapOrCompute( projectId ).getOrDefault( reviewId, null );
         }
+
+        try {
+            PreparedStatement selectPS = this.connection.createPreparedStatement( SELECT_FROM_CODE_REVIEWS );
+
+            selectPS.setString( 1, projectId );
+            selectPS.setString( 2, reviewId );
+
+            ResultSet resultSet = selectPS.executeQuery();
+            while (resultSet.next()) {
+                // TODO convert a resultset-item () into a CodeReview.
+
+            }
+            resultSet.close();
+
+        }
+        catch (Exception e) {
+            return null;
+        }
+
         return null;
     }
 
@@ -134,8 +165,14 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
      */
     @Override
     public void create() {
-        // TODO Auto-generated method stub
-
+        try {
+            Statement statement = this.connection.createStatement();
+            statement.executeUpdate( DROP_TABLE_IF_EXISTS );
+            statement.executeUpdate( CREATE_TABLE_CODE_REVIEWS );
+        }
+        catch (Exception e) {
+            // TODO: handle exception
+        }
     }
 
     /** 
