@@ -25,10 +25,18 @@
  */
 package de.mindscan.futuresqr.domain.databases;
 
+import de.mindscan.futuresqr.domain.connection.DatabaseConnectionSetter;
+
 /**
  * 
  */
-public interface FSqrDatabaseTable {
+public interface FSqrDatabaseTable extends DatabaseConnectionSetter {
+
+    // create the database table infrastructure, this should be 
+    public void create();
+
+    // opposite of create,
+    // public void destroy();
 
     /**
      * export all unwritten changes/data to disk.

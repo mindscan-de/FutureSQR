@@ -77,6 +77,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
     @Override
     public void setApplicationServices( FSqrApplicationServices services ) {
         this.applicationServices = services;
+        this.codeReviewTable.setDatbaseConnection( services.getDatabaseConnection() );
     }
 
     @Override

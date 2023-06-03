@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewTable;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 
@@ -43,11 +44,21 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
 
     private Map<String, Map<String, FSqrCodeReview>> projectIdReviewIdToCodeReviewTable;
 
+    private FSqrDatabaseConnection connection;
+
     /**
      * 
      */
     public FSqrCodeReviewTableImpl() {
         this.projectIdReviewIdToCodeReviewTable = new HashMap<>();
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void setDatbaseConnection( FSqrDatabaseConnection connection ) {
+        this.connection = connection;
     }
 
     /** 
@@ -116,6 +127,15 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
 
     private Map<String, FSqrCodeReview> getProjectMapOrCompute( String projectId ) {
         return this.projectIdReviewIdToCodeReviewTable.computeIfAbsent( projectId, k -> new HashMap<>() );
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void create() {
+        // TODO Auto-generated method stub
+
     }
 
     /** 
