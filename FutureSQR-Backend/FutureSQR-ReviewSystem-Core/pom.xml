@@ -41,6 +41,12 @@
 		    <artifactId>sqlite-jdbc</artifactId>
 		    <version>3.42.0.0</version>
 		</dependency>
+  		<!-- Use this for the unit tests for serialization and deserialization of git command output. -->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.8.9</version>
+		</dependency>
 		
 	
 	
@@ -68,13 +74,14 @@
 		</dependency>
 
   		<!-- Use this for the unit tests for serialization and deserialization of git command output. -->
-		<dependency>
+  		<!--  currently partof the normal dependencies. -->
+<!-- 		<dependency>
 		    <groupId>com.google.code.gson</groupId>
 		    <artifactId>gson</artifactId>
 		    <version>2.8.9</version>
 		    <scope>test</scope>
 		</dependency>
-		
+ -->		
 		
 	</dependencies>
   
