@@ -39,9 +39,14 @@ import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewTable;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 
 /**
- * This is a fake implementation for the Database CodeReview table, to work
- * on the logic and handling of a database persistence before adopting a 
- * certain database.
+ * This is an implementation of the database tables related to code reviews. 
+ * 
+ * This an implementation relying on SQLite - This implementation is for exploratory reasons use only and
+ * will be improved and replaced by something else. But as for June 2023 speaking, This will serve a good
+ * cause until we decided for a database structure and implementation.
+ * 
+ * Now the thing is to provide some long awaited persistence and to test some update and write back 
+ * mechanics.
  */
 public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
 
@@ -49,9 +54,16 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
 
     // TODO: add the columnNames.
 
-    private static final String CREATE_TABLE_CODE_REVIEWS = "CREATE TABLE  " + CODE_REVIEW_TABLENAME + " ();";
-    private static final String DROP_TABLE_IF_EXISTS = "DROP TABLE IF EXISTS " + CODE_REVIEW_TABLENAME + ";";
-    private static final String SELECT_FROM_CODE_REVIEWS = "SELECT * from " + CODE_REVIEW_TABLENAME + " WHERE projectId=? AND reviewId=?";
+    // reviewData is the gson serialized FSqrCodeReview object - just get it done.... for now. we will invest 
+    // some more thoughts into it some time later.  
+    private static final String CREATE_TABLE_CODE_REVIEWS = // 
+                    "CREATE TABLE  " + CODE_REVIEW_TABLENAME + " (projectId, reviewId, reviewData);";
+
+    private static final String DROP_TABLE_IF_EXISTS = // 
+                    "DROP TABLE IF EXISTS " + CODE_REVIEW_TABLENAME + ";";
+
+    private static final String SELECT_FROM_CODE_REVIEWS = //
+                    "SELECT * FROM " + CODE_REVIEW_TABLENAME + " WHERE projectId=? AND reviewId=?";
 
     private Map<String, Map<String, FSqrCodeReview>> projectIdReviewIdToCodeReviewTable;
 
@@ -83,7 +95,10 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
             return getProjectMapOrCompute( projectId ).getOrDefault( reviewId, null );
         }
 
+        FSqrCodeReview result = null;
+
         try {
+
             PreparedStatement selectPS = this.connection.createPreparedStatement( SELECT_FROM_CODE_REVIEWS );
 
             selectPS.setString( 1, projectId );
@@ -92,16 +107,18 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
             ResultSet resultSet = selectPS.executeQuery();
             while (resultSet.next()) {
                 // TODO convert a resultset-item () into a CodeReview.
+                String reviewDataString = resultSet.getNString( "reviewData" );
 
+                // we only expect one result here.
+                break;
             }
             resultSet.close();
-
         }
         catch (Exception e) {
             return null;
         }
 
-        return null;
+        return result;
     }
 
     /** 
