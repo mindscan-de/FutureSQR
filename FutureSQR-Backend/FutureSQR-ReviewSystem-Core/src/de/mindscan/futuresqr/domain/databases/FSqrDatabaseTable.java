@@ -33,7 +33,7 @@ import de.mindscan.futuresqr.domain.connection.DatabaseConnectionSetter;
 public interface FSqrDatabaseTable extends DatabaseConnectionSetter {
 
     // create the database table infrastructure, this should be 
-    public void create();
+    public void createTable();
 
     // opposite of create,
     // public void destroy();

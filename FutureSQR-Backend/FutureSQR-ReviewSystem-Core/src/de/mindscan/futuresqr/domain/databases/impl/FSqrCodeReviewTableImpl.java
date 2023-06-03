@@ -164,7 +164,7 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
      * {@inheritDoc}
      */
     @Override
-    public void create() {
+    public void createTable() {
         try {
             Statement statement = this.connection.createStatement();
             statement.executeUpdate( DROP_TABLE_IF_EXISTS );
