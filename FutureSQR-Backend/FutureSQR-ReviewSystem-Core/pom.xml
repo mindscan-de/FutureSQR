@@ -26,6 +26,19 @@
 			<artifactId>FutureSQR-ScmAccess</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		
+		<!-- temporary dependency for a minimal Database, to get the persistence in a real database going -->
+		<!-- 
+		- this will be replaced by something better in the, when we have more knowledge about the requirements to that database,
+		- for now this is considered good enough. 
+		-->
+		<!-- https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc -->
+		<dependency>
+		    <groupId>org.xerial</groupId>
+		    <artifactId>sqlite-jdbc</artifactId>
+		    <version>3.42.0.0</version>
+		</dependency>
+		
 	
 	
 		<!-- Dependencies for the Unit Tests -->
