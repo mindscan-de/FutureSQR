@@ -38,6 +38,7 @@ import de.mindscan.futuresqr.devbackend.httpresponse.OutputAdminScmProjectConfig
 import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParameters;
 import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParser;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
+import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
 
@@ -96,6 +97,16 @@ public class AdminRESTfulService {
             Gson gson = new Gson();
             return gson.toJson( outputModel );
         }
+        return "{}";
+    }
+
+    @javax.ws.rs.Path( "/database/reinitDatabase" )
+    @POST
+    @Produces( MediaType.APPLICATION_JSON )
+    public String postReinitDatabase( String requestBody ) {
+        FSqrApplicationServices services = FSqrApplication.getInstance().getServices();
+        services.getReviewRepository().reinitDatabaseTables();
+
         return "{}";
     }
 

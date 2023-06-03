@@ -287,4 +287,12 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         }
     }
 
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void reinitDatabaseTables() {
+        this.codeReviewTable.createTable();
+    }
+
 }
