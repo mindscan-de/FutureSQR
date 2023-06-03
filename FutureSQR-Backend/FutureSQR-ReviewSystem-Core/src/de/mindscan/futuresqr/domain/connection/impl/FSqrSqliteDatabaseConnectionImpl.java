@@ -99,8 +99,16 @@ public class FSqrSqliteDatabaseConnectionImpl implements FSqrDatabaseConnection 
      */
     @Override
     public Statement createStatement( String statement ) {
-        // TODO Auto-generated method stub
+
         return null;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public Statement createStatement() throws SQLException {
+        return sqliteConnection.createStatement();
     }
 
 }

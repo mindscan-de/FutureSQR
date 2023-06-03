@@ -36,5 +36,7 @@ public interface FSqrDatabaseConnection {
 
     PreparedStatement createPreparedStatement( String statement ) throws SQLException;
 
+    Statement createStatement() throws SQLException;
+
     Statement createStatement( String statement );
 }
