@@ -25,9 +25,16 @@
  */
 package de.mindscan.futuresqr.domain.connection;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 /**
  * 
  */
 public interface FSqrDatabaseConnection {
 
+    PreparedStatement createPreparedStatement( String statement ) throws SQLException;
+
+    Statement createStatement( String statement );
 }

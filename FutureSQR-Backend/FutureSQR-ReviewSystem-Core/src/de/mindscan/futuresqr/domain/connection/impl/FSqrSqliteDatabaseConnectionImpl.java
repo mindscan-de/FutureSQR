@@ -27,6 +27,9 @@ package de.mindscan.futuresqr.domain.connection.impl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
@@ -62,13 +65,42 @@ public class FSqrSqliteDatabaseConnectionImpl implements FSqrDatabaseConnection 
         try {
             Class.forName( "org.sqlite.JDBC" );
             sqliteConnection = DriverManager.getConnection( connectionString );
-            sqliteConnection.close();
+
         }
         catch (Exception e) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             return;
         }
         System.out.println( "XXXX: DB opened and closed successfully." );
+    }
+
+    public void shutdown() {
+        try {
+            if (sqliteConnection != null && !(sqliteConnection.isClosed())) {
+                sqliteConnection.close();
+            }
+        }
+        catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public PreparedStatement createPreparedStatement( String statement ) throws SQLException {
+        return sqliteConnection.prepareStatement( statement );
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public Statement createStatement( String statement ) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }
