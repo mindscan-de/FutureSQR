@@ -33,5 +33,30 @@ public enum FSqrCodeReviewLifecycleState {
 
     Closed,
 
-    Deleted
+    Deleted;
+
+    public static int toStateIndex( FSqrCodeReviewLifecycleState state ) {
+        switch (state) {
+            case Open:
+                return 1;
+            case Closed:
+                return 2;
+            case Deleted:
+                return 4;
+        }
+        return 0;
+    }
+
+    public static FSqrCodeReviewLifecycleState fromStateIndex( int stateIndex ) {
+        switch (stateIndex) {
+            case 1:
+                return Open;
+            case 2:
+                return Closed;
+            case 4:
+                return Deleted;
+        }
+
+        return null;
+    }
 }
