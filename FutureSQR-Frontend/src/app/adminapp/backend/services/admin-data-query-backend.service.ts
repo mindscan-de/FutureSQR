@@ -78,5 +78,13 @@ export class AdminDataQueryBackendService {
 		let restURL = `/FutureSQR/rest/admin/project/${projectid}/configuration`;
 		
 		return this.httpClient.get<AdminBackendScmProjectConfiguration>(restURL).pipe(first());
-	} 
+	}
+	
+	public postReinitDatabase() : Observable<any> {
+		let restURL = '/FutureSQR/rest/admin/database/reinitDatabase';
+		
+		let formdata = new FormData();
+		
+		return this.httpClient.post<any>(restURL, formdata).pipe(first());
+	}
 }
