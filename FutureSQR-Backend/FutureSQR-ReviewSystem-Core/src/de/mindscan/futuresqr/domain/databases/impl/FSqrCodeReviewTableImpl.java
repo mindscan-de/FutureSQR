@@ -39,6 +39,7 @@ import com.google.gson.Gson;
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewTable;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
+import de.mindscan.futuresqr.domain.model.FSqrCodeReviewLifecycleState;
 
 /**
  * This is an implementation of the database tables related to code reviews. 
@@ -49,6 +50,10 @@ import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
  * 
  * Now the thing is to provide some long awaited persistence and to test some update and write back 
  * mechanics.
+ * 
+ * - One problem is that the scm configuration contains the counter... so reviews are duplicated, the scm 
+ *   config needs to be updated to contain the next review.
+ * - Another problem is that we should have both the reviewid and the review number within the project
  */
 public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
 
@@ -61,7 +66,7 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
     // reviewData is the gson serialized FSqrCodeReview object - just get it done.... for now. we will invest 
     // some more thoughts into it some time later.  
     private static final String CREATE_TABLE_CODE_REVIEWS = // 
-                    "CREATE TABLE  " + CODE_REVIEW_TABLENAME + " (projectId, reviewId, reviewData);";
+                    "CREATE TABLE  " + CODE_REVIEW_TABLENAME + " (projectId, reviewId, reviewData, state);";
 
     private static final String DROP_TABLE_IF_EXISTS = // 
                     "DROP TABLE IF EXISTS " + CODE_REVIEW_TABLENAME + ";";
@@ -70,7 +75,10 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
                     "SELECT * FROM " + CODE_REVIEW_TABLENAME + " WHERE (projectId=? AND reviewId=?); ";
 
     private static final String INSERT_CODE_REVIEW_PS = //
-                    "INSERT INTO " + CODE_REVIEW_TABLENAME + " (projectId, reviewId, reviewData) VALUES (?,?,?);";
+                    "INSERT INTO " + CODE_REVIEW_TABLENAME + " (projectId, reviewId, reviewData, state) VALUES (?,?,?,?);";
+
+    private static final String UPDATE_CODE_REVIEW_PS = //
+                    "UPDATE " + CODE_REVIEW_TABLENAME + " SET reviewData=?3, state=?4 WHERE (projectId=?1 AND reviewId=?2);";
 
     private Map<String, Map<String, FSqrCodeReview>> projectIdReviewIdToCodeReviewTable;
 
@@ -180,8 +188,11 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
             insert.setString( 1, codeReview.getProjectId() );
             insert.setString( 2, codeReview.getReviewId() );
             insert.setString( 3, serializedCodeReview );
+            insert.setInt( 4, FSqrCodeReviewLifecycleState.toStateIndex( codeReview.getCurrentReviewState() ) );
+
             insert.addBatch();
             insert.executeBatch();
+
             this.connection.finishTransaction();
         }
         catch (Exception e) {
@@ -195,6 +206,25 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
     @Override
     public void updateCodeReview( FSqrCodeReview codeReview ) {
         this.getProjectMapOrCompute( codeReview.getProjectId() ).put( codeReview.getReviewId(), codeReview );
+
+        try {
+            String serializedCodeReview = gson.toJson( codeReview );
+
+            PreparedStatement update = this.connection.createPreparedStatement( UPDATE_CODE_REVIEW_PS );
+
+            // WHERE
+            update.setString( 1, codeReview.getProjectId() );
+            update.setString( 2, codeReview.getReviewId() );
+            // SET
+            update.setString( 3, serializedCodeReview );
+            update.setInt( 4, FSqrCodeReviewLifecycleState.toStateIndex( codeReview.getCurrentReviewState() ) );
+
+            update.addBatch();
+            update.executeBatch();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private Map<String, FSqrCodeReview> getProjectMapOrCompute( String projectId ) {
