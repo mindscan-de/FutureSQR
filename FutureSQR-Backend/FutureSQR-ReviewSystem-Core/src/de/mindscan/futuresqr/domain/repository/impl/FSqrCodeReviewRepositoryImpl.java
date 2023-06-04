@@ -107,10 +107,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
 
     @Override
     public List<FSqrCodeReview> selectOpenReviews( String projectId ) {
-        // TODO: is it a good idea to filter on the in memory database?
-        // for the open reviews it should be done from database (restart scenario?)
-        // for now: good enough
-        List<FSqrCodeReview> resultList = codeReviewTableCache.filterCodeReviewsByProject( projectId, FSqrCodeReview::isOpenCodeReview );
+        List<FSqrCodeReview> resultList = codeReviewTable.selectOpenCodeReviews( projectId );
 
         Comparator<FSqrCodeReview> comparing = Comparator.comparing( FSqrCodeReview::getReviewId );
         resultList.sort( comparing );
@@ -120,10 +117,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
 
     @Override
     public List<FSqrCodeReview> selectRecentlyClosedReviews( String projectId ) {
-        // TODO is it a good idea to filter on the in memory database?
-        // i guess for closed reviews it should be good enough.
-        // for now: good enough        
-        List<FSqrCodeReview> resultList = codeReviewTableCache.filterCodeReviewsByProject( projectId, FSqrCodeReview::isClosedCodeReview );
+        List<FSqrCodeReview> resultList = codeReviewTable.selectRecentlyClosedReviews( projectId );
 
         Comparator<FSqrCodeReview> comparing = Comparator.comparing( FSqrCodeReview::getReviewId );
         resultList.sort( comparing );
