@@ -30,9 +30,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.google.gson.Gson;
 
@@ -76,13 +74,14 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
     private static final String SELECT_FROM_CODE_REVIEWS_PS = //
                     "SELECT * FROM " + CODE_REVIEW_TABLENAME + " WHERE (projectId=? AND reviewId=?); ";
 
+    private static final String SELECT_FROM_CODE_REVIEWS_WHERE_STATE_PS = //
+                    "SELECT * FROM " + CODE_REVIEW_TABLENAME + " WHERE (projectId=?1 AND state=?2); ";
+
     private static final String INSERT_CODE_REVIEW_PS = //
                     "INSERT INTO " + CODE_REVIEW_TABLENAME + " (projectId, reviewId, reviewData, state) VALUES (?,?,?,?);";
 
     private static final String UPDATE_CODE_REVIEW_PS = //
                     "UPDATE " + CODE_REVIEW_TABLENAME + " SET reviewData=?3, state=?4 WHERE (projectId=?1 AND reviewId=?2);";
-
-    private Map<String, Map<String, FSqrCodeReview>> projectIdReviewIdToCodeReviewTable;
 
     private FSqrDatabaseConnection connection;
 
@@ -90,7 +89,7 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
      * 
      */
     public FSqrCodeReviewTableImpl() {
-        this.projectIdReviewIdToCodeReviewTable = new HashMap<>();
+        // intentionally left blank
     }
 
     /** 
@@ -106,12 +105,6 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
      */
     @Override
     public FSqrCodeReview selectCodeReview( String projectId, String reviewId ) {
-
-        // Make sure the list doesn't grow on read operation.
-        if (this.projectIdReviewIdToCodeReviewTable.containsKey( projectId )) {
-            return getProjectMapOrCompute( projectId ).getOrDefault( reviewId, null );
-        }
-
         FSqrCodeReview result = null;
 
         try {
@@ -123,8 +116,7 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
 
             ResultSet resultSet = selectPS.executeQuery();
             while (resultSet.next()) {
-                String reviewDataString = resultSet.getString( "reviewData" );
-                result = gson.fromJson( reviewDataString, FSqrCodeReview.class );
+                result = createFSqrCodeReview( resultSet );
 
                 // we only process the first result here.
                 break;
@@ -139,6 +131,12 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
         return result;
     }
 
+    private FSqrCodeReview createFSqrCodeReview( ResultSet resultSet ) throws Exception {
+        String reviewDataString = resultSet.getString( "reviewData" );
+
+        return gson.fromJson( reviewDataString, FSqrCodeReview.class );
+    }
+
     /** 
      * {@inheritDoc}
      */
@@ -146,9 +144,22 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
     public List<FSqrCodeReview> selectOpenCodeReviews( String projectId ) {
         ArrayList<FSqrCodeReview> resultList = new ArrayList<>();
 
-        if (this.projectIdReviewIdToCodeReviewTable.containsKey( projectId )) {
-            this.projectIdReviewIdToCodeReviewTable.get( projectId ).values().stream().filter( FSqrCodeReview::isOpenCodeReview )
-                            .forEach( r -> resultList.add( r ) );
+        try {
+            PreparedStatement openReviews = this.connection.createPreparedStatement( SELECT_FROM_CODE_REVIEWS_WHERE_STATE_PS );
+
+            openReviews.setString( 1, projectId );
+            openReviews.setInt( 2, FSqrCodeReviewLifecycleState.toStateIndex( FSqrCodeReviewLifecycleState.Open ) );
+
+            ResultSet resultSet = openReviews.executeQuery();
+
+            while (resultSet.next()) {
+                resultList.add( createFSqrCodeReview( resultSet ) );
+            }
+
+            resultSet.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
 
         Comparator<FSqrCodeReview> comparing = Comparator.comparing( FSqrCodeReview::getReviewId );
@@ -164,9 +175,24 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
     public List<FSqrCodeReview> selectRecentlyClosedReviews( String projectId ) {
         ArrayList<FSqrCodeReview> resultList = new ArrayList<>();
 
-        if (this.projectIdReviewIdToCodeReviewTable.containsKey( projectId )) {
-            this.projectIdReviewIdToCodeReviewTable.get( projectId ).values().stream().filter( FSqrCodeReview::isClosedCodeReview )
-                            .forEach( r -> resultList.add( r ) );
+        // TODO: *Recently* closed - requires close date....
+
+        try {
+            PreparedStatement openReviews = this.connection.createPreparedStatement( SELECT_FROM_CODE_REVIEWS_WHERE_STATE_PS );
+
+            openReviews.setString( 1, projectId );
+            openReviews.setInt( 2, FSqrCodeReviewLifecycleState.toStateIndex( FSqrCodeReviewLifecycleState.Closed ) );
+
+            ResultSet resultSet = openReviews.executeQuery();
+
+            while (resultSet.next()) {
+                resultList.add( createFSqrCodeReview( resultSet ) );
+            }
+
+            resultSet.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
 
         Comparator<FSqrCodeReview> comparing = Comparator.comparing( FSqrCodeReview::getReviewId );
@@ -180,8 +206,6 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
      */
     @Override
     public void insertNewCodeReview( FSqrCodeReview codeReview ) {
-        this.getProjectMapOrCompute( codeReview.getProjectId() ).put( codeReview.getReviewId(), codeReview );
-
         try {
             String serializedCodeReview = gson.toJson( codeReview );
 
@@ -207,7 +231,6 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
      */
     @Override
     public void updateCodeReview( FSqrCodeReview codeReview ) {
-        this.getProjectMapOrCompute( codeReview.getProjectId() ).put( codeReview.getReviewId(), codeReview );
 
         try {
             String serializedCodeReview = gson.toJson( codeReview );
@@ -229,10 +252,6 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
         }
     }
 
-    private Map<String, FSqrCodeReview> getProjectMapOrCompute( String projectId ) {
-        return this.projectIdReviewIdToCodeReviewTable.computeIfAbsent( projectId, k -> new HashMap<>() );
-    }
-
     /** 
      * {@inheritDoc}
      */
@@ -244,7 +263,7 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
             statement.executeUpdate( CREATE_TABLE_CODE_REVIEWS );
         }
         catch (Exception e) {
-            // TODO: handle exception
+            e.printStackTrace();
         }
     }
 
