@@ -10,6 +10,7 @@ import { ConfigureAddUserComponent } from './views/configure-add-user/configure-
 import { ConfigureUsersComponent } from './views/configure-users/configure-users.component';
 import { ConfigureGroupComponent } from './views/configure-group/configure-group.component';
 import { ConfigureGroupsComponent } from './views/configure-groups/configure-groups.component';
+import { ConfigureSystemDatabaseComponent } from './views/configure-system-database/configure-system-database.component';
 
 
 const routes: Routes = [
@@ -31,6 +32,7 @@ const routes: Routes = [
 	{ path: 'groups' , component: ConfigureGroupsComponent },
 	
 	// TODO: servers - this is when we start communicating with servers directly, instead of local checked out repositories
+	{path: 'system/database', component: ConfigureSystemDatabaseComponent },
 	
 	// catch all other unknown URLs
 	{ path:'**',redirectTo:''}
