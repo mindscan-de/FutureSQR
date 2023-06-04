@@ -34,6 +34,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.Gson;
+
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewTable;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
@@ -50,6 +52,8 @@ import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
  */
 public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
 
+    private Gson gson = new Gson();
+
     private static final String CODE_REVIEW_TABLENAME = "CodeReviews";
 
     // TODO: add the columnNames.
@@ -62,8 +66,11 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
     private static final String DROP_TABLE_IF_EXISTS = // 
                     "DROP TABLE IF EXISTS " + CODE_REVIEW_TABLENAME + ";";
 
-    private static final String SELECT_FROM_CODE_REVIEWS = //
-                    "SELECT * FROM " + CODE_REVIEW_TABLENAME + " WHERE projectId=? AND reviewId=?";
+    private static final String SELECT_FROM_CODE_REVIEWS_PS = //
+                    "SELECT * FROM " + CODE_REVIEW_TABLENAME + " WHERE (projectId=? AND reviewId=?); ";
+
+    private static final String INSERT_CODE_REVIEW_PS = //
+                    "INSERT INTO " + CODE_REVIEW_TABLENAME + " (projectId, reviewId, reviewData) VALUES (?,?,?);";
 
     private Map<String, Map<String, FSqrCodeReview>> projectIdReviewIdToCodeReviewTable;
 
@@ -99,22 +106,23 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
 
         try {
 
-            PreparedStatement selectPS = this.connection.createPreparedStatement( SELECT_FROM_CODE_REVIEWS );
+            PreparedStatement selectPS = this.connection.createPreparedStatement( SELECT_FROM_CODE_REVIEWS_PS );
 
             selectPS.setString( 1, projectId );
             selectPS.setString( 2, reviewId );
 
             ResultSet resultSet = selectPS.executeQuery();
             while (resultSet.next()) {
-                // TODO convert a resultset-item () into a CodeReview.
-                String reviewDataString = resultSet.getNString( "reviewData" );
+                String reviewDataString = resultSet.getString( "reviewData" );
+                result = gson.fromJson( reviewDataString, FSqrCodeReview.class );
 
-                // we only expect one result here.
+                // we only process the first result here.
                 break;
             }
             resultSet.close();
         }
         catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
 
@@ -163,6 +171,22 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
     @Override
     public void insertNewCodeReview( FSqrCodeReview codeReview ) {
         this.getProjectMapOrCompute( codeReview.getProjectId() ).put( codeReview.getReviewId(), codeReview );
+
+        try {
+            String serializedCodeReview = gson.toJson( codeReview );
+
+            PreparedStatement insert = this.connection.createPreparedStatement( INSERT_CODE_REVIEW_PS );
+
+            insert.setString( 1, codeReview.getProjectId() );
+            insert.setString( 2, codeReview.getReviewId() );
+            insert.setString( 3, serializedCodeReview );
+            insert.addBatch();
+            insert.executeBatch();
+            this.connection.finishTransaction();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /** 

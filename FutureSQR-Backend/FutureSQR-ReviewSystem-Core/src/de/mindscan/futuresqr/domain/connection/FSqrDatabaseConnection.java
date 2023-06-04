@@ -39,4 +39,6 @@ public interface FSqrDatabaseConnection {
     Statement createStatement() throws SQLException;
 
     Statement createStatement( String statement );
+
+    void finishTransaction();
 }

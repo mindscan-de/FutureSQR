@@ -111,4 +111,19 @@ public class FSqrSqliteDatabaseConnectionImpl implements FSqrDatabaseConnection 
         return sqliteConnection.createStatement();
     }
 
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void finishTransaction() {
+        try {
+            sqliteConnection.setAutoCommit( false );
+            sqliteConnection.commit();
+            sqliteConnection.setAutoCommit( true );
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
