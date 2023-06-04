@@ -54,6 +54,8 @@ import de.mindscan.futuresqr.domain.model.FSqrCodeReviewLifecycleState;
  * - One problem is that the scm configuration contains the counter... so reviews are duplicated, the scm 
  *   config needs to be updated to contain the next review.
  * - Another problem is that we should have both the reviewid and the review number within the project
+ * - it turns out, that relational databases seem not to be a good idea, overly complated to serialize and 
+ *   unersialize into a database and into objects, a NOSQL Database might be of more use.
  */
 public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
 
