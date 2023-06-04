@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfigureSystemDatabaseComponent implements OnInit {
 
-  constructor() { }
+	constructor() { }
 
-  ngOnInit(): void {
-  }
+	ngOnInit(): void {
+	}
 
+	reinitializeDatabase(): void {
+		console.log("Hello World");
+	}
 }
