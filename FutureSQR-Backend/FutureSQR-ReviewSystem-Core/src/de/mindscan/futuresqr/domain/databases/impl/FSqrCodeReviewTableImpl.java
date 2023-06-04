@@ -72,7 +72,7 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
                     "DROP TABLE IF EXISTS " + CODE_REVIEW_TABLENAME + ";";
 
     private static final String SELECT_FROM_CODE_REVIEWS_PS = //
-                    "SELECT * FROM " + CODE_REVIEW_TABLENAME + " WHERE (projectId=? AND reviewId=?); ";
+                    "SELECT * FROM " + CODE_REVIEW_TABLENAME + " WHERE (projectId=?1 AND reviewId=?2); ";
 
     private static final String SELECT_FROM_CODE_REVIEWS_WHERE_STATE_PS = //
                     "SELECT * FROM " + CODE_REVIEW_TABLENAME + " WHERE (projectId=?1 AND state=?2); ";
