@@ -16,6 +16,7 @@ import { ConfigureAddGroupComponent } from './views/configure-add-group/configur
 import { ConfigureAddProjectComponent } from './views/configure-add-project/configure-add-project.component';
 import { AdminappAvatarOnlyComponent } from './commonui/adminapp-avatar-only/adminapp-avatar-only.component';
 import { ConfigureSystemDatabaseComponent } from './views/configure-system-database/configure-system-database.component';
+import { ConfigureSystemComponent } from './views/configure-system/configure-system.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { ConfigureSystemDatabaseComponent } from './views/configure-system-datab
 	ConfigureAddGroupComponent, 
 	ConfigureAddProjectComponent, 
 	AdminappAvatarOnlyComponent, 
-	ConfigureSystemDatabaseComponent
+	ConfigureSystemDatabaseComponent, ConfigureSystemComponent
 	],
   imports: [
     CommonModule,
