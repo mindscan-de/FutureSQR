@@ -26,10 +26,10 @@
 package de.mindscan.futuresqr.domain.databases.impl;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.google.gson.Gson;
 
@@ -53,6 +53,9 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
     private static final String CREATE_TABLE_SCM_CONFIGURATIONS = //
                     "CREATE TABLE " + SCM_CONFIGURATION_TABLENAME + " (projectId, scmConfigData); ";
 
+    private static final String SELECT_ALL_SCM_CONFIGURATIONS_PS = //
+                    "SELECT * FROM " + SCM_CONFIGURATION_TABLENAME + " ORDER BY projectId;";
+
     private static final String SELECT_SCM_CONFIGURATION_PS = //
                     "SELECT * FROM " + SCM_CONFIGURATION_TABLENAME + " WHERE (projectId=?1); ";
 
@@ -65,7 +68,6 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
     // 
 
     private Gson gson = new Gson();
-    private Map<String, FSqrScmProjectConfiguration> tmpScmConfigDatabase = new HashMap<>();
 
     private FSqrDatabaseConnection connection;
 
@@ -234,8 +236,6 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
 
     @Override
     public void insertProjectScmConfiguration( FSqrScmProjectConfiguration scmConfig ) {
-        tmpScmConfigDatabase.put( scmConfig.getProjectId(), scmConfig );
-
         try {
             String serializedScmConfiguration = gson.toJson( scmConfig );
 
@@ -282,7 +282,34 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
      */
     @Override
     public FSqrScmProjectConfiguration selectScmConfigurationByProjectId( String projectId ) {
-        return tmpScmConfigDatabase.get( projectId );
+        FSqrScmProjectConfiguration result = null;
+
+        try {
+            PreparedStatement selectPS = this.connection.createPreparedStatement( SELECT_SCM_CONFIGURATION_PS );
+
+            selectPS.setString( 1, projectId );
+
+            ResultSet resultSet = selectPS.executeQuery();
+            while (resultSet.next()) {
+                result = createScmConfiguration( resultSet );
+
+                // we only process the first result here.
+                break;
+            }
+            resultSet.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return result;
+    }
+
+    private FSqrScmProjectConfiguration createScmConfiguration( ResultSet resultSet ) throws Exception {
+        String configDataString = resultSet.getString( "scmConfigData" );
+
+        return gson.fromJson( configDataString, FSqrScmProjectConfiguration.class );
     }
 
     /** 
@@ -290,7 +317,26 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
      */
     @Override
     public Collection<FSqrScmProjectConfiguration> selectAllScmConfigurations() {
-        return tmpScmConfigDatabase.values();
+        ArrayList<FSqrScmProjectConfiguration> resultList = new ArrayList<>();
+
+        try {
+            PreparedStatement selectPS = this.connection.createPreparedStatement( SELECT_ALL_SCM_CONFIGURATIONS_PS );
+
+            ResultSet resultSet = selectPS.executeQuery();
+            while (resultSet.next()) {
+                resultList.add( createScmConfiguration( resultSet ) );
+
+                // we only process the first result here.
+                break;
+            }
+            resultSet.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return resultList;
     }
 
     /** 
