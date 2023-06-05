@@ -38,4 +38,8 @@ public interface FSqrScmConfigurationDatabaseTable extends FSqrDatabaseTable {
 
     Collection<FSqrScmProjectConfiguration> selectAllScmConfigurations();
 
+    void insertProjectScmConfiguration( FSqrScmProjectConfiguration scmConfig );
+
+    void updateProjectScmConfiguration( FSqrScmProjectConfiguration scmConfig );
+
 }

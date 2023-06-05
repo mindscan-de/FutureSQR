@@ -220,8 +220,14 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
 
     }
 
+    @Override
     public void insertProjectScmConfiguration( FSqrScmProjectConfiguration scmConfig ) {
         tmpScmConfigDatabase.put( scmConfig.getProjectId(), scmConfig );
+    }
+
+    @Override
+    public void updateProjectScmConfiguration( FSqrScmProjectConfiguration scmConfig ) {
+
     }
 
     /** 
