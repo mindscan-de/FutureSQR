@@ -25,10 +25,13 @@
  */
 package de.mindscan.futuresqr.domain.databases.impl;
 
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.google.gson.Gson;
 
 import de.mindscan.futuresqr.core.uuid.UuidUtil;
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
@@ -47,10 +50,21 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
     private static final String DROP_TABLE_IF_EXISTS = //
                     "DROP TABLE IF EXISTS " + SCM_CONFIGURATION_TABLENAME + ";";
 
-    // TODO:
-    // private static final String CREATE_TABLE_SCM_CONFIGURATIONS = //
-    //                "CREATE TABLE " + SCM_CONFIGURATION_TABLENAME + " ()";
+    private static final String CREATE_TABLE_SCM_CONFIGURATIONS = //
+                    "CREATE TABLE " + SCM_CONFIGURATION_TABLENAME + " (projectId, scmConfigData); ";
 
+    private static final String SELECT_SCM_CONFIGURATION_PS = //
+                    "SELECT * FROM " + SCM_CONFIGURATION_TABLENAME + " WHERE (projectId=?1); ";
+
+    private static final String INSERT_SCM_CONFIGURATION_PS = //
+                    "INSERT INTO " + SCM_CONFIGURATION_TABLENAME + " (projectId, scmConfigData) VALUES (?1, ?2); ";
+
+    private static final String UPDATE_SCM_CONFIGURATION_PS = //
+                    "UPDATE " + SCM_CONFIGURATION_TABLENAME + " SET scmConfigData=?2 WHERE (projectId=?1);";
+
+    // 
+
+    private Gson gson = new Gson();
     private Map<String, FSqrScmProjectConfiguration> tmpScmConfigDatabase = new HashMap<>();
 
     private FSqrDatabaseConnection connection;
@@ -221,11 +235,46 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
     @Override
     public void insertProjectScmConfiguration( FSqrScmProjectConfiguration scmConfig ) {
         tmpScmConfigDatabase.put( scmConfig.getProjectId(), scmConfig );
+
+        try {
+            String serializedScmConfiguration = gson.toJson( scmConfig );
+
+            PreparedStatement insert = this.connection.createPreparedStatement( INSERT_SCM_CONFIGURATION_PS );
+
+            insert.setString( 1, scmConfig.getProjectId() );
+            insert.setString( 2, serializedScmConfiguration );
+
+            // 
+            insert.addBatch();
+            insert.executeBatch();
+
+            this.connection.finishTransaction();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void updateProjectScmConfiguration( FSqrScmProjectConfiguration scmConfig ) {
+        try {
+            String serializedScmConfiguration = gson.toJson( scmConfig );
 
+            PreparedStatement update = this.connection.createPreparedStatement( UPDATE_SCM_CONFIGURATION_PS );
+
+            // WHERE
+            update.setString( 1, scmConfig.getProjectId() );
+
+            // SET
+            update.setString( 2, serializedScmConfiguration );
+
+            // EXECUTE
+            update.addBatch();
+            update.executeBatch();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /** 
@@ -253,10 +302,9 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
             Statement statement = this.connection.createStatement();
 
             statement.executeUpdate( DROP_TABLE_IF_EXISTS );
-            // TODO: create table.
-            // statement.executeUpdate( CREATE_TABLE_SCM_CONFIGURATIONS );
+            statement.executeUpdate( CREATE_TABLE_SCM_CONFIGURATIONS );
 
-            // TODO: activate the database with some hard coded data. 
+            // initialize the application database with some hard coded data 
             // initHardcodedData();
         }
         catch (Exception e) {
@@ -270,7 +318,7 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
      */
     @Override
     public void flush() {
-        // TODO Auto-generated method stub
+        // intentionally left blank for now.
     }
 
 }
