@@ -59,8 +59,6 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
      * 
      */
     public FSqrScmConfigurationDatabaseTableImpl() {
-        // TODO: remove me, when we have a database and a database session object
-        initHardcodedData();
     }
 
     /** 
@@ -257,6 +255,9 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
             statement.executeUpdate( DROP_TABLE_IF_EXISTS );
             // TODO: create table.
             // statement.executeUpdate( CREATE_TABLE_SCM_CONFIGURATIONS );
+
+            // TODO: activate the database with some hard coded data. 
+            // initHardcodedData();
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -270,7 +271,6 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
     @Override
     public void flush() {
         // TODO Auto-generated method stub
-
     }
 
 }
