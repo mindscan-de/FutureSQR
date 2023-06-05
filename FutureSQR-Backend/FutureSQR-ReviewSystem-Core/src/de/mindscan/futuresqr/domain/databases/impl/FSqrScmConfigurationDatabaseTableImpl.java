@@ -351,7 +351,7 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
             statement.executeUpdate( CREATE_TABLE_SCM_CONFIGURATIONS );
 
             // initialize the application database with some hard coded data 
-            // initHardcodedData();
+            initHardcodedData();
         }
         catch (Exception e) {
             e.printStackTrace();
