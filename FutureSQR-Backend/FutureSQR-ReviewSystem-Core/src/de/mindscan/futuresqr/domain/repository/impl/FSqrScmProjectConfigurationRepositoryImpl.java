@@ -187,4 +187,12 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
         return getProjectConfiguration( projectId ).hasLocalRepoPath();
     }
 
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void reinitDatabaseTables() {
+        this.scmConfigurationDatabase.createTable();
+    }
+
 }

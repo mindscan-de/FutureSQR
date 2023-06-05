@@ -105,6 +105,7 @@ public class AdminRESTfulService {
     @Produces( MediaType.APPLICATION_JSON )
     public String postReinitDatabase( String requestBody ) {
         FSqrApplicationServices services = FSqrApplication.getInstance().getServices();
+        services.getConfigurationRepository().reinitDatabaseTables();
         services.getReviewRepository().reinitDatabaseTables();
 
         return "{}";
