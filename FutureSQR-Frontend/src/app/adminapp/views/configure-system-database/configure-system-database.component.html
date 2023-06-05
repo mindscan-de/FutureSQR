@@ -7,8 +7,26 @@
 		<div class="card mt-2">
 			<div class="card-body">
 				<h4 class="text-danger">Danger Zone</h4>
+				<p>This will drop and recreate the database schema.</p>
 				<button class="btn btn-danger" (click)="reinitializeDatabase()">Reinitialize Database</button>
 			</div>
 		</div>
+		
+		<div class="card mt-2">
+			<div class="card-body">
+				<h4 class="text-Info">Backup Data (NYI)</h4>
+				<p>This will create a snapshot of all userbased data in the current database and save it as a separate file for reimport.</p>
+				<button class="btn btn-primary">Backup System Instance</button>
+			</div>
+		</div>
+
+		<div class="card mt-2">
+			<div class="card-body">
+				<h4 class="text-Info">Restore Data From Backup (NYI)</h4>
+				<p>This will use a data snapshot and will import (and convert) it into the current database.</p>
+				<button class="btn btn-primary">Import System Instance From Backup</button>
+			</div>
+		</div>
+		
 	</div>
 </div>
