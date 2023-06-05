@@ -325,9 +325,6 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
             ResultSet resultSet = selectPS.executeQuery();
             while (resultSet.next()) {
                 resultList.add( createScmConfiguration( resultSet ) );
-
-                // we only process the first result here.
-                break;
             }
             resultSet.close();
         }
