@@ -25,11 +25,13 @@
  */
 package de.mindscan.futuresqr.domain.databases.impl;
 
+import java.sql.Statement;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import de.mindscan.futuresqr.core.uuid.UuidUtil;
+import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrScmConfigurationDatabaseTable;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectGitAdminConfiguration;
@@ -40,7 +42,18 @@ import de.mindscan.futuresqr.domain.model.FSqrScmProjectSvnAdminConfiguration;
  */
 public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurationDatabaseTable {
 
+    private static final String SCM_CONFIGURATION_TABLENAME = "ScmConfigurations";
+
+    private static final String DROP_TABLE_IF_EXISTS = //
+                    "DROP TABLE IF EXISTS " + SCM_CONFIGURATION_TABLENAME + ";";
+
+    // TODO:
+    // private static final String CREATE_TABLE_SCM_CONFIGURATIONS = //
+    //                "CREATE TABLE " + SCM_CONFIGURATION_TABLENAME + " ()";
+
     private Map<String, FSqrScmProjectConfiguration> tmpScmConfigDatabase = new HashMap<>();
+
+    private FSqrDatabaseConnection connection;
 
     /**
      * 
@@ -48,6 +61,14 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
     public FSqrScmConfigurationDatabaseTableImpl() {
         // TODO: remove me, when we have a database and a database session object
         initHardcodedData();
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void setDatbaseConnection( FSqrDatabaseConnection connection ) {
+        this.connection = connection;
     }
 
     /**
@@ -217,6 +238,33 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
     @Override
     public Collection<FSqrScmProjectConfiguration> selectAllScmConfigurations() {
         return tmpScmConfigDatabase.values();
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void createTable() {
+        try {
+            Statement statement = this.connection.createStatement();
+
+            statement.executeUpdate( DROP_TABLE_IF_EXISTS );
+            // TODO: create table.
+            // statement.executeUpdate( CREATE_TABLE_SCM_CONFIGURATIONS );
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void flush() {
+        // TODO Auto-generated method stub
+
     }
 
 }
