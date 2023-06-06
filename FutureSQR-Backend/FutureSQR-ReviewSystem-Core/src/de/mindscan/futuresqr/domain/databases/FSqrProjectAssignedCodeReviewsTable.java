@@ -33,7 +33,11 @@ public interface FSqrProjectAssignedCodeReviewsTable extends FSqrDatabaseTable {
     String selectCodeReviewId( String projectId, String revisionId );
 
     // TODO insert code review id to project and revision
+    void insertCodeReviewId( String projectId, String revisionId, String reviewId );
 
-    // TODO delete code review id from project and revision
+    // TODO delete single revision for code review id from project
+    void removeCodeReviewId( String projectId, String revisionId );
+
+    void removeAllCodeRevisionsForReview( String projectId, String reviewId );
 
 }

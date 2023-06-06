@@ -82,6 +82,33 @@ public class FSqrProjectAssignedCodeReviewsTableImpl implements FSqrProjectAssig
      * {@inheritDoc}
      */
     @Override
+    public void insertCodeReviewId( String projectId, String revisionId, String reviewId ) {
+        // TODO Auto-generated method stub
+
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void removeCodeReviewId( String projectId, String revisionId ) {
+        // TODO Auto-generated method stub
+
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void removeAllCodeRevisionsForReview( String projectId, String reviewId ) {
+        // TODO Auto-generated method stub
+
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
     public void createTable() {
         try {
             Statement statement = this.connection.createStatement();
