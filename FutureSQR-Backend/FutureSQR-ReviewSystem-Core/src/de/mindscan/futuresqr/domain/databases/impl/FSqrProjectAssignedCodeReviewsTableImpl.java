@@ -25,6 +25,11 @@
  */
 package de.mindscan.futuresqr.domain.databases.impl;
 
+import java.sql.Statement;
+
+import com.google.gson.Gson;
+
+import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrProjectAssignedCodeReviewsTable;
 
 /**
@@ -32,12 +37,70 @@ import de.mindscan.futuresqr.domain.databases.FSqrProjectAssignedCodeReviewsTabl
  */
 public class FSqrProjectAssignedCodeReviewsTableImpl implements FSqrProjectAssignedCodeReviewsTable {
 
+    private static final String REVISION_TO_CODE_REVIEW_TABLENAME = "RevisionsToReviews";
+
+    private static final String DROP_TABLE_IF_EXISTS = // 
+                    "DROP TABLE IF EXISTS " + REVISION_TO_CODE_REVIEW_TABLENAME + ";";
+
+    private static final String CREATE_TABLE_REVISION_TO_REVIEW = // 
+                    "CREATE TABLE  " + REVISION_TO_CODE_REVIEW_TABLENAME + " (projectId, revisionId, reviewId);";
+
+    private Gson gson = new Gson();
+    private FSqrDatabaseConnection connection;
+
+    /**
+     * 
+     */
+    public FSqrProjectAssignedCodeReviewsTableImpl() {
+        // intentionally left blank
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void setDatbaseConnection( FSqrDatabaseConnection connection ) {
+        this.connection = connection;
+    }
+
     /** 
      * {@inheritDoc}
      */
     @Override
     public String selectCodeReviewId( String projectId, String revisionId ) {
+        try {
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return "";
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void createTable() {
+        try {
+            Statement statement = this.connection.createStatement();
+            statement.executeUpdate( DROP_TABLE_IF_EXISTS );
+            statement.executeUpdate( CREATE_TABLE_REVISION_TO_REVIEW );
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void flush() {
+        // TODO Auto-generated method stub
+
     }
 
 }

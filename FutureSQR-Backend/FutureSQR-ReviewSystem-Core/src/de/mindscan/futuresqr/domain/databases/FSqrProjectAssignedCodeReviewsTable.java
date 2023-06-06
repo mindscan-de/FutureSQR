@@ -28,8 +28,12 @@ package de.mindscan.futuresqr.domain.databases;
 /**
  * 
  */
-public interface FSqrProjectAssignedCodeReviewsTable {
+public interface FSqrProjectAssignedCodeReviewsTable extends FSqrDatabaseTable {
 
     String selectCodeReviewId( String projectId, String revisionId );
+
+    // TODO insert code review id to project and revision
+
+    // TODO delete code review id from project and revision
 
 }
