@@ -37,11 +37,16 @@ public class FSqrProjectAssignedCodeReviewsTableImpl implements FSqrProjectAssig
 
     private static final String REVISION_TO_CODE_REVIEW_TABLENAME = "RevisionsToReviews";
 
+    private static final String COLUMNNAME_PROJECT_ID = "projectId";
+    private static final String COLUMNNAME_REVISION_ID = "revisionId";
+    private static final String COLUMNNAME_REVIEW_ID = "reviewId";
+
     private static final String DROP_TABLE_IF_EXISTS = // 
                     "DROP TABLE IF EXISTS " + REVISION_TO_CODE_REVIEW_TABLENAME + ";";
 
     private static final String CREATE_TABLE_REVISION_TO_REVIEW = // 
-                    "CREATE TABLE  " + REVISION_TO_CODE_REVIEW_TABLENAME + " (projectId, revisionId, reviewId);";
+                    "CREATE TABLE  " + REVISION_TO_CODE_REVIEW_TABLENAME + " (" + COLUMNNAME_PROJECT_ID + ", " + COLUMNNAME_REVISION_ID + ", "
+                                    + COLUMNNAME_REVIEW_ID + ");";
 
     private FSqrDatabaseConnection connection;
 
