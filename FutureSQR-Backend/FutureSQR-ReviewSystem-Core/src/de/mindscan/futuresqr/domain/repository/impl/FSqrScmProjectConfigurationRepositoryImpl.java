@@ -146,7 +146,14 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
             throw new RuntimeException( "ProjectId is unknown" );
         }
 
-        return projectConfiguration.createNewReviewIdentifierWithPrefix();
+        String createNewReviewIdentifierWithPrefix = projectConfiguration.createNewReviewIdentifierWithPrefix();
+
+        // save after we incremented the project review counter configuration.
+        if (scmConfigurationDatabase != null) {
+            scmConfigurationDatabase.updateProjectScmConfiguration( projectConfiguration );
+        }
+
+        return createNewReviewIdentifierWithPrefix;
     }
 
     @Override

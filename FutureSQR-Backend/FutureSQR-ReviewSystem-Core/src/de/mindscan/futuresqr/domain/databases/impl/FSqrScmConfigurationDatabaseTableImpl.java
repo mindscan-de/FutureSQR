@@ -263,6 +263,10 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
 
     @Override
     public void updateProjectScmConfiguration( FSqrScmProjectConfiguration scmConfig ) {
+        if (scmConfig == null) {
+            return;
+        }
+
         try {
             String serializedScmConfiguration = gson.toJson( scmConfig );
 
