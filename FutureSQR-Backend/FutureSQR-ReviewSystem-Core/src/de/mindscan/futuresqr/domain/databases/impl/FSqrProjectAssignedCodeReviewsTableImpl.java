@@ -27,8 +27,6 @@ package de.mindscan.futuresqr.domain.databases.impl;
 
 import java.sql.Statement;
 
-import com.google.gson.Gson;
-
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrProjectAssignedCodeReviewsTable;
 
@@ -45,7 +43,6 @@ public class FSqrProjectAssignedCodeReviewsTableImpl implements FSqrProjectAssig
     private static final String CREATE_TABLE_REVISION_TO_REVIEW = // 
                     "CREATE TABLE  " + REVISION_TO_CODE_REVIEW_TABLENAME + " (projectId, revisionId, reviewId);";
 
-    private Gson gson = new Gson();
     private FSqrDatabaseConnection connection;
 
     /**
