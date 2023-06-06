@@ -45,25 +45,31 @@ import de.mindscan.futuresqr.domain.model.FSqrScmProjectSvnAdminConfiguration;
  */
 public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurationDatabaseTable {
 
+    // Tablename
     private static final String SCM_CONFIGURATION_TABLENAME = "ScmConfigurations";
 
+    // Column names
+    private static final String COLUMN_PROJECT_ID = "projectId";
+    private static final String COLUMN_SCM_CONFIG_DATA = "scmConfigData";
+
+    // SQL-Statements
     private static final String DROP_TABLE_IF_EXISTS = //
                     "DROP TABLE IF EXISTS " + SCM_CONFIGURATION_TABLENAME + ";";
 
     private static final String CREATE_TABLE_SCM_CONFIGURATIONS = //
-                    "CREATE TABLE " + SCM_CONFIGURATION_TABLENAME + " (projectId, scmConfigData); ";
+                    "CREATE TABLE " + SCM_CONFIGURATION_TABLENAME + " (" + COLUMN_PROJECT_ID + ", " + COLUMN_SCM_CONFIG_DATA + "); ";
 
     private static final String SELECT_ALL_SCM_CONFIGURATIONS_PS = //
-                    "SELECT * FROM " + SCM_CONFIGURATION_TABLENAME + " ORDER BY projectId;";
+                    "SELECT * FROM " + SCM_CONFIGURATION_TABLENAME + " ORDER BY " + COLUMN_PROJECT_ID + ";";
 
     private static final String SELECT_SCM_CONFIGURATION_PS = //
-                    "SELECT * FROM " + SCM_CONFIGURATION_TABLENAME + " WHERE (projectId=?1); ";
+                    "SELECT * FROM " + SCM_CONFIGURATION_TABLENAME + " WHERE (" + COLUMN_PROJECT_ID + "=?1); ";
 
     private static final String INSERT_SCM_CONFIGURATION_PS = //
-                    "INSERT INTO " + SCM_CONFIGURATION_TABLENAME + " (projectId, scmConfigData) VALUES (?1, ?2); ";
+                    "INSERT INTO " + SCM_CONFIGURATION_TABLENAME + " (" + COLUMN_PROJECT_ID + ", " + COLUMN_SCM_CONFIG_DATA + ") VALUES (?1, ?2); ";
 
     private static final String UPDATE_SCM_CONFIGURATION_PS = //
-                    "UPDATE " + SCM_CONFIGURATION_TABLENAME + " SET scmConfigData=?2 WHERE (projectId=?1);";
+                    "UPDATE " + SCM_CONFIGURATION_TABLENAME + " SET " + COLUMN_SCM_CONFIG_DATA + "=?2 WHERE (" + COLUMN_PROJECT_ID + "=?1);";
 
     // 
 
@@ -307,7 +313,7 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
     }
 
     private FSqrScmProjectConfiguration createScmConfiguration( ResultSet resultSet ) throws Exception {
-        String configDataString = resultSet.getString( "scmConfigData" );
+        String configDataString = resultSet.getString( COLUMN_SCM_CONFIG_DATA );
 
         return gson.fromJson( configDataString, FSqrScmProjectConfiguration.class );
     }
