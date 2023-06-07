@@ -63,7 +63,7 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
     private Function<String, FSqrSystemUser> systemUserPersistenceLoader;
 
     // Proof of Concept - this will be derived from the database session for now it is good enough for a POC
-    private FSqrUserTable userDatabaseAccess;
+    private FSqrUserTable systemUserTable;
     private FSqrAlternateScmAliasesDatabaseTable userAliasesDatabaseTable;
 
     // TODO: we need some filters?
@@ -81,7 +81,7 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
 
         // TODO: the userdatabase actually should provide persistenceSystemUserLoader...
         // TODO: maybe use a Factory of the application service to get the system user persistence loader.
-        this.userDatabaseAccess = new FSqrUserTableImpl();
+        this.systemUserTable = new FSqrUserTableImpl();
         this.userAliasesDatabaseTable = new FSqrAlternateScmAliasesDatabaseTableImpl();
     }
 
@@ -90,7 +90,7 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
     }
 
     private FSqrSystemUser initializedDatabaseLoader( String userUuid ) {
-        return this.userDatabaseAccess.selectUserByUUID( userUuid );
+        return this.systemUserTable.selectUserByUUID( userUuid );
     }
 
     @Override
@@ -144,7 +144,7 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
 
         // TODO: test if a negative answer for this logonname is cached and save unsuccessful database operation.
 
-        if (userDatabaseAccess.isLoginNamePresent( logonName )) {
+        if (systemUserTable.isLoginNamePresent( logonName )) {
             return true;
         }
 
@@ -175,7 +175,7 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
      */
     @Override
     public FSqrSystemUser getUserByLogonName( String username ) {
-        FSqrSystemUser userEntry = this.userDatabaseAccess.selectUserByLoginName( username );
+        FSqrSystemUser userEntry = this.systemUserTable.selectUserByLoginName( username );
 
         if (userEntry != null) {
             // If someone requested this user by logon, we will need this user soon in the system cache as well...
