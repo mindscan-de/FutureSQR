@@ -38,14 +38,14 @@ import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
  * want to explore how to separate these two concerns correctly and how the update logic should be handled
  * by using the user database /  user repository first.
  */
-public class FSqrUserDatabaseTableImpl implements FSqrUserTable {
+public class FSqrUserTableImpl implements FSqrUserTable {
 
     private Map<String, FSqrSystemUser> tmpUserDatabaseTable;
 
     /**
      * 
      */
-    public FSqrUserDatabaseTableImpl() {
+    public FSqrUserTableImpl() {
         this.tmpUserDatabaseTable = new HashMap<>();
 
         // TODO: remove me, when we have a database and a database session object.
