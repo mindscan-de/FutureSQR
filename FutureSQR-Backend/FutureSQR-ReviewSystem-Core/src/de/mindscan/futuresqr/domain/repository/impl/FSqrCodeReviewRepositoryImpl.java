@@ -78,6 +78,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
     public void setApplicationServices( FSqrApplicationServices services ) {
         this.applicationServices = services;
         this.codeReviewTable.setDatbaseConnection( services.getDatabaseConnection() );
+        this.assignedCodeReviewsTable.setDatbaseConnection( services.getDatabaseConnection() );
     }
 
     @Override
@@ -147,10 +148,11 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
     public void deleteReview( String projectId, String reviewId, String whoDeletedUUID ) {
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
-            // TODO NEXT: cleanup/unregister all referenced revisions, such they can again be reviewed 
-            // projectIdRevisionIdToCodeReviewIdRepository
             codeReview.deleteReview( whoDeletedUUID );
             codeReviewTable.updateCodeReview( codeReview );
+
+            // TODO: clear revisions in codeReview itself.
+            this.assignedCodeReviewsTable.removeAllCodeRevisionsForReview( projectId, codeReview.getReviewId() );
         }
     }
 
@@ -166,8 +168,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
 
             // add revision also to (project x revision) table - to associate revision with review. 
             this.codeReviewIdTableCache.putCodeReviewId( projectId, revisionId, reviewId );
-
-            // TODO update assignedCodeReviewsTable
+            this.assignedCodeReviewsTable.insertCodeReviewId( projectId, revisionId, reviewId );
         }
     }
 
@@ -182,8 +183,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
 
             // remove revision from (project x revision) table - to mark it free again.
             this.codeReviewIdTableCache.removeCodeReviewId( projectId, revisionId );
-
-            // TODO update assignedCodeReviewsTable
+            this.assignedCodeReviewsTable.removeCodeReviewId( projectId, revisionId );
         }
     }
 
@@ -205,7 +205,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
         this.codeReviewTable.insertNewCodeReview( review );
 
         this.codeReviewIdTableCache.putCodeReviewId( projectId, review.getFirstRevisionId(), review.getReviewId() );
-        // TODO: assignedCodeReviewsTable
+        this.assignedCodeReviewsTable.insertCodeReviewId( projectId, review.getFirstRevisionId(), review.getReviewId() );
     }
 
     @Override
