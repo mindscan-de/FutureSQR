@@ -54,6 +54,10 @@ public class FSqrProjectAssignedCodeReviewsTableImpl implements FSqrProjectAssig
                     "SELECT " + COLUMNNAME_REVIEW_ID + " FROM " + REVISION_TO_CODE_REVIEW_TABLENAME + " WHERE (" + COLUMNNAME_PROJECT_ID + "=?1  AND "
                                     + COLUMNNAME_REVISION_ID + "=?2 ); ";
 
+    private static final String INSERT_CODEREVIEW_FOR_PROJECT_REVISION = //
+                    "INSERT INTO " + REVISION_TO_CODE_REVIEW_TABLENAME + " (" + COLUMNNAME_PROJECT_ID + "," + COLUMNNAME_REVISION_ID + ","
+                                    + COLUMNNAME_REVIEW_ID + ") VALUES (?1, ?2, ?3); ";
+
     private FSqrDatabaseConnection connection;
 
     /**
@@ -105,8 +109,19 @@ public class FSqrProjectAssignedCodeReviewsTableImpl implements FSqrProjectAssig
      */
     @Override
     public void insertCodeReviewId( String projectId, String revisionId, String reviewId ) {
-        // TODO Auto-generated method stub
+        try {
+            PreparedStatement insertPS = this.connection.createPreparedStatement( INSERT_CODEREVIEW_FOR_PROJECT_REVISION );
 
+            insertPS.setString( 1, projectId );
+            insertPS.setString( 2, revisionId );
+            insertPS.setString( 3, reviewId );
+
+            insertPS.addBatch();
+            insertPS.executeBatch();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /** 
