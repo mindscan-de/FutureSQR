@@ -81,7 +81,6 @@ public class InMemoryCacheRevisionToCodeReviewIdTableImpl {
             return;
         }
 
-        // TODO: should we keep/cache empty association?
         if (codeReviewId.isEmpty()) {
             return;
         }
