@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import de.mindscan.futuresqr.domain.databases.FSqrUserDatabase;
+import de.mindscan.futuresqr.domain.databases.FSqrUserTable;
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 
 /**
@@ -38,7 +38,7 @@ import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
  * want to explore how to separate these two concerns correctly and how the update logic should be handled
  * by using the user database /  user repository first.
  */
-public class FSqrUserDatabaseTableImpl implements FSqrUserDatabase {
+public class FSqrUserDatabaseTableImpl implements FSqrUserTable {
 
     private Map<String, FSqrSystemUser> tmpUserDatabaseTable;
 

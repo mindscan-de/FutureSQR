@@ -31,7 +31,7 @@ import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.databases.FSqrAlternateScmAliasesDatabaseTable;
-import de.mindscan.futuresqr.domain.databases.FSqrUserDatabase;
+import de.mindscan.futuresqr.domain.databases.FSqrUserTable;
 import de.mindscan.futuresqr.domain.databases.impl.FSqrAlternateScmAliasesDatabaseTableImpl;
 import de.mindscan.futuresqr.domain.databases.impl.FSqrUserDatabaseTableImpl;
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
@@ -63,7 +63,7 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
     private Function<String, FSqrSystemUser> systemUserPersistenceLoader;
 
     // Proof of Concept - this will be derived from the database session for now it is good enough for a POC
-    private FSqrUserDatabase userDatabaseAccess;
+    private FSqrUserTable userDatabaseAccess;
     private FSqrAlternateScmAliasesDatabaseTable userAliasesDatabaseTable;
 
     // TODO: we need some filters?
