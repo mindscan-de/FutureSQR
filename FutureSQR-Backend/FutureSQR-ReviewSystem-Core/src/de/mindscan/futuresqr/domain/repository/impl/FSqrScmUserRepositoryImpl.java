@@ -33,7 +33,7 @@ import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitializ
 import de.mindscan.futuresqr.domain.databases.FSqrAlternateScmAliasesDatabaseTable;
 import de.mindscan.futuresqr.domain.databases.FSqrUserDatabase;
 import de.mindscan.futuresqr.domain.databases.impl.FSqrAlternateScmAliasesDatabaseTableImpl;
-import de.mindscan.futuresqr.domain.databases.impl.FSqrUserDatabaseImpl;
+import de.mindscan.futuresqr.domain.databases.impl.FSqrUserDatabaseTableImpl;
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 import de.mindscan.futuresqr.domain.repository.FSqrScmUserRepository;
 import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheAlternateScmAliasTableImpl;
@@ -81,7 +81,7 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, Applica
 
         // TODO: the userdatabase actually should provide persistenceSystemUserLoader...
         // TODO: maybe use a Factory of the application service to get the system user persistence loader.
-        this.userDatabaseAccess = new FSqrUserDatabaseImpl();
+        this.userDatabaseAccess = new FSqrUserDatabaseTableImpl();
         this.userAliasesDatabaseTable = new FSqrAlternateScmAliasesDatabaseTableImpl();
     }
 
