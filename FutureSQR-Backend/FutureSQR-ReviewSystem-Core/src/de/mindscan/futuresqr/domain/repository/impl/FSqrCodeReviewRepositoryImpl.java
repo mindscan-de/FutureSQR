@@ -165,6 +165,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
             // TODO: get history firstrevision to revisionid, and count number of elements in list of code review -> that is the insert position. 
             FSqrRevision revisionToAdd = applicationServices.getRevisionRepository().getSimpleRevisionInformation( projectId, revisionId );
             codeReview.addRevision( revisionToAdd );
+            this.codeReviewTable.updateCodeReview( codeReview );
 
             // add revision also to (project x revision) table - to associate revision with review. 
             this.codeReviewIdTableCache.putCodeReviewId( projectId, revisionId, reviewId );
@@ -180,6 +181,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
 
             // remove revision from review
             codeReview.removeRevisionById( revisionId );
+            this.codeReviewTable.updateCodeReview( codeReview );
 
             // remove revision from (project x revision) table - to mark it free again.
             this.codeReviewIdTableCache.removeCodeReviewId( projectId, revisionId );
@@ -287,6 +289,7 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, A
     @Override
     public void reinitDatabaseTables() {
         this.codeReviewTable.createTable();
+        this.assignedCodeReviewsTable.createTable();
     }
 
 }
