@@ -25,6 +25,8 @@
  */
 package de.mindscan.futuresqr.domain.databases.impl;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
@@ -48,6 +50,10 @@ public class FSqrProjectAssignedCodeReviewsTableImpl implements FSqrProjectAssig
                     "CREATE TABLE  " + REVISION_TO_CODE_REVIEW_TABLENAME + " (" + COLUMNNAME_PROJECT_ID + ", " + COLUMNNAME_REVISION_ID + ", "
                                     + COLUMNNAME_REVIEW_ID + ");";
 
+    private static final String SELECT_CODEREVIEW_FOR_PROJECT_REVISION = //
+                    "SELECT " + COLUMNNAME_REVIEW_ID + " FROM " + REVISION_TO_CODE_REVIEW_TABLENAME + " WHERE (" + COLUMNNAME_PROJECT_ID + "=?1  AND "
+                                    + COLUMNNAME_REVISION_ID + "=?2 ); ";
+
     private FSqrDatabaseConnection connection;
 
     /**
@@ -70,14 +76,28 @@ public class FSqrProjectAssignedCodeReviewsTableImpl implements FSqrProjectAssig
      */
     @Override
     public String selectCodeReviewId( String projectId, String revisionId ) {
+        String result = "";
+
         try {
+            PreparedStatement selectPS = this.connection.createPreparedStatement( SELECT_CODEREVIEW_FOR_PROJECT_REVISION );
+
+            selectPS.setString( 1, projectId );
+            selectPS.setString( 2, revisionId );
+
+            ResultSet resultSet = selectPS.executeQuery();
+            while (resultSet.next()) {
+                result = resultSet.getString( COLUMNNAME_REVIEW_ID );
+                // we only process the first result here.
+                break;
+            }
+            resultSet.close();
 
         }
         catch (Exception e) {
             e.printStackTrace();
         }
 
-        return "";
+        return result;
     }
 
     /** 
