@@ -58,6 +58,12 @@ public class FSqrProjectAssignedCodeReviewsTableImpl implements FSqrProjectAssig
                     "INSERT INTO " + REVISION_TO_CODE_REVIEW_TABLENAME + " (" + COLUMNNAME_PROJECT_ID + "," + COLUMNNAME_REVISION_ID + ","
                                     + COLUMNNAME_REVIEW_ID + ") VALUES (?1, ?2, ?3); ";
 
+    private static final String REMOVE_CODEREVIEW_FOR_PROJECT_REVISION = //
+                    "DELETE FROM " + REVISION_TO_CODE_REVIEW_TABLENAME + " WHERE ( " + COLUMNNAME_PROJECT_ID + "=?1 AND " + COLUMNNAME_REVISION_ID + "=?2 );";
+
+    private static final String REMOVE_CODEREVIEW_FOR_PROJECT = //
+                    "DELETE FROM " + REVISION_TO_CODE_REVIEW_TABLENAME + " WHERE ( " + COLUMNNAME_PROJECT_ID + "=?1 AND " + COLUMNNAME_REVIEW_ID + "=?2 );";
+
     private FSqrDatabaseConnection connection;
 
     /**
@@ -129,8 +135,18 @@ public class FSqrProjectAssignedCodeReviewsTableImpl implements FSqrProjectAssig
      */
     @Override
     public void removeCodeReviewId( String projectId, String revisionId ) {
-        // TODO Auto-generated method stub
+        try {
+            PreparedStatement removePS = this.connection.createPreparedStatement( REMOVE_CODEREVIEW_FOR_PROJECT_REVISION );
 
+            removePS.setString( 1, projectId );
+            removePS.setString( 2, revisionId );
+
+            removePS.addBatch();
+            removePS.executeBatch();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /** 
@@ -138,8 +154,19 @@ public class FSqrProjectAssignedCodeReviewsTableImpl implements FSqrProjectAssig
      */
     @Override
     public void removeAllCodeRevisionsForReview( String projectId, String reviewId ) {
-        // TODO Auto-generated method stub
+        try {
+            PreparedStatement removePS = this.connection.createPreparedStatement( REMOVE_CODEREVIEW_FOR_PROJECT );
 
+            removePS.setString( 1, projectId );
+            removePS.setString( 2, reviewId );
+
+            removePS.addBatch();
+            removePS.executeBatch();
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /** 
