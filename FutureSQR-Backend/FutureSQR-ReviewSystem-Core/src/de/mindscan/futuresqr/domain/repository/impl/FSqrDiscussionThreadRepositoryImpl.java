@@ -32,6 +32,8 @@ import de.mindscan.futuresqr.core.uuid.UuidUtil;
 import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
+import de.mindscan.futuresqr.domain.databases.FSqrDiscussionThreadDatabaseTable;
+import de.mindscan.futuresqr.domain.databases.impl.FSqrDiscussionThreadDatabaseTableImpl;
 import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
 import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThreadMessage;
 import de.mindscan.futuresqr.domain.repository.FSqrDiscussionThreadRepository;
@@ -47,6 +49,7 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
 
     // search key: ( threaduuid:string ) -> thread:FSqrDiscussionThread
     private InMemoryCacheDiscussionThreadTableImpl uuidToThreadsCache;
+    private FSqrDiscussionThreadDatabaseTable discussionThreadTable;
 
     // search key: ( projectId:string , reviewId:string ) -> List of DiscussionThread Ids:ArrayList<String>
     private InMemoryCacheDiscussionThreadIdsTableImpl projectAndReviewToThreadsCache;
@@ -56,13 +59,19 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
      */
     public FSqrDiscussionThreadRepositoryImpl() {
         this.applicationServices = new FSqrApplicationServicesUnitialized();
+
+        // lists of threads for a project together and review id
         this.projectAndReviewToThreadsCache = new InMemoryCacheDiscussionThreadIdsTableImpl();
+
+        // uuid to Threads table
         this.uuidToThreadsCache = new InMemoryCacheDiscussionThreadTableImpl();
+        this.discussionThreadTable = new FSqrDiscussionThreadDatabaseTableImpl();
     }
 
     @Override
     public void setApplicationServices( FSqrApplicationServices applicationServices ) {
         this.applicationServices = applicationServices;
+        this.discussionThreadTable.setDatbaseConnection( this.applicationServices.getDatabaseConnection() );
     }
 
     @Override
