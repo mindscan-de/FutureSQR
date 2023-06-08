@@ -80,6 +80,9 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
 
         // insertThreadToDB
         this.uuidToThreadsCache.putDiscussionThread( newThread.getDiscussionThreadUUID(), newThread );
+        // TODO:
+        // this.discussionThreadTable.insertDiscussionThread(newThread.getDiscussionThreadUUID(), newThread);
+
         this.projectAndReviewToThreadsCache.addDiscussionThread( projectId, reviewId, newThread.getDiscussionThreadUUID() );
 
         return newThread;
@@ -130,6 +133,8 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
 
             FSqrDiscussionThread thread = uuidToThreadsCache.getDiscussionThread( threadUUID );
             thread.updateMessage( messageUUID, newMessageText, messageAuthorUUID );
+            // TODO
+            // this.discussionThreadTable.updateThread(thread);
         }
     }
 
@@ -146,6 +151,8 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
 
             FSqrDiscussionThread thread = uuidToThreadsCache.getDiscussionThread( threadUUID );
             thread.addAsReplytoMessage( message );
+            // TODO
+            // this.discussionThreadTable.updateThread(thread);
         }
     }
 
