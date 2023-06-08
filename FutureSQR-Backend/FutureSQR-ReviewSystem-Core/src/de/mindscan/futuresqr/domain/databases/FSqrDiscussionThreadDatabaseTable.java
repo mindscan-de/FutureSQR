@@ -28,6 +28,6 @@ package de.mindscan.futuresqr.domain.databases;
 /**
  * 
  */
-public interface FSqrDiscussionThreadDatabaseTable {
+public interface FSqrDiscussionThreadDatabaseTable extends FSqrDatabaseTable {
 
 }

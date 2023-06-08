@@ -25,11 +25,47 @@
  */
 package de.mindscan.futuresqr.domain.databases.impl;
 
+import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrDiscussionThreadDatabaseTable;
 
 /**
  * 
  */
 public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThreadDatabaseTable {
+
+    private FSqrDatabaseConnection connection;
+
+    /**
+     * 
+     */
+    public FSqrDiscussionThreadDatabaseTableImpl() {
+        // TODO Auto-generated constructor stub
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void setDatbaseConnection( FSqrDatabaseConnection connection ) {
+        this.connection = connection;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void createTable() {
+        // TODO Auto-generated method stub
+
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void flush() {
+        // TODO Auto-generated method stub
+
+    }
 
 }
