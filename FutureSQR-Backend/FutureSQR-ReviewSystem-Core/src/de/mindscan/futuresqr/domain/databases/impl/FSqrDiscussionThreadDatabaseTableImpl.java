@@ -27,6 +27,7 @@ package de.mindscan.futuresqr.domain.databases.impl;
 
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrDiscussionThreadDatabaseTable;
+import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
 
 /**
  * 
@@ -48,6 +49,33 @@ public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThre
     @Override
     public void setDatbaseConnection( FSqrDatabaseConnection connection ) {
         this.connection = connection;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void insertDiscussionThread( String discussionThreadUUID, FSqrDiscussionThread newThread ) {
+        // TODO Auto-generated method stub
+
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateThread( FSqrDiscussionThread thread ) {
+        // TODO Auto-generated method stub
+
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void selectDiscussionThread( String discussionThreadUUID ) {
+        // TODO Auto-generated method stub
+
     }
 
     /** 
