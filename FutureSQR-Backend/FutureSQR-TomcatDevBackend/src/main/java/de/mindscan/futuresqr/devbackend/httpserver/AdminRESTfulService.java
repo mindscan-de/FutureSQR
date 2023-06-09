@@ -25,6 +25,8 @@
  */
 package de.mindscan.futuresqr.devbackend.httpserver;
 
+import java.util.Collection;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PathParam;
@@ -40,6 +42,7 @@ import de.mindscan.futuresqr.devbackend.legacy.MultiPartFormdataParser;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
+import de.mindscan.futuresqr.domain.repository.FSqrDatabaseBackedRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
 
 /**
@@ -105,9 +108,11 @@ public class AdminRESTfulService {
     @Produces( MediaType.APPLICATION_JSON )
     public String postReinitDatabase( String requestBody ) {
         FSqrApplicationServices services = FSqrApplication.getInstance().getServices();
-        services.getConfigurationRepository().reinitDatabaseTables();
-        services.getReviewRepository().reinitDatabaseTables();
-        services.getDiscussionThreadRepository().reinitDatabaseTables();
+
+        Collection<FSqrDatabaseBackedRepository> databaseBackedRepositories = services.getDatabaseBackedRepositories();
+        for (FSqrDatabaseBackedRepository dbBackedRepo : databaseBackedRepositories) {
+            dbBackedRepo.reinitDatabaseTables();
+        }
 
         return "{}";
     }
@@ -116,8 +121,13 @@ public class AdminRESTfulService {
     @POST
     @Produces( MediaType.APPLICATION_JSON )
     public String postBackupDatabase( String requestBody ) {
+        FSqrApplicationServices services = FSqrApplication.getInstance().getServices();
 
-        // TODO: retrieve the different services and repositories which implement the database tables. 
+        Collection<FSqrDatabaseBackedRepository> databaseBackedRepositories = services.getDatabaseBackedRepositories();
+        for (FSqrDatabaseBackedRepository dbBackedRepo : databaseBackedRepositories) {
+            // TODO: implement a general backup solution here?
+            // dbBackedRepo.backupTables();
+        }
 
         return "{}";
     }
@@ -130,7 +140,13 @@ public class AdminRESTfulService {
 
         String backupKey = postParams.getStringOrThrow( "backupKey" );
 
-        // TODO: retrieve the different services and repositories which implement the database tables.
+        FSqrApplicationServices services = FSqrApplication.getInstance().getServices();
+
+        Collection<FSqrDatabaseBackedRepository> databaseBackedRepositories = services.getDatabaseBackedRepositories();
+        for (FSqrDatabaseBackedRepository dbBackedRepo : databaseBackedRepositories) {
+            // TODO: implement a general restore solution here?
+            // dbBackedRepo.restoreTables();
+        }
 
         return "{}";
     }
