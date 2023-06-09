@@ -112,6 +112,29 @@ public class AdminRESTfulService {
         return "{}";
     }
 
+    @javax.ws.rs.Path( "/database/backupDatabase" )
+    @POST
+    @Produces( MediaType.APPLICATION_JSON )
+    public String postBackupDatabase( String requestBody ) {
+
+        // TODO: retrieve the different services and repositories which implement the database tables. 
+
+        return "{}";
+    }
+
+    @javax.ws.rs.Path( "/database/restoreDatabase" )
+    @POST
+    @Produces( MediaType.APPLICATION_JSON )
+    public String postRestoreDatabase( String requestBody ) {
+        MultiPartFormdataParameters postParams = MultiPartFormdataParser.createParser( requestBody ).parse();
+
+        String backupKey = postParams.getStringOrThrow( "backupKey" );
+
+        // TODO: retrieve the different services and repositories which implement the database tables.
+
+        return "{}";
+    }
+
     private boolean isValidProjectConfiguration( FSqrScmProjectConfiguration newProjectConfiguration ) {
         return newProjectConfiguration != null;
     }
