@@ -56,4 +56,7 @@ public interface FSqrApplicationServices {
     FSqrScmRepositoryServices getScmRepositoryServices();
 
     FSqrDatabaseConnection getDatabaseConnection();
+
+    // TODO: implement getDatabaseBackedRespositories
+    // Collection<FSqrDatabaseBackedRepository> getDatabaseBackedRepositories(); 
 }
