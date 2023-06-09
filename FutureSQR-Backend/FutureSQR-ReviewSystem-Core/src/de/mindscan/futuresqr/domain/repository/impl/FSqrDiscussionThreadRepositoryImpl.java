@@ -160,4 +160,12 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
 
         return replyMessage;
     }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void reinitDatabaseTables() {
+        this.discussionThreadTable.createTable();
+    }
 }

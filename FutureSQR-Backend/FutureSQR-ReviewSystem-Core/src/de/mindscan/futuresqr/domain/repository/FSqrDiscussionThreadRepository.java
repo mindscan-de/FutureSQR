@@ -32,7 +32,7 @@ import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
 /**
  * 
  */
-public interface FSqrDiscussionThreadRepository {
+public interface FSqrDiscussionThreadRepository extends FSqrDatabaseBackedRepository {
 
     // create
 
