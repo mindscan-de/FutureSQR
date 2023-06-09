@@ -80,7 +80,7 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
 
         // insertThreadToDB
         this.uuidToThreadsCache.putDiscussionThread( newThread.getDiscussionThreadUUID(), newThread );
-        this.discussionThreadTable.insertDiscussionThread( newThread.getDiscussionThreadUUID(), newThread );
+        this.discussionThreadTable.insertDiscussionThread( newThread );
 
         this.projectAndReviewToThreadsCache.addDiscussionThread( projectId, reviewId, newThread.getDiscussionThreadUUID() );
 

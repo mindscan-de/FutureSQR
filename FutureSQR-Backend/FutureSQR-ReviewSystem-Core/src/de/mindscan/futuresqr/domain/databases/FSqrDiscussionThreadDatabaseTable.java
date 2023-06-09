@@ -32,7 +32,7 @@ import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
  */
 public interface FSqrDiscussionThreadDatabaseTable extends FSqrDatabaseTable {
 
-    void insertDiscussionThread( String discussionThreadUUID, FSqrDiscussionThread newThread );
+    void insertDiscussionThread( FSqrDiscussionThread newThread );
 
     void updateThread( FSqrDiscussionThread thread );
 

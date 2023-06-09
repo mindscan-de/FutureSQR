@@ -25,6 +25,11 @@
  */
 package de.mindscan.futuresqr.domain.databases.impl;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+
+import com.google.gson.Gson;
+
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrDiscussionThreadDatabaseTable;
 import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
@@ -34,7 +39,20 @@ import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
  */
 public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThreadDatabaseTable {
 
+    private static final String DISCUSSION_TABLENAME = "DiscussionThread";
+
+    private static final String CREATE_TABLE_DISCUSSION_THREAD = //
+                    "CREATE TABLE " + DISCUSSION_TABLENAME + " (uuid, threadData); ";
+
+    private static final String DROP_TABLE_IF_EXISTS = // 
+                    "DROP TABLE IF EXISTS " + DISCUSSION_TABLENAME + ";";
+
+    private static final String INSERT_DISCUSSION_THREAD = //
+                    "INSERT INTO " + DISCUSSION_TABLENAME + " (uuid, threadData) VALUES (?1, ?2)";
+
     private FSqrDatabaseConnection connection;
+
+    private Gson gson = new Gson();
 
     /**
      * 
@@ -55,9 +73,21 @@ public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThre
      * {@inheritDoc}
      */
     @Override
-    public void insertDiscussionThread( String discussionThreadUUID, FSqrDiscussionThread newThread ) {
-        // TODO Auto-generated method stub
+    public void insertDiscussionThread( FSqrDiscussionThread newThread ) {
+        try {
+            String serializedThread = gson.toJson( newThread );
 
+            PreparedStatement insertPS = this.connection.createPreparedStatement( INSERT_DISCUSSION_THREAD );
+
+            insertPS.setString( 1, newThread.getDiscussionThreadUUID() );
+            insertPS.setString( 2, serializedThread );
+
+            insertPS.addBatch();
+            insertPS.executeBatch();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /** 
@@ -65,8 +95,12 @@ public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThre
      */
     @Override
     public void updateThread( FSqrDiscussionThread thread ) {
-        // TODO Auto-generated method stub
+        try {
 
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /** 
@@ -74,8 +108,12 @@ public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThre
      */
     @Override
     public void selectDiscussionThread( String discussionThreadUUID ) {
-        // TODO Auto-generated method stub
+        try {
 
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /** 
@@ -83,8 +121,14 @@ public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThre
      */
     @Override
     public void createTable() {
-        // TODO Auto-generated method stub
-
+        try {
+            Statement statement = this.connection.createStatement();
+            statement.executeUpdate( DROP_TABLE_IF_EXISTS );
+            statement.executeUpdate( CREATE_TABLE_DISCUSSION_THREAD );
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /** 
