@@ -38,6 +38,14 @@ public interface FSqrDatabaseTable extends DatabaseConnectionSetter {
     // opposite of create,
     // public void destroy();
 
+    // TODO: backup table feature.
+    // the backup feature is there to dump the content of the table
+    // into a file / stream / zipstream / xml
+
+    // TODO: restore table feature.
+    // read file / stream / zipstream / xml and transfer and convert the
+    // content into the new database table.
+
     /**
      * export all unwritten changes/data to disk.
      */
