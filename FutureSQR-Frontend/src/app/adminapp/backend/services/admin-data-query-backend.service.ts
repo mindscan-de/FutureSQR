@@ -87,4 +87,22 @@ export class AdminDataQueryBackendService {
 		
 		return this.httpClient.post<any>(restURL, formdata).pipe(first());
 	}
+	
+	public postBackupDatabase() : Observable<any> {
+		let restURL = '/FutureSQR/rest/admin/database/backupDatabase';
+		
+		let formdata = new FormData();
+		
+		return this.httpClient.post<any>(restURL, formdata).pipe(first());
+	}
+	
+	public postRestoreDatabase( backupkey:string ) : Observable<any> {
+		let restURL = '/FutureSQR/rest/admin/database/restoreDatabase';
+		
+		let formdata = new FormData();
+		formdata.append('backupKey', backupkey);
+		
+		return this.httpClient.post<any>(restURL, formdata).pipe(first());
+	}
+	
 }
