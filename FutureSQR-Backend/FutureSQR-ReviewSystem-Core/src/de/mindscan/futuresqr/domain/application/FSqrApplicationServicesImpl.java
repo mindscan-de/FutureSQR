@@ -184,7 +184,7 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
     public Collection<FSqrDatabaseBackedRepository> getDatabaseBackedRepositories() {
         ArrayList<FSqrDatabaseBackedRepository> result = new ArrayList<>();
 
-        Arrays.stream( getAllRepos() ).forEach( repo -> {
+        Arrays.stream( getAllServiceRepos() ).forEach( repo -> {
             if (repo instanceof FSqrDatabaseBackedRepository) {
                 result.add( (FSqrDatabaseBackedRepository) repo );
             }
@@ -193,7 +193,7 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
         return result;
     }
 
-    private Object[] getAllRepos() {
+    private Object[] getAllServiceRepos() {
         return new Object[] { this.systemConfiguration, this.databaseConnection, this.configurationRepository, this.revisionRepository, this.userRepository,
                         this.reviewRepository, this.userToProjectRepository, this.discussionRepository, this.scmRepositoryServices };
     }
