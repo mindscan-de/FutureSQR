@@ -26,6 +26,7 @@
 package de.mindscan.futuresqr.domain.application;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 import de.mindscan.futuresqr.domain.configuration.FSqrSystemInstanceConfiguration;
@@ -179,6 +180,16 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
      */
     @Override
     public Collection<FSqrDatabaseBackedRepository> getDatabaseBackedRepositories() {
-        return new ArrayList<>();
+        ArrayList<FSqrDatabaseBackedRepository> result = new ArrayList<>();
+
+        Object[] allRepos = new Object[] { this.systemConfiguration, this.databaseConnection, this.configurationRepository, this.revisionRepository,
+                        this.userRepository, this.reviewRepository, this.userToProjectRepository, this.discussionRepository, this.scmRepositoryServices };
+        Arrays.stream( allRepos ).forEach( repo -> {
+            if (repo instanceof FSqrDatabaseBackedRepository) {
+                result.add( (FSqrDatabaseBackedRepository) repo );
+            }
+        } );
+
+        return result;
     }
 }
