@@ -88,6 +88,8 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
     }
 
     void initializeServiceInstances( FSqrApplicationServices services ) {
+        // TODO: get all repos and check if application setters and then
+        // initialize through a loop.
         this.systemConfiguration.setApplicationServices( services );
         this.databaseConnection.setApplicationServices( services );
         this.configurationRepository.setApplicationServices( services );
@@ -182,14 +184,17 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
     public Collection<FSqrDatabaseBackedRepository> getDatabaseBackedRepositories() {
         ArrayList<FSqrDatabaseBackedRepository> result = new ArrayList<>();
 
-        Object[] allRepos = new Object[] { this.systemConfiguration, this.databaseConnection, this.configurationRepository, this.revisionRepository,
-                        this.userRepository, this.reviewRepository, this.userToProjectRepository, this.discussionRepository, this.scmRepositoryServices };
-        Arrays.stream( allRepos ).forEach( repo -> {
+        Arrays.stream( getAllRepos() ).forEach( repo -> {
             if (repo instanceof FSqrDatabaseBackedRepository) {
                 result.add( (FSqrDatabaseBackedRepository) repo );
             }
         } );
 
         return result;
+    }
+
+    private Object[] getAllRepos() {
+        return new Object[] { this.systemConfiguration, this.databaseConnection, this.configurationRepository, this.revisionRepository, this.userRepository,
+                        this.reviewRepository, this.userToProjectRepository, this.discussionRepository, this.scmRepositoryServices };
     }
 }
