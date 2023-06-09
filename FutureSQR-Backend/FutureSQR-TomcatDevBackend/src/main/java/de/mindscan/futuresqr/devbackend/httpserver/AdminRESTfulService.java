@@ -109,8 +109,8 @@ public class AdminRESTfulService {
     public String postReinitDatabase( String requestBody ) {
         FSqrApplicationServices services = FSqrApplication.getInstance().getServices();
 
-        Collection<FSqrDatabaseBackedRepository> databaseBackedRepositories = services.getDatabaseBackedRepositories();
-        for (FSqrDatabaseBackedRepository dbBackedRepo : databaseBackedRepositories) {
+        Collection<FSqrDatabaseBackedRepository> allDbBackedRepos = services.getDatabaseBackedRepositories();
+        for (FSqrDatabaseBackedRepository dbBackedRepo : allDbBackedRepos) {
             dbBackedRepo.reinitDatabaseTables();
         }
 
@@ -123,8 +123,8 @@ public class AdminRESTfulService {
     public String postBackupDatabase( String requestBody ) {
         FSqrApplicationServices services = FSqrApplication.getInstance().getServices();
 
-        Collection<FSqrDatabaseBackedRepository> databaseBackedRepositories = services.getDatabaseBackedRepositories();
-        for (FSqrDatabaseBackedRepository dbBackedRepo : databaseBackedRepositories) {
+        Collection<FSqrDatabaseBackedRepository> allDbBackedRepos = services.getDatabaseBackedRepositories();
+        for (FSqrDatabaseBackedRepository dbBackedRepo : allDbBackedRepos) {
             // TODO: implement a general backup solution here?
             // dbBackedRepo.backupTables();
         }
@@ -142,8 +142,8 @@ public class AdminRESTfulService {
 
         FSqrApplicationServices services = FSqrApplication.getInstance().getServices();
 
-        Collection<FSqrDatabaseBackedRepository> databaseBackedRepositories = services.getDatabaseBackedRepositories();
-        for (FSqrDatabaseBackedRepository dbBackedRepo : databaseBackedRepositories) {
+        Collection<FSqrDatabaseBackedRepository> allDbBackedRepos = services.getDatabaseBackedRepositories();
+        for (FSqrDatabaseBackedRepository dbBackedRepo : allDbBackedRepos) {
             // TODO: implement a general restore solution here?
             // dbBackedRepo.restoreTables();
         }
