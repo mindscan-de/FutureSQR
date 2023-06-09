@@ -107,6 +107,7 @@ public class AdminRESTfulService {
         FSqrApplicationServices services = FSqrApplication.getInstance().getServices();
         services.getConfigurationRepository().reinitDatabaseTables();
         services.getReviewRepository().reinitDatabaseTables();
+        services.getDiscussionThreadRepository().reinitDatabaseTables();
 
         return "{}";
     }
