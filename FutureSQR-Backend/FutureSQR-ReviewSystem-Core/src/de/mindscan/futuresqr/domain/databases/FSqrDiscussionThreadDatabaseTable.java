@@ -36,6 +36,6 @@ public interface FSqrDiscussionThreadDatabaseTable extends FSqrDatabaseTable {
 
     void updateThread( FSqrDiscussionThread thread );
 
-    void selectDiscussionThread( String discussionThreadUUID );
+    FSqrDiscussionThread selectDiscussionThread( String discussionThreadUUID );
 
 }

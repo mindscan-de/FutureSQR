@@ -26,6 +26,7 @@
 package de.mindscan.futuresqr.domain.databases.impl;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 import com.google.gson.Gson;
@@ -50,6 +51,12 @@ public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThre
     private static final String INSERT_DISCUSSION_THREAD = //
                     "INSERT INTO " + DISCUSSION_TABLENAME + " (uuid, threadData) VALUES (?1, ?2)";
 
+    private static final String UPDATE_DISCUSSION_THREAD = //
+                    "UPDATE " + DISCUSSION_TABLENAME + " SET threadData=?2 WHERE uuid=?1;";
+
+    private static final String SELECT_DISCUSSION_THREAD = //
+                    "SELECT * FROM " + DISCUSSION_TABLENAME + " WHERE uuid=?1;";
+
     private FSqrDatabaseConnection connection;
 
     private Gson gson = new Gson();
@@ -58,7 +65,7 @@ public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThre
      * 
      */
     public FSqrDiscussionThreadDatabaseTableImpl() {
-        // TODO Auto-generated constructor stub
+        // intentionally left blank
     }
 
     /** 
@@ -96,6 +103,15 @@ public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThre
     @Override
     public void updateThread( FSqrDiscussionThread thread ) {
         try {
+            String serializedThread = gson.toJson( thread );
+
+            PreparedStatement updatePS = this.connection.createPreparedStatement( UPDATE_DISCUSSION_THREAD );
+
+            updatePS.setString( 1, thread.getDiscussionThreadUUID() );
+            updatePS.setString( 2, serializedThread );
+
+            updatePS.addBatch();
+            updatePS.executeBatch();
 
         }
         catch (Exception e) {
@@ -107,13 +123,34 @@ public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThre
      * {@inheritDoc}
      */
     @Override
-    public void selectDiscussionThread( String discussionThreadUUID ) {
+    public FSqrDiscussionThread selectDiscussionThread( String discussionThreadUUID ) {
+        FSqrDiscussionThread result = null;
         try {
+            PreparedStatement selectPS = this.connection.createPreparedStatement( SELECT_DISCUSSION_THREAD );
+
+            selectPS.setString( 1, discussionThreadUUID );
+
+            ResultSet resultSet = selectPS.executeQuery();
+            while (resultSet.next()) {
+                result = createDicsussionThread( resultSet );
+
+                // we only process the first result here.
+                break;
+            }
+            resultSet.close();
 
         }
         catch (Exception e) {
             e.printStackTrace();
         }
+
+        return result;
+    }
+
+    private FSqrDiscussionThread createDicsussionThread( ResultSet resultSet ) throws Exception {
+        String discussionDataString = resultSet.getString( "threadData" );
+
+        return gson.fromJson( discussionDataString, FSqrDiscussionThread.class );
     }
 
     /** 
