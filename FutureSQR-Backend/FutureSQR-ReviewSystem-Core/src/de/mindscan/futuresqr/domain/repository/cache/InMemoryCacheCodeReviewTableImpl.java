@@ -25,12 +25,9 @@
  */
 package de.mindscan.futuresqr.domain.repository.cache;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
-import java.util.function.Predicate;
 
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 
@@ -81,16 +78,6 @@ public class InMemoryCacheCodeReviewTableImpl {
         }
 
         return null;
-    }
-
-    public List<FSqrCodeReview> filterCodeReviewsByProject( String projectId, Predicate<FSqrCodeReview> predicate ) {
-        ArrayList<FSqrCodeReview> resultList = new ArrayList<>();
-
-        if (isKnownProjectId( projectId )) {
-            getOrCreateProjectToCodeReviewMap( projectId ).values().stream().filter( predicate ).forEach( r -> resultList.add( r ) );
-        }
-
-        return resultList;
     }
 
     public void putCodeReview( String projectId, String reviewId, FSqrCodeReview codeReview ) {

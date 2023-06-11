@@ -6,10 +6,6 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.Matchers.sameInstance;
-import static org.hamcrest.collection.IsEmptyCollection.empty;
-import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
-
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -123,55 +119,6 @@ public class InMemoryCacheCodeReviewTableImplTest {
 
         // assert
         assertThat( result, is( sameInstance( expectedCodeReview ) ) );
-    }
-
-    @Test
-    public void testFilterCodeReviewsByProject_AddTwoReviewsFilterRemoveAll_returnsEmptyCollection() throws Exception {
-        // arrange
-        FSqrCodeReview expectedCodeReview = Mockito.mock( FSqrCodeReview.class, "codeReview" );
-        FSqrCodeReview differentCodeReview = Mockito.mock( FSqrCodeReview.class, "differentCodeReview" );
-
-        InMemoryCacheCodeReviewTableImpl reviewTable = new InMemoryCacheCodeReviewTableImpl();
-        reviewTable.putCodeReview( A_PROJECT_KEY, A_PROJECT_REVIEW_1, expectedCodeReview );
-        reviewTable.putCodeReview( A_PROJECT_KEY, A_PROJECT_REVIEW_2, differentCodeReview );
-
-        // act
-        List<FSqrCodeReview> result = reviewTable.filterCodeReviewsByProject( A_PROJECT_KEY, x -> false );
-
-        // assert
-        assertThat( result, empty() );
-    }
-
-    @Test
-    public void testFilterCodeReviewsByProject_AddTwoReviewsFilterPassAll_returnsCollectionWithBothCodeRebviews() throws Exception {
-        // arrange
-        FSqrCodeReview expectedCodeReview = Mockito.mock( FSqrCodeReview.class, "codeReview" );
-        FSqrCodeReview differentCodeReview = Mockito.mock( FSqrCodeReview.class, "differentCodeReview" );
-
-        InMemoryCacheCodeReviewTableImpl reviewTable = new InMemoryCacheCodeReviewTableImpl();
-        reviewTable.putCodeReview( A_PROJECT_KEY, A_PROJECT_REVIEW_1, expectedCodeReview );
-        reviewTable.putCodeReview( A_PROJECT_KEY, A_PROJECT_REVIEW_2, differentCodeReview );
-
-        // act
-        List<FSqrCodeReview> result = reviewTable.filterCodeReviewsByProject( A_PROJECT_KEY, x -> true );
-
-        // assert
-        assertThat( result, containsInAnyOrder( expectedCodeReview, differentCodeReview ) );
-    }
-
-    @Test
-    public void testFilterCodeReviewsByProject_AddNoneReviewsFilterPassAll_returnsEmptyCollection() throws Exception {
-        // arrange
-        FSqrCodeReview expectedCodeReview = Mockito.mock( FSqrCodeReview.class, "codeReview" );
-        FSqrCodeReview differentCodeReview = Mockito.mock( FSqrCodeReview.class, "differentCodeReview" );
-
-        InMemoryCacheCodeReviewTableImpl reviewTable = new InMemoryCacheCodeReviewTableImpl();
-
-        // act
-        List<FSqrCodeReview> result = reviewTable.filterCodeReviewsByProject( A_PROJECT_KEY, x -> true );
-
-        // assert
-        assertThat( result, empty() );
     }
 
 }
