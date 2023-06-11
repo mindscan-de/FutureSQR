@@ -100,10 +100,6 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
                         this.reviewRepository, this.userToProjectRepository, this.discussionRepository, this.scmRepositoryServices };
     }
 
-    // TODO we want to provide some dataprovider ability, the application can ask, e.g. on restart or on demand, 
-    //      when the data is not yet in memory (e.g. not cached)
-    // TODO when we provide a data provider, and a data provider is not set, it will invoke the initial/essential data
-
     /** 
      * {@inheritDoc}
      */
