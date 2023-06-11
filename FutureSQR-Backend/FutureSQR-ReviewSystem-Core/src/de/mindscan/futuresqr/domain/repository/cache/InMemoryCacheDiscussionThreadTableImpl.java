@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
 
@@ -61,12 +62,44 @@ public class InMemoryCacheDiscussionThreadTableImpl {
         return this.threadCacheTable.get( threadUuuid );
     }
 
+    public FSqrDiscussionThread getDiscussionThread( String threadUuuid, Function<String, FSqrDiscussionThread> loader ) {
+        if (isCached( threadUuuid )) {
+            return getDiscussionThread( threadUuuid );
+        }
+
+        if (loader != null) {
+            FSqrDiscussionThread thread = loader.apply( threadUuuid );
+            putDiscussionThread( threadUuuid, thread );
+            return thread;
+        }
+
+        return null;
+    }
+
     public List<FSqrDiscussionThread> lookupThreads( List<String> input ) {
         ArrayList<FSqrDiscussionThread> result = new ArrayList<>();
 
-        // TODO: use a load function.
-        input.stream().forEach( tid -> result.add( this.getDiscussionThread( tid ) ) );
+        for (String threadId : input) {
+            FSqrDiscussionThread discussionThread = this.getDiscussionThread( threadId );
+            if (discussionThread != null) {
+                result.add( discussionThread );
+            }
+        }
 
         return result;
     }
+
+    public List<FSqrDiscussionThread> lookupThreads( List<String> input, Function<String, FSqrDiscussionThread> loader ) {
+        ArrayList<FSqrDiscussionThread> result = new ArrayList<>();
+
+        for (String threadId : input) {
+            FSqrDiscussionThread discussionThread = this.getDiscussionThread( threadId, loader );
+            if (discussionThread != null) {
+                result.add( discussionThread );
+            }
+        }
+
+        return result;
+    }
+
 }
