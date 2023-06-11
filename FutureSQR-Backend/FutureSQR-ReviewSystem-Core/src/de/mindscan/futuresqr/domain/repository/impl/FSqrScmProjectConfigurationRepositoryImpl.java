@@ -87,7 +87,7 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
     public void setApplicationServices( FSqrApplicationServices services ) {
         this.applicationServices = services;
 
-        this.scmConfigurationDatabase.setDatbaseConnection( services.getDatabaseConnection() );
+        this.scmConfigurationDatabase.setDatbaseConnection( this.applicationServices.getDatabaseConnection() );
 
         // w may have to reinitialite the userdatabase and the cache and such.
         this.setConfigurationPersistenceLoader( this::initializedDatabaseLoader );
