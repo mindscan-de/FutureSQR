@@ -88,17 +88,16 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
     }
 
     void initializeServiceInstances( FSqrApplicationServices services ) {
-        // TODO: get all repos and check if application setters and then
-        // initialize through a loop.
-        this.systemConfiguration.setApplicationServices( services );
-        this.databaseConnection.setApplicationServices( services );
-        this.configurationRepository.setApplicationServices( services );
-        this.revisionRepository.setApplicationServices( services );
-        this.userRepository.setApplicationServices( services );
-        this.reviewRepository.setApplicationServices( services );
-        this.userToProjectRepository.setApplicationServices( services );
-        this.discussionRepository.setApplicationServices( services );
-        this.scmRepositoryServices.setApplicationServices( services );
+        for (Object repo : getAllServiceRepos()) {
+            if (repo instanceof ApplicationServicesSetter) {
+                ((ApplicationServicesSetter) repo).setApplicationServices( services );
+            }
+        }
+    }
+
+    private Object[] getAllServiceRepos() {
+        return new Object[] { this.systemConfiguration, this.databaseConnection, this.configurationRepository, this.revisionRepository, this.userRepository,
+                        this.reviewRepository, this.userToProjectRepository, this.discussionRepository, this.scmRepositoryServices };
     }
 
     // TODO we want to provide some dataprovider ability, the application can ask, e.g. on restart or on demand, 
@@ -193,8 +192,4 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
         return result;
     }
 
-    private Object[] getAllServiceRepos() {
-        return new Object[] { this.systemConfiguration, this.databaseConnection, this.configurationRepository, this.revisionRepository, this.userRepository,
-                        this.reviewRepository, this.userToProjectRepository, this.discussionRepository, this.scmRepositoryServices };
-    }
 }
