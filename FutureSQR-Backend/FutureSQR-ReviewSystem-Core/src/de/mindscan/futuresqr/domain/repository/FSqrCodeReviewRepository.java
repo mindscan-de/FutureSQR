@@ -34,7 +34,7 @@ import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 /**
  * 
  */
-public interface FSqrCodeReviewRepository extends FSqrDatabaseBackedRepository {
+public interface FSqrCodeReviewRepository extends FSqrRepository, FSqrDatabaseBackedRepository {
 
     // CodeReview get data
 

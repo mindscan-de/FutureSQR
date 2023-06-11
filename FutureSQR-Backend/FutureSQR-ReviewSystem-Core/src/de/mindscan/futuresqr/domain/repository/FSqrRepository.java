@@ -25,25 +25,11 @@
  */
 package de.mindscan.futuresqr.domain.repository;
 
-import java.util.Collection;
+import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 
 /**
  * 
  */
-public interface FSqrUserToProjectRepository extends FSqrRepository {
-
-    // test if project is starred by user 
-
-    boolean isStarred( String userId, String projectId );
-
-    // star and unstar
-
-    void starProject( String userId, String projectId );
-
-    void unstarProject( String userId, String projectId );
-
-    // get starred projects for user
-
-    Collection<String> getAllStarredProjectsForUser( String userId );
+public interface FSqrRepository extends ApplicationServicesSetter {
 
 }

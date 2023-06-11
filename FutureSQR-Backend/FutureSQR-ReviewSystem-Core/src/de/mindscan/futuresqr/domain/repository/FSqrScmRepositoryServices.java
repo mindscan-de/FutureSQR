@@ -28,7 +28,7 @@ package de.mindscan.futuresqr.domain.repository;
 /**
  * 
  */
-public interface FSqrScmRepositoryServices {
+public interface FSqrScmRepositoryServices extends FSqrRepository {
 
     // update local project cache.
 
