@@ -32,7 +32,6 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.configuration.impl.FSqrScmConfigrationProvider;
@@ -64,7 +63,7 @@ import de.mindscan.futuresqr.scmaccess.types.ScmSingleRevisionFileChangeList;
 /**
  * TODO: rework the repository to use a database instead of the in-memory + scm data pull implementation
  */
-public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevisionRepository, ApplicationServicesSetter {
+public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevisionRepository {
 
     // TODO: we want to get rid of the direct SCM interaction in this repository, and retrieve most of the data
     //       either from in memory storage or from a persistence/database

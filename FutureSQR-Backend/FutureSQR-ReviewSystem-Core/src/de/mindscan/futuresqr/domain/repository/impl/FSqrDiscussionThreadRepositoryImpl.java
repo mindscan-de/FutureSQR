@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mindscan.futuresqr.core.uuid.UuidUtil;
-import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.databases.FSqrDiscussionThreadDatabaseTable;
@@ -43,7 +42,7 @@ import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheDiscussionThre
 /**
  * TODO: rework the repository to use a database instead of the in-memory + scm data pull implementation
  */
-public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadRepository, ApplicationServicesSetter {
+public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadRepository {
 
     private FSqrApplicationServices applicationServices;
 

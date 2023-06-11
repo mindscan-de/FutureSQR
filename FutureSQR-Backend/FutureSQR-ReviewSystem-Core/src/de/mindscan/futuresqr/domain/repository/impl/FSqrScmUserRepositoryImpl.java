@@ -27,7 +27,6 @@ package de.mindscan.futuresqr.domain.repository.impl;
 
 import java.util.function.Function;
 
-import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.databases.FSqrAlternateScmAliasesDatabaseTable;
@@ -52,7 +51,7 @@ import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheSystemUserTabl
  * For now, this solution is good enough, to provide enough seams to integrate the database persistence
  * dependencies into each of the repositories.
  */
-public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository, ApplicationServicesSetter {
+public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository {
 
     private FSqrApplicationServices applicationServices;
 

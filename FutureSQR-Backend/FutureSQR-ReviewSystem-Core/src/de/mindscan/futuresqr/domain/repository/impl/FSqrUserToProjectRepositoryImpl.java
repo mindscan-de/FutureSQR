@@ -28,7 +28,6 @@ package de.mindscan.futuresqr.domain.repository.impl;
 import java.util.Collection;
 import java.util.HashSet;
 
-import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectDatabaseTable;
@@ -46,7 +45,7 @@ import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheUserStarredPro
  * 
  * TODO: rework the repository to use a database instead of the in-memory + scm data pull implementation
  */
-public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectRepository, ApplicationServicesSetter {
+public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectRepository {
 
     private FSqrApplicationServices applicationServices;
 

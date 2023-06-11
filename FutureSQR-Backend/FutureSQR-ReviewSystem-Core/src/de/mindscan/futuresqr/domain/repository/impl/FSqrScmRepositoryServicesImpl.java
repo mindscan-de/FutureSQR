@@ -25,7 +25,6 @@
  */
 package de.mindscan.futuresqr.domain.repository.impl;
 
-import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.configuration.impl.FSqrScmConfigrationProvider;
@@ -39,7 +38,7 @@ import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 /**
  * 
  */
-public class FSqrScmRepositoryServicesImpl implements FSqrScmRepositoryServices, ApplicationServicesSetter {
+public class FSqrScmRepositoryServicesImpl implements FSqrScmRepositoryServices {
 
     private FSqrApplicationServices applicationServices;
     private ScmRepositoryServicesProvider gitScmRepositoryServicesProvider;

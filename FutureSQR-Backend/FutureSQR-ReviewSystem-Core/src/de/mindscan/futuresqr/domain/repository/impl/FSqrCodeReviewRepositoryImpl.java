@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewTable;
@@ -49,7 +48,7 @@ import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheRevisionToCode
 /**
  * TODO: rework the repository to use a database instead of the in-memory only implementation
  */
-public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository, ApplicationServicesSetter {
+public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository {
 
     private FSqrApplicationServices applicationServices;
 
