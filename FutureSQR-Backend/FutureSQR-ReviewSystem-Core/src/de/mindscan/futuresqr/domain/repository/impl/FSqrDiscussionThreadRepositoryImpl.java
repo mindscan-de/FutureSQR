@@ -124,12 +124,13 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
             return;
         }
 
-        // update if threadUUID exists.
+        // update only if threadUUID exists, but actually we know because of previous statement 
+        // TODO implement a check function for this....
         if (uuidToThreadsCache.isCached( threadUUID )) {
 
             // TODO: actually we don't need to check for caching, otherwise we want to get and compute if absent 
 
-            FSqrDiscussionThread thread = uuidToThreadsCache.getDiscussionThread( threadUUID );
+            FSqrDiscussionThread thread = uuidToThreadsCache.getDiscussionThread( threadUUID, discussionThreadTable::selectDiscussionThread );
             thread.updateMessage( messageUUID, newMessageText, messageAuthorUUID );
             this.discussionThreadTable.updateThread( thread );
         }
@@ -137,16 +138,19 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
 
     @Override
     public void replyToThread( String projectId, String reviewId, String threadUUID, String replytoMessageId, String messageText, String messageAuthorUUID ) {
+        // TODO: that should be done in the database right tables to check, whether this referenced thread is part of the projectId, reviewId, threadUUID
         if (!this.projectAndReviewToThreadsCache.hasDiscussionThreadUUID( projectId, reviewId, threadUUID )) {
             return;
         }
 
+        // reply only if threadUUID exists, but actually we know because of previous statement
+        // TODO implement a check function for this....
         if (uuidToThreadsCache.isCached( threadUUID )) {
             FSqrDiscussionThreadMessage message = createReplyMessage( threadUUID, replytoMessageId, messageText, messageAuthorUUID );
 
             // TODO: actually we don't need to check for caching, otherwise we want to get and compute if absent
 
-            FSqrDiscussionThread thread = uuidToThreadsCache.getDiscussionThread( threadUUID );
+            FSqrDiscussionThread thread = uuidToThreadsCache.getDiscussionThread( threadUUID, discussionThreadTable::selectDiscussionThread );
             thread.addAsReplytoMessage( message );
             this.discussionThreadTable.updateThread( thread );
         }

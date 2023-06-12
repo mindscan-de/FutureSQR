@@ -56,9 +56,7 @@ public class InMemoryCacheDiscussionThreadTableImpl {
         this.threadCacheTable.put( threadUuid, newThread );
     }
 
-    public FSqrDiscussionThread getDiscussionThread( String threadUuuid ) {
-        // TODO: use a load function in case that the thread is not cached.
-
+    FSqrDiscussionThread getDiscussionThread( String threadUuuid ) {
         return this.threadCacheTable.get( threadUuuid );
     }
 
