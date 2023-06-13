@@ -48,7 +48,7 @@ public class InMemoryCacheDiscussionThreadTableImpl {
         this.threadCacheTable = new HashMap<>();
     }
 
-    public boolean isCached( String threadUuid ) {
+    boolean isCached( String threadUuid ) {
         return this.threadCacheTable.containsKey( threadUuid );
     }
 
@@ -74,7 +74,7 @@ public class InMemoryCacheDiscussionThreadTableImpl {
         return null;
     }
 
-    public List<FSqrDiscussionThread> lookupThreads( List<String> input ) {
+    List<FSqrDiscussionThread> lookupThreads( List<String> input ) {
         ArrayList<FSqrDiscussionThread> result = new ArrayList<>();
 
         for (String threadId : input) {
