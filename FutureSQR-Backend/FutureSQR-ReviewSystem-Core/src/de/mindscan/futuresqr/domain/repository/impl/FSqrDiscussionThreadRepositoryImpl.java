@@ -104,22 +104,19 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
 
     @Override
     public List<FSqrDiscussionThread> getDirectThreadsForReview( String projectId, String reviewId ) {
+        // TODO rework this.
         if (!this.projectAndReviewToThreadsCache.isCached( projectId, reviewId )) {
             return new ArrayList<>();
         }
 
-        // TODO: lookup/translation from uuid to Discussion-Thread.
-        // some may be cached some may not.
-
-        // TODO: provide a lookup/load function, in case that the thread is not cached.
-
         List<String> discussionThreadUUIDs = projectAndReviewToThreadsCache.getDiscussionThreadUUIDs( projectId, reviewId );
 
-        return this.uuidToThreadsCache.lookupThreads( discussionThreadUUIDs );
+        return this.uuidToThreadsCache.lookupThreads( discussionThreadUUIDs, discussionThreadTable::selectDiscussionThread );
     }
 
     @Override
     public void editMessage( String projectId, String reviewId, String threadUUID, String messageUUID, String newMessageText, String messageAuthorUUID ) {
+        // TODO: that should be done in the database right tables to check, whether this referenced thread is part of the projectId, reviewId, threadUUID
         if (!this.projectAndReviewToThreadsCache.hasDiscussionThreadUUID( projectId, reviewId, threadUUID )) {
             return;
         }
