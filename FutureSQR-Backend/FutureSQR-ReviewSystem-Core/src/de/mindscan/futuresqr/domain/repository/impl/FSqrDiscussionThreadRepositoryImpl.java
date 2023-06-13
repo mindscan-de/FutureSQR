@@ -124,13 +124,9 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
             return;
         }
 
-        // update only if threadUUID exists, but actually we know because of previous statement 
-        // TODO implement a check function for this....
-        if (uuidToThreadsCache.isCached( threadUUID )) {
-
-            // TODO: actually we don't need to check for caching, otherwise we want to get and compute if absent 
-
-            FSqrDiscussionThread thread = uuidToThreadsCache.getDiscussionThread( threadUUID, discussionThreadTable::selectDiscussionThread );
+        FSqrDiscussionThread thread = uuidToThreadsCache.getDiscussionThread( threadUUID, discussionThreadTable::selectDiscussionThread );
+        if (thread != null) {
+            // update only if threadUUID exists 
             thread.updateMessage( messageUUID, newMessageText, messageAuthorUUID );
             this.discussionThreadTable.updateThread( thread );
         }
@@ -143,14 +139,10 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
             return;
         }
 
-        // reply only if threadUUID exists, but actually we know because of previous statement
-        // TODO implement a check function for this....
-        if (uuidToThreadsCache.isCached( threadUUID )) {
+        FSqrDiscussionThread thread = uuidToThreadsCache.getDiscussionThread( threadUUID, discussionThreadTable::selectDiscussionThread );
+        if (thread != null) {
+            // reply only if threadUUID exists
             FSqrDiscussionThreadMessage message = createReplyMessage( threadUUID, replytoMessageId, messageText, messageAuthorUUID );
-
-            // TODO: actually we don't need to check for caching, otherwise we want to get and compute if absent
-
-            FSqrDiscussionThread thread = uuidToThreadsCache.getDiscussionThread( threadUUID, discussionThreadTable::selectDiscussionThread );
             thread.addAsReplytoMessage( message );
             this.discussionThreadTable.updateThread( thread );
         }
