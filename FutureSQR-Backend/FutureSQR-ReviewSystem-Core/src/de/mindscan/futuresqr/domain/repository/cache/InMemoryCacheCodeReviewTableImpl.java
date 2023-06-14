@@ -48,7 +48,7 @@ public class InMemoryCacheCodeReviewTableImpl {
         this.projectIdReviewIdToCodeReviewCache = new HashMap<>();
     }
 
-    public boolean isCached( String projectId, String reviewId ) {
+    boolean isCached( String projectId, String reviewId ) {
         if (isKnownProjectId( projectId )) {
             return projectIdReviewIdToCodeReviewCache.get( projectId ).containsKey( reviewId );
         }
