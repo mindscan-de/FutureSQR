@@ -30,7 +30,7 @@ import java.util.Set;
 /**
  * 
  */
-public interface FSqrUserToProjectDatabaseTable {
+public interface FSqrUserToProjectDatabaseTable extends FSqrDatabaseTable {
 
     void insertStar( String userId, String projectId );
 

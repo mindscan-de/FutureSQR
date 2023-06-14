@@ -30,6 +30,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.gson.Gson;
+
+import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectDatabaseTable;
 
 /**
@@ -37,6 +40,10 @@ import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectDatabaseTable;
  * through to implement an access for a real database table. 
  */
 public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectDatabaseTable {
+
+    private Gson gson = new Gson();
+
+    private static final String STARRED_PROJECT_TABLENAME = "StarredProjects";
 
     private static final HashSet<String> EMPTY_HASH_SET = new HashSet<>();
 
@@ -51,6 +58,15 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
 
         // TODO: remove me, when we have a database and a database session object.
         initHardCodedData();
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void setDatbaseConnection( FSqrDatabaseConnection connection ) {
+        // TODO Auto-generated method stub
+
     }
 
     /**
@@ -92,6 +108,24 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
         }
 
         return new HashSet<>();
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void createTable() {
+        // TODO Auto-generated method stub
+
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void flush() {
+        // TODO Auto-generated method stub
+
     }
 
 }
