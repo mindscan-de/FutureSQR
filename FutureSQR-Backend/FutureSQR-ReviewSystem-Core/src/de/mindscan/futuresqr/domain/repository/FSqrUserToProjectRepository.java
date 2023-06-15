@@ -30,7 +30,7 @@ import java.util.Collection;
 /**
  * 
  */
-public interface FSqrUserToProjectRepository extends FSqrRepository {
+public interface FSqrUserToProjectRepository extends FSqrRepository, FSqrDatabaseBackedRepository {
 
     // test if project is starred by user 
 

@@ -65,6 +65,8 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
     @Override
     public void setApplicationServices( FSqrApplicationServices applicationServices ) {
         this.applicationServices = applicationServices;
+
+        this.userToProjectDatabaseTable.setDatbaseConnection( this.applicationServices.getDatabaseConnection() );
     }
 
     // public interface should not be able to modify internal HashSet.
@@ -122,6 +124,14 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
 
     private boolean isValidUser( String userUUID ) {
         return this.applicationServices.getUserRepository().isUserUUIDPresent( userUUID );
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void reinitDatabaseTables() {
+        this.userToProjectDatabaseTable.createTable();
     }
 
 }
