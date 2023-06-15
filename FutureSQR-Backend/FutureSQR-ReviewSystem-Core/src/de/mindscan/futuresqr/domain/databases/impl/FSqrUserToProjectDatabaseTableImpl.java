@@ -25,6 +25,7 @@
  */
 package de.mindscan.futuresqr.domain.databases.impl;
 
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -44,6 +45,36 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
     private Gson gson = new Gson();
 
     private static final String STARRED_PROJECT_TABLENAME = "StarredProjects";
+
+    private static final String STARRED_PROJECT_FK_USERUUID_COLUM = "userUuid";
+    private static final String STARRED_PROJECT_FK_PROJECTID_COLUUMN = "projectId";
+
+    // 
+
+    private static final String DROP_TABLE_IF_EXISTS = // 
+                    "DROP TABLE IF EXISTS " + STARRED_PROJECT_TABLENAME + ";";
+
+    private static final String CREATE_TABLE_STARRED_PROJECTS = //
+                    "CREATE TABLE  " + STARRED_PROJECT_TABLENAME + //
+                                    " (" + STARRED_PROJECT_FK_USERUUID_COLUM + ", " + STARRED_PROJECT_FK_PROJECTID_COLUUMN + ");";
+
+    private static final String INSERT_STAR_PS = //
+                    "INSERT INTO " + STARRED_PROJECT_TABLENAME + //
+                                    " (" + STARRED_PROJECT_FK_USERUUID_COLUM + ", " + STARRED_PROJECT_FK_PROJECTID_COLUUMN + " ) VALUES (:?1, :?2);";
+
+    private static final String DELETE_STAR_PS = //
+                    "DELETE FROM " + STARRED_PROJECT_TABLENAME + // 
+                                    " WHERE ( " + STARRED_PROJECT_FK_USERUUID_COLUM + "=:?1 AND " + STARRED_PROJECT_FK_PROJECTID_COLUUMN + "=:?2);";
+
+    private static final String SELECT_STARRED_PROJECTS_BY_USER_PS = //
+                    "SELECT * FROM " + STARRED_PROJECT_TABLENAME + //
+                                    "WHERE (" + STARRED_PROJECT_FK_USERUUID_COLUM + "=:?1);";
+
+    private static final String SELECT_STARRING_USERS_BY_PROJECT_PS = //
+                    "SELECT * FROM " + STARRED_PROJECT_TABLENAME + //
+                                    "WHERE (" + STARRED_PROJECT_FK_PROJECTID_COLUUMN + "=:?1);";
+
+    private FSqrDatabaseConnection connection;
 
     private static final HashSet<String> EMPTY_HASH_SET = new HashSet<>();
 
@@ -65,8 +96,7 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
      */
     @Override
     public void setDatbaseConnection( FSqrDatabaseConnection connection ) {
-        // TODO Auto-generated method stub
-
+        this.connection = connection;
     }
 
     /**
@@ -115,8 +145,15 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
      */
     @Override
     public void createTable() {
-        // TODO Auto-generated method stub
-
+        try {
+            Statement statement = this.connection.createStatement();
+            statement.executeUpdate( DROP_TABLE_IF_EXISTS );
+            statement.executeUpdate( CREATE_TABLE_STARRED_PROJECTS );
+            initHardCodedData();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /** 
