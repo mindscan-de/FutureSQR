@@ -25,13 +25,12 @@
  */
 package de.mindscan.futuresqr.domain.databases.impl;
 
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import com.google.gson.Gson;
 
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectDatabaseTable;
@@ -42,12 +41,11 @@ import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectDatabaseTable;
  */
 public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectDatabaseTable {
 
-    private Gson gson = new Gson();
-
     private static final String STARRED_PROJECT_TABLENAME = "StarredProjects";
 
     private static final String STARRED_PROJECT_FK_USERUUID_COLUM = "userUuid";
     private static final String STARRED_PROJECT_FK_PROJECTID_COLUUMN = "projectId";
+    private static final String STARRED_PROJECT_STARRED_TS = "whenStarred";
 
     // 
 
@@ -56,8 +54,11 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
 
     private static final String CREATE_TABLE_STARRED_PROJECTS = //
                     "CREATE TABLE  " + STARRED_PROJECT_TABLENAME + //
-                                    " (" + STARRED_PROJECT_FK_USERUUID_COLUM + ", " + STARRED_PROJECT_FK_PROJECTID_COLUUMN + ");";
+                                    " (" + STARRED_PROJECT_FK_USERUUID_COLUM + //
+                                    ", " + STARRED_PROJECT_FK_PROJECTID_COLUUMN + //
+                                    ", " + STARRED_PROJECT_STARRED_TS + ");";
 
+    // TODO: current date and time
     private static final String INSERT_STAR_PS = //
                     "INSERT INTO " + STARRED_PROJECT_TABLENAME + //
                                     " (" + STARRED_PROJECT_FK_USERUUID_COLUM + ", " + STARRED_PROJECT_FK_PROJECTID_COLUUMN + " ) VALUES (:?1, :?2);";
@@ -68,11 +69,13 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
 
     private static final String SELECT_STARRED_PROJECTS_BY_USER_PS = //
                     "SELECT * FROM " + STARRED_PROJECT_TABLENAME + //
-                                    "WHERE (" + STARRED_PROJECT_FK_USERUUID_COLUM + "=:?1);";
+                                    "WHERE (" + STARRED_PROJECT_FK_USERUUID_COLUM + "=:?1) " + //
+                                    "ORDER BY " + STARRED_PROJECT_STARRED_TS + ";";
 
     private static final String SELECT_STARRING_USERS_BY_PROJECT_PS = //
                     "SELECT * FROM " + STARRED_PROJECT_TABLENAME + //
-                                    "WHERE (" + STARRED_PROJECT_FK_PROJECTID_COLUUMN + "=:?1);";
+                                    "WHERE (" + STARRED_PROJECT_FK_PROJECTID_COLUUMN + "=:?1) " + //
+                                    "ORDER BY " + STARRED_PROJECT_STARRED_TS + ";";
 
     private FSqrDatabaseConnection connection;
 
@@ -86,9 +89,6 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
      */
     public FSqrUserToProjectDatabaseTableImpl() {
         this.tmpUserToProjectStarsTable = new HashMap<>();
-
-        // TODO: remove me, when we have a database and a database session object.
-        initHardCodedData();
     }
 
     /** 
@@ -118,6 +118,21 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
     @Override
     public void insertStar( String userId, String projectId ) {
         this.tmpUserToProjectStarsTable.computeIfAbsent( userId, id -> new HashSet<>() ).add( projectId );
+
+        try {
+            PreparedStatement starPS = this.connection.createPreparedStatement( INSERT_STAR_PS );
+            starPS.setString( 1, userId );
+            starPS.setString( 2, projectId );
+
+            // TODO: current Timestamp??
+            // starPS.setTimestamp( 3, x );
+
+            starPS.addBatch();
+            starPS.executeBatch();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /** 
@@ -126,6 +141,18 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
     @Override
     public void deleteStar( String userId, String projectId ) {
         this.tmpUserToProjectStarsTable.getOrDefault( userId, EMPTY_HASH_SET ).remove( userId );
+
+        try {
+            PreparedStatement unstarPS = this.connection.createPreparedStatement( DELETE_STAR_PS );
+            unstarPS.setString( 1, userId );
+            unstarPS.setString( 2, projectId );
+
+            unstarPS.addBatch();
+            unstarPS.executeBatch();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /** 
