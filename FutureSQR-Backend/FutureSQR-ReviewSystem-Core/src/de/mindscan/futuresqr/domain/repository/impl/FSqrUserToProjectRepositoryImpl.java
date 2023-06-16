@@ -27,6 +27,7 @@ package de.mindscan.futuresqr.domain.repository.impl;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
@@ -77,11 +78,21 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
             return new HashSet<>();
         }
 
-        if (this.starredProjectsCache.isCached( userId )) {
-            return new HashSet<>( this.starredProjectsCache.getStarredProjects( userId ) );
-        }
+        return new LinkedHashSet<>( this.starredProjectsCache.getStarredProjects( userId, this.userToProjectDatabaseTable::selectAllStarredProjectsByUserId ) );
+    }
 
-        return this.starredProjectsCache.getStarredProjects( userId, this.userToProjectDatabaseTable::selectAllStarredProjectsByUserId );
+    // TODO: maybe we also want the reverse table, where we look at the project, and want to know who gave a star to this project
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<String> getAllStarringUsersForProject( String projectId ) {
+        // MUST check if projectId is known. 
+        
+        // TODO cache for a short time?
+        
+        return this.userToProjectDatabaseTable.selectAllStarringUsersForProject( projectId );
     }
 
     @Override
@@ -119,8 +130,6 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
 
         return getAllStarredProjectsForUser( userId ).contains( projectId );
     }
-
-    // TODO: maybe we also want the reverse table, where we look at the project, and want to know who gave a star to this project
 
     private boolean isValidUser( String userUUID ) {
         return this.applicationServices.getUserRepository().isUserUUIDPresent( userUUID );

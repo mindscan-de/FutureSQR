@@ -46,4 +46,8 @@ public interface FSqrUserToProjectRepository extends FSqrRepository, FSqrDatabas
 
     Collection<String> getAllStarredProjectsForUser( String userId );
 
+    // get starring users for a project
+
+    Collection<String> getAllStarringUsersForProject( String projectId );
+
 }
