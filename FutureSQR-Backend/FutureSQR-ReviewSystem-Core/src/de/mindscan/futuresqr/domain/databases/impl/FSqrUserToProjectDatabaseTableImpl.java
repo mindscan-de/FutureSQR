@@ -45,7 +45,8 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
 
     private static final String STARRED_PROJECT_FK_USERUUID_COLUM = "userUuid";
     private static final String STARRED_PROJECT_FK_PROJECTID_COLUUMN = "projectId";
-    private static final String STARRED_PROJECT_STARRED_TS = "whenStarred";
+    private static final String STARRED_PROJECT_STARRED_TS_COLUMN = "whenStarred";
+    private static final String STARRED_PROJECT_COUNT = "COUNT";
 
     // 
 
@@ -56,7 +57,7 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
                     "CREATE TABLE  " + STARRED_PROJECT_TABLENAME + //
                                     " (" + STARRED_PROJECT_FK_USERUUID_COLUM + //
                                     ", " + STARRED_PROJECT_FK_PROJECTID_COLUUMN + //
-                                    ", " + STARRED_PROJECT_STARRED_TS + ");";
+                                    ", " + STARRED_PROJECT_STARRED_TS_COLUMN + ");";
 
     // TODO: current date and time
 
@@ -64,7 +65,7 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
                     "INSERT INTO " + STARRED_PROJECT_TABLENAME + //
                                     " (" + STARRED_PROJECT_FK_USERUUID_COLUM + //
                                     ", " + STARRED_PROJECT_FK_PROJECTID_COLUUMN + //
-                                    ", " + STARRED_PROJECT_STARRED_TS + " ) VALUES (?1, ?2, CURRENT_TIMESTAMP);";
+                                    ", " + STARRED_PROJECT_STARRED_TS_COLUMN + " ) VALUES (?1, ?2, CURRENT_TIMESTAMP);";
 
     private static final String DELETE_STAR_PS = //
                     "DELETE FROM " + STARRED_PROJECT_TABLENAME + // 
@@ -73,12 +74,17 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
     private static final String SELECT_STARRED_PROJECTS_BY_USER_PS = //
                     "SELECT * FROM " + STARRED_PROJECT_TABLENAME + //
                                     " WHERE (" + STARRED_PROJECT_FK_USERUUID_COLUM + "=?1) " + //
-                                    " ORDER BY " + STARRED_PROJECT_STARRED_TS + ";";
+                                    " ORDER BY " + STARRED_PROJECT_STARRED_TS_COLUMN + ";";
 
     private static final String SELECT_STARRING_USERS_BY_PROJECT_PS = //
                     "SELECT * FROM " + STARRED_PROJECT_TABLENAME + //
                                     " WHERE (" + STARRED_PROJECT_FK_PROJECTID_COLUUMN + "=?1) " + //
-                                    " ORDER BY " + STARRED_PROJECT_STARRED_TS + ";";
+                                    " ORDER BY " + STARRED_PROJECT_STARRED_TS_COLUMN + ";";
+
+    private static final String SELECT_STARRING_USERCOUNT_BY_PROJECT_PS = //
+                    "SELECT COUNT(*) AS " + STARRED_PROJECT_COUNT + " " + STARRED_PROJECT_TABLENAME + //
+                                    " WHERE (" + STARRED_PROJECT_FK_PROJECTID_COLUUMN + "=?1) " + //
+                                    " ORDER BY " + STARRED_PROJECT_STARRED_TS_COLUMN + ";";
 
     private FSqrDatabaseConnection connection;
 
@@ -206,8 +212,26 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
      */
     @Override
     public int getNumberOfStarsForProject( String projectId ) {
-        // TODO implement the counting and the additional caching of the star count.
-        return 0;
+        int result = 0;
+
+        try {
+            PreparedStatement countStarringUsersPS = this.connection.createPreparedStatement( SELECT_STARRING_USERCOUNT_BY_PROJECT_PS );
+
+            countStarringUsersPS.setString( 1, projectId );
+
+            ResultSet resultSet = countStarringUsersPS.executeQuery();
+
+            if (resultSet.next()) {
+                result = resultSet.getInt( STARRED_PROJECT_COUNT );
+            }
+
+            resultSet.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
     /** 
