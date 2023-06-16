@@ -84,7 +84,7 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
 
     private static final String INSERT_CODE_REVIEW_PS = //
                     "INSERT INTO " + CODE_REVIEW_TABLENAME + " (" + CODE_REVIEW_FK_PROJECTID_COLUMN + ", " + CODE_REVIEW_REVIEWID_COLUMN + ", "
-                                    + CODE_REVIEW_REVIWEDATA_COLUMN + ", " + CODE_REVIEW_STATE_COLUMN + ") VALUES (?,?,?,?);";
+                                    + CODE_REVIEW_REVIWEDATA_COLUMN + ", " + CODE_REVIEW_STATE_COLUMN + ") VALUES (?1,?2,?3,?4);";
 
     private static final String UPDATE_CODE_REVIEW_PS = //
                     "UPDATE " + CODE_REVIEW_TABLENAME + " SET " + CODE_REVIEW_REVIWEDATA_COLUMN + "=?3, " + CODE_REVIEW_STATE_COLUMN + "=?4 WHERE ( "
