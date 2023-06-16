@@ -205,6 +205,15 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
      * {@inheritDoc}
      */
     @Override
+    public int getNumberOfStarsForProject( String projectId ) {
+        // TODO implement the counting and the additional caching of the star count.
+        return 0;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
     public void createTable() {
         try {
             Statement statement = this.connection.createStatement();

@@ -89,11 +89,14 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
     @Override
     public Collection<String> getAllStarringUsersForProject( String projectId ) {
         // MUST check if projectId is known. 
-        
+
         // TODO cache for a short time?
-        
+
         return this.userToProjectDatabaseTable.selectAllStarringUsersForProject( projectId );
     }
+
+    // TODO: calculate number of stars for project and cache this value. 
+    // this.userToProjectDatabaseTable.getNumberOfStarsForProject( projectId )
 
     @Override
     public void starProject( String userId, String projectId ) {
