@@ -56,6 +56,7 @@ export class BasicProjectInformationComponent implements OnInit {
 		this.projectDataQueryBackend.starProject(activeProjectId, currentUserUUID).subscribe(
 			data=>{
 				this.isStarred = true;
+				this.uiProjectInfo.projectStarCount += 1;
 				this.cdr.detectChanges();
 			},
 			error=>{}
@@ -69,6 +70,7 @@ export class BasicProjectInformationComponent implements OnInit {
 		this.projectDataQueryBackend.unstarProject(activeProjectId, currentUserUUID).subscribe(
 			data =>{
 				this.isStarred = false; 
+				this.uiProjectInfo.projectStarCount -= 1;
 				this.cdr.detectChanges();
 			},
 			error=>{},
