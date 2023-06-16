@@ -58,6 +58,8 @@ public class FSqrScmProjectConfiguration {
     // that means that this project is not active any more, and is not monitored any more, with respect to the SCM
     private boolean isArchived = false;
 
+    private int numberOfStars;
+
     // TODO: here? defaultbranch - indiscriminate whether GIT or SVN we will have some kind of branches
     // trunk for svn -> url
     // branchname for svn -> url
@@ -188,6 +190,14 @@ public class FSqrScmProjectConfiguration {
 
     public boolean hasProjectRemoteRepoURL() {
         return !(this.projectRemoteRepoURL == null || this.projectRemoteRepoURL.isEmpty());
+    }
+
+    public void setNumberOfStars( int numberOfStarsForProject ) {
+        this.numberOfStars = numberOfStarsForProject;
+    }
+
+    public int getNumberOfStars() {
+        return numberOfStars;
     }
 
 }
