@@ -64,7 +64,7 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
                     "INSERT INTO " + STARRED_PROJECT_TABLENAME + //
                                     " (" + STARRED_PROJECT_FK_USERUUID_COLUM + //
                                     ", " + STARRED_PROJECT_FK_PROJECTID_COLUUMN + //
-                                    ", " + STARRED_PROJECT_STARRED_TS + " ) VALUES (:?1, :?2, CURRENT_TIMESTAMP);";
+                                    ", " + STARRED_PROJECT_STARRED_TS + " ) VALUES (?1, ?2, CURRENT_TIMESTAMP);";
 
     private static final String DELETE_STAR_PS = //
                     "DELETE FROM " + STARRED_PROJECT_TABLENAME + // 
