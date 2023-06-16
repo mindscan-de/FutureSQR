@@ -82,7 +82,7 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
                                     " ORDER BY " + STARRED_PROJECT_STARRED_TS_COLUMN + ";";
 
     private static final String SELECT_STARRING_USERCOUNT_BY_PROJECT_PS = //
-                    "SELECT COUNT(*) AS " + STARRED_PROJECT_COUNT + " " + STARRED_PROJECT_TABLENAME + //
+                    "SELECT COUNT(*) AS " + STARRED_PROJECT_COUNT + " FROM " + STARRED_PROJECT_TABLENAME + //
                                     " WHERE (" + STARRED_PROJECT_FK_PROJECTID_COLUUMN + "=?1) " + //
                                     " ORDER BY " + STARRED_PROJECT_STARRED_TS_COLUMN + ";";
 
