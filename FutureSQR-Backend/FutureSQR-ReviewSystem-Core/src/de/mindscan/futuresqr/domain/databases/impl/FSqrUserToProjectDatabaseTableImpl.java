@@ -26,10 +26,10 @@
 package de.mindscan.futuresqr.domain.databases.impl;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
@@ -59,9 +59,12 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
                                     ", " + STARRED_PROJECT_STARRED_TS + ");";
 
     // TODO: current date and time
+
     private static final String INSERT_STAR_PS = //
                     "INSERT INTO " + STARRED_PROJECT_TABLENAME + //
-                                    " (" + STARRED_PROJECT_FK_USERUUID_COLUM + ", " + STARRED_PROJECT_FK_PROJECTID_COLUUMN + " ) VALUES (:?1, :?2);";
+                                    " (" + STARRED_PROJECT_FK_USERUUID_COLUM + //
+                                    ", " + STARRED_PROJECT_FK_PROJECTID_COLUUMN + //
+                                    ", " + STARRED_PROJECT_STARRED_TS + " ) VALUES (:?1, :?2, CURRENT_TIMESTAMP);";
 
     private static final String DELETE_STAR_PS = //
                     "DELETE FROM " + STARRED_PROJECT_TABLENAME + // 
@@ -79,16 +82,11 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
 
     private FSqrDatabaseConnection connection;
 
-    private static final HashSet<String> EMPTY_HASH_SET = new HashSet<>();
-
-    // search key: (useruuid:string) -> (projectid:Collection)
-    private Map<String, Set<String>> tmpUserToProjectStarsTable;
-
     /**
      * 
      */
     public FSqrUserToProjectDatabaseTableImpl() {
-        this.tmpUserToProjectStarsTable = new HashMap<>();
+        // intentionally left blank
     }
 
     /** 
@@ -117,15 +115,10 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
      */
     @Override
     public void insertStar( String userId, String projectId ) {
-        this.tmpUserToProjectStarsTable.computeIfAbsent( userId, id -> new HashSet<>() ).add( projectId );
-
         try {
             PreparedStatement starPS = this.connection.createPreparedStatement( INSERT_STAR_PS );
             starPS.setString( 1, userId );
             starPS.setString( 2, projectId );
-
-            // TODO: current Timestamp??
-            // starPS.setTimestamp( 3, x );
 
             starPS.addBatch();
             starPS.executeBatch();
@@ -140,8 +133,6 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
      */
     @Override
     public void deleteStar( String userId, String projectId ) {
-        this.tmpUserToProjectStarsTable.getOrDefault( userId, EMPTY_HASH_SET ).remove( userId );
-
         try {
             PreparedStatement unstarPS = this.connection.createPreparedStatement( DELETE_STAR_PS );
             unstarPS.setString( 1, userId );
@@ -160,8 +151,51 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
      */
     @Override
     public Set<String> selectAllStarredProjectsByUserId( String userId ) {
-        if (tmpUserToProjectStarsTable.containsKey( userId )) {
-            return new HashSet<>( tmpUserToProjectStarsTable.get( userId ) );
+        try {
+            Set<String> result = new LinkedHashSet<>();
+
+            PreparedStatement selectProjectsForUserPS = this.connection.createPreparedStatement( SELECT_STARRED_PROJECTS_BY_USER_PS );
+
+            selectProjectsForUserPS.setString( 1, userId );
+
+            ResultSet resultSet = selectProjectsForUserPS.executeQuery();
+            while (resultSet.next()) {
+                // actually we might want to add the time stamp
+                result.add( resultSet.getString( STARRED_PROJECT_FK_USERUUID_COLUM ) );
+            }
+            resultSet.close();
+            return result;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new HashSet<>();
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public Set<String> selectAllStarringUsersForProject( String projectId ) {
+        try {
+            Set<String> result = new LinkedHashSet<>();
+
+            PreparedStatement selectStarringUsersPS = this.connection.createPreparedStatement( SELECT_STARRING_USERS_BY_PROJECT_PS );
+
+            selectStarringUsersPS.setString( 1, projectId );
+
+            ResultSet resultSet = selectStarringUsersPS.executeQuery();
+            while (resultSet.next()) {
+                // actually we might want to add the time stamp
+                result.add( resultSet.getString( STARRED_PROJECT_FK_USERUUID_COLUM ) );
+
+            }
+            resultSet.close();
+            return result;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
 
         return new HashSet<>();
@@ -188,8 +222,7 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
      */
     @Override
     public void flush() {
-        // TODO Auto-generated method stub
-
+        // intentionally left blank
     }
 
 }

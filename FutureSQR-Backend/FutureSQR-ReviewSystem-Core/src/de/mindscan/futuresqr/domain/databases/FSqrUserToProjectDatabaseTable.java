@@ -38,4 +38,6 @@ public interface FSqrUserToProjectDatabaseTable extends FSqrDatabaseTable {
 
     Set<String> selectAllStarredProjectsByUserId( String userId );
 
+    Set<String> selectAllStarringUsersForProject( String projectId );
+
 }
