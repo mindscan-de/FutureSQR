@@ -31,13 +31,14 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import de.mindscan.futuresqr.domain.application.ApplicationServicesSetter;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 
 /**
  * 
  */
-public class FSqrSqliteDatabaseConnectionImpl implements FSqrDatabaseConnection {
+public class FSqrSqliteDatabaseConnectionImpl implements FSqrDatabaseConnection, ApplicationServicesSetter {
 
     private String connectionString;
 
@@ -50,9 +51,7 @@ public class FSqrSqliteDatabaseConnectionImpl implements FSqrDatabaseConnection 
         // intentionally left blank
     }
 
-    /**
-     * @param services
-     */
+    @Override
     public void setApplicationServices( FSqrApplicationServices services ) {
         // TODO: this is where we can read the system configuration, to retrieve the database connection 
         //       information and when we can boot from here.
