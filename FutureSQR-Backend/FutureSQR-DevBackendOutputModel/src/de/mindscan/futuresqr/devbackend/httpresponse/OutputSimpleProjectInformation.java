@@ -35,5 +35,6 @@ public class OutputSimpleProjectInformation {
     public String projectID;
     public String projectUuid;
     public boolean projectIsStarred;
+    public int projectStarCount;
 
 }

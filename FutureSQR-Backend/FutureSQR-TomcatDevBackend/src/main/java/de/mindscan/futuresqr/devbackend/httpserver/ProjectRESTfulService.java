@@ -84,7 +84,6 @@ public class ProjectRESTfulService {
     private static final String HARDCODED_MINDSCAN_DE_UUID = "8ce74ee9-48ff-3dde-b678-58a632887e31";
 
     private FSqrScmProjectConfigurationRepository configurationRepository = FSqrApplication.getInstance().getServices().getConfigurationRepository();
-    private FSqrUserToProjectRepository userToProjectRepository = FSqrApplication.getInstance().getServices().getUserToProjectRepository();
 
     @javax.ws.rs.Path( "/testme" )
     @GET
@@ -98,7 +97,6 @@ public class ProjectRESTfulService {
     @Produces( MediaType.APPLICATION_JSON )
     public String getSimpleProjectInformation( @PathParam( "projectid" ) String projectId ) {
         FSqrScmProjectConfiguration projectConfiguration = this.configurationRepository.getProjectConfiguration( projectId );
-        projectConfiguration.setNumberOfStars( this.userToProjectRepository.getNumberOfStarsForProject( projectId ) );
 
         // TODO: problem is that this project project information is user specific, because it may be starred by the user.
         // TODO: we might have to consider the current session context here.
@@ -119,6 +117,7 @@ public class ProjectRESTfulService {
 
         FSqrUserToProjectRepository userToProjectRepository = FSqrApplication.getInstance().getServices().getUserToProjectRepository();
         transformed.projectIsStarred = userToProjectRepository.isStarred( userUUID, projectConfiguration.getProjectId() );
+        transformed.projectStarCount = userToProjectRepository.getNumberOfStarsForProject( projectConfiguration.getProjectId() );
 
         return transformed;
     }

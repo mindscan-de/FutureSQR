@@ -36,10 +36,26 @@ export class ConfigureSystemDatabaseComponent implements OnInit {
 	
 
 	reinitializeDatabase(): void {
-		console.log("Hello World");
 		this.adminDataQueryBackend.postReinitDatabase().subscribe(
 			data => {},
 			error => {}
 		);
 	}
+	
+	backupDatabse(): void {
+		this.adminDataQueryBackend.postBackupDatabase().subscribe(
+			data => {},
+			error => {}
+		);
+	}
+	
+	restoreDatabase(backupKey:string): void {
+		this.adminDataQueryBackend.postRestoreDatabase("latest").subscribe(
+			data => {},
+			error => {}
+		);
+	}
+	
+	
+	
 }
