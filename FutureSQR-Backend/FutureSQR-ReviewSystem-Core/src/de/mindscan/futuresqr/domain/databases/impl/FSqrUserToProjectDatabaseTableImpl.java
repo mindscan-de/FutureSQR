@@ -161,7 +161,7 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
             ResultSet resultSet = selectProjectsForUserPS.executeQuery();
             while (resultSet.next()) {
                 // actually we might want to add the time stamp
-                result.add( resultSet.getString( STARRED_PROJECT_FK_USERUUID_COLUM ) );
+                result.add( resultSet.getString( STARRED_PROJECT_FK_PROJECTID_COLUUMN ) );
             }
             resultSet.close();
             return result;
