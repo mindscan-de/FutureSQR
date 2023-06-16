@@ -34,6 +34,7 @@ import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitializ
 import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectDatabaseTable;
 import de.mindscan.futuresqr.domain.databases.impl.FSqrUserToProjectDatabaseTableImpl;
 import de.mindscan.futuresqr.domain.repository.FSqrUserToProjectRepository;
+import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheStringToAtomicIntegerImpl;
 import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheUserStarredProjectTableImpl;
 
 /**
@@ -44,13 +45,13 @@ import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheUserStarredPro
  * because this is related to the user to project relationship as well but a different
  * attribute.
  * 
- * TODO: rework the repository to use a database instead of the in-memory + scm data pull implementation
  */
 public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectRepository {
 
     private FSqrApplicationServices applicationServices;
 
     private InMemoryCacheUserStarredProjectTableImpl starredProjectsCache;
+    private InMemoryCacheStringToAtomicIntegerImpl starredProjectCountsCache;
 
     private FSqrUserToProjectDatabaseTable userToProjectDatabaseTable;
 
@@ -59,6 +60,7 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
      */
     public FSqrUserToProjectRepositoryImpl() {
         this.starredProjectsCache = new InMemoryCacheUserStarredProjectTableImpl();
+        this.starredProjectCountsCache = new InMemoryCacheStringToAtomicIntegerImpl();
         this.applicationServices = new FSqrApplicationServicesUnitialized();
         this.userToProjectDatabaseTable = new FSqrUserToProjectDatabaseTableImpl();
     }
@@ -95,8 +97,10 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
         return this.userToProjectDatabaseTable.selectAllStarringUsersForProject( projectId );
     }
 
-    // TODO: calculate number of stars for project and cache this value. 
-    // this.userToProjectDatabaseTable.getNumberOfStarsForProject( projectId )
+    @Override
+    public int getNumberOfStarsForProject( String projectId ) {
+        return this.starredProjectCountsCache.getValue( projectId, userToProjectDatabaseTable::getNumberOfStarsForProject );
+    }
 
     @Override
     public void starProject( String userId, String projectId ) {
@@ -107,6 +111,7 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
 
         this.userToProjectDatabaseTable.insertStar( userId, projectId );
         this.starredProjectsCache.addStarredProject( userId, projectId );
+        this.starredProjectCountsCache.increase( projectId );
     }
 
     @Override
@@ -118,6 +123,7 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
 
         this.userToProjectDatabaseTable.deleteStar( userId, projectId );
         this.starredProjectsCache.removeStarredProject( userId, projectId );
+        this.starredProjectCountsCache.decrease( projectId );
     }
 
     @Override
