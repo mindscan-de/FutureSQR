@@ -13,4 +13,5 @@ export class BackendModelProjectSimpleInformation {
 	public projectDescription: string = "";
 	// Obviously this is a property calculated from current user.
 	public projectIsStarred: boolean = false;
+	public projectStarCount: number = 0; 
 }
