@@ -68,16 +68,16 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
 
     private static final String DELETE_STAR_PS = //
                     "DELETE FROM " + STARRED_PROJECT_TABLENAME + // 
-                                    " WHERE ( " + STARRED_PROJECT_FK_USERUUID_COLUM + "=:?1 AND " + STARRED_PROJECT_FK_PROJECTID_COLUUMN + "=:?2);";
+                                    " WHERE ( " + STARRED_PROJECT_FK_USERUUID_COLUM + "=?1 AND " + STARRED_PROJECT_FK_PROJECTID_COLUUMN + "=?2);";
 
     private static final String SELECT_STARRED_PROJECTS_BY_USER_PS = //
                     "SELECT * FROM " + STARRED_PROJECT_TABLENAME + //
-                                    "WHERE (" + STARRED_PROJECT_FK_USERUUID_COLUM + "=:?1) " + //
+                                    "WHERE (" + STARRED_PROJECT_FK_USERUUID_COLUM + "=?1) " + //
                                     "ORDER BY " + STARRED_PROJECT_STARRED_TS + ";";
 
     private static final String SELECT_STARRING_USERS_BY_PROJECT_PS = //
                     "SELECT * FROM " + STARRED_PROJECT_TABLENAME + //
-                                    "WHERE (" + STARRED_PROJECT_FK_PROJECTID_COLUUMN + "=:?1) " + //
+                                    "WHERE (" + STARRED_PROJECT_FK_PROJECTID_COLUUMN + "=?1) " + //
                                     "ORDER BY " + STARRED_PROJECT_STARRED_TS + ";";
 
     private FSqrDatabaseConnection connection;
