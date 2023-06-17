@@ -2,7 +2,7 @@
 	<div class="card-header">
 			<div class="float-right">
 				<!-- TODO: Maybe provide a link to a list of users who starred this project... -->
-				<a class="btn btn-sm btn-light border-secondary" *ngIf="!isStarred" (click)="onStarMe(activeProjectId)" title="Star this project"><span class="text-white mr-1">&#9734;</span> Star <span class="badge badge-light ml-1" title="Number of Stars">{{uiProjectInfo.projectStarCount}}</span> </a>
+				<a class="btn btn-sm btn-light border-secondary" *ngIf="!isStarred" (click)="onStarMe(activeProjectId)" title="Star this project"><span class="text-white mr-1">&#9734;</span> Star <span class="badge badge-light ml-1" title="Number of Stars">{{uiProjectInfo.projectStarCount}}</span></a>
 				<a class="btn btn-sm btn-secondary border-secondary" *ngIf="isStarred" (click)="onUnstarMe(activeProjectId)" title="Unstar this project"><span class="text-warning mr-1">&#9733;</span> Starred <span class="badge badge-light ml-1" title="Number of Stars">{{uiProjectInfo.projectStarCount}}</span></a>
 			</div>
 			
@@ -23,6 +23,10 @@
 			<span class="mr-2 text-muted">|</span>
 			
 			<span class="mr-2 text-muted"><a [routerLink]="['/',uiProjectInfo.projectID,'branches']">branches</a></span>
+
+			<span class="mr-2 text-muted">|</span>
+			
+			<span class="mr-2 text-muted"><a [routerLink]="['/',uiProjectInfo.projectID,'stars']">stars</a> (TODO)</span>
 			
 			<span class="mr-2 text-muted">|</span>
 			
