@@ -28,6 +28,9 @@ package de.mindscan.futuresqr.domain.databases.impl;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrAlternateScmAliasesDatabaseTable;
@@ -65,6 +68,9 @@ public class FSqrAlternateScmAliasesDatabaseTableImpl implements FSqrAlternateSc
 
     private static final String SELECT_UUID_FOR_SCMALIAS = //
                     "SELECT " + COLUMN_USER_UUID + " FROM " + SCM_ALIASES_TABLENAME + " WHERE " + COLUMN_USER_ALIASNAME + "=?1;";
+
+    private static final String SELECT_ALIASES_FOR_USER = //
+                    "SELECT " + COLUMN_USER_ALIASNAME + " FROM " + SCM_ALIASES_TABLENAME + " WHERE " + COLUMN_USER_UUID + "=?1;";
 
     private FSqrDatabaseConnection connection;
 
@@ -113,6 +119,31 @@ public class FSqrAlternateScmAliasesDatabaseTableImpl implements FSqrAlternateSc
             }
             resultSet.close();
             return result;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<String> getAllScmAliasesForUserUuid( String userUuid ) {
+        List<String> result = new ArrayList<>();
+
+        try {
+            PreparedStatement selectAllAliasesPS = this.connection.createPreparedStatement( SELECT_ALIASES_FOR_USER );
+
+            selectAllAliasesPS.setString( 1, userUuid );
+
+            ResultSet resultSet = selectAllAliasesPS.executeQuery();
+            while (resultSet.next()) {
+                result.add( resultSet.getString( COLUMN_USER_ALIASNAME ) );
+            }
+            resultSet.close();
         }
         catch (Exception e) {
             e.printStackTrace();
