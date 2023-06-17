@@ -95,10 +95,8 @@ public class FSqrProjectAssignedCodeReviewsTableImpl implements FSqrProjectAssig
             selectPS.setString( 2, revisionId );
 
             ResultSet resultSet = selectPS.executeQuery();
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 result = resultSet.getString( COLUMNNAME_REVIEW_ID );
-                // we only process the first result here.
-                break;
             }
             resultSet.close();
 

@@ -136,11 +136,8 @@ public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThre
             selectPS.setString( 1, discussionThreadUUID );
 
             ResultSet resultSet = selectPS.executeQuery();
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 result = createDicsussionThread( resultSet );
-
-                // we only process the first result here.
-                break;
             }
             resultSet.close();
 

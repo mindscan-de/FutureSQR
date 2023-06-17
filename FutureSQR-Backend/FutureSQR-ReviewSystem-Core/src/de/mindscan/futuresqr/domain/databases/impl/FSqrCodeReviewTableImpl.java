@@ -122,11 +122,8 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
             selectPS.setString( 2, reviewId );
 
             ResultSet resultSet = selectPS.executeQuery();
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 result = createFSqrCodeReview( resultSet );
-
-                // we only process the first result here.
-                break;
             }
             resultSet.close();
         }
