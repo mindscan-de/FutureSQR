@@ -98,6 +98,8 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository {
 
         //. we may have to reinitialize the userdatabase, or we provide a constructor with the application servcies....
         this.setPersistenceSystemUserLoader( this::initializedDatabaseLoader );
+
+        this.userAliasesDatabaseTable.setDatbaseConnection( this.applicationServices.getDatabaseConnection() );
     }
 
     @Override
@@ -182,5 +184,13 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository {
         }
 
         return userEntry;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void reinitDatabaseTables() {
+        this.userAliasesDatabaseTable.createTable();
     }
 }
