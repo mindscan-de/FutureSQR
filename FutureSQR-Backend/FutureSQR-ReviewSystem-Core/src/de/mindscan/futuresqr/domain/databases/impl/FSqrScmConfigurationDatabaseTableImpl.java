@@ -299,11 +299,11 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
 
             selectPS.setString( 1, projectId );
 
-            ResultSet resultSet = selectPS.executeQuery();
-            if (resultSet.next()) {
-                result = createScmConfiguration( resultSet );
+            try (ResultSet resultSet = selectPS.executeQuery()) {
+                if (resultSet.next()) {
+                    result = createScmConfiguration( resultSet );
+                }
             }
-            resultSet.close();
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -329,11 +329,11 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
         try {
             PreparedStatement selectPS = this.connection.createPreparedStatement( SELECT_ALL_SCM_CONFIGURATIONS_PS );
 
-            ResultSet resultSet = selectPS.executeQuery();
-            while (resultSet.next()) {
-                resultList.add( createScmConfiguration( resultSet ) );
+            try (ResultSet resultSet = selectPS.executeQuery()) {
+                while (resultSet.next()) {
+                    resultList.add( createScmConfiguration( resultSet ) );
+                }
             }
-            resultSet.close();
         }
         catch (Exception e) {
             e.printStackTrace();

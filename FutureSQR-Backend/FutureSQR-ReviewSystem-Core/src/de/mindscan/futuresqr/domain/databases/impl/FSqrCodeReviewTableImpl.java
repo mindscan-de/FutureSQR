@@ -121,11 +121,11 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
             selectPS.setString( 1, projectId );
             selectPS.setString( 2, reviewId );
 
-            ResultSet resultSet = selectPS.executeQuery();
-            if (resultSet.next()) {
-                result = createFSqrCodeReview( resultSet );
+            try (ResultSet resultSet = selectPS.executeQuery()) {
+                if (resultSet.next()) {
+                    result = createFSqrCodeReview( resultSet );
+                }
             }
-            resultSet.close();
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -154,13 +154,11 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
             openReviews.setString( 1, projectId );
             openReviews.setInt( 2, FSqrCodeReviewLifecycleState.toStateIndex( FSqrCodeReviewLifecycleState.Open ) );
 
-            ResultSet resultSet = openReviews.executeQuery();
-
-            while (resultSet.next()) {
-                resultList.add( createFSqrCodeReview( resultSet ) );
+            try (ResultSet resultSet = openReviews.executeQuery()) {
+                while (resultSet.next()) {
+                    resultList.add( createFSqrCodeReview( resultSet ) );
+                }
             }
-
-            resultSet.close();
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -187,13 +185,11 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
             openReviews.setString( 1, projectId );
             openReviews.setInt( 2, FSqrCodeReviewLifecycleState.toStateIndex( FSqrCodeReviewLifecycleState.Closed ) );
 
-            ResultSet resultSet = openReviews.executeQuery();
-
-            while (resultSet.next()) {
-                resultList.add( createFSqrCodeReview( resultSet ) );
+            try (ResultSet resultSet = openReviews.executeQuery()) {
+                while (resultSet.next()) {
+                    resultList.add( createFSqrCodeReview( resultSet ) );
+                }
             }
-
-            resultSet.close();
         }
         catch (Exception e) {
             e.printStackTrace();

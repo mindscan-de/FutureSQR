@@ -41,14 +41,18 @@ import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectDatabaseTable;
  */
 public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectDatabaseTable {
 
+    // Table name
+
     private static final String STARRED_PROJECT_TABLENAME = "StarredProjects";
+
+    // column names
 
     private static final String STARRED_PROJECT_FK_USERUUID_COLUM = "userUuid";
     private static final String STARRED_PROJECT_FK_PROJECTID_COLUUMN = "projectId";
     private static final String STARRED_PROJECT_STARRED_TS_COLUMN = "whenStarred";
     private static final String STARRED_PROJECT_COUNT = "COUNT";
 
-    // 
+    // sql statements
 
     private static final String DROP_TABLE_IF_EXISTS = // 
                     "DROP TABLE IF EXISTS " + STARRED_PROJECT_TABLENAME + ";";
@@ -58,8 +62,6 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
                                     " (" + STARRED_PROJECT_FK_USERUUID_COLUM + //
                                     ", " + STARRED_PROJECT_FK_PROJECTID_COLUUMN + //
                                     ", " + STARRED_PROJECT_STARRED_TS_COLUMN + ");";
-
-    // TODO: current date and time
 
     private static final String INSERT_STAR_PS = //
                     "INSERT INTO " + STARRED_PROJECT_TABLENAME + //
@@ -164,12 +166,12 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
 
             selectProjectsForUserPS.setString( 1, userId );
 
-            ResultSet resultSet = selectProjectsForUserPS.executeQuery();
-            while (resultSet.next()) {
-                // actually we might want to add the time stamp
-                result.add( resultSet.getString( STARRED_PROJECT_FK_PROJECTID_COLUUMN ) );
+            try (ResultSet resultSet = selectProjectsForUserPS.executeQuery()) {
+                while (resultSet.next()) {
+                    // actually we might want to add the time stamp
+                    result.add( resultSet.getString( STARRED_PROJECT_FK_PROJECTID_COLUUMN ) );
+                }
             }
-            resultSet.close();
             return result;
         }
         catch (Exception e) {
@@ -191,13 +193,12 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
 
             selectStarringUsersPS.setString( 1, projectId );
 
-            ResultSet resultSet = selectStarringUsersPS.executeQuery();
-            while (resultSet.next()) {
-                // actually we might want to add the time stamp
-                result.add( resultSet.getString( STARRED_PROJECT_FK_USERUUID_COLUM ) );
-
+            try (ResultSet resultSet = selectStarringUsersPS.executeQuery()) {
+                while (resultSet.next()) {
+                    // actually we might want to add the time stamp
+                    result.add( resultSet.getString( STARRED_PROJECT_FK_USERUUID_COLUM ) );
+                }
             }
-            resultSet.close();
             return result;
         }
         catch (Exception e) {
@@ -219,13 +220,11 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
 
             countStarringUsersPS.setString( 1, projectId );
 
-            ResultSet resultSet = countStarringUsersPS.executeQuery();
-
-            if (resultSet.next()) {
-                result = resultSet.getInt( STARRED_PROJECT_COUNT );
+            try (ResultSet resultSet = countStarringUsersPS.executeQuery()) {
+                if (resultSet.next()) {
+                    result = resultSet.getInt( STARRED_PROJECT_COUNT );
+                }
             }
-
-            resultSet.close();
         }
         catch (Exception e) {
             e.printStackTrace();

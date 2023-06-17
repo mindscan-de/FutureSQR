@@ -134,11 +134,11 @@ public class FSqrAlternateScmAliasesDatabaseTableImpl implements FSqrAlternateSc
 
             selectUuidPS.setString( 1, scmAlias );
 
-            ResultSet resultSet = selectUuidPS.executeQuery();
-            if (resultSet.next()) {
-                result = resultSet.getString( COLUMN_USER_UUID );
+            try (ResultSet resultSet = selectUuidPS.executeQuery()) {
+                if (resultSet.next()) {
+                    result = resultSet.getString( COLUMN_USER_UUID );
+                }
             }
-            resultSet.close();
             return result;
         }
         catch (Exception e) {
@@ -160,11 +160,11 @@ public class FSqrAlternateScmAliasesDatabaseTableImpl implements FSqrAlternateSc
 
             selectAllAliasesPS.setString( 1, userUuid );
 
-            ResultSet resultSet = selectAllAliasesPS.executeQuery();
-            while (resultSet.next()) {
-                result.add( resultSet.getString( COLUMN_USER_ALIASNAME ) );
+            try (ResultSet resultSet = selectAllAliasesPS.executeQuery()) {
+                while (resultSet.next()) {
+                    result.add( resultSet.getString( COLUMN_USER_ALIASNAME ) );
+                }
             }
-            resultSet.close();
         }
         catch (Exception e) {
             e.printStackTrace();

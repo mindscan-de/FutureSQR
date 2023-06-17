@@ -94,11 +94,11 @@ public class FSqrProjectAssignedCodeReviewsTableImpl implements FSqrProjectAssig
             selectPS.setString( 1, projectId );
             selectPS.setString( 2, revisionId );
 
-            ResultSet resultSet = selectPS.executeQuery();
-            if (resultSet.next()) {
-                result = resultSet.getString( COLUMNNAME_REVIEW_ID );
+            try (ResultSet resultSet = selectPS.executeQuery()) {
+                if (resultSet.next()) {
+                    result = resultSet.getString( COLUMNNAME_REVIEW_ID );
+                }
             }
-            resultSet.close();
 
         }
         catch (Exception e) {
