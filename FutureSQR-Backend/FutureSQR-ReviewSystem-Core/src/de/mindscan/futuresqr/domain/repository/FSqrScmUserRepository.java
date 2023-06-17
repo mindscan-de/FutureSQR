@@ -50,4 +50,8 @@ public interface FSqrScmUserRepository extends FSqrRepository, FSqrDatabaseBacke
 
     Collection<FSqrSystemUser> getAllUsers();
 
+    FSqrSystemUser banUser( String uuid );
+
+    FSqrSystemUser unbanUser( String uuid );
+
 }

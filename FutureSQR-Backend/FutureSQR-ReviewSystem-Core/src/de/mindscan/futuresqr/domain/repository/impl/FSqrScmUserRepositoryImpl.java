@@ -203,4 +203,38 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository {
         // maybe we want to sort these?
         return this.systemUserTable.selectAllUsers();
     }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public FSqrSystemUser banUser( String uuid ) {
+        FSqrSystemUser user = this.getUserByUUID( uuid );
+
+        if (user != null) {
+            user.setBanned( true );
+            // TODO:  write back the user entry to the database.
+            // this.systemUserTable.updateUser(user);
+            // this.systemUserCache.updateUser(user);
+        }
+
+        return user;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public FSqrSystemUser unbanUser( String uuid ) {
+        FSqrSystemUser user = this.getUserByUUID( uuid );
+
+        if (user != null) {
+            user.setBanned( false );
+            // TODO:  write back the user entry to the database.
+            // this.systemUserTable.updateUser(user);
+            // this.systemUserCache.updateUser(user);
+        }
+
+        return user;
+    }
 }
