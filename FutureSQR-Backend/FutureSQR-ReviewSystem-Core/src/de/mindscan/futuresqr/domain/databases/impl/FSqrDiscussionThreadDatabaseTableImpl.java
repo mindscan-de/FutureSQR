@@ -54,7 +54,7 @@ public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThre
                     "DROP TABLE IF EXISTS " + DISCUSSION_TABLENAME + ";";
 
     private static final String INSERT_DISCUSSION_THREAD = //
-                    "INSERT INTO " + DISCUSSION_TABLENAME + " (" + DISCUSSION_UUID_COLUMN + ", " + DISCUSSION_THREADDATA_COLUMN + ") VALUES (?1, ?2)";
+                    "INSERT INTO " + DISCUSSION_TABLENAME + " (" + DISCUSSION_UUID_COLUMN + ", " + DISCUSSION_THREADDATA_COLUMN + ") VALUES (?1, ?2); ";
 
     private static final String UPDATE_DISCUSSION_THREAD = //
                     "UPDATE " + DISCUSSION_TABLENAME + " SET " + DISCUSSION_THREADDATA_COLUMN + "=?2 WHERE " + DISCUSSION_UUID_COLUMN + "=?1;";
