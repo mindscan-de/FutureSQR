@@ -1,7 +1,8 @@
 <div class="card mt-2">
 	<div class="card-header">
 			<div class="float-right">
-				<a class="btn btn-sm btn-light border-secondary" title="Number of Stars">{{uiProjectInfo.projectStarCount}} Star(s)</a>
+				<!-- TODO: Maybe provide a link to a list of users who starred this project... -->
+				<a class="btn btn-sm btn-light border-secondary" title="Number of Stars">{{uiProjectInfo.projectStarCount}}</a>
 				<a class="btn btn-sm btn-light border-secondary" *ngIf="!isStarred" (click)="onStarMe(activeProjectId)" title="Star this project"><span class="text-white">&#9734;</span></a>
 				<a class="btn btn-sm btn-secondary border-secondary" *ngIf="isStarred" (click)="onUnstarMe(activeProjectId)" title="Unstar this project"><span class="text-warning">&#9733;</span></a>
 			</div>
