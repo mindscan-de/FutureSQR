@@ -33,7 +33,6 @@ export class AdminDataQueryBackendService {
 		
 		formdata.append('userUuid',userUuid);
 		
-		// make sure we automatically unsubscribe / otherwise memory leak
 		return this.httpClient.post<AdminBackendModelSimpleUserItem>( restURL, formdata).pipe( first() );
 	}
 
@@ -44,7 +43,6 @@ export class AdminDataQueryBackendService {
 		
 		formdata.append('userUuid',userUuid);
 		
-		// make sure we automatically unsubscribe / otherwise memory leak
 		return this.httpClient.post<AdminBackendModelSimpleUserItem>( restURL, formdata).pipe( first() );
 	}
 	
@@ -57,7 +55,6 @@ export class AdminDataQueryBackendService {
 		formdata.append('contactEmail', emailcontact);
 		formdata.append('password', password);
 		
-		// make sure we automatically unsubscribe
 		return this.httpClient.post<AdminBackendModelSimpleUserItem>( restURL, formdata).pipe(first());
 	}
 	
