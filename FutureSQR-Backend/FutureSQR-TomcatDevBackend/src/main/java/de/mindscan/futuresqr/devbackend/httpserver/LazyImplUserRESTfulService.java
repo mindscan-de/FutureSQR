@@ -55,7 +55,7 @@ import de.mindscan.futuresqr.domain.repository.FSqrScmUserRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrUserToProjectRepository;
 
 /**
- * TODO: refactor me to review system core.
+ * 
  */
 @javax.ws.rs.Path( "/user" )
 public class LazyImplUserRESTfulService {
@@ -257,8 +257,46 @@ public class LazyImplUserRESTfulService {
         return gson.toJson( collected );
     }
 
-    // TODO: /ban
-    // TODO: /unban
+    @javax.ws.rs.Path( "/ban" )
+    @POST
+    @Produces( MediaType.APPLICATION_JSON )
+    public String postBanUser( String requestBody ) {
+        MultiPartFormdataParameters parameters = MultiPartFormdataParser.createParser( requestBody ).parse();
+
+        String userUuid = parameters.getStringOrThrow( "userUuid" );
+
+        FSqrSystemUser bannedUser = this.userRepository.banUser( userUuid );
+
+        if (bannedUser != null) {
+            OutputAdminSimpleUserItem result = new OutputAdminSimpleUserItem( bannedUser );
+
+            Gson gson = new Gson();
+            return gson.toJson( result );
+        }
+
+        return "{}";
+    }
+
+    @javax.ws.rs.Path( "/unban" )
+    @POST
+    @Produces( MediaType.APPLICATION_JSON )
+    public String postUnbanUser( String requestBody ) {
+        MultiPartFormdataParameters parameters = MultiPartFormdataParser.createParser( requestBody ).parse();
+
+        String userUuid = parameters.getStringOrThrow( "userUuid" );
+
+        FSqrSystemUser unbannedUser = this.userRepository.unbanUser( userUuid );
+
+        if (unbannedUser != null) {
+            OutputAdminSimpleUserItem result = new OutputAdminSimpleUserItem( unbannedUser );
+
+            Gson gson = new Gson();
+            return gson.toJson( result );
+        }
+
+        return "{}";
+    }
+
     // TODO: /add
     // TODO NEXT: /userdictionary 
     //      need this for add participant dialog - part (find user)  
