@@ -25,6 +25,7 @@
  */
 package de.mindscan.futuresqr.domain.repository.impl;
 
+import java.util.Collection;
 import java.util.function.Function;
 
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
@@ -192,5 +193,14 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository {
     @Override
     public void reinitDatabaseTables() {
         this.userAliasesDatabaseTable.createTable();
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<FSqrSystemUser> getAllUsers() {
+        // maybe we want to sort these?
+        return this.systemUserTable.selectAllUsers();
     }
 }

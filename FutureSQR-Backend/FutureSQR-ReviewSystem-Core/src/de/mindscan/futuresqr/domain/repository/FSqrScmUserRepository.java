@@ -25,6 +25,8 @@
  */
 package de.mindscan.futuresqr.domain.repository;
 
+import java.util.Collection;
+
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 
 /**
@@ -45,5 +47,7 @@ public interface FSqrScmUserRepository extends FSqrRepository, FSqrDatabaseBacke
     FSqrSystemUser getUserByUUID( String uuid );
 
     FSqrSystemUser getUserByLogonName( String username );
+
+    Collection<FSqrSystemUser> getAllUsers();
 
 }
