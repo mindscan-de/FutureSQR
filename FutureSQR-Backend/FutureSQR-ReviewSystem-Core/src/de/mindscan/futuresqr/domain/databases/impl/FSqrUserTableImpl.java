@@ -25,6 +25,7 @@
  */
 package de.mindscan.futuresqr.domain.databases.impl;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,6 +79,9 @@ public class FSqrUserTableImpl implements FSqrUserTable {
         return tmpUserDatabaseTable.get( uuid );
     }
 
+    /** 
+     * {@inheritDoc}
+     */
     @Override
     public FSqrSystemUser selectUserByLoginName( String loginName ) {
         if (loginName == null) {
@@ -92,6 +96,14 @@ public class FSqrUserTableImpl implements FSqrUserTable {
         }
 
         return collected.get( 0 );
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<FSqrSystemUser> selectAllUsers() {
+        return tmpUserDatabaseTable.values().stream().collect( Collectors.toList() );
     }
 
     /** 

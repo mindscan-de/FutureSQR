@@ -25,6 +25,8 @@
  */
 package de.mindscan.futuresqr.domain.databases;
 
+import java.util.Collection;
+
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 
 /**
@@ -39,6 +41,8 @@ public interface FSqrUserTable /* extends FSqrDatabaseTable */ {
 
     // actually we want to retrieve a FSqrUser by Logon from the "database"
     FSqrSystemUser selectUserByLoginName( String loginName );
+
+    Collection<FSqrSystemUser> selectAllUsers();
 
     // actually we want to persist the current state of a user
 
