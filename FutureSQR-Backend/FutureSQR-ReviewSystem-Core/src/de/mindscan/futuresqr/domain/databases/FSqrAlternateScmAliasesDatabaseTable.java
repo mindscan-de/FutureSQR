@@ -34,6 +34,8 @@ public interface FSqrAlternateScmAliasesDatabaseTable extends FSqrDatabaseTable 
 
     void insertUserAlias( String aliasName, String userUuid );
 
+    void removeUserAlias( String aliasName, String userUuid );
+
     String getUuidForScmAlias( String scmAlias );
 
     Collection<String> getAllScmAliasesForUserUuid( String userUuid );

@@ -67,10 +67,13 @@ public class FSqrAlternateScmAliasesDatabaseTableImpl implements FSqrAlternateSc
                                     " WHERE ( " + COLUMN_USER_UUID + "=?1 AND " + COLUMN_USER_ALIASNAME + "=?2);";
 
     private static final String SELECT_UUID_FOR_SCMALIAS = //
-                    "SELECT " + COLUMN_USER_UUID + " FROM " + SCM_ALIASES_TABLENAME + " WHERE " + COLUMN_USER_ALIASNAME + "=?1;";
+                    "SELECT " + COLUMN_USER_UUID + " FROM " + SCM_ALIASES_TABLENAME + //
+                                    " WHERE " + COLUMN_USER_ALIASNAME + "=?1;";
 
     private static final String SELECT_ALIASES_FOR_USER = //
-                    "SELECT " + COLUMN_USER_ALIASNAME + " FROM " + SCM_ALIASES_TABLENAME + " WHERE " + COLUMN_USER_UUID + "=?1;";
+                    "SELECT " + COLUMN_USER_ALIASNAME + " FROM " + SCM_ALIASES_TABLENAME + //
+                                    " WHERE " + COLUMN_USER_UUID + "=?1 " + //
+                                    " ORDER BY " + COLUMN_USER_ALIASNAME + ";";
 
     private FSqrDatabaseConnection connection;
 
@@ -98,6 +101,24 @@ public class FSqrAlternateScmAliasesDatabaseTableImpl implements FSqrAlternateSc
 
             insertAliasPS.addBatch();
             insertAliasPS.executeBatch();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void removeUserAlias( String aliasName, String userUuid ) {
+        try {
+            PreparedStatement removeAliasPS = this.connection.createPreparedStatement( REMOVE_SCM_ALIASNAME_PS );
+            removeAliasPS.setString( 1, userUuid );
+            removeAliasPS.setString( 2, aliasName );
+
+            removeAliasPS.addBatch();
+            removeAliasPS.executeBatch();
         }
         catch (Exception e) {
             e.printStackTrace();
