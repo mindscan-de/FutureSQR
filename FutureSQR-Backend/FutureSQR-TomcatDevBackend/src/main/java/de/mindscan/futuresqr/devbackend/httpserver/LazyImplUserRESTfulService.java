@@ -40,6 +40,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
 
+import de.mindscan.futuresqr.devbackend.httpresponse.OutputAdminSimpleUserItem;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputCsrfTokenModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputLoginDataModel;
 import de.mindscan.futuresqr.devbackend.httpresponse.OutputStatusOkayModel;
@@ -246,10 +247,19 @@ public class LazyImplUserRESTfulService {
         return transformed;
     }
 
+    @javax.ws.rs.Path( "/adminuserlist" )
+    @GET
+    @Produces( MediaType.APPLICATION_JSON )
+    public String getAdminUserList() {
+        Collection<FSqrSystemUser> allUsers = this.userRepository.getAllUsers();
+        List<OutputAdminSimpleUserItem> collected = allUsers.stream().map( user -> new OutputAdminSimpleUserItem( user ) ).collect( Collectors.toList() );
+        Gson gson = new Gson();
+        return gson.toJson( collected );
+    }
+
     // TODO: /ban
     // TODO: /unban
     // TODO: /add
-    // TODO: /adminuserlist
     // TODO NEXT: /userdictionary 
     //      need this for add participant dialog - part (find user)  
 }
