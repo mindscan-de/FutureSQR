@@ -28,7 +28,7 @@ package de.mindscan.futuresqr.domain.databases;
 /**
  * 
  */
-public interface FSqrAlternateScmAliasesDatabaseTable /* extends FSqrDatabaseTable */ {
+public interface FSqrAlternateScmAliasesDatabaseTable extends FSqrDatabaseTable {
 
     void insertUserAlias( String aliasName, String userUuid );
 

@@ -25,29 +25,100 @@
  */
 package de.mindscan.futuresqr.domain.databases.impl;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
+import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrAlternateScmAliasesDatabaseTable;
 
 /**
- * This is currently a fake implementation of the SCM Aliases Database table, where each user can have different
+ * Implementation of the SCM aliases table. each user can have different
  * SCM Aliases basically in case of different accounts on different SCM Repositories.
- * 
- *  This is half way through to implement an access for a real database table.
  */
 public class FSqrAlternateScmAliasesDatabaseTableImpl implements FSqrAlternateScmAliasesDatabaseTable {
 
-    private Map<String, String> tmpScmToUUIDMap;
+    // TableName
+    private static final String SCM_ALIASES_TABLENAME = "ScmUserAliases";
+
+    // Column Names
+    private static final String COLUMN_USER_UUID = "userUuid";
+    private static final String COLUMN_USER_ALIASNAME = "aliasName";
+
+    // SQL-Statements
+    private static final String DROP_TABLE_IF_EXISTS = //
+                    "DROP TABLE IF EXISTS " + SCM_ALIASES_TABLENAME + ";";
+
+    private static final String CREATE_TABLE_SCM_ALIASES = //
+                    "CREATE TABLE " + SCM_ALIASES_TABLENAME + //
+                                    " (" + COLUMN_USER_UUID + //
+                                    ", " + COLUMN_USER_ALIASNAME + "); ";
+
+    private static final String INSERT_SCM_ALIASNAME_PS = //
+                    "INSERT INTO " + SCM_ALIASES_TABLENAME + //
+                                    " (" + COLUMN_USER_UUID + //
+                                    ", " + COLUMN_USER_ALIASNAME + " ) VALUES (?1, ?2);";
+
+    private static final String REMOVE_SCM_ALIASNAME_PS = //
+                    "DELETE FROM " + SCM_ALIASES_TABLENAME + //
+                                    " WHERE ( " + COLUMN_USER_UUID + "=?1 AND " + COLUMN_USER_ALIASNAME + "=?2);";
+
+    private static final String SELECT_UUID_FOR_SCMALIAS = //
+                    "SELECT " + COLUMN_USER_UUID + " FROM " + SCM_ALIASES_TABLENAME + " WHERE " + COLUMN_USER_ALIASNAME + "=?1;";
+
+    private FSqrDatabaseConnection connection;
 
     /**
      * 
      */
     public FSqrAlternateScmAliasesDatabaseTableImpl() {
-        this.tmpScmToUUIDMap = new HashMap<>();
+        // intentionally left blank
+    }
 
-        // TODO: remove me, when we have a database and a database session object.
-        initHardcodedData();
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void setDatbaseConnection( FSqrDatabaseConnection connection ) {
+        this.connection = connection;
+    }
+
+    @Override
+    public void insertUserAlias( String aliasName, String userUuid ) {
+        try {
+            PreparedStatement insertAliasPS = this.connection.createPreparedStatement( INSERT_SCM_ALIASNAME_PS );
+            insertAliasPS.setString( 1, userUuid );
+            insertAliasPS.setString( 2, aliasName );
+
+            insertAliasPS.addBatch();
+            insertAliasPS.executeBatch();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String getUuidForScmAlias( String scmAlias ) {
+        String result = scmAlias;
+
+        try {
+            PreparedStatement selectUuidPS = this.connection.createPreparedStatement( SELECT_UUID_FOR_SCMALIAS );
+
+            selectUuidPS.setString( 1, scmAlias );
+
+            ResultSet resultSet = selectUuidPS.executeQuery();
+            if (resultSet.next()) {
+                result = resultSet.getString( COLUMN_USER_UUID );
+            }
+            resultSet.close();
+            return result;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
     /**
@@ -62,14 +133,29 @@ public class FSqrAlternateScmAliasesDatabaseTableImpl implements FSqrAlternateSc
         insertUserAlias( "Robert Breunung", "35c94b55-559f-30e4-a2f4-ee16d31fc276" );
     }
 
+    /** 
+     * {@inheritDoc}
+     */
     @Override
-    public void insertUserAlias( String aliasName, String userUuid ) {
-        this.tmpScmToUUIDMap.put( aliasName, userUuid );
+    public void createTable() {
+        try {
+            Statement statement = this.connection.createStatement();
+            statement.executeUpdate( DROP_TABLE_IF_EXISTS );
+            statement.executeUpdate( CREATE_TABLE_SCM_ALIASES );
+            initHardcodedData();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
+    /** 
+     * {@inheritDoc}
+     */
     @Override
-    public String getUuidForScmAlias( String scmAlias ) {
-        return tmpScmToUUIDMap.getOrDefault( scmAlias, scmAlias );
+    public void flush() {
+        // intentionally left blank
     }
 
 }
