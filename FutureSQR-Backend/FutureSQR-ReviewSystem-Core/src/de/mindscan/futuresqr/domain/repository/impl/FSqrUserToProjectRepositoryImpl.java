@@ -38,9 +38,10 @@ import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheStringToAtomic
 import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheUserStarredProjectTableImpl;
 
 /**
- * Idea here is to collect methods and data and such related to user to project relations. 
- * This may be refactored any time.
- * 
+ * Idea here is to provide methods and data and such related to user to project relations.
+ * This can be the starred projects by user or starring users by projects.
+ *  
+ * MAYBE Later, or MAYBE somewhere else:
  * Also we might also provide methods, to calculate which project a user has access to,
  * because this is related to the user to project relationship as well but a different
  * attribute.
@@ -72,27 +73,26 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
         this.userToProjectDatabaseTable.setDatbaseConnection( this.applicationServices.getDatabaseConnection() );
     }
 
-    // public interface should not be able to modify internal HashSet.
     @Override
     public Collection<String> getAllStarredProjectsForUser( String userId ) {
-        // MUST check if userId exists, otherwise a denial of service is possible
         if (!isValidUser( userId )) {
             return new HashSet<>();
         }
 
+        // public interface should not be able to modify internal HashSet, therefore the copy
         return new LinkedHashSet<>( this.starredProjectsCache.getStarredProjects( userId, this.userToProjectDatabaseTable::selectAllStarredProjectsByUserId ) );
     }
-
-    // TODO: maybe we also want the reverse table, where we look at the project, and want to know who gave a star to this project
 
     /** 
      * {@inheritDoc}
      */
     @Override
     public Collection<String> getAllStarringUsersForProject( String projectId ) {
-        // MUST check if projectId is known. 
+        if (!isValidProject( projectId )) {
+            return new HashSet<>();
+        }
 
-        // TODO cache for a short time?
+        // TODO cache for a short time, but it depends on the usage of this feature.
 
         return this.userToProjectDatabaseTable.selectAllStarringUsersForProject( projectId );
     }
@@ -104,7 +104,6 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
 
     @Override
     public void starProject( String userId, String projectId ) {
-        // MUST check if userId exists, otherwise a denial of service is possible
         if (!isValidUser( userId )) {
             return;
         }
@@ -116,7 +115,6 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
 
     @Override
     public void unstarProject( String userId, String projectId ) {
-        // MUST check if userId exists, otherwise a denial of service is possible
         if (!isValidUser( userId )) {
             return;
         }
@@ -128,7 +126,6 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
 
     @Override
     public boolean isStarred( String userId, String projectId ) {
-        // MUST check if userId exists, otherwise a denial of service is possible
         if (!isValidUser( userId )) {
             return false;
         }
@@ -138,6 +135,11 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
         }
 
         return getAllStarredProjectsForUser( userId ).contains( projectId );
+    }
+
+    private boolean isValidProject( String projectId ) {
+        // TODO: implement the test... and use the project repository.
+        return true;
     }
 
     private boolean isValidUser( String userUUID ) {
