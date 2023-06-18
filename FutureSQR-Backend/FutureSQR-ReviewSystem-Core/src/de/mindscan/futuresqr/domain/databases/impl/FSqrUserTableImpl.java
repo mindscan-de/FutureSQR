@@ -25,6 +25,7 @@
  */
 package de.mindscan.futuresqr.domain.databases.impl;
 
+import java.sql.Statement;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -79,6 +80,10 @@ public class FSqrUserTableImpl implements FSqrUserTable {
                         "/FutureSQR/assets/avatars/f5fc8449-3049-3498-9f6b-ce828515bba2.256px.jpg" ) );
     }
 
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
     public void insertUser( FSqrSystemUser user ) {
         tmpUserDatabaseTable.put( user.getUserUUID(), user );
     }
@@ -132,6 +137,18 @@ public class FSqrUserTableImpl implements FSqrUserTable {
      */
     @Override
     public void createTable() {
+        try (Statement statement = this.connection.createStatement()) {
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void flush() {
         // TODO Auto-generated method stub
 
     }
@@ -140,7 +157,7 @@ public class FSqrUserTableImpl implements FSqrUserTable {
      * {@inheritDoc}
      */
     @Override
-    public void flush() {
+    public void updateUser( FSqrSystemUser user ) {
         // TODO Auto-generated method stub
 
     }

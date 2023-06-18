@@ -178,7 +178,7 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository {
         if (user != null) {
             user.setBanned( true );
             // TODO:  write back the user entry to the database.
-            // this.systemUserTable.updateUser(user);
+            this.systemUserTable.updateUser( user );
             // this.systemUserCache.updateUser(user);
         }
 
@@ -195,7 +195,7 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository {
         if (user != null) {
             user.setBanned( false );
             // TODO:  write back the user entry to the database.
-            // this.systemUserTable.updateUser(user);
+            this.systemUserTable.updateUser( user );
             // this.systemUserCache.updateUser(user);
         }
 

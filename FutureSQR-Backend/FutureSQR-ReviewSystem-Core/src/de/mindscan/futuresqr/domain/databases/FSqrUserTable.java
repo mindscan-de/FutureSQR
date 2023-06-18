@@ -44,6 +44,8 @@ public interface FSqrUserTable extends FSqrDatabaseTable {
 
     Collection<FSqrSystemUser> selectAllUsers();
 
-    // actually we want to persist the current state of a user
+    void updateUser( FSqrSystemUser user );
+
+    void insertUser( FSqrSystemUser user );
 
 }
