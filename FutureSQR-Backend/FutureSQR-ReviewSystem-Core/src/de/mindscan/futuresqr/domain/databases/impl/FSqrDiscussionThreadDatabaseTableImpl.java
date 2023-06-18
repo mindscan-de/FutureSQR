@@ -160,8 +160,7 @@ public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThre
      */
     @Override
     public void createTable() {
-        try {
-            Statement statement = this.connection.createStatement();
+        try (Statement statement = this.connection.createStatement()) {
             statement.executeUpdate( DROP_TABLE_IF_EXISTS );
             statement.executeUpdate( CREATE_TABLE_DISCUSSION_THREAD );
         }
