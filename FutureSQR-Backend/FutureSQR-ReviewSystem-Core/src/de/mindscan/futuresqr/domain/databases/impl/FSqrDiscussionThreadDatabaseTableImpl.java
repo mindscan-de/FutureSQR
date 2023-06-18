@@ -86,10 +86,8 @@ public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThre
      */
     @Override
     public void insertDiscussionThread( FSqrDiscussionThread newThread ) {
-        try {
+        try (PreparedStatement insertPS = this.connection.createPreparedStatement( INSERT_DISCUSSION_THREAD )) {
             String serializedThread = gson.toJson( newThread );
-
-            PreparedStatement insertPS = this.connection.createPreparedStatement( INSERT_DISCUSSION_THREAD );
 
             insertPS.setString( 1, newThread.getDiscussionThreadUUID() );
             insertPS.setString( 2, serializedThread );
@@ -107,10 +105,8 @@ public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThre
      */
     @Override
     public void updateThread( FSqrDiscussionThread thread ) {
-        try {
+        try (PreparedStatement updatePS = this.connection.createPreparedStatement( UPDATE_DISCUSSION_THREAD )) {
             String serializedThread = gson.toJson( thread );
-
-            PreparedStatement updatePS = this.connection.createPreparedStatement( UPDATE_DISCUSSION_THREAD );
 
             updatePS.setString( 1, thread.getDiscussionThreadUUID() );
             updatePS.setString( 2, serializedThread );
@@ -130,9 +126,7 @@ public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThre
     @Override
     public FSqrDiscussionThread selectDiscussionThread( String discussionThreadUUID ) {
         FSqrDiscussionThread result = null;
-        try {
-            PreparedStatement selectPS = this.connection.createPreparedStatement( SELECT_DISCUSSION_THREAD );
-
+        try (PreparedStatement selectPS = this.connection.createPreparedStatement( SELECT_DISCUSSION_THREAD )) {
             selectPS.setString( 1, discussionThreadUUID );
 
             try (ResultSet resultSet = selectPS.executeQuery()) {
@@ -140,7 +134,6 @@ public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThre
                     result = createDicsussionThread( resultSet );
                 }
             }
-
         }
         catch (Exception e) {
             e.printStackTrace();

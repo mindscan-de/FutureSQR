@@ -242,10 +242,8 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
 
     @Override
     public void insertProjectScmConfiguration( FSqrScmProjectConfiguration scmConfig ) {
-        try {
+        try (PreparedStatement insert = this.connection.createPreparedStatement( INSERT_SCM_CONFIGURATION_PS )) {
             String serializedScmConfiguration = gson.toJson( scmConfig );
-
-            PreparedStatement insert = this.connection.createPreparedStatement( INSERT_SCM_CONFIGURATION_PS );
 
             insert.setString( 1, scmConfig.getProjectId() );
             insert.setString( 2, serializedScmConfiguration );
@@ -267,10 +265,8 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
             return;
         }
 
-        try {
+        try (PreparedStatement update = this.connection.createPreparedStatement( UPDATE_SCM_CONFIGURATION_PS )) {
             String serializedScmConfiguration = gson.toJson( scmConfig );
-
-            PreparedStatement update = this.connection.createPreparedStatement( UPDATE_SCM_CONFIGURATION_PS );
 
             // WHERE
             update.setString( 1, scmConfig.getProjectId() );
@@ -294,9 +290,7 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
     public FSqrScmProjectConfiguration selectScmConfigurationByProjectId( String projectId ) {
         FSqrScmProjectConfiguration result = null;
 
-        try {
-            PreparedStatement selectPS = this.connection.createPreparedStatement( SELECT_SCM_CONFIGURATION_PS );
-
+        try (PreparedStatement selectPS = this.connection.createPreparedStatement( SELECT_SCM_CONFIGURATION_PS )) {
             selectPS.setString( 1, projectId );
 
             try (ResultSet resultSet = selectPS.executeQuery()) {
@@ -326,9 +320,7 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
     public Collection<FSqrScmProjectConfiguration> selectAllScmConfigurations() {
         ArrayList<FSqrScmProjectConfiguration> resultList = new ArrayList<>();
 
-        try {
-            PreparedStatement selectPS = this.connection.createPreparedStatement( SELECT_ALL_SCM_CONFIGURATIONS_PS );
-
+        try (PreparedStatement selectPS = this.connection.createPreparedStatement( SELECT_ALL_SCM_CONFIGURATIONS_PS )) {
             try (ResultSet resultSet = selectPS.executeQuery()) {
                 while (resultSet.next()) {
                     resultList.add( createScmConfiguration( resultSet ) );

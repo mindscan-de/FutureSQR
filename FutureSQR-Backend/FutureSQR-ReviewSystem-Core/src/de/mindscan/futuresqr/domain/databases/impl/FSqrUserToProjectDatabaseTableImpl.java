@@ -123,8 +123,7 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
      */
     @Override
     public void insertStar( String userId, String projectId ) {
-        try {
-            PreparedStatement starPS = this.connection.createPreparedStatement( INSERT_STAR_PS );
+        try (PreparedStatement starPS = this.connection.createPreparedStatement( INSERT_STAR_PS )) {
             starPS.setString( 1, userId );
             starPS.setString( 2, projectId );
 
@@ -141,8 +140,7 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
      */
     @Override
     public void deleteStar( String userId, String projectId ) {
-        try {
-            PreparedStatement unstarPS = this.connection.createPreparedStatement( DELETE_STAR_PS );
+        try (PreparedStatement unstarPS = this.connection.createPreparedStatement( DELETE_STAR_PS )) {
             unstarPS.setString( 1, userId );
             unstarPS.setString( 2, projectId );
 
@@ -159,13 +157,10 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
      */
     @Override
     public Set<String> selectAllStarredProjectsByUserId( String userId ) {
-        try {
-            Set<String> result = new LinkedHashSet<>();
-
-            PreparedStatement selectProjectsForUserPS = this.connection.createPreparedStatement( SELECT_STARRED_PROJECTS_BY_USER_PS );
-
+        try (PreparedStatement selectProjectsForUserPS = this.connection.createPreparedStatement( SELECT_STARRED_PROJECTS_BY_USER_PS )) {
             selectProjectsForUserPS.setString( 1, userId );
 
+            Set<String> result = new LinkedHashSet<>();
             try (ResultSet resultSet = selectProjectsForUserPS.executeQuery()) {
                 while (resultSet.next()) {
                     // actually we might want to add the time stamp
@@ -186,13 +181,10 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
      */
     @Override
     public Set<String> selectAllStarringUsersForProject( String projectId ) {
-        try {
-            Set<String> result = new LinkedHashSet<>();
-
-            PreparedStatement selectStarringUsersPS = this.connection.createPreparedStatement( SELECT_STARRING_USERS_BY_PROJECT_PS );
-
+        try (PreparedStatement selectStarringUsersPS = this.connection.createPreparedStatement( SELECT_STARRING_USERS_BY_PROJECT_PS );) {
             selectStarringUsersPS.setString( 1, projectId );
 
+            Set<String> result = new LinkedHashSet<>();
             try (ResultSet resultSet = selectStarringUsersPS.executeQuery()) {
                 while (resultSet.next()) {
                     // actually we might want to add the time stamp
@@ -215,9 +207,7 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
     public int getNumberOfStarsForProject( String projectId ) {
         int result = 0;
 
-        try {
-            PreparedStatement countStarringUsersPS = this.connection.createPreparedStatement( SELECT_STARRING_USERCOUNT_BY_PROJECT_PS );
-
+        try (PreparedStatement countStarringUsersPS = this.connection.createPreparedStatement( SELECT_STARRING_USERCOUNT_BY_PROJECT_PS )) {
             countStarringUsersPS.setString( 1, projectId );
 
             try (ResultSet resultSet = countStarringUsersPS.executeQuery()) {

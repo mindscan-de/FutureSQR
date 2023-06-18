@@ -114,10 +114,7 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
     public FSqrCodeReview selectCodeReview( String projectId, String reviewId ) {
         FSqrCodeReview result = null;
 
-        try {
-
-            PreparedStatement selectPS = this.connection.createPreparedStatement( SELECT_FROM_CODE_REVIEWS_PS );
-
+        try (PreparedStatement selectPS = this.connection.createPreparedStatement( SELECT_FROM_CODE_REVIEWS_PS )) {
             selectPS.setString( 1, projectId );
             selectPS.setString( 2, reviewId );
 
@@ -148,9 +145,7 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
     public List<FSqrCodeReview> selectOpenCodeReviews( String projectId ) {
         ArrayList<FSqrCodeReview> resultList = new ArrayList<>();
 
-        try {
-            PreparedStatement openReviews = this.connection.createPreparedStatement( SELECT_FROM_CODE_REVIEWS_WHERE_STATE_PS );
-
+        try (PreparedStatement openReviews = this.connection.createPreparedStatement( SELECT_FROM_CODE_REVIEWS_WHERE_STATE_PS )) {
             openReviews.setString( 1, projectId );
             openReviews.setInt( 2, FSqrCodeReviewLifecycleState.toStateIndex( FSqrCodeReviewLifecycleState.Open ) );
 
@@ -179,9 +174,7 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
 
         // TODO: *Recently* closed - requires close date....
 
-        try {
-            PreparedStatement openReviews = this.connection.createPreparedStatement( SELECT_FROM_CODE_REVIEWS_WHERE_STATE_PS );
-
+        try (PreparedStatement openReviews = this.connection.createPreparedStatement( SELECT_FROM_CODE_REVIEWS_WHERE_STATE_PS )) {
             openReviews.setString( 1, projectId );
             openReviews.setInt( 2, FSqrCodeReviewLifecycleState.toStateIndex( FSqrCodeReviewLifecycleState.Closed ) );
 
@@ -206,10 +199,8 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
      */
     @Override
     public void insertNewCodeReview( FSqrCodeReview codeReview ) {
-        try {
+        try (PreparedStatement insert = this.connection.createPreparedStatement( INSERT_CODE_REVIEW_PS )) {
             String serializedCodeReview = gson.toJson( codeReview );
-
-            PreparedStatement insert = this.connection.createPreparedStatement( INSERT_CODE_REVIEW_PS );
 
             insert.setString( 1, codeReview.getProjectId() );
             insert.setString( 2, codeReview.getReviewId() );
@@ -232,10 +223,8 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
     @Override
     public void updateCodeReview( FSqrCodeReview codeReview ) {
 
-        try {
+        try (PreparedStatement update = this.connection.createPreparedStatement( UPDATE_CODE_REVIEW_PS )) {
             String serializedCodeReview = gson.toJson( codeReview );
-
-            PreparedStatement update = this.connection.createPreparedStatement( UPDATE_CODE_REVIEW_PS );
 
             // WHERE
             update.setString( 1, codeReview.getProjectId() );

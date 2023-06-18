@@ -88,9 +88,7 @@ public class FSqrProjectAssignedCodeReviewsTableImpl implements FSqrProjectAssig
     public String selectCodeReviewId( String projectId, String revisionId ) {
         String result = "";
 
-        try {
-            PreparedStatement selectPS = this.connection.createPreparedStatement( SELECT_CODEREVIEW_FOR_PROJECT_REVISION );
-
+        try (PreparedStatement selectPS = this.connection.createPreparedStatement( SELECT_CODEREVIEW_FOR_PROJECT_REVISION )) {
             selectPS.setString( 1, projectId );
             selectPS.setString( 2, revisionId );
 
@@ -113,9 +111,7 @@ public class FSqrProjectAssignedCodeReviewsTableImpl implements FSqrProjectAssig
      */
     @Override
     public void insertCodeReviewId( String projectId, String revisionId, String reviewId ) {
-        try {
-            PreparedStatement insertPS = this.connection.createPreparedStatement( INSERT_CODEREVIEW_FOR_PROJECT_REVISION );
-
+        try (PreparedStatement insertPS = this.connection.createPreparedStatement( INSERT_CODEREVIEW_FOR_PROJECT_REVISION )) {
             insertPS.setString( 1, projectId );
             insertPS.setString( 2, revisionId );
             insertPS.setString( 3, reviewId );
@@ -133,9 +129,7 @@ public class FSqrProjectAssignedCodeReviewsTableImpl implements FSqrProjectAssig
      */
     @Override
     public void removeCodeReviewId( String projectId, String revisionId ) {
-        try {
-            PreparedStatement removePS = this.connection.createPreparedStatement( REMOVE_CODEREVIEW_FOR_PROJECT_REVISION );
-
+        try (PreparedStatement removePS = this.connection.createPreparedStatement( REMOVE_CODEREVIEW_FOR_PROJECT_REVISION )) {
             removePS.setString( 1, projectId );
             removePS.setString( 2, revisionId );
 
@@ -152,9 +146,7 @@ public class FSqrProjectAssignedCodeReviewsTableImpl implements FSqrProjectAssig
      */
     @Override
     public void removeAllCodeRevisionsForReview( String projectId, String reviewId ) {
-        try {
-            PreparedStatement removePS = this.connection.createPreparedStatement( REMOVE_CODEREVIEW_FOR_PROJECT );
-
+        try (PreparedStatement removePS = this.connection.createPreparedStatement( REMOVE_CODEREVIEW_FOR_PROJECT )) {
             removePS.setString( 1, projectId );
             removePS.setString( 2, reviewId );
 

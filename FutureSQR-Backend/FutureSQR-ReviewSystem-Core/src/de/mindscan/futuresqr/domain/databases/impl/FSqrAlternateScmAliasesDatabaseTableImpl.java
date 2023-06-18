@@ -94,8 +94,7 @@ public class FSqrAlternateScmAliasesDatabaseTableImpl implements FSqrAlternateSc
 
     @Override
     public void insertUserAlias( String aliasName, String userUuid ) {
-        try {
-            PreparedStatement insertAliasPS = this.connection.createPreparedStatement( INSERT_SCM_ALIASNAME_PS );
+        try (PreparedStatement insertAliasPS = this.connection.createPreparedStatement( INSERT_SCM_ALIASNAME_PS )) {
             insertAliasPS.setString( 1, userUuid );
             insertAliasPS.setString( 2, aliasName );
 
@@ -112,8 +111,7 @@ public class FSqrAlternateScmAliasesDatabaseTableImpl implements FSqrAlternateSc
      */
     @Override
     public void removeUserAlias( String aliasName, String userUuid ) {
-        try {
-            PreparedStatement removeAliasPS = this.connection.createPreparedStatement( REMOVE_SCM_ALIASNAME_PS );
+        try (PreparedStatement removeAliasPS = this.connection.createPreparedStatement( REMOVE_SCM_ALIASNAME_PS )) {
             removeAliasPS.setString( 1, userUuid );
             removeAliasPS.setString( 2, aliasName );
 
@@ -129,9 +127,7 @@ public class FSqrAlternateScmAliasesDatabaseTableImpl implements FSqrAlternateSc
     public String getUuidForScmAlias( String scmAlias ) {
         String result = scmAlias;
 
-        try {
-            PreparedStatement selectUuidPS = this.connection.createPreparedStatement( SELECT_UUID_FOR_SCMALIAS );
-
+        try (PreparedStatement selectUuidPS = this.connection.createPreparedStatement( SELECT_UUID_FOR_SCMALIAS )) {
             selectUuidPS.setString( 1, scmAlias );
 
             try (ResultSet resultSet = selectUuidPS.executeQuery()) {
@@ -155,9 +151,7 @@ public class FSqrAlternateScmAliasesDatabaseTableImpl implements FSqrAlternateSc
     public Collection<String> getAllScmAliasesForUserUuid( String userUuid ) {
         List<String> result = new ArrayList<>();
 
-        try {
-            PreparedStatement selectAllAliasesPS = this.connection.createPreparedStatement( SELECT_ALIASES_FOR_USER );
-
+        try (PreparedStatement selectAllAliasesPS = this.connection.createPreparedStatement( SELECT_ALIASES_FOR_USER )) {
             selectAllAliasesPS.setString( 1, userUuid );
 
             try (ResultSet resultSet = selectAllAliasesPS.executeQuery()) {
