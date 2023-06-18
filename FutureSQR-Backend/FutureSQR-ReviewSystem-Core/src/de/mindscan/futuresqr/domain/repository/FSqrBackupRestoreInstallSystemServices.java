@@ -30,9 +30,12 @@ package de.mindscan.futuresqr.domain.repository;
  */
 public interface FSqrBackupRestoreInstallSystemServices extends FSqrRepository {
 
-    // TODO: reinit database
+    /**
+     * This will reinitialize all tables and will add some default values to this table.
+     */
+    void reinitDatabase();
 
-    // TODO: backup database / backup system instance
+    // TODO: backup database / backup system instance / creating some backup key.
 
-    // TODO: restore database / restore system instance 
+    // TODO: restore database / restore system instance / using some backup key.
 }

@@ -25,8 +25,11 @@
  */
 package de.mindscan.futuresqr.domain.repository.impl;
 
+import java.util.Collection;
+
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.repository.FSqrBackupRestoreInstallSystemServices;
+import de.mindscan.futuresqr.domain.repository.FSqrDatabaseBackedRepository;
 
 /**
  * 
@@ -53,13 +56,25 @@ import de.mindscan.futuresqr.domain.repository.FSqrBackupRestoreInstallSystemSer
  */
 public class FSqrBackupRestoreInstallSystemServicesImpl implements FSqrBackupRestoreInstallSystemServices {
 
+    private FSqrApplicationServices services;
+
     /** 
      * {@inheritDoc}
      */
     @Override
     public void setApplicationServices( FSqrApplicationServices services ) {
-        // TODO Auto-generated method stub
+        this.services = services;
+    }
 
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void reinitDatabase() {
+        Collection<FSqrDatabaseBackedRepository> allDbBackedRepos = services.getDatabaseBackedRepositories();
+        for (FSqrDatabaseBackedRepository dbBackedRepo : allDbBackedRepos) {
+            dbBackedRepo.reinitDatabaseTables();
+        }
     }
 
 }

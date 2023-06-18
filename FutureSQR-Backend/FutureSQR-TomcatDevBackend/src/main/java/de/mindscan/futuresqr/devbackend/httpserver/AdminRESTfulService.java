@@ -109,10 +109,7 @@ public class AdminRESTfulService {
     public String postReinitDatabase( String requestBody ) {
         FSqrApplicationServices services = FSqrApplication.getInstance().getServices();
 
-        Collection<FSqrDatabaseBackedRepository> allDbBackedRepos = services.getDatabaseBackedRepositories();
-        for (FSqrDatabaseBackedRepository dbBackedRepo : allDbBackedRepos) {
-            dbBackedRepo.reinitDatabaseTables();
-        }
+        services.getBackupRestoreInstallServices().reinitDatabase();
 
         return "{}";
     }
