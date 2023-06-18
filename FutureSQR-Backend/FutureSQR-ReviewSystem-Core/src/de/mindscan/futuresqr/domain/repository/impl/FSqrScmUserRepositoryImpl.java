@@ -75,6 +75,7 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository {
     public void setApplicationServices( FSqrApplicationServices services ) {
         this.applicationServices = services;
 
+        this.systemUserTable.setDatbaseConnection( this.applicationServices.getDatabaseConnection() );
         this.userAliasesDatabaseTable.setDatbaseConnection( this.applicationServices.getDatabaseConnection() );
     }
 
@@ -156,6 +157,7 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository {
     @Override
     public void reinitDatabaseTables() {
         this.userAliasesDatabaseTable.createTable();
+        this.systemUserTable.createTable();
     }
 
     /** 
