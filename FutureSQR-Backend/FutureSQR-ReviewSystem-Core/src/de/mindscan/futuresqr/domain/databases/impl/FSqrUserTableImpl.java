@@ -43,9 +43,33 @@ import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
  */
 public class FSqrUserTableImpl implements FSqrUserTable {
 
+    // table name
+    private static final String SYSTEM_USERS_TABLENAME = "SystemUsers";
+
+    // columns
+    private static final String UUID_PK_COLUMN = "uuid";
+    private static final String LOGINNAME_COLUMN = "userLoginName";
+    private static final String DISPLAYNAME_COLUMN = "userDisplayName";
+    private static final String EMAIL_COLUMN = "userEmail";
+    private static final String AVATAR_LOCATION_COLUMN = "avatarLocation";
+    private static final String ISBANNED_COLUMN = "isBanned";
+
+    // sql-statements
+    private static final String CREATE_TABLE_SYSTEM_USERS = //
+                    "CREATE TABLE " + SYSTEM_USERS_TABLENAME + // 
+                                    " ( " + UUID_PK_COLUMN + //
+                                    ", " + LOGINNAME_COLUMN + //
+                                    ", " + DISPLAYNAME_COLUMN + //
+                                    ", " + EMAIL_COLUMN + //
+                                    ", " + AVATAR_LOCATION_COLUMN + //
+                                    ", " + ISBANNED_COLUMN + ");";
+
+    private static final String DROP_TABLE_IF_EXISTS = // 
+                    "DROP TABLE IF EXISTS " + SYSTEM_USERS_TABLENAME + ";";
+
     private FSqrDatabaseConnection connection;
 
-    // 
+    // TODO: remove me, when
     private Map<String, FSqrSystemUser> tmpUserDatabaseTable;
 
     /**
@@ -138,6 +162,8 @@ public class FSqrUserTableImpl implements FSqrUserTable {
     @Override
     public void createTable() {
         try (Statement statement = this.connection.createStatement()) {
+            statement.executeUpdate( DROP_TABLE_IF_EXISTS );
+            statement.executeUpdate( CREATE_TABLE_SYSTEM_USERS );
         }
         catch (Exception e) {
             e.printStackTrace();
