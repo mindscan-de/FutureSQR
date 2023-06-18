@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrUserTable;
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 
@@ -41,6 +42,9 @@ import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
  */
 public class FSqrUserTableImpl implements FSqrUserTable {
 
+    private FSqrDatabaseConnection connection;
+
+    // 
     private Map<String, FSqrSystemUser> tmpUserDatabaseTable;
 
     /**
@@ -51,6 +55,14 @@ public class FSqrUserTableImpl implements FSqrUserTable {
 
         // TODO: remove me, when we have a database and a database session object.
         initHardcodedData();
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void setDatbaseConnection( FSqrDatabaseConnection connection ) {
+        this.connection = connection;
     }
 
     protected void initHardcodedData() {
@@ -103,6 +115,7 @@ public class FSqrUserTableImpl implements FSqrUserTable {
      */
     @Override
     public Collection<FSqrSystemUser> selectAllUsers() {
+        // order by creation date.
         return tmpUserDatabaseTable.values().stream().collect( Collectors.toList() );
     }
 
@@ -112,6 +125,24 @@ public class FSqrUserTableImpl implements FSqrUserTable {
     @Override
     public boolean isLoginNamePresent( String logonName ) {
         return !(tmpUserDatabaseTable.values().stream().noneMatch( u -> logonName.equals( u.getUserLoginName() ) ));
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void createTable() {
+        // TODO Auto-generated method stub
+
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void flush() {
+        // TODO Auto-generated method stub
+
     }
 
 }

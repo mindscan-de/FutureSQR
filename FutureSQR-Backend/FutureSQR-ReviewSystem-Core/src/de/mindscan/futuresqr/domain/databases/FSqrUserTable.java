@@ -32,7 +32,7 @@ import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 /**
  * 
  */
-public interface FSqrUserTable /* extends FSqrDatabaseTable */ {
+public interface FSqrUserTable extends FSqrDatabaseTable {
 
     boolean isLoginNamePresent( String logonName );
 
