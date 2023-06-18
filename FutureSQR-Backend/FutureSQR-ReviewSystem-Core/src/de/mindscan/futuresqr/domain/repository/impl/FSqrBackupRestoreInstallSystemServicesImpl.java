@@ -35,12 +35,21 @@ import de.mindscan.futuresqr.domain.repository.FSqrBackupRestoreInstallSystemSer
  * 
  * Backup Restore is not only important for Backup and Restore a working instance but also
  * for development. E.g. keeping my own reviews/and review data (dogfooding), but also to
- * provide a mechanism to migrate to new databases and to migrate to new perstence layouts.
+ * provide a mechanism to migrate to new databases and to migrate to new persistence data 
+ * model layouts.
  * 
  * Also this feature is important to import 3rd party databases / backups to migrate them 
  * to this review tool. Therefore we have multiple reasons to actually have this feature
- * being present very "early" in the development process. (I mean before other features). 
- *  
+ * being present very "early" in the development process. (I mean before other features).
+ * 
+ * We will need different readers, e.g. for different formats and for different backup 
+ * versions and such.
+ * 
+ * + Readers (for 3rd party backups, and own backups and file/futuresqr versions)
+ * + Writers (for current format)
+ * + Importers for different database systems? (- or just use the repo?)
+ * + Exporters for different database systems? (- or just use the repo?)
+ * 
  */
 public class FSqrBackupRestoreInstallSystemServicesImpl implements FSqrBackupRestoreInstallSystemServices {
 
