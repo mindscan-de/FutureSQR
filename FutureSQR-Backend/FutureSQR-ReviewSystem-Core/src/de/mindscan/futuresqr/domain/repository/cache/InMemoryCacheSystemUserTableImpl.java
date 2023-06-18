@@ -87,4 +87,8 @@ public class InMemoryCacheSystemUserTableImpl {
         return null;
     }
 
+    public void updateUser( FSqrSystemUser user ) {
+        this.putSystemUser( user.getUserUUID(), user );
+    }
+
 }
