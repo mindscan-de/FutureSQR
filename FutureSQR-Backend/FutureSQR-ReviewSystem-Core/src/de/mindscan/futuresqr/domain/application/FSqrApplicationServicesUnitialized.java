@@ -128,7 +128,7 @@ public class FSqrApplicationServicesUnitialized implements FSqrApplicationServic
      * {@inheritDoc}
      */
     @Override
-    public FSqrBackupRestoreInstallSystemServices getBackupSystemInstallServices() {
+    public FSqrBackupRestoreInstallSystemServices getBackupRestoreInstallServices() {
         throw new RuntimeException( "Please initialize Application Services first before using this method. See Stack." );
     }
 }

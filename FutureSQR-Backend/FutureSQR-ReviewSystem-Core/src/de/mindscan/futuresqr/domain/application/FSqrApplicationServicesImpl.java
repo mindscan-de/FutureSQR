@@ -197,7 +197,7 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
      * {@inheritDoc}
      */
     @Override
-    public FSqrBackupRestoreInstallSystemServices getBackupSystemInstallServices() {
+    public FSqrBackupRestoreInstallSystemServices getBackupRestoreInstallServices() {
         return backupRestoreServices;
     }
 

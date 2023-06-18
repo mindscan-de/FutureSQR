@@ -61,7 +61,7 @@ public interface FSqrApplicationServices {
 
     FSqrDatabaseConnection getDatabaseConnection();
 
-    FSqrBackupRestoreInstallSystemServices getBackupSystemInstallServices();
+    FSqrBackupRestoreInstallSystemServices getBackupRestoreInstallServices();
 
     Collection<FSqrDatabaseBackedRepository> getDatabaseBackedRepositories();
 }
