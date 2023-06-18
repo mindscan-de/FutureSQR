@@ -35,7 +35,8 @@ export class ConfigureProjectComponent implements OnInit {
 		// TODO: begin FormBuilder and Formvalidation
 		
 		
-		// TODO: FIXME: suscribe to the URL changes - on reaload the clone button is calculated correctly, but on navigation it doesn't'
+		// TODO: FIXME: suscribe to the URL changes - on reaload the clone button is calculated correctly, but on navigation it doesn't' work correctly
+		// also the navigation bar will not be updated, when we go direct from project to admin...
 	}
 
 	ngOnInit(): void {
