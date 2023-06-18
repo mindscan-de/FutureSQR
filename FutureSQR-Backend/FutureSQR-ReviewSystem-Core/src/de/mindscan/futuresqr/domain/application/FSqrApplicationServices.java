@@ -29,6 +29,7 @@ import java.util.Collection;
 
 import de.mindscan.futuresqr.domain.configuration.FSqrSystemInstanceConfiguration;
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
+import de.mindscan.futuresqr.domain.repository.FSqrBackupRestoreInstallSystemServices;
 import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrDatabaseBackedRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrDiscussionThreadRepository;
@@ -59,6 +60,8 @@ public interface FSqrApplicationServices {
     FSqrScmRepositoryServices getScmRepositoryServices();
 
     FSqrDatabaseConnection getDatabaseConnection();
+
+    FSqrBackupRestoreInstallSystemServices getBackupSystemInstallServices();
 
     Collection<FSqrDatabaseBackedRepository> getDatabaseBackedRepositories();
 }

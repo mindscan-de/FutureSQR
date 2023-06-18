@@ -29,6 +29,7 @@ import java.util.Collection;
 
 import de.mindscan.futuresqr.domain.configuration.FSqrSystemInstanceConfiguration;
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
+import de.mindscan.futuresqr.domain.repository.FSqrBackupRestoreInstallSystemServices;
 import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrDatabaseBackedRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrDiscussionThreadRepository;
@@ -120,6 +121,14 @@ public class FSqrApplicationServicesUnitialized implements FSqrApplicationServic
      */
     @Override
     public Collection<FSqrDatabaseBackedRepository> getDatabaseBackedRepositories() {
+        throw new RuntimeException( "Please initialize Application Services first before using this method. See Stack." );
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public FSqrBackupRestoreInstallSystemServices getBackupSystemInstallServices() {
         throw new RuntimeException( "Please initialize Application Services first before using this method. See Stack." );
     }
 }

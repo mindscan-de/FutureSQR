@@ -33,6 +33,7 @@ import de.mindscan.futuresqr.domain.configuration.FSqrSystemInstanceConfiguratio
 import de.mindscan.futuresqr.domain.configuration.impl.FSqrSystemInstanceConfigurationImpl;
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.connection.impl.FSqrSqliteDatabaseConnectionImpl;
+import de.mindscan.futuresqr.domain.repository.FSqrBackupRestoreInstallSystemServices;
 import de.mindscan.futuresqr.domain.repository.FSqrCodeReviewRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrDatabaseBackedRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrDiscussionThreadRepository;
@@ -41,6 +42,7 @@ import de.mindscan.futuresqr.domain.repository.FSqrScmProjectRevisionRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrScmRepositoryServices;
 import de.mindscan.futuresqr.domain.repository.FSqrScmUserRepository;
 import de.mindscan.futuresqr.domain.repository.FSqrUserToProjectRepository;
+import de.mindscan.futuresqr.domain.repository.impl.FSqrBackupRestoreInstallSystemServicesImpl;
 import de.mindscan.futuresqr.domain.repository.impl.FSqrCodeReviewRepositoryImpl;
 import de.mindscan.futuresqr.domain.repository.impl.FSqrDiscussionThreadRepositoryImpl;
 import de.mindscan.futuresqr.domain.repository.impl.FSqrScmProjectConfigurationRepositoryImpl;
@@ -63,6 +65,7 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
     private FSqrDiscussionThreadRepositoryImpl discussionRepository;
     private FSqrScmRepositoryServicesImpl scmRepositoryServices;
     private FSqrSqliteDatabaseConnectionImpl databaseConnection;
+    private FSqrBackupRestoreInstallSystemServices backupRestoreServices;
 
     /**
      * 
@@ -80,6 +83,7 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
         this.userToProjectRepository = new FSqrUserToProjectRepositoryImpl();
         this.discussionRepository = new FSqrDiscussionThreadRepositoryImpl();
         this.scmRepositoryServices = new FSqrScmRepositoryServicesImpl();
+        this.backupRestoreServices = new FSqrBackupRestoreInstallSystemServicesImpl();
 
         // we need to boot the instance
         // and then we actually need a way to provide some data from externalproviders, and then
@@ -97,7 +101,8 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
 
     private Object[] getAllServiceRepos() {
         return new Object[] { this.systemConfiguration, this.databaseConnection, this.configurationRepository, this.revisionRepository, this.userRepository,
-                        this.reviewRepository, this.userToProjectRepository, this.discussionRepository, this.scmRepositoryServices };
+                        this.reviewRepository, this.userToProjectRepository, this.discussionRepository, this.scmRepositoryServices,
+                        this.backupRestoreServices };
     }
 
     /** 
@@ -186,6 +191,14 @@ public class FSqrApplicationServicesImpl implements FSqrApplicationServices {
         } );
 
         return result;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public FSqrBackupRestoreInstallSystemServices getBackupSystemInstallServices() {
+        return backupRestoreServices;
     }
 
 }
