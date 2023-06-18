@@ -26,7 +26,6 @@
 package de.mindscan.futuresqr.domain.repository.impl;
 
 import java.util.Collection;
-import java.util.function.Function;
 
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
@@ -40,8 +39,6 @@ import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheAlternateScmAl
 import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheSystemUserTableImpl;
 
 /**
- * TODO: rework the repository to use a database alongside the in-memory cache.
- * 
  * The basic idea is to provide a "Factory" or source of truth, where the UserData and the Alternate SCM 
  * Aliases can be retrieved, when they aren't cached.
  * 
@@ -59,16 +56,8 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository {
     private InMemoryCacheAlternateScmAliasTableImpl aliasScmNameCache;
     private InMemoryCacheSystemUserTableImpl systemUserCache;
 
-    // Proof of Concept
-    private Function<String, FSqrSystemUser> systemUserPersistenceLoader;
-
-    // Proof of Concept - this will be derived from the database session for now it is good enough for a POC
     private FSqrUserTable systemUserTable;
     private FSqrAlternateScmAliasesDatabaseTable userAliasesDatabaseTable;
-
-    // TODO: we need some filters?
-    // TODO: we need some uuid list to FSqrSystemUser list implementation, which we need for some operations, so
-    //       that we can save some local user data. / Sort this?
 
     /**
      * 
@@ -77,28 +66,14 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository {
         this.applicationServices = new FSqrApplicationServicesUnitialized();
         this.systemUserCache = new InMemoryCacheSystemUserTableImpl();
         this.aliasScmNameCache = new InMemoryCacheAlternateScmAliasTableImpl();
-        this.setPersistenceSystemUserLoader( this::uninitializedPersistenceLoader );
 
-        // TODO: the userdatabase actually should provide persistenceSystemUserLoader...
-        // TODO: maybe use a Factory of the application service to get the system user persistence loader.
         this.systemUserTable = new FSqrUserTableImpl();
         this.userAliasesDatabaseTable = new FSqrAlternateScmAliasesDatabaseTableImpl();
-    }
-
-    private FSqrSystemUser uninitializedPersistenceLoader( String userid ) {
-        return null;
-    }
-
-    private FSqrSystemUser initializedDatabaseLoader( String userUuid ) {
-        return this.systemUserTable.selectUserByUUID( userUuid );
     }
 
     @Override
     public void setApplicationServices( FSqrApplicationServices services ) {
         this.applicationServices = services;
-
-        //. we may have to reinitialize the userdatabase, or we provide a constructor with the application servcies....
-        this.setPersistenceSystemUserLoader( this::initializedDatabaseLoader );
 
         this.userAliasesDatabaseTable.setDatbaseConnection( this.applicationServices.getDatabaseConnection() );
     }
@@ -157,19 +132,7 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository {
 
     @Override
     public FSqrSystemUser getUserByUUID( String uuid ) {
-        return this.systemUserCache.getSystemUser( uuid, this.systemUserPersistenceLoader );
-    }
-
-    // Proof of Concept
-    // basic idea, on inverse dependency for providing persisted data, e.g from a database or from 
-    // TODO: Start with idea, on how to provide data, if not cached.
-    public void setPersistenceSystemUserLoader( Function<String, FSqrSystemUser> loader ) {
-        if (loader != null) {
-            this.systemUserPersistenceLoader = loader;
-        }
-        else {
-            this.systemUserPersistenceLoader = this::uninitializedPersistenceLoader;
-        }
+        return this.systemUserCache.getSystemUser( uuid, this.systemUserTable::selectUserByUUID );
     }
 
     /** 
@@ -200,7 +163,6 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository {
      */
     @Override
     public Collection<FSqrSystemUser> getAllUsers() {
-        // maybe we want to sort these?
         return this.systemUserTable.selectAllUsers();
     }
 
