@@ -25,12 +25,12 @@
  */
 package de.mindscan.futuresqr.domain.databases.impl;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrUserTable;
@@ -43,6 +43,8 @@ import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
  */
 public class FSqrUserTableImpl implements FSqrUserTable {
 
+    private static final boolean INITMODE_ENABLED = true;
+
     // table name
     private static final String SYSTEM_USERS_TABLENAME = "SystemUsers";
 
@@ -53,6 +55,9 @@ public class FSqrUserTableImpl implements FSqrUserTable {
     private static final String EMAIL_COLUMN = "userEmail";
     private static final String AVATAR_LOCATION_COLUMN = "avatarLocation";
     private static final String ISBANNED_COLUMN = "isBanned";
+    // TODO: CREATED DATE_COLUMN
+    // TODO: MODIFIED DATE COLUMN
+    // TODO: BANNED DATE COLUMN
 
     // sql-statements
     private static final String CREATE_TABLE_SYSTEM_USERS = //
@@ -67,19 +72,43 @@ public class FSqrUserTableImpl implements FSqrUserTable {
     private static final String DROP_TABLE_IF_EXISTS = // 
                     "DROP TABLE IF EXISTS " + SYSTEM_USERS_TABLENAME + ";";
 
+    private static final String INSERT_SYSTEM_USER_PS = //
+                    "INSERT INTO " + SYSTEM_USERS_TABLENAME + //
+                                    " ( " + UUID_PK_COLUMN + //
+                                    ", " + LOGINNAME_COLUMN + //
+                                    ", " + DISPLAYNAME_COLUMN + //
+                                    ", " + EMAIL_COLUMN + //
+                                    ", " + AVATAR_LOCATION_COLUMN + //
+                                    ", " + ISBANNED_COLUMN + " ) VALUES ( ?1,?2,?3,?4,?5,?6 )";
+
+    private static final String UPDATE_SYSTEM_USER_PS = //
+                    "UPDATE " + SYSTEM_USERS_TABLENAME + //
+                                    " SET " + DISPLAYNAME_COLUMN + "=?2 " + //
+                                    ", " + EMAIL_COLUMN + "=?3 " + //
+                                    ", " + AVATAR_LOCATION_COLUMN + "=?4" + //
+                                    ", " + ISBANNED_COLUMN + " =?5 " + //
+                                    " WHERE " + UUID_PK_COLUMN + "=?1;";
+
+    private static final String SELECT_SYSTEM_USER_BY_UUID_PS = //
+                    "SELECT * FROM " + SYSTEM_USERS_TABLENAME + " WHERE " + UUID_PK_COLUMN + "=?1;";
+
+    private static final String SELECT_SYSTEM_USER_BY_LOGINNAME_PS = //
+                    "SELECT * FROM " + SYSTEM_USERS_TABLENAME + " WHERE " + LOGINNAME_COLUMN + "=?1;";
+
+    private static final String SELECT_ALL_USERS_PS = //
+                    // TODO ORDER BY CREATED DATE.
+                    "SELECT * FROM " + SYSTEM_USERS_TABLENAME + "; ";
+
     private FSqrDatabaseConnection connection;
 
-    // TODO: remove me, when
-    private Map<String, FSqrSystemUser> tmpUserDatabaseTable;
+    private static final FSqrSystemUser MINDSCAN_DE = new FSqrSystemUser( "8ce74ee9-48ff-3dde-b678-58a632887e31", "mindscan-de", "Maxim Gansert",
+                    "contact@themail.local", false, "/FutureSQR/assets/avatars/8ce74ee9-48ff-3dde-b678-58a632887e31.256px.jpg" );
 
     /**
      * 
      */
     public FSqrUserTableImpl() {
-        this.tmpUserDatabaseTable = new HashMap<>();
-
-        // TODO: remove me, when we have a database and a database session object.
-        initHardcodedData();
+        // intentionally left blank
     }
 
     /** 
@@ -109,7 +138,40 @@ public class FSqrUserTableImpl implements FSqrUserTable {
      */
     @Override
     public void insertUser( FSqrSystemUser user ) {
-        tmpUserDatabaseTable.put( user.getUserUUID(), user );
+        try (PreparedStatement insertPS = this.connection.createPreparedStatement( INSERT_SYSTEM_USER_PS )) {
+            insertPS.setString( 1, user.getUserUUID() );
+            insertPS.setString( 2, user.getUserLoginName() );
+            insertPS.setString( 3, user.getUserDisplayName() );
+            insertPS.setString( 4, user.getUserEmail() );
+            insertPS.setString( 5, user.getAvatarLocation() );
+            insertPS.setBoolean( 6, user.isBanned() );
+
+            insertPS.addBatch();
+            insertPS.executeBatch();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateUser( FSqrSystemUser user ) {
+        try (PreparedStatement updatePS = this.connection.createPreparedStatement( UPDATE_SYSTEM_USER_PS )) {
+            updatePS.setString( 1, user.getUserUUID() );
+            updatePS.setString( 2, user.getUserDisplayName() );
+            updatePS.setString( 3, user.getUserEmail() );
+            updatePS.setString( 4, user.getAvatarLocation() );
+            updatePS.setBoolean( 5, user.isBanned() );
+
+            updatePS.addBatch();
+            updatePS.executeBatch();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /** 
@@ -117,7 +179,26 @@ public class FSqrUserTableImpl implements FSqrUserTable {
      */
     @Override
     public FSqrSystemUser selectUserByUUID( String uuid ) {
-        return tmpUserDatabaseTable.get( uuid );
+        try (PreparedStatement selectPS = this.connection.createPreparedStatement( SELECT_SYSTEM_USER_BY_UUID_PS )) {
+            selectPS.setString( 1, uuid );
+            try (ResultSet resultSet = selectPS.executeQuery()) {
+                if (resultSet.next()) {
+                    return toSystemUser( resultSet );
+                }
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (INITMODE_ENABLED && uuid.equals( MINDSCAN_DE.getUserUUID() )) {
+            return MINDSCAN_DE;
+        }
+
+        return null;
     }
 
     /** 
@@ -129,14 +210,26 @@ public class FSqrUserTableImpl implements FSqrUserTable {
             return null;
         }
 
-        List<FSqrSystemUser> collected = tmpUserDatabaseTable.values().stream().filter( u -> loginName.equals( u.getUserLoginName() ) )
-                        .collect( Collectors.toList() );
-
-        if (collected.isEmpty()) {
-            return null;
+        try (PreparedStatement selectPS = this.connection.createPreparedStatement( SELECT_SYSTEM_USER_BY_LOGINNAME_PS )) {
+            selectPS.setString( 1, loginName );
+            try (ResultSet resultSet = selectPS.executeQuery()) {
+                if (resultSet.next()) {
+                    return toSystemUser( resultSet );
+                }
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
 
-        return collected.get( 0 );
+        if (INITMODE_ENABLED && loginName.equals( MINDSCAN_DE.getUserLoginName() )) {
+            return MINDSCAN_DE;
+        }
+
+        return null;
     }
 
     /** 
@@ -144,8 +237,28 @@ public class FSqrUserTableImpl implements FSqrUserTable {
      */
     @Override
     public Collection<FSqrSystemUser> selectAllUsers() {
-        // order by creation date.
-        return tmpUserDatabaseTable.values().stream().collect( Collectors.toList() );
+        List<FSqrSystemUser> result = new ArrayList<>();
+
+        try (PreparedStatement selectPS = this.connection.createPreparedStatement( SELECT_ALL_USERS_PS )) {
+            try (ResultSet resultSet = selectPS.executeQuery()) {
+                while (resultSet.next()) {
+                    result.add( toSystemUser( resultSet ) );
+                }
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (INITMODE_ENABLED && result.isEmpty()) {
+            result.add( MINDSCAN_DE );
+            return result;
+        }
+
+        return result;
     }
 
     /** 
@@ -153,7 +266,11 @@ public class FSqrUserTableImpl implements FSqrUserTable {
      */
     @Override
     public boolean isLoginNamePresent( String logonName ) {
-        return !(tmpUserDatabaseTable.values().stream().noneMatch( u -> logonName.equals( u.getUserLoginName() ) ));
+        if (logonName.equals( MINDSCAN_DE.getUserLoginName() )) {
+            return true;
+        }
+
+        return selectUserByLoginName( logonName ) != null;
     }
 
     /** 
@@ -164,6 +281,7 @@ public class FSqrUserTableImpl implements FSqrUserTable {
         try (Statement statement = this.connection.createStatement()) {
             statement.executeUpdate( DROP_TABLE_IF_EXISTS );
             statement.executeUpdate( CREATE_TABLE_SYSTEM_USERS );
+            initHardcodedData();
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -176,16 +294,16 @@ public class FSqrUserTableImpl implements FSqrUserTable {
     @Override
     public void flush() {
         // TODO Auto-generated method stub
-
     }
 
-    /** 
-     * {@inheritDoc}
-     */
-    @Override
-    public void updateUser( FSqrSystemUser user ) {
-        // TODO Auto-generated method stub
+    private FSqrSystemUser toSystemUser( ResultSet resultSet ) throws Exception {
+        String uuid = resultSet.getString( UUID_PK_COLUMN );
+        String loginName = resultSet.getString( LOGINNAME_COLUMN );
+        String displayname = resultSet.getString( DISPLAYNAME_COLUMN );
+        String email = resultSet.getString( EMAIL_COLUMN );
+        String avatarlocation = resultSet.getString( AVATAR_LOCATION_COLUMN );
+        boolean isBanned = resultSet.getBoolean( ISBANNED_COLUMN );
 
+        return new FSqrSystemUser( uuid, loginName, displayname, email, isBanned, avatarlocation );
     }
-
 }
