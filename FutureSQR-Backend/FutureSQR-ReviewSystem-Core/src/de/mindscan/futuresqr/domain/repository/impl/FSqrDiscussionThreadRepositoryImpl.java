@@ -109,6 +109,7 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
             return new ArrayList<>();
         }
 
+        // TODO: this needs to be fixed somehow - this doesn't work - we may need a tyble for this too...
         List<String> discussionThreadUUIDs = projectAndReviewToThreadsCache.getDiscussionThreadUUIDs( projectId, reviewId );
 
         return this.uuidToThreadsCache.lookupThreads( discussionThreadUUIDs, discussionThreadTable::selectDiscussionThread );
