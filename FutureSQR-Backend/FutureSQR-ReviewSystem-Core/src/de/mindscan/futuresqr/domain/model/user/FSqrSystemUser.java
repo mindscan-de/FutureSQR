@@ -34,6 +34,8 @@ public class FSqrSystemUser {
     private String userLoginName = "";
     private String userDisplayName = "";
     private String userEmail = "";
+    private String userCreatedDate = "";
+    private String userBannedDate = "";
 
     private boolean isBanned = false;
 
@@ -62,6 +64,15 @@ public class FSqrSystemUser {
     }
 
     public void setBanned( boolean isBanned ) {
+        if (this.isBanned != isBanned) {
+            if (isBanned) {
+                // TODO: update banned timstamp to current timstamp?
+            }
+            else {
+                // TODO: reset banned timestamp ?
+            }
+        }
+
         this.isBanned = isBanned;
     }
 
