@@ -47,6 +47,7 @@ public class FSqrDiscussionThread {
 
     // private codeReference
     // private FSqrDiscussionThreadCodeReference codeReference;
+    // what is a code reference? actually we must be able to have multiple code references for the same fsqr discussionthread
 
     // TODO: maybe it is useful to reference the project id and the review id, it is just for navigation 
 
