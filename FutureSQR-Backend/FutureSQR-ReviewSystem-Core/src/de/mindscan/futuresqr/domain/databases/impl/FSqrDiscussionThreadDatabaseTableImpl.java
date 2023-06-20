@@ -131,7 +131,7 @@ public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThre
 
             try (ResultSet resultSet = selectPS.executeQuery()) {
                 if (resultSet.next()) {
-                    result = createDicsussionThread( resultSet );
+                    result = createDiscussionThread( resultSet );
                 }
             }
         }
@@ -142,7 +142,7 @@ public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThre
         return result;
     }
 
-    private FSqrDiscussionThread createDicsussionThread( ResultSet resultSet ) throws Exception {
+    private FSqrDiscussionThread createDiscussionThread( ResultSet resultSet ) throws Exception {
         String discussionDataString = resultSet.getString( DISCUSSION_THREADDATA_COLUMN );
 
         return gson.fromJson( discussionDataString, FSqrDiscussionThread.class );
