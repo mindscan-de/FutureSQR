@@ -25,6 +25,7 @@
  */
 package de.mindscan.futuresqr.domain.databases.impl;
 
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
@@ -41,16 +42,31 @@ public class FSqrDiscussionThreadIdsTableImpl implements FSqrDiscussionThreadIds
 
     // column names
 
-    private static final String REVIEW_PROJECT_FK_PROJECTID_COLUMN = "projectId";
-    private static final String REVIEW_PROJECT_FK_REVIEWID_COLUMN = "reviewId"; // maybe use the UUID?
-    private static final String REVIEW_PROJECT_FK_THREADUUID_COLUM = "threadUuid";
+    private static final String REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN = "projectId";
+    // maybe use the UUID?, so we can drop the projectId...
+    private static final String REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN = "reviewId";
+    private static final String REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM = "threadUuid";
     // TODO maybe a last updated for each thread?...
     // TODO maybe we need a indicator, whether a full thread is resolved.
+    // TODO maybe state whether thread was deleted...
 
     // sql statements
 
     private static final String DROP_TABLE_IF_EXISTS = // 
                     "DROP TABLE IF EXISTS " + REVIEW_DISCUSSIONS_TABLENAME + ";";
+
+    private static final String CREATE_TABLE_REVIEW_DISCUSSIONS = //
+                    "CREATE TABLE  " + REVIEW_DISCUSSIONS_TABLENAME + //
+                                    " (" + REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN + //
+                                    ", " + REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN + //
+                                    ", " + REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM + ");";
+
+    private static final String INSERT_TABLE_REVIEW_DISCUSSON = //
+                    "INSERT INTO " + REVIEW_DISCUSSIONS_TABLENAME + //
+                                    " (" + REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN + //
+                                    ", " + REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN + //
+                                    ", " + REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM + //;
+                                    " ) VALUES (?1, ?2, ?3); ";
 
     private FSqrDatabaseConnection connection;
 
@@ -74,7 +90,17 @@ public class FSqrDiscussionThreadIdsTableImpl implements FSqrDiscussionThreadIds
      */
     @Override
     public void addDiscussionThread( String projectId, String reviewId, String discussionThreadUUID ) {
-        // TODO implement me.
+        try (PreparedStatement insertPS = this.connection.createPreparedStatement( INSERT_TABLE_REVIEW_DISCUSSON )) {
+            insertPS.setString( 1, projectId );
+            insertPS.setString( 2, reviewId );
+            insertPS.setString( 3, discussionThreadUUID );
+
+            insertPS.addBatch();
+            insertPS.executeBatch();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /** 
@@ -84,7 +110,7 @@ public class FSqrDiscussionThreadIdsTableImpl implements FSqrDiscussionThreadIds
     public void createTable() {
         try (Statement statement = this.connection.createStatement()) {
             statement.executeUpdate( DROP_TABLE_IF_EXISTS );
-            // statement.executeUpdate( create_sql );
+            statement.executeUpdate( CREATE_TABLE_REVIEW_DISCUSSIONS );
         }
         catch (Exception e) {
             e.printStackTrace();
