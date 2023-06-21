@@ -25,6 +25,8 @@
  */
 package de.mindscan.futuresqr.domain.databases.impl;
 
+import java.sql.Statement;
+
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrDiscussionThreadIdsTable;
 
@@ -32,6 +34,23 @@ import de.mindscan.futuresqr.domain.databases.FSqrDiscussionThreadIdsTable;
  * 
  */
 public class FSqrDiscussionThreadIdsTableImpl implements FSqrDiscussionThreadIdsTable {
+
+    // table name
+
+    private static final String REVIEW_DISCUSSIONS_TABLENAME = "ReviewDiscussions";
+
+    // column names
+
+    private static final String REVIEW_PROJECT_FK_PROJECTID_COLUMN = "projectId";
+    private static final String REVIEW_PROJECT_FK_REVIEWID_COLUMN = "reviewId"; // maybe use the UUID?
+    private static final String REVIEW_PROJECT_FK_THREADUUID_COLUM = "threadUuid";
+    // TODO maybe a last updated for each thread?...
+    // TODO maybe we need a indicator, whether a full thread is resolved.
+
+    // sql statements
+
+    private static final String DROP_TABLE_IF_EXISTS = // 
+                    "DROP TABLE IF EXISTS " + REVIEW_DISCUSSIONS_TABLENAME + ";";
 
     private FSqrDatabaseConnection connection;
 
@@ -63,8 +82,13 @@ public class FSqrDiscussionThreadIdsTableImpl implements FSqrDiscussionThreadIds
      */
     @Override
     public void createTable() {
-        // TODO Auto-generated method stub
-
+        try (Statement statement = this.connection.createStatement()) {
+            statement.executeUpdate( DROP_TABLE_IF_EXISTS );
+            // statement.executeUpdate( create_sql );
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /** 
