@@ -32,7 +32,9 @@ import de.mindscan.futuresqr.core.uuid.UuidUtil;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.databases.FSqrDiscussionThreadDatabaseTable;
+import de.mindscan.futuresqr.domain.databases.FSqrDiscussionThreadIdsTable;
 import de.mindscan.futuresqr.domain.databases.impl.FSqrDiscussionThreadDatabaseTableImpl;
+import de.mindscan.futuresqr.domain.databases.impl.FSqrDiscussionThreadIdsTableImpl;
 import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
 import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThreadMessage;
 import de.mindscan.futuresqr.domain.repository.FSqrDiscussionThreadRepository;
@@ -52,6 +54,7 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
 
     // search key: ( projectId:string , reviewId:string ) -> List of DiscussionThread Ids:ArrayList<String>
     private InMemoryCacheDiscussionThreadIdsTableImpl projectAndReviewToThreadsCache;
+    private FSqrDiscussionThreadIdsTable projectAndReviewsToThreadsTable;
 
     /**
      * 
@@ -61,6 +64,7 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
 
         // lists of threads for a project together and review id
         this.projectAndReviewToThreadsCache = new InMemoryCacheDiscussionThreadIdsTableImpl();
+        this.projectAndReviewsToThreadsTable = new FSqrDiscussionThreadIdsTableImpl();
 
         // uuid to Threads table
         this.uuidToThreadsCache = new InMemoryCacheDiscussionThreadTableImpl();
@@ -70,7 +74,9 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
     @Override
     public void setApplicationServices( FSqrApplicationServices applicationServices ) {
         this.applicationServices = applicationServices;
+
         this.discussionThreadTable.setDatbaseConnection( this.applicationServices.getDatabaseConnection() );
+        this.projectAndReviewsToThreadsTable.setDatbaseConnection( this.applicationServices.getDatabaseConnection() );
     }
 
     @Override
@@ -82,6 +88,7 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
         this.discussionThreadTable.insertDiscussionThread( newThread );
 
         this.projectAndReviewToThreadsCache.addDiscussionThread( projectId, reviewId, newThread.getDiscussionThreadUUID() );
+        this.projectAndReviewsToThreadsTable.addDiscussionThread( projectId, reviewId, newThread.getDiscussionThreadUUID() );
 
         return newThread;
     }
@@ -110,7 +117,8 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
         }
 
         // TODO: this needs to be fixed somehow - this doesn't work - we may need a tyble for this too...
-        List<String> discussionThreadUUIDs = projectAndReviewToThreadsCache.getDiscussionThreadUUIDs( projectId, reviewId );
+        List<String> discussionThreadUUIDs = projectAndReviewToThreadsCache.getDiscussionThreadUUIDs( projectId, reviewId,
+                        projectAndReviewsToThreadsTable::selectDiscussionThreads );
 
         return this.uuidToThreadsCache.lookupThreads( discussionThreadUUIDs, discussionThreadTable::selectDiscussionThread );
     }
@@ -160,5 +168,6 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
     @Override
     public void reinitDatabaseTables() {
         this.discussionThreadTable.createTable();
+        this.projectAndReviewsToThreadsTable.createTable();
     }
 }
