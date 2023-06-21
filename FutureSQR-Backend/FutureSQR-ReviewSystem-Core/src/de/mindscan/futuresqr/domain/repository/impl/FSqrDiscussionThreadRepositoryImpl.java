@@ -25,7 +25,6 @@
  */
 package de.mindscan.futuresqr.domain.repository.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.mindscan.futuresqr.core.uuid.UuidUtil;
@@ -111,12 +110,6 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
 
     @Override
     public List<FSqrDiscussionThread> getDirectThreadsForReview( String projectId, String reviewId ) {
-        // TODO rework this.
-        if (!this.projectAndReviewToThreadsCache.isCached( projectId, reviewId )) {
-            return new ArrayList<>();
-        }
-
-        // TODO: this needs to be fixed somehow - this doesn't work - we may need a tyble for this too...
         List<String> discussionThreadUUIDs = projectAndReviewToThreadsCache.getDiscussionThreadUUIDs( projectId, reviewId,
                         projectAndReviewsToThreadsTable::selectDiscussionThreads );
 
@@ -126,6 +119,7 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
     @Override
     public void editMessage( String projectId, String reviewId, String threadUUID, String messageUUID, String newMessageText, String messageAuthorUUID ) {
         // TODO: that should be done in the database right tables to check, whether this referenced thread is part of the projectId, reviewId, threadUUID
+        // TODO: fixme such that we can reply to threads, when we have not seen them yet after server restart
         if (!this.projectAndReviewToThreadsCache.hasDiscussionThreadUUID( projectId, reviewId, threadUUID )) {
             return;
         }
@@ -141,6 +135,7 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
     @Override
     public void replyToThread( String projectId, String reviewId, String threadUUID, String replytoMessageId, String messageText, String messageAuthorUUID ) {
         // TODO: that should be done in the database right tables to check, whether this referenced thread is part of the projectId, reviewId, threadUUID
+        // TODO: fixme such that we can reply to threads, when we have not seen them yet after server restart
         if (!this.projectAndReviewToThreadsCache.hasDiscussionThreadUUID( projectId, reviewId, threadUUID )) {
             return;
         }
