@@ -26,7 +26,10 @@
 package de.mindscan.futuresqr.domain.databases.impl;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Collection;
+import java.util.LinkedHashSet;
 
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrDiscussionThreadIdsTable;
@@ -71,6 +74,11 @@ public class FSqrDiscussionThreadIdsTableImpl implements FSqrDiscussionThreadIds
                                     ", " + REVIEW_DISCISSIONS_CREATED_TS_COLUMNS + //
                                     " ) VALUES (?1, ?2, ?3, CURRENT_TIMESTAMP); ";
 
+    private static final String SELECT_DISCUSSIONS_FOR_REVIEW_PS = //
+                    "SELECT * FROM " + REVIEW_DISCUSSIONS_TABLENAME + //
+                                    " WHERE ( " + REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN + "=?1  AND " + REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN + "=?2) " + //
+                                    " ORDER BY " + REVIEW_DISCISSIONS_CREATED_TS_COLUMNS + ";";
+
     private FSqrDatabaseConnection connection;
 
     /**
@@ -104,6 +112,30 @@ public class FSqrDiscussionThreadIdsTableImpl implements FSqrDiscussionThreadIds
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<String> selectDiscussionThreads( String projectId, String reviewId ) {
+        LinkedHashSet<String> result = new LinkedHashSet<>();
+
+        try (PreparedStatement selectPS = this.connection.createPreparedStatement( SELECT_DISCUSSIONS_FOR_REVIEW_PS )) {
+            selectPS.setString( 1, projectId );
+            selectPS.setString( 2, reviewId );
+
+            try (ResultSet resultSet = selectPS.executeQuery()) {
+                while (resultSet.next()) {
+                    result.add( resultSet.getString( REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM ) );
+                }
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
     /** 
