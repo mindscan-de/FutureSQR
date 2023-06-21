@@ -121,6 +121,7 @@ public class FSqrDiscussionThreadIdsTableImpl implements FSqrDiscussionThreadIds
     public Collection<String> selectDiscussionThreads( String projectId, String reviewId ) {
         LinkedHashSet<String> result = new LinkedHashSet<>();
 
+        // TODO: maybe return a  different type, with some extra infos about the thread.
         try (PreparedStatement selectPS = this.connection.createPreparedStatement( SELECT_DISCUSSIONS_FOR_REVIEW_PS )) {
             selectPS.setString( 1, projectId );
             selectPS.setString( 2, reviewId );
