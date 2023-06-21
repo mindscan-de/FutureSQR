@@ -26,9 +26,11 @@
 package de.mindscan.futuresqr.domain.repository.cache;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
 
 /**
  * search key: ( projectId:string , reviewId:string ) -> ( threadIds:ArrayList<String> )
@@ -63,9 +65,24 @@ public class InMemoryCacheDiscussionThreadIdsTableImpl {
         return projectIdReviewIdToThreadIds.containsKey( projectId );
     }
 
-    public List<String> getDiscussionThreadUUIDs( String projectId, String reviewId ) {
+    List<String> getDiscussionThreadUUIDs( String projectId, String reviewId ) {
         if (isCached( projectId, reviewId )) {
             return projectIdReviewIdToThreadIds.get( projectId ).get( reviewId );
+        }
+        return new ArrayList<>();
+    }
+
+    public List<String> getDiscussionThreadUUIDs( String projectId, String reviewId, BiFunction<String, String, List<String>> loader ) {
+        if (isCached( projectId, reviewId )) {
+            return projectIdReviewIdToThreadIds.get( projectId ).get( reviewId );
+        }
+
+        if (loader != null) {
+            List<String> threadIds = loader.apply( projectId, reviewId );
+
+            this.addAllDiscussionThreads( projectId, reviewId, threadIds );
+
+            return threadIds;
         }
         return new ArrayList<>();
     }
@@ -76,4 +93,12 @@ public class InMemoryCacheDiscussionThreadIdsTableImpl {
                         .computeIfAbsent( reviewId, id -> new ArrayList<String>() ) //
                         .add( threadUUID );
     }
+
+    public void addAllDiscussionThreads( String projectId, String reviewId, Collection<String> threadUUIDs ) {
+        this.projectIdReviewIdToThreadIds // 
+                        .computeIfAbsent( projectId, id -> new HashMap<>() )//
+                        .computeIfAbsent( reviewId, id -> new ArrayList<String>() ) //
+                        .addAll( threadUUIDs );
+    }
+
 }
