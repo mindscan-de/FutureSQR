@@ -46,6 +46,7 @@ public class FSqrDiscussionThreadIdsTableImpl implements FSqrDiscussionThreadIds
     // maybe use the UUID?, so we can drop the projectId...
     private static final String REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN = "reviewId";
     private static final String REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM = "threadUuid";
+    private static final String REVIEW_DISCISSIONS_CREATED_TS_COLUMNS = "created";
     // TODO maybe a last updated for each thread?...
     // TODO maybe we need a indicator, whether a full thread is resolved.
     // TODO maybe state whether thread was deleted...
@@ -59,14 +60,16 @@ public class FSqrDiscussionThreadIdsTableImpl implements FSqrDiscussionThreadIds
                     "CREATE TABLE  " + REVIEW_DISCUSSIONS_TABLENAME + //
                                     " (" + REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN + //
                                     ", " + REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN + //
-                                    ", " + REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM + ");";
+                                    ", " + REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM + //
+                                    ", " + REVIEW_DISCISSIONS_CREATED_TS_COLUMNS + ");";
 
     private static final String INSERT_TABLE_REVIEW_DISCUSSON = //
                     "INSERT INTO " + REVIEW_DISCUSSIONS_TABLENAME + //
                                     " (" + REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN + //
                                     ", " + REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN + //
                                     ", " + REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM + //;
-                                    " ) VALUES (?1, ?2, ?3); ";
+                                    ", " + REVIEW_DISCISSIONS_CREATED_TS_COLUMNS + //
+                                    " ) VALUES (?1, ?2, ?3, CURRENT_TIMESTAMP); ";
 
     private FSqrDatabaseConnection connection;
 
