@@ -25,7 +25,7 @@
  */
 package de.mindscan.futuresqr.domain.databases;
 
-import java.util.Collection;
+import java.util.List;
 
 /**
  * 
@@ -34,5 +34,5 @@ public interface FSqrDiscussionThreadIdsTable extends FSqrDatabaseTable {
 
     void addDiscussionThread( String projectId, String reviewId, String discussionThreadUUID );
 
-    Collection<String> selectDiscussionThreads( String projectId, String reviewId );
+    List<String> selectDiscussionThreads( String projectId, String reviewId );
 }

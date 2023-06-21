@@ -28,8 +28,8 @@ package de.mindscan.futuresqr.domain.databases.impl;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Collection;
-import java.util.LinkedHashSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrDiscussionThreadIdsTable;
@@ -118,8 +118,8 @@ public class FSqrDiscussionThreadIdsTableImpl implements FSqrDiscussionThreadIds
      * {@inheritDoc}
      */
     @Override
-    public Collection<String> selectDiscussionThreads( String projectId, String reviewId ) {
-        LinkedHashSet<String> result = new LinkedHashSet<>();
+    public List<String> selectDiscussionThreads( String projectId, String reviewId ) {
+        List<String> result = new ArrayList<>();
 
         // TODO: maybe return a  different type, with some extra infos about the thread.
         try (PreparedStatement selectPS = this.connection.createPreparedStatement( SELECT_DISCUSSIONS_FOR_REVIEW_PS )) {
