@@ -46,7 +46,7 @@ import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheCodeReviewTabl
 import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheRevisionToCodeReviewIdTableImpl;
 
 /**
- * TODO: rework the repository to use a database instead of the in-memory only implementation
+ * 
  */
 public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository {
 
