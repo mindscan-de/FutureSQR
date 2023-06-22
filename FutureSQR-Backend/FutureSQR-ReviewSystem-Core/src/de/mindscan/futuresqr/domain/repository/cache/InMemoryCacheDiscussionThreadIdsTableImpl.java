@@ -85,10 +85,10 @@ public class InMemoryCacheDiscussionThreadIdsTableImpl {
 
         if (loader != null) {
             Collection<String> threadIds = loader.apply( projectId, reviewId );
-
-            this.addAllDiscussionThreads( projectId, reviewId, threadIds );
-
-            return threadIds;
+            if (threadIds != null) {
+                this.addAllDiscussionThreads( projectId, reviewId, threadIds );
+                return threadIds;
+            }
         }
         return new ArrayList<>();
     }
