@@ -5,7 +5,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.collection.IsEmptyCollection.empty;
 import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.junit.jupiter.api.Test;
 
@@ -94,7 +94,7 @@ public class InMemoryCacheDiscussionThreadIdsTableImplTest {
         threadIdsTable.addDiscussionThread( A_PROJECT, CODEREVIEWID_AP_CR_1, THREADID_11111_11111_111111 );
 
         // act
-        List<String> result = threadIdsTable.getDiscussionThreadUUIDs( A_PROJECT, CODEREVIEWID_AP_CR_1 );
+        Collection<String> result = threadIdsTable.getDiscussionThreadUUIDs( A_PROJECT, CODEREVIEWID_AP_CR_1 );
 
         // assert
         assertThat( result, contains( THREADID_11111_11111_111111 ) );
@@ -106,7 +106,7 @@ public class InMemoryCacheDiscussionThreadIdsTableImplTest {
         InMemoryCacheDiscussionThreadIdsTableImpl threadIdsTable = new InMemoryCacheDiscussionThreadIdsTableImpl();
 
         // act
-        List<String> result = threadIdsTable.getDiscussionThreadUUIDs( A_PROJECT, CODEREVIEWID_AP_CR_1 );
+        Collection<String> result = threadIdsTable.getDiscussionThreadUUIDs( A_PROJECT, CODEREVIEWID_AP_CR_1 );
 
         // assert
         assertThat( result, empty() );

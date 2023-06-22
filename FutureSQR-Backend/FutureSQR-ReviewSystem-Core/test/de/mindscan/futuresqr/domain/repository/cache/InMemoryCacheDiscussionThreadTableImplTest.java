@@ -7,6 +7,7 @@ import static org.hamcrest.Matchers.sameInstance;
 import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -82,7 +83,7 @@ public class InMemoryCacheDiscussionThreadTableImplTest {
         List<String> lookupList = Arrays.asList( DISCUSSION_11111_111111_11111 );
 
         // act
-        List<FSqrDiscussionThread> results = threadTable.lookupThreads( lookupList );
+        Collection<FSqrDiscussionThread> results = threadTable.lookupThreads( lookupList );
 
         // assert
         assertThat( results, contains( expectedThread ) );
@@ -101,7 +102,7 @@ public class InMemoryCacheDiscussionThreadTableImplTest {
         List<String> lookupList = Arrays.asList( DISCUSSION_11111_111111_11111, DISCUSSION_22222_222222_22222 );
 
         // act
-        List<FSqrDiscussionThread> results = threadTable.lookupThreads( lookupList );
+        Collection<FSqrDiscussionThread> results = threadTable.lookupThreads( lookupList );
 
         // assert
         assertThat( results, contains( expectedThread1, expectedThread2 ) );
