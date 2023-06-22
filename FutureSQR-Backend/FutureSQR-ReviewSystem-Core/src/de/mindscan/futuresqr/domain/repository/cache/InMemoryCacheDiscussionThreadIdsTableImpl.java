@@ -28,8 +28,9 @@ package de.mindscan.futuresqr.domain.repository.cache;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.BiFunction;
 
 /**
@@ -37,7 +38,7 @@ import java.util.function.BiFunction;
  */
 public class InMemoryCacheDiscussionThreadIdsTableImpl {
 
-    private Map<String, Map<String, ArrayList<String>>> projectIdReviewIdToThreadIds;
+    private Map<String, Map<String, Set<String>>> projectIdReviewIdToThreadIds;
 
     /**
      * 
@@ -61,7 +62,8 @@ public class InMemoryCacheDiscussionThreadIdsTableImpl {
         return getDiscussionThreadUUIDs( projectId, reviewId ).contains( discussionThreadUUID );
     }
 
-    public boolean hasDiscussionThreadUUID( String projectId, String reviewId, String discussionThreadUUID, BiFunction<String, String, List<String>> loader ) {
+    public boolean hasDiscussionThreadUUID( String projectId, String reviewId, String discussionThreadUUID,
+                    BiFunction<String, String, Collection<String>> loader ) {
         return getDiscussionThreadUUIDs( projectId, reviewId, loader ).contains( discussionThreadUUID );
     }
 
@@ -69,21 +71,22 @@ public class InMemoryCacheDiscussionThreadIdsTableImpl {
         return projectIdReviewIdToThreadIds.containsKey( projectId );
     }
 
-    List<String> getDiscussionThreadUUIDs( String projectId, String reviewId ) {
+    Collection<String> getDiscussionThreadUUIDs( String projectId, String reviewId ) {
         if (isCached( projectId, reviewId )) {
             return projectIdReviewIdToThreadIds.get( projectId ).get( reviewId );
         }
         return new ArrayList<>();
     }
 
-    public List<String> getDiscussionThreadUUIDs( String projectId, String reviewId, BiFunction<String, String, List<String>> loader ) {
+    public Collection<String> getDiscussionThreadUUIDs( String projectId, String reviewId, BiFunction<String, String, Collection<String>> loader ) {
         if (isCached( projectId, reviewId )) {
             return projectIdReviewIdToThreadIds.get( projectId ).get( reviewId );
         }
 
         if (loader != null) {
-            List<String> threadIds = loader.apply( projectId, reviewId );
+            Collection<String> threadIds = loader.apply( projectId, reviewId );
 
+            // actually we want to add them only if not existent - This is what a HashSet is for.......
             this.addAllDiscussionThreads( projectId, reviewId, threadIds );
 
             return threadIds;
@@ -94,14 +97,14 @@ public class InMemoryCacheDiscussionThreadIdsTableImpl {
     public void addDiscussionThread( String projectId, String reviewId, String threadUUID ) {
         this.projectIdReviewIdToThreadIds // 
                         .computeIfAbsent( projectId, id -> new HashMap<>() )//
-                        .computeIfAbsent( reviewId, id -> new ArrayList<String>() ) //
+                        .computeIfAbsent( reviewId, id -> new LinkedHashSet<String>() ) //
                         .add( threadUUID );
     }
 
     public void addAllDiscussionThreads( String projectId, String reviewId, Collection<String> threadUUIDs ) {
         this.projectIdReviewIdToThreadIds // 
                         .computeIfAbsent( projectId, id -> new HashMap<>() )//
-                        .computeIfAbsent( reviewId, id -> new ArrayList<String>() ) //
+                        .computeIfAbsent( reviewId, id -> new LinkedHashSet<String>() ) //
                         .addAll( threadUUIDs );
     }
 
