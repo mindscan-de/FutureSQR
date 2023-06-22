@@ -67,8 +67,10 @@ public class InMemoryCacheDiscussionThreadTableImpl {
 
         if (loader != null) {
             FSqrDiscussionThread thread = loader.apply( threadUuuid );
-            putDiscussionThread( threadUuuid, thread );
-            return thread;
+            if (thread != null) {
+                putDiscussionThread( threadUuuid, thread );
+                return thread;
+            }
         }
 
         return null;
