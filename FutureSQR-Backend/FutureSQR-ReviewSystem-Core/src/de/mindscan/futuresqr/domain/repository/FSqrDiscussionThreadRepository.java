@@ -25,7 +25,7 @@
  */
 package de.mindscan.futuresqr.domain.repository;
 
-import java.util.List;
+import java.util.Collection;
 
 import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
 
@@ -48,7 +48,7 @@ public interface FSqrDiscussionThreadRepository extends FSqrRepository, FSqrData
 
     // All threads for review 
 
-    List<FSqrDiscussionThread> getDirectThreadsForReview( String projectId, String reviewId );
+    Collection<FSqrDiscussionThread> getDirectThreadsForReview( String projectId, String reviewId );
 
     // TODO: Maybe...., when we added a message to a thread
     // FSqrDiscussionThread getDiscussionThread ( projectId, reviewId, threadId )

@@ -25,7 +25,7 @@
  */
 package de.mindscan.futuresqr.domain.repository.impl;
 
-import java.util.List;
+import java.util.Collection;
 
 import de.mindscan.futuresqr.core.uuid.UuidUtil;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
@@ -110,8 +110,8 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
     }
 
     @Override
-    public List<FSqrDiscussionThread> getDirectThreadsForReview( String projectId, String reviewId ) {
-        List<String> discussionThreadUUIDs = projectAndReviewToThreadsCache.getDiscussionThreadUUIDs( projectId, reviewId,
+    public Collection<FSqrDiscussionThread> getDirectThreadsForReview( String projectId, String reviewId ) {
+        Collection<String> discussionThreadUUIDs = projectAndReviewToThreadsCache.getDiscussionThreadUUIDs( projectId, reviewId,
                         projectAndReviewsToThreadsTable::selectDiscussionThreads );
 
         return this.uuidToThreadsCache.lookupThreads( discussionThreadUUIDs, discussionThreadTable::selectDiscussionThread );
