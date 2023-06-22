@@ -86,7 +86,6 @@ public class InMemoryCacheDiscussionThreadIdsTableImpl {
         if (loader != null) {
             Collection<String> threadIds = loader.apply( projectId, reviewId );
 
-            // actually we want to add them only if not existent - This is what a HashSet is for.......
             this.addAllDiscussionThreads( projectId, reviewId, threadIds );
 
             return threadIds;
