@@ -41,7 +41,8 @@ import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheDiscussionThre
 import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheDiscussionThreadTableImpl;
 
 /**
- * TODO: rework the repository to use a database instead of the in-memory + scm data pull implementation
+ * This repository class contains access functions to discussion threads attached to
+ * code reviwes. 
  */
 public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadRepository {
 
@@ -118,9 +119,8 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
 
     @Override
     public void editMessage( String projectId, String reviewId, String threadUUID, String messageUUID, String newMessageText, String messageAuthorUUID ) {
-        // TODO: that should be done in the database right tables to check, whether this referenced thread is part of the projectId, reviewId, threadUUID
-        // TODO: fixme such that we can reply to threads, when we have not seen them yet after server restart
-        if (!this.projectAndReviewToThreadsCache.hasDiscussionThreadUUID( projectId, reviewId, threadUUID )) {
+        if (!this.projectAndReviewToThreadsCache.hasDiscussionThreadUUID( projectId, reviewId, threadUUID,
+                        projectAndReviewsToThreadsTable::selectDiscussionThreads )) {
             return;
         }
 
@@ -134,9 +134,8 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
 
     @Override
     public void replyToThread( String projectId, String reviewId, String threadUUID, String replytoMessageId, String messageText, String messageAuthorUUID ) {
-        // TODO: that should be done in the database right tables to check, whether this referenced thread is part of the projectId, reviewId, threadUUID
-        // TODO: fixme such that we can reply to threads, when we have not seen them yet after server restart
-        if (!this.projectAndReviewToThreadsCache.hasDiscussionThreadUUID( projectId, reviewId, threadUUID )) {
+        if (!this.projectAndReviewToThreadsCache.hasDiscussionThreadUUID( projectId, reviewId, threadUUID,
+                        projectAndReviewsToThreadsTable::selectDiscussionThreads )) {
             return;
         }
 
