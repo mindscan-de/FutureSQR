@@ -53,12 +53,16 @@ public class InMemoryCacheDiscussionThreadIdsTableImpl {
         return false;
     }
 
-    public boolean hasDiscussionThreadUUID( String projectId, String reviewId, String discussionThreadUUID ) {
+    boolean hasDiscussionThreadUUID( String projectId, String reviewId, String discussionThreadUUID ) {
         if (!isCached( projectId, reviewId )) {
             return false;
         }
 
         return getDiscussionThreadUUIDs( projectId, reviewId ).contains( discussionThreadUUID );
+    }
+
+    public boolean hasDiscussionThreadUUID( String projectId, String reviewId, String discussionThreadUUID, BiFunction<String, String, List<String>> loader ) {
+        return getDiscussionThreadUUIDs( projectId, reviewId, loader ).contains( discussionThreadUUID );
     }
 
     private boolean isKnownProjectId( String projectId ) {
