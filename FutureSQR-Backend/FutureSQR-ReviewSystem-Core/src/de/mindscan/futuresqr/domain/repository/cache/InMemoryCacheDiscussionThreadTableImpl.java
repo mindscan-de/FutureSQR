@@ -26,8 +26,8 @@
 package de.mindscan.futuresqr.domain.repository.cache;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -74,7 +74,7 @@ public class InMemoryCacheDiscussionThreadTableImpl {
         return null;
     }
 
-    List<FSqrDiscussionThread> lookupThreads( List<String> input ) {
+    Collection<FSqrDiscussionThread> lookupThreads( Collection<String> input ) {
         ArrayList<FSqrDiscussionThread> result = new ArrayList<>();
 
         for (String threadId : input) {
@@ -87,7 +87,7 @@ public class InMemoryCacheDiscussionThreadTableImpl {
         return result;
     }
 
-    public List<FSqrDiscussionThread> lookupThreads( List<String> input, Function<String, FSqrDiscussionThread> loader ) {
+    public Collection<FSqrDiscussionThread> lookupThreads( Collection<String> input, Function<String, FSqrDiscussionThread> loader ) {
         ArrayList<FSqrDiscussionThread> result = new ArrayList<>();
 
         for (String threadId : input) {
