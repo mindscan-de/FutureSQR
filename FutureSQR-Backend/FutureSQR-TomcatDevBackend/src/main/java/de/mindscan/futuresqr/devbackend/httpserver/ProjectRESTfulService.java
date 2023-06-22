@@ -26,6 +26,7 @@
 package de.mindscan.futuresqr.devbackend.httpserver;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -732,7 +733,7 @@ public class ProjectRESTfulService {
 
             // Get only direct review discussions, opposed to inherited code discussions, and opposed to direct code discussions
             // We will start with direct discussions first.
-            List<FSqrDiscussionThread> reviewRelatedDirectThreads = discussionRepository.getDirectThreadsForReview( projectId, reviewId );
+            Collection<FSqrDiscussionThread> reviewRelatedDirectThreads = discussionRepository.getDirectThreadsForReview( projectId, reviewId );
 
             OutputReviewThreadsModel response = new OutputReviewThreadsModel( reviewRelatedDirectThreads );
             Gson gson = new Gson();
