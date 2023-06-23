@@ -1,0 +1,1 @@
+This directory contains an EA-Model which is excluded from the VCS.   
