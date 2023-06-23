@@ -38,6 +38,15 @@ public interface FSqrDiscussionThreadRepository extends FSqrRepository, FSqrData
 
     FSqrDiscussionThread createNewReviewThread( String projectId, String reviewId, String messageText, String messageAuthorUUID );
 
+    // TODO: we want to create a Thread bound to the file, actually a code reference and to the thread.
+    // This will associate this discussion thread with a project and a review, as well with a code reference, such that this accessible two ways.
+    // this allows us to find a review for a file resource, as well as looking for the thread if we found a thread.
+    // a code reference will be branchname, filename, revisionid, filerevisionid, linenumber, code fragment (for matching), maybe the selected codefragment BPEEncoded?),
+    // FSqrDiscussionThread createNewReviewThreadOnCode( String projectId, String reviewId, String messageText, String messageAuthorUUID, String branchname,
+    //                String filename, String revisionId, String fileReviosionId );
+    // Maybe use a code referenceid uuid? a code reference may reference its parent code code reference?
+    // 
+
     // update: todo maybe return the whole updated discussion thread?
 
     void editMessage( String projectId, String reviewId, String threadUUID, String messageUUID, String newMessageText, String messageAuthorUUID );
