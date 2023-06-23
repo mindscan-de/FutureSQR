@@ -57,6 +57,8 @@ public interface FSqrDiscussionThreadRepository extends FSqrRepository, FSqrData
 
     // All threads for review 
 
+    // This returns and contains the general discussions and the code discussions + we additionally must find the discussions, which are not part of the
+    // review and which are unclosed for the touched files... but this will return the coderelated discussions which are directly added during the review.
     Collection<FSqrDiscussionThread> getDirectThreadsForReview( String projectId, String reviewId );
 
     // TODO: Maybe...., when we added a message to a thread
@@ -66,6 +68,6 @@ public interface FSqrDiscussionThreadRepository extends FSqrRepository, FSqrData
 
     // TODO: select all (unclosed) threads for a list of files in a branch,
     // TODO: also handle the renames?
-    // Collection<FSqrDiscussionThread> getCodeReklatedDiscussionThreads( String projectId, String branch, Collection<String> filenames );
+    // Collection<FSqrDiscussionThread> getCodeRelatedDiscussionThreads( String projectId, String branch, Collection<String> filenames );
 
 }
