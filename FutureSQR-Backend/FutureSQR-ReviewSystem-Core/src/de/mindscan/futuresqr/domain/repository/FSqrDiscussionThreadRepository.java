@@ -60,6 +60,12 @@ public interface FSqrDiscussionThreadRepository extends FSqrRepository, FSqrData
     Collection<FSqrDiscussionThread> getDirectThreadsForReview( String projectId, String reviewId );
 
     // TODO: Maybe...., when we added a message to a thread
-    // FSqrDiscussionThread getDiscussionThread ( projectId, reviewId, threadId )
+
+    // TODO: select a single thread... e.g. in case of a code review
+    // FSqrDiscussionThread getDiscussionThread( String threadId );
+
+    // TODO: select all (unclosed) threads for a list of files in a branch,
+    // TODO: also handle the renames?
+    // Collection<FSqrDiscussionThread> getCodeReklatedDiscussionThreads( String projectId, String branch, Collection<String> filenames );
 
 }
