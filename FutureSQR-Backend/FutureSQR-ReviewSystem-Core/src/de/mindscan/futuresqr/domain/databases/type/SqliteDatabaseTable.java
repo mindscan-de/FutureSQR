@@ -37,10 +37,24 @@ public class SqliteDatabaseTable {
      */
     public SqliteDatabaseTable( String tableName ) {
         this.tableName = tableName;
+
+        // TODO: we also need the database connection to execute the create and drop command, so the database connection should be part of the constructor.  
     }
 
     public String tableName() {
         return tableName;
+    }
+
+    // TODO: addColumn
+    // TODO: addColumns
+
+    // TODO: use the columns 
+    public void createTable() {
+
+    }
+
+    public void dropTable() {
+
     }
 
 }
