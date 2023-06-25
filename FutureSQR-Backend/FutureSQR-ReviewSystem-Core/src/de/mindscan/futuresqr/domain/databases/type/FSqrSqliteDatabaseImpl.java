@@ -30,24 +30,26 @@ package de.mindscan.futuresqr.domain.databases.type;
  */
 public class FSqrSqliteDatabaseImpl {
 
-    // ----------
+    // ==========
     // TableNames
-    // ----------
+    // ==========
     public static final String SCM_USER_ALIASES_TABLENAME = "ScmUserAliases";
     // TODO Rename to EA Model truth.
     public static final String CODE_REVIEW_DISCUSSIONS_TABLENAME = "ReviewDiscussions";
     public static final String CODE_REVIEWS_TABLENAME = "CodeReviews";
     public static final String DISCUSSION_THREAD_TABLENAME = "DiscussionThread";
 
-    // ------------
+    // ============
     // Column Names
-    // ------------
+    // ============
 
     // ScmUserAliases
+    // --------------
     public static final String SCM_USER_ALIASES_FK_USERUUID_COLUMN = "userUuid";
     public static final String SCM_USER_ALIASES_ALIASNAME_COLUMN = "aliasName";
 
     // CodeReviewDiscussions
+    // ---------------------
     // refactor to single FK(projectid, reviewId) 
     public static final String CODE_REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN = "projectId";
     // maybe use the UUID?, so we can drop the projectId...
@@ -59,6 +61,7 @@ public class FSqrSqliteDatabaseImpl {
     // TODO maybe state whether thread was deleted...
 
     // CodeReviews
+    // -----------
     // TODO: reviewUuid
     public static final String CODE_REVIEWS_FK_PROJECTID_COLUMN = "projectId";
     // TODO: project Branch
@@ -67,12 +70,13 @@ public class FSqrSqliteDatabaseImpl {
     public static final String CODE_REVIEWS_REVIWEDATA_COLUMN = "reviewData";
 
     // DicussionThread
+    // ---------------
     public static final String DISCUSSION_THREAD_PK_UUID_COLUMN = "uuid";
     public static final String DISCUSSION_THREAD_THREADDATA_COLUMN = "threadData";
 
-    // --------------
+    // ==============
     // Drop If Exists
-    // --------------
+    // ==============
     public static final String QUERY_SCM_USER_ALIASES_DROP_TABLE = //
                     "DROP TABLE IF EXISTS " + SCM_USER_ALIASES_TABLENAME + ";";
 
@@ -85,9 +89,9 @@ public class FSqrSqliteDatabaseImpl {
     public static final String QUERY_CODE_REVIEW_DISCUSSIONS_DROP_TABLE = //
                     "DROP TABLE IF EXISTS " + CODE_REVIEW_DISCUSSIONS_TABLENAME + ";";
 
-    // -------------
+    // =============
     // Create Tables
-    // -------------
+    // =============
     public static final String QUERY_SCM_USER_ALIASES_CREATE_TABLE = // 
                     "CREATE TABLE " + SCM_USER_ALIASES_TABLENAME + //
                                     " (" + SCM_USER_ALIASES_FK_USERUUID_COLUMN + //
