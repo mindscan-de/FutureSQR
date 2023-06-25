@@ -33,6 +33,7 @@ import java.util.List;
 
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrDiscussionThreadIdsTable;
+import de.mindscan.futuresqr.domain.databases.type.FSqrSqliteDatabaseImpl;
 
 /**
  * TODO: Refactor to more general database approach, such that these constants are in a 
@@ -40,47 +41,32 @@ import de.mindscan.futuresqr.domain.databases.FSqrDiscussionThreadIdsTable;
  */
 public class FSqrDiscussionThreadIdsTableImpl implements FSqrDiscussionThreadIdsTable {
 
-    // table name
-
-    private static final String CODE_REVIEW_DISCUSSIONS_TABLENAME = "ReviewDiscussions";
-
-    // column names
-
-    private static final String CODE_REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN = "projectId";
-    // maybe use the UUID?, so we can drop the projectId...
-    private static final String CODE_REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN = "reviewId";
-    private static final String CODE_REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM = "threadUuid";
-    private static final String CODE_REVIEW_DISCISSIONS_CREATED_TS_COLUMNS = "created";
-    // TODO maybe a last updated for each thread?...
-    // TODO maybe we need a indicator, whether a full thread is resolved.
-    // TODO maybe state whether thread was deleted...
-
     // sql statements
 
     private static final String DROP_TABLE_IF_EXISTS = // 
-                    "DROP TABLE IF EXISTS " + CODE_REVIEW_DISCUSSIONS_TABLENAME + ";";
+                    "DROP TABLE IF EXISTS " + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_TABLENAME + ";";
 
     private static final String CREATE_TABLE_REVIEW_DISCUSSIONS = //
-                    "CREATE TABLE  " + CODE_REVIEW_DISCUSSIONS_TABLENAME + //
-                                    " (" + CODE_REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN + //
-                                    ", " + CODE_REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN + //
-                                    ", " + CODE_REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM + //
+                    "CREATE TABLE  " + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_TABLENAME + //
+                                    " (" + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN + //
+                                    ", " + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN + //
+                                    ", " + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM + //
 
-                                    ", " + CODE_REVIEW_DISCISSIONS_CREATED_TS_COLUMNS + ");";
+                                    ", " + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCISSIONS_CREATED_TS_COLUMNS + ");";
 
     private static final String INSERT_TABLE_REVIEW_DISCUSSON = //
-                    "INSERT INTO " + CODE_REVIEW_DISCUSSIONS_TABLENAME + //
-                                    " (" + CODE_REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN + //
-                                    ", " + CODE_REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN + //
-                                    ", " + CODE_REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM + //;
-                                    ", " + CODE_REVIEW_DISCISSIONS_CREATED_TS_COLUMNS + //
+                    "INSERT INTO " + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_TABLENAME + //
+                                    " (" + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN + //
+                                    ", " + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN + //
+                                    ", " + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM + //;
+                                    ", " + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCISSIONS_CREATED_TS_COLUMNS + //
                                     " ) VALUES (?1, ?2, ?3, CURRENT_TIMESTAMP); ";
 
     private static final String SELECT_DISCUSSIONS_FOR_REVIEW_PS = //
-                    "SELECT * FROM " + CODE_REVIEW_DISCUSSIONS_TABLENAME + //
-                                    " WHERE ( " + CODE_REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN + "=?1  AND " + CODE_REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN
-                                    + "=?2) " + //
-                                    " ORDER BY " + CODE_REVIEW_DISCISSIONS_CREATED_TS_COLUMNS + ";";
+                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_TABLENAME + //
+                                    " WHERE ( " + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN + "=?1  AND "
+                                    + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN + "=?2) " + //
+                                    " ORDER BY " + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCISSIONS_CREATED_TS_COLUMNS + ";";
 
     private FSqrDatabaseConnection connection;
 
@@ -131,7 +117,7 @@ public class FSqrDiscussionThreadIdsTableImpl implements FSqrDiscussionThreadIds
 
             try (ResultSet resultSet = selectPS.executeQuery()) {
                 while (resultSet.next()) {
-                    result.add( resultSet.getString( CODE_REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM ) );
+                    result.add( resultSet.getString( FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM ) );
                 }
             }
         }
