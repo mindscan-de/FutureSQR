@@ -39,6 +39,7 @@ public class FSqrSqliteDatabaseImpl {
     public static final String CODE_REVIEW_SCM_REVISIONS_TABLENAME = "RevisionsToReviews";
     public static final String CODE_REVIEWS_TABLENAME = "CodeReviews";
     public static final String DISCUSSION_THREAD_TABLENAME = "DiscussionThread";
+    public static final String SCM_CONFIGURATION_TABLENAME = "ScmConfigurations";
 
     // ============
     // Column Names
@@ -79,6 +80,10 @@ public class FSqrSqliteDatabaseImpl {
     // ---------------
     public static final String DISCUSSION_THREAD_PK_UUID_COLUMN = "uuid";
     public static final String DISCUSSION_THREAD_THREADDATA_COLUMN = "threadData";
+
+    // ScmConfiguration
+    public static final String SCM_CONFIGURATION_PK_PROJECTID_COLUMN = "projectId";
+    public static final String SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN = "scmConfigData";
 
     // ==============
     // Drop If Exists

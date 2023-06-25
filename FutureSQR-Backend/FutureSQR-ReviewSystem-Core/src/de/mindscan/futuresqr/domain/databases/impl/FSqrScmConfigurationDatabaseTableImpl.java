@@ -36,6 +36,7 @@ import com.google.gson.Gson;
 import de.mindscan.futuresqr.core.uuid.UuidUtil;
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrScmConfigurationDatabaseTable;
+import de.mindscan.futuresqr.domain.databases.type.FSqrSqliteDatabaseImpl;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectGitAdminConfiguration;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectSvnAdminConfiguration;
@@ -46,31 +47,29 @@ import de.mindscan.futuresqr.domain.model.FSqrScmProjectSvnAdminConfiguration;
  */
 public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurationDatabaseTable {
 
-    // Tablename
-    private static final String SCM_CONFIGURATION_TABLENAME = "ScmConfigurations";
-
-    // Column names
-    private static final String SCM_CONFIGURATION_PK_PROJECTID_COLUMN = "projectId";
-    private static final String SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN = "scmConfigData";
-
-    // SQL-Statements
     private static final String QUERY_SCM_CONFIGURATION_DROP_TABLE = //
-                    "DROP TABLE IF EXISTS " + SCM_CONFIGURATION_TABLENAME + ";";
+                    "DROP TABLE IF EXISTS " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_TABLENAME + ";";
 
     private static final String QUERY_SCM_CONFIGURATION_CREATE_TABLE = //
-                    "CREATE TABLE " + SCM_CONFIGURATION_TABLENAME + " (" + SCM_CONFIGURATION_PK_PROJECTID_COLUMN + ", " + SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN + "); ";
+                    "CREATE TABLE " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_TABLENAME + " (" + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_PK_PROJECTID_COLUMN
+                                    + ", " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN + "); ";
 
+    // SQL-Statements
     private static final String SELECT_ALL_SCM_CONFIGURATIONS_PS = //
-                    "SELECT * FROM " + SCM_CONFIGURATION_TABLENAME + " ORDER BY " + SCM_CONFIGURATION_PK_PROJECTID_COLUMN + ";";
+                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_TABLENAME + " ORDER BY "
+                                    + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_PK_PROJECTID_COLUMN + ";";
 
     private static final String SELECT_SCM_CONFIGURATION_PS = //
-                    "SELECT * FROM " + SCM_CONFIGURATION_TABLENAME + " WHERE (" + SCM_CONFIGURATION_PK_PROJECTID_COLUMN + "=?1); ";
+                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_TABLENAME + " WHERE ("
+                                    + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_PK_PROJECTID_COLUMN + "=?1); ";
 
     private static final String INSERT_SCM_CONFIGURATION_PS = //
-                    "INSERT INTO " + SCM_CONFIGURATION_TABLENAME + " (" + SCM_CONFIGURATION_PK_PROJECTID_COLUMN + ", " + SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN + ") VALUES (?1, ?2); ";
+                    "INSERT INTO " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_TABLENAME + " (" + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_PK_PROJECTID_COLUMN
+                                    + ", " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN + ") VALUES (?1, ?2); ";
 
     private static final String UPDATE_SCM_CONFIGURATION_PS = //
-                    "UPDATE " + SCM_CONFIGURATION_TABLENAME + " SET " + SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN + "=?2 WHERE (" + SCM_CONFIGURATION_PK_PROJECTID_COLUMN + "=?1);";
+                    "UPDATE " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_TABLENAME + " SET " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN
+                                    + "=?2 WHERE (" + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_PK_PROJECTID_COLUMN + "=?1);";
 
     // 
 
@@ -309,7 +308,7 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
     }
 
     private FSqrScmProjectConfiguration createScmConfiguration( ResultSet resultSet ) throws Exception {
-        String configDataString = resultSet.getString( SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN );
+        String configDataString = resultSet.getString( FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN );
 
         return gson.fromJson( configDataString, FSqrScmProjectConfiguration.class );
     }
