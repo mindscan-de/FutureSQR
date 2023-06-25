@@ -35,6 +35,7 @@ public class FSqrSqliteDatabaseImpl {
     // ----------
     static final String SCM_USER_ALIASES_TABLENAME = "ScmUserAliases";
     static final String CODE_REVIEWS_TABLENAME = "CodeReviews";
+    static final String DISCUSSION_THREAD_TABLENAME = "DiscussionThread";
 
     // ------------
     // Column Names
@@ -52,6 +53,10 @@ public class FSqrSqliteDatabaseImpl {
     static final String CODE_REVIEWS_REVIEWID_COLUMN = "reviewId";
     static final String CODE_REVIEWS_REVIWEDATA_COLUMN = "reviewData";
 
+    // DicussionThread
+    static final String DISCUSSION_THREAD_PK_UUID_COLUMN = "uuid";
+    static final String DISCUSSION_THREAD_THREADDATA_COLUMN = "threadData";
+
     // --------------
     // Drop If Exists
     // --------------
@@ -61,13 +66,16 @@ public class FSqrSqliteDatabaseImpl {
     static final String QUERY_CODE_REVIEWS_DROP_TABLE = // 
                     "DROP TABLE IF EXISTS " + CODE_REVIEWS_TABLENAME + ";";
 
+    static final String QUERY_DISCUSSION_THREAD_DROP_TABLE = // 
+                    "DROP TABLE IF EXISTS " + DISCUSSION_THREAD_TABLENAME + ";";
+
     // -------------
     // Create Tables
     // -------------
     static final String QUERY_SCM_USER_ALIASES_CREATE_TABLE = // 
                     "CREATE TABLE " + SCM_USER_ALIASES_TABLENAME + //
                                     " (" + SCM_USER_ALIASES_FK_USERUUID_COLUMN + //
-                                    ", " + SCM_USER_ALIASES_ALIASNAME_COLUMN + "); ";
+                                    ", " + SCM_USER_ALIASES_ALIASNAME_COLUMN + ");";
 
     static final String QUERY_CODE_REVIEWS_CREATE_TABLE = // 
                     "CREATE TABLE  " + CODE_REVIEWS_TABLENAME + //
@@ -75,5 +83,10 @@ public class FSqrSqliteDatabaseImpl {
                                     ", " + CODE_REVIEWS_REVIEWID_COLUMN + //
                                     ", " + CODE_REVIEWS_REVIWEDATA_COLUMN + //
                                     ", " + CODE_REVIEWS_STATE_COLUMN + ");";
+
+    static final String QUERY_DISCUSSION_THREAD_CREATE_TABLE = //
+                    "CREATE TABLE " + DISCUSSION_THREAD_TABLENAME + //
+                                    " (" + DISCUSSION_THREAD_PK_UUID_COLUMN + //
+                                    ", " + DISCUSSION_THREAD_THREADDATA_COLUMN + ");";
 
 }

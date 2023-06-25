@@ -41,27 +41,17 @@ import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
  */
 public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThreadDatabaseTable {
 
-    private static final String DISCUSSION_THREAD_TABLENAME = "DiscussionThread";
-
-    private static final String DISCUSSION_THREAD_PK_UUID_COLUMN = "uuid";
-    private static final String DISCUSSION_THREAD_THREADDATA_COLUMN = "threadData";
-
-    // 
-
-    private static final String QUERY_DISCUSSION_THREAD_CREATE_TABLE = //
-                    "CREATE TABLE " + DISCUSSION_THREAD_TABLENAME + " (" + DISCUSSION_THREAD_PK_UUID_COLUMN + ", " + DISCUSSION_THREAD_THREADDATA_COLUMN + "); ";
-
-    private static final String QUERY_DISCUSSION_THREAD_DROP_TABLE = // 
-                    "DROP TABLE IF EXISTS " + DISCUSSION_THREAD_TABLENAME + ";";
-
     private static final String INSERT_DISCUSSION_THREAD = //
-                    "INSERT INTO " + DISCUSSION_THREAD_TABLENAME + " (" + DISCUSSION_THREAD_PK_UUID_COLUMN + ", " + DISCUSSION_THREAD_THREADDATA_COLUMN + ") VALUES (?1, ?2); ";
+                    "INSERT INTO " + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_TABLENAME + " (" + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_PK_UUID_COLUMN + ", "
+                                    + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_THREADDATA_COLUMN + ") VALUES (?1, ?2); ";
 
     private static final String UPDATE_DISCUSSION_THREAD = //
-                    "UPDATE " + DISCUSSION_THREAD_TABLENAME + " SET " + DISCUSSION_THREAD_THREADDATA_COLUMN + "=?2 WHERE " + DISCUSSION_THREAD_PK_UUID_COLUMN + "=?1;";
+                    "UPDATE " + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_TABLENAME + " SET " + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_THREADDATA_COLUMN
+                                    + "=?2 WHERE " + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_PK_UUID_COLUMN + "=?1;";
 
     private static final String SELECT_DISCUSSION_THREAD = //
-                    "SELECT * FROM " + DISCUSSION_THREAD_TABLENAME + " WHERE " + DISCUSSION_THREAD_PK_UUID_COLUMN + "=?1;";
+                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_TABLENAME + " WHERE " + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_PK_UUID_COLUMN
+                                    + "=?1;";
 
     private FSqrDatabaseConnection connection;
 
@@ -144,7 +134,7 @@ public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThre
     }
 
     private FSqrDiscussionThread createDiscussionThread( ResultSet resultSet ) throws Exception {
-        String discussionDataString = resultSet.getString( DISCUSSION_THREAD_THREADDATA_COLUMN );
+        String discussionDataString = resultSet.getString( FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_THREADDATA_COLUMN );
 
         return gson.fromJson( discussionDataString, FSqrDiscussionThread.class );
     }
@@ -155,8 +145,8 @@ public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThre
     @Override
     public void createTable() {
         try (Statement statement = this.connection.createStatement()) {
-            statement.executeUpdate( QUERY_DISCUSSION_THREAD_DROP_TABLE );
-            statement.executeUpdate( QUERY_DISCUSSION_THREAD_CREATE_TABLE );
+            statement.executeUpdate( FSqrSqliteDatabaseImpl.QUERY_DISCUSSION_THREAD_DROP_TABLE );
+            statement.executeUpdate( FSqrSqliteDatabaseImpl.QUERY_DISCUSSION_THREAD_CREATE_TABLE );
         }
         catch (Exception e) {
             e.printStackTrace();
