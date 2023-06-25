@@ -42,15 +42,15 @@ public class FSqrDiscussionThreadIdsTableImpl implements FSqrDiscussionThreadIds
 
     // table name
 
-    private static final String REVIEW_DISCUSSIONS_TABLENAME = "ReviewDiscussions";
+    private static final String CODE_REVIEW_DISCUSSIONS_TABLENAME = "ReviewDiscussions";
 
     // column names
 
-    private static final String REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN = "projectId";
+    private static final String CODE_REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN = "projectId";
     // maybe use the UUID?, so we can drop the projectId...
-    private static final String REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN = "reviewId";
-    private static final String REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM = "threadUuid";
-    private static final String REVIEW_DISCISSIONS_CREATED_TS_COLUMNS = "created";
+    private static final String CODE_REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN = "reviewId";
+    private static final String CODE_REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM = "threadUuid";
+    private static final String CODE_REVIEW_DISCISSIONS_CREATED_TS_COLUMNS = "created";
     // TODO maybe a last updated for each thread?...
     // TODO maybe we need a indicator, whether a full thread is resolved.
     // TODO maybe state whether thread was deleted...
@@ -58,27 +58,29 @@ public class FSqrDiscussionThreadIdsTableImpl implements FSqrDiscussionThreadIds
     // sql statements
 
     private static final String DROP_TABLE_IF_EXISTS = // 
-                    "DROP TABLE IF EXISTS " + REVIEW_DISCUSSIONS_TABLENAME + ";";
+                    "DROP TABLE IF EXISTS " + CODE_REVIEW_DISCUSSIONS_TABLENAME + ";";
 
     private static final String CREATE_TABLE_REVIEW_DISCUSSIONS = //
-                    "CREATE TABLE  " + REVIEW_DISCUSSIONS_TABLENAME + //
-                                    " (" + REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN + //
-                                    ", " + REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN + //
-                                    ", " + REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM + //
-                                    ", " + REVIEW_DISCISSIONS_CREATED_TS_COLUMNS + ");";
+                    "CREATE TABLE  " + CODE_REVIEW_DISCUSSIONS_TABLENAME + //
+                                    " (" + CODE_REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN + //
+                                    ", " + CODE_REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN + //
+                                    ", " + CODE_REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM + //
+
+                                    ", " + CODE_REVIEW_DISCISSIONS_CREATED_TS_COLUMNS + ");";
 
     private static final String INSERT_TABLE_REVIEW_DISCUSSON = //
-                    "INSERT INTO " + REVIEW_DISCUSSIONS_TABLENAME + //
-                                    " (" + REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN + //
-                                    ", " + REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN + //
-                                    ", " + REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM + //;
-                                    ", " + REVIEW_DISCISSIONS_CREATED_TS_COLUMNS + //
+                    "INSERT INTO " + CODE_REVIEW_DISCUSSIONS_TABLENAME + //
+                                    " (" + CODE_REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN + //
+                                    ", " + CODE_REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN + //
+                                    ", " + CODE_REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM + //;
+                                    ", " + CODE_REVIEW_DISCISSIONS_CREATED_TS_COLUMNS + //
                                     " ) VALUES (?1, ?2, ?3, CURRENT_TIMESTAMP); ";
 
     private static final String SELECT_DISCUSSIONS_FOR_REVIEW_PS = //
-                    "SELECT * FROM " + REVIEW_DISCUSSIONS_TABLENAME + //
-                                    " WHERE ( " + REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN + "=?1  AND " + REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN + "=?2) " + //
-                                    " ORDER BY " + REVIEW_DISCISSIONS_CREATED_TS_COLUMNS + ";";
+                    "SELECT * FROM " + CODE_REVIEW_DISCUSSIONS_TABLENAME + //
+                                    " WHERE ( " + CODE_REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN + "=?1  AND " + CODE_REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN
+                                    + "=?2) " + //
+                                    " ORDER BY " + CODE_REVIEW_DISCISSIONS_CREATED_TS_COLUMNS + ";";
 
     private FSqrDatabaseConnection connection;
 
@@ -129,7 +131,7 @@ public class FSqrDiscussionThreadIdsTableImpl implements FSqrDiscussionThreadIds
 
             try (ResultSet resultSet = selectPS.executeQuery()) {
                 while (resultSet.next()) {
-                    result.add( resultSet.getString( REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM ) );
+                    result.add( resultSet.getString( CODE_REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM ) );
                 }
             }
         }
