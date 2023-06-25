@@ -39,15 +39,6 @@ import de.mindscan.futuresqr.domain.databases.type.FSqrSqliteDatabaseImpl;
  */
 public class FSqrProjectAssignedCodeReviewsTableImpl implements FSqrProjectAssignedCodeReviewsTable {
 
-    private static final String DROP_TABLE_IF_EXISTS = // 
-                    "DROP TABLE IF EXISTS " + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_TABLENAME + ";";
-
-    private static final String CREATE_TABLE_REVISION_TO_REVIEW = // 
-                    "CREATE TABLE  " + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_TABLENAME + " ("
-                                    + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_PROJECTID_COLUMN + ", "
-                                    + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_SCMREVISIONID_COLUMN + ", "
-                                    + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_REVIEWID_COLUMN + ");";
-
     private static final String SELECT_CODEREVIEW_FOR_PROJECT_REVISION = //
                     "SELECT " + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_REVIEWID_COLUMN + " FROM "
                                     + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_TABLENAME + " WHERE ("
@@ -171,8 +162,8 @@ public class FSqrProjectAssignedCodeReviewsTableImpl implements FSqrProjectAssig
     @Override
     public void createTable() {
         try (Statement statement = this.connection.createStatement()) {
-            statement.executeUpdate( DROP_TABLE_IF_EXISTS );
-            statement.executeUpdate( CREATE_TABLE_REVISION_TO_REVIEW );
+            statement.executeUpdate( FSqrSqliteDatabaseImpl.QUERY_CODE_REVIEW_SCM_REVISIONS_DROP_TABLE );
+            statement.executeUpdate( FSqrSqliteDatabaseImpl.QUERY_CODE_REVIEW_SCM_REVISIONS_CREATE_TABLE );
         }
         catch (Exception e) {
             e.printStackTrace();
