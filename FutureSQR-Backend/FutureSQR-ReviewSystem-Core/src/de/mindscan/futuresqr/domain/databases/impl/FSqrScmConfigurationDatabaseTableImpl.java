@@ -50,27 +50,27 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
     private static final String SCM_CONFIGURATION_TABLENAME = "ScmConfigurations";
 
     // Column names
-    private static final String COLUMN_PROJECT_ID = "projectId";
-    private static final String COLUMN_SCM_CONFIG_DATA = "scmConfigData";
+    private static final String SCM_CONFIGURATION_PK_PROJECTID_COLUMN = "projectId";
+    private static final String SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN = "scmConfigData";
 
     // SQL-Statements
-    private static final String DROP_TABLE_IF_EXISTS = //
+    private static final String QUERY_SCM_CONFIGURATION_DROP_TABLE = //
                     "DROP TABLE IF EXISTS " + SCM_CONFIGURATION_TABLENAME + ";";
 
-    private static final String CREATE_TABLE_SCM_CONFIGURATIONS = //
-                    "CREATE TABLE " + SCM_CONFIGURATION_TABLENAME + " (" + COLUMN_PROJECT_ID + ", " + COLUMN_SCM_CONFIG_DATA + "); ";
+    private static final String QUERY_SCM_CONFIGURATION_CREATE_TABLE = //
+                    "CREATE TABLE " + SCM_CONFIGURATION_TABLENAME + " (" + SCM_CONFIGURATION_PK_PROJECTID_COLUMN + ", " + SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN + "); ";
 
     private static final String SELECT_ALL_SCM_CONFIGURATIONS_PS = //
-                    "SELECT * FROM " + SCM_CONFIGURATION_TABLENAME + " ORDER BY " + COLUMN_PROJECT_ID + ";";
+                    "SELECT * FROM " + SCM_CONFIGURATION_TABLENAME + " ORDER BY " + SCM_CONFIGURATION_PK_PROJECTID_COLUMN + ";";
 
     private static final String SELECT_SCM_CONFIGURATION_PS = //
-                    "SELECT * FROM " + SCM_CONFIGURATION_TABLENAME + " WHERE (" + COLUMN_PROJECT_ID + "=?1); ";
+                    "SELECT * FROM " + SCM_CONFIGURATION_TABLENAME + " WHERE (" + SCM_CONFIGURATION_PK_PROJECTID_COLUMN + "=?1); ";
 
     private static final String INSERT_SCM_CONFIGURATION_PS = //
-                    "INSERT INTO " + SCM_CONFIGURATION_TABLENAME + " (" + COLUMN_PROJECT_ID + ", " + COLUMN_SCM_CONFIG_DATA + ") VALUES (?1, ?2); ";
+                    "INSERT INTO " + SCM_CONFIGURATION_TABLENAME + " (" + SCM_CONFIGURATION_PK_PROJECTID_COLUMN + ", " + SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN + ") VALUES (?1, ?2); ";
 
     private static final String UPDATE_SCM_CONFIGURATION_PS = //
-                    "UPDATE " + SCM_CONFIGURATION_TABLENAME + " SET " + COLUMN_SCM_CONFIG_DATA + "=?2 WHERE (" + COLUMN_PROJECT_ID + "=?1);";
+                    "UPDATE " + SCM_CONFIGURATION_TABLENAME + " SET " + SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN + "=?2 WHERE (" + SCM_CONFIGURATION_PK_PROJECTID_COLUMN + "=?1);";
 
     // 
 
@@ -309,7 +309,7 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
     }
 
     private FSqrScmProjectConfiguration createScmConfiguration( ResultSet resultSet ) throws Exception {
-        String configDataString = resultSet.getString( COLUMN_SCM_CONFIG_DATA );
+        String configDataString = resultSet.getString( SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN );
 
         return gson.fromJson( configDataString, FSqrScmProjectConfiguration.class );
     }
@@ -342,8 +342,8 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
     @Override
     public void createTable() {
         try (Statement statement = this.connection.createStatement()) {
-            statement.executeUpdate( DROP_TABLE_IF_EXISTS );
-            statement.executeUpdate( CREATE_TABLE_SCM_CONFIGURATIONS );
+            statement.executeUpdate( QUERY_SCM_CONFIGURATION_DROP_TABLE );
+            statement.executeUpdate( QUERY_SCM_CONFIGURATION_CREATE_TABLE );
 
             // initialize the application database with some hard coded data 
             initHardcodedData();
