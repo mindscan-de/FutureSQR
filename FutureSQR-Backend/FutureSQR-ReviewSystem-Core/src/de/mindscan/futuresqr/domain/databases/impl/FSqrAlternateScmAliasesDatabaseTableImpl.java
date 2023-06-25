@@ -44,39 +44,23 @@ import de.mindscan.futuresqr.domain.databases.FSqrAlternateScmAliasesDatabaseTab
  */
 public class FSqrAlternateScmAliasesDatabaseTableImpl implements FSqrAlternateScmAliasesDatabaseTable {
 
-    // TableName
-    private static final String SCM_ALIASES_TABLENAME = "ScmUserAliases";
-
-    // Column Names
-    private static final String COLUMN_USER_UUID = "userUuid";
-    private static final String COLUMN_USER_ALIASNAME = "aliasName";
-
-    // SQL-Statements
-    private static final String DROP_TABLE_IF_EXISTS = //
-                    "DROP TABLE IF EXISTS " + SCM_ALIASES_TABLENAME + ";";
-
-    private static final String CREATE_TABLE_SCM_ALIASES = //
-                    "CREATE TABLE " + SCM_ALIASES_TABLENAME + //
-                                    " (" + COLUMN_USER_UUID + //
-                                    ", " + COLUMN_USER_ALIASNAME + "); ";
-
     private static final String INSERT_SCM_ALIASNAME_PS = //
-                    "INSERT INTO " + SCM_ALIASES_TABLENAME + //
-                                    " (" + COLUMN_USER_UUID + //
-                                    ", " + COLUMN_USER_ALIASNAME + " ) VALUES (?1, ?2);";
+                    "INSERT INTO " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_TABLENAME + //
+                                    " (" + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_FK_USERUUID_COLUMN + //
+                                    ", " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_ALIASNAME_COLUMN + " ) VALUES (?1, ?2);";
 
     private static final String REMOVE_SCM_ALIASNAME_PS = //
-                    "DELETE FROM " + SCM_ALIASES_TABLENAME + //
-                                    " WHERE ( " + COLUMN_USER_UUID + "=?1 AND " + COLUMN_USER_ALIASNAME + "=?2);";
+                    "DELETE FROM " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_TABLENAME + //
+                                    " WHERE ( " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_FK_USERUUID_COLUMN + "=?1 AND " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_ALIASNAME_COLUMN + "=?2);";
 
     private static final String SELECT_UUID_FOR_SCMALIAS = //
-                    "SELECT " + COLUMN_USER_UUID + " FROM " + SCM_ALIASES_TABLENAME + //
-                                    " WHERE " + COLUMN_USER_ALIASNAME + "=?1;";
+                    "SELECT " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_FK_USERUUID_COLUMN + " FROM " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_TABLENAME + //
+                                    " WHERE " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_ALIASNAME_COLUMN + "=?1;";
 
     private static final String SELECT_ALIASES_FOR_USER = //
-                    "SELECT " + COLUMN_USER_ALIASNAME + " FROM " + SCM_ALIASES_TABLENAME + //
-                                    " WHERE " + COLUMN_USER_UUID + "=?1 " + //
-                                    " ORDER BY " + COLUMN_USER_ALIASNAME + ";";
+                    "SELECT " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_ALIASNAME_COLUMN + " FROM " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_TABLENAME + //
+                                    " WHERE " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_FK_USERUUID_COLUMN + "=?1 " + //
+                                    " ORDER BY " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_ALIASNAME_COLUMN + ";";
 
     private FSqrDatabaseConnection connection;
 
@@ -135,7 +119,7 @@ public class FSqrAlternateScmAliasesDatabaseTableImpl implements FSqrAlternateSc
 
             try (ResultSet resultSet = selectUuidPS.executeQuery()) {
                 if (resultSet.next()) {
-                    result = resultSet.getString( COLUMN_USER_UUID );
+                    result = resultSet.getString( FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_FK_USERUUID_COLUMN );
                 }
             }
             return result;
@@ -159,7 +143,7 @@ public class FSqrAlternateScmAliasesDatabaseTableImpl implements FSqrAlternateSc
 
             try (ResultSet resultSet = selectAllAliasesPS.executeQuery()) {
                 while (resultSet.next()) {
-                    result.add( resultSet.getString( COLUMN_USER_ALIASNAME ) );
+                    result.add( resultSet.getString( FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_ALIASNAME_COLUMN ) );
                 }
             }
         }
@@ -188,8 +172,8 @@ public class FSqrAlternateScmAliasesDatabaseTableImpl implements FSqrAlternateSc
     @Override
     public void createTable() {
         try (Statement statement = this.connection.createStatement()) {
-            statement.executeUpdate( DROP_TABLE_IF_EXISTS );
-            statement.executeUpdate( CREATE_TABLE_SCM_ALIASES );
+            statement.executeUpdate( FSqrSqliteDatabaseImpl.QUERY_SCM_USER_ALIASES_DROP_TABLE_IF_EXISTS );
+            statement.executeUpdate( FSqrSqliteDatabaseImpl.QUERY_SCM_USER_ALIASED_CREATE_TABLE_SCM_ALIASES );
             initHardcodedData();
         }
         catch (Exception e) {
