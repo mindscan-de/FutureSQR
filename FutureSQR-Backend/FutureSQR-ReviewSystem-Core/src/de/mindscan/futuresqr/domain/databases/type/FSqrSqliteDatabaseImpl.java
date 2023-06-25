@@ -198,4 +198,9 @@ public class FSqrSqliteDatabaseImpl {
                                     ", " + SYSTEM_USERS_EMAIL_COLUMN + //
                                     ", " + SYSTEM_USERS_AVATARLOCATION_COLUMN + //
                                     ", " + SYSTEM_USERS_ISBANNED_COLUMN + ");";
+
+    // TODO: createDatabase
+    // TODO: createTables()
+    // TODO: dropDatabase
+    // TODO: dropTables();
 }
