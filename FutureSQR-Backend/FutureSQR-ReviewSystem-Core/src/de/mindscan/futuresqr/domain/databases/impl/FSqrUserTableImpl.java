@@ -46,19 +46,6 @@ public class FSqrUserTableImpl implements FSqrUserTable {
 
     private static final boolean INITMODE_ENABLED = true;
 
-    // sql-statements
-    private static final String CREATE_TABLE_SYSTEM_USERS = //
-                    "CREATE TABLE " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_TABLENAME + // 
-                                    " ( " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_PK_UUID_COLUMN + //
-                                    ", " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_LOGINNAME_COLUMN + //
-                                    ", " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_DISPLAYNAME_COLUMN + //
-                                    ", " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_EMAIL_COLUMN + //
-                                    ", " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_AVATARLOCATION_COLUMN + //
-                                    ", " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_ISBANNED_COLUMN + ");";
-
-    private static final String DROP_TABLE_IF_EXISTS = // 
-                    "DROP TABLE IF EXISTS " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_TABLENAME + ";";
-
     private static final String INSERT_SYSTEM_USER_PS = //
                     "INSERT INTO " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_TABLENAME + //
                                     " ( " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_PK_UUID_COLUMN + //
@@ -266,8 +253,8 @@ public class FSqrUserTableImpl implements FSqrUserTable {
     @Override
     public void createTable() {
         try (Statement statement = this.connection.createStatement()) {
-            statement.executeUpdate( DROP_TABLE_IF_EXISTS );
-            statement.executeUpdate( CREATE_TABLE_SYSTEM_USERS );
+            statement.executeUpdate( FSqrSqliteDatabaseImpl.QUERY_SYSTEM_USERS_DROP_TABLE );
+            statement.executeUpdate( FSqrSqliteDatabaseImpl.QUERY_SYSTEM_USERS_CREATE_TABLE );
             initHardcodedData();
         }
         catch (Exception e) {

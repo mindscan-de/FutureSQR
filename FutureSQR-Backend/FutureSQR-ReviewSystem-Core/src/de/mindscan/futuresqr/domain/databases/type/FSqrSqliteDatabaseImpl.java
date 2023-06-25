@@ -125,6 +125,9 @@ public class FSqrSqliteDatabaseImpl {
     public static final String QUERY_SCM_CONFIGURATION_DROP_TABLE = //
                     "DROP TABLE IF EXISTS " + SCM_CONFIGURATION_TABLENAME + ";";
 
+    public static final String QUERY_SYSTEM_USERS_DROP_TABLE = // 
+                    "DROP TABLE IF EXISTS " + SYSTEM_USERS_TABLENAME + ";";
+
     // =============
     // Create Tables
     // =============
@@ -162,5 +165,14 @@ public class FSqrSqliteDatabaseImpl {
                     "CREATE TABLE " + SCM_CONFIGURATION_TABLENAME + //
                                     " (" + SCM_CONFIGURATION_PK_PROJECTID_COLUMN + //
                                     ", " + SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN + "); ";
+
+    public static final String QUERY_SYSTEM_USERS_CREATE_TABLE = //
+                    "CREATE TABLE " + SYSTEM_USERS_TABLENAME + // 
+                                    " ( " + SYSTEM_USERS_PK_UUID_COLUMN + //
+                                    ", " + SYSTEM_USERS_LOGINNAME_COLUMN + //
+                                    ", " + SYSTEM_USERS_DISPLAYNAME_COLUMN + //
+                                    ", " + SYSTEM_USERS_EMAIL_COLUMN + //
+                                    ", " + SYSTEM_USERS_AVATARLOCATION_COLUMN + //
+                                    ", " + SYSTEM_USERS_ISBANNED_COLUMN + ");";
 
 }
