@@ -82,6 +82,9 @@ public class FSqrSqliteDatabaseImpl {
     public static final String QUERY_DISCUSSION_THREAD_DROP_TABLE = // 
                     "DROP TABLE IF EXISTS " + DISCUSSION_THREAD_TABLENAME + ";";
 
+    public static final String QUERY_CODE_REVIEW_DISCUSSIONS_DROP_TABLE = //
+                    "DROP TABLE IF EXISTS " + CODE_REVIEW_DISCUSSIONS_TABLENAME + ";";
+
     // -------------
     // Create Tables
     // -------------
@@ -101,5 +104,12 @@ public class FSqrSqliteDatabaseImpl {
                     "CREATE TABLE " + DISCUSSION_THREAD_TABLENAME + //
                                     " (" + DISCUSSION_THREAD_PK_UUID_COLUMN + //
                                     ", " + DISCUSSION_THREAD_THREADDATA_COLUMN + ");";
+
+    public static final String QUERY_CODE_REVIEW_DISCUSSIONS_CREATE_TABLE = //
+                    "CREATE TABLE  " + CODE_REVIEW_DISCUSSIONS_TABLENAME + //
+                                    " (" + CODE_REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN + //
+                                    ", " + CODE_REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN + //
+                                    ", " + CODE_REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM + //
+                                    ", " + CODE_REVIEW_DISCISSIONS_CREATED_TS_COLUMNS + ");";
 
 }

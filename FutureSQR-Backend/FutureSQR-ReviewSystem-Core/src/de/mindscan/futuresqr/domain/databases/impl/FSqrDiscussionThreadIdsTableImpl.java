@@ -41,19 +41,6 @@ import de.mindscan.futuresqr.domain.databases.type.FSqrSqliteDatabaseImpl;
  */
 public class FSqrDiscussionThreadIdsTableImpl implements FSqrDiscussionThreadIdsTable {
 
-    // sql statements
-
-    private static final String DROP_TABLE_IF_EXISTS = // 
-                    "DROP TABLE IF EXISTS " + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_TABLENAME + ";";
-
-    private static final String CREATE_TABLE_REVIEW_DISCUSSIONS = //
-                    "CREATE TABLE  " + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_TABLENAME + //
-                                    " (" + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN + //
-                                    ", " + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN + //
-                                    ", " + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM + //
-
-                                    ", " + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCISSIONS_CREATED_TS_COLUMNS + ");";
-
     private static final String INSERT_TABLE_REVIEW_DISCUSSON = //
                     "INSERT INTO " + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_TABLENAME + //
                                     " (" + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN + //
@@ -134,8 +121,8 @@ public class FSqrDiscussionThreadIdsTableImpl implements FSqrDiscussionThreadIds
     @Override
     public void createTable() {
         try (Statement statement = this.connection.createStatement()) {
-            statement.executeUpdate( DROP_TABLE_IF_EXISTS );
-            statement.executeUpdate( CREATE_TABLE_REVIEW_DISCUSSIONS );
+            statement.executeUpdate( FSqrSqliteDatabaseImpl.QUERY_CODE_REVIEW_DISCUSSIONS_DROP_TABLE );
+            statement.executeUpdate( FSqrSqliteDatabaseImpl.QUERY_CODE_REVIEW_DISCUSSIONS_CREATE_TABLE );
         }
         catch (Exception e) {
             e.printStackTrace();
