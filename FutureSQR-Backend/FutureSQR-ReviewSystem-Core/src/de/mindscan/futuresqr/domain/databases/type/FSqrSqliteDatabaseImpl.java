@@ -34,14 +34,29 @@ public class FSqrSqliteDatabaseImpl {
     // TableNames
     // ==========
     public static final String SCM_USER_ALIASES_TABLENAME = "ScmUserAliases";
+    public static final SqliteDatabaseTable SCM_USER_ALIASES_TABLE = new SqliteDatabaseTable( SCM_USER_ALIASES_TABLENAME );
+
     // TODO Rename to EA Model truth.
     public static final String CODE_REVIEW_DISCUSSIONS_TABLENAME = "ReviewDiscussions";
+    public static final SqliteDatabaseTable CODE_REVIEW_DISCUSSIONS_TABLE = new SqliteDatabaseTable( CODE_REVIEW_DISCUSSIONS_TABLENAME );
+
     public static final String CODE_REVIEW_SCM_REVISIONS_TABLENAME = "RevisionsToReviews";
+    public static final SqliteDatabaseTable CODE_REVIEW_SCM_REVISIONS_TABLE = new SqliteDatabaseTable( CODE_REVIEW_SCM_REVISIONS_TABLENAME );
+
     public static final String CODE_REVIEWS_TABLENAME = "CodeReviews";
+    public static final SqliteDatabaseTable CODE_REVIEWS_TABLE = new SqliteDatabaseTable( CODE_REVIEWS_TABLENAME );
+
     public static final String DISCUSSION_THREAD_TABLENAME = "DiscussionThread";
+    public static final SqliteDatabaseTable DISCUSSION_THREAD_TABLE = new SqliteDatabaseTable( DISCUSSION_THREAD_TABLENAME );
+
     public static final String SCM_CONFIGURATION_TABLENAME = "ScmConfigurations";
+    public static final SqliteDatabaseTable SCM_CONFIGURATION_TABLE = new SqliteDatabaseTable( SCM_CONFIGURATION_TABLENAME );
+
     public static final String STARRED_PROJECTS_TABLENAME = "StarredProjects";
+    public static final SqliteDatabaseTable STARRED_PROJECTS_TABLE = new SqliteDatabaseTable( STARRED_PROJECTS_TABLENAME );
+
     public static final String SYSTEM_USERS_TABLENAME = "SystemUsers";
+    public static final SqliteDatabaseTable SYSTEM_USERS_TABLE = new SqliteDatabaseTable( SYSTEM_USERS_TABLENAME );
 
     // ============
     // Column Names
