@@ -28,7 +28,7 @@ package de.mindscan.futuresqr.domain.databases.type;
 /**
  * 
  */
-public class FSqrSqliteDatabaseImpl {
+public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
 
     // ==========
     // TableNames
@@ -198,6 +198,15 @@ public class FSqrSqliteDatabaseImpl {
                                     ", " + SYSTEM_USERS_EMAIL_COLUMN + //
                                     ", " + SYSTEM_USERS_AVATARLOCATION_COLUMN + //
                                     ", " + SYSTEM_USERS_ISBANNED_COLUMN + ");";
+
+//    /** 
+//     * {@inheritDoc}
+//     */
+//    @Override
+//    public void setDatbaseConnection( FSqrDatabaseConnection connection ) {
+//        // TODO Auto-generated method stub
+//
+//    }
 
     // TODO: createDatabase
     // TODO: createTables()
