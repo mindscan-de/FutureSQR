@@ -103,6 +103,9 @@ public class FSqrSqliteDatabaseImpl {
     public static final String QUERY_CODE_REVIEW_SCM_REVISIONS_DROP_TABLE = //
                     "DROP TABLE IF EXISTS " + CODE_REVIEW_SCM_REVISIONS_TABLENAME + ";";
 
+    public static final String QUERY_SCM_CONFIGURATION_DROP_TABLE = //
+                    "DROP TABLE IF EXISTS " + SCM_CONFIGURATION_TABLENAME + ";";
+
     // =============
     // Create Tables
     // =============
@@ -135,5 +138,10 @@ public class FSqrSqliteDatabaseImpl {
                                     " (" + CODE_REVIEW_SCM_REVISIONS_FK_PROJECTID_COLUMN + //
                                     ", " + CODE_REVIEW_SCM_REVISIONS_SCMREVISIONID_COLUMN + // 
                                     ", " + CODE_REVIEW_SCM_REVISIONS_FK_REVIEWID_COLUMN + ");";
+
+    public static final String QUERY_SCM_CONFIGURATION_CREATE_TABLE = //
+                    "CREATE TABLE " + SCM_CONFIGURATION_TABLENAME + //
+                                    " (" + SCM_CONFIGURATION_PK_PROJECTID_COLUMN + //
+                                    ", " + SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN + "); ";
 
 }

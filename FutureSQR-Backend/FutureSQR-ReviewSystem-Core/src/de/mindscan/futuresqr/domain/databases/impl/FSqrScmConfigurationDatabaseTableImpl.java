@@ -47,13 +47,6 @@ import de.mindscan.futuresqr.domain.model.FSqrScmProjectSvnAdminConfiguration;
  */
 public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurationDatabaseTable {
 
-    private static final String QUERY_SCM_CONFIGURATION_DROP_TABLE = //
-                    "DROP TABLE IF EXISTS " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_TABLENAME + ";";
-
-    private static final String QUERY_SCM_CONFIGURATION_CREATE_TABLE = //
-                    "CREATE TABLE " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_TABLENAME + " (" + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_PK_PROJECTID_COLUMN
-                                    + ", " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN + "); ";
-
     // SQL-Statements
     private static final String SELECT_ALL_SCM_CONFIGURATIONS_PS = //
                     "SELECT * FROM " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_TABLENAME + " ORDER BY "
@@ -341,8 +334,8 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
     @Override
     public void createTable() {
         try (Statement statement = this.connection.createStatement()) {
-            statement.executeUpdate( QUERY_SCM_CONFIGURATION_DROP_TABLE );
-            statement.executeUpdate( QUERY_SCM_CONFIGURATION_CREATE_TABLE );
+            statement.executeUpdate( FSqrSqliteDatabaseImpl.QUERY_SCM_CONFIGURATION_DROP_TABLE );
+            statement.executeUpdate( FSqrSqliteDatabaseImpl.QUERY_SCM_CONFIGURATION_CREATE_TABLE );
 
             // initialize the application database with some hard coded data 
             initHardcodedData();
