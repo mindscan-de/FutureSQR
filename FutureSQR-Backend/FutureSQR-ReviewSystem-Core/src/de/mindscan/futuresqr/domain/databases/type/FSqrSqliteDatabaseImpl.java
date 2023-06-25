@@ -40,6 +40,8 @@ public class FSqrSqliteDatabaseImpl {
     public static final String CODE_REVIEWS_TABLENAME = "CodeReviews";
     public static final String DISCUSSION_THREAD_TABLENAME = "DiscussionThread";
     public static final String SCM_CONFIGURATION_TABLENAME = "ScmConfigurations";
+    public static final String STARRED_PROJECTS_TABLENAME = "StarredProjects";
+    public static final String SYSTEM_USERS_TABLENAME = "SystemUsers";
 
     // ============
     // Column Names
@@ -82,8 +84,25 @@ public class FSqrSqliteDatabaseImpl {
     public static final String DISCUSSION_THREAD_THREADDATA_COLUMN = "threadData";
 
     // ScmConfiguration
+    // ----------------
     public static final String SCM_CONFIGURATION_PK_PROJECTID_COLUMN = "projectId";
     public static final String SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN = "scmConfigData";
+
+    // StarredProjects
+    public static final String STARRED_PROJECTS_FK_USERUUID_COLUM = "userUuid";
+    public static final String STARRED_PROJECTS_FK_PROJECTID_COLUUMN = "projectId";
+    public static final String STARRED_PROJECTS_STARRED_TS_COLUMN = "whenStarred";
+
+    // SystemUsers
+    public static final String SYSTEM_USERS_PK_UUID_COLUMN = "uuid";
+    public static final String SYSTEM_USERS_LOGINNAME_COLUMN = "userLoginName";
+    public static final String SYSTEM_USERS_DISPLAYNAME_COLUMN = "userDisplayName";
+    public static final String SYSTEM_USERS_EMAIL_COLUMN = "userEmail";
+    public static final String SYSTEM_USERS_AVATARLOCATION_COLUMN = "avatarLocation";
+    public static final String SYSTEM_USERS_ISBANNED_COLUMN = "isBanned";
+    // TODO: CREATED DATE_COLUMN
+    // TODO: MODIFIED DATE COLUMN
+    // TODO: BANNED DATE COLUMN
 
     // ==============
     // Drop If Exists

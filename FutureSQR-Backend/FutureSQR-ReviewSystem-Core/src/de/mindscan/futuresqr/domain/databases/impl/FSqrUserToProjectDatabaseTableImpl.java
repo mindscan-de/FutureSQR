@@ -34,6 +34,7 @@ import java.util.Set;
 
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectDatabaseTable;
+import de.mindscan.futuresqr.domain.databases.type.FSqrSqliteDatabaseImpl;
 
 /**
  * TODO: Refactor to more general database approach, such that these constants are in a 
@@ -41,52 +42,43 @@ import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectDatabaseTable;
  */
 public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectDatabaseTable {
 
-    // Table name
-
-    private static final String STARRED_PROJECT_TABLENAME = "StarredProjects";
-
-    // column names
-
-    private static final String STARRED_PROJECT_FK_USERUUID_COLUM = "userUuid";
-    private static final String STARRED_PROJECT_FK_PROJECTID_COLUUMN = "projectId";
-    private static final String STARRED_PROJECT_STARRED_TS_COLUMN = "whenStarred";
-    private static final String STARRED_PROJECT_COUNT = "COUNT";
+    private static final String STARRED_PROJECTS_COUNT = "COUNT";
 
     // sql statements
 
     private static final String DROP_TABLE_IF_EXISTS = // 
-                    "DROP TABLE IF EXISTS " + STARRED_PROJECT_TABLENAME + ";";
+                    "DROP TABLE IF EXISTS " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_TABLENAME + ";";
 
     private static final String CREATE_TABLE_STARRED_PROJECTS = //
-                    "CREATE TABLE  " + STARRED_PROJECT_TABLENAME + //
-                                    " (" + STARRED_PROJECT_FK_USERUUID_COLUM + //
-                                    ", " + STARRED_PROJECT_FK_PROJECTID_COLUUMN + //
-                                    ", " + STARRED_PROJECT_STARRED_TS_COLUMN + ");";
+                    "CREATE TABLE  " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_TABLENAME + //
+                                    " (" + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_FK_USERUUID_COLUM + //
+                                    ", " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_FK_PROJECTID_COLUUMN + //
+                                    ", " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_STARRED_TS_COLUMN + ");";
 
     private static final String INSERT_STAR_PS = //
-                    "INSERT INTO " + STARRED_PROJECT_TABLENAME + //
-                                    " (" + STARRED_PROJECT_FK_USERUUID_COLUM + //
-                                    ", " + STARRED_PROJECT_FK_PROJECTID_COLUUMN + //
-                                    ", " + STARRED_PROJECT_STARRED_TS_COLUMN + " ) VALUES (?1, ?2, CURRENT_TIMESTAMP);";
+                    "INSERT INTO " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_TABLENAME + //
+                                    " (" + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_FK_USERUUID_COLUM + //
+                                    ", " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_FK_PROJECTID_COLUUMN + //
+                                    ", " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_STARRED_TS_COLUMN + " ) VALUES (?1, ?2, CURRENT_TIMESTAMP);";
 
     private static final String DELETE_STAR_PS = //
-                    "DELETE FROM " + STARRED_PROJECT_TABLENAME + // 
-                                    " WHERE ( " + STARRED_PROJECT_FK_USERUUID_COLUM + "=?1 AND " + STARRED_PROJECT_FK_PROJECTID_COLUUMN + "=?2);";
+                    "DELETE FROM " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_TABLENAME + // 
+                                    " WHERE ( " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_FK_USERUUID_COLUM + "=?1 AND " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_FK_PROJECTID_COLUUMN + "=?2);";
 
     private static final String SELECT_STARRED_PROJECTS_BY_USER_PS = //
-                    "SELECT * FROM " + STARRED_PROJECT_TABLENAME + //
-                                    " WHERE (" + STARRED_PROJECT_FK_USERUUID_COLUM + "=?1) " + //
-                                    " ORDER BY " + STARRED_PROJECT_STARRED_TS_COLUMN + ";";
+                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_TABLENAME + //
+                                    " WHERE (" + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_FK_USERUUID_COLUM + "=?1) " + //
+                                    " ORDER BY " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_STARRED_TS_COLUMN + ";";
 
     private static final String SELECT_STARRING_USERS_BY_PROJECT_PS = //
-                    "SELECT * FROM " + STARRED_PROJECT_TABLENAME + //
-                                    " WHERE (" + STARRED_PROJECT_FK_PROJECTID_COLUUMN + "=?1) " + //
-                                    " ORDER BY " + STARRED_PROJECT_STARRED_TS_COLUMN + ";";
+                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_TABLENAME + //
+                                    " WHERE (" + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_FK_PROJECTID_COLUUMN + "=?1) " + //
+                                    " ORDER BY " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_STARRED_TS_COLUMN + ";";
 
     private static final String SELECT_STARRING_USERCOUNT_BY_PROJECT_PS = //
-                    "SELECT COUNT(*) AS " + STARRED_PROJECT_COUNT + " FROM " + STARRED_PROJECT_TABLENAME + //
-                                    " WHERE (" + STARRED_PROJECT_FK_PROJECTID_COLUUMN + "=?1) " + //
-                                    " ORDER BY " + STARRED_PROJECT_STARRED_TS_COLUMN + ";";
+                    "SELECT COUNT(*) AS " + STARRED_PROJECTS_COUNT + " FROM " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_TABLENAME + //
+                                    " WHERE (" + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_FK_PROJECTID_COLUUMN + "=?1) " + //
+                                    " ORDER BY " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_STARRED_TS_COLUMN + ";";
 
     private FSqrDatabaseConnection connection;
 
@@ -164,7 +156,7 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
             try (ResultSet resultSet = selectProjectsForUserPS.executeQuery()) {
                 while (resultSet.next()) {
                     // actually we might want to add the time stamp
-                    result.add( resultSet.getString( STARRED_PROJECT_FK_PROJECTID_COLUUMN ) );
+                    result.add( resultSet.getString( FSqrSqliteDatabaseImpl.STARRED_PROJECTS_FK_PROJECTID_COLUUMN ) );
                 }
             }
             return result;
@@ -188,7 +180,7 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
             try (ResultSet resultSet = selectStarringUsersPS.executeQuery()) {
                 while (resultSet.next()) {
                     // actually we might want to add the time stamp
-                    result.add( resultSet.getString( STARRED_PROJECT_FK_USERUUID_COLUM ) );
+                    result.add( resultSet.getString( FSqrSqliteDatabaseImpl.STARRED_PROJECTS_FK_USERUUID_COLUM ) );
                 }
             }
             return result;
@@ -212,7 +204,7 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
 
             try (ResultSet resultSet = countStarringUsersPS.executeQuery()) {
                 if (resultSet.next()) {
-                    result = resultSet.getInt( STARRED_PROJECT_COUNT );
+                    result = resultSet.getInt( STARRED_PROJECTS_COUNT );
                 }
             }
         }
