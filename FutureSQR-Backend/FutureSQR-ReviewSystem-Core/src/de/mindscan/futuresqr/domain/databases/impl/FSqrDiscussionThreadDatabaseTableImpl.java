@@ -36,7 +36,8 @@ import de.mindscan.futuresqr.domain.databases.FSqrDiscussionThreadDatabaseTable;
 import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
 
 /**
- * 
+ * TODO: Refactor to more general database approach, such that these constants are in a 
+ *       single database query provider, and get rid of of the constants  
  */
 public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThreadDatabaseTable {
 

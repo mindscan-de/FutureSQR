@@ -37,9 +37,9 @@ import de.mindscan.futuresqr.domain.databases.FSqrUserTable;
 import de.mindscan.futuresqr.domain.model.user.FSqrSystemUser;
 
 /**
- * This is a hard-coded user database, which we want to transform into a real user persistence, but we also
- * want to explore how to separate these two concerns correctly and how the update logic should be handled
- * by using the user database /  user repository first.
+ * TODO: Refactor to more general database approach, such that these constants are in a 
+ *       single database query provider, and get rid of of the constants  
+ *
  */
 public class FSqrUserTableImpl implements FSqrUserTable {
 

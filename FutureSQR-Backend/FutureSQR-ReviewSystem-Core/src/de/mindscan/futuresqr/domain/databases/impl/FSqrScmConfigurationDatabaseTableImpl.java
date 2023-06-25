@@ -41,7 +41,8 @@ import de.mindscan.futuresqr.domain.model.FSqrScmProjectGitAdminConfiguration;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectSvnAdminConfiguration;
 
 /**
- * 
+ * TODO: Refactor to more general database approach, such that these constants are in a 
+ *       single database query provider, and get rid of of the constants  
  */
 public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurationDatabaseTable {
 

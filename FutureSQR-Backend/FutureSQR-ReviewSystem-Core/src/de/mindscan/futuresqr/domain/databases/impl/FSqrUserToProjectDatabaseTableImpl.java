@@ -36,8 +36,8 @@ import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrUserToProjectDatabaseTable;
 
 /**
- * This is a fake implementation of the User To Starred Projects Database table. This is half way to
- * through to implement an access for a real database table. 
+ * TODO: Refactor to more general database approach, such that these constants are in a 
+ *       single database query provider, and get rid of of the constants  
  */
 public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectDatabaseTable {
 

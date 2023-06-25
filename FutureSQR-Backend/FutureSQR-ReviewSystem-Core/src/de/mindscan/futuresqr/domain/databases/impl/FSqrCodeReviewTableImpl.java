@@ -40,6 +40,9 @@ import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReviewLifecycleState;
 
 /**
+ * TODO: Refactor to more general database approach, such that these constants are in a 
+ *       single database query provider, and get rid of of the constants  
+ * 
  * This is an implementation of the database tables related to code reviews. 
  * 
  * This an implementation relying on SQLite - This implementation is for exploratory reasons use only and

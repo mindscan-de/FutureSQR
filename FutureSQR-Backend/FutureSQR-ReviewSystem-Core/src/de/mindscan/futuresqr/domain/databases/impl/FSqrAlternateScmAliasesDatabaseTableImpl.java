@@ -36,6 +36,9 @@ import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrAlternateScmAliasesDatabaseTable;
 
 /**
+ * TODO: Refactor to more general database approach, such that these constants are in a 
+ *       single database query provider, and get rid of of the constants  
+ * 
  * Implementation of the SCM aliases table. each user can have different
  * SCM Aliases basically in case of different accounts on different SCM Repositories.
  */
