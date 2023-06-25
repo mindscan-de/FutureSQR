@@ -31,6 +31,7 @@ import java.sql.Statement;
 
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrProjectAssignedCodeReviewsTable;
+import de.mindscan.futuresqr.domain.databases.type.FSqrSqliteDatabaseImpl;
 
 /**
  * TODO: Refactor to more general database approach, such that these constants are in a 
@@ -38,32 +39,36 @@ import de.mindscan.futuresqr.domain.databases.FSqrProjectAssignedCodeReviewsTabl
  */
 public class FSqrProjectAssignedCodeReviewsTableImpl implements FSqrProjectAssignedCodeReviewsTable {
 
-    private static final String REVISION_TO_CODE_REVIEW_TABLENAME = "RevisionsToReviews";
-
-    private static final String COLUMNNAME_PROJECT_ID = "projectId";
-    private static final String COLUMNNAME_REVISION_ID = "revisionId";
-    private static final String COLUMNNAME_REVIEW_ID = "reviewId";
-
     private static final String DROP_TABLE_IF_EXISTS = // 
-                    "DROP TABLE IF EXISTS " + REVISION_TO_CODE_REVIEW_TABLENAME + ";";
+                    "DROP TABLE IF EXISTS " + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_TABLENAME + ";";
 
     private static final String CREATE_TABLE_REVISION_TO_REVIEW = // 
-                    "CREATE TABLE  " + REVISION_TO_CODE_REVIEW_TABLENAME + " (" + COLUMNNAME_PROJECT_ID + ", " + COLUMNNAME_REVISION_ID + ", "
-                                    + COLUMNNAME_REVIEW_ID + ");";
+                    "CREATE TABLE  " + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_TABLENAME + " ("
+                                    + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_PROJECTID_COLUMN + ", "
+                                    + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_SCMREVISIONID_COLUMN + ", "
+                                    + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_REVIEWID_COLUMN + ");";
 
     private static final String SELECT_CODEREVIEW_FOR_PROJECT_REVISION = //
-                    "SELECT " + COLUMNNAME_REVIEW_ID + " FROM " + REVISION_TO_CODE_REVIEW_TABLENAME + " WHERE (" + COLUMNNAME_PROJECT_ID + "=?1  AND "
-                                    + COLUMNNAME_REVISION_ID + "=?2 ); ";
+                    "SELECT " + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_REVIEWID_COLUMN + " FROM "
+                                    + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_TABLENAME + " WHERE ("
+                                    + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_PROJECTID_COLUMN + "=?1  AND "
+                                    + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_SCMREVISIONID_COLUMN + "=?2 ); ";
 
     private static final String INSERT_CODEREVIEW_FOR_PROJECT_REVISION = //
-                    "INSERT INTO " + REVISION_TO_CODE_REVIEW_TABLENAME + " (" + COLUMNNAME_PROJECT_ID + "," + COLUMNNAME_REVISION_ID + ","
-                                    + COLUMNNAME_REVIEW_ID + ") VALUES (?1, ?2, ?3); ";
+                    "INSERT INTO " + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_TABLENAME + " ("
+                                    + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_PROJECTID_COLUMN + ","
+                                    + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_SCMREVISIONID_COLUMN + "," + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_REVIEWID_COLUMN
+                                    + ") VALUES (?1, ?2, ?3); ";
 
     private static final String REMOVE_CODEREVIEW_FOR_PROJECT_REVISION = //
-                    "DELETE FROM " + REVISION_TO_CODE_REVIEW_TABLENAME + " WHERE ( " + COLUMNNAME_PROJECT_ID + "=?1 AND " + COLUMNNAME_REVISION_ID + "=?2 );";
+                    "DELETE FROM " + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_TABLENAME + " WHERE ( "
+                                    + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_PROJECTID_COLUMN + "=?1 AND "
+                                    + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_SCMREVISIONID_COLUMN + "=?2 );";
 
     private static final String REMOVE_CODEREVIEW_FOR_PROJECT = //
-                    "DELETE FROM " + REVISION_TO_CODE_REVIEW_TABLENAME + " WHERE ( " + COLUMNNAME_PROJECT_ID + "=?1 AND " + COLUMNNAME_REVIEW_ID + "=?2 );";
+                    "DELETE FROM " + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_TABLENAME + " WHERE ( "
+                                    + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_PROJECTID_COLUMN + "=?1 AND "
+                                    + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_REVIEWID_COLUMN + "=?2 );";
 
     private FSqrDatabaseConnection connection;
 
@@ -95,7 +100,7 @@ public class FSqrProjectAssignedCodeReviewsTableImpl implements FSqrProjectAssig
 
             try (ResultSet resultSet = selectPS.executeQuery()) {
                 if (resultSet.next()) {
-                    result = resultSet.getString( COLUMNNAME_REVIEW_ID );
+                    result = resultSet.getString( FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_REVIEWID_COLUMN );
                 }
             }
 

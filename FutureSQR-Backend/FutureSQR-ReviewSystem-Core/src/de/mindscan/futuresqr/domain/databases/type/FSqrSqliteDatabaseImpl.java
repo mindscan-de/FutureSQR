@@ -36,6 +36,7 @@ public class FSqrSqliteDatabaseImpl {
     public static final String SCM_USER_ALIASES_TABLENAME = "ScmUserAliases";
     // TODO Rename to EA Model truth.
     public static final String CODE_REVIEW_DISCUSSIONS_TABLENAME = "ReviewDiscussions";
+    public static final String CODE_REVIEW_SCM_REVISIONS_TABLENAME = "RevisionsToReviews";
     public static final String CODE_REVIEWS_TABLENAME = "CodeReviews";
     public static final String DISCUSSION_THREAD_TABLENAME = "DiscussionThread";
 
@@ -59,6 +60,11 @@ public class FSqrSqliteDatabaseImpl {
     // TODO maybe a last updated for each thread?...
     // TODO maybe we need a indicator, whether a full thread is resolved.
     // TODO maybe state whether thread was deleted...
+
+    // CoreReviewScmRevisions
+    public static final String CODE_REVIEW_SCM_REVISIONS_FK_PROJECTID_COLUMN = "projectId";
+    public static final String CODE_REVIEW_SCM_REVISIONS_FK_REVIEWID_COLUMN = "reviewId";
+    public static final String CODE_REVIEW_SCM_REVISIONS_SCMREVISIONID_COLUMN = "revisionId";
 
     // CodeReviews
     // -----------
