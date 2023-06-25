@@ -44,17 +44,6 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
 
     private static final String STARRED_PROJECTS_COUNT = "COUNT";
 
-    // sql statements
-
-    private static final String DROP_TABLE_IF_EXISTS = // 
-                    "DROP TABLE IF EXISTS " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_TABLENAME + ";";
-
-    private static final String CREATE_TABLE_STARRED_PROJECTS = //
-                    "CREATE TABLE  " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_TABLENAME + //
-                                    " (" + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_FK_USERUUID_COLUM + //
-                                    ", " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_FK_PROJECTID_COLUUMN + //
-                                    ", " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_STARRED_TS_COLUMN + ");";
-
     private static final String INSERT_STAR_PS = //
                     "INSERT INTO " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_TABLENAME + //
                                     " (" + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_FK_USERUUID_COLUM + //
@@ -63,7 +52,8 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
 
     private static final String DELETE_STAR_PS = //
                     "DELETE FROM " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_TABLENAME + // 
-                                    " WHERE ( " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_FK_USERUUID_COLUM + "=?1 AND " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_FK_PROJECTID_COLUUMN + "=?2);";
+                                    " WHERE ( " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_FK_USERUUID_COLUM + "=?1 AND "
+                                    + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_FK_PROJECTID_COLUUMN + "=?2);";
 
     private static final String SELECT_STARRED_PROJECTS_BY_USER_PS = //
                     "SELECT * FROM " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_TABLENAME + //
@@ -222,8 +212,8 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
     public void createTable() {
 
         try (Statement statement = this.connection.createStatement()) {
-            statement.executeUpdate( DROP_TABLE_IF_EXISTS );
-            statement.executeUpdate( CREATE_TABLE_STARRED_PROJECTS );
+            statement.executeUpdate( FSqrSqliteDatabaseImpl.QUERY_STARRED_PROJECTS_DROP_TABLE );
+            statement.executeUpdate( FSqrSqliteDatabaseImpl.QUERY_STARRED_PROJECTS_CREATE_TABLE );
             initHardCodedData();
         }
         catch (Exception e) {

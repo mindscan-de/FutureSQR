@@ -125,6 +125,9 @@ public class FSqrSqliteDatabaseImpl {
     public static final String QUERY_SCM_CONFIGURATION_DROP_TABLE = //
                     "DROP TABLE IF EXISTS " + SCM_CONFIGURATION_TABLENAME + ";";
 
+    public static final String QUERY_STARRED_PROJECTS_DROP_TABLE = // 
+                    "DROP TABLE IF EXISTS " + STARRED_PROJECTS_TABLENAME + ";";
+
     public static final String QUERY_SYSTEM_USERS_DROP_TABLE = // 
                     "DROP TABLE IF EXISTS " + SYSTEM_USERS_TABLENAME + ";";
 
@@ -166,6 +169,12 @@ public class FSqrSqliteDatabaseImpl {
                                     " (" + SCM_CONFIGURATION_PK_PROJECTID_COLUMN + //
                                     ", " + SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN + "); ";
 
+    public static final String QUERY_STARRED_PROJECTS_CREATE_TABLE = //
+                    "CREATE TABLE  " + STARRED_PROJECTS_TABLENAME + //
+                                    " (" + STARRED_PROJECTS_FK_USERUUID_COLUM + //
+                                    ", " + STARRED_PROJECTS_FK_PROJECTID_COLUUMN + //
+                                    ", " + STARRED_PROJECTS_STARRED_TS_COLUMN + ");";
+
     public static final String QUERY_SYSTEM_USERS_CREATE_TABLE = //
                     "CREATE TABLE " + SYSTEM_USERS_TABLENAME + // 
                                     " ( " + SYSTEM_USERS_PK_UUID_COLUMN + //
@@ -174,5 +183,4 @@ public class FSqrSqliteDatabaseImpl {
                                     ", " + SYSTEM_USERS_EMAIL_COLUMN + //
                                     ", " + SYSTEM_USERS_AVATARLOCATION_COLUMN + //
                                     ", " + SYSTEM_USERS_ISBANNED_COLUMN + ");";
-
 }
