@@ -36,6 +36,7 @@ import com.google.gson.Gson;
 
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrCodeReviewTable;
+import de.mindscan.futuresqr.domain.databases.type.FSqrSqliteDatabaseImpl;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReviewLifecycleState;
 

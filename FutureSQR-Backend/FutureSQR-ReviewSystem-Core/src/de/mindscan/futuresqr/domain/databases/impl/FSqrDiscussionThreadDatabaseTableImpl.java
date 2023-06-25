@@ -33,6 +33,7 @@ import com.google.gson.Gson;
 
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrDiscussionThreadDatabaseTable;
+import de.mindscan.futuresqr.domain.databases.type.FSqrSqliteDatabaseImpl;
 import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
 
 /**

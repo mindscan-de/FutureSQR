@@ -34,6 +34,7 @@ import java.util.List;
 
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrAlternateScmAliasesDatabaseTable;
+import de.mindscan.futuresqr.domain.databases.type.FSqrSqliteDatabaseImpl;
 
 /**
  * TODO: Refactor to more general database approach, such that these constants are in a 
