@@ -30,20 +30,50 @@ package de.mindscan.futuresqr.domain.databases.impl;
  */
 public class FSqrSqliteDatabaseImpl {
 
-    // TableName
+    // ----------
+    // TableNames
+    // ----------
     static final String SCM_USER_ALIASES_TABLENAME = "ScmUserAliases";
+    static final String CODE_REVIEWS_TABLENAME = "CodeReviews";
 
+    // ------------
     // Column Names
+    // ------------
+
+    // ScmUserAliases
     static final String SCM_USER_ALIASES_FK_USERUUID_COLUMN = "userUuid";
     static final String SCM_USER_ALIASES_ALIASNAME_COLUMN = "aliasName";
 
+    // CodeReviews
+    // TODO: reviewUuid
+    static final String CODE_REVIEWS_FK_PROJECTID_COLUMN = "projectId";
+    // TODO: project Branch
+    static final String CODE_REVIEWS_STATE_COLUMN = "state";
+    static final String CODE_REVIEWS_REVIEWID_COLUMN = "reviewId";
+    static final String CODE_REVIEWS_REVIWEDATA_COLUMN = "reviewData";
+
+    // --------------
     // Drop If Exists
-    static final String QUERY_SCM_USER_ALIASES_DROP_TABLE_IF_EXISTS = //
+    // --------------
+    static final String QUERY_SCM_USER_ALIASES_DROP_TABLE = //
                     "DROP TABLE IF EXISTS " + SCM_USER_ALIASES_TABLENAME + ";";
 
-    static final String QUERY_SCM_USER_ALIASED_CREATE_TABLE_SCM_ALIASES = // 
+    static final String QUERY_CODE_REVIEWS_DROP_TABLE = // 
+                    "DROP TABLE IF EXISTS " + CODE_REVIEWS_TABLENAME + ";";
+
+    // -------------
+    // Create Tables
+    // -------------
+    static final String QUERY_SCM_USER_ALIASES_CREATE_TABLE = // 
                     "CREATE TABLE " + SCM_USER_ALIASES_TABLENAME + //
                                     " (" + SCM_USER_ALIASES_FK_USERUUID_COLUMN + //
                                     ", " + SCM_USER_ALIASES_ALIASNAME_COLUMN + "); ";
+
+    static final String QUERY_CODE_REVIEWS_CREATE_TABLE = // 
+                    "CREATE TABLE  " + CODE_REVIEWS_TABLENAME + //
+                                    " (" + CODE_REVIEWS_FK_PROJECTID_COLUMN + //
+                                    ", " + CODE_REVIEWS_REVIEWID_COLUMN + //
+                                    ", " + CODE_REVIEWS_REVIWEDATA_COLUMN + //
+                                    ", " + CODE_REVIEWS_STATE_COLUMN + ");";
 
 }

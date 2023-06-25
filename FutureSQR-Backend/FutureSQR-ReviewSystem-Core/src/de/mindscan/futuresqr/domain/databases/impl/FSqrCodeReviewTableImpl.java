@@ -62,36 +62,32 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
 
     private Gson gson = new Gson();
 
-    private static final String CODE_REVIEW_TABLENAME = "CodeReviews";
-
-    private static final String CODE_REVIEW_REVIWEDATA_COLUMN = "reviewData";
-    private static final String CODE_REVIEW_STATE_COLUMN = "state";
-    private static final String CODE_REVIEW_FK_PROJECTID_COLUMN = "projectId";
-    private static final String CODE_REVIEW_REVIEWID_COLUMN = "reviewId";
-
-    // reviewData is the gson serialized FSqrCodeReview object - just get it done.... for now. we will invest 
-    // some more thoughts into it some time later.  
-    private static final String CREATE_TABLE_CODE_REVIEWS = // 
-                    "CREATE TABLE  " + CODE_REVIEW_TABLENAME + " (" + CODE_REVIEW_FK_PROJECTID_COLUMN + ", " + CODE_REVIEW_REVIEWID_COLUMN + ", "
-                                    + CODE_REVIEW_REVIWEDATA_COLUMN + ", " + CODE_REVIEW_STATE_COLUMN + ");";
-
-    private static final String DROP_TABLE_IF_EXISTS = // 
-                    "DROP TABLE IF EXISTS " + CODE_REVIEW_TABLENAME + ";";
-
     private static final String SELECT_FROM_CODE_REVIEWS_PS = //
-                    "SELECT * FROM " + CODE_REVIEW_TABLENAME + " WHERE (" + CODE_REVIEW_FK_PROJECTID_COLUMN + "=?1 AND " + CODE_REVIEW_REVIEWID_COLUMN
-                                    + "=?2); ";
+                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.CODE_REVIEWS_TABLENAME + //
+                                    " WHERE (" + // 
+                                    FSqrSqliteDatabaseImpl.CODE_REVIEWS_FK_PROJECTID_COLUMN + "=?1 AND " + //
+                                    FSqrSqliteDatabaseImpl.CODE_REVIEWS_REVIEWID_COLUMN + "=?2); ";
 
     private static final String SELECT_FROM_CODE_REVIEWS_WHERE_STATE_PS = //
-                    "SELECT * FROM " + CODE_REVIEW_TABLENAME + " WHERE (" + CODE_REVIEW_FK_PROJECTID_COLUMN + "=?1 AND " + CODE_REVIEW_STATE_COLUMN + "=?2); ";
+                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.CODE_REVIEWS_TABLENAME + //
+                                    " WHERE (" + //
+                                    FSqrSqliteDatabaseImpl.CODE_REVIEWS_FK_PROJECTID_COLUMN + "=?1 AND " + //
+                                    FSqrSqliteDatabaseImpl.CODE_REVIEWS_STATE_COLUMN + "=?2); ";
 
     private static final String INSERT_CODE_REVIEW_PS = //
-                    "INSERT INTO " + CODE_REVIEW_TABLENAME + " (" + CODE_REVIEW_FK_PROJECTID_COLUMN + ", " + CODE_REVIEW_REVIEWID_COLUMN + ", "
-                                    + CODE_REVIEW_REVIWEDATA_COLUMN + ", " + CODE_REVIEW_STATE_COLUMN + ") VALUES (?1,?2,?3,?4);";
+                    "INSERT INTO " + FSqrSqliteDatabaseImpl.CODE_REVIEWS_TABLENAME + //
+                                    " (" + FSqrSqliteDatabaseImpl.CODE_REVIEWS_FK_PROJECTID_COLUMN + //
+                                    ", " + FSqrSqliteDatabaseImpl.CODE_REVIEWS_REVIEWID_COLUMN + //
+                                    ", " + FSqrSqliteDatabaseImpl.CODE_REVIEWS_REVIWEDATA_COLUMN + //
+                                    ", " + FSqrSqliteDatabaseImpl.CODE_REVIEWS_STATE_COLUMN + ") VALUES (?1,?2,?3,?4);";
 
     private static final String UPDATE_CODE_REVIEW_PS = //
-                    "UPDATE " + CODE_REVIEW_TABLENAME + " SET " + CODE_REVIEW_REVIWEDATA_COLUMN + "=?3, " + CODE_REVIEW_STATE_COLUMN + "=?4 WHERE ( "
-                                    + CODE_REVIEW_FK_PROJECTID_COLUMN + "=?1 AND " + CODE_REVIEW_REVIEWID_COLUMN + "=?2);";
+                    "UPDATE " + FSqrSqliteDatabaseImpl.CODE_REVIEWS_TABLENAME + //
+                                    " SET " + FSqrSqliteDatabaseImpl.CODE_REVIEWS_REVIWEDATA_COLUMN + "=?3, " + //
+                                    FSqrSqliteDatabaseImpl.CODE_REVIEWS_STATE_COLUMN + "=?4 " + //
+                                    " WHERE ( " + //
+                                    FSqrSqliteDatabaseImpl.CODE_REVIEWS_FK_PROJECTID_COLUMN + "=?1 AND " + //
+                                    FSqrSqliteDatabaseImpl.CODE_REVIEWS_REVIEWID_COLUMN + "=?2);";
 
     private FSqrDatabaseConnection connection;
 
@@ -136,7 +132,7 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
     }
 
     private FSqrCodeReview createFSqrCodeReview( ResultSet resultSet ) throws Exception {
-        String reviewDataString = resultSet.getString( CODE_REVIEW_REVIWEDATA_COLUMN );
+        String reviewDataString = resultSet.getString( FSqrSqliteDatabaseImpl.CODE_REVIEWS_REVIWEDATA_COLUMN );
 
         return gson.fromJson( reviewDataString, FSqrCodeReview.class );
     }
@@ -250,8 +246,8 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
     @Override
     public void createTable() {
         try (Statement statement = this.connection.createStatement()) {
-            statement.executeUpdate( DROP_TABLE_IF_EXISTS );
-            statement.executeUpdate( CREATE_TABLE_CODE_REVIEWS );
+            statement.executeUpdate( FSqrSqliteDatabaseImpl.QUERY_CODE_REVIEWS_DROP_TABLE );
+            statement.executeUpdate( FSqrSqliteDatabaseImpl.QUERY_CODE_REVIEWS_CREATE_TABLE );
         }
         catch (Exception e) {
             e.printStackTrace();
