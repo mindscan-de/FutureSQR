@@ -46,25 +46,25 @@ import de.mindscan.futuresqr.domain.databases.type.FSqrSqliteDatabaseImpl;
 public class FSqrAlternateScmAliasesDatabaseTableImpl implements FSqrAlternateScmAliasesDatabaseTable {
 
     private static final String INSERT_SCM_ALIASNAME_PS = //
-                    "INSERT INTO " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_TABLENAME + //
+                    "INSERT INTO " + FSqrSqliteDatabaseImpl.getScmUserAliasesTable().tableName() + //
                                     " (" + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_FK_USERUUID_COLUMN + //
                                     ", " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_ALIASNAME_COLUMN + " ) VALUES (?1, ?2);";
 
     private static final String REMOVE_SCM_ALIASNAME_PS = //
-                    "DELETE FROM " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_TABLENAME + //
+                    "DELETE FROM " + FSqrSqliteDatabaseImpl.getScmUserAliasesTable().tableName() + //
                                     " WHERE ( " + //
                                     FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_FK_USERUUID_COLUMN + "=?1 AND " + //
                                     FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_ALIASNAME_COLUMN + "=?2);";
 
     private static final String SELECT_UUID_FOR_SCMALIAS = //
                     "SELECT " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_FK_USERUUID_COLUMN + //
-                                    " FROM " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_TABLENAME + //
+                                    " FROM " + FSqrSqliteDatabaseImpl.getScmUserAliasesTable().tableName() + //
                                     " WHERE " + //
                                     FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_ALIASNAME_COLUMN + "=?1;";
 
     private static final String SELECT_ALIASES_FOR_USER = //
                     "SELECT " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_ALIASNAME_COLUMN + //
-                                    " FROM " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_TABLENAME + //
+                                    " FROM " + FSqrSqliteDatabaseImpl.getScmUserAliasesTable().tableName() + //
                                     " WHERE " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_FK_USERUUID_COLUMN + "=?1 " + //
                                     " ORDER BY " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_ALIASNAME_COLUMN + ";";
 

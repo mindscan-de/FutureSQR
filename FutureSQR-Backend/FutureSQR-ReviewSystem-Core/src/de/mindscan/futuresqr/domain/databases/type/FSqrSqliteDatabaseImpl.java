@@ -33,7 +33,7 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
     // ==========
     // TableNames
     // ==========
-    public static final String SCM_USER_ALIASES_TABLENAME = "ScmUserAliases";
+    private static final String SCM_USER_ALIASES_TABLENAME = "ScmUserAliases";
     private static final SqliteDatabaseTable SCM_USER_ALIASES_TABLE = new SqliteDatabaseTable( SCM_USER_ALIASES_TABLENAME );
 
     // TODO Rename to EA Model truth.
