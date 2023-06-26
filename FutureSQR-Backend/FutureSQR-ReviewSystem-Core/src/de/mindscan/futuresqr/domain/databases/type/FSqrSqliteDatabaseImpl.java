@@ -40,7 +40,7 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
     private static final String CODE_REVIEW_DISCUSSIONS_TABLENAME = "ReviewDiscussions";
     private static final SqliteDatabaseTable CODE_REVIEW_DISCUSSIONS_TABLE = new SqliteDatabaseTable( CODE_REVIEW_DISCUSSIONS_TABLENAME );
 
-    public static final String CODE_REVIEW_SCM_REVISIONS_TABLENAME = "RevisionsToReviews";
+    private static final String CODE_REVIEW_SCM_REVISIONS_TABLENAME = "RevisionsToReviews";
     private static final SqliteDatabaseTable CODE_REVIEW_SCM_REVISIONS_TABLE = new SqliteDatabaseTable( CODE_REVIEW_SCM_REVISIONS_TABLENAME );
 
     public static final String CODE_REVIEWS_TABLENAME = "CodeReviews";
