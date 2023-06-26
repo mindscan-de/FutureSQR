@@ -54,7 +54,8 @@ public class SqliteDatabaseTable {
     }
 
     public void dropTable() {
-
+        // TODO: implement the drop operation on the database connection.
+        // String query = "DROP TABLE IF EXISTS " + this.tableName + ";";
     }
 
 }
