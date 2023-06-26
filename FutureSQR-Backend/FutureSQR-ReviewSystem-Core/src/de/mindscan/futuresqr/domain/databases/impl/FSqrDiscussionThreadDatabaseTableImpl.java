@@ -43,16 +43,18 @@ import de.mindscan.futuresqr.domain.model.discussion.FSqrDiscussionThread;
 public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThreadDatabaseTable {
 
     private static final String INSERT_DISCUSSION_THREAD = //
-                    "INSERT INTO " + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_TABLENAME + " (" + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_PK_UUID_COLUMN + ", "
-                                    + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_THREADDATA_COLUMN + ") VALUES (?1, ?2); ";
+                    "INSERT INTO " + FSqrSqliteDatabaseImpl.getDiscussionThreadTable().tableName() + //
+                                    " (" + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_PK_UUID_COLUMN + //
+                                    ", " + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_THREADDATA_COLUMN + ") VALUES (?1, ?2); ";
 
     private static final String UPDATE_DISCUSSION_THREAD = //
-                    "UPDATE " + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_TABLENAME + " SET " + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_THREADDATA_COLUMN
-                                    + "=?2 WHERE " + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_PK_UUID_COLUMN + "=?1;";
+                    "UPDATE " + FSqrSqliteDatabaseImpl.getDiscussionThreadTable().tableName() + //
+                                    " SET " + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_THREADDATA_COLUMN + "=?2 WHERE "
+                                    + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_PK_UUID_COLUMN + "=?1;";
 
     private static final String SELECT_DISCUSSION_THREAD = //
-                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_TABLENAME + " WHERE " + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_PK_UUID_COLUMN
-                                    + "=?1;";
+                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.getDiscussionThreadTable().tableName() + //
+                                    " WHERE " + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_PK_UUID_COLUMN + "=?1;";
 
     private FSqrDatabaseConnection connection;
 
