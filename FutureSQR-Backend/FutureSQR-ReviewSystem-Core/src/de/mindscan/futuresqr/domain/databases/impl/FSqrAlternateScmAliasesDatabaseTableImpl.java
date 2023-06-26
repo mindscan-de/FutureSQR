@@ -47,26 +47,26 @@ public class FSqrAlternateScmAliasesDatabaseTableImpl implements FSqrAlternateSc
 
     private static final String INSERT_SCM_ALIASNAME_PS = //
                     "INSERT INTO " + FSqrSqliteDatabaseImpl.getScmUserAliasesTable().tableName() + //
-                                    " (" + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_FK_USERUUID_COLUMN + //
-                                    ", " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_ALIASNAME_COLUMN + " ) VALUES (?1, ?2);";
+                                    " (" + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_FK_USERUUID_COLUMN.getColumnName() + //
+                                    ", " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_ALIASNAME_COLUMN.getColumnName() + " ) VALUES (?1, ?2);";
 
     private static final String REMOVE_SCM_ALIASNAME_PS = //
                     "DELETE FROM " + FSqrSqliteDatabaseImpl.getScmUserAliasesTable().tableName() + //
                                     " WHERE ( " + //
-                                    FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_FK_USERUUID_COLUMN + "=?1 AND " + //
-                                    FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_ALIASNAME_COLUMN + "=?2);";
+                                    FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_FK_USERUUID_COLUMN.getColumnName() + "=?1 AND " + //
+                                    FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_ALIASNAME_COLUMN.getColumnName() + "=?2);";
 
     private static final String SELECT_UUID_FOR_SCMALIAS = //
-                    "SELECT " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_FK_USERUUID_COLUMN + //
+                    "SELECT " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_FK_USERUUID_COLUMN.getColumnName() + //
                                     " FROM " + FSqrSqliteDatabaseImpl.getScmUserAliasesTable().tableName() + //
                                     " WHERE " + //
-                                    FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_ALIASNAME_COLUMN + "=?1;";
+                                    FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_ALIASNAME_COLUMN.getColumnName() + "=?1;";
 
     private static final String SELECT_ALIASES_FOR_USER = //
-                    "SELECT " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_ALIASNAME_COLUMN + //
+                    "SELECT " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_ALIASNAME_COLUMN.getColumnName() + //
                                     " FROM " + FSqrSqliteDatabaseImpl.getScmUserAliasesTable().tableName() + //
-                                    " WHERE " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_FK_USERUUID_COLUMN + "=?1 " + //
-                                    " ORDER BY " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_ALIASNAME_COLUMN + ";";
+                                    " WHERE " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_FK_USERUUID_COLUMN.getColumnName() + "=?1 " + //
+                                    " ORDER BY " + FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_ALIASNAME_COLUMN.getColumnName() + ";";
 
     private FSqrDatabaseConnection connection;
 
@@ -125,7 +125,7 @@ public class FSqrAlternateScmAliasesDatabaseTableImpl implements FSqrAlternateSc
 
             try (ResultSet resultSet = selectUuidPS.executeQuery()) {
                 if (resultSet.next()) {
-                    result = resultSet.getString( FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_FK_USERUUID_COLUMN );
+                    result = resultSet.getString( FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_FK_USERUUID_COLUMN.getColumnName() );
                 }
             }
             return result;
@@ -149,7 +149,7 @@ public class FSqrAlternateScmAliasesDatabaseTableImpl implements FSqrAlternateSc
 
             try (ResultSet resultSet = selectAllAliasesPS.executeQuery()) {
                 while (resultSet.next()) {
-                    result.add( resultSet.getString( FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_ALIASNAME_COLUMN ) );
+                    result.add( resultSet.getString( FSqrSqliteDatabaseImpl.SCM_USER_ALIASES_ALIASNAME_COLUMN.getColumnName() ) );
                 }
             }
         }

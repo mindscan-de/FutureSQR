@@ -67,8 +67,8 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
 
     // ScmUserAliases
     // --------------
-    public static final String SCM_USER_ALIASES_FK_USERUUID_COLUMN = "userUuid";
-    public static final String SCM_USER_ALIASES_ALIASNAME_COLUMN = "aliasName";
+    public static final SqliteDatabaseTableColumn SCM_USER_ALIASES_FK_USERUUID_COLUMN = new SqliteDatabaseTableColumn( SCM_USER_ALIASES_TABLE, "userUuid" );
+    public static final SqliteDatabaseTableColumn SCM_USER_ALIASES_ALIASNAME_COLUMN = new SqliteDatabaseTableColumn( SCM_USER_ALIASES_TABLE, "aliasName" );
 
     // CodeReviewDiscussions
     // ---------------------
@@ -154,8 +154,8 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
     // =============
     public static final String QUERY_SCM_USER_ALIASES_CREATE_TABLE = // 
                     "CREATE TABLE " + SCM_USER_ALIASES_TABLENAME + //
-                                    " (" + SCM_USER_ALIASES_FK_USERUUID_COLUMN + //
-                                    ", " + SCM_USER_ALIASES_ALIASNAME_COLUMN + ");";
+                                    " (" + SCM_USER_ALIASES_FK_USERUUID_COLUMN.getColumnName() + //
+                                    ", " + SCM_USER_ALIASES_ALIASNAME_COLUMN.getColumnName() + ");";
 
     public static final String QUERY_CODE_REVIEWS_CREATE_TABLE = // 
                     "CREATE TABLE  " + CODE_REVIEWS_TABLENAME + //
