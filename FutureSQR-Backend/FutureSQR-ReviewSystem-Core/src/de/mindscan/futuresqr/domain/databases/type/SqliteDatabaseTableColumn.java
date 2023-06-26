@@ -36,9 +36,12 @@ public class SqliteDatabaseTableColumn {
     /**
      * 
      */
-    public SqliteDatabaseTableColumn( SqliteDatabaseTable table, String columnName ) {
-        this.table = table;
+    public SqliteDatabaseTableColumn( SqliteDatabaseTable databaseTable, String columnName ) {
+        this.table = databaseTable;
         this.columnName = columnName;
+
+        // TODO: implement a registerColumns method.
+        // databaseTable.registerColumn( this );
     }
 
     /**
