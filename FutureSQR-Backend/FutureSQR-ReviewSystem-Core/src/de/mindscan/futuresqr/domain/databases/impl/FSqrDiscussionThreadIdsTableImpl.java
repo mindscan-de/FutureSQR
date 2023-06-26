@@ -42,7 +42,7 @@ import de.mindscan.futuresqr.domain.databases.type.FSqrSqliteDatabaseImpl;
 public class FSqrDiscussionThreadIdsTableImpl implements FSqrDiscussionThreadIdsTable {
 
     private static final String INSERT_TABLE_REVIEW_DISCUSSON = //
-                    "INSERT INTO " + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_TABLENAME + //
+                    "INSERT INTO " + FSqrSqliteDatabaseImpl.getCodeReviewDiscussionsTable().tableName() + //
                                     " (" + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN + //
                                     ", " + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN + //
                                     ", " + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM + //;
@@ -50,7 +50,7 @@ public class FSqrDiscussionThreadIdsTableImpl implements FSqrDiscussionThreadIds
                                     " ) VALUES (?1, ?2, ?3, CURRENT_TIMESTAMP); ";
 
     private static final String SELECT_DISCUSSIONS_FOR_REVIEW_PS = //
-                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_TABLENAME + //
+                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.getCodeReviewDiscussionsTable().tableName() + //
                                     " WHERE ( " + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN + "=?1  AND "
                                     + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN + "=?2) " + //
                                     " ORDER BY " + FSqrSqliteDatabaseImpl.CODE_REVIEW_DISCISSIONS_CREATED_TS_COLUMNS + ";";
