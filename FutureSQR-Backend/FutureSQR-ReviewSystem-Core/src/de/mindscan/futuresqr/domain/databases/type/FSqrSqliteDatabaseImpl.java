@@ -52,7 +52,7 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
     private static final String DISCUSSION_THREAD_TABLENAME = "DiscussionThread";
     private static final SqliteDatabaseTable DISCUSSION_THREAD_TABLE = new SqliteDatabaseTable( DISCUSSION_THREAD_TABLENAME );
 
-    public static final String SCM_CONFIGURATION_TABLENAME = "ScmConfigurations";
+    private static final String SCM_CONFIGURATION_TABLENAME = "ScmConfigurations";
     private static final SqliteDatabaseTable SCM_CONFIGURATION_TABLE = new SqliteDatabaseTable( SCM_CONFIGURATION_TABLENAME );
 
     public static final String STARRED_PROJECTS_TABLENAME = "StarredProjects";

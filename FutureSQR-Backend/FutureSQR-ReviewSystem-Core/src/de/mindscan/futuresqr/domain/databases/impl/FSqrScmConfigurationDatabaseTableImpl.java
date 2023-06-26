@@ -49,20 +49,22 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
 
     // SQL-Statements
     private static final String SELECT_ALL_SCM_CONFIGURATIONS_PS = //
-                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_TABLENAME + " ORDER BY "
-                                    + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_PK_PROJECTID_COLUMN + ";";
+                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.getScmConfigurationTable().tableName() + //
+                                    " ORDER BY " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_PK_PROJECTID_COLUMN + ";";
 
     private static final String SELECT_SCM_CONFIGURATION_PS = //
-                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_TABLENAME + " WHERE ("
-                                    + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_PK_PROJECTID_COLUMN + "=?1); ";
+                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.getScmConfigurationTable().tableName() + //
+                                    " WHERE (" + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_PK_PROJECTID_COLUMN + "=?1); ";
 
     private static final String INSERT_SCM_CONFIGURATION_PS = //
-                    "INSERT INTO " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_TABLENAME + " (" + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_PK_PROJECTID_COLUMN
-                                    + ", " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN + ") VALUES (?1, ?2); ";
+                    "INSERT INTO " + FSqrSqliteDatabaseImpl.getScmConfigurationTable().tableName() + //
+                                    " (" + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_PK_PROJECTID_COLUMN + //
+                                    ", " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN + ") VALUES (?1, ?2); ";
 
     private static final String UPDATE_SCM_CONFIGURATION_PS = //
-                    "UPDATE " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_TABLENAME + " SET " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN
-                                    + "=?2 WHERE (" + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_PK_PROJECTID_COLUMN + "=?1);";
+                    "UPDATE " + FSqrSqliteDatabaseImpl.getScmConfigurationTable().tableName() + //
+                                    " SET " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN + "=?2 WHERE ("
+                                    + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_PK_PROJECTID_COLUMN + "=?1);";
 
     // 
 
