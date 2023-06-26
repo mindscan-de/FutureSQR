@@ -25,6 +25,9 @@
  */
 package de.mindscan.futuresqr.domain.databases.type;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  * 
  */
@@ -266,7 +269,26 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
 
     // TODO: createDatabase
     // TODO: createTables()
+    public void createTables() {
+        // TODO: get registered tables ...
+        Collection<SqliteDatabaseTable> allTables = new ArrayList<>();
+
+        // TODO: foreach call
+        for (SqliteDatabaseTable table : allTables) {
+            table.createTable( /* TODO: DatabaseConnection? */ );
+        }
+    }
 
     // TODO: dropDatabase
+
     // TODO: dropTables();
+    public void dropTables() {
+        // TODO: get registered tables ... 
+        Collection<SqliteDatabaseTable> allTables = new ArrayList<>();
+
+        // TODO: foreach call
+        for (SqliteDatabaseTable table : allTables) {
+            table.dropTable( /* TODO: DatabaseConnection? */ );
+        }
+    }
 }
