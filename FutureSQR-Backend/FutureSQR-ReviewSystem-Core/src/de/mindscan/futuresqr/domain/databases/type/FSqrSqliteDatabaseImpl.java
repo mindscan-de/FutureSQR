@@ -208,6 +208,62 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
 //
 //    }
 
+    /**
+     * @return the codeReviewDiscussionsTable
+     */
+    public static SqliteDatabaseTable getCodeReviewDiscussionsTable() {
+        return CODE_REVIEW_DISCUSSIONS_TABLE;
+    }
+
+    /**
+     * @return the codeReviewScmRevisionsTable
+     */
+    public static SqliteDatabaseTable getCodeReviewScmRevisionsTable() {
+        return CODE_REVIEW_SCM_REVISIONS_TABLE;
+    }
+
+    /**
+     * @return the codeReviewsTable
+     */
+    public static SqliteDatabaseTable getCodeReviewsTable() {
+        return CODE_REVIEWS_TABLE;
+    }
+
+    /**
+     * @return the discussionThreadTable
+     */
+    public static SqliteDatabaseTable getDiscussionThreadTable() {
+        return DISCUSSION_THREAD_TABLE;
+    }
+
+    /**
+     * @return the scmConfigurationTable
+     */
+    public static SqliteDatabaseTable getScmConfigurationTable() {
+        return SCM_CONFIGURATION_TABLE;
+    }
+
+    /**
+     * @return the systemUsersTable
+     */
+    public static SqliteDatabaseTable getSystemUsersTable() {
+        return SYSTEM_USERS_TABLE;
+    }
+
+    /**
+     * @return the starredProjectsTable
+     */
+    public static SqliteDatabaseTable getStarredProjectsTable() {
+        return STARRED_PROJECTS_TABLE;
+    }
+
+    /**
+     * @return the scmUserAliasesTable
+     */
+    public static SqliteDatabaseTable getScmUserAliasesTable() {
+        return SCM_USER_ALIASES_TABLE;
+    }
+
     // TODO: createDatabase
     // TODO: createTables()
     // TODO: dropDatabase
