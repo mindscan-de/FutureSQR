@@ -64,26 +64,26 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
     private Gson gson = new Gson();
 
     private static final String SELECT_FROM_CODE_REVIEWS_PS = //
-                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.CODE_REVIEWS_TABLENAME + //
+                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.getCodeReviewsTable().tableName() + //
                                     " WHERE (" + // 
                                     FSqrSqliteDatabaseImpl.CODE_REVIEWS_FK_PROJECTID_COLUMN + "=?1 AND " + //
                                     FSqrSqliteDatabaseImpl.CODE_REVIEWS_REVIEWID_COLUMN + "=?2); ";
 
     private static final String SELECT_FROM_CODE_REVIEWS_WHERE_STATE_PS = //
-                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.CODE_REVIEWS_TABLENAME + //
+                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.getCodeReviewsTable().tableName() + //
                                     " WHERE (" + //
                                     FSqrSqliteDatabaseImpl.CODE_REVIEWS_FK_PROJECTID_COLUMN + "=?1 AND " + //
                                     FSqrSqliteDatabaseImpl.CODE_REVIEWS_STATE_COLUMN + "=?2); ";
 
     private static final String INSERT_CODE_REVIEW_PS = //
-                    "INSERT INTO " + FSqrSqliteDatabaseImpl.CODE_REVIEWS_TABLENAME + //
+                    "INSERT INTO " + FSqrSqliteDatabaseImpl.getCodeReviewsTable().tableName() + //
                                     " (" + FSqrSqliteDatabaseImpl.CODE_REVIEWS_FK_PROJECTID_COLUMN + //
                                     ", " + FSqrSqliteDatabaseImpl.CODE_REVIEWS_REVIEWID_COLUMN + //
                                     ", " + FSqrSqliteDatabaseImpl.CODE_REVIEWS_REVIWEDATA_COLUMN + //
                                     ", " + FSqrSqliteDatabaseImpl.CODE_REVIEWS_STATE_COLUMN + ") VALUES (?1,?2,?3,?4);";
 
     private static final String UPDATE_CODE_REVIEW_PS = //
-                    "UPDATE " + FSqrSqliteDatabaseImpl.CODE_REVIEWS_TABLENAME + //
+                    "UPDATE " + FSqrSqliteDatabaseImpl.getCodeReviewsTable().tableName() + //
                                     " SET " + FSqrSqliteDatabaseImpl.CODE_REVIEWS_REVIWEDATA_COLUMN + "=?3, " + //
                                     FSqrSqliteDatabaseImpl.CODE_REVIEWS_STATE_COLUMN + "=?4 " + //
                                     " WHERE ( " + //
