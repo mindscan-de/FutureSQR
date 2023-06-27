@@ -47,7 +47,7 @@ public class FSqrUserTableImpl implements FSqrUserTable {
     private static final boolean INITMODE_ENABLED = true;
 
     private static final String INSERT_SYSTEM_USER_PS = //
-                    "INSERT INTO " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_TABLENAME + //
+                    "INSERT INTO " + FSqrSqliteDatabaseImpl.getSystemUsersTable().tableName() + //
                                     " ( " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_PK_UUID_COLUMN + //
                                     ", " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_LOGINNAME_COLUMN + //
                                     ", " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_DISPLAYNAME_COLUMN + //
@@ -56,7 +56,7 @@ public class FSqrUserTableImpl implements FSqrUserTable {
                                     ", " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_ISBANNED_COLUMN + " ) VALUES ( ?1,?2,?3,?4,?5,?6 )";
 
     private static final String UPDATE_SYSTEM_USER_PS = //
-                    "UPDATE " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_TABLENAME + //
+                    "UPDATE " + FSqrSqliteDatabaseImpl.getSystemUsersTable().tableName() + //
                                     " SET " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_DISPLAYNAME_COLUMN + "=?2 " + //
                                     ", " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_EMAIL_COLUMN + "=?3 " + //
                                     ", " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_AVATARLOCATION_COLUMN + "=?4" + //
@@ -64,14 +64,16 @@ public class FSqrUserTableImpl implements FSqrUserTable {
                                     " WHERE " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_PK_UUID_COLUMN + "=?1;";
 
     private static final String SELECT_SYSTEM_USER_BY_UUID_PS = //
-                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_TABLENAME + " WHERE " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_PK_UUID_COLUMN + "=?1;";
+                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.getSystemUsersTable().tableName() + " WHERE " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_PK_UUID_COLUMN
+                                    + "=?1;";
 
     private static final String SELECT_SYSTEM_USER_BY_LOGINNAME_PS = //
-                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_TABLENAME + " WHERE " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_LOGINNAME_COLUMN + "=?1;";
+                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.getSystemUsersTable().tableName() + " WHERE "
+                                    + FSqrSqliteDatabaseImpl.SYSTEM_USERS_LOGINNAME_COLUMN + "=?1;";
 
     private static final String SELECT_ALL_USERS_PS = //
                     // TODO ORDER BY CREATED DATE.
-                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_TABLENAME + "; ";
+                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.getSystemUsersTable().tableName() + "; ";
 
     private FSqrDatabaseConnection connection;
 
