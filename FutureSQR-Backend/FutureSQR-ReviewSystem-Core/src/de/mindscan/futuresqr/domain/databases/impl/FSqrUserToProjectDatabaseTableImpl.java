@@ -45,28 +45,28 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
     private static final String STARRED_PROJECTS_COUNT = "COUNT";
 
     private static final String INSERT_STAR_PS = //
-                    "INSERT INTO " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_TABLENAME + //
+                    "INSERT INTO " + FSqrSqliteDatabaseImpl.getStarredProjectsTable().tableName() + //
                                     " (" + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_FK_USERUUID_COLUM + //
                                     ", " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_FK_PROJECTID_COLUUMN + //
                                     ", " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_STARRED_TS_COLUMN + " ) VALUES (?1, ?2, CURRENT_TIMESTAMP);";
 
     private static final String DELETE_STAR_PS = //
-                    "DELETE FROM " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_TABLENAME + // 
+                    "DELETE FROM " + FSqrSqliteDatabaseImpl.getStarredProjectsTable().tableName() + // 
                                     " WHERE ( " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_FK_USERUUID_COLUM + "=?1 AND "
                                     + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_FK_PROJECTID_COLUUMN + "=?2);";
 
     private static final String SELECT_STARRED_PROJECTS_BY_USER_PS = //
-                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_TABLENAME + //
+                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.getStarredProjectsTable().tableName() + //
                                     " WHERE (" + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_FK_USERUUID_COLUM + "=?1) " + //
                                     " ORDER BY " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_STARRED_TS_COLUMN + ";";
 
     private static final String SELECT_STARRING_USERS_BY_PROJECT_PS = //
-                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_TABLENAME + //
+                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.getStarredProjectsTable().tableName() + //
                                     " WHERE (" + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_FK_PROJECTID_COLUUMN + "=?1) " + //
                                     " ORDER BY " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_STARRED_TS_COLUMN + ";";
 
     private static final String SELECT_STARRING_USERCOUNT_BY_PROJECT_PS = //
-                    "SELECT COUNT(*) AS " + STARRED_PROJECTS_COUNT + " FROM " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_TABLENAME + //
+                    "SELECT COUNT(*) AS " + STARRED_PROJECTS_COUNT + " FROM " + FSqrSqliteDatabaseImpl.getStarredProjectsTable().tableName() + //
                                     " WHERE (" + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_FK_PROJECTID_COLUUMN + "=?1) " + //
                                     " ORDER BY " + FSqrSqliteDatabaseImpl.STARRED_PROJECTS_STARRED_TS_COLUMN + ";";
 
