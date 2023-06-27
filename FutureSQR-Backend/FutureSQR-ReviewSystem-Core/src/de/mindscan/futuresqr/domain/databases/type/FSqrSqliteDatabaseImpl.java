@@ -73,11 +73,15 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
     // CodeReviewDiscussions
     // ---------------------
     // refactor to single FK(projectid, reviewId) 
-    public static final String CODE_REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN = "projectId";
+    public static final SqliteDatabaseTableColumn CODE_REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN = new SqliteDatabaseTableColumn( CODE_REVIEW_DISCUSSIONS_TABLE,
+                    "projectId" );
     // maybe use the UUID?, so we can drop the projectId...
-    public static final String CODE_REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN = "reviewId";
-    public static final String CODE_REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM = "threadUuid";
-    public static final String CODE_REVIEW_DISCISSIONS_CREATED_TS_COLUMNS = "created";
+    public static final SqliteDatabaseTableColumn CODE_REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN = new SqliteDatabaseTableColumn( CODE_REVIEW_DISCUSSIONS_TABLE,
+                    "reviewId" );
+    public static final SqliteDatabaseTableColumn CODE_REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM = new SqliteDatabaseTableColumn( CODE_REVIEW_DISCUSSIONS_TABLE,
+                    "threadUuid" );
+    public static final SqliteDatabaseTableColumn CODE_REVIEW_DISCISSIONS_CREATED_TS_COLUMNS = new SqliteDatabaseTableColumn( CODE_REVIEW_DISCUSSIONS_TABLE,
+                    "created" );
     // TODO maybe a last updated for each thread?...
     // TODO maybe we need a indicator, whether a full thread is resolved.
     // TODO maybe state whether thread was deleted...
