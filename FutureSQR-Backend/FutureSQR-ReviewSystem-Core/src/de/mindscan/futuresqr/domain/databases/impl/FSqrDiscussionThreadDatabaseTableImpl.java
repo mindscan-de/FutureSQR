@@ -44,17 +44,17 @@ public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThre
 
     private static final String INSERT_DISCUSSION_THREAD = //
                     "INSERT INTO " + FSqrSqliteDatabaseImpl.getDiscussionThreadTable().tableName() + //
-                                    " (" + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_PK_UUID_COLUMN + //
-                                    ", " + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_THREADDATA_COLUMN + ") VALUES (?1, ?2); ";
+                                    " (" + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_PK_UUID_COLUMN.getColumnName() + //
+                                    ", " + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_THREADDATA_COLUMN.getColumnName() + ") VALUES (?1, ?2); ";
 
     private static final String UPDATE_DISCUSSION_THREAD = //
                     "UPDATE " + FSqrSqliteDatabaseImpl.getDiscussionThreadTable().tableName() + //
-                                    " SET " + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_THREADDATA_COLUMN + "=?2 WHERE "
-                                    + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_PK_UUID_COLUMN + "=?1;";
+                                    " SET " + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_THREADDATA_COLUMN.getColumnName() + "=?2 WHERE "
+                                    + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_PK_UUID_COLUMN.getColumnName() + "=?1;";
 
     private static final String SELECT_DISCUSSION_THREAD = //
                     "SELECT * FROM " + FSqrSqliteDatabaseImpl.getDiscussionThreadTable().tableName() + //
-                                    " WHERE " + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_PK_UUID_COLUMN + "=?1;";
+                                    " WHERE " + FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_PK_UUID_COLUMN.getColumnName() + "=?1;";
 
     private FSqrDatabaseConnection connection;
 
@@ -137,7 +137,7 @@ public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThre
     }
 
     private FSqrDiscussionThread createDiscussionThread( ResultSet resultSet ) throws Exception {
-        String discussionDataString = resultSet.getString( FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_THREADDATA_COLUMN );
+        String discussionDataString = resultSet.getString( FSqrSqliteDatabaseImpl.DISCUSSION_THREAD_THREADDATA_COLUMN.getColumnName() );
 
         return gson.fromJson( discussionDataString, FSqrDiscussionThread.class );
     }

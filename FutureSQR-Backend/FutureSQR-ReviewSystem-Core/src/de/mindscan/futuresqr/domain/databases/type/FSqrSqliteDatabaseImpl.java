@@ -103,10 +103,10 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
     public static final SqliteDatabaseTableColumn CODE_REVIEWS_REVIEWID_COLUMN = new SqliteDatabaseTableColumn( CODE_REVIEWS_TABLE, "reviewId" );
     public static final SqliteDatabaseTableColumn CODE_REVIEWS_REVIWEDATA_COLUMN = new SqliteDatabaseTableColumn( CODE_REVIEWS_TABLE, "reviewData" );
 
-    // DicussionThread
+    // DiscussionThread
     // ---------------
-    public static final String DISCUSSION_THREAD_PK_UUID_COLUMN = "uuid";
-    public static final String DISCUSSION_THREAD_THREADDATA_COLUMN = "threadData";
+    public static final SqliteDatabaseTableColumn DISCUSSION_THREAD_PK_UUID_COLUMN = new SqliteDatabaseTableColumn( DISCUSSION_THREAD_TABLE, "uuid" );
+    public static final SqliteDatabaseTableColumn DISCUSSION_THREAD_THREADDATA_COLUMN = new SqliteDatabaseTableColumn( DISCUSSION_THREAD_TABLE, "threadData" );
 
     // ScmConfiguration
     // ----------------
