@@ -87,9 +87,12 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
     // TODO maybe state whether thread was deleted...
 
     // CoreReviewScmRevisions
-    public static final String CODE_REVIEW_SCM_REVISIONS_FK_PROJECTID_COLUMN = "projectId";
-    public static final String CODE_REVIEW_SCM_REVISIONS_FK_REVIEWID_COLUMN = "reviewId";
-    public static final String CODE_REVIEW_SCM_REVISIONS_SCMREVISIONID_COLUMN = "revisionId";
+    public static final SqliteDatabaseTableColumn CODE_REVIEW_SCM_REVISIONS_FK_PROJECTID_COLUMN = new SqliteDatabaseTableColumn(
+                    CODE_REVIEW_SCM_REVISIONS_TABLE, "projectId" );
+    public static final SqliteDatabaseTableColumn CODE_REVIEW_SCM_REVISIONS_FK_REVIEWID_COLUMN = new SqliteDatabaseTableColumn( CODE_REVIEW_SCM_REVISIONS_TABLE,
+                    "reviewId" );
+    public static final SqliteDatabaseTableColumn CODE_REVIEW_SCM_REVISIONS_SCMREVISIONID_COLUMN = new SqliteDatabaseTableColumn(
+                    CODE_REVIEW_SCM_REVISIONS_TABLE, "revisionId" );
 
     // CodeReviews
     // -----------

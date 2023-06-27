@@ -40,26 +40,26 @@ import de.mindscan.futuresqr.domain.databases.type.FSqrSqliteDatabaseImpl;
 public class FSqrProjectAssignedCodeReviewsTableImpl implements FSqrProjectAssignedCodeReviewsTable {
 
     private static final String SELECT_CODEREVIEW_FOR_PROJECT_REVISION = //
-                    "SELECT " + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_REVIEWID_COLUMN + //
+                    "SELECT " + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_REVIEWID_COLUMN.getColumnName() + //
                                     " FROM " + FSqrSqliteDatabaseImpl.getCodeReviewScmRevisionsTable().tableName() //
-                                    + " WHERE (" + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_PROJECTID_COLUMN + "=?1  AND "
-                                    + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_SCMREVISIONID_COLUMN + "=?2 ); ";
+                                    + " WHERE (" + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_PROJECTID_COLUMN.getColumnName() + "=?1  AND "
+                                    + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_SCMREVISIONID_COLUMN.getColumnName() + "=?2 ); ";
 
     private static final String INSERT_CODEREVIEW_FOR_PROJECT_REVISION = //
                     "INSERT INTO " + FSqrSqliteDatabaseImpl.getCodeReviewScmRevisionsTable().tableName() + //
-                                    " (" + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_PROJECTID_COLUMN + //
-                                    ", " + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_SCMREVISIONID_COLUMN + //
-                                    ", " + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_REVIEWID_COLUMN + ") VALUES (?1, ?2, ?3); ";
+                                    " (" + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_PROJECTID_COLUMN.getColumnName() + //
+                                    ", " + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_SCMREVISIONID_COLUMN.getColumnName() + //
+                                    ", " + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_REVIEWID_COLUMN.getColumnName() + ") VALUES (?1, ?2, ?3); ";
 
     private static final String REMOVE_CODEREVIEW_FOR_PROJECT_REVISION = //
                     "DELETE FROM " + FSqrSqliteDatabaseImpl.getCodeReviewScmRevisionsTable().tableName() + //
-                                    " WHERE ( " + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_PROJECTID_COLUMN + "=?1 AND "
-                                    + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_SCMREVISIONID_COLUMN + "=?2 );";
+                                    " WHERE ( " + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_PROJECTID_COLUMN.getColumnName() + "=?1 AND "
+                                    + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_SCMREVISIONID_COLUMN.getColumnName() + "=?2 );";
 
     private static final String REMOVE_CODEREVIEW_FOR_PROJECT = //
                     "DELETE FROM " + FSqrSqliteDatabaseImpl.getCodeReviewScmRevisionsTable().tableName() + //
-                                    " WHERE ( " + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_PROJECTID_COLUMN + "=?1 AND "
-                                    + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_REVIEWID_COLUMN + "=?2 );";
+                                    " WHERE ( " + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_PROJECTID_COLUMN.getColumnName() + "=?1 AND "
+                                    + FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_REVIEWID_COLUMN.getColumnName() + "=?2 );";
 
     private FSqrDatabaseConnection connection;
 
@@ -91,7 +91,7 @@ public class FSqrProjectAssignedCodeReviewsTableImpl implements FSqrProjectAssig
 
             try (ResultSet resultSet = selectPS.executeQuery()) {
                 if (resultSet.next()) {
-                    result = resultSet.getString( FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_REVIEWID_COLUMN );
+                    result = resultSet.getString( FSqrSqliteDatabaseImpl.CODE_REVIEW_SCM_REVISIONS_FK_REVIEWID_COLUMN.getColumnName() );
                 }
             }
 
