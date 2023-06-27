@@ -97,11 +97,11 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
     // CodeReviews
     // -----------
     // TODO: reviewUuid
-    public static final String CODE_REVIEWS_FK_PROJECTID_COLUMN = "projectId";
+    public static final SqliteDatabaseTableColumn CODE_REVIEWS_FK_PROJECTID_COLUMN = new SqliteDatabaseTableColumn( CODE_REVIEWS_TABLE, "projectId" );
     // TODO: project Branch
-    public static final String CODE_REVIEWS_STATE_COLUMN = "state";
-    public static final String CODE_REVIEWS_REVIEWID_COLUMN = "reviewId";
-    public static final String CODE_REVIEWS_REVIWEDATA_COLUMN = "reviewData";
+    public static final SqliteDatabaseTableColumn CODE_REVIEWS_STATE_COLUMN = new SqliteDatabaseTableColumn( CODE_REVIEWS_TABLE, "state" );
+    public static final SqliteDatabaseTableColumn CODE_REVIEWS_REVIEWID_COLUMN = new SqliteDatabaseTableColumn( CODE_REVIEWS_TABLE, "reviewId" );
+    public static final SqliteDatabaseTableColumn CODE_REVIEWS_REVIWEDATA_COLUMN = new SqliteDatabaseTableColumn( CODE_REVIEWS_TABLE, "reviewData" );
 
     // DicussionThread
     // ---------------

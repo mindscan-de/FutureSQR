@@ -66,29 +66,29 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
     private static final String SELECT_FROM_CODE_REVIEWS_PS = //
                     "SELECT * FROM " + FSqrSqliteDatabaseImpl.getCodeReviewsTable().tableName() + //
                                     " WHERE (" + // 
-                                    FSqrSqliteDatabaseImpl.CODE_REVIEWS_FK_PROJECTID_COLUMN + "=?1 AND " + //
-                                    FSqrSqliteDatabaseImpl.CODE_REVIEWS_REVIEWID_COLUMN + "=?2); ";
+                                    FSqrSqliteDatabaseImpl.CODE_REVIEWS_FK_PROJECTID_COLUMN.getColumnName() + "=?1 AND " + //
+                                    FSqrSqliteDatabaseImpl.CODE_REVIEWS_REVIEWID_COLUMN.getColumnName() + "=?2); ";
 
     private static final String SELECT_FROM_CODE_REVIEWS_WHERE_STATE_PS = //
                     "SELECT * FROM " + FSqrSqliteDatabaseImpl.getCodeReviewsTable().tableName() + //
                                     " WHERE (" + //
-                                    FSqrSqliteDatabaseImpl.CODE_REVIEWS_FK_PROJECTID_COLUMN + "=?1 AND " + //
-                                    FSqrSqliteDatabaseImpl.CODE_REVIEWS_STATE_COLUMN + "=?2); ";
+                                    FSqrSqliteDatabaseImpl.CODE_REVIEWS_FK_PROJECTID_COLUMN.getColumnName() + "=?1 AND " + //
+                                    FSqrSqliteDatabaseImpl.CODE_REVIEWS_STATE_COLUMN.getColumnName() + "=?2); ";
 
     private static final String INSERT_CODE_REVIEW_PS = //
                     "INSERT INTO " + FSqrSqliteDatabaseImpl.getCodeReviewsTable().tableName() + //
-                                    " (" + FSqrSqliteDatabaseImpl.CODE_REVIEWS_FK_PROJECTID_COLUMN + //
-                                    ", " + FSqrSqliteDatabaseImpl.CODE_REVIEWS_REVIEWID_COLUMN + //
-                                    ", " + FSqrSqliteDatabaseImpl.CODE_REVIEWS_REVIWEDATA_COLUMN + //
-                                    ", " + FSqrSqliteDatabaseImpl.CODE_REVIEWS_STATE_COLUMN + ") VALUES (?1,?2,?3,?4);";
+                                    " (" + FSqrSqliteDatabaseImpl.CODE_REVIEWS_FK_PROJECTID_COLUMN.getColumnName() + //
+                                    ", " + FSqrSqliteDatabaseImpl.CODE_REVIEWS_REVIEWID_COLUMN.getColumnName() + //
+                                    ", " + FSqrSqliteDatabaseImpl.CODE_REVIEWS_REVIWEDATA_COLUMN.getColumnName() + //
+                                    ", " + FSqrSqliteDatabaseImpl.CODE_REVIEWS_STATE_COLUMN.getColumnName() + ") VALUES (?1,?2,?3,?4);";
 
     private static final String UPDATE_CODE_REVIEW_PS = //
                     "UPDATE " + FSqrSqliteDatabaseImpl.getCodeReviewsTable().tableName() + //
-                                    " SET " + FSqrSqliteDatabaseImpl.CODE_REVIEWS_REVIWEDATA_COLUMN + "=?3, " + //
-                                    FSqrSqliteDatabaseImpl.CODE_REVIEWS_STATE_COLUMN + "=?4 " + //
+                                    " SET " + FSqrSqliteDatabaseImpl.CODE_REVIEWS_REVIWEDATA_COLUMN.getColumnName() + "=?3, " + //
+                                    FSqrSqliteDatabaseImpl.CODE_REVIEWS_STATE_COLUMN.getColumnName() + "=?4 " + //
                                     " WHERE ( " + //
-                                    FSqrSqliteDatabaseImpl.CODE_REVIEWS_FK_PROJECTID_COLUMN + "=?1 AND " + //
-                                    FSqrSqliteDatabaseImpl.CODE_REVIEWS_REVIEWID_COLUMN + "=?2);";
+                                    FSqrSqliteDatabaseImpl.CODE_REVIEWS_FK_PROJECTID_COLUMN.getColumnName() + "=?1 AND " + //
+                                    FSqrSqliteDatabaseImpl.CODE_REVIEWS_REVIEWID_COLUMN.getColumnName() + "=?2);";
 
     private FSqrDatabaseConnection connection;
 
@@ -133,7 +133,7 @@ public class FSqrCodeReviewTableImpl implements FSqrCodeReviewTable {
     }
 
     private FSqrCodeReview createFSqrCodeReview( ResultSet resultSet ) throws Exception {
-        String reviewDataString = resultSet.getString( FSqrSqliteDatabaseImpl.CODE_REVIEWS_REVIWEDATA_COLUMN );
+        String reviewDataString = resultSet.getString( FSqrSqliteDatabaseImpl.CODE_REVIEWS_REVIWEDATA_COLUMN.getColumnName() );
 
         return gson.fromJson( reviewDataString, FSqrCodeReview.class );
     }
