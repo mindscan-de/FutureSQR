@@ -48,28 +48,28 @@ public class FSqrUserTableImpl implements FSqrUserTable {
 
     private static final String INSERT_SYSTEM_USER_PS = //
                     "INSERT INTO " + FSqrSqliteDatabaseImpl.getSystemUsersTable().tableName() + //
-                                    " ( " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_PK_UUID_COLUMN + //
-                                    ", " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_LOGINNAME_COLUMN + //
-                                    ", " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_DISPLAYNAME_COLUMN + //
-                                    ", " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_EMAIL_COLUMN + //
-                                    ", " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_AVATARLOCATION_COLUMN + //
-                                    ", " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_ISBANNED_COLUMN + " ) VALUES ( ?1,?2,?3,?4,?5,?6 )";
+                                    " ( " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_PK_UUID_COLUMN.getColumnName() + //
+                                    ", " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_LOGINNAME_COLUMN.getColumnName() + //
+                                    ", " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_DISPLAYNAME_COLUMN.getColumnName() + //
+                                    ", " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_EMAIL_COLUMN.getColumnName() + //
+                                    ", " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_AVATARLOCATION_COLUMN.getColumnName() + //
+                                    ", " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_ISBANNED_COLUMN.getColumnName() + " ) VALUES ( ?1,?2,?3,?4,?5,?6 )";
 
     private static final String UPDATE_SYSTEM_USER_PS = //
                     "UPDATE " + FSqrSqliteDatabaseImpl.getSystemUsersTable().tableName() + //
-                                    " SET " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_DISPLAYNAME_COLUMN + "=?2 " + //
-                                    ", " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_EMAIL_COLUMN + "=?3 " + //
-                                    ", " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_AVATARLOCATION_COLUMN + "=?4" + //
-                                    ", " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_ISBANNED_COLUMN + " =?5 " + //
-                                    " WHERE " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_PK_UUID_COLUMN + "=?1;";
+                                    " SET " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_DISPLAYNAME_COLUMN.getColumnName() + "=?2 " + //
+                                    ", " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_EMAIL_COLUMN.getColumnName() + "=?3 " + //
+                                    ", " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_AVATARLOCATION_COLUMN.getColumnName() + "=?4" + //
+                                    ", " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_ISBANNED_COLUMN.getColumnName() + " =?5 " + //
+                                    " WHERE " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_PK_UUID_COLUMN.getColumnName() + "=?1;";
 
     private static final String SELECT_SYSTEM_USER_BY_UUID_PS = //
-                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.getSystemUsersTable().tableName() + " WHERE " + FSqrSqliteDatabaseImpl.SYSTEM_USERS_PK_UUID_COLUMN
-                                    + "=?1;";
+                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.getSystemUsersTable().tableName() + " WHERE "
+                                    + FSqrSqliteDatabaseImpl.SYSTEM_USERS_PK_UUID_COLUMN.getColumnName() + "=?1;";
 
     private static final String SELECT_SYSTEM_USER_BY_LOGINNAME_PS = //
                     "SELECT * FROM " + FSqrSqliteDatabaseImpl.getSystemUsersTable().tableName() + " WHERE "
-                                    + FSqrSqliteDatabaseImpl.SYSTEM_USERS_LOGINNAME_COLUMN + "=?1;";
+                                    + FSqrSqliteDatabaseImpl.SYSTEM_USERS_LOGINNAME_COLUMN.getColumnName() + "=?1;";
 
     private static final String SELECT_ALL_USERS_PS = //
                     // TODO ORDER BY CREATED DATE.
@@ -273,12 +273,12 @@ public class FSqrUserTableImpl implements FSqrUserTable {
     }
 
     private FSqrSystemUser toSystemUser( ResultSet resultSet ) throws Exception {
-        String uuid = resultSet.getString( FSqrSqliteDatabaseImpl.SYSTEM_USERS_PK_UUID_COLUMN );
-        String loginName = resultSet.getString( FSqrSqliteDatabaseImpl.SYSTEM_USERS_LOGINNAME_COLUMN );
-        String displayname = resultSet.getString( FSqrSqliteDatabaseImpl.SYSTEM_USERS_DISPLAYNAME_COLUMN );
-        String email = resultSet.getString( FSqrSqliteDatabaseImpl.SYSTEM_USERS_EMAIL_COLUMN );
-        String avatarlocation = resultSet.getString( FSqrSqliteDatabaseImpl.SYSTEM_USERS_AVATARLOCATION_COLUMN );
-        boolean isBanned = resultSet.getBoolean( FSqrSqliteDatabaseImpl.SYSTEM_USERS_ISBANNED_COLUMN );
+        String uuid = resultSet.getString( FSqrSqliteDatabaseImpl.SYSTEM_USERS_PK_UUID_COLUMN.getColumnName() );
+        String loginName = resultSet.getString( FSqrSqliteDatabaseImpl.SYSTEM_USERS_LOGINNAME_COLUMN.getColumnName() );
+        String displayname = resultSet.getString( FSqrSqliteDatabaseImpl.SYSTEM_USERS_DISPLAYNAME_COLUMN.getColumnName() );
+        String email = resultSet.getString( FSqrSqliteDatabaseImpl.SYSTEM_USERS_EMAIL_COLUMN.getColumnName() );
+        String avatarlocation = resultSet.getString( FSqrSqliteDatabaseImpl.SYSTEM_USERS_AVATARLOCATION_COLUMN.getColumnName() );
+        boolean isBanned = resultSet.getBoolean( FSqrSqliteDatabaseImpl.SYSTEM_USERS_ISBANNED_COLUMN.getColumnName() );
 
         return new FSqrSystemUser( uuid, loginName, displayname, email, isBanned, avatarlocation );
     }

@@ -120,12 +120,12 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
     public static final SqliteDatabaseTableColumn STARRED_PROJECTS_STARRED_TS_COLUMN = new SqliteDatabaseTableColumn( STARRED_PROJECTS_TABLE, "whenStarred" );
 
     // SystemUsers
-    public static final String SYSTEM_USERS_PK_UUID_COLUMN = "uuid";
-    public static final String SYSTEM_USERS_LOGINNAME_COLUMN = "userLoginName";
-    public static final String SYSTEM_USERS_DISPLAYNAME_COLUMN = "userDisplayName";
-    public static final String SYSTEM_USERS_EMAIL_COLUMN = "userEmail";
-    public static final String SYSTEM_USERS_AVATARLOCATION_COLUMN = "avatarLocation";
-    public static final String SYSTEM_USERS_ISBANNED_COLUMN = "isBanned";
+    public static final SqliteDatabaseTableColumn SYSTEM_USERS_PK_UUID_COLUMN = new SqliteDatabaseTableColumn( SYSTEM_USERS_TABLE, "uuid" );
+    public static final SqliteDatabaseTableColumn SYSTEM_USERS_LOGINNAME_COLUMN = new SqliteDatabaseTableColumn( SYSTEM_USERS_TABLE, "userLoginName" );
+    public static final SqliteDatabaseTableColumn SYSTEM_USERS_DISPLAYNAME_COLUMN = new SqliteDatabaseTableColumn( SYSTEM_USERS_TABLE, "userDisplayName" );
+    public static final SqliteDatabaseTableColumn SYSTEM_USERS_EMAIL_COLUMN = new SqliteDatabaseTableColumn( SYSTEM_USERS_TABLE, "userEmail" );
+    public static final SqliteDatabaseTableColumn SYSTEM_USERS_AVATARLOCATION_COLUMN = new SqliteDatabaseTableColumn( SYSTEM_USERS_TABLE, "avatarLocation" );
+    public static final SqliteDatabaseTableColumn SYSTEM_USERS_ISBANNED_COLUMN = new SqliteDatabaseTableColumn( SYSTEM_USERS_TABLE, "isBanned" );
     // TODO: CREATED DATE_COLUMN
     // TODO: MODIFIED DATE COLUMN
     // TODO: BANNED DATE COLUMN
