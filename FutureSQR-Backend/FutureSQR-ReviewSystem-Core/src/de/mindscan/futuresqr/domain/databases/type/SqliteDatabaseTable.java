@@ -81,14 +81,16 @@ public class SqliteDatabaseTable {
 
         sqlBuilder.append( "CREATE TABLE " );
         sqlBuilder.append( this.tableName );
-        sqlBuilder.append( " " );
 
         Collection<SqliteDatabaseTableColumn> tableColumns = getColumns();
         if (!tableColumns.isEmpty()) {
+            sqlBuilder.append( " ( " );
 
             // TODO: convert each column into a create-compatible descriotion
             // TODO: then join all these converted infos
             // TODO: then add to sqlBuilder the joined string.
+
+            sqlBuilder.append( " ) " );
         }
 
         sqlBuilder.append( ";" );
