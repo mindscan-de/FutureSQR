@@ -40,8 +40,7 @@ public class SqliteDatabaseTableColumn {
         this.table = databaseTable;
         this.columnName = columnName;
 
-        // TODO: implement a registerColumns method.
-        // databaseTable.registerColumn( this );
+        databaseTable.registerColumn( this );
     }
 
     /**
