@@ -77,7 +77,6 @@ public class SqliteDatabaseTable {
         return new ArrayList<>( this.tableColumns );
     }
 
-    // TODO: use the columns 
     public void createTable( FSqrDatabaseConnection dbConnection ) {
         StringBuilder sqlBuilder = new StringBuilder();
 
@@ -88,7 +87,7 @@ public class SqliteDatabaseTable {
         if (!tableColumns.isEmpty()) {
             sqlBuilder.append( " ( " );
 
-            // TODO: convert each column into a create-compatible descriotion
+            // TODO: convert each column into a create-compatible description
             // TODO: then join all these converted infos
             // TODO: then add to sqlBuilder the joined string.
 
