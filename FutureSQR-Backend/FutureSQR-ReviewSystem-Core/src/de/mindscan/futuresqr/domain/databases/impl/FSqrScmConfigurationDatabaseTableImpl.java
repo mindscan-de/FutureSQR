@@ -50,21 +50,21 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
     // SQL-Statements
     private static final String SELECT_ALL_SCM_CONFIGURATIONS_PS = //
                     "SELECT * FROM " + FSqrSqliteDatabaseImpl.getScmConfigurationTable().tableName() + //
-                                    " ORDER BY " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_PK_PROJECTID_COLUMN + ";";
+                                    " ORDER BY " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_PK_PROJECTID_COLUMN.getColumnName() + ";";
 
     private static final String SELECT_SCM_CONFIGURATION_PS = //
                     "SELECT * FROM " + FSqrSqliteDatabaseImpl.getScmConfigurationTable().tableName() + //
-                                    " WHERE (" + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_PK_PROJECTID_COLUMN + "=?1); ";
+                                    " WHERE (" + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_PK_PROJECTID_COLUMN.getColumnName() + "=?1); ";
 
     private static final String INSERT_SCM_CONFIGURATION_PS = //
                     "INSERT INTO " + FSqrSqliteDatabaseImpl.getScmConfigurationTable().tableName() + //
-                                    " (" + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_PK_PROJECTID_COLUMN + //
-                                    ", " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN + ") VALUES (?1, ?2); ";
+                                    " (" + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_PK_PROJECTID_COLUMN.getColumnName() + //
+                                    ", " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN.getColumnName() + ") VALUES (?1, ?2); ";
 
     private static final String UPDATE_SCM_CONFIGURATION_PS = //
                     "UPDATE " + FSqrSqliteDatabaseImpl.getScmConfigurationTable().tableName() + //
-                                    " SET " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN + "=?2 WHERE ("
-                                    + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_PK_PROJECTID_COLUMN + "=?1);";
+                                    " SET " + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN.getColumnName() + "=?2 WHERE ("
+                                    + FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_PK_PROJECTID_COLUMN.getColumnName() + "=?1);";
 
     // 
 
@@ -303,7 +303,7 @@ public class FSqrScmConfigurationDatabaseTableImpl implements FSqrScmConfigurati
     }
 
     private FSqrScmProjectConfiguration createScmConfiguration( ResultSet resultSet ) throws Exception {
-        String configDataString = resultSet.getString( FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN );
+        String configDataString = resultSet.getString( FSqrSqliteDatabaseImpl.SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN.getColumnName() );
 
         return gson.fromJson( configDataString, FSqrScmProjectConfiguration.class );
     }
