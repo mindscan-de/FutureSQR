@@ -301,30 +301,28 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
         // TODO: createDatabase
     }
 
+    public void dropDatbase() {
+        // TODO: dropDatabase
+    }
+
     private void addTableToDatabase( SqliteDatabaseTable table ) {
         // TODO implement me
     }
 
-    private Collection<SqliteDatabaseTable> getTables() {
+    private Collection<SqliteDatabaseTable> getDatabaseTables() {
         return new ArrayList<>();
     }
 
-    // TODO: createTables()
     public void createTables( FSqrDatabaseConnection dbConnection ) {
-        Collection<SqliteDatabaseTable> allTables = getTables();
+        Collection<SqliteDatabaseTable> allTables = getDatabaseTables();
 
         for (SqliteDatabaseTable table : allTables) {
             table.createTable( dbConnection );
         }
     }
 
-    public void dropDatbase() {
-        // TODO: dropDatabase
-    }
-
-    // TODO: dropTables();
     public void dropTables( FSqrDatabaseConnection dbConnection ) {
-        Collection<SqliteDatabaseTable> allTables = getTables();
+        Collection<SqliteDatabaseTable> allTables = getDatabaseTables();
 
         for (SqliteDatabaseTable table : allTables) {
             table.dropTable( dbConnection );
