@@ -212,15 +212,6 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
                                     ", " + SYSTEM_USERS_AVATARLOCATION_COLUMN.getColumnName() + //
                                     ", " + SYSTEM_USERS_ISBANNED_COLUMN.getColumnName() + ");";
 
-//    /** 
-//     * {@inheritDoc}
-//     */
-//    @Override
-//    public void setDatbaseConnection( FSqrDatabaseConnection connection ) {
-//        // TODO Auto-generated method stub
-//
-//    }
-
     /**
      * @return the codeReviewDiscussionsTable
      */
@@ -277,6 +268,10 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
         return SCM_USER_ALIASES_TABLE;
     }
 
+    // ----------------------------------
+    // instance part ....
+    // ----------------------------------
+
     /**
      * 
      */
@@ -296,6 +291,15 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
         this.addTableToDatabase( STARRED_PROJECTS_TABLE );
         this.addTableToDatabase( SYSTEM_USERS_TABLE );
     }
+
+//  /** 
+//  * {@inheritDoc}
+//  */
+// @Override
+// public void setDatbaseConnection( FSqrDatabaseConnection connection ) {
+//     // TODO Auto-generated method stub
+//
+// }
 
     public void createDatabase() {
         // TODO: createDatabase
