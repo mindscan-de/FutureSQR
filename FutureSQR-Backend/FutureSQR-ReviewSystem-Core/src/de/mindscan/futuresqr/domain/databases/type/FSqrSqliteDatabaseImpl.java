@@ -115,9 +115,9 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
                     "scmConfigData" );
 
     // StarredProjects
-    public static final String STARRED_PROJECTS_FK_USERUUID_COLUM = "userUuid";
-    public static final String STARRED_PROJECTS_FK_PROJECTID_COLUUMN = "projectId";
-    public static final String STARRED_PROJECTS_STARRED_TS_COLUMN = "whenStarred";
+    public static final SqliteDatabaseTableColumn STARRED_PROJECTS_FK_USERUUID_COLUM = new SqliteDatabaseTableColumn( STARRED_PROJECTS_TABLE, "userUuid" );
+    public static final SqliteDatabaseTableColumn STARRED_PROJECTS_FK_PROJECTID_COLUUMN = new SqliteDatabaseTableColumn( STARRED_PROJECTS_TABLE, "projectId" );
+    public static final SqliteDatabaseTableColumn STARRED_PROJECTS_STARRED_TS_COLUMN = new SqliteDatabaseTableColumn( STARRED_PROJECTS_TABLE, "whenStarred" );
 
     // SystemUsers
     public static final String SYSTEM_USERS_PK_UUID_COLUMN = "uuid";
