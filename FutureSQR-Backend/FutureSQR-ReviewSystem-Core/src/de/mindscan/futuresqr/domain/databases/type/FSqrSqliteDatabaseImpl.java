@@ -277,14 +277,41 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
         return SCM_USER_ALIASES_TABLE;
     }
 
+    /**
+     * 
+     */
+    public FSqrSqliteDatabaseImpl() {
+        // TODO: initialize the database tables... (empty) obviously.
+        // database name?
+
+        // TODO: rework this initializaztion later.
+        // this should be part of the new command see SqliteDatabaseTableColumn for better understanding.
+        // because this current particular initialization is kind of problematic. This can be reworked
+        this.addTableToDatabase( SCM_USER_ALIASES_TABLE );
+        this.addTableToDatabase( CODE_REVIEW_DISCUSSIONS_TABLE );
+        this.addTableToDatabase( CODE_REVIEW_SCM_REVISIONS_TABLE );
+        this.addTableToDatabase( CODE_REVIEWS_TABLE );
+        this.addTableToDatabase( DISCUSSION_THREAD_TABLE );
+        this.addTableToDatabase( SCM_CONFIGURATION_TABLE );
+        this.addTableToDatabase( STARRED_PROJECTS_TABLE );
+        this.addTableToDatabase( SYSTEM_USERS_TABLE );
+    }
+
     public void createDatabase() {
         // TODO: createDatabase
     }
 
+    private void addTableToDatabase( SqliteDatabaseTable table ) {
+        // TODO implement me
+    }
+
+    private Collection<SqliteDatabaseTable> getTables() {
+        return new ArrayList<>();
+    }
+
     // TODO: createTables()
     public void createTables( FSqrDatabaseConnection dbConnection ) {
-        // TODO: get registered tables ...
-        Collection<SqliteDatabaseTable> allTables = new ArrayList<>();
+        Collection<SqliteDatabaseTable> allTables = getTables();
 
         for (SqliteDatabaseTable table : allTables) {
             table.createTable( dbConnection );
@@ -297,8 +324,7 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
 
     // TODO: dropTables();
     public void dropTables( FSqrDatabaseConnection dbConnection ) {
-        // TODO: get registered tables ... 
-        Collection<SqliteDatabaseTable> allTables = new ArrayList<>();
+        Collection<SqliteDatabaseTable> allTables = getTables();
 
         for (SqliteDatabaseTable table : allTables) {
             table.dropTable( dbConnection );
