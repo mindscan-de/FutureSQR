@@ -53,8 +53,8 @@ public class SqliteDatabaseTable {
     // TODO: addColumns
 
     // TODO: use the columns 
-    public void createTable() {
-
+    public void createTable( FSqrDatabaseConnection dbConnection ) {
+        // 
     }
 
     public void dropTable( FSqrDatabaseConnection connection ) {

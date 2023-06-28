@@ -285,7 +285,7 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
 
         // TODO: foreach call
         for (SqliteDatabaseTable table : allTables) {
-            table.createTable( /* TODO: DatabaseConnection? */ );
+            table.createTable( dbConnection );
         }
     }
 
