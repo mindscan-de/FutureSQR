@@ -37,6 +37,7 @@ public class SqliteDatabaseTableColumn {
     // TODO: indexed?
     // TODO: default value?
     // TODO: conversion?
+    // TODO: primary key, foreign key, etc.
 
     /**
      * 
