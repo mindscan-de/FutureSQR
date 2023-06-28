@@ -47,10 +47,12 @@ public class SqliteDatabaseTable {
     /**
      * 
      */
-    public SqliteDatabaseTable( String tableName ) {
+    public SqliteDatabaseTable( /*SqliteDatabase database,*/ String tableName ) {
         this.tableName = tableName;
         this.tableColumns = new ArrayList<>();
-        // TODO: we also need the database connection to execute the create and drop command, so the database connection should be part of the constructor.  
+
+        // TODO: we also need the database connection to execute the create and drop command, so the database connection should be part of the constructor.
+        // database.addTableToDatabase(this);
     }
 
     public String tableName() {
