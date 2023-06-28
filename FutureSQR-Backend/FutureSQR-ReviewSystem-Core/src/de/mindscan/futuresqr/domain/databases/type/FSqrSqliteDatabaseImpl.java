@@ -28,6 +28,8 @@ package de.mindscan.futuresqr.domain.databases.type;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
+
 /**
  * 
  */
@@ -167,48 +169,48 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
 
     public static final String QUERY_CODE_REVIEWS_CREATE_TABLE = // 
                     "CREATE TABLE  " + CODE_REVIEWS_TABLENAME + //
-                                    " (" + CODE_REVIEWS_FK_PROJECTID_COLUMN + //
-                                    ", " + CODE_REVIEWS_REVIEWID_COLUMN + //
-                                    ", " + CODE_REVIEWS_REVIWEDATA_COLUMN + //
-                                    ", " + CODE_REVIEWS_STATE_COLUMN + ");";
+                                    " (" + CODE_REVIEWS_FK_PROJECTID_COLUMN.getColumnName() + //
+                                    ", " + CODE_REVIEWS_REVIEWID_COLUMN.getColumnName() + //
+                                    ", " + CODE_REVIEWS_REVIWEDATA_COLUMN.getColumnName() + //
+                                    ", " + CODE_REVIEWS_STATE_COLUMN.getColumnName() + ");";
 
     public static final String QUERY_DISCUSSION_THREAD_CREATE_TABLE = //
                     "CREATE TABLE " + DISCUSSION_THREAD_TABLENAME + //
-                                    " (" + DISCUSSION_THREAD_PK_UUID_COLUMN + //
-                                    ", " + DISCUSSION_THREAD_THREADDATA_COLUMN + ");";
+                                    " (" + DISCUSSION_THREAD_PK_UUID_COLUMN.getColumnName() + //
+                                    ", " + DISCUSSION_THREAD_THREADDATA_COLUMN.getColumnName() + ");";
 
     public static final String QUERY_CODE_REVIEW_DISCUSSIONS_CREATE_TABLE = //
                     "CREATE TABLE  " + CODE_REVIEW_DISCUSSIONS_TABLENAME + //
-                                    " (" + CODE_REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN + //
-                                    ", " + CODE_REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN + //
-                                    ", " + CODE_REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM + //
-                                    ", " + CODE_REVIEW_DISCISSIONS_CREATED_TS_COLUMNS + ");";
+                                    " (" + CODE_REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN.getColumnName() + //
+                                    ", " + CODE_REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN.getColumnName() + //
+                                    ", " + CODE_REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM.getColumnName() + //
+                                    ", " + CODE_REVIEW_DISCISSIONS_CREATED_TS_COLUMNS.getColumnName() + ");";
 
     public static final String QUERY_CODE_REVIEW_SCM_REVISIONS_CREATE_TABLE = // 
                     "CREATE TABLE  " + CODE_REVIEW_SCM_REVISIONS_TABLENAME + //
-                                    " (" + CODE_REVIEW_SCM_REVISIONS_FK_PROJECTID_COLUMN + //
-                                    ", " + CODE_REVIEW_SCM_REVISIONS_SCMREVISIONID_COLUMN + // 
-                                    ", " + CODE_REVIEW_SCM_REVISIONS_FK_REVIEWID_COLUMN + ");";
+                                    " (" + CODE_REVIEW_SCM_REVISIONS_FK_PROJECTID_COLUMN.getColumnName() + //
+                                    ", " + CODE_REVIEW_SCM_REVISIONS_SCMREVISIONID_COLUMN.getColumnName() + // 
+                                    ", " + CODE_REVIEW_SCM_REVISIONS_FK_REVIEWID_COLUMN.getColumnName() + ");";
 
     public static final String QUERY_SCM_CONFIGURATION_CREATE_TABLE = //
                     "CREATE TABLE " + SCM_CONFIGURATION_TABLENAME + //
-                                    " (" + SCM_CONFIGURATION_PK_PROJECTID_COLUMN + //
-                                    ", " + SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN + "); ";
+                                    " (" + SCM_CONFIGURATION_PK_PROJECTID_COLUMN.getColumnName() + //
+                                    ", " + SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN.getColumnName() + "); ";
 
     public static final String QUERY_STARRED_PROJECTS_CREATE_TABLE = //
                     "CREATE TABLE  " + STARRED_PROJECTS_TABLENAME + //
-                                    " (" + STARRED_PROJECTS_FK_USERUUID_COLUM + //
-                                    ", " + STARRED_PROJECTS_FK_PROJECTID_COLUUMN + //
-                                    ", " + STARRED_PROJECTS_STARRED_TS_COLUMN + ");";
+                                    " (" + STARRED_PROJECTS_FK_USERUUID_COLUM.getColumnName() + //
+                                    ", " + STARRED_PROJECTS_FK_PROJECTID_COLUUMN.getColumnName() + //
+                                    ", " + STARRED_PROJECTS_STARRED_TS_COLUMN.getColumnName() + ");";
 
     public static final String QUERY_SYSTEM_USERS_CREATE_TABLE = //
                     "CREATE TABLE " + SYSTEM_USERS_TABLENAME + // 
-                                    " ( " + SYSTEM_USERS_PK_UUID_COLUMN + //
-                                    ", " + SYSTEM_USERS_LOGINNAME_COLUMN + //
-                                    ", " + SYSTEM_USERS_DISPLAYNAME_COLUMN + //
-                                    ", " + SYSTEM_USERS_EMAIL_COLUMN + //
-                                    ", " + SYSTEM_USERS_AVATARLOCATION_COLUMN + //
-                                    ", " + SYSTEM_USERS_ISBANNED_COLUMN + ");";
+                                    " ( " + SYSTEM_USERS_PK_UUID_COLUMN.getColumnName() + //
+                                    ", " + SYSTEM_USERS_LOGINNAME_COLUMN.getColumnName() + //
+                                    ", " + SYSTEM_USERS_DISPLAYNAME_COLUMN.getColumnName() + //
+                                    ", " + SYSTEM_USERS_EMAIL_COLUMN.getColumnName() + //
+                                    ", " + SYSTEM_USERS_AVATARLOCATION_COLUMN.getColumnName() + //
+                                    ", " + SYSTEM_USERS_ISBANNED_COLUMN.getColumnName() + ");";
 
 //    /** 
 //     * {@inheritDoc}
@@ -277,7 +279,7 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
 
     // TODO: createDatabase
     // TODO: createTables()
-    public void createTables() {
+    public void createTables( FSqrDatabaseConnection dbConnection ) {
         // TODO: get registered tables ...
         Collection<SqliteDatabaseTable> allTables = new ArrayList<>();
 
@@ -290,13 +292,12 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
     // TODO: dropDatabase
 
     // TODO: dropTables();
-    public void dropTables() {
+    public void dropTables( FSqrDatabaseConnection dbConnection ) {
         // TODO: get registered tables ... 
         Collection<SqliteDatabaseTable> allTables = new ArrayList<>();
 
-        // TODO: foreach call
         for (SqliteDatabaseTable table : allTables) {
-            table.dropTable( /* TODO: DatabaseConnection? */ );
+            table.dropTable( dbConnection );
         }
     }
 }

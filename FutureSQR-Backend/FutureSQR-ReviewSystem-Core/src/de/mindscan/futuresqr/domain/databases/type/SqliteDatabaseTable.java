@@ -25,6 +25,10 @@
  */
 package de.mindscan.futuresqr.domain.databases.type;
 
+import java.sql.PreparedStatement;
+
+import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
+
 /**
  * 
  */
@@ -53,9 +57,18 @@ public class SqliteDatabaseTable {
 
     }
 
-    public void dropTable() {
-        // TODO: implement the drop operation on the database connection.
-        // String query = "DROP TABLE IF EXISTS " + this.tableName + ";";
+    public void dropTable( FSqrDatabaseConnection connection ) {
+        String query = "DROP TABLE IF EXISTS ?1 ;";
+
+        try (PreparedStatement statementPS = connection.createPreparedStatement( query )) {
+            statementPS.setString( 1, this.tableName );
+
+            statementPS.addBatch();
+            statementPS.executeBatch();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
