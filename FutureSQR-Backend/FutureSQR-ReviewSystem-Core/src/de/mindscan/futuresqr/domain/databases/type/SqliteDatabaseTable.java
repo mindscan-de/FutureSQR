@@ -26,6 +26,10 @@
 package de.mindscan.futuresqr.domain.databases.type;
 
 import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 
@@ -34,14 +38,18 @@ import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
  */
 public class SqliteDatabaseTable {
 
+    private static final String DROP_TABLE_IF_EXISTS_PS = "DROP TABLE IF EXISTS ?1 ;";
+
     private String tableName;
+
+    private List<SqliteDatabaseTableColumn> tableColumns;
 
     /**
      * 
      */
     public SqliteDatabaseTable( String tableName ) {
         this.tableName = tableName;
-
+        this.tableColumns = new ArrayList<>();
         // TODO: we also need the database connection to execute the create and drop command, so the database connection should be part of the constructor.  
     }
 
@@ -52,13 +60,50 @@ public class SqliteDatabaseTable {
     // TODO: addColumn
     // TODO: addColumns
 
+    /**
+     * @param sqliteDatabaseTableColumn
+     */
+    public void registerColumn( SqliteDatabaseTableColumn sqliteDatabaseTableColumn ) {
+        // TODO: check we don't add duplicates?
+        this.tableColumns.add( sqliteDatabaseTableColumn );
+    }
+
+    /**
+     * @return
+     */
+    private Collection<SqliteDatabaseTableColumn> getColumns() {
+        return new ArrayList<>( this.tableColumns );
+    }
+
     // TODO: use the columns 
     public void createTable( FSqrDatabaseConnection dbConnection ) {
-        // 
+        StringBuilder sqlBuilder = new StringBuilder();
+
+        sqlBuilder.append( "CREATE TABLE " );
+        sqlBuilder.append( this.tableName );
+        sqlBuilder.append( " " );
+
+        Collection<SqliteDatabaseTableColumn> tableColumns = getColumns();
+        if (!tableColumns.isEmpty()) {
+
+            // TODO: convert each column into a create-compatible descriotion
+            // TODO: then join all these converted infos
+            // TODO: then add to sqlBuilder the joined string.
+        }
+
+        sqlBuilder.append( ";" );
+
+        try (Statement statement = dbConnection.createStatement()) {
+            statement.execute( sqlBuilder.toString() );
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void dropTable( FSqrDatabaseConnection connection ) {
-        String query = "DROP TABLE IF EXISTS ?1 ;";
+        String query = DROP_TABLE_IF_EXISTS_PS;
 
         try (PreparedStatement statementPS = connection.createPreparedStatement( query )) {
             statementPS.setString( 1, this.tableName );
