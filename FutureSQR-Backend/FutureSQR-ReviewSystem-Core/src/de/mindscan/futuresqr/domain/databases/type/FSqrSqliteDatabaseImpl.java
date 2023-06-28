@@ -277,19 +277,23 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
         return SCM_USER_ALIASES_TABLE;
     }
 
-    // TODO: createDatabase
+    public void createDatabase() {
+        // TODO: createDatabase
+    }
+
     // TODO: createTables()
     public void createTables( FSqrDatabaseConnection dbConnection ) {
         // TODO: get registered tables ...
         Collection<SqliteDatabaseTable> allTables = new ArrayList<>();
 
-        // TODO: foreach call
         for (SqliteDatabaseTable table : allTables) {
             table.createTable( dbConnection );
         }
     }
 
-    // TODO: dropDatabase
+    public void dropDatbase() {
+        // TODO: dropDatabase
+    }
 
     // TODO: dropTables();
     public void dropTables( FSqrDatabaseConnection dbConnection ) {
