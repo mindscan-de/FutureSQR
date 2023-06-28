@@ -33,6 +33,11 @@ public class SqliteDatabaseTableColumn {
     private SqliteDatabaseTable table;
     private String columnName;
 
+    // TODO: type information of the colum
+    // TODO: indexed?
+    // TODO: default value?
+    // TODO: conversion?
+
     /**
      * 
      */
