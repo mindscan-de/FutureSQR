@@ -88,9 +88,10 @@ public class SqliteDatabaseTable {
             sqlBuilder.append( " ( " );
 
             // TODO: convert each column into a create-compatible description
-            // TODO: then join all these converted infos
-            // TODO: then add to sqlBuilder the joined string.
+            // TODO conversion here.
+            Collection<String> createdColumnDescriptions = new ArrayList<>();
 
+            sqlBuilder.append( String.join( ", ", createdColumnDescriptions ) );
             sqlBuilder.append( " ) " );
         }
 
