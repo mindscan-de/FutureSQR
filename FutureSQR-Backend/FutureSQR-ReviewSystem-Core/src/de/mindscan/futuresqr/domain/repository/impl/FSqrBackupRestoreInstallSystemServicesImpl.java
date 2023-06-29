@@ -28,6 +28,8 @@ package de.mindscan.futuresqr.domain.repository.impl;
 import java.util.Collection;
 
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
+import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
+import de.mindscan.futuresqr.domain.databases.type.FSqrSqliteDatabaseImpl;
 import de.mindscan.futuresqr.domain.repository.FSqrBackupRestoreInstallSystemServices;
 import de.mindscan.futuresqr.domain.repository.FSqrDatabaseBackedRepository;
 
@@ -71,6 +73,13 @@ public class FSqrBackupRestoreInstallSystemServicesImpl implements FSqrBackupRes
      */
     @Override
     public void reinitDatabase() {
+        FSqrDatabaseConnection dbConnection = services.getDatabaseConnection();
+
+        FSqrSqliteDatabaseImpl database = new FSqrSqliteDatabaseImpl();
+        database.dropTables( dbConnection );
+        database.createTables( dbConnection );
+
+        // now reinit the database with hardcoded data.
         Collection<FSqrDatabaseBackedRepository> allDbBackedRepos = services.getDatabaseBackedRepositories();
         for (FSqrDatabaseBackedRepository dbBackedRepo : allDbBackedRepos) {
             dbBackedRepo.reinitDatabaseTables();
