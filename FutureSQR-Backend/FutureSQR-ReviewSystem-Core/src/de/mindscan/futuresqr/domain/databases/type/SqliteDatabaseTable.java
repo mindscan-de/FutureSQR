@@ -85,12 +85,10 @@ public class SqliteDatabaseTable {
 
         Collection<SqliteDatabaseTableColumn> tableColumns = getColumns();
         if (!tableColumns.isEmpty()) {
-            sqlBuilder.append( " ( " );
-
-            // TODO: convert each column into a create-compatible description
-            // TODO conversion here.
             Collection<String> createdColumnDescriptions = new ArrayList<>();
+            tableColumns.stream().map( this::buildCreateColunm ).forEach( createdColumnDescriptions::add );
 
+            sqlBuilder.append( " ( " );
             sqlBuilder.append( String.join( ", ", createdColumnDescriptions ) );
             sqlBuilder.append( " ) " );
         }
@@ -103,7 +101,10 @@ public class SqliteDatabaseTable {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    private String buildCreateColunm( SqliteDatabaseTableColumn column ) {
+        return column.getColumnName();
     }
 
     public void dropTable( FSqrDatabaseConnection connection ) {
