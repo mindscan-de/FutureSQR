@@ -151,6 +151,7 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
      */
     @Override
     public void reinitDatabaseTables() {
+        this.userToProjectDatabaseTable.createTable();
     }
 
 }
