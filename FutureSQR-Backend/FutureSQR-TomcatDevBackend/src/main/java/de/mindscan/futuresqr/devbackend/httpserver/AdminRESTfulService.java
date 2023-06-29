@@ -109,7 +109,9 @@ public class AdminRESTfulService {
     public String postReinitDatabase( String requestBody ) {
         FSqrApplicationServices services = FSqrApplication.getInstance().getServices();
 
+        System.out.println( "Reinitializing DB" );
         services.getBackupRestoreInstallServices().reinitDatabase();
+        System.out.println( "Finished reinitializing DB" );
 
         return "{}";
     }
