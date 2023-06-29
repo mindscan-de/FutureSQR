@@ -103,6 +103,12 @@ public class SqliteDatabaseTable {
     }
 
     private String buildCreateColunm( SqliteDatabaseTableColumn column ) {
+        // COLUMNNAME
+        // TYPE - INT, TEXT, DATE
+        // (NOT NULL)
+        // (PRIMARY KEY)
+        // (AUTOINCREMENT)
+
         return column.getColumnName();
     }
 
