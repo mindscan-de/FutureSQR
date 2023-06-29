@@ -268,6 +268,8 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
         return SCM_USER_ALIASES_TABLE;
     }
 
+    private Collection<SqliteDatabaseTable> databaseTables;
+
     // ----------------------------------
     // instance part ....
     // ----------------------------------
@@ -278,6 +280,7 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
     public FSqrSqliteDatabaseImpl() {
         // TODO: initialize the database tables... (empty) obviously.
         // database name?
+        this.databaseTables = new ArrayList<>();
 
         // TODO: rework this initializaztion later.
         // this should be part of the new command see SqliteDatabaseTableColumn for better understanding.
@@ -310,16 +313,17 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
     }
 
     private void addTableToDatabase( SqliteDatabaseTable table ) {
-        // TODO implement me
+        this.databaseTables.add( table );
     }
 
     private Collection<SqliteDatabaseTable> getDatabaseTables() {
-        return new ArrayList<>();
+        return new ArrayList<>( this.databaseTables );
     }
 
     public void createTables( FSqrDatabaseConnection dbConnection ) {
         Collection<SqliteDatabaseTable> allTables = getDatabaseTables();
 
+        System.out.println( "creating tables" );
         for (SqliteDatabaseTable table : allTables) {
             table.createTable( dbConnection );
         }
@@ -328,6 +332,7 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
     public void dropTables( FSqrDatabaseConnection dbConnection ) {
         Collection<SqliteDatabaseTable> allTables = getDatabaseTables();
 
+        System.out.println( "dropping tables" );
         for (SqliteDatabaseTable table : allTables) {
             table.dropTable( dbConnection );
         }
