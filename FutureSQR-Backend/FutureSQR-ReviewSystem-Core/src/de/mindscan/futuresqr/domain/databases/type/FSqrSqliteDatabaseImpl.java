@@ -132,86 +132,6 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
     // TODO: MODIFIED DATE COLUMN
     // TODO: BANNED DATE COLUMN
 
-    // ==============
-    // Drop If Exists
-    // ==============
-    public static final String QUERY_SCM_USER_ALIASES_DROP_TABLE = //
-                    "DROP TABLE IF EXISTS " + SCM_USER_ALIASES_TABLENAME + ";";
-
-    public static final String QUERY_CODE_REVIEWS_DROP_TABLE = // 
-                    "DROP TABLE IF EXISTS " + CODE_REVIEWS_TABLENAME + ";";
-
-    public static final String QUERY_DISCUSSION_THREAD_DROP_TABLE = // 
-                    "DROP TABLE IF EXISTS " + DISCUSSION_THREAD_TABLENAME + ";";
-
-    public static final String QUERY_CODE_REVIEW_DISCUSSIONS_DROP_TABLE = //
-                    "DROP TABLE IF EXISTS " + CODE_REVIEW_DISCUSSIONS_TABLENAME + ";";
-
-    public static final String QUERY_CODE_REVIEW_SCM_REVISIONS_DROP_TABLE = //
-                    "DROP TABLE IF EXISTS " + CODE_REVIEW_SCM_REVISIONS_TABLENAME + ";";
-
-    public static final String QUERY_SCM_CONFIGURATION_DROP_TABLE = //
-                    "DROP TABLE IF EXISTS " + SCM_CONFIGURATION_TABLENAME + ";";
-
-    public static final String QUERY_STARRED_PROJECTS_DROP_TABLE = // 
-                    "DROP TABLE IF EXISTS " + STARRED_PROJECTS_TABLENAME + ";";
-
-    public static final String QUERY_SYSTEM_USERS_DROP_TABLE = // 
-                    "DROP TABLE IF EXISTS " + SYSTEM_USERS_TABLENAME + ";";
-
-    // =============
-    // Create Tables
-    // =============
-    public static final String QUERY_SCM_USER_ALIASES_CREATE_TABLE = // 
-                    "CREATE TABLE " + SCM_USER_ALIASES_TABLENAME + //
-                                    " (" + SCM_USER_ALIASES_FK_USERUUID_COLUMN.getColumnName() + //
-                                    ", " + SCM_USER_ALIASES_ALIASNAME_COLUMN.getColumnName() + ");";
-
-    public static final String QUERY_CODE_REVIEWS_CREATE_TABLE = // 
-                    "CREATE TABLE  " + CODE_REVIEWS_TABLENAME + //
-                                    " (" + CODE_REVIEWS_FK_PROJECTID_COLUMN.getColumnName() + //
-                                    ", " + CODE_REVIEWS_REVIEWID_COLUMN.getColumnName() + //
-                                    ", " + CODE_REVIEWS_REVIWEDATA_COLUMN.getColumnName() + //
-                                    ", " + CODE_REVIEWS_STATE_COLUMN.getColumnName() + ");";
-
-    public static final String QUERY_DISCUSSION_THREAD_CREATE_TABLE = //
-                    "CREATE TABLE " + DISCUSSION_THREAD_TABLENAME + //
-                                    " (" + DISCUSSION_THREAD_PK_UUID_COLUMN.getColumnName() + //
-                                    ", " + DISCUSSION_THREAD_THREADDATA_COLUMN.getColumnName() + ");";
-
-    public static final String QUERY_CODE_REVIEW_DISCUSSIONS_CREATE_TABLE = //
-                    "CREATE TABLE  " + CODE_REVIEW_DISCUSSIONS_TABLENAME + //
-                                    " (" + CODE_REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN.getColumnName() + //
-                                    ", " + CODE_REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN.getColumnName() + //
-                                    ", " + CODE_REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM.getColumnName() + //
-                                    ", " + CODE_REVIEW_DISCISSIONS_CREATED_TS_COLUMNS.getColumnName() + ");";
-
-    public static final String QUERY_CODE_REVIEW_SCM_REVISIONS_CREATE_TABLE = // 
-                    "CREATE TABLE  " + CODE_REVIEW_SCM_REVISIONS_TABLENAME + //
-                                    " (" + CODE_REVIEW_SCM_REVISIONS_FK_PROJECTID_COLUMN.getColumnName() + //
-                                    ", " + CODE_REVIEW_SCM_REVISIONS_SCMREVISIONID_COLUMN.getColumnName() + // 
-                                    ", " + CODE_REVIEW_SCM_REVISIONS_FK_REVIEWID_COLUMN.getColumnName() + ");";
-
-    public static final String QUERY_SCM_CONFIGURATION_CREATE_TABLE = //
-                    "CREATE TABLE " + SCM_CONFIGURATION_TABLENAME + //
-                                    " (" + SCM_CONFIGURATION_PK_PROJECTID_COLUMN.getColumnName() + //
-                                    ", " + SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN.getColumnName() + "); ";
-
-    public static final String QUERY_STARRED_PROJECTS_CREATE_TABLE = //
-                    "CREATE TABLE  " + STARRED_PROJECTS_TABLENAME + //
-                                    " (" + STARRED_PROJECTS_FK_USERUUID_COLUM.getColumnName() + //
-                                    ", " + STARRED_PROJECTS_FK_PROJECTID_COLUUMN.getColumnName() + //
-                                    ", " + STARRED_PROJECTS_STARRED_TS_COLUMN.getColumnName() + ");";
-
-    public static final String QUERY_SYSTEM_USERS_CREATE_TABLE = //
-                    "CREATE TABLE " + SYSTEM_USERS_TABLENAME + // 
-                                    " ( " + SYSTEM_USERS_PK_UUID_COLUMN.getColumnName() + //
-                                    ", " + SYSTEM_USERS_LOGINNAME_COLUMN.getColumnName() + //
-                                    ", " + SYSTEM_USERS_DISPLAYNAME_COLUMN.getColumnName() + //
-                                    ", " + SYSTEM_USERS_EMAIL_COLUMN.getColumnName() + //
-                                    ", " + SYSTEM_USERS_AVATARLOCATION_COLUMN.getColumnName() + //
-                                    ", " + SYSTEM_USERS_ISBANNED_COLUMN.getColumnName() + ");";
-
     /**
      * @return the codeReviewDiscussionsTable
      */
@@ -282,7 +202,7 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
         // database name?
         this.databaseTables = new ArrayList<>();
 
-        // TODO: rework this initializaztion later.
+        // TODO: rework this initialization later.
         // this should be part of the new command see SqliteDatabaseTableColumn for better understanding.
         // because this current particular initialization is kind of problematic. This can be reworked
         this.addTableToDatabase( SCM_USER_ALIASES_TABLE );
@@ -305,11 +225,13 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
 // }
 
     public void createDatabase() {
-        // TODO: createDatabase
+        // intentionally left blank 
+        // SQLite doesn't support this particular command.
     }
 
     public void dropDatbase() {
-        // TODO: dropDatabase
+        // intentionally left blank 
+        // SQLite doesn't support this particular command.
     }
 
     private void addTableToDatabase( SqliteDatabaseTable table ) {
