@@ -25,7 +25,6 @@
  */
 package de.mindscan.futuresqr.domain.databases.type;
 
-import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -37,8 +36,6 @@ import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
  * 
  */
 public class SqliteDatabaseTable {
-
-    private static final String DROP_TABLE_IF_EXISTS_PS = "DROP TABLE IF EXISTS ?1 ;";
 
     private String tableName;
 
@@ -96,7 +93,9 @@ public class SqliteDatabaseTable {
         sqlBuilder.append( ";" );
 
         try (Statement statement = dbConnection.createStatement()) {
-            statement.execute( sqlBuilder.toString() );
+            String query = sqlBuilder.toString();
+            statement.execute( query );
+            System.out.println( query );
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -108,13 +107,11 @@ public class SqliteDatabaseTable {
     }
 
     public void dropTable( FSqrDatabaseConnection connection ) {
-        String query = DROP_TABLE_IF_EXISTS_PS;
+        String query = "DROP TABLE IF EXISTS " + this.tableName + ";";
 
-        try (PreparedStatement statementPS = connection.createPreparedStatement( query )) {
-            statementPS.setString( 1, this.tableName );
-
-            statementPS.addBatch();
-            statementPS.executeBatch();
+        try (Statement statement = connection.createStatement()) {
+            statement.execute( query );
+            System.out.println( query );
         }
         catch (Exception e) {
             e.printStackTrace();
