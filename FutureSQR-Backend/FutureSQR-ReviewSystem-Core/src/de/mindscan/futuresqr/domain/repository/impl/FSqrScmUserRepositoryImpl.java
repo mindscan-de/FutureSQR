@@ -156,8 +156,6 @@ public class FSqrScmUserRepositoryImpl implements FSqrScmUserRepository {
      */
     @Override
     public void reinitDatabaseTables() {
-        this.userAliasesDatabaseTable.createTable();
-        this.systemUserTable.createTable();
     }
 
     /** 

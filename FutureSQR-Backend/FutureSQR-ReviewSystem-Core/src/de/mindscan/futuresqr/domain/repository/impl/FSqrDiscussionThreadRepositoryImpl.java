@@ -161,7 +161,5 @@ public class FSqrDiscussionThreadRepositoryImpl implements FSqrDiscussionThreadR
      */
     @Override
     public void reinitDatabaseTables() {
-        this.discussionThreadTable.createTable();
-        this.projectAndReviewsToThreadsTable.createTable();
     }
 }

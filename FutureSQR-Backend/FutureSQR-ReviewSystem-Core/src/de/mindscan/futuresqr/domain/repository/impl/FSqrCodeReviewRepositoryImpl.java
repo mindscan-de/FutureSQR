@@ -287,8 +287,6 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository {
      */
     @Override
     public void reinitDatabaseTables() {
-        this.codeReviewTable.createTable();
-        this.assignedCodeReviewsTable.createTable();
     }
 
 }

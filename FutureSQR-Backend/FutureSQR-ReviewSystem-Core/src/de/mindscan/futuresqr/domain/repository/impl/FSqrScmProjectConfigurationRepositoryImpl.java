@@ -198,7 +198,6 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
      */
     @Override
     public void reinitDatabaseTables() {
-        this.scmConfigurationDatabase.createTable();
     }
 
 }
