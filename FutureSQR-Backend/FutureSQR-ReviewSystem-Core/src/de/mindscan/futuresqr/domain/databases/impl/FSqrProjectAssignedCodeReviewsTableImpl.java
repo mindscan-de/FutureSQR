@@ -27,7 +27,6 @@ package de.mindscan.futuresqr.domain.databases.impl;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrProjectAssignedCodeReviewsTable;
@@ -161,14 +160,6 @@ public class FSqrProjectAssignedCodeReviewsTableImpl implements FSqrProjectAssig
      */
     @Override
     public void createTable() {
-        try (Statement statement = this.connection.createStatement()) {
-            statement.executeUpdate( FSqrSqliteDatabaseImpl.QUERY_CODE_REVIEW_SCM_REVISIONS_DROP_TABLE );
-            statement.executeUpdate( FSqrSqliteDatabaseImpl.QUERY_CODE_REVIEW_SCM_REVISIONS_CREATE_TABLE );
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
     }
 
     /** 

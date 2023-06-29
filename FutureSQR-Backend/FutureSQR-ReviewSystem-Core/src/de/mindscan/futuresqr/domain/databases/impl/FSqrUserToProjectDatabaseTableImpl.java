@@ -27,7 +27,6 @@ package de.mindscan.futuresqr.domain.databases.impl;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -210,15 +209,7 @@ public class FSqrUserToProjectDatabaseTableImpl implements FSqrUserToProjectData
      */
     @Override
     public void createTable() {
-
-        try (Statement statement = this.connection.createStatement()) {
-            statement.executeUpdate( FSqrSqliteDatabaseImpl.QUERY_STARRED_PROJECTS_DROP_TABLE );
-            statement.executeUpdate( FSqrSqliteDatabaseImpl.QUERY_STARRED_PROJECTS_CREATE_TABLE );
-            initHardCodedData();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        initHardCodedData();
     }
 
     /** 

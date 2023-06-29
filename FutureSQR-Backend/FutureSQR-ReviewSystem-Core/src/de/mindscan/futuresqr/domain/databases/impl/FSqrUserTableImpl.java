@@ -27,7 +27,6 @@ package de.mindscan.futuresqr.domain.databases.impl;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -254,14 +253,7 @@ public class FSqrUserTableImpl implements FSqrUserTable {
      */
     @Override
     public void createTable() {
-        try (Statement statement = this.connection.createStatement()) {
-            statement.executeUpdate( FSqrSqliteDatabaseImpl.QUERY_SYSTEM_USERS_DROP_TABLE );
-            statement.executeUpdate( FSqrSqliteDatabaseImpl.QUERY_SYSTEM_USERS_CREATE_TABLE );
-            initHardcodedData();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        initHardcodedData();
     }
 
     /** 

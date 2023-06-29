@@ -27,7 +27,6 @@ package de.mindscan.futuresqr.domain.databases.impl;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 import com.google.gson.Gson;
 
@@ -147,13 +146,6 @@ public class FSqrDiscussionThreadDatabaseTableImpl implements FSqrDiscussionThre
      */
     @Override
     public void createTable() {
-        try (Statement statement = this.connection.createStatement()) {
-            statement.executeUpdate( FSqrSqliteDatabaseImpl.QUERY_DISCUSSION_THREAD_DROP_TABLE );
-            statement.executeUpdate( FSqrSqliteDatabaseImpl.QUERY_DISCUSSION_THREAD_CREATE_TABLE );
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     /** 

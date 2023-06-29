@@ -27,7 +27,6 @@ package de.mindscan.futuresqr.domain.databases.impl;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -120,13 +119,6 @@ public class FSqrDiscussionThreadIdsTableImpl implements FSqrDiscussionThreadIds
      */
     @Override
     public void createTable() {
-        try (Statement statement = this.connection.createStatement()) {
-            statement.executeUpdate( FSqrSqliteDatabaseImpl.QUERY_CODE_REVIEW_DISCUSSIONS_DROP_TABLE );
-            statement.executeUpdate( FSqrSqliteDatabaseImpl.QUERY_CODE_REVIEW_DISCUSSIONS_CREATE_TABLE );
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     /** 
