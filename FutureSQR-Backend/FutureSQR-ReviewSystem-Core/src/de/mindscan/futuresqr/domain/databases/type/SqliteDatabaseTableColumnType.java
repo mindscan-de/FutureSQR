@@ -30,8 +30,24 @@ package de.mindscan.futuresqr.domain.databases.type;
  */
 public enum SqliteDatabaseTableColumnType {
 
-    INT,
+    INT( "INT" ),
 
-    TEXT,
+    TEXT( "TEXT" );
+
+    private String dbTypeAsString;
+
+    /**
+     * @param string
+     */
+    SqliteDatabaseTableColumnType( String dbTypeAsString ) {
+        this.dbTypeAsString = dbTypeAsString;
+    }
+
+    /**
+     * @return the dbTypeAsString
+     */
+    public String getDbTypeAsString() {
+        return dbTypeAsString;
+    }
 
 }
