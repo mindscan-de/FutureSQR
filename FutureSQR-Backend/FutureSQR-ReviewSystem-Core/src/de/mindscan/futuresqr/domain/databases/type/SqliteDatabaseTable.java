@@ -103,13 +103,21 @@ public class SqliteDatabaseTable {
     }
 
     private String buildCreateColunm( SqliteDatabaseTableColumn column ) {
+        StringBuilder columnBuilder = new StringBuilder();
+
         // COLUMNNAME
+        columnBuilder.append( column.getColumnName() );
+        columnBuilder.append( " " );
+
         // TYPE - INT, TEXT, DATE
+        columnBuilder.append( column.getColumnType().getDbTypeAsString() );
+        columnBuilder.append( " " );
+
         // (NOT NULL)
         // (PRIMARY KEY)
         // (AUTOINCREMENT)
 
-        return column.getColumnName();
+        return columnBuilder.toString();
     }
 
     public void dropTable( FSqrDatabaseConnection connection ) {
