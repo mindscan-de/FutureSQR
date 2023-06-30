@@ -71,4 +71,16 @@ public class SqliteDatabaseTableColumn {
     public SqliteDatabaseTableColumnType getColumnType() {
         return columnType;
     }
+
+    public boolean isPrimaryKey() {
+        return false;
+    }
+
+    public boolean isNotNull() {
+        return false;
+    }
+
+    public boolean isAutoincrement() {
+        return false;
+    }
 }
