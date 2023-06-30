@@ -114,8 +114,19 @@ public class SqliteDatabaseTable {
         columnBuilder.append( " " );
 
         // (NOT NULL)
+        if (column.isNotNull()) {
+            columnBuilder.append( "NOT NULL " );
+        }
+
         // (PRIMARY KEY)
+        if (column.isPrimaryKey()) {
+            columnBuilder.append( "PRIMARY KEY " );
+        }
+
         // (AUTOINCREMENT)
+        if (column.isAutoincrement()) {
+            columnBuilder.append( "AUTOINCREMENT" );
+        }
 
         return columnBuilder.toString();
     }
