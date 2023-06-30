@@ -69,65 +69,84 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
 
     // ScmUserAliases
     // --------------
-    public static final SqliteDatabaseTableColumn SCM_USER_ALIASES_FK_USERUUID_COLUMN = new SqliteDatabaseTableColumn( SCM_USER_ALIASES_TABLE, "userUuid" );
-    public static final SqliteDatabaseTableColumn SCM_USER_ALIASES_ALIASNAME_COLUMN = new SqliteDatabaseTableColumn( SCM_USER_ALIASES_TABLE, "aliasName" );
+    public static final SqliteDatabaseTableColumn SCM_USER_ALIASES_FK_USERUUID_COLUMN = new SqliteDatabaseTableColumn( SCM_USER_ALIASES_TABLE, "userUuid",
+                    SqliteDatabaseTableColumnType.TEXT );
+    public static final SqliteDatabaseTableColumn SCM_USER_ALIASES_ALIASNAME_COLUMN = new SqliteDatabaseTableColumn( SCM_USER_ALIASES_TABLE, "aliasName",
+                    SqliteDatabaseTableColumnType.TEXT );
 
     // CodeReviewDiscussions
     // ---------------------
     // refactor to single FK(projectid, reviewId) 
     public static final SqliteDatabaseTableColumn CODE_REVIEW_DISCUSSIONS_FK_PROJECTID_COLUMN = new SqliteDatabaseTableColumn( CODE_REVIEW_DISCUSSIONS_TABLE,
-                    "projectId" );
+                    "projectId", SqliteDatabaseTableColumnType.TEXT );
     // maybe use the UUID?, so we can drop the projectId...
     public static final SqliteDatabaseTableColumn CODE_REVIEW_DISCUSSIONS_FK_REVIEWID_COLUMN = new SqliteDatabaseTableColumn( CODE_REVIEW_DISCUSSIONS_TABLE,
-                    "reviewId" );
+                    "reviewId", SqliteDatabaseTableColumnType.TEXT );
     public static final SqliteDatabaseTableColumn CODE_REVIEW_DISCUSSIONS_FK_THREADUUID_COLUM = new SqliteDatabaseTableColumn( CODE_REVIEW_DISCUSSIONS_TABLE,
-                    "threadUuid" );
+                    "threadUuid", SqliteDatabaseTableColumnType.TEXT );
     public static final SqliteDatabaseTableColumn CODE_REVIEW_DISCISSIONS_CREATED_TS_COLUMNS = new SqliteDatabaseTableColumn( CODE_REVIEW_DISCUSSIONS_TABLE,
-                    "created" );
+                    // TODO FIXME LATER
+                    "created", SqliteDatabaseTableColumnType.NYI );
     // TODO maybe a last updated for each thread?...
     // TODO maybe we need a indicator, whether a full thread is resolved.
     // TODO maybe state whether thread was deleted...
 
     // CoreReviewScmRevisions
     public static final SqliteDatabaseTableColumn CODE_REVIEW_SCM_REVISIONS_FK_PROJECTID_COLUMN = new SqliteDatabaseTableColumn(
-                    CODE_REVIEW_SCM_REVISIONS_TABLE, "projectId" );
+                    CODE_REVIEW_SCM_REVISIONS_TABLE, "projectId", SqliteDatabaseTableColumnType.TEXT );
     public static final SqliteDatabaseTableColumn CODE_REVIEW_SCM_REVISIONS_FK_REVIEWID_COLUMN = new SqliteDatabaseTableColumn( CODE_REVIEW_SCM_REVISIONS_TABLE,
-                    "reviewId" );
+                    "reviewId", SqliteDatabaseTableColumnType.TEXT );
     public static final SqliteDatabaseTableColumn CODE_REVIEW_SCM_REVISIONS_SCMREVISIONID_COLUMN = new SqliteDatabaseTableColumn(
-                    CODE_REVIEW_SCM_REVISIONS_TABLE, "revisionId" );
+                    CODE_REVIEW_SCM_REVISIONS_TABLE, "revisionId", SqliteDatabaseTableColumnType.TEXT );
 
     // CodeReviews
     // -----------
     // TODO: reviewUuid
-    public static final SqliteDatabaseTableColumn CODE_REVIEWS_FK_PROJECTID_COLUMN = new SqliteDatabaseTableColumn( CODE_REVIEWS_TABLE, "projectId" );
+    public static final SqliteDatabaseTableColumn CODE_REVIEWS_FK_PROJECTID_COLUMN = new SqliteDatabaseTableColumn( CODE_REVIEWS_TABLE, "projectId",
+                    SqliteDatabaseTableColumnType.TEXT );
     // TODO: project Branch
-    public static final SqliteDatabaseTableColumn CODE_REVIEWS_STATE_COLUMN = new SqliteDatabaseTableColumn( CODE_REVIEWS_TABLE, "state" );
-    public static final SqliteDatabaseTableColumn CODE_REVIEWS_REVIEWID_COLUMN = new SqliteDatabaseTableColumn( CODE_REVIEWS_TABLE, "reviewId" );
-    public static final SqliteDatabaseTableColumn CODE_REVIEWS_REVIWEDATA_COLUMN = new SqliteDatabaseTableColumn( CODE_REVIEWS_TABLE, "reviewData" );
+    public static final SqliteDatabaseTableColumn CODE_REVIEWS_STATE_COLUMN = new SqliteDatabaseTableColumn( CODE_REVIEWS_TABLE, "state",
+                    SqliteDatabaseTableColumnType.TEXT );
+    public static final SqliteDatabaseTableColumn CODE_REVIEWS_REVIEWID_COLUMN = new SqliteDatabaseTableColumn( CODE_REVIEWS_TABLE, "reviewId",
+                    SqliteDatabaseTableColumnType.TEXT );
+    public static final SqliteDatabaseTableColumn CODE_REVIEWS_REVIWEDATA_COLUMN = new SqliteDatabaseTableColumn( CODE_REVIEWS_TABLE, "reviewData",
+                    SqliteDatabaseTableColumnType.TEXT );
 
     // DiscussionThread
     // ---------------
-    public static final SqliteDatabaseTableColumn DISCUSSION_THREAD_PK_UUID_COLUMN = new SqliteDatabaseTableColumn( DISCUSSION_THREAD_TABLE, "uuid" );
-    public static final SqliteDatabaseTableColumn DISCUSSION_THREAD_THREADDATA_COLUMN = new SqliteDatabaseTableColumn( DISCUSSION_THREAD_TABLE, "threadData" );
+    public static final SqliteDatabaseTableColumn DISCUSSION_THREAD_PK_UUID_COLUMN = new SqliteDatabaseTableColumn( DISCUSSION_THREAD_TABLE, "uuid",
+                    SqliteDatabaseTableColumnType.TEXT );
+    public static final SqliteDatabaseTableColumn DISCUSSION_THREAD_THREADDATA_COLUMN = new SqliteDatabaseTableColumn( DISCUSSION_THREAD_TABLE, "threadData",
+                    SqliteDatabaseTableColumnType.TEXT );
 
     // ScmConfiguration
     // ----------------
-    public static final SqliteDatabaseTableColumn SCM_CONFIGURATION_PK_PROJECTID_COLUMN = new SqliteDatabaseTableColumn( SCM_CONFIGURATION_TABLE, "projectId" );
+    public static final SqliteDatabaseTableColumn SCM_CONFIGURATION_PK_PROJECTID_COLUMN = new SqliteDatabaseTableColumn( SCM_CONFIGURATION_TABLE, "projectId",
+                    SqliteDatabaseTableColumnType.TEXT );
     public static final SqliteDatabaseTableColumn SCM_CONFIGURATION_SCMCONFIGDATA_COLUMN = new SqliteDatabaseTableColumn( SCM_CONFIGURATION_TABLE,
-                    "scmConfigData" );
+                    "scmConfigData", SqliteDatabaseTableColumnType.TEXT );
 
     // StarredProjects
-    public static final SqliteDatabaseTableColumn STARRED_PROJECTS_FK_USERUUID_COLUM = new SqliteDatabaseTableColumn( STARRED_PROJECTS_TABLE, "userUuid" );
-    public static final SqliteDatabaseTableColumn STARRED_PROJECTS_FK_PROJECTID_COLUUMN = new SqliteDatabaseTableColumn( STARRED_PROJECTS_TABLE, "projectId" );
-    public static final SqliteDatabaseTableColumn STARRED_PROJECTS_STARRED_TS_COLUMN = new SqliteDatabaseTableColumn( STARRED_PROJECTS_TABLE, "whenStarred" );
+    public static final SqliteDatabaseTableColumn STARRED_PROJECTS_FK_USERUUID_COLUM = new SqliteDatabaseTableColumn( STARRED_PROJECTS_TABLE, "userUuid",
+                    SqliteDatabaseTableColumnType.TEXT );
+    public static final SqliteDatabaseTableColumn STARRED_PROJECTS_FK_PROJECTID_COLUUMN = new SqliteDatabaseTableColumn( STARRED_PROJECTS_TABLE, "projectId",
+                    SqliteDatabaseTableColumnType.TEXT );
+    public static final SqliteDatabaseTableColumn STARRED_PROJECTS_STARRED_TS_COLUMN = new SqliteDatabaseTableColumn( STARRED_PROJECTS_TABLE, "whenStarred",
+                    SqliteDatabaseTableColumnType.TEXT );
 
     // SystemUsers
-    public static final SqliteDatabaseTableColumn SYSTEM_USERS_PK_UUID_COLUMN = new SqliteDatabaseTableColumn( SYSTEM_USERS_TABLE, "uuid" );
-    public static final SqliteDatabaseTableColumn SYSTEM_USERS_LOGINNAME_COLUMN = new SqliteDatabaseTableColumn( SYSTEM_USERS_TABLE, "userLoginName" );
-    public static final SqliteDatabaseTableColumn SYSTEM_USERS_DISPLAYNAME_COLUMN = new SqliteDatabaseTableColumn( SYSTEM_USERS_TABLE, "userDisplayName" );
-    public static final SqliteDatabaseTableColumn SYSTEM_USERS_EMAIL_COLUMN = new SqliteDatabaseTableColumn( SYSTEM_USERS_TABLE, "userEmail" );
-    public static final SqliteDatabaseTableColumn SYSTEM_USERS_AVATARLOCATION_COLUMN = new SqliteDatabaseTableColumn( SYSTEM_USERS_TABLE, "avatarLocation" );
-    public static final SqliteDatabaseTableColumn SYSTEM_USERS_ISBANNED_COLUMN = new SqliteDatabaseTableColumn( SYSTEM_USERS_TABLE, "isBanned" );
+    public static final SqliteDatabaseTableColumn SYSTEM_USERS_PK_UUID_COLUMN = new SqliteDatabaseTableColumn( SYSTEM_USERS_TABLE, "uuid",
+                    SqliteDatabaseTableColumnType.TEXT );
+    public static final SqliteDatabaseTableColumn SYSTEM_USERS_LOGINNAME_COLUMN = new SqliteDatabaseTableColumn( SYSTEM_USERS_TABLE, "userLoginName",
+                    SqliteDatabaseTableColumnType.TEXT );
+    public static final SqliteDatabaseTableColumn SYSTEM_USERS_DISPLAYNAME_COLUMN = new SqliteDatabaseTableColumn( SYSTEM_USERS_TABLE, "userDisplayName",
+                    SqliteDatabaseTableColumnType.TEXT );
+    public static final SqliteDatabaseTableColumn SYSTEM_USERS_EMAIL_COLUMN = new SqliteDatabaseTableColumn( SYSTEM_USERS_TABLE, "userEmail",
+                    SqliteDatabaseTableColumnType.TEXT );
+    public static final SqliteDatabaseTableColumn SYSTEM_USERS_AVATARLOCATION_COLUMN = new SqliteDatabaseTableColumn( SYSTEM_USERS_TABLE, "avatarLocation",
+                    SqliteDatabaseTableColumnType.TEXT );
+    public static final SqliteDatabaseTableColumn SYSTEM_USERS_ISBANNED_COLUMN = new SqliteDatabaseTableColumn( SYSTEM_USERS_TABLE, "isBanned",
+                    SqliteDatabaseTableColumnType.BOOL );
     // TODO: CREATED DATE_COLUMN
     // TODO: MODIFIED DATE COLUMN
     // TODO: BANNED DATE COLUMN

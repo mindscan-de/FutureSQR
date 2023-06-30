@@ -32,6 +32,7 @@ public class SqliteDatabaseTableColumn {
 
     private SqliteDatabaseTable table;
     private String columnName;
+    private SqliteDatabaseTableColumnType columnType;
 
     // TODO: type information of the colum
     // TODO: indexed?
@@ -42,9 +43,10 @@ public class SqliteDatabaseTableColumn {
     /**
      * 
      */
-    public SqliteDatabaseTableColumn( SqliteDatabaseTable databaseTable, String columnName ) {
+    public SqliteDatabaseTableColumn( SqliteDatabaseTable databaseTable, String columnName, SqliteDatabaseTableColumnType columnType ) {
         this.table = databaseTable;
         this.columnName = columnName;
+        this.columnType = columnType;
 
         databaseTable.registerColumn( this );
     }
@@ -61,5 +63,12 @@ public class SqliteDatabaseTableColumn {
      */
     public SqliteDatabaseTable getDatabaseTable() {
         return table;
+    }
+
+    /**
+     * @return the columnType
+     */
+    public SqliteDatabaseTableColumnType getColumnType() {
+        return columnType;
     }
 }
