@@ -125,7 +125,7 @@ public class SqliteDatabaseTable {
 
         // (AUTOINCREMENT)
         if (column.isAutoincrement()) {
-            columnBuilder.append( "AUTOINCREMENT" );
+            columnBuilder.append( "AUTOINCREMENT " );
         }
 
         return columnBuilder.toString();
