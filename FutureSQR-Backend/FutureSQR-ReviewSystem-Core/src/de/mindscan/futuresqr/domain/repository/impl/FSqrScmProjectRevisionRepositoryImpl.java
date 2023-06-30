@@ -34,6 +34,7 @@ import java.util.stream.Collectors;
 
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
+import de.mindscan.futuresqr.domain.configuration.FSqrSystemInstanceConfiguration;
 import de.mindscan.futuresqr.domain.configuration.impl.FSqrScmConfigrationProvider;
 import de.mindscan.futuresqr.domain.incubator.UnifiedDiffCalculationV1;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
@@ -46,6 +47,7 @@ import de.mindscan.futuresqr.domain.model.FSqrScmProjectType;
 import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
 import de.mindscan.futuresqr.domain.model.content.FSqrFileContentForRevision;
 import de.mindscan.futuresqr.domain.model.history.FSqrFileHistory;
+import de.mindscan.futuresqr.domain.model.m2m.ScmRepositoryFactory;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectRevisionRepository;
 import de.mindscan.futuresqr.scmaccess.ScmAccessFactory;
 import de.mindscan.futuresqr.scmaccess.ScmContentProvider;
@@ -369,25 +371,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     }
 
     private ScmRepository toScmRepository( FSqrScmProjectConfiguration scmConfiguration ) {
-
-        // TDOO: 
-        // - we need A factory, which can translate some FSqrScmProjectConfiguration to a useful ScmRepository Object
-        // - we should not do this here....
-        // depending on the type, we might want to distinguish between different needs according to the repository type.
-
-        String repoCachePath = applicationServices.getSystemConfiguration().getSystemRepoCachePath();
-
-        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
-            if (scmConfiguration.hasLocalRepoPath()) {
-                // not yet nice but better than before.
-                return new ScmRepository( repoCachePath + scmConfiguration.getScmGitAdminConfiguration().localPath );
-            }
-        }
-
-        // TODO: this has to be fixed soon...
-        ScmRepository result = new ScmRepository( repoCachePath + "FutureSQR" );
-
-        return result;
+        return ScmRepositoryFactory.toScmRepository( applicationServices.getSystemConfiguration(), scmConfiguration );
     }
 
 }
