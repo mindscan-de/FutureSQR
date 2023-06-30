@@ -32,7 +32,11 @@ public enum SqliteDatabaseTableColumnType {
 
     INT( "INT" ),
 
-    TEXT( "TEXT" );
+    TEXT( "TEXT" ),
+
+    BOOL( "TEXT" ),
+
+    NYI( "TEXT" ),;
 
     private String dbTypeAsString;
 
