@@ -34,7 +34,6 @@ public class SqliteDatabaseTableColumn {
     private String columnName;
     private SqliteDatabaseTableColumnType columnType;
 
-    // TODO: type information of the colum
     // TODO: indexed?
     // TODO: default value?
     // TODO: conversion?
