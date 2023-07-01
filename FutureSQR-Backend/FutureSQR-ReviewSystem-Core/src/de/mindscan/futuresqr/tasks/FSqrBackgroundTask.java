@@ -47,6 +47,13 @@ package de.mindscan.futuresqr.tasks;
  * Taks should be completeable, such that a progress can be measured, such that the ui can later rerequest.
  * 
  * We need TaskSchedulers, TaskExecutors (workers), TaskDeque/TaskQueues, etc. 
+ * 
+ * Tasks may be able to add tasks to the queue, or the completion triggers other tasks.
+ * 
+ * TODO: Futures --> this might be something for he core project?
+ * 
+ * Maybe also the task concept is concept for the Core project, but the individual fsqr related tasks should 
+ * remain here.
  */
 public interface FSqrBackgroundTask {
 
