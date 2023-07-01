@@ -159,10 +159,10 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository {
     public void addRevisionToReview( String projectId, String reviewId, String revisionId, String userId ) {
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
-            // we need to retrieve this revison ... THEN ADD IT
-            // TODO: actually it is more complicated, we need to know where to add it... 
             // TODO: get history firstrevision to revisionid, and count number of elements in list of code review -> that is the insert position. 
             FSqrRevision revisionToAdd = applicationServices.getRevisionRepository().getSimpleRevisionInformation( projectId, revisionId );
+            // TODO: insert at correct position.
+            // TODO: actually it is more complicated, we need to know where to add it... 
             codeReview.addRevision( revisionToAdd );
             this.codeReviewTable.updateCodeReview( codeReview );
 
@@ -176,8 +176,6 @@ public class FSqrCodeReviewRepositoryImpl implements FSqrCodeReviewRepository {
     public void removeRevisionFromReview( String projectId, String reviewId, String revisionId, String userId ) {
         FSqrCodeReview codeReview = getReview( projectId, reviewId );
         if (codeReview != null) {
-            // FSqrRevision revisionToRemove = applicationServices.getRevisionRepository().getSimpleRevisionInformation( projectId, revisionId );
-
             // remove revision from review
             codeReview.removeRevisionById( revisionId );
             this.codeReviewTable.updateCodeReview( codeReview );

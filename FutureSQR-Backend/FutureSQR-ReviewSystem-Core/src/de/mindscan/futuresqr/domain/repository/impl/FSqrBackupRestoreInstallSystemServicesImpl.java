@@ -75,6 +75,7 @@ public class FSqrBackupRestoreInstallSystemServicesImpl implements FSqrBackupRes
     // The backup policy tells what should be backed up or exported
     // basically we have an export, an import and backup and restore policy to ensure overall application 
     // and data consistency. 
+    @SuppressWarnings( "unused" )
     private Map<String, Boolean> backupPolicy = new HashMap<>();
 
     /** 
