@@ -138,8 +138,7 @@ public class FSqrUserToProjectRepositoryImpl implements FSqrUserToProjectReposit
     }
 
     private boolean isValidProject( String projectId ) {
-        // TODO: implement the test... and use the project repository.
-        return true;
+        return this.applicationServices.getConfigurationRepository().hasProjectConfiguration( projectId );
     }
 
     private boolean isValidUser( String userUUID ) {
