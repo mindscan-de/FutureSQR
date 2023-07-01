@@ -79,7 +79,9 @@ public class FSqrBackupRestoreInstallSystemServicesImpl implements FSqrBackupRes
         database.dropTables( dbConnection );
         database.createTables( dbConnection );
 
-        // now reinit the database with hardcoded data.
+        // now reinit the database with hardcoded data
+        // TODO: this should be reworked, there should not by any herdcoded data, database tables should be 
+        //       loaded or initialized frombackups.
         Collection<FSqrDatabaseBackedRepository> allDbBackedRepos = services.getDatabaseBackedRepositories();
         for (FSqrDatabaseBackedRepository dbBackedRepo : allDbBackedRepos) {
             dbBackedRepo.reinitDatabaseTables();
