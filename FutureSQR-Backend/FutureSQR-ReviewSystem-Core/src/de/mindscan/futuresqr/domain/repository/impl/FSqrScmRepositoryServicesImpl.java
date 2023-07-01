@@ -90,7 +90,6 @@ public class FSqrScmRepositoryServicesImpl implements FSqrScmRepositoryServices 
     }
 
     private FSqrScmProjectConfiguration toScmConfiguration( String projectId ) {
-        // this is already cached...
         return applicationServices.getConfigurationRepository().getProjectConfiguration( projectId );
     }
 
@@ -104,7 +103,6 @@ public class FSqrScmRepositoryServicesImpl implements FSqrScmRepositoryServices 
     @Override
     public void cloneCheckoutToProjectCache( String projectId ) {
         // TODO Auto-generated method stub
-
     }
 
 }

@@ -34,7 +34,6 @@ import java.util.stream.Collectors;
 
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
-import de.mindscan.futuresqr.domain.configuration.FSqrSystemInstanceConfiguration;
 import de.mindscan.futuresqr.domain.configuration.impl.FSqrScmConfigrationProvider;
 import de.mindscan.futuresqr.domain.incubator.UnifiedDiffCalculationV1;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
@@ -366,7 +365,6 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     }
 
     private FSqrScmProjectConfiguration toScmConfiguration( String projectId ) {
-        // this is already cached...
         return applicationServices.getConfigurationRepository().getProjectConfiguration( projectId );
     }
 
