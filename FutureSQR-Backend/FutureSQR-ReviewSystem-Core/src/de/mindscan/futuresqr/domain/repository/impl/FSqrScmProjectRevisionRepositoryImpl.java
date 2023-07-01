@@ -63,6 +63,25 @@ import de.mindscan.futuresqr.scmaccess.types.ScmSingleRevisionFileChangeList;
 
 /**
  * TODO: rework the repository to use a database instead of the in-memory + scm data pull implementation
+ * 
+ * [ATTN]
+ * 
+ * Actually this repository implementation should coordinate a cache and the sqldatabase.
+ *  
+ * Problem right now is that we don't have a database table for this data. So the next
+ * step is to extract a crawler an insert mechanism and on the other side a retrieval 
+ * and a cache mechanism on the read side for this FSqrScmProjectRevisionRepositoryImpl.
+ * 
+ * So basically we need to implement a database table and a read cache first, where we store
+ * retrieved data. And then we split this implementation and refactor it to a crawler, where
+ * we can have a job queue for the crawler which will fill the database. the crawler will be 
+ * a separate thread and observe the scm repositories.
+ * 
+ * This may be deferred to some later time, but this will be not a trivial part. The Update/
+ * Synchronize process (update cache in the ui.) can be used to substitute the crawler and
+ * extra thread.
+ * 
+ * [/ATTN]
  */
 public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevisionRepository {
 
@@ -203,6 +222,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     public FSqrRevisionFileChangeList getAllRevisionsFileChangeList( String projectId, List<FSqrRevision> revisions ) {
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
+
             ScmRepository scmRepository = toScmRepository( scmConfiguration );
 
             ArrayList<FSqrRevision> revisionCopy = new ArrayList<>( revisions );
