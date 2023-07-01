@@ -36,16 +36,11 @@ import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 public class ScmRepositoryFactory {
 
     public static ScmRepository toScmRepository( FSqrSystemInstanceConfiguration systemConfiguration, FSqrScmProjectConfiguration scmConfiguration ) {
-        // TDOO: 
-        // - we need A factory, which can translate some FSqrScmProjectConfiguration to a useful ScmRepository Object
-        // - we should not do this here....
-        // depending on the type, we might want to distinguish between different needs according to the repository type.
-
         String repoCachePath = systemConfiguration.getSystemRepoCachePath();
 
+        // TODO: depending on the type, we want to distinguish between different needs according to the repository type.
         if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
             if (scmConfiguration.hasLocalRepoPath()) {
-                // not yet nice but better than before.
                 return new ScmRepository( repoCachePath + scmConfiguration.getScmGitAdminConfiguration().localPath );
             }
         }
