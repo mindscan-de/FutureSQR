@@ -26,6 +26,8 @@
 package de.mindscan.futuresqr.domain.repository.impl;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
@@ -59,6 +61,20 @@ import de.mindscan.futuresqr.domain.repository.FSqrDatabaseBackedRepository;
 public class FSqrBackupRestoreInstallSystemServicesImpl implements FSqrBackupRestoreInstallSystemServices {
 
     private FSqrApplicationServices services;
+
+    // TODO: Backup policy
+    // The backup policy contains the information whether a table / which table is elegible for 
+    // export to file / backup to file. Because some of the information can be retrieved after
+    // reinstalling the instance using a scm crawler, so we can consider these information as
+    // re retrievable. All tables with user information and user generated content must be carefully
+    // backed up / exported to a file.
+    // aside from this a standard database backup is possible.
+    // anyways we may not only want to back up the database content, but also configuration files,
+    // certificates and authentication tokens and passwords.
+    // The backup policy tells what should be backed up or exported
+    // basically we have an export, an import and backup and restore policy to ensure overall application 
+    // and data consistency. 
+    private Map<String, Boolean> backupPolicy = new HashMap<>();
 
     /** 
      * {@inheritDoc}
