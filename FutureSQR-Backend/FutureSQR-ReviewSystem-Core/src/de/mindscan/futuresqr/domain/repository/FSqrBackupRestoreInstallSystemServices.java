@@ -25,6 +25,8 @@
  */
 package de.mindscan.futuresqr.domain.repository;
 
+import java.nio.file.Path;
+
 /**
  * 
  */
@@ -34,6 +36,16 @@ public interface FSqrBackupRestoreInstallSystemServices extends FSqrRepository {
      * This will reinitialize all tables and will add some default values to this table.
      */
     void reinitDatabase();
+
+    /**
+     * @param exportPath path to where to export the system instance.
+     */
+    void exportSystemInstance( Path exportPath );
+
+    /**
+     * @param importPath path where the system instance to import from
+     */
+    void importSystemInstance( Path importPath );
 
     // TODO: backup database / backup system instance / creating some backup key.
 

@@ -25,6 +25,7 @@
  */
 package de.mindscan.futuresqr.domain.repository.impl;
 
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -102,6 +103,32 @@ public class FSqrBackupRestoreInstallSystemServicesImpl implements FSqrBackupRes
         for (FSqrDatabaseBackedRepository dbBackedRepo : allDbBackedRepos) {
             dbBackedRepo.reinitDatabaseTables();
         }
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void exportSystemInstance( Path exportPath ) {
+
+        // TODO: export system configuration ... if we have one
+        // TODO: go through all repositories and export full Objects (instead of relational tables?)
+        //       allows to restructure the database while new/next import.  -> upgrade path
+        // TODO: alternate simple behavior just save a copy of the relational tables.
+
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void importSystemInstance( Path importPath ) {
+
+        // according to the format of the backup we need to select a reader and then call the reader to provide the data
+        // an then invoke an importer which distributes the loaded/routed data to the repositories.
+
+        // TODO: use the repositories to import the objects into the database.
+
     }
 
 }
