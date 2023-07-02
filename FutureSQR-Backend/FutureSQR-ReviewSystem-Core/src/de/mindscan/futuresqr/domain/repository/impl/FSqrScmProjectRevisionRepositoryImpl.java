@@ -189,8 +189,6 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
 
-            ScmRepository scmRepository = toScmRepository( scmConfiguration );
-
             ArrayList<FSqrRevision> revisionCopy = new ArrayList<>( revisions );
             // build list of lists for each revision
             List<FSqrRevisionFileChangeList> allchanges = revisionCopy.stream().map( r -> this.getRevisionFileChangeList( projectId, r.getRevisionId() ) )
