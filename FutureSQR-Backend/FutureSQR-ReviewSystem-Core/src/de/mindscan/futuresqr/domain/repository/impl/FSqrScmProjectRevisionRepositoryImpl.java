@@ -247,7 +247,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
             String firstRevisionId = revisionList.get( 0 ).getRevisionId();
             String lastRevisionId = revisionList.get( revisionList.size() - 1 ).getRevisionId();
 
-            List<FSqrRevisionFullChangeSet> revisionFullChangeset = getRevisionFullChangeset( projectId, firstRevisionId, lastRevisionId );
+            List<FSqrRevisionFullChangeSet> revisionFullChangeset = getRevisionFullChangeSetList( projectId, firstRevisionId, lastRevisionId );
             List<String> revisionListIds = revisionList.stream().map( r -> r.getRevisionId() ).collect( Collectors.toList() );
 
             // squash connected diff into one
@@ -257,7 +257,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         String firstRevisionId = revisionList.get( 0 ).getRevisionId();
         String lastRevisionId = revisionList.get( revisionList.size() - 1 ).getRevisionId();
 
-        List<FSqrRevisionFullChangeSet> revisionFullChangeset = getRevisionFullChangeset( projectId, firstRevisionId, lastRevisionId );
+        List<FSqrRevisionFullChangeSet> revisionFullChangeset = getRevisionFullChangeSetList( projectId, firstRevisionId, lastRevisionId );
         List<String> revisionListIds = revisionList.stream().map( r -> r.getRevisionId() ).collect( Collectors.toList() );
 
         // squash unconnected diff into one
@@ -293,7 +293,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         return new FSqrRevisionFullChangeSet();
     }
 
-    private List<FSqrRevisionFullChangeSet> getRevisionFullChangeset( String projectId, String firstRevisionId, String lastRevisionId ) {
+    private List<FSqrRevisionFullChangeSet> getRevisionFullChangeSetList( String projectId, String firstRevisionId, String lastRevisionId ) {
         List<FSqrRevisionFullChangeSet> result = new ArrayList<>();
 
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
