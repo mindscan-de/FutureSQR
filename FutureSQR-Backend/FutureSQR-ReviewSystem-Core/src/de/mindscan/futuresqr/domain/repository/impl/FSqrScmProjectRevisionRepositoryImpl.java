@@ -109,6 +109,9 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         // search key: ( projectId:string , reviewId:string ) -> RevisionInfo
         this.revisionInfoCache = new InMemoryCacheSimpleRevisionInformationTable();
         // TODO SQL-Table.... access
+
+        this.fileChangeListCache = new InMemoryCacheRevisionFileChangeListTable();
+        // TODO SQL_Table.... access
     }
 
     @Override
