@@ -71,7 +71,9 @@ public class InMemoryCacheRevisionToCodeReviewIdTableImpl {
         }
 
         String codeReviewId = codeReviewIdLoader.apply( projectId, revisionId );
-        putCodeReviewId( projectId, revisionId, codeReviewId );
+        if (codeReviewId != null) {
+            putCodeReviewId( projectId, revisionId, codeReviewId );
+        }
 
         return (codeReviewId == null) ? "" : codeReviewId;
     }
