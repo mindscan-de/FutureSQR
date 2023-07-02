@@ -48,6 +48,7 @@ import de.mindscan.futuresqr.domain.model.content.FSqrFileContentForRevision;
 import de.mindscan.futuresqr.domain.model.history.FSqrFileHistory;
 import de.mindscan.futuresqr.domain.model.m2m.ScmRepositoryFactory;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectRevisionRepository;
+import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheRevisionFileChangeListTable;
 import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheSimpleRevisionInformationTable;
 import de.mindscan.futuresqr.scmaccess.ScmAccessFactory;
 import de.mindscan.futuresqr.scmaccess.ScmContentProvider;
@@ -94,6 +95,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     private ScmRepositoryServicesProvider gitScmRepositoryServicesProvider;
 
     private InMemoryCacheSimpleRevisionInformationTable revisionInfoCache;
+    private InMemoryCacheRevisionFileChangeListTable fileChangeListCache;
 
     private FSqrApplicationServices applicationServices;
 
@@ -159,31 +161,6 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         return result;
     }
 
-    private FSqrScmHistory translate( ScmHistory nRecentHistory, String projectId ) {
-        FSqrScmHistory result = new FSqrScmHistory();
-
-        nRecentHistory.revisions.stream().forEach( x -> result.addRevision( translate( x, projectId ) ) );
-
-        return result;
-    }
-
-    private FSqrRevision translate( ScmBasicRevisionInformation x, String projectId ) {
-        FSqrRevision result = new FSqrRevision( x );
-
-        String authorUUID = applicationServices.getUserRepository().getUserUUID( x.authorName );
-        result.setAuthorUuid( authorUUID );
-
-        // calculate whether a review is known for this 
-        if (applicationServices.getReviewRepository().hasReviewForProjectAndRevision( projectId, x.revisionId )) {
-            result.setHasAttachedReview( true );
-            FSqrCodeReview review = applicationServices.getReviewRepository().getReviewForProjectAndRevision( projectId, x.revisionId );
-            result.setReviewId( review.getReviewId() );
-            result.setReviewClosed( review.getCurrentReviewState() == FSqrCodeReviewLifecycleState.Closed );
-        }
-
-        return result;
-    }
-
     @Override
     public FSqrRevision getSimpleRevisionInformation( String projectId, String revisionId ) {
         // TODO refactor from scm retrieval to sql table retrieval.
@@ -199,22 +176,16 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
     @Override
     public FSqrRevisionFileChangeList getRevisionFileChangeList( String projectId, String revisionId ) {
-        // TODO: this should be tested, whether it is already cached in-memory database.
-        // TODO: if not, we should have an information, whether we can retrieve this from the Database
+        // TODO refactor from scm retrieval to sql table retrieval.
         // TODO: only if not in the database, retrieve from SCM, then update the database, then update the cache.
+        FSqrRevisionFileChangeList revisionFileChangeList = this.fileChangeListCache.getFSqrRevisionFileChangeListOrComputIfAbsent( projectId, revisionId,
+                        this::retrieveRevisionFileChangeListFromScm );
 
-        // -----------------------------------------
-        // TODO: refactor this to Database retrieval
-        // -----------------------------------------
-        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
-        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
-            ScmRepository scmRepository = toScmRepository( scmConfiguration );
-            ScmSingleRevisionFileChangeList fileChangeList = gitHistoryProvider.getFileChangeListForRevision( scmRepository, revisionId );
-
-            return translate( fileChangeList, projectId );
+        if (revisionFileChangeList == null) {
+            return new FSqrRevisionFileChangeList();
         }
 
-        return new FSqrRevisionFileChangeList();
+        return revisionFileChangeList;
     }
 
     @Override
@@ -256,10 +227,6 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
             return result;
         }
         return new FSqrRevisionFileChangeList();
-    }
-
-    private FSqrRevisionFileChangeList translate( ScmSingleRevisionFileChangeList fileChangeList, String projectId ) {
-        return new FSqrRevisionFileChangeList( fileChangeList );
     }
 
     @Override
@@ -406,6 +373,47 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
             return result.getRevisions().get( 0 );
         }
         return null;
+    }
+
+    private FSqrScmHistory translate( ScmHistory nRecentHistory, String projectId ) {
+        FSqrScmHistory result = new FSqrScmHistory();
+
+        nRecentHistory.revisions.stream().forEach( x -> result.addRevision( translate( x, projectId ) ) );
+
+        return result;
+    }
+
+    private FSqrRevision translate( ScmBasicRevisionInformation x, String projectId ) {
+        FSqrRevision result = new FSqrRevision( x );
+
+        String authorUUID = applicationServices.getUserRepository().getUserUUID( x.authorName );
+        result.setAuthorUuid( authorUUID );
+
+        // calculate whether a review is known for this 
+        if (applicationServices.getReviewRepository().hasReviewForProjectAndRevision( projectId, x.revisionId )) {
+            result.setHasAttachedReview( true );
+            FSqrCodeReview review = applicationServices.getReviewRepository().getReviewForProjectAndRevision( projectId, x.revisionId );
+            result.setReviewId( review.getReviewId() );
+            result.setReviewClosed( review.getCurrentReviewState() == FSqrCodeReviewLifecycleState.Closed );
+        }
+
+        return result;
+    }
+
+    private FSqrRevisionFileChangeList retrieveRevisionFileChangeListFromScm( String projectId, String revisionId ) {
+        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
+        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
+            ScmRepository scmRepository = toScmRepository( scmConfiguration );
+            ScmSingleRevisionFileChangeList fileChangeList = gitHistoryProvider.getFileChangeListForRevision( scmRepository, revisionId );
+
+            return translate( fileChangeList, projectId );
+        }
+
+        return null;
+    }
+
+    private FSqrRevisionFileChangeList translate( ScmSingleRevisionFileChangeList fileChangeList, String projectId ) {
+        return new FSqrRevisionFileChangeList( fileChangeList );
     }
 
 }
