@@ -163,9 +163,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
     @Override
     public FSqrRevision getSimpleRevisionInformation( String projectId, String revisionId ) {
-        // TODO refactor from scm retrieval to sql table retrieval.
-        // TODO: only if not in the database, retrieve from SCM, then update the database, then update the cache.
-        FSqrRevision revision = this.revisionInfoCache.getFSqrRevisionOrComputeIfAbsent( projectId, revisionId, this::retrieveSimpleRevisionFromScm );
+        FSqrRevision revision = this.revisionInfoCache.getFSqrRevisionOrComputeIfAbsent( projectId, revisionId, this::retrieveSimpleRevisionFromDatabaseTable );
 
         if (revision == null) {
             return new FSqrRevision();
@@ -176,10 +174,8 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
     @Override
     public FSqrRevisionFileChangeList getRevisionFileChangeList( String projectId, String revisionId ) {
-        // TODO refactor from scm retrieval to sql table retrieval.
-        // TODO: only if not in the database, retrieve from SCM, then update the database, then update the cache.
         FSqrRevisionFileChangeList revisionFileChangeList = this.fileChangeListCache.getFSqrRevisionFileChangeListOrComputIfAbsent( projectId, revisionId,
-                        this::retrieveRevisionFileChangeListFromScm );
+                        this::retrieveRevisionFileChangeListFromDatabaseTable );
 
         if (revisionFileChangeList == null) {
             return new FSqrRevisionFileChangeList();
@@ -356,6 +352,24 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
     private ScmRepository toScmRepository( FSqrScmProjectConfiguration scmConfiguration ) {
         return ScmRepositoryFactory.toScmRepository( applicationServices.getSystemConfiguration(), scmConfiguration );
+    }
+
+    // =======================================================
+    // --- Move this to the new database table implementations
+    // =======================================================
+
+    private FSqrRevision retrieveSimpleRevisionFromDatabaseTable( String projectId, String revisionId ) {
+        // TODO refactor from scm retrieval to sql table retrieval.
+        // TODO: only if not in the database, retrieve from SCM, then update the database, then update the cache.
+
+        return retrieveSimpleRevisionFromScm( projectId, revisionId );
+    }
+
+    private FSqrRevisionFileChangeList retrieveRevisionFileChangeListFromDatabaseTable( String projectId, String revisionId ) {
+        // TODO refactor from scm retrieval to sql table retrieval.
+        // TODO: only if not in the database, retrieve from SCM, then update the database, then update the cache.
+
+        return retrieveRevisionFileChangeListFromScm( projectId, revisionId );
     }
 
     // ================================================
