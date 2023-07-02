@@ -123,23 +123,13 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
     @Override
     public FSqrScmHistory getRecentRevisionHistory( String projectId ) {
-        // TODO: this should be tested, whether it is already cached in-memory database, and if the maximum age is reached
-        // TODO: retrieve the current values from database.
-        // TODO: the crawler will put that info into the database.
+        FSqrScmHistory recentRevisionHistory = retriveRecentRevisionHistoryFromDatabaseTable( projectId, 75 );
 
-        // -----------------------------------------
-        // TODO: refactor this to Database retrieval
-        // -----------------------------------------
-        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
-        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
-
-            ScmHistory nRecentHistory = gitHistoryProvider.getNRecentRevisions( toScmRepository( scmConfiguration ), 75 );
-            return translate( nRecentHistory, projectId );
+        if (recentRevisionHistory == null) {
+            return new FSqrScmHistory();
         }
 
-        FSqrScmHistory result = new FSqrScmHistory();
-
-        return result;
+        return recentRevisionHistory;
     }
 
     @Override
@@ -370,6 +360,14 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         return retrieveRevisionFileChangeListFromScm( projectId, revisionId );
     }
 
+    private FSqrScmHistory retriveRecentRevisionHistoryFromDatabaseTable( String projectId, int count ) {
+        // TODO: this should be tested, whether it is already cached in-memory database, and if the maximum age is reached
+        // TODO: retrieve the current values from database.
+        // TODO: the crawler will put that info into the database.
+        return retriveRecentRevisionHistoryFromScm( projectId, count );
+
+    }
+
     // ================================================
     // ---- Move this to crawler and Database inserter.
     // ================================================    
@@ -426,6 +424,17 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
     private FSqrRevisionFileChangeList translate( ScmSingleRevisionFileChangeList fileChangeList, String projectId ) {
         return new FSqrRevisionFileChangeList( fileChangeList );
+    }
+
+    private FSqrScmHistory retriveRecentRevisionHistoryFromScm( String projectId, int count ) {
+        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
+        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
+
+            ScmHistory nRecentHistory = gitHistoryProvider.getNRecentRevisions( toScmRepository( scmConfiguration ), count );
+            return translate( nRecentHistory, projectId );
+        }
+
+        return null;
     }
 
 }
