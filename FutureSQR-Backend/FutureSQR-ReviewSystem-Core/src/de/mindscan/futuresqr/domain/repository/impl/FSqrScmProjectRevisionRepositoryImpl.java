@@ -48,6 +48,7 @@ import de.mindscan.futuresqr.domain.model.content.FSqrFileContentForRevision;
 import de.mindscan.futuresqr.domain.model.history.FSqrFileHistory;
 import de.mindscan.futuresqr.domain.model.m2m.ScmRepositoryFactory;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectRevisionRepository;
+import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheSimpleRevisionInformationTable;
 import de.mindscan.futuresqr.scmaccess.ScmAccessFactory;
 import de.mindscan.futuresqr.scmaccess.ScmContentProvider;
 import de.mindscan.futuresqr.scmaccess.ScmHistoryProvider;
@@ -92,6 +93,8 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     private ScmContentProvider gitScmContentProvider;
     private ScmRepositoryServicesProvider gitScmRepositoryServicesProvider;
 
+    private InMemoryCacheSimpleRevisionInformationTable revisionInfoCache;
+
     private FSqrApplicationServices applicationServices;
 
     public FSqrScmProjectRevisionRepositoryImpl() {
@@ -100,6 +103,10 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         this.gitHistoryProvider = ScmAccessFactory.getEmptyHistoryProvider();
         this.gitScmContentProvider = ScmAccessFactory.getEmptyContentProvider();
         this.gitScmRepositoryServicesProvider = ScmAccessFactory.getEmptyRepositoryServicesProvider();
+
+        // search key: ( projectId:string , reviewId:string ) -> RevisionInfo
+        this.revisionInfoCache = new InMemoryCacheSimpleRevisionInformationTable();
+        // TODO SQL-Table.... access
     }
 
     @Override
@@ -179,23 +186,15 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
     @Override
     public FSqrRevision getSimpleRevisionInformation( String projectId, String revisionId ) {
-        // TODO: this should be tested, whether it is already cached in-memory database.
-        // TODO: if not, we should have an information, whether we can retrieve this from the Database
+        // TODO refactor from scm retrieval to sql table retrieval.
         // TODO: only if not in the database, retrieve from SCM, then update the database, then update the cache.
+        FSqrRevision revision = this.revisionInfoCache.getFSqrRevisionOrComputeIfAbsent( projectId, revisionId, this::retrieveSimpleRevisionFromScm );
 
-        // -----------------------------------------
-        // TODO: refactor this to Database retrieval
-        // -----------------------------------------
-        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
-        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
-            ScmRepository scmRepository = toScmRepository( scmConfiguration );
-            ScmHistory scmHistory = gitHistoryProvider.getSimpleRevisionInformation( scmRepository, revisionId );
-            FSqrScmHistory result = translate( scmHistory, projectId );
-
-            return result.getRevisions().get( 0 );
+        if (revision == null) {
+            return new FSqrRevision();
         }
 
-        return new FSqrRevision();
+        return revision;
     }
 
     @Override
@@ -390,6 +389,23 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
     private ScmRepository toScmRepository( FSqrScmProjectConfiguration scmConfiguration ) {
         return ScmRepositoryFactory.toScmRepository( applicationServices.getSystemConfiguration(), scmConfiguration );
+    }
+
+    // ================================================
+    // ---- Move this to crawler and Database inserter.
+    // ================================================    
+
+    // TODO: refactor and move to crawler code later
+    private FSqrRevision retrieveSimpleRevisionFromScm( String projectId, String revisionId ) {
+        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
+        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
+            ScmRepository scmRepository = toScmRepository( scmConfiguration );
+            ScmHistory scmHistory = gitHistoryProvider.getSimpleRevisionInformation( scmRepository, revisionId );
+            FSqrScmHistory result = translate( scmHistory, projectId );
+
+            return result.getRevisions().get( 0 );
+        }
+        return null;
     }
 
 }
