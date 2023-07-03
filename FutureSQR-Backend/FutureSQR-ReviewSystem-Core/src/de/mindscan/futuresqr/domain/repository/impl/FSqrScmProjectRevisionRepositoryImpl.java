@@ -49,6 +49,7 @@ import de.mindscan.futuresqr.domain.model.history.FSqrFileHistory;
 import de.mindscan.futuresqr.domain.model.m2m.ScmRepositoryFactory;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectRevisionRepository;
 import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheRevisionFileChangeListTable;
+import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheRevisionFullChangeSetTable;
 import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheSimpleRevisionInformationTable;
 import de.mindscan.futuresqr.scmaccess.ScmAccessFactory;
 import de.mindscan.futuresqr.scmaccess.ScmContentProvider;
@@ -96,6 +97,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
     private InMemoryCacheSimpleRevisionInformationTable revisionInfoCache;
     private InMemoryCacheRevisionFileChangeListTable fileChangeListCache;
+    private InMemoryCacheRevisionFullChangeSetTable fullChangeSetCache;
 
     private FSqrApplicationServices applicationServices;
 
@@ -112,6 +114,8 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
         this.fileChangeListCache = new InMemoryCacheRevisionFileChangeListTable();
         // TODO SQL_Table.... access
+
+        this.fullChangeSetCache = new InMemoryCacheRevisionFullChangeSetTable();
     }
 
     @Override
@@ -258,18 +262,15 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
     @Override
     public FSqrRevisionFullChangeSet getRevisionFullChangeSet( String projectId, String revisionId ) {
+        FSqrRevisionFullChangeSet fullChangeSet = this.fullChangeSetCache.getFSqrRevisionFullChangeSetOrComputeIfAbsent( projectId, revisionId,
+                        this::retrieveRevisionFullChangeSetFromScm );
 
-        // -----------------------------------------
-        // TODO: refactor this to Database retrieval
-        // -----------------------------------------
-        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
-        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
-            ScmRepository scmRepository = toScmRepository( scmConfiguration );
-            ScmFullChangeSet fullChangeSet = gitScmContentProvider.getFullChangeSetForRevision( scmRepository, revisionId );
-
-            return new FSqrRevisionFullChangeSet( fullChangeSet );
+        if (fullChangeSet == null) {
+            return new FSqrRevisionFullChangeSet();
         }
-        return new FSqrRevisionFullChangeSet();
+
+        return fullChangeSet;
+
     }
 
     private List<FSqrRevisionFullChangeSet> getRevisionFullChangeSetList( String projectId, String firstRevisionId, String lastRevisionId ) {
@@ -431,8 +432,8 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     private FSqrScmHistory retriveRecentRevisionHistoryFromScm( String projectId, int count ) {
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
-
             ScmHistory nRecentHistory = gitHistoryProvider.getNRecentRevisions( toScmRepository( scmConfiguration ), count );
+
             return translate( nRecentHistory, projectId );
         }
 
@@ -444,6 +445,18 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
             ScmHistory nRecentHistory = gitHistoryProvider.getRecentRevisionsFromStartingRevision( toScmRepository( scmConfiguration ), fromRevision );
             return translate( nRecentHistory, projectId );
+        }
+
+        return null;
+    }
+
+    private FSqrRevisionFullChangeSet retrieveRevisionFullChangeSetFromScm( String projectId, String revisionId ) {
+        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
+        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
+            ScmRepository scmRepository = toScmRepository( scmConfiguration );
+            ScmFullChangeSet fullChangeSet = gitScmContentProvider.getFullChangeSetForRevision( scmRepository, revisionId );
+
+            return new FSqrRevisionFullChangeSet( fullChangeSet );
         }
 
         return null;
