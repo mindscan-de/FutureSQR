@@ -375,7 +375,6 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     // ---- Move this to crawler and Database inserter.
     // ================================================    
 
-    // TODO: refactor and move to crawler code later
     private FSqrRevision retrieveSimpleRevisionFromScm( String projectId, String revisionId ) {
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
@@ -396,6 +395,9 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         return result;
     }
 
+    // TODO: 
+    // this does queries, on the revision info and adds review infos about the revision - this
+    // calculation can not be cached, because the code review state may change for some time. 
     private FSqrRevision translate( ScmBasicRevisionInformation x, String projectId ) {
         FSqrRevision result = new FSqrRevision( x );
 
