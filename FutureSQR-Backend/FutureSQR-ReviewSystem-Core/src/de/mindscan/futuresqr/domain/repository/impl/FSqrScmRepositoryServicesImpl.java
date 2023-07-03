@@ -97,9 +97,9 @@ public class FSqrScmRepositoryServicesImpl implements FSqrScmRepositoryServices 
         // TODO: This is just a helper as long as we have no crawler, which retrieves the data from the SCM and puts 
         //       these information into a database.
 
-        // -----------------------------------------
-        // TODO: refactor this to Database retrieval
-        // -----------------------------------------
+        // -------------------------------------
+        // TODO: refactor to command and execute
+        // -------------------------------------
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
             ScmRepository scmRepository = toScmRepository( scmConfiguration );
