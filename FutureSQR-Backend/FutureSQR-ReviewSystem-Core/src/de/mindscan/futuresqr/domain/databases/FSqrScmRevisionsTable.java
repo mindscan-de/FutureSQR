@@ -34,4 +34,6 @@ public interface FSqrScmRevisionsTable {
 
     FSqrRevision selectScmRevision( String projectId, String revisionId );
 
+    void insertScmRevision( String projectId, FSqrRevision revision );
+
 }

@@ -42,4 +42,13 @@ public class FSqrScmRevisionsTableImpl implements FSqrScmRevisionsTable {
         return null;
     }
 
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void insertScmRevision( String projectId, FSqrRevision revision ) {
+        // TODO Auto-generated method stub
+
+    }
+
 }
