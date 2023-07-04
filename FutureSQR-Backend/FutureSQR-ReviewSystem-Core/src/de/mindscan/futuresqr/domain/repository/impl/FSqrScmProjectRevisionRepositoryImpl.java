@@ -35,6 +35,8 @@ import java.util.stream.Collectors;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.configuration.impl.FSqrScmConfigrationProvider;
+import de.mindscan.futuresqr.domain.databases.FSqrScmRevisionsTable;
+import de.mindscan.futuresqr.domain.databases.impl.FSqrScmRevisionsTableImpl;
 import de.mindscan.futuresqr.domain.incubator.UnifiedDiffCalculationV1;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
 import de.mindscan.futuresqr.domain.model.FSqrCodeReviewLifecycleState;
@@ -95,7 +97,10 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     private ScmContentProvider gitScmContentProvider;
     private ScmRepositoryServicesProvider gitScmRepositoryServicesProvider;
 
+    // Table and cache
+    private FSqrScmRevisionsTable revsionInfoTable;
     private InMemoryCacheSimpleRevisionInformationTable revisionInfoCache;
+
     private InMemoryCacheRevisionFileChangeListTable fileChangeListCache;
     private InMemoryCacheRevisionFullChangeSetTable fullChangeSetCache;
 
@@ -110,7 +115,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
         // search key: ( projectId:string , reviewId:string ) -> RevisionInfo
         this.revisionInfoCache = new InMemoryCacheSimpleRevisionInformationTable();
-        // TODO SQL-Table.... access
+        this.revsionInfoTable = new FSqrScmRevisionsTableImpl();
 
         this.fileChangeListCache = new InMemoryCacheRevisionFileChangeListTable();
         // TODO SQL_Table.... access
@@ -344,6 +349,12 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
     private FSqrRevision retrieveSimpleRevisionFromDatabaseTable( String projectId, String revisionId ) {
         // TODO refactor from scm retrieval to sql table retrieval.
+        FSqrRevision revisionInfo = this.revsionInfoTable.selectScmRevision( projectId, revisionId );
+
+        if (revisionInfo != null) {
+            return revisionInfo;
+        }
+
         // TODO: only if not in the database, retrieve from SCM, then update the database, then update the cache.
 
         return retrieveSimpleRevisionFromScm( projectId, revisionId );
