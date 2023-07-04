@@ -98,7 +98,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     private ScmRepositoryServicesProvider gitScmRepositoryServicesProvider;
 
     // Table and cache
-    private FSqrScmRevisionsTable revsionInfoTable;
+    private FSqrScmRevisionsTable revisionInfoTable;
     private InMemoryCacheSimpleRevisionInformationTable revisionInfoCache;
 
     private InMemoryCacheRevisionFileChangeListTable fileChangeListCache;
@@ -115,7 +115,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
         // search key: ( projectId:string , reviewId:string ) -> RevisionInfo
         this.revisionInfoCache = new InMemoryCacheSimpleRevisionInformationTable();
-        this.revsionInfoTable = new FSqrScmRevisionsTableImpl();
+        this.revisionInfoTable = new FSqrScmRevisionsTableImpl();
 
         this.fileChangeListCache = new InMemoryCacheRevisionFileChangeListTable();
         // TODO SQL_Table.... access
@@ -349,7 +349,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
     private FSqrRevision retrieveSimpleRevisionFromDatabaseTable( String projectId, String revisionId ) {
         // TODO refactor from scm retrieval to sql table retrieval.
-        FSqrRevision revisionInfo = this.revsionInfoTable.selectScmRevision( projectId, revisionId );
+        FSqrRevision revisionInfo = this.revisionInfoTable.selectScmRevision( projectId, revisionId );
 
         if (revisionInfo != null) {
             return revisionInfo;
@@ -358,7 +358,11 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         // TODO: only if not in the database, retrieve from SCM, then insert in database, then update the cache.
         // the insert operation should be part of the crawler mechanism, here it is just a kind of lazy indexing operation.
 
-        return retrieveSimpleRevisionFromScm( projectId, revisionId );
+        FSqrRevision revisionInfoFromScm = retrieveSimpleRevisionFromScm( projectId, revisionId );
+
+        this.revisionInfoTable.insertScmRevision( projectId, revisionInfoFromScm );
+
+        return revisionInfoFromScm;
     }
 
     private FSqrRevisionFileChangeList retrieveRevisionFileChangeListFromDatabaseTable( String projectId, String revisionId ) {
