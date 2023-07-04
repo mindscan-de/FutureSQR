@@ -25,9 +25,13 @@
  */
 package de.mindscan.futuresqr.domain.databases;
 
+import de.mindscan.futuresqr.domain.model.FSqrRevision;
+
 /**
  * 
  */
 public interface FSqrScmRevisionsTable {
+
+    FSqrRevision selectScmRevision( String projectId, String revisionId );
 
 }

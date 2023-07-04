@@ -26,10 +26,20 @@
 package de.mindscan.futuresqr.domain.databases.impl;
 
 import de.mindscan.futuresqr.domain.databases.FSqrScmRevisionsTable;
+import de.mindscan.futuresqr.domain.model.FSqrRevision;
 
 /**
  * 
  */
 public class FSqrScmRevisionsTableImpl implements FSqrScmRevisionsTable {
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public FSqrRevision selectScmRevision( String projectId, String revisionId ) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }
