@@ -355,7 +355,8 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
             return revisionInfo;
         }
 
-        // TODO: only if not in the database, retrieve from SCM, then update the database, then update the cache.
+        // TODO: only if not in the database, retrieve from SCM, then insert in database, then update the cache.
+        // the insert operation should be part of the crawler mechanism, here it is just a kind of lazy indexing operation.
 
         return retrieveSimpleRevisionFromScm( projectId, revisionId );
     }
