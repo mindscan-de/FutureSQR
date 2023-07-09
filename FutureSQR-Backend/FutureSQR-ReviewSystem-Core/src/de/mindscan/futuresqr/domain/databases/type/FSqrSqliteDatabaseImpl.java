@@ -41,11 +41,10 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
     private static final String SCM_USER_ALIASES_TABLENAME = "ScmUserAliases";
     private static final SqliteDatabaseTable SCM_USER_ALIASES_TABLE = new SqliteDatabaseTable( SCM_USER_ALIASES_TABLENAME );
 
-    // TODO Rename to EA Model truth.
-    private static final String CODE_REVIEW_DISCUSSIONS_TABLENAME = "ReviewDiscussions";
+    private static final String CODE_REVIEW_DISCUSSIONS_TABLENAME = "CodeReviewDiscussions";
     private static final SqliteDatabaseTable CODE_REVIEW_DISCUSSIONS_TABLE = new SqliteDatabaseTable( CODE_REVIEW_DISCUSSIONS_TABLENAME );
 
-    private static final String CODE_REVIEW_SCM_REVISIONS_TABLENAME = "RevisionsToReviews";
+    private static final String CODE_REVIEW_SCM_REVISIONS_TABLENAME = "CodeReviewScmRevisions";
     private static final SqliteDatabaseTable CODE_REVIEW_SCM_REVISIONS_TABLE = new SqliteDatabaseTable( CODE_REVIEW_SCM_REVISIONS_TABLENAME );
 
     private static final String CODE_REVIEWS_TABLENAME = "CodeReviews";
@@ -94,20 +93,21 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
     // TODO maybe we need a indicator, whether a full thread is resolved.
     // TODO maybe state whether thread was deleted...
 
-    // CoreReviewScmRevisions
+    // CodeReviewScmRevisions
+    // TODO join reviewId, projectId to reviewUUID
     public static final SqliteDatabaseTableColumn CODE_REVIEW_SCM_REVISIONS_FK_PROJECTID_COLUMN = new SqliteDatabaseTableColumn(
                     CODE_REVIEW_SCM_REVISIONS_TABLE, "projectId", SqliteDatabaseTableColumnType.TEXT );
     public static final SqliteDatabaseTableColumn CODE_REVIEW_SCM_REVISIONS_FK_REVIEWID_COLUMN = new SqliteDatabaseTableColumn( CODE_REVIEW_SCM_REVISIONS_TABLE,
                     "reviewId", SqliteDatabaseTableColumnType.TEXT );
     public static final SqliteDatabaseTableColumn CODE_REVIEW_SCM_REVISIONS_SCMREVISIONID_COLUMN = new SqliteDatabaseTableColumn(
-                    CODE_REVIEW_SCM_REVISIONS_TABLE, "revisionId", SqliteDatabaseTableColumnType.TEXT );
+                    CODE_REVIEW_SCM_REVISIONS_TABLE, "scmRevisionId", SqliteDatabaseTableColumnType.TEXT );
 
     // CodeReviews
     // -----------
     // TODO: reviewUuid
     public static final SqliteDatabaseTableColumn CODE_REVIEWS_FK_PROJECTID_COLUMN = new SqliteDatabaseTableColumn( CODE_REVIEWS_TABLE, "projectId",
                     SqliteDatabaseTableColumnType.TEXT );
-    // TODO: project Branch
+    // TODO: project Branch - branch is not interesting for a code review itself - but the constraint is that in a codereview all revisions are in same branch.
     public static final SqliteDatabaseTableColumn CODE_REVIEWS_STATE_COLUMN = new SqliteDatabaseTableColumn( CODE_REVIEWS_TABLE, "state",
                     SqliteDatabaseTableColumnType.TEXT );
     public static final SqliteDatabaseTableColumn CODE_REVIEWS_REVIEWID_COLUMN = new SqliteDatabaseTableColumn( CODE_REVIEWS_TABLE, "reviewId",
