@@ -26,12 +26,22 @@
 package de.mindscan.futuresqr.domain.databases.impl;
 
 import de.mindscan.futuresqr.domain.databases.FSqrScmRevisionsTable;
+import de.mindscan.futuresqr.domain.databases.type.FSqrSqliteDatabaseImpl;
 import de.mindscan.futuresqr.domain.model.FSqrRevision;
 
 /**
  * 
  */
 public class FSqrScmRevisionsTableImpl implements FSqrScmRevisionsTable {
+
+    private static final String INSERT_SCM_REVISION = //
+                    "INSERT INTO " + FSqrSqliteDatabaseImpl.getScmRevisionsTable().tableName() + //
+                                    " (" + FSqrSqliteDatabaseImpl.SCM_REVISIONS_PK_UUID_COLUMN + // 
+                                    ", " + FSqrSqliteDatabaseImpl.SCM_REVISIONS_FK_PROJECTID_COLUMN + //
+                                    ", " + FSqrSqliteDatabaseImpl.SCM_REVISIONS_SCM_REVISIONID_COLUMN + //
+                                    ", " + FSqrSqliteDatabaseImpl.SCM_REVISIONS_BRANCH_COLUMN + //
+                                    // TODO: we should add the data...
+                                    ") VALUES (?1, ?2, ?3, ?4);";
 
     /** 
      * {@inheritDoc}
