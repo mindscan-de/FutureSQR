@@ -62,7 +62,7 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
     private static final String SYSTEM_USERS_TABLENAME = "SystemUsers";
     private static final SqliteDatabaseTable SYSTEM_USERS_TABLE = new SqliteDatabaseTable( SYSTEM_USERS_TABLENAME );
 
-    private static final String SCM_REVISIONS = "ScmRevisions";
+    private static final String SCM_REVISIONS = "ScmRevision";
     private static final SqliteDatabaseTable SCM_REVISIONS_TABLE = new SqliteDatabaseTable( SCM_REVISIONS );
 
     // ============
