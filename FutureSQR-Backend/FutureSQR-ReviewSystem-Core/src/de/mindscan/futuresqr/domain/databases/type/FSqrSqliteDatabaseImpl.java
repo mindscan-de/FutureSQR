@@ -63,6 +63,9 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
     private static final String SYSTEM_USERS_TABLENAME = "SystemUsers";
     private static final SqliteDatabaseTable SYSTEM_USERS_TABLE = new SqliteDatabaseTable( SYSTEM_USERS_TABLENAME );
 
+    private static final String SCM_REVISIONS = "ScmRevisions";
+    private static final SqliteDatabaseTable SCM_REVISIONS_TABLE = new SqliteDatabaseTable( SCM_REVISIONS );
+
     // ============
     // Column Names
     // ============
@@ -127,6 +130,7 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
                     "scmConfigData", SqliteDatabaseTableColumnType.TEXT );
 
     // StarredProjects
+    // ---------------
     public static final SqliteDatabaseTableColumn STARRED_PROJECTS_FK_USERUUID_COLUM = new SqliteDatabaseTableColumn( STARRED_PROJECTS_TABLE, "userUuid",
                     SqliteDatabaseTableColumnType.TEXT );
     public static final SqliteDatabaseTableColumn STARRED_PROJECTS_FK_PROJECTID_COLUUMN = new SqliteDatabaseTableColumn( STARRED_PROJECTS_TABLE, "projectId",
@@ -135,6 +139,7 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
                     SqliteDatabaseTableColumnType.TEXT );
 
     // SystemUsers
+    // -----------
     public static final SqliteDatabaseTableColumn SYSTEM_USERS_PK_UUID_COLUMN = new SqliteDatabaseTableColumn( SYSTEM_USERS_TABLE, "uuid",
                     SqliteDatabaseTableColumnType.TEXT );
     public static final SqliteDatabaseTableColumn SYSTEM_USERS_LOGINNAME_COLUMN = new SqliteDatabaseTableColumn( SYSTEM_USERS_TABLE, "userLoginName",
@@ -150,6 +155,18 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
     // TODO: CREATED DATE_COLUMN
     // TODO: MODIFIED DATE COLUMN
     // TODO: BANNED DATE COLUMN
+
+    // ScmRevisions
+    // ------------
+    public static final SqliteDatabaseTableColumn SCM_REVISIONS_PK_UUID_COLUMN = new SqliteDatabaseTableColumn( SCM_REVISIONS_TABLE, "scmRevisionsUuid",
+                    SqliteDatabaseTableColumnType.TEXT );
+    public static final SqliteDatabaseTableColumn SCM_REVISIONS_FK_PROJECTID_COLUMN = new SqliteDatabaseTableColumn( SCM_REVISIONS_TABLE, "projectId",
+                    SqliteDatabaseTableColumnType.TEXT );
+    public static final SqliteDatabaseTableColumn SCM_REVISIONS_BRANCH_COLUMN = new SqliteDatabaseTableColumn( SCM_REVISIONS_TABLE, "scmBranch",
+                    SqliteDatabaseTableColumnType.TEXT );
+    public static final SqliteDatabaseTableColumn SCM_REVISIONS_SCM_REVISIONID_COLUMN = new SqliteDatabaseTableColumn( SCM_REVISIONS_TABLE, "scmRevisionId",
+                    SqliteDatabaseTableColumnType.TEXT );
+    // TODO: Revision DATA....
 
     /**
      * @return the codeReviewDiscussionsTable
@@ -207,6 +224,13 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
         return SCM_USER_ALIASES_TABLE;
     }
 
+    /**
+     * @return
+     */
+    public static SqliteDatabaseTable getScmRevisionsTable() {
+        return SCM_REVISIONS_TABLE;
+    }
+
     private Collection<SqliteDatabaseTable> databaseTables;
 
     // ----------------------------------
@@ -232,6 +256,8 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
         this.addTableToDatabase( SCM_CONFIGURATION_TABLE );
         this.addTableToDatabase( STARRED_PROJECTS_TABLE );
         this.addTableToDatabase( SYSTEM_USERS_TABLE );
+        this.addTableToDatabase( SCM_REVISIONS_TABLE );
+
     }
 
 //  /** 
@@ -278,4 +304,5 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
             table.dropTable( dbConnection );
         }
     }
+
 }
