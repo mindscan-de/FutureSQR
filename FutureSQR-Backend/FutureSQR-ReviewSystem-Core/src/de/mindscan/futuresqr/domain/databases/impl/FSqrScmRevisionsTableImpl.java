@@ -36,12 +36,33 @@ public class FSqrScmRevisionsTableImpl implements FSqrScmRevisionsTable {
 
     private static final String INSERT_SCM_REVISION = //
                     "INSERT INTO " + FSqrSqliteDatabaseImpl.getScmRevisionsTable().tableName() + //
-                                    " (" + FSqrSqliteDatabaseImpl.SCM_REVISIONS_PK_UUID_COLUMN + // 
-                                    ", " + FSqrSqliteDatabaseImpl.SCM_REVISIONS_FK_PROJECTID_COLUMN + //
-                                    ", " + FSqrSqliteDatabaseImpl.SCM_REVISIONS_SCM_REVISIONID_COLUMN + //
-                                    ", " + FSqrSqliteDatabaseImpl.SCM_REVISIONS_BRANCH_COLUMN + //
-                                    // TODO: we should add the data...
-                                    ") VALUES (?1, ?2, ?3, ?4);";
+                                    " (" + FSqrSqliteDatabaseImpl.SCM_REVISIONS_PK_UUID_COLUMN.getColumnName() + // 
+                                    ", " + FSqrSqliteDatabaseImpl.SCM_REVISIONS_FK_PROJECTID_COLUMN.getColumnName() + //
+                                    ", " + FSqrSqliteDatabaseImpl.SCM_REVISIONS_BRANCH_COLUMN.getColumnName() + //
+                                    // 
+                                    ", " + FSqrSqliteDatabaseImpl.SCM_REVISIONS_SCM_REVISIONID_COLUMN.getColumnName() + //
+
+                                    // TODO: revisionId
+                                    // TODO: ShortRevisionId
+                                    // TODO: authorname
+                                    // TODO: authorid
+                                    // TODO: authoruuid,
+                                    // TODO: revisionTimestamp
+                                    // TODO: revisionDate
+                                    // TODO: revisionShortDate
+                                    // TODO: revisionRelativeDate (dynamic calculation)
+                                    // TODO: commitMessageFull
+                                    // TODO: parentIds : list<string>
+                                    // TODO: shortParentIds : list<string>
+                                    // TODO: hasAttachedReviews (dynamic calculation)
+                                    // TODO: reviewId (calculation from other table)
+                                    // TODO: reviewClosed ()
+                                    // TODO: branchname...
+                                    // TODO: filter these fields down from ScmBasicInformation?
+
+                                    ", " + FSqrSqliteDatabaseImpl.SCM_REVISIONS_DATA_COLUMN.getColumnName() + //
+
+                                    ") VALUES (?1, ?2, ?3, ?4, ?5);";
 
     /** 
      * {@inheritDoc}
