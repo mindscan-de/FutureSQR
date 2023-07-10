@@ -292,7 +292,7 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
     public void createTables( FSqrDatabaseConnection dbConnection ) {
         Collection<SqliteDatabaseTable> allTables = getDatabaseTables();
 
-        System.out.println( "creating tables" );
+        System.out.println( "creating " + allTables.size() + " tables" );
         for (SqliteDatabaseTable table : allTables) {
             table.createTable( dbConnection );
         }
@@ -301,7 +301,7 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
     public void dropTables( FSqrDatabaseConnection dbConnection ) {
         Collection<SqliteDatabaseTable> allTables = getDatabaseTables();
 
-        System.out.println( "dropping tables" );
+        System.out.println( "dropping " + allTables.size() + " tables" );
         for (SqliteDatabaseTable table : allTables) {
             table.dropTable( dbConnection );
         }
