@@ -480,4 +480,14 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         return null;
     }
 
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void reinitDatabaseTables() {
+        // intentionally left blank
+        // this.revisionInfoTable - doesn't need re-initialization right now. 
+
+    }
+
 }

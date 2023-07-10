@@ -37,7 +37,7 @@ import de.mindscan.futuresqr.domain.model.history.FSqrFileHistory;
 /**
  * 
  */
-public interface FSqrScmProjectRevisionRepository extends FSqrRepository {
+public interface FSqrScmProjectRevisionRepository extends FSqrRepository, FSqrDatabaseBackedRepository {
 
     // file history
 
