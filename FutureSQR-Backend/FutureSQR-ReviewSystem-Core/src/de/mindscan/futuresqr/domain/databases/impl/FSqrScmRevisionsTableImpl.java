@@ -94,6 +94,12 @@ public class FSqrScmRevisionsTableImpl implements FSqrScmRevisionsTable {
 
     // TODO: calculate this newest commit for each project (distinct project)
 
+    // TODO: calculate count of commits in the last 90 month, rank projects
+    // a.k.a. most active projects
+
+    // TODO: order projects by newest commit (distinct project)
+    // a.k.a. most recent changed projects.
+
     private FSqrDatabaseConnection connection;
 
     private Gson gson = new Gson();
