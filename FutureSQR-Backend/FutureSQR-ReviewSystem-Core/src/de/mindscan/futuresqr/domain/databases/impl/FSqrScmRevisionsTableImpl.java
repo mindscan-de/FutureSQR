@@ -25,6 +25,13 @@
  */
 package de.mindscan.futuresqr.domain.databases.impl;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import com.google.gson.Gson;
+
+import de.mindscan.futuresqr.core.uuid.UuidUtil;
+import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrScmRevisionsTable;
 import de.mindscan.futuresqr.domain.databases.type.FSqrSqliteDatabaseImpl;
 import de.mindscan.futuresqr.domain.model.FSqrRevision;
@@ -64,13 +71,28 @@ public class FSqrScmRevisionsTableImpl implements FSqrScmRevisionsTable {
 
                                     ") VALUES (?1, ?2, ?3, ?4, ?5);";
 
+    private static final String SELECT_SCM_REVISION = //
+                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.getScmRevisionsTable().tableName() + //
+                                    " WHERE )" + FSqrSqliteDatabaseImpl.SCM_REVISIONS_FK_PROJECTID_COLUMN.getColumnName() + "=?1" + //
+                                    " AND " + FSqrSqliteDatabaseImpl.SCM_REVISIONS_SCM_REVISIONID_COLUMN.getColumnName() + "=?2 );";;
+
+    private FSqrDatabaseConnection connection;
+
+    private Gson gson = new Gson();
+
+    /**
+     * 
+     */
+    public FSqrScmRevisionsTableImpl() {
+        // intentionally left blank
+    }
+
     /** 
      * {@inheritDoc}
      */
     @Override
-    public FSqrRevision selectScmRevision( String projectId, String revisionId ) {
-        // TODO Auto-generated method stub
-        return null;
+    public void setDatbaseConnection( FSqrDatabaseConnection connection ) {
+        this.connection = connection;
     }
 
     /** 
@@ -78,8 +100,70 @@ public class FSqrScmRevisionsTableImpl implements FSqrScmRevisionsTable {
      */
     @Override
     public void insertScmRevision( String projectId, FSqrRevision revision ) {
-        // TODO Auto-generated method stub
+        try (PreparedStatement insertPS = this.connection.createPreparedStatement( INSERT_SCM_REVISION )) {
+            String serializedRevision = gson.toJson( revision );
 
+            String uuid = UuidUtil.getRandomUUID().toString();
+
+            insertPS.setString( 1, uuid );
+            insertPS.setString( 2, projectId );
+            insertPS.setString( 3, revision.getBranchName() );
+            insertPS.setString( 4, revision.getRevisionId() );
+            insertPS.setString( 5, serializedRevision );
+
+            insertPS.addBatch();
+            insertPS.executeBatch();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public FSqrRevision selectScmRevision( String projectId, String revisionId ) {
+        FSqrRevision result = null;
+
+        try (PreparedStatement selectPS = this.connection.createPreparedStatement( SELECT_SCM_REVISION )) {
+            selectPS.setString( 1, projectId );
+            selectPS.setString( 2, revisionId );
+
+            try (ResultSet resultSet = selectPS.executeQuery()) {
+                if (resultSet.next()) {
+                    result = createRevision( resultSet );
+                }
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    private FSqrRevision createRevision( ResultSet resultSet ) throws Exception {
+        String serializedRevision = resultSet.getString( FSqrSqliteDatabaseImpl.SCM_REVISIONS_DATA_COLUMN.getColumnName() );
+
+        return gson.fromJson( serializedRevision, FSqrRevision.class );
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void createTable() {
+        // intentionally left blank
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void flush() {
+        // intentionally left blank
     }
 
 }

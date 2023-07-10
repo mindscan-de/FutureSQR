@@ -30,7 +30,7 @@ import de.mindscan.futuresqr.domain.model.FSqrRevision;
 /**
  * 
  */
-public interface FSqrScmRevisionsTable {
+public interface FSqrScmRevisionsTable extends FSqrDatabaseTable {
 
     FSqrRevision selectScmRevision( String projectId, String revisionId );
 
