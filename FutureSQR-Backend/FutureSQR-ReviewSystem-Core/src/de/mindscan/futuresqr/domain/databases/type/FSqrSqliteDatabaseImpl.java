@@ -166,7 +166,9 @@ public class FSqrSqliteDatabaseImpl /* implements DatabaseConnectionSetter */ {
                     SqliteDatabaseTableColumnType.TEXT );
     public static final SqliteDatabaseTableColumn SCM_REVISIONS_SCM_REVISIONID_COLUMN = new SqliteDatabaseTableColumn( SCM_REVISIONS_TABLE, "scmRevisionId",
                     SqliteDatabaseTableColumnType.TEXT );
-    // TODO: Revision DATA....
+    // serialized data
+    public static final SqliteDatabaseTableColumn SCM_REVISIONS_DATA_COLUMN = new SqliteDatabaseTableColumn( SCM_REVISIONS_TABLE, "scmRevisionData",
+                    SqliteDatabaseTableColumnType.TEXT );
 
     /**
      * @return the codeReviewDiscussionsTable
