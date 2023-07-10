@@ -90,6 +90,9 @@ public class FSqrScmRevisionsTableImpl implements FSqrScmRevisionsTable {
     // TODO: select newest commit timestamp for project
 
     // TODO: select newest commit timestamp for project + branch.
+    // TODO: select newest commits for project, distinct(branch)
+
+    // TODO: calculate this newest commit for each project (distinct project)
 
     private FSqrDatabaseConnection connection;
 
