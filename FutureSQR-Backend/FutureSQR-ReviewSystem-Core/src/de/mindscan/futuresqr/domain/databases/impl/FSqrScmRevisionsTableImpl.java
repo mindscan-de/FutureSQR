@@ -81,7 +81,15 @@ public class FSqrScmRevisionsTableImpl implements FSqrScmRevisionsTable {
     private static final String SELECT_SCM_REVISION = //
                     "SELECT * FROM " + FSqrSqliteDatabaseImpl.getScmRevisionsTable().tableName() + //
                                     " WHERE )" + FSqrSqliteDatabaseImpl.SCM_REVISIONS_FK_PROJECTID_COLUMN.getColumnName() + "=?1" + //
-                                    " AND " + FSqrSqliteDatabaseImpl.SCM_REVISIONS_SCM_REVISIONID_COLUMN.getColumnName() + "=?2 );";;
+                                    " AND " + FSqrSqliteDatabaseImpl.SCM_REVISIONS_SCM_REVISIONID_COLUMN.getColumnName() + "=?2 );";
+
+    // TODO: select * from project + branch order by date descending -> list of revisions
+
+    // TODO: select * from project order by date limit 75 -> list of revisions
+
+    // TODO: select newest commit timestamp for project
+
+    // TODO: select newest commit timestamp for project + branch.
 
     private FSqrDatabaseConnection connection;
 
