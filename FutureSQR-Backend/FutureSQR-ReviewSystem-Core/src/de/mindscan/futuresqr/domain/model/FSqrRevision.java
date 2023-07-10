@@ -28,6 +28,7 @@ package de.mindscan.futuresqr.domain.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.mindscan.futuresqr.core.uuid.UuidUtil;
 import de.mindscan.futuresqr.scmaccess.types.ScmBasicRevisionInformation;
 
 /**
@@ -41,6 +42,7 @@ public class FSqrRevision {
     // information is slow to retrieve like via SVN?
     // maybe just save/use a reference to the ScmBasicRevisionInformation, to distinguish these?
     // so not every information should be stored in a database entry 
+    private String revisionUUID = null;
 
     // revision identifier according to the configured scm for a project
     private String revisionId = "";
@@ -318,6 +320,25 @@ public class FSqrRevision {
      */
     public boolean isReviewClosed() {
         return reviewClosed;
+    }
+
+    /**
+     * @return the revisionUUID
+     */
+    public String getRevisionUUID() {
+        return revisionUUID;
+    }
+
+    public String getOrComputeRevisionUUID() {
+        if (!hasRevisionUUID()) {
+            this.revisionUUID = UuidUtil.getRandomUUID().toString();
+        }
+
+        return revisionUUID;
+    }
+
+    public boolean hasRevisionUUID() {
+        return revisionUUID != null;
     }
 
 }
