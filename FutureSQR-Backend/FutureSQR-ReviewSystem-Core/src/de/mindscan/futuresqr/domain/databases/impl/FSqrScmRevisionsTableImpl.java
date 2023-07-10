@@ -30,7 +30,6 @@ import java.sql.ResultSet;
 
 import com.google.gson.Gson;
 
-import de.mindscan.futuresqr.core.uuid.UuidUtil;
 import de.mindscan.futuresqr.domain.connection.FSqrDatabaseConnection;
 import de.mindscan.futuresqr.domain.databases.FSqrScmRevisionsTable;
 import de.mindscan.futuresqr.domain.databases.type.FSqrSqliteDatabaseImpl;
@@ -103,9 +102,7 @@ public class FSqrScmRevisionsTableImpl implements FSqrScmRevisionsTable {
         try (PreparedStatement insertPS = this.connection.createPreparedStatement( INSERT_SCM_REVISION )) {
             String serializedRevision = gson.toJson( revision );
 
-            String uuid = UuidUtil.getRandomUUID().toString();
-
-            insertPS.setString( 1, uuid );
+            insertPS.setString( 1, revision.getOrComputeRevisionUUID() );
             insertPS.setString( 2, projectId );
             insertPS.setString( 3, revision.getBranchName() );
             insertPS.setString( 4, revision.getRevisionId() );
