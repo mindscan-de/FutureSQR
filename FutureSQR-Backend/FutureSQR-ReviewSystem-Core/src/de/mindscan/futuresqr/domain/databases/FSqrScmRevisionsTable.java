@@ -36,4 +36,7 @@ public interface FSqrScmRevisionsTable extends FSqrDatabaseTable {
 
     void insertScmRevision( String projectId, FSqrRevision revision );
 
+    // actually the projectId should be part of the revision...?
+    void updateScmRevision( String projectId, FSqrRevision revision );
+
 }

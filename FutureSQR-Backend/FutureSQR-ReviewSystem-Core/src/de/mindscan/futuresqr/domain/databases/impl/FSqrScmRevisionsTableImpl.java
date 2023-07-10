@@ -67,8 +67,16 @@ public class FSqrScmRevisionsTableImpl implements FSqrScmRevisionsTable {
                                     // TODO: filter these fields down from ScmBasicInformation?
 
                                     ", " + FSqrSqliteDatabaseImpl.SCM_REVISIONS_DATA_COLUMN.getColumnName() + //
+                                    " ) VALUES (?1, ?2, ?3, ?4, ?5);";
 
-                                    ") VALUES (?1, ?2, ?3, ?4, ?5);";
+    private static final String UPDATE_SCM_REVISION_BY_UUID = //
+                    "UPDATE " + FSqrSqliteDatabaseImpl.getDiscussionThreadTable().tableName() + //;
+                                    " SET " + // 
+                                    // TODO: projectid
+                                    // TODO: branch
+                                    // TODO: revisionid
+                                    // TODO: serialized data
+                                    " WHERE " + FSqrSqliteDatabaseImpl.SCM_REVISIONS_PK_UUID_COLUMN.getColumnName() + "=?1;";
 
     private static final String SELECT_SCM_REVISION = //
                     "SELECT * FROM " + FSqrSqliteDatabaseImpl.getScmRevisionsTable().tableName() + //
@@ -114,7 +122,6 @@ public class FSqrScmRevisionsTableImpl implements FSqrScmRevisionsTable {
         catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     /** 
@@ -139,6 +146,15 @@ public class FSqrScmRevisionsTableImpl implements FSqrScmRevisionsTable {
         }
 
         return result;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateScmRevision( String projectId, FSqrRevision revision ) {
+        // TODO Auto-generated method stub
+
     }
 
     private FSqrRevision createRevision( ResultSet resultSet ) throws Exception {
