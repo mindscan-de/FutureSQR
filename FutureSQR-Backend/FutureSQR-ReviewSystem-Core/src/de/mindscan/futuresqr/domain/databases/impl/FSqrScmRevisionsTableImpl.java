@@ -153,8 +153,10 @@ public class FSqrScmRevisionsTableImpl implements FSqrScmRevisionsTable {
      */
     @Override
     public void updateScmRevision( String projectId, FSqrRevision revision ) {
-        // TODO Auto-generated method stub
-
+        // TODO: Auto-generated method stub
+        // TODO: is there a real reason to to update this object?
+        // * maybe the author uuid? - but this can be calculated/mapped on the fly.
+        //   using the scm aliases table...
     }
 
     private FSqrRevision createRevision( ResultSet resultSet ) throws Exception {
