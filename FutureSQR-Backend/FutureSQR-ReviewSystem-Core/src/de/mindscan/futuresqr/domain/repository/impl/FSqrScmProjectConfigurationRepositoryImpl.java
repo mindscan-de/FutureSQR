@@ -57,7 +57,7 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
     private InMemoryCacheProjectConfigurationTableImpl scmProjectConfigurationCache;
 
     // Proof of Concept - SCM Configuration from a "persistent" storage.
-    private FSqrScmConfigurationDatabaseTable scmConfigurationDatabase;
+    private FSqrScmConfigurationDatabaseTable scmProjectConfigurationTable;
 
     // Proof of concept
     private Function<String, FSqrScmProjectConfiguration> configurationPersistenceLoader;
@@ -72,7 +72,7 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
 
         // TODO: finally begin to implement a persistent storage for the Scm Project Configurations
         // TODO: maybe use a factory to derive this instance from the application Services.
-        this.scmConfigurationDatabase = new FSqrScmConfigurationDatabaseTableImpl();
+        this.scmProjectConfigurationTable = new FSqrScmConfigurationDatabaseTableImpl();
     }
 
     private FSqrScmProjectConfiguration uninitializedPersistenceLoader( String projectId ) {
@@ -80,14 +80,14 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
     }
 
     private FSqrScmProjectConfiguration initializedDatabaseLoader( String projectId ) {
-        return this.scmConfigurationDatabase.selectScmConfigurationByProjectId( projectId );
+        return this.scmProjectConfigurationTable.selectScmConfigurationByProjectId( projectId );
     }
 
     @Override
     public void setApplicationServices( FSqrApplicationServices services ) {
         this.applicationServices = services;
 
-        this.scmConfigurationDatabase.setDatbaseConnection( this.applicationServices.getDatabaseConnection() );
+        this.scmProjectConfigurationTable.setDatbaseConnection( this.applicationServices.getDatabaseConnection() );
 
         // w may have to reinitialite the userdatabase and the cache and such.
         this.setConfigurationPersistenceLoader( this::initializedDatabaseLoader );
@@ -99,7 +99,7 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
     @Override
     public Collection<FSqrScmProjectConfiguration> getAllProjectConfigurations() {
         // TODO: Do we want to cache these entries in the cache, or will we just do them when they are requested?
-        return this.scmConfigurationDatabase.selectAllScmConfigurations();
+        return this.scmProjectConfigurationTable.selectAllScmConfigurations();
 
         //  TODO implement that the select statement on the persistence instead of the cache.
         // return scmProjectConfigurationCache.getAllCachedScmConfigurations();
@@ -148,8 +148,8 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
         String createNewReviewIdentifierWithPrefix = projectConfiguration.createNewReviewIdentifierWithPrefix();
 
         // save after we incremented the project review counter configuration.
-        if (scmConfigurationDatabase != null) {
-            scmConfigurationDatabase.updateProjectScmConfiguration( projectConfiguration );
+        if (scmProjectConfigurationTable != null) {
+            scmProjectConfigurationTable.updateProjectScmConfiguration( projectConfiguration );
         }
 
         return createNewReviewIdentifierWithPrefix;
@@ -198,7 +198,7 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
      */
     @Override
     public void reinitDatabaseTables() {
-        this.scmConfigurationDatabase.createTable();
+        this.scmProjectConfigurationTable.createTable();
     }
 
 }
