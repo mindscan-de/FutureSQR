@@ -25,6 +25,8 @@
  */
 package de.mindscan.futuresqr.domain.databases;
 
+import java.util.List;
+
 import de.mindscan.futuresqr.domain.model.FSqrRevision;
 
 /**
@@ -38,5 +40,9 @@ public interface FSqrScmRevisionsTable extends FSqrDatabaseTable {
 
     // actually the projectId should be part of the revision...?
     void updateScmRevision( String projectId, FSqrRevision revision );
+
+    List<FSqrRevision> selectScmRevisionsByProject( String projectId, int limit );
+
+    List<FSqrRevision> selectScmRevisionsByProject( String projectId, String branch, int limit );
 
 }

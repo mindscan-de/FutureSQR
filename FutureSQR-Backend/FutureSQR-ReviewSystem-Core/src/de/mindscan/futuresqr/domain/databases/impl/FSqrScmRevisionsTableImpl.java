@@ -27,6 +27,7 @@ package de.mindscan.futuresqr.domain.databases.impl;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 
 import com.google.gson.Gson;
 
@@ -63,7 +64,7 @@ public class FSqrScmRevisionsTableImpl implements FSqrScmRevisionsTable {
                                     // TODO: hasAttachedReviews (dynamic calculation)
                                     // TODO: reviewId (calculation from other table)
                                     // TODO: reviewClosed ()
-                                    // TODO: branchname...
+                                    // TODO: branchName...
                                     // TODO: filter these fields down from ScmBasicInformation?
 
                                     ", " + FSqrSqliteDatabaseImpl.SCM_REVISIONS_DATA_COLUMN.getColumnName() + //
@@ -80,15 +81,23 @@ public class FSqrScmRevisionsTableImpl implements FSqrScmRevisionsTable {
 
     private static final String SELECT_SCM_REVISION = //
                     "SELECT * FROM " + FSqrSqliteDatabaseImpl.getScmRevisionsTable().tableName() + //
-                                    " WHERE )" + FSqrSqliteDatabaseImpl.SCM_REVISIONS_FK_PROJECTID_COLUMN.getColumnName() + "=?1" + //
+                                    " WHERE (" + FSqrSqliteDatabaseImpl.SCM_REVISIONS_FK_PROJECTID_COLUMN.getColumnName() + "=?1" + //
                                     " AND " + FSqrSqliteDatabaseImpl.SCM_REVISIONS_SCM_REVISIONID_COLUMN.getColumnName() + "=?2 );";
 
     // TODO: select * from project + branch order by date descending -> list of revisions
+//    private static final String SELECT_SCMREVISIONS_WHERE_PROJECT_BRANCH = //
+//                    "SELECT * FROM " + FSqrSqliteDatabaseImpl.getScmRevisionsTable().tableName() + //
+//                                    " WHERE ( " + FSqrSqliteDatabaseImpl.SCM_REVISIONS_FK_PROJECTID_COLUMN.getColumnName() + "=?1" + //
+//                                    " AND " + FSqrSqliteDatabaseImpl.SCM_REVISIONS_BRANCH_COLUMN.getColumnName() + "=?2 ) " + //
+//                                    " ORDER BY " + FSqrSqliteDatabaseImpl.SCM_REVISIONS_COMMITDATE.getColumnName() + " DESC LIMIT 75;";
 
     // TODO: select * from project order by date limit 75 -> list of revisions
+//  private static final String SELECT_SCMREVISIONS_WHERE_PROJECT = //
+//  "SELECT * FROM " + FSqrSqliteDatabaseImpl.getScmRevisionsTable().tableName() + //
+//                  " WHERE ( " + FSqrSqliteDatabaseImpl.SCM_REVISIONS_FK_PROJECTID_COLUMN.getColumnName() + "=?1 )" + //
+//                  " ORDER BY " + FSqrSqliteDatabaseImpl.SCM_REVISIONS_COMMITDATE.getColumnName() + " DESC LIMIT 75;";
 
     // TODO: select newest commit timestamp for project
-
     // TODO: select newest commit timestamp for project + branch.
     // TODO: select newest commits for project, distinct(branch)
 
@@ -174,6 +183,24 @@ public class FSqrScmRevisionsTableImpl implements FSqrScmRevisionsTable {
         // TODO: is there a real reason to to update this object?
         // * maybe the author uuid? - but this can be calculated/mapped on the fly.
         //   using the scm aliases table...
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public List<FSqrRevision> selectScmRevisionsByProject( String projectId, int limit ) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public List<FSqrRevision> selectScmRevisionsByProject( String projectId, String branch, int limit ) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     private FSqrRevision createRevision( ResultSet resultSet ) throws Exception {
