@@ -26,7 +26,6 @@
 package de.mindscan.futuresqr.domain.repository.impl;
 
 import java.util.Collection;
-import java.util.function.Function;
 
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
@@ -59,28 +58,16 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
     // Proof of Concept - SCM Configuration from a "persistent" storage.
     private FSqrScmConfigurationDatabaseTable scmProjectConfigurationTable;
 
-    // Proof of concept
-    private Function<String, FSqrScmProjectConfiguration> configurationPersistenceLoader;
-
     /**
      * 
      */
     public FSqrScmProjectConfigurationRepositoryImpl() {
         this.applicationServices = new FSqrApplicationServicesUnitialized();
-        this.scmProjectConfigurationCache = new InMemoryCacheProjectConfigurationTableImpl();
-        this.setConfigurationPersistenceLoader( this::uninitializedPersistenceLoader );
 
         // TODO: finally begin to implement a persistent storage for the Scm Project Configurations
         // TODO: maybe use a factory to derive this instance from the application Services.
+        this.scmProjectConfigurationCache = new InMemoryCacheProjectConfigurationTableImpl();
         this.scmProjectConfigurationTable = new FSqrScmConfigurationDatabaseTableImpl();
-    }
-
-    private FSqrScmProjectConfiguration uninitializedPersistenceLoader( String projectId ) {
-        return null;
-    }
-
-    private FSqrScmProjectConfiguration initializedDatabaseLoader( String projectId ) {
-        return this.scmProjectConfigurationTable.selectScmConfigurationByProjectId( projectId );
     }
 
     @Override
@@ -89,8 +76,6 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
 
         this.scmProjectConfigurationTable.setDatbaseConnection( this.applicationServices.getDatabaseConnection() );
 
-        // w may have to reinitialite the userdatabase and the cache and such.
-        this.setConfigurationPersistenceLoader( this::initializedDatabaseLoader );
     }
 
     // TODO use an alternate constructor with a projectConfigurationInitialProvider, which 
@@ -107,7 +92,7 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
 
     @Override
     public FSqrScmProjectConfiguration getProjectConfiguration( String projectId ) {
-        return scmProjectConfigurationCache.getScmConfiguration( projectId, this.configurationPersistenceLoader );
+        return scmProjectConfigurationCache.getScmConfiguration( projectId, this.scmProjectConfigurationTable::selectScmConfigurationByProjectId );
 
         // TODO implement that select statement on the persistence instead of only the cache.
 
@@ -139,7 +124,8 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
             throw new RuntimeException( "ProjectId is unknown" );
         }
 
-        FSqrScmProjectConfiguration projectConfiguration = scmProjectConfigurationCache.getScmConfiguration( projectId, this.configurationPersistenceLoader );
+        FSqrScmProjectConfiguration projectConfiguration = scmProjectConfigurationCache.getScmConfiguration( projectId,
+                        this.scmProjectConfigurationTable::selectScmConfigurationByProjectId );
 
         if (projectConfiguration == null) {
             throw new RuntimeException( "ProjectId is unknown" );
@@ -169,16 +155,6 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
         }
 
         this.scmProjectConfigurationCache.putProjectConfiguration( projectId, projectConfiguration );
-    }
-
-    public void setConfigurationPersistenceLoader( Function<String, FSqrScmProjectConfiguration> loader ) {
-        if (loader != null) {
-            this.configurationPersistenceLoader = loader;
-        }
-        else {
-            this.configurationPersistenceLoader = this::uninitializedPersistenceLoader;
-        }
-
     }
 
     /** 
