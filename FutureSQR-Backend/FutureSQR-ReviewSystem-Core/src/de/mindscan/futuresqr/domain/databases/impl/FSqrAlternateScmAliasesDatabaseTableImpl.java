@@ -160,7 +160,7 @@ public class FSqrAlternateScmAliasesDatabaseTableImpl implements FSqrAlternateSc
     }
 
     /**
-     * 
+     * TODO: remove me later.
      */
     protected void initHardcodedData() {
         insertUserAlias( "mindscan-de", "8ce74ee9-48ff-3dde-b678-58a632887e31" );
