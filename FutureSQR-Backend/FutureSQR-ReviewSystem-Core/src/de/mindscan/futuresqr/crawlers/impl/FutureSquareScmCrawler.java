@@ -25,10 +25,34 @@
  */
 package de.mindscan.futuresqr.crawlers.impl;
 
+import de.mindscan.futuresqr.domain.application.FSqrApplication;
+import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
+import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
+import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
+
 /**
  * 
  */
 public class FutureSquareScmCrawler {
+
+    private FSqrApplication application;
+
+    /**
+     * 
+     */
+    public FutureSquareScmCrawler() {
+        this.application = FSqrApplication.getInstance();
+    }
+
+    public void run() {
+        FSqrApplicationServices services = this.application.getServices();
+
+        FSqrScmProjectConfigurationRepository configurationRepository = services.getConfigurationRepository();
+        FSqrScmProjectConfiguration futureSqrProject = configurationRepository.getProjectConfiguration( "futuresqr" );
+
+        // actually we want to index this project....
+
+    }
 
     // TODO: we need the system configuration
     // TODO: we need the scm project configuration / e.g. refresh intervall,
@@ -37,4 +61,8 @@ public class FutureSquareScmCrawler {
     //   like, for svn we need a server configuration, such that multiple projects can be observed at once, in cases
     //   where branches and projects are basically in the same "branches" folder, and checking for changes 
     // 
+
+    // TODO we have a hen-egg situation
+    // we want to index revision data, since latest indexed revision.... from zero... and insert these into the scm revisions table. 
+    // for this we need some data in the scm revision table.... 
 }
