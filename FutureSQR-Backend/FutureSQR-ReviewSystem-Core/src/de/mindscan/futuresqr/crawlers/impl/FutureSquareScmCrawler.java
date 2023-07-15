@@ -44,14 +44,15 @@ public class FutureSquareScmCrawler {
         this.application = FSqrApplication.getInstance();
     }
 
-    public void run() {
+    public void crawl() {
         FSqrApplicationServices services = this.application.getServices();
 
         FSqrScmProjectConfigurationRepository configurationRepository = services.getConfigurationRepository();
         FSqrScmProjectConfiguration futureSqrProject = configurationRepository.getProjectConfiguration( "futuresqr" );
 
-        // actually we want to index this project....
-
+        // actually we want to index this project history.
+        // basically from newest to oldest, such that the newest are always available first in the database, also in case
+        // it might be a real long running project
     }
 
     // TODO: we need the system configuration
