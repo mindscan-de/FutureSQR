@@ -25,9 +25,12 @@
  */
 package de.mindscan.futuresqr.crawlers.impl;
 
+import java.util.Collection;
+
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
+import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
 
 /**
@@ -49,22 +52,35 @@ public class FutureSquareScmCrawler {
 
         FSqrScmProjectConfigurationRepository configurationRepository = services.getConfigurationRepository();
 
-        // TODO: foreach scmProject configuration 
-        FSqrScmProjectConfiguration futureSqrProject = configurationRepository.getProjectConfiguration( "futuresqr" );
+        Collection<FSqrScmProjectConfiguration> allActiveProjectConfigurations = configurationRepository.getAllActiveProjectConfigurations();
 
-        // actually we want to index this project history.
-        // basically from newest to oldest, such that the newest are always available first in the database, also in case
-        // it might be a real long running project
+        for (FSqrScmProjectConfiguration scmProject : allActiveProjectConfigurations) {
 
-        // which is not archived
-        if (!futureSqrProject.isArchived()) {
+            // TODO remove me: ignore everything except futuresqr project.
+            if (!"futuresqr".equals( scmProject.getProjectId() )) {
+                continue;
+            }
+
+            // actually we want to index this project history.
+            // basically from newest to oldest, such that the newest are always available first in the database, also in case
+            // it might be a real long running project
+
             // if something is archived we will do everything on special ui demand...
             // TODO, check if refresh intervall is exceeded, if not we should skip that
             // TODO, check if this project is retrievable (e.g. has a copy on disk) right now.
 
             // we actually want 
             // * retrieve the latest known revisionid (head) from database
-            // * rerieve the head of a git/svn scm.
+            // TODO: ask projectRevisionPepository for newest known revision
+
+            // * retrieve the head of a git/svn scm.
+            FSqrRevisionFullChangeSet scmProjectHead = services.getScmRepositoryServices().getHeadRevisionFullChangeSetFromScm( scmProject.getProjectId() );
+
+            if (scmProjectHead == null) {
+                // TODO change return to "continue" later, when we are iterating over all scm projects.
+                return;
+            }
+
             //   according to repotype we have different collection and invocation strategies.....
             // * retrieve the scm history from since that revision - but, someone can come with a branch which started 
             //   earlier, and that needs to be indexed as well. 
@@ -73,6 +89,7 @@ public class FutureSquareScmCrawler {
             //   actually add new work for to the work queue
             // * we may add another work queue item to retrieve the diffs ...  but lets do that later
         }
+
     }
 
     // TODO: we need the scm project configuration / e.g. refresh intervall,
