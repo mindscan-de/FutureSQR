@@ -61,25 +61,31 @@ public class FutureSquareScmCrawler {
                 continue;
             }
 
+            // TODO: check that this project has a checkout available / 
+            // if not we must initiate the checkout to local cache...
+            // maybe add something to execution pipeline and then go to continue.
+
             // actually we want to index this project history.
             // basically from newest to oldest, such that the newest are always available first in the database, also in case
-            // it might be a real long running project
+            // it might be a real long running project with many revision...
 
             // if something is archived we will do everything on special ui demand...
             // TODO, check if refresh intervall is exceeded, if not we should skip that
             // TODO, check if this project is retrievable (e.g. has a copy on disk) right now.
 
-            // we actually want 
-            // * retrieve the latest known revisionid (head) from database
-            // TODO: ask projectRevisionPepository for newest known revision
+            // ----------------
+            // we actually want
+            // ----------------
 
             // * retrieve the head of a git/svn scm.
             FSqrRevisionFullChangeSet scmProjectHead = services.getScmRepositoryServices().getHeadRevisionFullChangeSetFromScm( scmProject.getProjectId() );
-
             if (scmProjectHead == null) {
-                // TODO change return to "continue" later, when we are iterating over all scm projects.
-                return;
+                continue;
             }
+
+            // * retrieve the latest known revisionid (head) from database
+            // TODO: ask projectRevisionPepository for newest known revision
+            // 
 
             //   according to repotype we have different collection and invocation strategies.....
             // * retrieve the scm history from since that revision - but, someone can come with a branch which started 
