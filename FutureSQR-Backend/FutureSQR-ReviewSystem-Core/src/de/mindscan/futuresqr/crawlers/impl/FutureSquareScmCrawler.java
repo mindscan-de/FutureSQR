@@ -48,14 +48,33 @@ public class FutureSquareScmCrawler {
         FSqrApplicationServices services = this.application.getServices();
 
         FSqrScmProjectConfigurationRepository configurationRepository = services.getConfigurationRepository();
+
+        // TODO: foreach scmProject configuration 
         FSqrScmProjectConfiguration futureSqrProject = configurationRepository.getProjectConfiguration( "futuresqr" );
 
         // actually we want to index this project history.
         // basically from newest to oldest, such that the newest are always available first in the database, also in case
         // it might be a real long running project
+
+        // which is not archived
+        if (!futureSqrProject.isArchived()) {
+            // if something is archived we will do everything on special ui demand...
+            // TODO, check if refresh intervall is exceeded, if not we should skip that
+            // TODO, check if this project is retrievable (e.g. has a copy on disk) right now.
+
+            // we actually want 
+            // * retrieve the latest known revisionid (head) from database
+            // * rerieve the head of a git/svn scm.
+            //   according to repotype we have different collection and invocation strategies.....
+            // * retrieve the scm history from since that revision - but, someone can come with a branch which started 
+            //   earlier, and that needs to be indexed as well. 
+            // * if not empty we want to insert this to our database
+            // * maybe trigger a webhook or so, or to trigger some analytics/actions (e.g. automatically add revisions)
+            //   actually add new work for to the work queue
+            // * we may add another work queue item to retrieve the diffs ...  but lets do that later
+        }
     }
 
-    // TODO: we need the system configuration
     // TODO: we need the scm project configuration / e.g. refresh intervall,
     // 
     // for git and svn we must have different strategies, 
@@ -65,5 +84,5 @@ public class FutureSquareScmCrawler {
 
     // TODO we have a hen-egg situation
     // we want to index revision data, since latest indexed revision.... from zero... and insert these into the scm revisions table. 
-    // for this we need some data in the scm revision table.... 
+    // for this we need some data in the scm revision table.... but in that case the newest commits first.... and then iterate to the oldest ones. 
 }
