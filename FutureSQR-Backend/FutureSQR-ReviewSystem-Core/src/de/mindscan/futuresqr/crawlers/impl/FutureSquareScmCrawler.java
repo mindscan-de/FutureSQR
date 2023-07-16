@@ -80,6 +80,8 @@ public class FutureSquareScmCrawler {
             // * retrieve the head of a git/svn scm.
             FSqrRevisionFullChangeSet scmProjectHead = services.getScmRepositoryServices().getHeadRevisionFullChangeSetFromScm( scmProject.getProjectId() );
             if (scmProjectHead == null) {
+                // probably because this project is not correct on disc or empty...?
+                // maybe we need a pull...
                 continue;
             }
 
@@ -94,6 +96,9 @@ public class FutureSquareScmCrawler {
             // * maybe trigger a webhook or so, or to trigger some analytics/actions (e.g. automatically add revisions)
             //   actually add new work for to the work queue
             // * we may add another work queue item to retrieve the diffs ...  but lets do that later
+
+            // TODO: autodetect branches?
+            // * 
         }
 
     }
