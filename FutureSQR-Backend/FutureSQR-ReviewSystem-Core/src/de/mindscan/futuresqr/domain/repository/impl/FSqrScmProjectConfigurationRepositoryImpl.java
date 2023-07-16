@@ -26,6 +26,7 @@
 package de.mindscan.futuresqr.domain.repository.impl;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
@@ -88,6 +89,16 @@ public class FSqrScmProjectConfigurationRepositoryImpl implements FSqrScmProject
 
         //  TODO implement that the select statement on the persistence instead of the cache.
         // return scmProjectConfigurationCache.getAllCachedScmConfigurations();
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<FSqrScmProjectConfiguration> getAllActiveProjectConfigurations() {
+        Collection<FSqrScmProjectConfiguration> allScmConfigurations = this.scmProjectConfigurationTable.selectAllScmConfigurations();
+
+        return allScmConfigurations.stream().filter( ( config ) -> !config.isArchived() ).collect( Collectors.toList() );
     }
 
     @Override

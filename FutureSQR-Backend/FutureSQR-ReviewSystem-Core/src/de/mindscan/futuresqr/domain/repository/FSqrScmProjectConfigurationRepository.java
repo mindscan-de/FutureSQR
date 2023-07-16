@@ -47,6 +47,8 @@ public interface FSqrScmProjectConfigurationRepository extends FSqrRepository, F
 
     Collection<FSqrScmProjectConfiguration> getAllProjectConfigurations();
 
+    Collection<FSqrScmProjectConfiguration> getAllActiveProjectConfigurations();
+
     // insert project configuration
 
     void addScmProjectConfiguration( FSqrScmProjectConfiguration projectConfiguration );
