@@ -62,4 +62,12 @@ public class EmptyScmContentProvider implements ScmContentProvider {
         throw new RuntimeException( "The SCM ContentProvider is not properly initialized." );
     }
 
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public ScmFullChangeSet getHeadFullChangeSet( ScmRepository repository ) {
+        throw new RuntimeException( "The SCM ContentProvider is not properly initialized." );
+    }
+
 }

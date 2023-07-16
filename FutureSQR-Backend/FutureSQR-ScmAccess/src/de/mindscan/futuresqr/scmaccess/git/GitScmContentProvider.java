@@ -88,6 +88,23 @@ public class GitScmContentProvider implements ScmContentProvider {
      * {@inheritDoc}
      */
     @Override
+    public ScmFullChangeSet getHeadFullChangeSet( ScmRepository repository ) {
+        ScmFullChangeSet fullChangeSet = gitCliExecutor //
+                        .execute( repository, GitCommands.createGetHeadChangeSet() )//
+                        // TODO maybe implement a map function and the transform function last.
+                        .transform( GitOutputProcessors.toScmFullChangeSet() );
+        // TODO:
+        // basically we want a ScmHistory with one entry, because we don't need the top diff...
+        // let's see ....
+        // if we have ScmHistory then this content provider is actually the wrong place.
+
+        return fullChangeSet;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
     public List<ScmFullChangeSet> getFullChangeSetFromRevisionToRevision( ScmRepository repository, String firstRevisionId, String lastRevisionId ) {
         List<ScmFullChangeSet> fullChangeSet = gitCliExecutor //
                         .execute( repository, GitCommands.createGetDiffBetweenRevisionsCommand( firstRevisionId, lastRevisionId ) )//

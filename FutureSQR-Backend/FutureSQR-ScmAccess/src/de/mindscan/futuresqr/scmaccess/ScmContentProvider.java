@@ -46,6 +46,9 @@ public interface ScmContentProvider {
     // see getProjectRevisionDiffToPrevious for context of this method
     ScmFullChangeSet getFullChangeSetForRevision( ScmRepository repository, String revisionId );
 
+    // TODO: the pipeline should only provide a revision info..., also add branches?
+    ScmFullChangeSet getHeadFullChangeSet( ScmRepository repository );
+
     // see ???
     List<ScmFullChangeSet> getFullChangeSetFromRevisionToRevision( ScmRepository scmRepository, String firstRevisionId, String lastRevisionId );
 }
