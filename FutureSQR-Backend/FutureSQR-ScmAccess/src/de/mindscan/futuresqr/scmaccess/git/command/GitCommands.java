@@ -35,6 +35,7 @@ import de.mindscan.futuresqr.scmaccess.git.command.impl.GetDiffForRevisionComman
 import de.mindscan.futuresqr.scmaccess.git.command.impl.GetFileChangesListForRevisionCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.impl.GetFileContentForRevisionCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.impl.GetFileHistoryCommand;
+import de.mindscan.futuresqr.scmaccess.git.command.impl.GetHeadChangeSetCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.impl.GetNRecentRevisionsCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.impl.GetRecentRevisionsCommand;
 import de.mindscan.futuresqr.scmaccess.git.command.impl.GetRecentRevisionsCommandFromParticularRevision;
@@ -93,5 +94,9 @@ public class GitCommands {
 
     public static GitCommand createCloneToRepoCacheCommand( String systemRepositoryCache, String projectId, String gitCloneURL ) {
         return new CloneToLocalRepositoryCommand( Paths.get( systemRepositoryCache ), projectId, gitCloneURL );
+    }
+
+    public static GitCommand createGetHeadChangeSet() {
+        return new GetHeadChangeSetCommand();
     }
 }
