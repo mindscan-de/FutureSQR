@@ -30,10 +30,13 @@ import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitializ
 import de.mindscan.futuresqr.domain.configuration.impl.FSqrScmConfigrationProvider;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectType;
+import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
 import de.mindscan.futuresqr.domain.model.m2m.ScmRepositoryFactory;
 import de.mindscan.futuresqr.domain.repository.FSqrScmRepositoryServices;
 import de.mindscan.futuresqr.scmaccess.ScmAccessFactory;
+import de.mindscan.futuresqr.scmaccess.ScmContentProvider;
 import de.mindscan.futuresqr.scmaccess.ScmRepositoryServicesProvider;
+import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
 /**
@@ -68,6 +71,7 @@ public class FSqrScmRepositoryServicesImpl implements FSqrScmRepositoryServices 
 
     private FSqrApplicationServices applicationServices;
     private ScmRepositoryServicesProvider gitScmRepositoryServicesProvider;
+    private ScmContentProvider gitScmContentProvider;
 
     /**
      * 
@@ -76,6 +80,7 @@ public class FSqrScmRepositoryServicesImpl implements FSqrScmRepositoryServices 
         this.applicationServices = new FSqrApplicationServicesUnitialized();
 
         this.gitScmRepositoryServicesProvider = ScmAccessFactory.getEmptyRepositoryServicesProvider();
+        this.gitScmContentProvider = ScmAccessFactory.getEmptyContentProvider();
     }
 
     /** 
@@ -87,6 +92,9 @@ public class FSqrScmRepositoryServicesImpl implements FSqrScmRepositoryServices 
 
         this.gitScmRepositoryServicesProvider = ScmAccessFactory
                         .getGitRepositoryServicesProvider( new FSqrScmConfigrationProvider( services.getSystemConfiguration() ) );
+
+        this.gitScmContentProvider = ScmAccessFactory.getGitContentProvider( new FSqrScmConfigrationProvider( services.getSystemConfiguration() ) );
+
     }
 
     /** 
@@ -112,6 +120,23 @@ public class FSqrScmRepositoryServicesImpl implements FSqrScmRepositoryServices 
                 System.out.println( "[updateProjectCache] - branchName is empty - must be fixed." );
             }
         }
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public FSqrRevisionFullChangeSet getHeadRevisionFullChangeSetFromScm( String projectId ) {
+        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
+        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
+            ScmRepository scmRepository = toScmRepository( scmConfiguration );
+
+            ScmFullChangeSet fullChangeSet = gitScmContentProvider.getHeadFullChangeSet( scmRepository );
+
+            return new FSqrRevisionFullChangeSet( fullChangeSet );
+        }
+
+        return null;
     }
 
     private FSqrScmProjectConfiguration toScmConfiguration( String projectId ) {
