@@ -29,6 +29,7 @@ import java.util.Collection;
 
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
+import de.mindscan.futuresqr.domain.model.FSqrRevision;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
@@ -87,7 +88,14 @@ public class FutureSquareScmCrawler {
 
             // * retrieve the latest known revisionid (head) from database
             // TODO: ask projectRevisionPepository for newest known revision
-            // 
+            //
+            FSqrRevision headRevision = services.getRevisionRepository().retrieveHeadRevision( scmProject.getProjectId() );
+            if (headRevision == null) {
+                // no entry in database so we must do something to enable this
+                continue;
+            }
+
+            // TODO: else now comare these two....
 
             //   according to repotype we have different collection and invocation strategies.....
             // * retrieve the scm history from since that revision - but, someone can come with a branch which started 
