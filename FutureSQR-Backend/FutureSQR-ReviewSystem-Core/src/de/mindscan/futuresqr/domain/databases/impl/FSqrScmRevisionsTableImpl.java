@@ -178,6 +178,15 @@ public class FSqrScmRevisionsTableImpl implements FSqrScmRevisionsTable {
      * {@inheritDoc}
      */
     @Override
+    public FSqrRevision selectScmHeadRevision( String projectId ) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
     public void updateScmRevision( String projectId, FSqrRevision revision ) {
         // TODO: Auto-generated method stub
         // TODO: is there a real reason to to update this object?
