@@ -61,6 +61,8 @@ public interface FSqrScmProjectRevisionRepository extends FSqrRepository, FSqrDa
 
     FSqrRevision getSimpleRevisionInformation( String projectId, String revisionId );
 
+    FSqrRevision retrieveHeadRevision( String projectId );
+
     // project history 
 
     FSqrScmHistory getRecentRevisionHistoryStartingFrom( String projectId, String fromRevision );

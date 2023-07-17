@@ -372,6 +372,17 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         return retrieveRevisionFileChangeListFromScm( projectId, revisionId );
     }
 
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public FSqrRevision retrieveHeadRevision( String projectId ) {
+        // TODO later also branches....
+        // TODO continue here with the FSrqRevision....
+        // TODO We want to retrieve this from the database table.
+        return null;
+    }
+
     private FSqrScmHistory retriveRecentRevisionHistoryFromDatabaseTable( String projectId, int count ) {
         // TODO: this should be tested, whether it is already cached in-memory database, and if the maximum age is reached
         // TODO: retrieve the current values from database.
