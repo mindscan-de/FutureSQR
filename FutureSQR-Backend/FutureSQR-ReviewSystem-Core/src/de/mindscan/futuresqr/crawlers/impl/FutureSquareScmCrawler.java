@@ -89,13 +89,15 @@ public class FutureSquareScmCrawler {
             // * retrieve the latest known revisionid (head) from database
             // TODO: ask projectRevisionPepository for newest known revision
             //
-            FSqrRevision headRevision = services.getRevisionRepository().retrieveHeadRevision( scmProject.getProjectId() );
-            if (headRevision == null) {
-                // no entry in database so we must do something to enable this
+            FSqrRevision dbProjectHeadRevision = services.getRevisionRepository().retrieveHeadRevision( scmProject.getProjectId() );
+            if (dbProjectHeadRevision == null) {
+                // no entry in database so we must do maybe we should start inserting the revisions into the revision table....
+                // i mean only if there is something in the project head...
+                // maybe we should instantiate a new task and add that task to our work queue.
                 continue;
             }
 
-            // TODO: else now comare these two....
+            // TODO: else now compare these two.... 
 
             //   according to repotype we have different collection and invocation strategies.....
             // * retrieve the scm history from since that revision - but, someone can come with a branch which started 
