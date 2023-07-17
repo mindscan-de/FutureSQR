@@ -377,10 +377,12 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
      */
     @Override
     public FSqrRevision retrieveHeadRevision( String projectId ) {
-        // TODO later also branches....
-        // TODO continue here with the FSrqRevision....
-        // TODO We want to retrieve this from the database table.
-        return null;
+        // TODO later also support branches.... / maybe different call
+        // HEAD ist im prinzip head auf default branch...
+        // vielleicht sollte diese methode public als getter kommen, aber die interne private methode sollte retrieve lauten.... 
+        FSqrRevision headRevision = this.revisionInfoTable.selectScmHeadRevision( projectId /*, branch*/ );
+
+        return headRevision;
     }
 
     private FSqrScmHistory retriveRecentRevisionHistoryFromDatabaseTable( String projectId, int count ) {
