@@ -30,6 +30,7 @@ import java.util.Collection;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.model.FSqrRevision;
+import de.mindscan.futuresqr.domain.model.FSqrScmHistory;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
@@ -56,9 +57,10 @@ public class FutureSquareScmCrawler {
         Collection<FSqrScmProjectConfiguration> allActiveProjectConfigurations = configurationRepository.getAllActiveProjectConfigurations();
 
         for (FSqrScmProjectConfiguration scmProject : allActiveProjectConfigurations) {
+            String projectId = scmProject.getProjectId();
 
             // TODO remove me: ignore everything except futuresqr project.
-            if (!"futuresqr".equals( scmProject.getProjectId() )) {
+            if (!"futuresqr".equals( projectId )) {
                 continue;
             }
 
@@ -98,6 +100,19 @@ public class FutureSquareScmCrawler {
             }
 
             // TODO: else now compare these two.... 
+            if (scmProjectHead.getRevisionId().equals( dbProjectHeadRevision.getReviewId() )) {
+                // easy both are equal, we can skip indexing more.
+                continue;
+            }
+
+            // TODO here we know that the top of scm and the top of database do not match
+            // well we schould index from last known dbrevision.
+            FSqrScmHistory newSinceLastKnownRevision = services.getRevisionRepository().getRecentRevisionHistoryStartingFrom( projectId,
+                            dbProjectHeadRevision.getRevisionId() );
+
+            // TODO: in cases of branches it is a bit different.
+            // TODO: we have to access the default branches and all other branches
+            // TODO: unknown branches should be handled elsewhere, do only one branch at a time.
 
             //   according to repotype we have different collection and invocation strategies.....
             // * retrieve the scm history from since that revision - but, someone can come with a branch which started 
