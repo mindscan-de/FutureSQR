@@ -64,6 +64,8 @@ public class FutureSquareScmCrawler {
                 continue;
             }
 
+            // TODO: also limit indexing to one branch at a time.
+
             // TODO: check that this project has a checkout available / 
             // if not we must initiate the checkout to local cache...
             // maybe add something to execution pipeline and then go to continue.
