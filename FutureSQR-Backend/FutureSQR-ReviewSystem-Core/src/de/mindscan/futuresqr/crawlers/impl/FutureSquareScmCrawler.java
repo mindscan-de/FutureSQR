@@ -83,7 +83,7 @@ public class FutureSquareScmCrawler {
             // ----------------
 
             // * retrieve the head of a git/svn scm.
-            FSqrRevisionFullChangeSet scmProjectHead = services.getScmRepositoryServices().getHeadRevisionFullChangeSetFromScm( scmProject.getProjectId() );
+            FSqrRevisionFullChangeSet scmProjectHead = services.getScmRepositoryServices().getHeadRevisionFullChangeSetFromScm( projectId );
             if (scmProjectHead == null) {
                 // probably because this project is not correct on disc or empty...?
                 // maybe we need a pull...
@@ -92,8 +92,8 @@ public class FutureSquareScmCrawler {
 
             // * retrieve the latest known revisionid (head) from database
             // TODO: ask projectRevisionPepository for newest known revision
-            //
-            FSqrRevision dbProjectHeadRevision = services.getRevisionRepository().retrieveHeadRevision( scmProject.getProjectId() );
+            // 
+            FSqrRevision dbProjectHeadRevision = services.getRevisionRepository().retrieveHeadRevision( projectId );
             if (dbProjectHeadRevision == null) {
                 // no entry in database so we must do maybe we should start inserting the revisions into the revision table....
                 // i mean only if there is something in the project head...
