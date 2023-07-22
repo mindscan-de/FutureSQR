@@ -48,4 +48,8 @@ public class ScanIndexRevisionsForwardTask implements FSqrBackgroundTask {
         this.startRevision = startRevision;
     }
 
+    // TODO: set execution context
+
+    // TODO: execution - callback to report success / failure / etc.... / also service to add other tasks, or events.
+
 }
