@@ -151,6 +151,10 @@ public class FutureSquareScmCrawler {
     private void runFullIndexForProjectAndBranch( FSqrScmProjectConfiguration scmProject, String projectId, String projectBranch, String fromRevision ) {
         // TODO index backward until either too old or when done.
         // background task 
+        // not only we want to crawl the revision info, but also the diffs and other info as well / even though we might not keep the diffs forever 
+        // and maybe not in a backup/restore/install situation.  but the revisions must be known, and the files which were touched by this revisions
+        // this is for analytics of ownership of the revisions.
+        // maybe also run the analytics for each (forward indexed revision, to whether to add the revision or not)
     }
 
     // TODO: we need the scm project configuration / e.g. refresh intervall,
