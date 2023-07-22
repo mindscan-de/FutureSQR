@@ -65,6 +65,7 @@ public class FutureSquareScmCrawler {
             }
 
             // TODO: also limit indexing to one branch at a time.
+            String projectBranch = scmProject.getProjectDefaultBranch();
 
             // TODO: check that this project has a checkout available / 
             // if not we must initiate the checkout to local cache...
@@ -93,7 +94,7 @@ public class FutureSquareScmCrawler {
             // * retrieve the latest known revisionid (head) from database
             // TODO: ask projectRevisionPepository for newest known revision
             // 
-            FSqrRevision dbProjectHeadRevision = services.getRevisionRepository().retrieveHeadRevision( projectId );
+            FSqrRevision dbProjectHeadRevision = services.getRevisionRepository().retrieveHeadRevision( projectId, projectBranch );
             if (dbProjectHeadRevision == null) {
                 // no entry in database so we must do maybe we should start inserting the revisions into the revision table....
                 // i mean only if there is something in the project head...
