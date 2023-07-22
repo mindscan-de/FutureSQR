@@ -157,6 +157,7 @@ public class FSqrScmProjectConfiguration {
     public void addGitConfiguration( FSqrScmProjectGitAdminConfiguration gitAdminConfig ) {
         this.scmProjectType = FSqrScmProjectType.git;
         this.scmGitAdminConfiguration = gitAdminConfig;
+        this.projectDefaultBranch = this.scmGitAdminConfiguration.getDefaultBranchName();
     }
 
     public void addSvnConfiguration( FSqrScmProjectSvnAdminConfiguration svnAdminConfig ) {
@@ -173,7 +174,23 @@ public class FSqrScmProjectConfiguration {
     }
 
     public String getProjectDefaultBranch() {
+        if (projectDefaultBranch.isEmpty()) {
+            // recovery mode, because configurations saved in database.
+            switch (scmProjectType) {
+                case git:
+                    return scmGitAdminConfiguration.getDefaultBranchName();
+
+                default:
+                    break;
+            }
+        }
+
         return projectDefaultBranch;
+    }
+
+    // hide this as a 
+    void setProjectDefaultBranch( String projectDefaultBranch ) {
+        this.projectDefaultBranch = projectDefaultBranch;
     }
 
     public List<String> getBranches() {
