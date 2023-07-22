@@ -61,11 +61,16 @@ public class FutureSquareScmCrawler {
 
             // TODO remove me: ignore everything except futuresqr project.
             if (!"futuresqr".equals( projectId )) {
+                System.out.println( "Skipping project '" + projectId + "'" );
                 continue;
             }
 
+            System.out.println( "Crawling project '" + projectId + "'" );
+
             // TODO: also limit indexing to one branch at a time.
             String projectBranch = scmProject.getProjectDefaultBranch();
+
+            System.out.println( "Crawling branch '" + projectBranch + "'" );
 
             // TODO: check that this project has a checkout available / 
             // if not we must initiate the checkout to local cache...
