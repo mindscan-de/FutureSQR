@@ -188,7 +188,7 @@ public class FSqrScmProjectConfiguration {
         return projectDefaultBranch;
     }
 
-    // hide this as a 
+    // hide this as a method from api - will figure out, whether this is needed 
     void setProjectDefaultBranch( String projectDefaultBranch ) {
         this.projectDefaultBranch = projectDefaultBranch;
     }
