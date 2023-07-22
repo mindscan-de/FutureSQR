@@ -108,16 +108,22 @@ public class FutureSquareScmCrawler {
                 // no entry in database so we must do maybe we should start inserting the revisions into the revision table....
                 // i mean only if there is something in the project head...
                 // maybe we should instantiate a new task and add that task to our work queue.
+
+                // index backwards
+                runFullIndexForProjectAndBranch( scmProject, projectId, projectBranch, scmProjectHead.getRevisionId() );
+
                 continue;
             }
 
             System.out.println( "Found Head revision (SQL) '" + dbProjectHeadRevision.getRevisionId() + "' for '" + projectId + "' " );
 
-            // TODO: else now compare these two.... 
-            if (scmProjectHead.getRevisionId().equals( dbProjectHeadRevision.getReviewId() )) {
+            // TODO: else now compare these two revisions
+            if (scmProjectHead.getRevisionId().equals( dbProjectHeadRevision.getRevisionId() )) {
                 // easy both are equal, we can skip indexing more.
                 continue;
             }
+
+            // TODO: index forward starting from db revision
 
             // TODO here we know that the top of scm and the top of database do not match
             // well we schould index from last known dbrevision.
@@ -140,6 +146,11 @@ public class FutureSquareScmCrawler {
             // * 
         }
 
+    }
+
+    private void runFullIndexForProjectAndBranch( FSqrScmProjectConfiguration scmProject, String projectId, String projectBranch, String fromRevision ) {
+        // TODO index backward until either too old or when done.
+        // background task 
     }
 
     // TODO: we need the scm project configuration / e.g. refresh intervall,
