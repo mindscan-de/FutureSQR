@@ -91,21 +91,27 @@ public class FutureSquareScmCrawler {
             // * retrieve the head of a git/svn scm.
             FSqrRevisionFullChangeSet scmProjectHead = services.getScmRepositoryServices().getHeadRevisionFullChangeSetFromScm( projectId );
             if (scmProjectHead == null) {
+                System.out.println( "No HeadRevision in Scm available. For '" + projectId + "'" );
                 // probably because this project is not correct on disc or empty...?
                 // maybe we need a pull...
                 continue;
             }
+
+            System.out.println( "Found Head Revison (SCM) '" + scmProjectHead.getRevisionId() + "' for '" + projectId + "'" );
 
             // * retrieve the latest known revisionid (head) from database
             // TODO: ask projectRevisionPepository for newest known revision
             // 
             FSqrRevision dbProjectHeadRevision = services.getRevisionRepository().retrieveHeadRevision( projectId, projectBranch );
             if (dbProjectHeadRevision == null) {
+                System.out.println( "No known head revision in database for '" + projectId + "'" );
                 // no entry in database so we must do maybe we should start inserting the revisions into the revision table....
                 // i mean only if there is something in the project head...
                 // maybe we should instantiate a new task and add that task to our work queue.
                 continue;
             }
+
+            System.out.println( "Found Head revision (SQL) '" + dbProjectHeadRevision.getRevisionId() + "' for '" + projectId + "' " );
 
             // TODO: else now compare these two.... 
             if (scmProjectHead.getRevisionId().equals( dbProjectHeadRevision.getReviewId() )) {
