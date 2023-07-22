@@ -178,7 +178,7 @@ public class FSqrScmRevisionsTableImpl implements FSqrScmRevisionsTable {
      * {@inheritDoc}
      */
     @Override
-    public FSqrRevision selectScmHeadRevision( String projectId ) {
+    public FSqrRevision selectScmHeadRevision( String projectId, String projectBranch ) {
         // TODO Auto-generated method stub
         return null;
     }

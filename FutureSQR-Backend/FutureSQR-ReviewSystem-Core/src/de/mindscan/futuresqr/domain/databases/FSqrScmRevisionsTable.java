@@ -36,7 +36,7 @@ public interface FSqrScmRevisionsTable extends FSqrDatabaseTable {
 
     FSqrRevision selectScmRevision( String projectId, String revisionId );
 
-    FSqrRevision selectScmHeadRevision( String projectId /*, branchId */ );
+    FSqrRevision selectScmHeadRevision( String projectId, String branch );
 
     void insertScmRevision( String projectId, FSqrRevision revision );
 
