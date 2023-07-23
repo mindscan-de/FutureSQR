@@ -30,8 +30,8 @@ import de.mindscan.futuresqr.tasks.FSqrBackgroundTask;
 /**
  * We actually have two scan and index strategies for scm revisions. 
  * 
- * When we commit and update the revisions we start at the oldest known 
- * revision in the database for a certain project with a certain revision.  
+ * When we commit and update the revisions we start at the oldest revision known
+ * to the database for a certain project with a certain revision.  
  */
 public class ScanIndexScmRevisionsForwardTask implements FSqrBackgroundTask {
 
@@ -49,7 +49,14 @@ public class ScanIndexScmRevisionsForwardTask implements FSqrBackgroundTask {
     }
 
     // TODO: set execution context
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void execute() {
+        // TODO: execution - callback to report success / failure / etc.... / also service to add other tasks, or events.
 
-    // TODO: execution - callback to report success / failure / etc.... / also service to add other tasks, or events.
+        // Scm repo get since revision...
+    }
 
 }

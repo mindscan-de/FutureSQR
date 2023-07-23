@@ -32,7 +32,9 @@ import de.mindscan.futuresqr.tasks.FSqrBackgroundTask;
  * 
  * When we commit and update the revisions we start at the newest known revision 
  * in the database for a certain project with a certain revision. We need this to 
- * provide maximum usability such that a recovery or first startup and also 
+ * provide maximum usability such that a recovery from a database loss 
+ * 
+ * or first startup and also 
  * recoverability in case the update is interrupted somehow.
  */
 public class ScanIndexScmRevisionsBackwardsTask implements FSqrBackgroundTask {
@@ -49,4 +51,14 @@ public class ScanIndexScmRevisionsBackwardsTask implements FSqrBackgroundTask {
         this.projectBranch = projectBranch;
         this.startRevision = startRevision;
     }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void execute() {
+        // TODO Auto-generated method stub
+
+    }
+
 }

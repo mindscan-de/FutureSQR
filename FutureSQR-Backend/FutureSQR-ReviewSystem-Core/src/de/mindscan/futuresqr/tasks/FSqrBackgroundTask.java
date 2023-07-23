@@ -57,4 +57,12 @@ package de.mindscan.futuresqr.tasks;
  */
 public interface FSqrBackgroundTask {
 
+    /**
+     * TODO: 
+     * we need to provide an information about the Execution Context, such that a task can signal success
+     * failure or any other kind of events. 
+     * 
+     */
+    void execute();
+
 }
