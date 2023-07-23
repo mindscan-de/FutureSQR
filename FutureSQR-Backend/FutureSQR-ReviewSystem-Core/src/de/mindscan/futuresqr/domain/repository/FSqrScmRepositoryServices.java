@@ -41,9 +41,13 @@ public interface FSqrScmRepositoryServices extends FSqrRepository {
 
     void cloneCheckoutToProjectCache( String projectId );
 
+    // -------------------------------------------------------------------------------------------------------
+    // collection for scm access only stuff moved from other code, which should solely depend on database code
+    // -------------------------------------------------------------------------------------------------------
     // get head revision from scm
     FSqrRevisionFullChangeSet getHeadRevisionFullChangeSetFromScm( String projectId );
 
+    // get revisions since given revision.
     FSqrScmHistory getRecentRevisionHistoryStartingFrom( String projectId, String fromRevision );
 
 }
