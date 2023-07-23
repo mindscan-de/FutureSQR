@@ -23,42 +23,33 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.crawlers.tasks;
-
-import de.mindscan.futuresqr.tasks.FSqrBackgroundTaskBase;
+package de.mindscan.futuresqr.tasks;
 
 /**
- * We actually have two scan and index strategies for scm revisions. 
  * 
- * When we commit and update the revisions we start at the newest known revision 
- * in the database for a certain project with a certain revision. We need this to 
- * provide maximum usability such that a recovery from a database loss 
- * 
- * or first startup and also 
- * recoverability in case the update is interrupted somehow.
  */
-public class ScanIndexScmRevisionsBackwardsTask extends FSqrBackgroundTaskBase {
+public abstract class FSqrBackgroundTaskBase implements FSqrBackgroundTask {
 
-    private String projectIdentifier;
-    private String projectBranch;
-    private String startRevision;
+    private FSqrTaskExecutionContext taskContext;
 
     /**
      * 
      */
-    public ScanIndexScmRevisionsBackwardsTask( String projectIdentifier, String projectBranch, String startRevision ) {
-        this.projectIdentifier = projectIdentifier;
-        this.projectBranch = projectBranch;
-        this.startRevision = startRevision;
+    public FSqrBackgroundTaskBase() {
+
     }
 
     /** 
      * {@inheritDoc}
      */
     @Override
-    public void execute() {
-        // TODO Auto-generated method stub
+    public void setSetTaskExecutionContext( FSqrTaskExecutionContext taskContext ) {
+        this.taskContext = taskContext;
 
+    }
+
+    protected FSqrTaskExecutionContext getTaskContext() {
+        return taskContext;
     }
 
 }

@@ -25,7 +25,7 @@
  */
 package de.mindscan.futuresqr.crawlers.tasks;
 
-import de.mindscan.futuresqr.tasks.FSqrBackgroundTask;
+import de.mindscan.futuresqr.tasks.FSqrBackgroundTaskBase;
 
 /**
  * We actually have two scan and index strategies for scm revisions. 
@@ -33,7 +33,7 @@ import de.mindscan.futuresqr.tasks.FSqrBackgroundTask;
  * When we commit and update the revisions we start at the oldest revision known
  * to the database for a certain project with a certain revision.  
  */
-public class ScanIndexScmRevisionsForwardTask implements FSqrBackgroundTask {
+public class ScanIndexScmRevisionsForwardTask extends FSqrBackgroundTaskBase {
 
     private String projectIdentifier;
     private String projectBranch;
