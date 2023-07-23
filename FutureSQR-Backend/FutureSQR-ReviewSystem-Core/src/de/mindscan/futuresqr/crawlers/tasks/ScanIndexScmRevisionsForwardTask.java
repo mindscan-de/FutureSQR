@@ -25,6 +25,7 @@
  */
 package de.mindscan.futuresqr.crawlers.tasks;
 
+import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.tasks.FSqrBackgroundTaskBase;
 
 /**
@@ -48,15 +49,15 @@ public class ScanIndexScmRevisionsForwardTask extends FSqrBackgroundTaskBase {
         this.startRevision = startRevision;
     }
 
-    // TODO: set execution context
     /** 
      * {@inheritDoc}
      */
     @Override
     public void execute() {
-        // TODO: execution - callback to report success / failure / etc.... / also service to add other tasks, or events.
+        // TODO: set execution context / also we want a kind of repository implementation related to crawler only code
 
-        // Scm repo get since revision...
+        FSqrApplicationServices services = getTaskContext().getServices();
+        services.getScmRepositoryServices().getRecentRevisionHistoryStartingFrom( projectIdentifier, startRevision );
     }
 
 }

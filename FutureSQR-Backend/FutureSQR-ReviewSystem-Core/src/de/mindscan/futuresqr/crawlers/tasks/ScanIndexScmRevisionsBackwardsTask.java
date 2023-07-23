@@ -60,7 +60,8 @@ public class ScanIndexScmRevisionsBackwardsTask extends FSqrBackgroundTaskBase {
     public void execute() {
         FSqrApplicationServices services = getTaskContext().getServices();
 
-        services.getScmRepositoryServices().getRecentRevisionHistoryStartingFrom( projectIdentifier, startRevision );
+        // TODO: actually we must scan backward from here....
+        // services.getScmRepositoryServices().getRecentRevisionHistoryStartingFrom( projectIdentifier, startRevision );
     }
 
 }
