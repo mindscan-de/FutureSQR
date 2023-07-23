@@ -78,6 +78,12 @@ public class ScanIndexScmRevisionsForwardTask extends FSqrBackgroundTaskBase {
         for (FSqrRevision fSqrRevision : revisionsCopy) {
             // TODO index this revision in database if this revision is not present in the database
             // doublecheck here or in the database call.
+
+            // TODO: queue in an analytics task for each new revision? or just emit an event, such that a task can
+            //       subscribe to this event and then can the analytics decide whether to do somethign (this sounds 
+            //       more useful to me instead of just triggering the task.
+            // TODO: sounds we need an event dispatcher and an event subscription model.
+            // TODO: that also means we need access to the event dispatching mechanism.
         }
     }
 
