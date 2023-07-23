@@ -33,7 +33,7 @@ import de.mindscan.futuresqr.tasks.FSqrBackgroundTask;
  * When we commit and update the revisions we start at the oldest known 
  * revision in the database for a certain project with a certain revision.  
  */
-public class ScanIndexRevisionsForwardTask implements FSqrBackgroundTask {
+public class ScanIndexScmRevisionsForwardTask implements FSqrBackgroundTask {
 
     private String projectIdentifier;
     private String projectBranch;
@@ -42,7 +42,7 @@ public class ScanIndexRevisionsForwardTask implements FSqrBackgroundTask {
     /**
      * 
      */
-    public ScanIndexRevisionsForwardTask( String projectIdentifier, String projectBranch, String startRevision ) {
+    public ScanIndexScmRevisionsForwardTask( String projectIdentifier, String projectBranch, String startRevision ) {
         this.projectIdentifier = projectIdentifier;
         this.projectBranch = projectBranch;
         this.startRevision = startRevision;

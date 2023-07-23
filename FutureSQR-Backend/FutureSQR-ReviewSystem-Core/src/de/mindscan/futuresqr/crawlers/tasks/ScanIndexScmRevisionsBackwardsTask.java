@@ -35,7 +35,7 @@ import de.mindscan.futuresqr.tasks.FSqrBackgroundTask;
  * provide maximum usability such that a recovery or first startup and also 
  * recoverability in case the update is interrupted somehow.
  */
-public class ScanIndexRevisionsBackwardsTask implements FSqrBackgroundTask {
+public class ScanIndexScmRevisionsBackwardsTask implements FSqrBackgroundTask {
 
     private String projectIdentifier;
     private String projectBranch;
@@ -44,7 +44,7 @@ public class ScanIndexRevisionsBackwardsTask implements FSqrBackgroundTask {
     /**
      * 
      */
-    public ScanIndexRevisionsBackwardsTask( String projectIdentifier, String projectBranch, String startRevision ) {
+    public ScanIndexScmRevisionsBackwardsTask( String projectIdentifier, String projectBranch, String startRevision ) {
         this.projectIdentifier = projectIdentifier;
         this.projectBranch = projectBranch;
         this.startRevision = startRevision;
