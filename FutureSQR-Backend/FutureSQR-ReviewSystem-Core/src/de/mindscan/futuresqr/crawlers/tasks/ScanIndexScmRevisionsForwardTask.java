@@ -25,7 +25,12 @@
  */
 package de.mindscan.futuresqr.crawlers.tasks;
 
-import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
+import java.util.Collections;
+import java.util.List;
+
+import de.mindscan.futuresqr.domain.model.FSqrRevision;
+import de.mindscan.futuresqr.domain.model.FSqrScmHistory;
+import de.mindscan.futuresqr.domain.repository.FSqrScmRepositoryServices;
 import de.mindscan.futuresqr.tasks.FSqrBackgroundTaskBase;
 
 /**
@@ -56,8 +61,24 @@ public class ScanIndexScmRevisionsForwardTask extends FSqrBackgroundTaskBase {
     public void execute() {
         // TODO: set execution context / also we want a kind of repository implementation related to crawler only code
 
-        FSqrApplicationServices services = getTaskContext().getServices();
-        services.getScmRepositoryServices().getRecentRevisionHistoryStartingFrom( projectIdentifier, startRevision );
+        // use a different crawler services repository... 
+        FSqrScmRepositoryServices scmRepositoryServices = getTaskContext().getServices().getScmRepositoryServices();
+
+        FSqrScmHistory newRevisions = scmRepositoryServices.getRecentRevisionHistoryStartingFrom( projectIdentifier, startRevision );
+
+        List<FSqrRevision> revisionsCopy = newRevisions.getRevisionsCopy();
+
+        // TODO do some automatization here - 
+        // automatic also time is not perfect because different clocks may different in real world.
+        // reverse the order such that from oldest to newest - and only index non indexed versions, 
+        // idea is if this is interrupted somehow, the index can continue later.
+        // should be done automatically sort by commitdate or by parent version...
+        Collections.reverse( revisionsCopy );
+
+        for (FSqrRevision fSqrRevision : revisionsCopy) {
+            // TODO index this revision in database if this revision is not present in the database
+            // doublecheck here or in the database call.
+        }
     }
 
 }
