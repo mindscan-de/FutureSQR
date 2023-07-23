@@ -25,9 +25,13 @@
  */
 package de.mindscan.futuresqr.tasks;
 
+import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
+
 /**
  * 
  */
 public interface FSqrTaskExecutionContext {
+
+    FSqrApplicationServices getServices();
 
 }

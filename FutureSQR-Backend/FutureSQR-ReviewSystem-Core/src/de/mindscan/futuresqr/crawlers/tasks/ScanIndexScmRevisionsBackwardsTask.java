@@ -25,6 +25,7 @@
  */
 package de.mindscan.futuresqr.crawlers.tasks;
 
+import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.tasks.FSqrBackgroundTaskBase;
 
 /**
@@ -57,8 +58,9 @@ public class ScanIndexScmRevisionsBackwardsTask extends FSqrBackgroundTaskBase {
      */
     @Override
     public void execute() {
-        // TODO Auto-generated method stub
+        FSqrApplicationServices services = getTaskContext().getServices();
 
+        services.getScmRepositoryServices().getRecentRevisionHistoryStartingFrom( projectIdentifier, startRevision );
     }
 
 }
