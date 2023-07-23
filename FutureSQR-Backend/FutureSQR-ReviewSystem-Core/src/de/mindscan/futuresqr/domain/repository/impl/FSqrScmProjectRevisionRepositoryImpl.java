@@ -397,7 +397,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         // TODO: retrieve the current values from database.
         // TODO: the crawler will put that info into the database.
 
-        return retrieveRecentRevisionsFromStartingRevisionFromScm( projectId, fromRevision );
+        return applicationServices.getScmRepositoryServices().retrieveRecentRevisionsFromStartingRevisionFromScm( projectId, fromRevision );
     }
 
     // ================================================
@@ -465,16 +465,6 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
             ScmHistory nRecentHistory = gitHistoryProvider.getNRecentRevisions( toScmRepository( scmConfiguration ), count );
 
-            return translate( nRecentHistory, projectId );
-        }
-
-        return null;
-    }
-
-    public FSqrScmHistory retrieveRecentRevisionsFromStartingRevisionFromScm( String projectId, String fromRevision ) {
-        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
-        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
-            ScmHistory nRecentHistory = gitHistoryProvider.getRecentRevisionsFromStartingRevision( toScmRepository( scmConfiguration ), fromRevision );
             return translate( nRecentHistory, projectId );
         }
 
