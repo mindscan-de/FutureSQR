@@ -43,7 +43,9 @@ public interface FSqrScmRepositoryServices extends FSqrRepository {
 
     // -------------------------------------------------------------------------------------------------------
     // collection for scm access only stuff moved from other code, which should solely depend on database code
+    // TODO: maybe this code should be extracted to the crawler.
     // -------------------------------------------------------------------------------------------------------
+
     // get head revision from scm
     FSqrRevisionFullChangeSet getHeadRevisionFullChangeSetFromScm( String projectId );
 
