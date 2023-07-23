@@ -44,6 +44,6 @@ public interface FSqrScmRepositoryServices extends FSqrRepository {
     // get head revision from scm
     FSqrRevisionFullChangeSet getHeadRevisionFullChangeSetFromScm( String projectId );
 
-    FSqrScmHistory retrieveRecentRevisionsFromStartingRevisionFromScm( String projectId, String fromRevision );
+    FSqrScmHistory getRecentRevisionHistoryStartingFrom( String projectId, String fromRevision );
 
 }

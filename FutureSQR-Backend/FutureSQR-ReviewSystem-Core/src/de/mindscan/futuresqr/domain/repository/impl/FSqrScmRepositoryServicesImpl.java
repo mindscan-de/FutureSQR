@@ -169,7 +169,7 @@ public class FSqrScmRepositoryServicesImpl implements FSqrScmRepositoryServices 
      * {@inheritDoc}
      */
     @Override
-    public FSqrScmHistory retrieveRecentRevisionsFromStartingRevisionFromScm( String projectId, String fromRevision ) {
+    public FSqrScmHistory getRecentRevisionHistoryStartingFrom( String projectId, String fromRevision ) {
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
             ScmHistory nRecentHistory = gitScmHistoryProvider.getRecentRevisionsFromStartingRevision( toScmRepository( scmConfiguration ), fromRevision );

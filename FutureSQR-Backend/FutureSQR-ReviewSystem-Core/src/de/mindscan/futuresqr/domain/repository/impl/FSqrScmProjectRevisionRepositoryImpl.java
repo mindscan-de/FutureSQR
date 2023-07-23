@@ -397,7 +397,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         // TODO: retrieve the current values from database.
         // TODO: the crawler will put that info into the database.
 
-        return applicationServices.getScmRepositoryServices().retrieveRecentRevisionsFromStartingRevisionFromScm( projectId, fromRevision );
+        return applicationServices.getScmRepositoryServices().getRecentRevisionHistoryStartingFrom( projectId, fromRevision );
     }
 
     // ================================================
