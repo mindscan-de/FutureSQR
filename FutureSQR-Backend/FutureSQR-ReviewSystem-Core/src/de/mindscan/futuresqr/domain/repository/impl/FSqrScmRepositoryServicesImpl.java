@@ -28,6 +28,10 @@ package de.mindscan.futuresqr.domain.repository.impl;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServicesUnitialized;
 import de.mindscan.futuresqr.domain.configuration.impl.FSqrScmConfigrationProvider;
+import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
+import de.mindscan.futuresqr.domain.model.FSqrCodeReviewLifecycleState;
+import de.mindscan.futuresqr.domain.model.FSqrRevision;
+import de.mindscan.futuresqr.domain.model.FSqrScmHistory;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectType;
 import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
@@ -35,8 +39,11 @@ import de.mindscan.futuresqr.domain.model.m2m.ScmRepositoryFactory;
 import de.mindscan.futuresqr.domain.repository.FSqrScmRepositoryServices;
 import de.mindscan.futuresqr.scmaccess.ScmAccessFactory;
 import de.mindscan.futuresqr.scmaccess.ScmContentProvider;
+import de.mindscan.futuresqr.scmaccess.ScmHistoryProvider;
 import de.mindscan.futuresqr.scmaccess.ScmRepositoryServicesProvider;
+import de.mindscan.futuresqr.scmaccess.types.ScmBasicRevisionInformation;
 import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
+import de.mindscan.futuresqr.scmaccess.types.ScmHistory;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
 /**
@@ -72,6 +79,7 @@ public class FSqrScmRepositoryServicesImpl implements FSqrScmRepositoryServices 
     private FSqrApplicationServices applicationServices;
     private ScmRepositoryServicesProvider gitScmRepositoryServicesProvider;
     private ScmContentProvider gitScmContentProvider;
+    private ScmHistoryProvider gitScmHistoryProvider;
 
     /**
      * 
@@ -81,6 +89,7 @@ public class FSqrScmRepositoryServicesImpl implements FSqrScmRepositoryServices 
 
         this.gitScmRepositoryServicesProvider = ScmAccessFactory.getEmptyRepositoryServicesProvider();
         this.gitScmContentProvider = ScmAccessFactory.getEmptyContentProvider();
+        this.gitScmHistoryProvider = ScmAccessFactory.getEmptyHistoryProvider();
     }
 
     /** 
@@ -94,6 +103,7 @@ public class FSqrScmRepositoryServicesImpl implements FSqrScmRepositoryServices 
                         .getGitRepositoryServicesProvider( new FSqrScmConfigrationProvider( services.getSystemConfiguration() ) );
 
         this.gitScmContentProvider = ScmAccessFactory.getGitContentProvider( new FSqrScmConfigrationProvider( services.getSystemConfiguration() ) );
+        this.gitScmHistoryProvider = ScmAccessFactory.getGitHistoryProvider( new FSqrScmConfigrationProvider( services.getSystemConfiguration() ) );
 
     }
 
@@ -153,6 +163,48 @@ public class FSqrScmRepositoryServicesImpl implements FSqrScmRepositoryServices 
     @Override
     public void cloneCheckoutToProjectCache( String projectId ) {
         // TODO Auto-generated method stub
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public FSqrScmHistory retrieveRecentRevisionsFromStartingRevisionFromScm( String projectId, String fromRevision ) {
+        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
+        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
+            ScmHistory nRecentHistory = gitScmHistoryProvider.getRecentRevisionsFromStartingRevision( toScmRepository( scmConfiguration ), fromRevision );
+            return translate( nRecentHistory, projectId );
+        }
+
+        return null;
+    }
+
+    private FSqrScmHistory translate( ScmHistory nRecentHistory, String projectId ) {
+        FSqrScmHistory result = new FSqrScmHistory();
+
+        nRecentHistory.revisions.stream().forEach( x -> result.addRevision( translate( x, projectId ) ) );
+
+        return result;
+    }
+
+    // TODO: 
+    // this does queries, on the revision info and adds review infos about the revision - this
+    // calculation can not be cached, because the code review state may change for some time. 
+    private FSqrRevision translate( ScmBasicRevisionInformation x, String projectId ) {
+        FSqrRevision result = new FSqrRevision( x );
+
+        String authorUUID = applicationServices.getUserRepository().getUserUUID( x.authorName );
+        result.setAuthorUuid( authorUUID );
+
+        // calculate whether a review is known for this 
+        if (applicationServices.getReviewRepository().hasReviewForProjectAndRevision( projectId, x.revisionId )) {
+            result.setHasAttachedReview( true );
+            FSqrCodeReview review = applicationServices.getReviewRepository().getReviewForProjectAndRevision( projectId, x.revisionId );
+            result.setReviewId( review.getReviewId() );
+            result.setReviewClosed( review.getCurrentReviewState() == FSqrCodeReviewLifecycleState.Closed );
+        }
+
+        return result;
     }
 
 }

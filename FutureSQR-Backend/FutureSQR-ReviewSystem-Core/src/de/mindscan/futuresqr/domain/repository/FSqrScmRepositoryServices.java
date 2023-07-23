@@ -25,6 +25,7 @@
  */
 package de.mindscan.futuresqr.domain.repository;
 
+import de.mindscan.futuresqr.domain.model.FSqrScmHistory;
 import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
 
 /**
@@ -42,5 +43,7 @@ public interface FSqrScmRepositoryServices extends FSqrRepository {
 
     // get head revision from scm
     FSqrRevisionFullChangeSet getHeadRevisionFullChangeSetFromScm( String projectId );
+
+    FSqrScmHistory retrieveRecentRevisionsFromStartingRevisionFromScm( String projectId, String fromRevision );
 
 }
