@@ -32,7 +32,7 @@ import java.util.List;
  * 
  */
 public class FSqrScmHistory {
-    private List<FSqrRevision> revisions = new ArrayList<>();
+    private ArrayList<FSqrRevision> revisions = new ArrayList<>();
     private boolean hasLimit = false;
     private int limitValue = -1;
 
@@ -41,6 +41,11 @@ public class FSqrScmHistory {
 
     public List<FSqrRevision> getRevisions() {
         return revisions;
+    }
+
+    @SuppressWarnings( "unchecked" )
+    public List<FSqrRevision> getRevisionsCopy() {
+        return (List<FSqrRevision>) revisions.clone();
     }
 
     public int getNumberOfREevisions() {
