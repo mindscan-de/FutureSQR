@@ -28,6 +28,8 @@ package de.mindscan.futuresqr.crawlers.tasks;
 import java.util.Collections;
 import java.util.List;
 
+import de.mindscan.futuresqr.core.events.FSqrEvent;
+import de.mindscan.futuresqr.crawlers.events.NewRevisionFoundEvent;
 import de.mindscan.futuresqr.domain.model.FSqrRevision;
 import de.mindscan.futuresqr.domain.model.FSqrScmHistory;
 import de.mindscan.futuresqr.domain.repository.FSqrScmRepositoryServices;
@@ -84,7 +86,19 @@ public class ScanIndexScmRevisionsForwardTask extends FSqrBackgroundTaskBase {
             //       more useful to me instead of just triggering the task.
             // TODO: sounds we need an event dispatcher and an event subscription model.
             // TODO: that also means we need access to the event dispatching mechanism.
+
+            // * dispatch a Event, that we found a new revision,
+            // * we want to do different actions, e.g.  
+            // * - TODO: collect filenames?
+            // * - TODO: collect diff in case of it is recent enough?
+            // * - TODO: do we want to insert this into a database using this event?
+            dispatchEvent( new NewRevisionFoundEvent( projectIdentifier, projectBranch, fSqrRevision ) );
         }
+    }
+
+    protected void dispatchEvent( FSqrEvent event ) {
+        // TODO: implement a 
+        // eventDispatcher.dispatchEvent(new NewRevisionFoundEvent(projectIdentifier, projectBranch, fSqrRevision));
     }
 
 }
