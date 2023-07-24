@@ -64,6 +64,8 @@ public interface FSqrBackgroundTask {
      * we need to provide an information about the Execution Context, such that a task can signal success
      * failure or any other kind of events. 
      * 
+     * provide an event consumer which will collect events for the next round. 
+     * 
      */
     void execute();
 
