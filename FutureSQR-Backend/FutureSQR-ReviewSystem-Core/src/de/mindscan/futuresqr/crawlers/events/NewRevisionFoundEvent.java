@@ -26,10 +26,21 @@
 package de.mindscan.futuresqr.crawlers.events;
 
 import de.mindscan.futuresqr.core.events.FSqrEvent;
+import de.mindscan.futuresqr.domain.model.FSqrRevision;
 
 /**
  * TODO: project and branch access interface + fsqrrevision access interface
  */
 public class NewRevisionFoundEvent implements FSqrEvent {
+
+    private String projectIdentifier;
+    private String projectBranch;
+    private FSqrRevision fSqrRevision;
+
+    public NewRevisionFoundEvent( String projectIdentifier, String projectBranch, FSqrRevision fSqrRevision ) {
+        this.projectIdentifier = projectIdentifier;
+        this.projectBranch = projectBranch;
+        this.fSqrRevision = fSqrRevision;
+    }
 
 }
