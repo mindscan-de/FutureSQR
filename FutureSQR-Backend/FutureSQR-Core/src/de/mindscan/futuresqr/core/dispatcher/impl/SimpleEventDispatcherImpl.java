@@ -75,19 +75,32 @@ public class SimpleEventDispatcherImpl implements EventDispatcher {
         // but this can be saved for later.
         // TODO: implement parent class listener support.
 
+        // eventClass.getSuperclass(); && instance of FSqrEvent
+        Set<FSqrEventListener> invokedListeners = new HashSet<>();
+
+        invokeEventListenersForClass( event, eventClass, invokedListeners );
+    }
+
+    public void invokeEventListenersForClass( FSqrEvent event, Class<? extends FSqrEvent> eventClass, Set<FSqrEventListener> invokedListeners ) {
         Set<FSqrEventListener> eventListeners = listenerMap.get( eventClass );
 
-        // eventClass.getSuperclass(); && instance of FSqrEvent
+        if (eventListeners == null) {
+            return;
+        }
 
-        if (eventListeners != null) {
-            for (FSqrEventListener eventListener : eventListeners) {
-                // then call (all) the event handler(s).
-                try {
-                    eventListener.handleEvent( event );
-                }
-                catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+        // call (all) the event handler(s) for this class.
+        for (FSqrEventListener eventListener : eventListeners) {
+            // Did we call this listener already ?
+            if (invokedListeners.contains( eventListener )) {
+                continue;
+            }
+
+            try {
+                eventListener.handleEvent( event );
+                invokedListeners.add( eventListener );
+            }
+            catch (Exception ex) {
+                ex.printStackTrace();
             }
         }
     }
