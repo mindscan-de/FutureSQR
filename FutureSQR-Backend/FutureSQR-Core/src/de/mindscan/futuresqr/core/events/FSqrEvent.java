@@ -26,7 +26,13 @@
 package de.mindscan.futuresqr.core.events;
 
 /**
+ * TODO: BackgroundTaskStartedEvent
+ * TODO: BackgroundTaskFinishedEvent
+ * TODO: BackgroundTaskExceptionEvent 
  * 
+ * TODO: TaskExecutionStartedEvent
+ * TODO: TaskExecutionFinishedEvent
+ * TODO: TaskExecutionExceptionEvent
  */
 public interface FSqrEvent {
 
