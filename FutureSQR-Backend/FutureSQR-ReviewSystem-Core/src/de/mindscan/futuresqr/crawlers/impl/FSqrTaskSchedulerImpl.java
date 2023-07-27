@@ -25,7 +25,7 @@
  */
 package de.mindscan.futuresqr.crawlers.impl;
 
-import de.mindscan.futuresqr.tasks.FSqrBackgroundTaskBase;
+import de.mindscan.futuresqr.tasks.FSqrBackgroundTask;
 
 /**
  * 
@@ -36,8 +36,26 @@ public class FSqrTaskSchedulerImpl implements FSqrTaskScheduler {
      * {@inheritDoc}
      */
     @Override
-    public void schedule( FSqrBackgroundTaskBase task ) {
+    public void schedule( FSqrBackgroundTask task ) {
         // TODO Auto-generated method stub
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean hasQueriedTasks() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public FSqrBackgroundTask popQueriedTask() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }
