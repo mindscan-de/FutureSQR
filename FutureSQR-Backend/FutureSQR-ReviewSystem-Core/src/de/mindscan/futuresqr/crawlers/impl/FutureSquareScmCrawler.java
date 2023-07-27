@@ -44,6 +44,7 @@ public class FutureSquareScmCrawler {
 
     private FSqrApplication application;
     private FSqrTaskScheduler taskScheduler;
+    private FSqrTaskRunner taskRunner;
 
     /**
      * 
@@ -52,15 +53,19 @@ public class FutureSquareScmCrawler {
         this.application = FSqrApplication.getInstance();
 
         this.taskScheduler = new FSqrTaskSchedulerImpl();
+        this.taskRunner = new FSqrTaskRunnerImpl();
     }
 
     public void run() {
         // TODO setup the application
 
         // TODO then call crawl.
-        // while taskScheduler.hasTasks() {
-        //   this.taskRunner.runQueriedTasks( this.taskScheduler.popTask() );
-        // }
+        // this.taskScheduler.schedule(new CrawlProjectOnBranchTask());
+
+        // run all queried tasks
+        while (this.taskScheduler.hasQueriedTasks()) {
+            this.taskRunner.runQueriedTasks( this.taskScheduler.popQueriedTask() );
+        }
     }
 
     public void crawl() {
