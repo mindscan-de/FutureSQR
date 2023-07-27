@@ -25,6 +25,9 @@
  */
 package de.mindscan.futuresqr.crawlers.impl;
 
+import java.util.Deque;
+import java.util.LinkedList;
+
 import de.mindscan.futuresqr.tasks.FSqrBackgroundTask;
 
 /**
@@ -32,12 +35,16 @@ import de.mindscan.futuresqr.tasks.FSqrBackgroundTask;
  */
 public class FSqrTaskSchedulerImpl implements FSqrTaskScheduler {
 
+    private Deque<FSqrBackgroundTask> taskDequeue = new LinkedList<>();
+
     /** 
      * {@inheritDoc}
      */
     @Override
     public void schedule( FSqrBackgroundTask task ) {
-        // TODO Auto-generated method stub
+        synchronized (taskDequeue) {
+            taskDequeue.addLast( task );
+        }
     }
 
     /** 
@@ -45,8 +52,9 @@ public class FSqrTaskSchedulerImpl implements FSqrTaskScheduler {
      */
     @Override
     public boolean hasQueriedTasks() {
-        // TODO Auto-generated method stub
-        return false;
+        synchronized (taskDequeue) {
+            return !taskDequeue.isEmpty();
+        }
     }
 
     /** 
@@ -54,8 +62,9 @@ public class FSqrTaskSchedulerImpl implements FSqrTaskScheduler {
      */
     @Override
     public FSqrBackgroundTask popQueriedTask() {
-        // TODO Auto-generated method stub
-        return null;
+        synchronized (taskDequeue) {
+            return taskDequeue.getFirst();
+        }
     }
 
 }
