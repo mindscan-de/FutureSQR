@@ -25,9 +25,13 @@
  */
 package de.mindscan.futuresqr.crawlers.impl;
 
+import de.mindscan.futuresqr.tasks.FSqrBackgroundTaskBase;
+
 /**
  * 
  */
 public interface FSqrTaskScheduler {
+
+    void schedule( FSqrBackgroundTaskBase task );
 
 }

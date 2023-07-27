@@ -162,8 +162,9 @@ public class FutureSquareScmCrawler {
         scheduleTask( new ScanIndexScmRevisionsBackwardsTask( projectId, projectBranch, fromRevision ) );
     }
 
-    private void scheduleTask( FSqrBackgroundTaskBase scanIndexScmRevisionsForwardTask ) {
+    private void scheduleTask( FSqrBackgroundTaskBase task ) {
         // TODO implement a task-scheduler then schedule task.
+        this.taskScheduler.schedule( task );
     }
 
     // TODO: we need the scm project configuration / e.g. refresh intervall,

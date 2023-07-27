@@ -25,9 +25,19 @@
  */
 package de.mindscan.futuresqr.crawlers.impl;
 
+import de.mindscan.futuresqr.tasks.FSqrBackgroundTaskBase;
+
 /**
  * 
  */
 public class FSqrTaskSchedulerImpl implements FSqrTaskScheduler {
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void schedule( FSqrBackgroundTaskBase task ) {
+        // TODO Auto-generated method stub
+    }
 
 }
