@@ -25,9 +25,16 @@
  */
 package de.mindscan.futuresqr.crawlers.impl;
 
+import de.mindscan.futuresqr.tasks.FSqrBackgroundTask;
+
 /**
  * 
  */
 public interface FSqrTaskRunner {
+
+    /**
+     * @param popQueriedTask
+     */
+    void runQueriedTasks( FSqrBackgroundTask popQueriedTask );
 
 }
