@@ -43,6 +43,7 @@ import de.mindscan.futuresqr.tasks.FSqrBackgroundTaskBase;
 public class FutureSquareScmCrawler {
 
     private FSqrApplication application;
+    private FSqrTaskScheduler taskScheduler;
 
     /**
      * 
@@ -51,6 +52,7 @@ public class FutureSquareScmCrawler {
         this.application = FSqrApplication.getInstance();
 
         // TODO: start with task scheduler and event scheduler.
+        this.taskScheduler = new FSqrTaskSchedulerImpl();
     }
 
     public void crawl() {
@@ -149,14 +151,6 @@ public class FutureSquareScmCrawler {
 
     }
 
-    /**
-     * @param scanIndexScmRevisionsForwardTask
-     */
-    private void scheduleTask( FSqrBackgroundTaskBase scanIndexScmRevisionsForwardTask ) {
-        // TODO 
-
-    }
-
     private void runFullIndexForProjectAndBranch( FSqrScmProjectConfiguration scmProject, String projectId, String projectBranch, String fromRevision ) {
         // TODO index backward until either too old or when done.
         // background task 
@@ -166,6 +160,10 @@ public class FutureSquareScmCrawler {
         // maybe also run the analytics for each (forward indexed revision, to whether to add the revision or not)
 
         scheduleTask( new ScanIndexScmRevisionsBackwardsTask( projectId, projectBranch, fromRevision ) );
+    }
+
+    private void scheduleTask( FSqrBackgroundTaskBase scanIndexScmRevisionsForwardTask ) {
+        // TODO implement a task-scheduler then schedule task.
     }
 
     // TODO: we need the scm project configuration / e.g. refresh intervall,
