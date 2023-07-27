@@ -176,7 +176,6 @@ public class FutureSquareScmCrawler {
     }
 
     private void scheduleTask( FSqrBackgroundTaskBase task ) {
-        // TODO implement a task-scheduler then schedule task.
         this.taskScheduler.schedule( task );
     }
 
