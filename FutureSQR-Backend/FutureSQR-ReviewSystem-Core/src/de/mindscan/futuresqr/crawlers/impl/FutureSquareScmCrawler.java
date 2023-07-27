@@ -27,13 +27,15 @@ package de.mindscan.futuresqr.crawlers.impl;
 
 import java.util.Collection;
 
+import de.mindscan.futuresqr.crawlers.tasks.ScanIndexScmRevisionsBackwardsTask;
+import de.mindscan.futuresqr.crawlers.tasks.ScanIndexScmRevisionsForwardTask;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.domain.model.FSqrRevision;
-import de.mindscan.futuresqr.domain.model.FSqrScmHistory;
 import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
 import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
 import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationRepository;
+import de.mindscan.futuresqr.tasks.FSqrBackgroundTaskBase;
 
 /**
  * 
@@ -47,6 +49,8 @@ public class FutureSquareScmCrawler {
      */
     public FutureSquareScmCrawler() {
         this.application = FSqrApplication.getInstance();
+
+        // TODO: start with task scheduler and event scheduler.
     }
 
     public void crawl() {
@@ -123,12 +127,9 @@ public class FutureSquareScmCrawler {
                 continue;
             }
 
-            // TODO: index forward starting from db revision
-
-            // TODO here we know that the top of scm and the top of database do not match
-            // well we schould index from last known dbrevision.
-            FSqrScmHistory newSinceLastKnownRevision = services.getRevisionRepository().getRecentRevisionHistoryStartingFrom( projectId,
-                            dbProjectHeadRevision.getRevisionId() );
+            // here we know that the top of scm and the top of database do not match
+            // well we should index from last known revision known to the database.
+            scheduleTask( new ScanIndexScmRevisionsForwardTask( projectId, projectBranch, dbProjectHeadRevision.getRevisionId() ) );
 
             // TODO: in cases of branches it is a bit different.
             // TODO: we have to access the default branches and all other branches
@@ -148,6 +149,14 @@ public class FutureSquareScmCrawler {
 
     }
 
+    /**
+     * @param scanIndexScmRevisionsForwardTask
+     */
+    private void scheduleTask( FSqrBackgroundTaskBase scanIndexScmRevisionsForwardTask ) {
+        // TODO 
+
+    }
+
     private void runFullIndexForProjectAndBranch( FSqrScmProjectConfiguration scmProject, String projectId, String projectBranch, String fromRevision ) {
         // TODO index backward until either too old or when done.
         // background task 
@@ -155,6 +164,8 @@ public class FutureSquareScmCrawler {
         // and maybe not in a backup/restore/install situation.  but the revisions must be known, and the files which were touched by this revisions
         // this is for analytics of ownership of the revisions.
         // maybe also run the analytics for each (forward indexed revision, to whether to add the revision or not)
+
+        scheduleTask( new ScanIndexScmRevisionsBackwardsTask( projectId, projectBranch, fromRevision ) );
     }
 
     // TODO: we need the scm project configuration / e.g. refresh intervall,
