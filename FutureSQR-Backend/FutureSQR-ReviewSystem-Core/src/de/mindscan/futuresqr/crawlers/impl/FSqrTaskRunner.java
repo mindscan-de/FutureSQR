@@ -35,6 +35,6 @@ public interface FSqrTaskRunner {
     /**
      * @param popQueriedTask
      */
-    void runQueriedTask( FSqrBackgroundTask popQueriedTask );
+    void runQueriedTask( FSqrBackgroundTask task );
 
 }
