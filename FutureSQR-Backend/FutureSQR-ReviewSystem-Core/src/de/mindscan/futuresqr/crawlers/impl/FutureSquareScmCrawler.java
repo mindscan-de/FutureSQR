@@ -64,7 +64,7 @@ public class FutureSquareScmCrawler {
 
         // run all queried tasks
         while (this.taskScheduler.hasQueriedTasks()) {
-            this.taskRunner.runQueriedTasks( this.taskScheduler.popQueriedTask() );
+            this.taskRunner.runQueriedTask( this.taskScheduler.popQueriedTask() );
         }
     }
 

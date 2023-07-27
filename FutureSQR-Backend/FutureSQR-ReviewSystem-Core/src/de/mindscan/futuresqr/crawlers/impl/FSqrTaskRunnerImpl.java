@@ -36,7 +36,7 @@ public class FSqrTaskRunnerImpl implements FSqrTaskRunner {
      * {@inheritDoc}
      */
     @Override
-    public void runQueriedTasks( FSqrBackgroundTask popQueriedTask ) {
+    public void runQueriedTask( FSqrBackgroundTask popQueriedTask ) {
         // TODO Auto-generated method stub
 
     }
