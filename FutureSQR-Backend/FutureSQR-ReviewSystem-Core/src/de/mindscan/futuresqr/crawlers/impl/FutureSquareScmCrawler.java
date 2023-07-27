@@ -51,8 +51,16 @@ public class FutureSquareScmCrawler {
     public FutureSquareScmCrawler() {
         this.application = FSqrApplication.getInstance();
 
-        // TODO: start with task scheduler and event scheduler.
         this.taskScheduler = new FSqrTaskSchedulerImpl();
+    }
+
+    public void run() {
+        // TODO setup the application
+
+        // TODO then call crawl.
+        // while taskScheduler.hasTasks() {
+        //   this.taskRunner.runQueriedTasks( this.taskScheduler.popTask() );
+        // }
     }
 
     public void crawl() {
