@@ -28,11 +28,20 @@ package de.mindscan.futuresqr.crawlers.events;
 import de.mindscan.futuresqr.core.events.FSqrEvent;
 
 /**
+ * This event is triggered, when a new branch is discovered for each single projectIdentifier 
+ * and projectBranch. We probably should also add the URL for different reasons - but for SVN
+ * it might be handy, but this url may also be retrievable by the SCM branch read on a database.
+ * 
+ * Let's see this is not yet decided.
+ * 
  * Thing is that this event is only fired, when the Scm-Configuration was added to
  * the database.
  * 
  * Maybe the indexers will subscribe to this event, such that they can autoindex /
  * autocrawl / a newly discovered branch.
+ * 
+ * 
+ * TODO URL for the branch as well?
  */
 public class NewBranchDiscoveredEvent implements FSqrEvent {
 
