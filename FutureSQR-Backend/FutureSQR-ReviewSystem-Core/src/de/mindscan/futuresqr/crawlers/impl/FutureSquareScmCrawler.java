@@ -150,12 +150,11 @@ public class FutureSquareScmCrawler {
             }
 
             // here we know that the top of scm and the top of database do not match
-            // well we should index from last known revision known to the database.
+            // well we should index from last known revision known to the database to 
+            // the head revision.
             scheduleTask( new ScanIndexScmRevisionsForwardTask( projectId, projectBranch, dbProjectHeadRevision.getRevisionId() ) );
 
-            // TODO: in cases of branches it is a bit different.
             // TODO: we have to access the default branches and all other branches
-            // TODO: unknown branches should be handled elsewhere, do only one branch at a time.
 
             //   according to repotype we have different collection and invocation strategies.....
             // * retrieve the scm history from since that revision - but, someone can come with a branch which started 
