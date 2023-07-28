@@ -129,7 +129,14 @@ public class FutureSquareScmCrawler {
                 // maybe we should instantiate a new task and add that task to our work queue.
 
                 // index backwards
-                runFullIndexForProjectAndBranch( scmProject, projectId, projectBranch, scmProjectHead.getRevisionId() );
+                // index backward until either too old or when done.
+                // background task 
+                // not only we want to crawl the revision info, but also the diffs and other info as well / even though we might not keep the diffs forever 
+                // and maybe not in a backup/restore/install situation.  but the revisions must be known, and the files which were touched by this revisions
+                // this is for analytics of ownership of the revisions.
+                // maybe also run the analytics for each (forward indexed revision, to whether to add the revision or not)
+
+                scheduleTask( new ScanIndexScmRevisionsBackwardsTask( projectId, projectBranch, scmProjectHead.getRevisionId() ) );
 
                 continue;
             }
@@ -158,33 +165,13 @@ public class FutureSquareScmCrawler {
             //   actually add new work for to the work queue
             // * we may add another work queue item to retrieve the diffs ...  but lets do that later
 
-            // TODO: autodetect branches?
-            // * 
         }
 
-    }
-
-    private void runFullIndexForProjectAndBranch( FSqrScmProjectConfiguration scmProject, String projectId, String projectBranch, String fromRevision ) {
-        // TODO index backward until either too old or when done.
-        // background task 
-        // not only we want to crawl the revision info, but also the diffs and other info as well / even though we might not keep the diffs forever 
-        // and maybe not in a backup/restore/install situation.  but the revisions must be known, and the files which were touched by this revisions
-        // this is for analytics of ownership of the revisions.
-        // maybe also run the analytics for each (forward indexed revision, to whether to add the revision or not)
-
-        scheduleTask( new ScanIndexScmRevisionsBackwardsTask( projectId, projectBranch, fromRevision ) );
     }
 
     private void scheduleTask( FSqrBackgroundTaskBase task ) {
         this.taskScheduler.schedule( task );
     }
-
-    // TODO: we need the scm project configuration / e.g. refresh intervall,
-    // 
-    // for git and svn we must have different strategies, 
-    //   like, for svn we need a server configuration, such that multiple projects can be observed at once, in cases
-    //   where branches and projects are basically in the same "branches" folder, and checking for changes 
-    // 
 
     // TODO we have a hen-egg situation
     // we want to index revision data, since latest indexed revision.... from zero... and insert these into the scm revisions table. 
