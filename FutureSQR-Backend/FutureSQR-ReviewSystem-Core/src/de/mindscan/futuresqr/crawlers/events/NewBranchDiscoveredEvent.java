@@ -30,6 +30,9 @@ import de.mindscan.futuresqr.core.events.FSqrEvent;
 /**
  * Thing is that this event is only fired, when the Scm-Configuration was added to
  * the database.
+ * 
+ * Maybe the indexers will subscribe to this event, such that they can autoindex /
+ * autocrawl / a newly discovered branch.
  */
 public class NewBranchDiscoveredEvent implements FSqrEvent {
 
