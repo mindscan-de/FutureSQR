@@ -39,7 +39,8 @@ import de.mindscan.futuresqr.core.events.FSqrEvent;
  * 
  * Maybe the indexers will subscribe to this event, such that they can autoindex /
  * autocrawl / a newly discovered branch.
- * 
+ * Maybe we want to trigger also a branch analytics task or something else, e.g. to
+ * analyze the branching structure for some reason.
  * 
  * TODO URL for the branch as well?
  */
