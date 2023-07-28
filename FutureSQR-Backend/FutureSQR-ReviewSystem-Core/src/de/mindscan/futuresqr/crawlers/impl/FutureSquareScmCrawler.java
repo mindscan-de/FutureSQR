@@ -38,7 +38,9 @@ import de.mindscan.futuresqr.domain.repository.FSqrScmProjectConfigurationReposi
 import de.mindscan.futuresqr.tasks.FSqrBackgroundTaskBase;
 
 /**
- * 
+ * TODO: EVENT STORMING:
+ * probably need to do some - event storming wallpaper - to build this event based crawler mechanism, such that
+ * it works autonomous. And it may also be triggered by ui interactions by some request events.
  */
 public class FutureSquareScmCrawler {
 
