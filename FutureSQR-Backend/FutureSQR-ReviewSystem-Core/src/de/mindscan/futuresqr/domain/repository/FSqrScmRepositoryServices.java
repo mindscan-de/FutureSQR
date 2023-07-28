@@ -29,7 +29,11 @@ import de.mindscan.futuresqr.domain.model.FSqrScmHistory;
 import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
 
 /**
- * 
+ * TODO: MOVE ME when the time is right.
+ * This part will be moved to the "crawlers" section, because the domain model / domain repository
+ * should not deal with this low level scm stuff any more. The domain repository system shouold 
+ * instead be able to issue a request to the crawler, which then deals with this request fully 
+ * asynchronous. 
  */
 public interface FSqrScmRepositoryServices extends FSqrRepository {
 
