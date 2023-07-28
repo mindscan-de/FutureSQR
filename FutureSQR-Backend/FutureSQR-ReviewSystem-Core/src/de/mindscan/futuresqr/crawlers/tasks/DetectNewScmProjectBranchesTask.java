@@ -67,8 +67,10 @@ public class DetectNewScmProjectBranchesTask extends FSqrBackgroundTaskBase {
         // TODO Auto-generated method stub
         // according to the scm we want to read all branches, and compare 
         // them to known branches
-        // in case something is new we add this configuration to the current 
-        // scm-configuration and emit a NewBranchDiscoveredEvent
+        // we also want to check if something is in the negative configuration (ignore branches, or ignore regexes)
+        // if so, we don't do anything.
+        // in case something is new we add this branch configuration to the current scm-configuration and emit 
+        // a "NewBranchDiscoveredEvent" with the projectIdentifier and the Branchname and the full url?
 
     }
 
