@@ -57,6 +57,7 @@ public class SimpleEventDispatcherImpl implements EventDispatcher {
             return;
         }
 
+        // TODO: synchronize 
         listenerMap.computeIfAbsent( eventClass, k -> new HashSet<>() ).add( listener );
     }
 
@@ -82,7 +83,8 @@ public class SimpleEventDispatcherImpl implements EventDispatcher {
     }
 
     public void invokeEventListenersForClass( FSqrEvent event, Class<? extends FSqrEvent> eventClass, Set<FSqrEventListener> invokedListeners ) {
-        Set<FSqrEventListener> eventListeners = listenerMap.get( eventClass );
+        // TODO: synchronize this access
+        Set<FSqrEventListener> eventListeners = new HashSet<>( listenerMap.get( eventClass ) );
 
         if (eventListeners == null) {
             return;
