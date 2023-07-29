@@ -64,7 +64,6 @@ import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
 import de.mindscan.futuresqr.scmaccess.types.ScmHistory;
 import de.mindscan.futuresqr.scmaccess.types.ScmPath;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
-import de.mindscan.futuresqr.scmaccess.types.ScmSingleRevisionFileChangeList;
 
 /**
  * TODO: rework the repository to use a database instead of the in-memory + scm data pull implementation
@@ -93,7 +92,9 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     // TODO: we want to get rid of the direct SCM interaction in this repository, and retrieve most of the data
     //       either from in memory storage or from a persistence/database
 
+    @Deprecated
     private ScmHistoryProvider gitHistoryProvider;
+    @Deprecated
     private ScmContentProvider gitScmContentProvider;
     private ScmRepositoryServicesProvider gitScmRepositoryServicesProvider;
 
@@ -268,6 +269,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     @Override
     public FSqrRevisionFullChangeSet getRevisionFullChangeSet( String projectId, String revisionId ) {
         FSqrRevisionFullChangeSet fullChangeSet = this.fullChangeSetCache.getFSqrRevisionFullChangeSetOrComputeIfAbsent( projectId, revisionId,
+                        // TODO: actually we want to retrieve this from database
                         this::retrieveRevisionFullChangeSetFromScm );
 
         if (fullChangeSet == null) {
@@ -369,7 +371,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         // TODO refactor from scm retrieval to sql table retrieval.
         // TODO: only if not in the database, retrieve from SCM, then update the database, then update the cache.
 
-        return retrieveRevisionFileChangeListFromScm( projectId, revisionId );
+        return applicationServices.getScmRepositoryServices().getRevisionFileChangeListFromScm( projectId, revisionId );
     }
 
     /** 
@@ -442,22 +444,6 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         }
 
         return result;
-    }
-
-    private FSqrRevisionFileChangeList retrieveRevisionFileChangeListFromScm( String projectId, String revisionId ) {
-        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
-        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
-            ScmRepository scmRepository = toScmRepository( scmConfiguration );
-            ScmSingleRevisionFileChangeList fileChangeList = gitHistoryProvider.getFileChangeListForRevision( scmRepository, revisionId );
-
-            return translate( fileChangeList, projectId );
-        }
-
-        return null;
-    }
-
-    private FSqrRevisionFileChangeList translate( ScmSingleRevisionFileChangeList fileChangeList, String projectId ) {
-        return new FSqrRevisionFileChangeList( fileChangeList );
     }
 
     private FSqrScmHistory retriveRecentRevisionHistoryFromScm( String projectId, int count ) {
