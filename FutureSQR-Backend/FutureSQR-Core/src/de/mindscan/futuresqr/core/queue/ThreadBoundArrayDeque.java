@@ -30,7 +30,7 @@ import java.util.ArrayDeque;
 import de.mindscan.futuresqr.core.thread.FSqrThread;
 
 /**
- * This is a dequeue, which will suspend the boundThread in case the dequeue is 
+ * This is a deque, which will suspend the boundThread in case the deque is 
  * empty and it will wake up the boundThread in case an element is added to the
  * ArrayDeque. 
  *   
@@ -54,7 +54,7 @@ public class ThreadBoundArrayDeque<E> extends ArrayDeque<E> {
      * {@inheritDoc}
      */
     @Override
-    public void addFirst( E e ) {
+    synchronized public void addFirst( E e ) {
         if (e == null) {
             return;
         }
@@ -68,7 +68,7 @@ public class ThreadBoundArrayDeque<E> extends ArrayDeque<E> {
      * {@inheritDoc}
      */
     @Override
-    public void addLast( E e ) {
+    synchronized public void addLast( E e ) {
         if (e == null) {
             return;
         }
@@ -82,7 +82,7 @@ public class ThreadBoundArrayDeque<E> extends ArrayDeque<E> {
      * {@inheritDoc}
      */
     @Override
-    public E pollFirst() {
+    synchronized public E pollFirst() {
         E element = super.pollFirst();
 
         if (element == null) {
@@ -96,7 +96,7 @@ public class ThreadBoundArrayDeque<E> extends ArrayDeque<E> {
      * {@inheritDoc}
      */
     @Override
-    public E pollLast() {
+    synchronized public E pollLast() {
         E element = super.pollLast();
 
         if (element == null) {
