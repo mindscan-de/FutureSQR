@@ -42,6 +42,7 @@ public class ThreadBoundArrayDeque<E> extends ArrayDeque<E> {
      */
     private static final long serialVersionUID = 62854694897881364L;
     private FSqrThread boundThread;
+    private Object mutex = new Object();
 
     /**
      * 
@@ -55,12 +56,15 @@ public class ThreadBoundArrayDeque<E> extends ArrayDeque<E> {
      */
     @SuppressWarnings( "removal" )
     @Override
-    synchronized public void addFirst( E e ) {
+    public void addFirst( E e ) {
+
         if (e == null) {
             return;
         }
 
-        super.addFirst( e );
+        synchronized (mutex) {
+            super.addFirst( e );
+        }
 
         boundThread.resume();
     }
@@ -70,12 +74,13 @@ public class ThreadBoundArrayDeque<E> extends ArrayDeque<E> {
      */
     @SuppressWarnings( "removal" )
     @Override
-    synchronized public void addLast( E e ) {
+    public void addLast( E e ) {
         if (e == null) {
             return;
         }
-
-        super.addLast( e );
+        synchronized (mutex) {
+            super.addLast( e );
+        }
 
         boundThread.resume();
     }
@@ -85,10 +90,15 @@ public class ThreadBoundArrayDeque<E> extends ArrayDeque<E> {
      */
     @SuppressWarnings( "removal" )
     @Override
-    synchronized public E pollFirst() {
-        E element = super.pollFirst();
+    public E pollFirst() {
+        E element;
+
+        synchronized (mutex) {
+            element = super.pollFirst();
+        }
 
         if (element == null) {
+            // make sure we don't suspend while holding a lock
             boundThread.suspend();
         }
 
@@ -100,10 +110,15 @@ public class ThreadBoundArrayDeque<E> extends ArrayDeque<E> {
      */
     @SuppressWarnings( "removal" )
     @Override
-    synchronized public E pollLast() {
-        E element = super.pollLast();
+    public E pollLast() {
+        E element;
+
+        synchronized (mutex) {
+            element = super.pollLast();
+        }
 
         if (element == null) {
+            // make sure we don't suspend while holding a lock
             boundThread.suspend();
         }
 
