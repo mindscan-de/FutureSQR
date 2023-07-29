@@ -345,7 +345,6 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     // =======================================================
 
     private FSqrRevision retrieveSimpleRevisionFromDatabaseTable( String projectId, String revisionId ) {
-        // TODO refactor from scm retrieval to sql table retrieval.
         FSqrRevision revisionInfo = this.revisionInfoTable.selectScmRevision( projectId, revisionId );
 
         if (revisionInfo != null) {
@@ -354,8 +353,9 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
         // FIXME later: only if not in the database, retrieve from SCM, then insert in database.
         // the insert operation should be part of the crawler mechanism, here it is just a kind of lazy indexing operation.
+        // TODO: inserting stuff into the database is responsibility of the crawler.
 
-        FSqrRevision revisionInfoFromScm = retrieveSimpleRevisionFromScm( projectId, revisionId );
+        FSqrRevision revisionInfoFromScm = applicationServices.getScmRepositoryServices().getSimpleRevisionFromScm( projectId, revisionId );
 
         this.revisionInfoTable.insertScmRevision( projectId, revisionInfoFromScm );
 
@@ -400,18 +400,6 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     // ================================================
     // ---- Move this to crawler and Database inserter.
     // ================================================    
-
-    private FSqrRevision retrieveSimpleRevisionFromScm( String projectId, String revisionId ) {
-        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
-        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
-            ScmRepository scmRepository = toScmRepository( scmConfiguration );
-            ScmHistory scmHistory = gitHistoryProvider.getSimpleRevisionInformation( scmRepository, revisionId );
-            FSqrScmHistory result = translate( scmHistory, projectId );
-
-            return result.getRevisions().get( 0 );
-        }
-        return null;
-    }
 
     private FSqrScmHistory translate( ScmHistory nRecentHistory, String projectId ) {
         FSqrScmHistory result = new FSqrScmHistory();

@@ -231,4 +231,17 @@ public class FSqrScmRepositoryServicesImpl implements FSqrScmRepositoryServices 
         return new FSqrRevisionFileChangeList( fileChangeList );
     }
 
+    @Override
+    public FSqrRevision getSimpleRevisionFromScm( String projectId, String revisionId ) {
+        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
+        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
+            ScmRepository scmRepository = toScmRepository( scmConfiguration );
+            ScmHistory scmHistory = gitScmHistoryProvider.getSimpleRevisionInformation( scmRepository, revisionId );
+            FSqrScmHistory result = translate( scmHistory, projectId );
+
+            return result.getRevisions().get( 0 );
+        }
+        return null;
+    }
+
 }
