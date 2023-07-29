@@ -53,6 +53,7 @@ public class ThreadBoundArrayDeque<E> extends ArrayDeque<E> {
     /** 
      * {@inheritDoc}
      */
+    @SuppressWarnings( "removal" )
     @Override
     synchronized public void addFirst( E e ) {
         if (e == null) {
@@ -67,6 +68,7 @@ public class ThreadBoundArrayDeque<E> extends ArrayDeque<E> {
     /** 
      * {@inheritDoc}
      */
+    @SuppressWarnings( "removal" )
     @Override
     synchronized public void addLast( E e ) {
         if (e == null) {
@@ -81,6 +83,7 @@ public class ThreadBoundArrayDeque<E> extends ArrayDeque<E> {
     /** 
      * {@inheritDoc}
      */
+    @SuppressWarnings( "removal" )
     @Override
     synchronized public E pollFirst() {
         E element = super.pollFirst();
@@ -95,6 +98,7 @@ public class ThreadBoundArrayDeque<E> extends ArrayDeque<E> {
     /** 
      * {@inheritDoc}
      */
+    @SuppressWarnings( "removal" )
     @Override
     synchronized public E pollLast() {
         E element = super.pollLast();
