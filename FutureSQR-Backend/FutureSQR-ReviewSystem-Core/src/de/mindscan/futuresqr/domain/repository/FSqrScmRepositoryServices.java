@@ -62,4 +62,6 @@ public interface FSqrScmRepositoryServices extends FSqrRepository {
 
     FSqrRevision getSimpleRevisionFromScm( String projectId, String revisionId );
 
+    FSqrScmHistory getRecentRevisionHistoryFromScm( String projectId, int count );
+
 }

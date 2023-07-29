@@ -244,4 +244,16 @@ public class FSqrScmRepositoryServicesImpl implements FSqrScmRepositoryServices 
         return null;
     }
 
+    @Override
+    public FSqrScmHistory getRecentRevisionHistoryFromScm( String projectId, int count ) {
+        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
+        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
+            ScmHistory nRecentHistory = gitScmHistoryProvider.getNRecentRevisions( toScmRepository( scmConfiguration ), count );
+
+            return translate( nRecentHistory, projectId );
+        }
+
+        return null;
+    }
+
 }

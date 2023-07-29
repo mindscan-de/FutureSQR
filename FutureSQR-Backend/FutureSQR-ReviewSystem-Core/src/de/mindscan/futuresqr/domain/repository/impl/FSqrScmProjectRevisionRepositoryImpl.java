@@ -38,8 +38,6 @@ import de.mindscan.futuresqr.domain.configuration.impl.FSqrScmConfigrationProvid
 import de.mindscan.futuresqr.domain.databases.FSqrScmRevisionsTable;
 import de.mindscan.futuresqr.domain.databases.impl.FSqrScmRevisionsTableImpl;
 import de.mindscan.futuresqr.domain.incubator.UnifiedDiffCalculationV1;
-import de.mindscan.futuresqr.domain.model.FSqrCodeReview;
-import de.mindscan.futuresqr.domain.model.FSqrCodeReviewLifecycleState;
 import de.mindscan.futuresqr.domain.model.FSqrRevision;
 import de.mindscan.futuresqr.domain.model.FSqrRevisionFileChangeList;
 import de.mindscan.futuresqr.domain.model.FSqrScmHistory;
@@ -56,11 +54,9 @@ import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheSimpleRevision
 import de.mindscan.futuresqr.scmaccess.ScmAccessFactory;
 import de.mindscan.futuresqr.scmaccess.ScmContentProvider;
 import de.mindscan.futuresqr.scmaccess.ScmHistoryProvider;
-import de.mindscan.futuresqr.scmaccess.types.ScmBasicRevisionInformation;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileHistory;
 import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
-import de.mindscan.futuresqr.scmaccess.types.ScmHistory;
 import de.mindscan.futuresqr.scmaccess.types.ScmPath;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 
@@ -386,7 +382,7 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
         // TODO: this should be tested, whether it is already cached in-memory database, and if the maximum age is reached
         // TODO: retrieve the current values from database.
         // TODO: the crawler will put that info into the database.
-        return retriveRecentRevisionHistoryFromScm( projectId, count );
+        return applicationServices.getScmRepositoryServices().getRecentRevisionHistoryFromScm( projectId, count );
     }
 
     private FSqrScmHistory retrieveRecentRevisionsFromStartingRevisionFromDatabaseTable( String projectId, String fromRevision ) {
@@ -400,45 +396,6 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     // ================================================
     // ---- Move this to crawler and Database inserter.
     // ================================================    
-
-    private FSqrScmHistory translate( ScmHistory nRecentHistory, String projectId ) {
-        FSqrScmHistory result = new FSqrScmHistory();
-
-        nRecentHistory.revisions.stream().forEach( x -> result.addRevision( translate( x, projectId ) ) );
-
-        return result;
-    }
-
-    // TODO: 
-    // this does queries, on the revision info and adds review infos about the revision - this
-    // calculation can not be cached, because the code review state may change for some time. 
-    private FSqrRevision translate( ScmBasicRevisionInformation x, String projectId ) {
-        FSqrRevision result = new FSqrRevision( x );
-
-        String authorUUID = applicationServices.getUserRepository().getUserUUID( x.authorName );
-        result.setAuthorUuid( authorUUID );
-
-        // calculate whether a review is known for this 
-        if (applicationServices.getReviewRepository().hasReviewForProjectAndRevision( projectId, x.revisionId )) {
-            result.setHasAttachedReview( true );
-            FSqrCodeReview review = applicationServices.getReviewRepository().getReviewForProjectAndRevision( projectId, x.revisionId );
-            result.setReviewId( review.getReviewId() );
-            result.setReviewClosed( review.getCurrentReviewState() == FSqrCodeReviewLifecycleState.Closed );
-        }
-
-        return result;
-    }
-
-    private FSqrScmHistory retriveRecentRevisionHistoryFromScm( String projectId, int count ) {
-        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
-        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
-            ScmHistory nRecentHistory = gitHistoryProvider.getNRecentRevisions( toScmRepository( scmConfiguration ), count );
-
-            return translate( nRecentHistory, projectId );
-        }
-
-        return null;
-    }
 
     private FSqrRevisionFullChangeSet retrieveRevisionFullChangeSetFromScm( String projectId, String revisionId ) {
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
