@@ -49,7 +49,8 @@ import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 import de.mindscan.futuresqr.scmaccess.types.ScmSingleRevisionFileChangeList;
 
 /**
- * 
+ * This content of this repository will be moved. And then this repository is 
+ * re-implemented using the event mechanism, which is developed for the crawler. 
  * 
  * [ATTN]
  * 
@@ -117,9 +118,13 @@ public class FSqrScmRepositoryServicesImpl implements FSqrScmRepositoryServices 
         // TODO: This is just a helper as long as we have no crawler, which retrieves the data from the SCM and puts 
         //       these information into a database.
 
-        // -------------------------------------
-        // TODO: refactor to command and execute
-        // -------------------------------------
+        // TODO: either schedule the task directly, or request via event dispatcher.
+        // taskscheduler.schedule(new UpdateProjectCacheTask(projectId));
+        // eventdispatcher.dispatch(new UpdateProjectCacheRequestedEvent(projectId));
+
+        // ----------------------------------------------------------------
+        // TODO: refactor to command and execute in crawler / scm-low-level
+        // ----------------------------------------------------------------
         FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
         if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
             ScmRepository scmRepository = toScmRepository( scmConfiguration );
