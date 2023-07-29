@@ -28,6 +28,7 @@ package de.mindscan.futuresqr.core.dispatcher.impl;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 
 import de.mindscan.futuresqr.core.dispatcher.EventDispatcher;
@@ -40,6 +41,7 @@ import de.mindscan.futuresqr.core.events.FSqrEventListener;
 public class SimpleEventDispatcherImpl implements EventDispatcher {
 
     private Map<Class<? extends FSqrEvent>, Set<FSqrEventListener>> listenerMap;
+    private Queue<FSqrEvent> eventQueue;
 
     /**
      * 
@@ -65,12 +67,28 @@ public class SimpleEventDispatcherImpl implements EventDispatcher {
      * {@inheritDoc}
      */
     @Override
-    public void dispatchEvent( FSqrEvent event ) {
-        if (event == null) {
+    public void setEventQueue( Queue<FSqrEvent> eventQueue ) {
+        this.eventQueue = eventQueue;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void dispatchEvent( FSqrEvent eventToDispatch ) {
+        this.eventQueue.add( eventToDispatch );
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void handleEvent( FSqrEvent eventToHandle ) {
+        if (eventToHandle == null) {
             return;
         }
 
-        Class<? extends FSqrEvent> eventClass = event.getClass();
+        Class<? extends FSqrEvent> eventClass = eventToHandle.getClass();
 
         // maybe also call the parent classes listeners in case of someone is subscribed to the base classes
         // but this can be saved for later.
@@ -79,7 +97,7 @@ public class SimpleEventDispatcherImpl implements EventDispatcher {
         // eventClass.getSuperclass(); && instance of FSqrEvent
         Set<FSqrEventListener> invokedListeners = new HashSet<>();
 
-        invokeEventListenersForClass( event, eventClass, invokedListeners );
+        invokeEventListenersForClass( eventToHandle, eventClass, invokedListeners );
     }
 
     public void invokeEventListenersForClass( FSqrEvent event, Class<? extends FSqrEvent> eventClass, Set<FSqrEventListener> invokedListeners ) {
