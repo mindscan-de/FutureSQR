@@ -31,8 +31,8 @@ import de.mindscan.futuresqr.core.thread.FSqrThread;
 
 /**
  * This is a deque, which will suspend the boundThread in case the deque is 
- * empty and it will wake up the boundThread in case an element is added to the
- * ArrayDeque. 
+ * empty and it will resume the boundThread in case an element is added to 
+ * the ArrayDeque. 
  *   
  */
 public class ThreadBoundArrayDeque<E> extends ArrayDeque<E> {
