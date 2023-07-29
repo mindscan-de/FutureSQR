@@ -25,6 +25,9 @@
  */
 package de.mindscan.futuresqr.system;
 
+import de.mindscan.futuresqr.domain.application.FSqrApplication;
+import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
+
 /**
  * 
  */
@@ -34,7 +37,30 @@ public class FSqrSystemMain {
      * @param args
      */
     public static void main( String[] args ) {
+        FSqrSystemMain main = new FSqrSystemMain();
 
+        // TODO configure the instance 
+
+        main.run();
+    }
+
+    /**
+     * 
+     */
+    public void run() {
+        FSqrApplication application = FSqrApplication.getInstance();
+        FSqrApplicationServices applicationServices = application.getServices();
+
+        // do some startup activities
+        // * start the dispatchers
+        // * setup the threads
+        // * push out the FSqrSystemStartedEvent
+
+        // while not FSqrSystemShutdownEvent found {
+        // }
+
+        // shutdown/join all the threads
+        // shutdown/save/flush databases
     }
 
 }
