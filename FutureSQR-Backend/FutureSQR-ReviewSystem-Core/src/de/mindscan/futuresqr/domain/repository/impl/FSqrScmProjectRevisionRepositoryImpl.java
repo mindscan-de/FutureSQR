@@ -56,7 +56,6 @@ import de.mindscan.futuresqr.domain.repository.cache.InMemoryCacheSimpleRevision
 import de.mindscan.futuresqr.scmaccess.ScmAccessFactory;
 import de.mindscan.futuresqr.scmaccess.ScmContentProvider;
 import de.mindscan.futuresqr.scmaccess.ScmHistoryProvider;
-import de.mindscan.futuresqr.scmaccess.ScmRepositoryServicesProvider;
 import de.mindscan.futuresqr.scmaccess.types.ScmBasicRevisionInformation;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileHistory;
@@ -96,7 +95,6 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
     private ScmHistoryProvider gitHistoryProvider;
     @Deprecated
     private ScmContentProvider gitScmContentProvider;
-    private ScmRepositoryServicesProvider gitScmRepositoryServicesProvider;
 
     // Table and cache
     private FSqrScmRevisionsTable revisionInfoTable;
@@ -112,7 +110,6 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
         this.gitHistoryProvider = ScmAccessFactory.getEmptyHistoryProvider();
         this.gitScmContentProvider = ScmAccessFactory.getEmptyContentProvider();
-        this.gitScmRepositoryServicesProvider = ScmAccessFactory.getEmptyRepositoryServicesProvider();
 
         // search key: ( projectId:string , reviewId:string ) -> RevisionInfo
         this.revisionInfoCache = new InMemoryCacheSimpleRevisionInformationTable();
@@ -130,8 +127,6 @@ public class FSqrScmProjectRevisionRepositoryImpl implements FSqrScmProjectRevis
 
         this.gitHistoryProvider = ScmAccessFactory.getGitHistoryProvider( new FSqrScmConfigrationProvider( services.getSystemConfiguration() ) );
         this.gitScmContentProvider = ScmAccessFactory.getGitContentProvider( new FSqrScmConfigrationProvider( services.getSystemConfiguration() ) );
-        this.gitScmRepositoryServicesProvider = ScmAccessFactory
-                        .getGitRepositoryServicesProvider( new FSqrScmConfigrationProvider( services.getSystemConfiguration() ) );
     }
 
     @Override
