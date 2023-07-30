@@ -73,7 +73,28 @@ public class SimpleEventDispatcherImplTest {
 
         // assert
         Mockito.verify( eventQueue, times( 0 ) ).add( Mockito.any() );
+    }
 
+    @Test
+    public void testHandleEvent_NullEvent_throwsNoException() throws Exception {
+        // arrange
+        SimpleEventDispatcherImpl dispatcher = new SimpleEventDispatcherImpl();
+
+        // act
+        // assert
+        dispatcher.handleEvent( null );
+    }
+
+    @Test
+    public void testHandleEvent_NonNullEventNoRegisteredHandler_thorNoException() throws Exception {
+        // arrange
+        SimpleEventDispatcherImpl dispatcher = new SimpleEventDispatcherImpl();
+        FSqrEvent nonNullEvent = new FSqrEvent() {
+        };
+
+        // act
+        // assert
+        dispatcher.handleEvent( nonNullEvent );
     }
 
 }
