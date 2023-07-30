@@ -59,7 +59,8 @@ public class SimpleEventDispatcherImpl implements EventDispatcher {
     @Override
     public void registerEventListener( Class<? extends FSqrEvent> eventClass, FSqrEventListener listener ) {
         if (eventClass == null || listener == null) {
-            return;
+            throw new IllegalArgumentException(
+                            "eventClass " + (eventClass != null ? "!" : "=") + "= null" + " listener" + (listener != null ? "!" : "=") + "=null" );
         }
 
         // TODO: synchronize the listenerMap as well?
@@ -117,6 +118,7 @@ public class SimpleEventDispatcherImpl implements EventDispatcher {
 
         if (invokedListeners.isEmpty()) {
             // TODO: use some logging system in the future.
+            // and then add a test for the logging of this unhandled event.
             System.out.println( "The event eventToHandle was not handled by any listener." );
         }
     }

@@ -133,6 +133,27 @@ public class SimpleEventDispatcherImplTest {
         Mockito.verify( listener, times( 1 ) ).handleEvent( expectedEvent );
     }
 
+    @Test
+    public void testRegisterEventListener_ClassNull_throwsIllegalArgumentException() throws Exception {
+        // arrange
+        SimpleEventDispatcherImpl dispatcher = new SimpleEventDispatcherImpl();
+        FSqrEventListener listener = Mockito.mock( FSqrEventListener.class, "listener" );
+
+        // act
+        // assert
+        Assertions.assertThrows( IllegalArgumentException.class, () -> dispatcher.registerEventListener( null, listener ) );
+    }
+
+    @Test
+    public void testRegisterEventListener_ListenerNull_throwsIllegalArgumentException() throws Exception {
+        // arrange
+        SimpleEventDispatcherImpl dispatcher = new SimpleEventDispatcherImpl();
+
+        // act
+        // assert
+        Assertions.assertThrows( IllegalArgumentException.class, () -> dispatcher.registerEventListener( FSqrEvent.class, null ) );
+    }
+
     // TODO work with all base classes...
 
 }
