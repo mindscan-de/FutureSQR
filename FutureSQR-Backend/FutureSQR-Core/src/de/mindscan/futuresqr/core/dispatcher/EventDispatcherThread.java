@@ -56,8 +56,6 @@ public class EventDispatcherThread extends FSqrThread {
         try {
             int i = 0;
             while (true) {
-                System.out.println( "This shoud work " + i );
-
                 // this will suspend this event dispatcher thread if this queue is empty
                 // and is resumed after any thread added an element to the deque.
                 FSqrEvent eventToHandle = eventQueue.poll();
@@ -81,6 +79,7 @@ public class EventDispatcherThread extends FSqrThread {
             }
         }
         catch (Exception e) {
+            // TODO: add logging some when later.
             e.printStackTrace();
         }
     }
