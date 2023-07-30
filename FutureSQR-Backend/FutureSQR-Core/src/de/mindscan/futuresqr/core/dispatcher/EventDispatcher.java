@@ -25,10 +25,9 @@
  */
 package de.mindscan.futuresqr.core.dispatcher;
 
-import java.util.Queue;
-
 import de.mindscan.futuresqr.core.events.FSqrEvent;
 import de.mindscan.futuresqr.core.events.FSqrEventListener;
+import de.mindscan.futuresqr.core.queue.ThreadBoundArrayDeque;
 
 /**
  * 
@@ -50,7 +49,7 @@ public interface EventDispatcher {
     void handleEvent( FSqrEvent eventToHandle );
 
     // Actually i don't like it, but this eventQueue-object must have restricted access.
-    void setEventQueue( Queue<FSqrEvent> eventQueue );
+    void setEventQueue( ThreadBoundArrayDeque<FSqrEvent> eventQueue );
 
     void registerEventListener( Class<? extends FSqrEvent> eventClass, FSqrEventListener listener );
 

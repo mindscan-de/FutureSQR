@@ -34,6 +34,7 @@ import java.util.Set;
 import de.mindscan.futuresqr.core.dispatcher.EventDispatcher;
 import de.mindscan.futuresqr.core.events.FSqrEvent;
 import de.mindscan.futuresqr.core.events.FSqrEventListener;
+import de.mindscan.futuresqr.core.queue.ThreadBoundArrayDeque;
 
 /**
  * 
@@ -73,7 +74,7 @@ public class SimpleEventDispatcherImpl implements EventDispatcher {
      * {@inheritDoc}
      */
     @Override
-    public void setEventQueue( Queue<FSqrEvent> eventQueue ) {
+    public void setEventQueue( ThreadBoundArrayDeque<FSqrEvent> eventQueue ) {
         this.eventQueue = eventQueue;
     }
 
@@ -82,7 +83,16 @@ public class SimpleEventDispatcherImpl implements EventDispatcher {
      */
     @Override
     public void dispatchEvent( FSqrEvent eventToDispatch ) {
-        this.eventQueue.add( eventToDispatch );
+        if (eventToDispatch == null) {
+            return;
+        }
+
+        if (this.eventQueue != null) {
+            this.eventQueue.add( eventToDispatch );
+        }
+        else {
+            throw new IllegalStateException( "#setEventQueue was either not invoked or got an Illegal eventQueue" );
+        }
     }
 
     /** 
