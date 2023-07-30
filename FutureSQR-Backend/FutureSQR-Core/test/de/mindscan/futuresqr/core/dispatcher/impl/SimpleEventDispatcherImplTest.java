@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import de.mindscan.futuresqr.core.events.FSqrEvent;
+import de.mindscan.futuresqr.core.events.FSqrEventListener;
 import de.mindscan.futuresqr.core.queue.ThreadBoundArrayDeque;
 
 public class SimpleEventDispatcherImplTest {
@@ -86,7 +87,7 @@ public class SimpleEventDispatcherImplTest {
     }
 
     @Test
-    public void testHandleEvent_NonNullEventNoRegisteredHandler_thorNoException() throws Exception {
+    public void testHandleEvent_NonNullEventNoRegisteredHandler_throwsNoException() throws Exception {
         // arrange
         SimpleEventDispatcherImpl dispatcher = new SimpleEventDispatcherImpl();
         FSqrEvent nonNullEvent = new FSqrEvent() {
@@ -96,5 +97,42 @@ public class SimpleEventDispatcherImplTest {
         // assert
         dispatcher.handleEvent( nonNullEvent );
     }
+
+    @Test
+    public void testHandleEvent_NonNullEventRegisteredEvent_invokesHandlerOnce() throws Exception {
+        // arrange
+        SimpleEventDispatcherImpl dispatcher = new SimpleEventDispatcherImpl();
+        FSqrEvent expectedEvent = new FSqrEvent() {
+        };
+        FSqrEventListener listener = Mockito.mock( FSqrEventListener.class, "listener" );
+
+        dispatcher.registerEventListener( expectedEvent.getClass(), listener );
+
+        // act
+        dispatcher.handleEvent( expectedEvent );
+
+        // assert
+        Mockito.verify( listener, times( 1 ) ).handleEvent( expectedEvent );
+    }
+
+    @Test
+    public void testHandleEvent_AnonymousEventRegisteredAnonymousClassAndBaseClass_invokesHandlerOnce() throws Exception {
+        // arrange
+        SimpleEventDispatcherImpl dispatcher = new SimpleEventDispatcherImpl();
+        FSqrEvent expectedEvent = new FSqrEvent() {
+        };
+        FSqrEventListener listener = Mockito.mock( FSqrEventListener.class, "listener" );
+
+        dispatcher.registerEventListener( expectedEvent.getClass(), listener );
+        dispatcher.registerEventListener( FSqrEvent.class, listener );
+
+        // act
+        dispatcher.handleEvent( expectedEvent );
+
+        // assert
+        Mockito.verify( listener, times( 1 ) ).handleEvent( expectedEvent );
+    }
+
+    // TODO work with all base classes...
 
 }

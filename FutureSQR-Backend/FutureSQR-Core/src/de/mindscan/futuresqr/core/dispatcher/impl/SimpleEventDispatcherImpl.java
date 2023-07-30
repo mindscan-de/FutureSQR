@@ -114,6 +114,11 @@ public class SimpleEventDispatcherImpl implements EventDispatcher {
         Set<FSqrEventListener> invokedListeners = new HashSet<>();
 
         invokeEventListenersForClass( eventToHandle, eventClass, invokedListeners );
+
+        if (invokedListeners.isEmpty()) {
+            // TODO: use some logging system in the future.
+            System.out.println( "The event eventToHandle was not handled by any listener." );
+        }
     }
 
     void invokeEventListenersForClass( FSqrEvent event, Class<? extends FSqrEvent> eventClass, Set<FSqrEventListener> invokedListeners ) {
