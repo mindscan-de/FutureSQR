@@ -40,6 +40,8 @@ import de.mindscan.futuresqr.core.events.FSqrEventListener;
  */
 public class SimpleEventDispatcherImpl implements EventDispatcher {
 
+    private static final Set<FSqrEventListener> EMPTYLISTENERS = new HashSet<>();
+
     private Map<Class<? extends FSqrEvent>, Set<FSqrEventListener>> listenerMap;
     private Queue<FSqrEvent> eventQueue;
 
@@ -59,8 +61,12 @@ public class SimpleEventDispatcherImpl implements EventDispatcher {
             return;
         }
 
-        // TODO: synchronize 
-        listenerMap.computeIfAbsent( eventClass, k -> new HashSet<>() ).add( listener );
+        // TODO: synchronize the listenerMap as well?
+        Set<FSqrEventListener> set = listenerMap.computeIfAbsent( eventClass, k -> new HashSet<>() );
+
+        synchronized (set) {
+            set.add( listener );
+        }
     }
 
     /** 
@@ -101,11 +107,20 @@ public class SimpleEventDispatcherImpl implements EventDispatcher {
     }
 
     public void invokeEventListenersForClass( FSqrEvent event, Class<? extends FSqrEvent> eventClass, Set<FSqrEventListener> invokedListeners ) {
-        // TODO: synchronize this access
-        Set<FSqrEventListener> eventListeners = new HashSet<>( listenerMap.get( eventClass ) );
 
-        if (eventListeners == null) {
+        // TODO: synchronize the listenerMap as well?
+        Set<FSqrEventListener> set = listenerMap.getOrDefault( eventClass, EMPTYLISTENERS );
+
+        if (set == EMPTYLISTENERS) {
             return;
+        }
+
+        // We don't want to hold a mutex when we invoke the 3rd-party code behind the eventListeners, 
+        // this is why we create a defense copy. Or we will use a thread safe map+set in future.
+
+        Set<FSqrEventListener> eventListeners;
+        synchronized (set) {
+            eventListeners = new HashSet<>( set );
         }
 
         // call (all) the event handler(s) for this class.
