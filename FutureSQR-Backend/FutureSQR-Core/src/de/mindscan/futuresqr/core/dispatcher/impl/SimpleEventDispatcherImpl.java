@@ -116,7 +116,7 @@ public class SimpleEventDispatcherImpl implements EventDispatcher {
         invokeEventListenersForClass( eventToHandle, eventClass, invokedListeners );
     }
 
-    public void invokeEventListenersForClass( FSqrEvent event, Class<? extends FSqrEvent> eventClass, Set<FSqrEventListener> invokedListeners ) {
+    void invokeEventListenersForClass( FSqrEvent event, Class<? extends FSqrEvent> eventClass, Set<FSqrEventListener> invokedListeners ) {
 
         // TODO: synchronize the listenerMap as well?
         Set<FSqrEventListener> set = listenerMap.getOrDefault( eventClass, EMPTYLISTENERS );
