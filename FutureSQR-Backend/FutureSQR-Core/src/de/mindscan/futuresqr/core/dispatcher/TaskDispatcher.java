@@ -33,6 +33,15 @@ import de.mindscan.futuresqr.core.task.FSqrTask;
  */
 public interface TaskDispatcher {
 
+    // will dispatch a task into the task queue
+    // TODO: 
+    void dispatchTask( FSqrTask task );
+
+    // should we wait until? 
+    boolean isTaskWorkerAvailable();
+
+    // TODO: suspendUntilTaskReady
+
     /**
      * @param taskQueue
      */
