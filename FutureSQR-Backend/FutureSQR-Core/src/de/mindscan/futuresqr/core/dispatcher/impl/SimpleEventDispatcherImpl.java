@@ -152,6 +152,7 @@ public class SimpleEventDispatcherImpl implements EventDispatcher {
                 invokedListeners.add( eventListener );
             }
             catch (Exception ex) {
+                // TODO: actually we need a logger system to log this exception.
                 ex.printStackTrace();
             }
         }
