@@ -77,6 +77,7 @@ public class SimpleTaskDispatcherImpl implements TaskDispatcher {
     @Override
     public boolean isTaskWorkerAvailable() {
         // TODO Auto-generated method stub
+        // TODO delegate to threadpool and ask threadpool, whether there is a thread available.
         return false;
     }
 
@@ -86,7 +87,18 @@ public class SimpleTaskDispatcherImpl implements TaskDispatcher {
     @Override
     public void runTask( FSqrTask taskToRun ) {
         // TODO Auto-generated method stub
+        // get a workerthread from the worker threadpool
+        // then delegate the execution of the task to run to the WorkerThread
+        // and the workerthread then returns itself back to the theeadpool, 
+        // when either the task throws and exception or is ready.
 
+        // maybe we want to allocate between long tasks and short tasks, such that there is always capacity for short tasks.
+        // maybe we just have zwo taskdispatchers, one for long running jobs and one for fast jobs, instead of writing complex allocation logic.
+
+        // workerThread = borrowFrom(threadPool);
+        // workerThread knowsHis own threadpool, so workerthread can announce itself
+        // workerthreadlifecycle POOLED / BORROWED / STARTING / RUNNING / FINISHED / POOLED
+        // workerThread.runTask(taskToRun);
     }
 
 }
