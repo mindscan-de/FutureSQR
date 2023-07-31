@@ -46,6 +46,12 @@ public enum FSqrWorkerThreadLifecylce {
     BORROWED,
 
     /**
+     * The assignment is still not good enough, we want the thread to be ready to go,
+     * Such that the workerthread can wake up and start the Task.
+     */
+    READYTOGO,
+
+    /**
      * a thread which is about to start the payload, and does some initialization
      * 
      * run some initialization on the task? Task bookkeeping.
