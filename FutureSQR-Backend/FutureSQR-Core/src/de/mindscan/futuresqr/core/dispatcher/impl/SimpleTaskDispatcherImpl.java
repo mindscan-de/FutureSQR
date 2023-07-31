@@ -97,7 +97,6 @@ public class SimpleTaskDispatcherImpl implements TaskDispatcher {
 
         // workerThread = borrowFrom(threadPool);
         // workerThread knowsHis own threadpool, so workerthread can announce itself
-        // workerthreadlifecycle POOLED / BORROWED / STARTING / RUNNING / FINISHED / POOLED
         // workerThread.runTask(taskToRun);
     }
 
