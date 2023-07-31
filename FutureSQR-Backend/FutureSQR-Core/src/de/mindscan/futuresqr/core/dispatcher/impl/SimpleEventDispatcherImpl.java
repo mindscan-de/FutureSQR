@@ -92,7 +92,7 @@ public class SimpleEventDispatcherImpl implements EventDispatcher {
             this.eventQueue.add( eventToDispatch );
         }
         else {
-            throw new IllegalStateException( "#setEventQueue was either not invoked or got an Illegal eventQueue" );
+            throw new IllegalStateException( "#setEventQueue was either not invoked or got an illegal eventQueue" );
         }
     }
 
