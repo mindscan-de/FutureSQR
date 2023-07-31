@@ -28,39 +28,41 @@ package de.mindscan.futuresqr.core.thread;
 /**
  * 
  */
-public enum FSqrWorkerThreadLifecylce {
+public class FSqrWorkerThread extends FSqrThread {
+
+    private FSqrWorkerThreadLifecylce workerThreadState;
 
     /**
-     * W Worker thread which is created but not yet pooled.
+     * @param threadName
      */
-    CREATED,
+    public FSqrWorkerThread( String threadName ) {
+        super( threadName );
 
-    /**
-     * A worker thread which is currently in the pool
-     */
-    POOLED,
+        this.workerThreadState = FSqrWorkerThreadLifecylce.CREATED;
+    }
 
-    /**
-     * A worker thread which is currently taken from the pool, and gets assigned to a Task 
-     */
-    BORROWED,
+    public void resetWorkerThread() {
+        // TODO: clear assigned task.
+    }
 
-    /**
-     * a thread which is about to start the payload, and does some initialization
-     * 
-     * run some initialization on the task? Task bookkeeping.
-     */
-    STARTING,
+    // TODO assign workload, and the workload is wrapped in the run function.
 
-    /**
-     * a task is currently running in this thread, Task bookkeeping.
+    /** 
+     * {@inheritDoc}
      */
-    RUNNING,
+    @Override
+    public void run() {
+        // TODO: Switch Lifecycle to started
+        // TODO: Prepare the task
 
-    /**
-     * a task is finished and the state where the Workerthread can be returned to the threadpool.
-     * 
-     * maybe we want that the task can clean itself up (e.g. memory loss etc.) Task bookkeeping.
-     */
-    FINISHED
+        // TODO: switch Lifeclycle to running
+        // TODO: execute the task...
+
+        // TODO: writch lifecycle to finished
+        // TODO: execute clean up the task
+
+        // cleanup and reset ourselves
+        this.resetWorkerThread();
+        // inform the Threadpool to accept this thread back into the worker thread pool
+    }
 }
