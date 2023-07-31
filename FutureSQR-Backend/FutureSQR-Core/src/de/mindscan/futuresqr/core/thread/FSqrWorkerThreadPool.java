@@ -59,7 +59,8 @@ public class FSqrWorkerThreadPool {
     // start thread (Thread.start())
     // put them into the pooled queue
 
-    // TODO BORROW...
+    // TODO BORROW... we can only borrow, if isWorkerAvaiable, this must be checked before,  otherwise 
+    // borowthread must not be called. this method should never return null, instead throw an illegal state exception
     public FSqrWorkerThread borrowThread() {
         // TODO we look for a pooled thread in the pooled list, and pull the first. (synchronized)
 
