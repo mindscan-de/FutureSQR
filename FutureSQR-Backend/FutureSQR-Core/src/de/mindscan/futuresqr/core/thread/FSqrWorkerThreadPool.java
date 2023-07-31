@@ -68,6 +68,10 @@ public class FSqrWorkerThreadPool {
             borrowedWorker = pooledWorkers.pollFirst();
         }
 
+        if (borrowedWorker == null) {
+            // TODO: REEEE this queue was empty, throw an illegal state exception....
+        }
+
         // TODO: we tell the thread that this thread is now borrowed.
 
         // we add the thread to the borrowed queue
