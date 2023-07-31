@@ -26,7 +26,8 @@
 package de.mindscan.futuresqr.core.thread;
 
 /**
- * 
+ * actually the worker threads are started, then they wait until a task is assigned
+ * and the will run that assigned task until it finishes, then 
  */
 public class FSqrWorkerThread extends FSqrThread {
 
@@ -52,6 +53,13 @@ public class FSqrWorkerThread extends FSqrThread {
      */
     @Override
     public void run() {
+        // TODO: SLEEP and DREAM until you receive a workload... and you are good to go.
+        // {
+        //   then stay awake and alive and run this workload (FSqrTask)
+        // }
+    }
+
+    public void runWorkload() {
         // TODO: Switch Lifecycle to started
         // TODO: Prepare the task
 
