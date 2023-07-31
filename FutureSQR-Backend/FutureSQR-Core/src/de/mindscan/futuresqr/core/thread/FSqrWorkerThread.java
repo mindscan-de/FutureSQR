@@ -53,7 +53,7 @@ public class FSqrWorkerThread extends FSqrThread {
      */
     @Override
     public void run() {
-        // TODO: SLEEP and DREAM until you receive a workload... and you are good to go.
+        // TODO: SLEEP and DREAM AND Wait until you receive a workload... and you are good to go.
         // {
         //   then stay awake and alive and run this workload (FSqrTask)
         // }
