@@ -38,7 +38,9 @@ public class FSqrWorkerThreadPool {
     }
 
     // TODO: initialize threadpool
-    // we move each thread from created, tell each thread that it is now pooled and 
+    // we move each thread from created, 
+    // tell each thread that it is now pooled and
+    // start thread (Thread.start())
     // put them into the pooled queue
 
     // TODO BORROW...
@@ -52,7 +54,10 @@ public class FSqrWorkerThreadPool {
     }
 
     // TODO finishedThread()
-    // we take it from the borrowed queue finished queue
+    // we take it from the borrowed queue to finished queue
+
+    // isWorkerThreadAvailable, looks if pooledQueue is not empty. 
+    // if empty we try to collect all the finished threads, and then check if pooled Queue is still empty .. thats then the result.
 
     // TODO collectFinishedThreads
     // we take all threads from the finished queue declare them pooled and add them to the pooled Deque
