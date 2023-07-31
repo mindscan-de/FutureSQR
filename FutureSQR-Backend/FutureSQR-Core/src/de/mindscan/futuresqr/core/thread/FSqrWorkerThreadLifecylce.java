@@ -68,5 +68,43 @@ public enum FSqrWorkerThreadLifecylce {
      * 
      * maybe we want that the task can clean itself up (e.g. memory loss etc.) Task bookkeeping.
      */
-    FINISHED
+    FINISHED;
+
+    public static FSqrWorkerThreadLifecylce progress( FSqrWorkerThreadLifecylce fromstate, FSqrWorkerThreadLifecylce toState ) {
+
+        switch (toState) {
+            // OK nice 
+            case CREATED:
+                break;
+
+            case POOLED:
+                // should either come from CREATED OR FROM FINISHED
+                // is there a reason to put it into POOLED from BORROED?
+                // otherwise lfecycleexception....
+                break;
+
+            case BORROWED:
+                // ONLY FROM POOLED
+                break;
+
+            case READYTOGO:
+                // ONLY FROM BORROWED
+                break;
+
+            case STARTING:
+                // ONLY FROM READY TO GO
+                break;
+
+            case RUNNING:
+                // ONLY FROM STARTING
+                break;
+
+            case FINISHED:
+                // ONLY FROM RUNING
+                break;
+        }
+
+        return toState;
+    }
+
 }
