@@ -25,15 +25,31 @@
  */
 package de.mindscan.futuresqr.core.thread;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 /**
  * 
  */
 public class FSqrWorkerThreadPool {
 
+    private final Deque<FSqrWorkerThread> createdWorkers;
+    private final Deque<FSqrWorkerThread> pooledWorkers;
+    private final Deque<FSqrWorkerThread> borrowedWorkers;
+    private final Deque<FSqrWorkerThread> finishedWorkers;
+
     /**
      * 
      */
     public FSqrWorkerThreadPool( int threadPoolSize ) {
+        // TODO maybe provide a threadprefix and a name for the threadpool??
+
+        this.createdWorkers = new ArrayDeque<>( threadPoolSize + 1 );
+        this.pooledWorkers = new ArrayDeque<>( threadPoolSize + 1 );
+        // MAYBE implement the borrowed Workers as a set...
+        this.borrowedWorkers = new ArrayDeque<>( threadPoolSize + 1 );
+        this.finishedWorkers = new ArrayDeque<>( threadPoolSize + 1 );
+
         // TODO create threads and then put them into the created threads queue
     }
 
