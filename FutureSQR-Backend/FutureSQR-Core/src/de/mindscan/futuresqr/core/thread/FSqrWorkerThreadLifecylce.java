@@ -68,9 +68,12 @@ public enum FSqrWorkerThreadLifecylce {
      * 
      * maybe we want that the task can clean itself up (e.g. memory loss etc.) Task bookkeeping.
      */
-    FINISHED;
+    FINISHED,
 
-    // TODO: TERMINATED?
+    /**
+     * a worker might be terminated, that state is final and not recoverable. 
+     */
+    TERMINATED;
 
     public static FSqrWorkerThreadLifecylce checkTransition( FSqrWorkerThreadLifecylce fromstate, FSqrWorkerThreadLifecylce toState ) {
 
@@ -103,6 +106,9 @@ public enum FSqrWorkerThreadLifecylce {
 
             case FINISHED:
                 // ONLY FROM RUNING
+                break;
+
+            case TERMINATED:
                 break;
         }
 
