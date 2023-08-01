@@ -55,7 +55,7 @@ public class FSqrWorkerThreadPool {
 
         // create threads and then put them into the created threads queue
         for (int i = 0; i < threadPoolSize; i++) {
-            FSqrWorkerThread threadWorker = new FSqrWorkerThread( threadName + "Worker-" + i );
+            FSqrWorkerThread threadWorker = new FSqrWorkerThread( this, threadName + "Worker-" + i );
             this.createdWorkers.addLast( threadWorker );
         }
     }

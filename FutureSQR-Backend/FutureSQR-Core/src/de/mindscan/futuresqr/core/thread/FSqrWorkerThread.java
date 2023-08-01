@@ -32,14 +32,16 @@ package de.mindscan.futuresqr.core.thread;
 public class FSqrWorkerThread extends FSqrThread {
 
     private FSqrWorkerThreadLifecylce workerThreadState;
+    private FSqrWorkerThreadPool threadPool;
 
     /**
      * @param threadName
      */
-    public FSqrWorkerThread( String threadName ) {
+    public FSqrWorkerThread( FSqrWorkerThreadPool threadPool, String threadName ) {
         super( threadName );
 
         this.workerThreadState = FSqrWorkerThreadLifecylce.CREATED;
+        this.threadPool = threadPool;
     }
 
     public void resetWorkerThread() {
@@ -49,7 +51,7 @@ public class FSqrWorkerThread extends FSqrThread {
     /**
      * inform worker thread, that this thread is now pooled. 
      */
-    protected void pooled() {
+    void pooled() {
         this.workerThreadState = FSqrWorkerThreadLifecylce.checkTransition( this.workerThreadState, FSqrWorkerThreadLifecylce.POOLED );
 
         // onPooled()
@@ -58,10 +60,33 @@ public class FSqrWorkerThread extends FSqrThread {
     /**
      * inform worker thread,  
      */
-    protected void borrowed() {
+    void borrowed() {
         this.workerThreadState = FSqrWorkerThreadLifecylce.checkTransition( this.workerThreadState, FSqrWorkerThreadLifecylce.BORROWED );
 
         // onBorrowed()
+    }
+
+    void finished() {
+        this.workerThreadState = FSqrWorkerThreadLifecylce.checkTransition( this.workerThreadState, FSqrWorkerThreadLifecylce.FINISHED );
+
+        try {
+            onFinished();
+        }
+        catch (Exception e) {
+            // TODO: handle exception
+        }
+    }
+
+    /**
+     * 
+     */
+    protected void onFinished() {
+        // cleanup and reset ourselves
+        this.resetWorkerThread();
+
+        // inform the Threadpool to accept this thread back into the worker thread pool
+        // threadPool.workerFinished( this );
+
     }
 
     // TODO assign workload, and the workload is wrapped in the run function.
@@ -86,12 +111,7 @@ public class FSqrWorkerThread extends FSqrThread {
         // TODO: switch Lifeclycle to running
         // TODO: execute the task...
 
-        // TODO: writch lifecycle to finished
-        // TODO: execute clean up the task
-
-        // cleanup and reset ourselves
-        this.resetWorkerThread();
-        // inform the Threadpool to accept this thread back into the worker thread pool
+        finished();
     }
 
 }
