@@ -77,6 +77,13 @@ public class FSqrWorkerThread extends FSqrThread {
         }
     }
 
+    void terminated() {
+        this.workerThreadState = FSqrWorkerThreadLifecylce.checkTransition( this.workerThreadState, FSqrWorkerThreadLifecylce.TERMINATED );
+
+        // TODO we have to clean up this worker, such as weith resetWorkerState and interrupt the run method...
+        // maybe terminated should issue the join command on this thread.
+    }
+
     /**
      * 
      */
