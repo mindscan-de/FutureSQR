@@ -27,6 +27,8 @@ package de.mindscan.futuresqr.core.thread;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 
@@ -35,7 +37,7 @@ public class FSqrWorkerThreadPool {
 
     private final Deque<FSqrWorkerThread> createdWorkers;
     private final Deque<FSqrWorkerThread> pooledWorkers;
-    private final Deque<FSqrWorkerThread> borrowedWorkers;
+    private final Set<FSqrWorkerThread> borrowedWorkers;
     private final Deque<FSqrWorkerThread> finishedWorkers;
     private String threadName;
 
@@ -49,8 +51,7 @@ public class FSqrWorkerThreadPool {
 
         this.createdWorkers = new ArrayDeque<>( threadPoolSize + 1 );
         this.pooledWorkers = new ArrayDeque<>( threadPoolSize + 1 );
-        // MAYBE implement the borrowed Workers as a set...
-        this.borrowedWorkers = new ArrayDeque<>( threadPoolSize + 1 );
+        this.borrowedWorkers = new HashSet<>( threadPoolSize + 1 );
         this.finishedWorkers = new ArrayDeque<>( threadPoolSize + 1 );
 
         // create threads and then put them into the created threads queue
@@ -102,14 +103,38 @@ public class FSqrWorkerThreadPool {
 
         // we add the thread to the borrowed queue
         synchronized (borrowedWorkers) {
-            borrowedWorkers.addLast( borrowedWorker );
+            borrowedWorkers.add( borrowedWorker );
         }
         return borrowedWorker;
     }
 
-    // TODO finishedThread()
-    // we take it from the borrowed queue to finished queue
-    // if shutdown initiated, we get 
+    // workerComplete() is used to inform the pool that this worker thread is available again after it was borrowed.
+    public void workerComplete( FSqrWorkerThread finishedThread ) {
+        if (finishedThread == null) {
+            throw new IllegalArgumentException( "the finished thread must not be null." );
+        }
+
+        boolean result;
+
+        synchronized (borrowedWorkers) {
+            result = borrowedWorkers.remove( finishedThread );
+        }
+
+        if (result == false) {
+            // we should have found this in the borrowed Workers ...
+            return;
+        }
+
+        if (shutdownInitiated) {
+            // TODO: actually we should shut down the thread via join (and not return it into the queue)
+        }
+        else {
+            // we take it from the borrowed queue to finished queue
+            synchronized (finishedWorkers) {
+                finishedWorkers.addLast( finishedThread );
+            }
+        }
+    }
 
     // isWorkerThreadAvailable, looks if pooledQueue is not empty. 
     // if empty we try to collect all the finished threads, and then check if pooled Queue is still empty .. thats then the result.
