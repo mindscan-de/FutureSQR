@@ -101,6 +101,8 @@ public class FSqrWorkerThreadPool {
             }
         }
 
+        // TODO we should have a check for shutdown --- we should then invoke terminated on borowed worker?
+
         // we tell the thread that this thread is now borrowed.
         borrowedWorker.borrowed();
 
@@ -130,6 +132,8 @@ public class FSqrWorkerThreadPool {
 
         if (shutdownInitiated) {
             // TODO: actually we should shut down the thread via join (and not return it into the queue)
+            // TODO: remove from full threadlist.
+            // finishedThread.terminated();
         }
         else {
             // we take it from the borrowed queue to finished queue
