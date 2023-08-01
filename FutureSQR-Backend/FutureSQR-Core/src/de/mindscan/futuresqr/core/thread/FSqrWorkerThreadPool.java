@@ -37,12 +37,13 @@ public class FSqrWorkerThreadPool {
     private final Deque<FSqrWorkerThread> pooledWorkers;
     private final Deque<FSqrWorkerThread> borrowedWorkers;
     private final Deque<FSqrWorkerThread> finishedWorkers;
+    private String threadName;
 
     /**
      * 
      */
-    public FSqrWorkerThreadPool( int threadPoolSize ) {
-        // TODO maybe provide a threadprefix and a name for the threadpool??
+    public FSqrWorkerThreadPool( int threadPoolSize, String threadName ) {
+        this.threadName = threadName;
 
         this.createdWorkers = new ArrayDeque<>( threadPoolSize + 1 );
         this.pooledWorkers = new ArrayDeque<>( threadPoolSize + 1 );
@@ -50,14 +51,31 @@ public class FSqrWorkerThreadPool {
         this.borrowedWorkers = new ArrayDeque<>( threadPoolSize + 1 );
         this.finishedWorkers = new ArrayDeque<>( threadPoolSize + 1 );
 
-        // TODO create threads and then put them into the created threads queue
+        // create threads and then put them into the created threads queue
+        for (int i = 0; i < threadPoolSize; i++) {
+            FSqrWorkerThread threadWorker = new FSqrWorkerThread( threadName + "Worker-" + i );
+            this.createdWorkers.addLast( threadWorker );
+        }
     }
 
-    // TODO: initialize threadpool
-    // we move each thread from created, 
-    // tell each thread that it is now pooled and
-    // start thread (Thread.start())
-    // put them into the pooled queue
+    public void initializeThreadPool() {
+        FSqrWorkerThread createdWorker;
+
+        // we move each thread from created to pooled 
+        while ((createdWorker = createdWorkers.pollFirst()) != null) {
+
+            // tell each thread that it is now pooled
+            createdWorker.pooled();
+
+            // start thread (Thread.start())
+            createdWorker.start();
+
+            // put thread into the pooled queue
+            synchronized (pooledWorkers) {
+                pooledWorkers.addLast( createdWorker );
+            }
+        }
+    }
 
     // TODO BORROW... we can only borrow, if isWorkerAvaiable, this must be checked before,  otherwise 
     // borowthread must not be called. this method should never return null, instead throw an illegal state exception
