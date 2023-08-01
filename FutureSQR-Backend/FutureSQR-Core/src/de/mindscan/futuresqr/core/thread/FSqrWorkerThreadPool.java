@@ -83,6 +83,8 @@ public class FSqrWorkerThreadPool {
     // TODO BORROW... we can only borrow, if isWorkerAvaiable, this must be checked before, otherwise 
     // borrow thread must not be called. this method should never return null, instead throw an illegal state exception
     public FSqrWorkerThread borrowThread() {
+        // TODO: you cant borrow if shutdown is going on....
+
         FSqrWorkerThread borrowedWorker;
         // we look for a pooled thread in the pooled list, and pull the first. (synchronized)
         synchronized (pooledWorkers) {
@@ -136,7 +138,8 @@ public class FSqrWorkerThreadPool {
         }
     }
 
-    // isWorkerThreadAvailable, looks if pooledQueue is not empty. 
+    // isWorkerThreadAvailable, looks if pooledQueue is not empty
+    // no worker is available if shutown is going on.
     // if empty we try to collect all the finished threads, and then check if pooled Queue is still empty .. thats then the result.
 
     // TODO collectFinishedThreads
