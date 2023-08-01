@@ -46,6 +46,13 @@ public class FSqrWorkerThread extends FSqrThread {
         // TODO: clear assigned task.
     }
 
+    /**
+     * inform worker thread, that this thread is now pooled. 
+     */
+    protected void pooled() {
+        this.workerThreadState = FSqrWorkerThreadLifecylce.checkTransition( this.workerThreadState, FSqrWorkerThreadLifecylce.POOLED );
+    }
+
     // TODO assign workload, and the workload is wrapped in the run function.
 
     /** 
