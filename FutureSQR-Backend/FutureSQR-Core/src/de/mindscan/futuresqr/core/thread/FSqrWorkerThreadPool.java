@@ -58,6 +58,7 @@ public class FSqrWorkerThreadPool {
         for (int i = 0; i < threadPoolSize; i++) {
             FSqrWorkerThread threadWorker = new FSqrWorkerThread( this, threadName + "Worker-" + i );
             this.createdWorkers.addLast( threadWorker );
+            // TODO: maybe have a set of all known threads as well, such we can easier do a threaddump, and a killall operation. also we can then dig for lost threads?
         }
     }
 
@@ -149,4 +150,7 @@ public class FSqrWorkerThreadPool {
         this.shutdownInitiated = true;
     }
 
+    public void printThreadDump() {
+        // we want to dump every threadstate and every worker.
+    }
 }
