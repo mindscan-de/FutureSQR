@@ -70,6 +70,8 @@ public enum FSqrWorkerThreadLifecylce {
      */
     FINISHED;
 
+    // TODO: TERMINATED?
+
     public static FSqrWorkerThreadLifecylce checkTransition( FSqrWorkerThreadLifecylce fromstate, FSqrWorkerThreadLifecylce toState ) {
 
         switch (toState) {
