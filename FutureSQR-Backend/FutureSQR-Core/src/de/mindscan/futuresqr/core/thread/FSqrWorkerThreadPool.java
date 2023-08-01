@@ -39,6 +39,8 @@ public class FSqrWorkerThreadPool {
     private final Deque<FSqrWorkerThread> finishedWorkers;
     private String threadName;
 
+    private boolean shutdownInitiated = false;
+
     /**
      * 
      */
@@ -77,20 +79,26 @@ public class FSqrWorkerThreadPool {
         }
     }
 
-    // TODO BORROW... we can only borrow, if isWorkerAvaiable, this must be checked before,  otherwise 
-    // borowthread must not be called. this method should never return null, instead throw an illegal state exception
+    // TODO BORROW... we can only borrow, if isWorkerAvaiable, this must be checked before, otherwise 
+    // borrow thread must not be called. this method should never return null, instead throw an illegal state exception
     public FSqrWorkerThread borrowThread() {
         FSqrWorkerThread borrowedWorker;
-        // TODO we look for a pooled thread in the pooled list, and pull the first. (synchronized)
+        // we look for a pooled thread in the pooled list, and pull the first. (synchronized)
         synchronized (pooledWorkers) {
             borrowedWorker = pooledWorkers.pollFirst();
         }
 
         if (borrowedWorker == null) {
-            // TODO: REEEE this queue was empty, throw an illegal state exception....
+            if (shutdownInitiated) {
+                // actually we are in shutdown mode, we should not start or borrow new threads
+            }
+            else {
+                // TODO: REEEE this queue was empty, throw an illegal state exception....
+            }
         }
 
-        // TODO: we tell the thread that this thread is now borrowed.
+        // we tell the thread that this thread is now borrowed.
+        borrowedWorker.borrowed();
 
         // we add the thread to the borrowed queue
         synchronized (borrowedWorkers) {
@@ -101,11 +109,16 @@ public class FSqrWorkerThreadPool {
 
     // TODO finishedThread()
     // we take it from the borrowed queue to finished queue
+    // if shutdown initiated, we get 
 
     // isWorkerThreadAvailable, looks if pooledQueue is not empty. 
     // if empty we try to collect all the finished threads, and then check if pooled Queue is still empty .. thats then the result.
 
     // TODO collectFinishedThreads
     // we take all threads from the finished queue declare them pooled and add them to the pooled Deque
+
+    public void gracefulShutdownThreadPool() {
+        this.shutdownInitiated = true;
+    }
 
 }

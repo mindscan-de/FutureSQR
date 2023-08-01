@@ -51,6 +51,17 @@ public class FSqrWorkerThread extends FSqrThread {
      */
     protected void pooled() {
         this.workerThreadState = FSqrWorkerThreadLifecylce.checkTransition( this.workerThreadState, FSqrWorkerThreadLifecylce.POOLED );
+
+        // onPooled()
+    }
+
+    /**
+     * inform worker thread,  
+     */
+    protected void borrowed() {
+        this.workerThreadState = FSqrWorkerThreadLifecylce.checkTransition( this.workerThreadState, FSqrWorkerThreadLifecylce.BORROWED );
+
+        // onBorrowed()
     }
 
     // TODO assign workload, and the workload is wrapped in the run function.
@@ -82,4 +93,5 @@ public class FSqrWorkerThread extends FSqrThread {
         this.resetWorkerThread();
         // inform the Threadpool to accept this thread back into the worker thread pool
     }
+
 }
