@@ -39,7 +39,7 @@ public class FSqrWorkerThreadPool {
     private final Deque<FSqrWorkerThread> pooledWorkers;
     private final Set<FSqrWorkerThread> borrowedWorkers;
     private final Deque<FSqrWorkerThread> finishedWorkers;
-    private String threadName;
+    private String threadPoolName;
 
     private boolean shutdownInitiated = false;
     private int threadPoolSize;
@@ -47,9 +47,9 @@ public class FSqrWorkerThreadPool {
     /**
      * 
      */
-    public FSqrWorkerThreadPool( int threadPoolSize, String threadName ) {
+    public FSqrWorkerThreadPool( int threadPoolSize, String threadPoolName ) {
         this.threadPoolSize = threadPoolSize;
-        this.threadName = threadName;
+        this.threadPoolName = threadPoolName;
 
         this.createdWorkers = new ArrayDeque<>( threadPoolSize + 1 );
         this.pooledWorkers = new ArrayDeque<>( threadPoolSize + 1 );
@@ -58,7 +58,7 @@ public class FSqrWorkerThreadPool {
 
         // create threads and then put them into the created threads queue
         for (int i = 0; i < threadPoolSize; i++) {
-            FSqrWorkerThread threadWorker = new FSqrWorkerThread( this, threadName + "Worker-" + i );
+            FSqrWorkerThread threadWorker = new FSqrWorkerThread( this, threadPoolName + "Worker-" + i );
             this.createdWorkers.addLast( threadWorker );
             // TODO: maybe have a set of all known threads as well, such we can easier do a threaddump, and a killall operation. also we can then dig for lost threads?
         }
@@ -204,8 +204,8 @@ public class FSqrWorkerThreadPool {
         return shutdownInitiated;
     }
 
-    public String getThreadName() {
-        return threadName;
+    public String getThreadPoolName() {
+        return threadPoolName;
     }
 
     public int getThreadPoolSize() {
