@@ -42,11 +42,13 @@ public class FSqrWorkerThreadPool {
     private String threadName;
 
     private boolean shutdownInitiated = false;
+    private int threadPoolSize;
 
     /**
      * 
      */
     public FSqrWorkerThreadPool( int threadPoolSize, String threadName ) {
+        this.threadPoolSize = threadPoolSize;
         this.threadName = threadName;
 
         this.createdWorkers = new ArrayDeque<>( threadPoolSize + 1 );
@@ -144,14 +146,66 @@ public class FSqrWorkerThreadPool {
     }
 
     // isWorkerThreadAvailable, looks if pooledQueue is not empty
-    // no worker is available if shutown is going on.
-    // if empty we try to collect all the finished threads, and then check if pooled Queue is still empty .. thats then the result.
+    public boolean isWorkerThreadAvailable() {
+        // no worker is available if shutown is going on.
+        if (shutdownInitiated) {
+            return false;
+        }
 
-    // TODO collectFinishedThreads
+        // if empty we try to collect all the finished threads, and then check if pooled Queue is still empty .. thats then the result.
+        synchronized (pooledWorkers) {
+            if (!pooledWorkers.isEmpty()) {
+                return true;
+            }
+        }
+
+        this.collectFinishedThreads();
+
+        synchronized (pooledWorkers) {
+            return !pooledWorkers.isEmpty();
+        }
+    }
+
     // we take all threads from the finished queue declare them pooled and add them to the pooled Deque
+    public void collectFinishedThreads() {
+        FSqrWorkerThread finishedWorker;
+
+        // only transfer at maximum number of threadpoolsize to the pooledWorkers
+        for (int i = 0; i < this.threadPoolSize; i++) {
+            synchronized (finishedWorkers) {
+                finishedWorker = finishedWorkers.pollFirst();
+            }
+
+            // if no thread in finished workers found, we can quit collecting finished threads
+            if (finishedWorker == null) {
+                break;
+            }
+
+            if (shutdownInitiated) {
+                // if we are in shutdown mode, we don't forward this thread to the pooled workers any more.
+            }
+            else {
+                finishedWorker.pooled();
+
+                synchronized (pooledWorkers) {
+                    pooledWorkers.addLast( finishedWorker );
+                }
+            }
+
+        }
+
+    }
 
     public void gracefulShutdownThreadPool() {
         this.shutdownInitiated = true;
+    }
+
+    public boolean isShutdownInitiated() {
+        return shutdownInitiated;
+    }
+
+    public String getThreadName() {
+        return threadName;
     }
 
     public void printThreadDump() {
