@@ -83,6 +83,27 @@ public class FSqrWorkerThreadPool {
         }
     }
 
+    // isWorkerThreadAvailable, looks if pooledQueue is not empty
+    public boolean isWorkerThreadAvailable() {
+        // no worker is available if shutown is going on.
+        if (shutdownInitiated) {
+            return false;
+        }
+
+        // if empty we try to collect all the finished threads, and then check if pooled Queue is still empty .. thats then the result.
+        synchronized (pooledWorkers) {
+            if (!pooledWorkers.isEmpty()) {
+                return true;
+            }
+        }
+
+        this.collectFinishedThreads();
+
+        synchronized (pooledWorkers) {
+            return !pooledWorkers.isEmpty();
+        }
+    }
+
     // TODO BORROW... we can only borrow, if isWorkerAvaiable, this must be checked before, otherwise 
     // borrow thread must not be called. this method should never return null, instead throw an illegal state exception
     public FSqrWorkerThread borrowThread() {
@@ -145,27 +166,6 @@ public class FSqrWorkerThreadPool {
         }
     }
 
-    // isWorkerThreadAvailable, looks if pooledQueue is not empty
-    public boolean isWorkerThreadAvailable() {
-        // no worker is available if shutown is going on.
-        if (shutdownInitiated) {
-            return false;
-        }
-
-        // if empty we try to collect all the finished threads, and then check if pooled Queue is still empty .. thats then the result.
-        synchronized (pooledWorkers) {
-            if (!pooledWorkers.isEmpty()) {
-                return true;
-            }
-        }
-
-        this.collectFinishedThreads();
-
-        synchronized (pooledWorkers) {
-            return !pooledWorkers.isEmpty();
-        }
-    }
-
     // we take all threads from the finished queue declare them pooled and add them to the pooled Deque
     public void collectFinishedThreads() {
         FSqrWorkerThread finishedWorker;
@@ -206,6 +206,16 @@ public class FSqrWorkerThreadPool {
 
     public String getThreadName() {
         return threadName;
+    }
+
+    public int getThreadPoolSize() {
+        return threadPoolSize;
+    }
+
+    public int getNumberOfPooledThreads() {
+        synchronized (pooledWorkers) {
+            return pooledWorkers.size();
+        }
     }
 
     public void printThreadDump() {
