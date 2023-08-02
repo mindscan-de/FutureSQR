@@ -29,6 +29,7 @@ package de.mindscan.futuresqr.core.thread;
  * 
  */
 public class FSqrThread extends Thread {
+    // TODO composition over inheritance....
 
     /**
      * 

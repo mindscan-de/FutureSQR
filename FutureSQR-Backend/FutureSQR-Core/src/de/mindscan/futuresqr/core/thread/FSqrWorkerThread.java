@@ -31,6 +31,8 @@ package de.mindscan.futuresqr.core.thread;
  */
 public class FSqrWorkerThread extends FSqrThread {
 
+    // TODO: maybe implement this as a composition instead of inheritance from Thread...
+
     private FSqrWorkerThreadLifecylce workerThreadState;
     private FSqrWorkerThreadPool threadPool;
 
