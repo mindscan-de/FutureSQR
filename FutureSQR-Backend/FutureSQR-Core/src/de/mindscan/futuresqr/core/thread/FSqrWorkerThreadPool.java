@@ -187,6 +187,8 @@ public class FSqrWorkerThreadPool {
 
             if (shutdownInitiated) {
                 // if we are in shutdown mode, we don't forward this thread to the pooled workers any more.
+                // or we terminate them?
+                break;
             }
             else {
                 finishedWorker.pooled();
