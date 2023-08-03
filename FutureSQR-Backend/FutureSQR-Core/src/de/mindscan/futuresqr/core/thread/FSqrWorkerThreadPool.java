@@ -108,6 +108,9 @@ public class FSqrWorkerThreadPool {
     // borrow thread must not be called. this method should never return null, instead throw an illegal state exception
     public FSqrWorkerThread borrowThread() {
         // TODO: you cant borrow if shutdown is going on....
+        if (shutdownInitiated) {
+
+        }
 
         FSqrWorkerThread borrowedWorker;
         // we look for a pooled thread in the pooled list, and pull the first. (synchronized)
