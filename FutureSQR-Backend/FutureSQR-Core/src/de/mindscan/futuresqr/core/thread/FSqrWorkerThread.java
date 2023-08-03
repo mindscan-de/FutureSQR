@@ -123,4 +123,8 @@ public class FSqrWorkerThread extends FSqrThread {
         finished();
     }
 
+    public FSqrWorkerThreadLifecylce getWorkerThreadState() {
+        return workerThreadState;
+    }
+
 }
