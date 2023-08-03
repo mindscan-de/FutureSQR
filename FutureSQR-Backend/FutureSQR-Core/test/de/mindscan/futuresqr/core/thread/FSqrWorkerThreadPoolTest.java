@@ -150,4 +150,44 @@ public class FSqrWorkerThreadPoolTest {
         assertThat( result, equalTo( 2 ) );
     }
 
+    @Test
+    public void testIsWorkerThreadAvailable_NotInitialized_returnFalse() throws Exception {
+        // arrange
+        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 3, "Test" );
+
+        // act
+        boolean result = threadPool.isWorkerThreadAvailable();
+
+        // assert
+        assertThat( result, equalTo( false ) );
+    }
+
+    @Test
+    public void testIsWorkerThreadAvailable_Initialized_returnTrue() throws Exception {
+        // arrange
+        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 3, "Test" );
+        threadPool.initializeThreadPool();
+
+        // act
+        boolean result = threadPool.isWorkerThreadAvailable();
+
+        // assert
+        assertThat( result, equalTo( true ) );
+    }
+
+    @Test
+    public void testIsWorkerThreadAvailable_InitialitedAndInShutDown_returnFalse() throws Exception {
+        // arrange
+        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 3, "Test" );
+        threadPool.initializeThreadPool();
+        threadPool.gracefulShutdownThreadPool();
+
+        // act
+        boolean result = threadPool.isWorkerThreadAvailable();
+
+        // assert
+        assertThat( result, equalTo( false ) );
+
+    }
+
 }
