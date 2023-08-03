@@ -120,11 +120,12 @@ public class FSqrWorkerThreadPool {
                 // actually we are in shutdown mode, we should not start or borrow new threads
             }
             else {
-                // TODO: REEEE this queue was empty, throw an illegal state exception....
+                // REEEE this queue was empty, throw an illegal state exception....
+                throw new IllegalStateException( "make sure a workerthread is available using #isWorkerThreadAvailable(), there is no workerthread for you." );
             }
         }
 
-        // TODO we should have a check for shutdown --- we should then invoke terminated on borowed worker?
+        // TODO we should have a check for shutdown --- we should then invoke terminated on borrowed worker?
 
         // we tell the thread that this thread is now borrowed.
         borrowedWorker.borrowed();
@@ -215,6 +216,12 @@ public class FSqrWorkerThreadPool {
     public int getNumberOfPooledThreads() {
         synchronized (pooledWorkers) {
             return pooledWorkers.size();
+        }
+    }
+
+    public int getNumberOfBorrowedThreads() {
+        synchronized (borrowedWorkers) {
+            return borrowedWorkers.size();
         }
     }
 
