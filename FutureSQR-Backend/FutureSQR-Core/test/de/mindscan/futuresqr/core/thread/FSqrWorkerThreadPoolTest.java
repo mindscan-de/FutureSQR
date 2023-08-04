@@ -291,4 +291,28 @@ public class FSqrWorkerThreadPoolTest {
 
     }
 
+    @Test
+    public void testGetThreadPoolName_TestPoolNameIsTest_returnsTest() throws Exception {
+        // arrange
+        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
+
+        // act
+        String result = threadPool.getThreadPoolName();
+
+        // assert
+        assertThat( result, equalTo( "Test" ) );
+    }
+
+    @Test
+    public void testGetThreadPoolName_TestPoolNameIsPool_returnsPool() throws Exception {
+        // arrange
+        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Pool" );
+
+        // act
+        String result = threadPool.getThreadPoolName();
+
+        // assert
+        assertThat( result, equalTo( "Pool" ) );
+    }
+
 }
