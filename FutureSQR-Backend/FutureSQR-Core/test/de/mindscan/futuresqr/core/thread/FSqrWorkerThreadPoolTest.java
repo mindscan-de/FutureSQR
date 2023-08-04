@@ -178,7 +178,7 @@ public class FSqrWorkerThreadPoolTest {
     @Test
     public void testIsWorkerThreadAvailable_InitialitedAndInShutDown_returnFalse() throws Exception {
         // arrange
-        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 3, "Test" );
+        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
         threadPool.initializeThreadPool();
         threadPool.gracefulShutdownThreadPool();
 
@@ -188,6 +188,61 @@ public class FSqrWorkerThreadPoolTest {
         // assert
         assertThat( result, equalTo( false ) );
 
+    }
+
+    @Test
+    public void testWorkerComplete_Null_throwsIllegalArgumentException() throws Exception {
+        // arrange
+        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
+        threadPool.initializeThreadPool();
+
+        // act
+        // assert
+        Assertions.assertThrows( IllegalArgumentException.class, () -> threadPool.workerComplete( null ) );
+    }
+
+    @Test
+    public void testWorkerComplete_InitializeAndBorrowOneThreadAndCompleteThread_BorrorwsThreadListIsEmpty() throws Exception {
+        // arrange
+        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
+        threadPool.initializeThreadPool();
+        FSqrWorkerThread borrowedThread1 = threadPool.borrowThread();
+
+        // act
+        threadPool.workerComplete( borrowedThread1 );
+
+        // assert
+        int result = threadPool.getNumberOfBorrowedThreads();
+        assertThat( result, equalTo( 0 ) );
+    }
+
+    @Test
+    public void testGetNumberOfFinishedThreads_InitializeBorrowAndCompleteThread_FinishedListSizeIsOne() throws Exception {
+        // arrange
+        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
+        threadPool.initializeThreadPool();
+        FSqrWorkerThread borrowedThread1 = threadPool.borrowThread();
+        threadPool.workerComplete( borrowedThread1 );
+
+        // act
+        int result = threadPool.getNumberOfFinishedThreads();
+
+        // assert
+        assertThat( result, equalTo( 1 ) );
+    }
+
+    @Test
+    public void testGetNumberOfFinishedThreadsInitializeBorrowButDontFinishThread_FinishedListSizeIsZero() throws Exception {
+        // arrange
+        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
+        threadPool.initializeThreadPool();
+        FSqrWorkerThread borrowedThread1 = threadPool.borrowThread();
+
+        // act
+        int result = threadPool.getNumberOfFinishedThreads();
+
+        // assert
+        assertThat( result, equalTo( 0 ) );
     }
 
 }
