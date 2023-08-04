@@ -33,7 +33,7 @@ import java.util.Set;
 /**
  * 
  */
-public class FSqrWorkerThreadPool {
+public class FSqrWorkerThreadPool implements FSqrThreadPool {
 
     private final Deque<FSqrWorkerThread> createdWorkers;
     private final Deque<FSqrWorkerThread> pooledWorkers;
