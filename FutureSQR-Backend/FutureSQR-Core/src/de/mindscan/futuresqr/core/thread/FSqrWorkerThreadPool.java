@@ -230,6 +230,12 @@ public class FSqrWorkerThreadPool {
         }
     }
 
+    public int getNumberOfFinishedThreads() {
+        synchronized (finishedWorkers) {
+            return finishedWorkers.size();
+        }
+    }
+
     public void printThreadDump() {
         // we want to dump every threadstate and every worker.
     }
