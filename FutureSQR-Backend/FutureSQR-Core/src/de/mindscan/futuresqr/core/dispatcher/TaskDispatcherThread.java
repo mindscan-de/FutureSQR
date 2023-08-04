@@ -37,9 +37,8 @@ public class TaskDispatcherThread extends FSqrThread {
 
     private ThreadBoundArrayDeque<FSqrTask> taskQueue;
     private TaskDispatcher taskDispatcher;
+    // is this really needed ?
     private FSqrThreadPool threadPool;
-
-    // TODO: threadPool?
 
     /**
      * 
