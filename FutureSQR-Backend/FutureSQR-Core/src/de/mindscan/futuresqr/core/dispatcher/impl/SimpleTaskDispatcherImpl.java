@@ -28,21 +28,28 @@ package de.mindscan.futuresqr.core.dispatcher.impl;
 import de.mindscan.futuresqr.core.dispatcher.TaskDispatcher;
 import de.mindscan.futuresqr.core.queue.ThreadBoundArrayDeque;
 import de.mindscan.futuresqr.core.task.FSqrTask;
+import de.mindscan.futuresqr.core.thread.FSqrWorkerThreadPool;
 
 /**
  * 
  */
 public class SimpleTaskDispatcherImpl implements TaskDispatcher {
 
-    private ThreadBoundArrayDeque<FSqrTask> taskQueue;
+    private static final int DEFAULT_THREAD_POOL_SIZE = 5;
+    private static final String DEFAULT_THREAD_POOL_NAME = "TaskDispatcherPool";
 
-    // TODO some taskpool....
+    private ThreadBoundArrayDeque<FSqrTask> taskQueue;
+    private FSqrWorkerThreadPool threadPool;
 
     /**
      * 
      */
     public SimpleTaskDispatcherImpl() {
-        // TODO Auto-generated constructor stub
+        this( DEFAULT_THREAD_POOL_SIZE, DEFAULT_THREAD_POOL_NAME );
+    }
+
+    public SimpleTaskDispatcherImpl( int threadPoolSize, String threadPoolName ) {
+        this.threadPool = new FSqrWorkerThreadPool( threadPoolSize, threadPoolName );
     }
 
     /** 
@@ -76,9 +83,9 @@ public class SimpleTaskDispatcherImpl implements TaskDispatcher {
      */
     @Override
     public boolean isTaskWorkerAvailable() {
-        // TODO Auto-generated method stub
-        // TODO delegate to threadpool and ask threadpool, whether there is a thread available.
-        return false;
+        // TODO: this will only work if the threadPool is initialized...
+
+        return threadPool.isWorkerThreadAvailable();
     }
 
     /** 
