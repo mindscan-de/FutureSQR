@@ -39,6 +39,8 @@ public class SimpleTaskDispatcherImpl implements TaskDispatcher {
     private static final String DEFAULT_THREAD_POOL_NAME = "TaskDispatcherPool";
 
     private ThreadBoundArrayDeque<FSqrTask> taskQueue;
+
+    // TODO maybe we should have the WorkerThreadPool as a dependency. Maybe i will mov this outside later. 
     private FSqrWorkerThreadPool threadPool;
 
     /**
