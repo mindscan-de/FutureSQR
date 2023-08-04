@@ -94,8 +94,7 @@ public class FSqrWorkerThread extends FSqrThread {
         this.resetWorkerThread();
 
         // inform the Threadpool to accept this thread back into the worker thread pool
-        // threadPool.workerFinished( this );
-
+        threadPool.workerComplete( this );
     }
 
     // TODO assign workload, and the workload is wrapped in the run function.
