@@ -83,5 +83,8 @@ public class TaskDispatcherThread extends FSqrThread {
         catch (Exception e) {
             e.printStackTrace();
         }
+        finally {
+            // TODO shutdown the taskdispatcher;
+        }
     }
 }
