@@ -119,7 +119,7 @@ public class FSqrWorkerThreadPool {
         }
 
         if (borrowedWorker == null) {
-            if (shutdownInitiated) {
+            if (isShutdownInitiated()) {
                 // actually we are in shutdown mode, we should not start or borrow new threads
             }
             else {
@@ -157,7 +157,7 @@ public class FSqrWorkerThreadPool {
             return;
         }
 
-        if (shutdownInitiated) {
+        if (isShutdownInitiated()) {
             // TODO: actually we should shut down the thread via join (and not return it into the queue)
             // TODO: remove from full threadlist.
             // finishedThread.terminated();
@@ -185,7 +185,7 @@ public class FSqrWorkerThreadPool {
                 break;
             }
 
-            if (shutdownInitiated) {
+            if (isShutdownInitiated()) {
                 // if we are in shutdown mode, we don't forward this thread to the pooled workers any more.
                 // or we terminate them?
                 break;
