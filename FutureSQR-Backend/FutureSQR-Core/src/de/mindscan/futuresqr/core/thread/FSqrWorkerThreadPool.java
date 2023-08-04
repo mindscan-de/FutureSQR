@@ -174,7 +174,7 @@ public class FSqrWorkerThreadPool {
     public void collectFinishedThreads() {
         FSqrWorkerThread finishedWorker;
 
-        // only transfer at maximum number of threadpoolsize to the pooledWorkers
+        // only transfer a maximum number of threadpool size to the pooledWorkers
         for (int i = 0; i < this.threadPoolSize; i++) {
             synchronized (finishedWorkers) {
                 finishedWorker = finishedWorkers.pollFirst();
