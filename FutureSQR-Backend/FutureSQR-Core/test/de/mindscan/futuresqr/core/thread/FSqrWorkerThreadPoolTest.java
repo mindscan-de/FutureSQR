@@ -245,4 +245,50 @@ public class FSqrWorkerThreadPoolTest {
         assertThat( result, equalTo( 0 ) );
     }
 
+    @Test
+    public void testIsWorkerThreadAvailable_InitializeBorrowAndBorrowQueueEmpty_returnsFalse() throws Exception {
+        // arrange
+        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
+        threadPool.initializeThreadPool();
+        FSqrWorkerThread borrowedThread1 = threadPool.borrowThread();
+
+        // act
+        boolean result = threadPool.isWorkerThreadAvailable();
+
+        // assert
+        assertThat( result, equalTo( false ) );
+    }
+
+    @Test
+    public void testIsWorkerThreadAvailable_InitializeBorrowThenCompleteBorrowQueueEmpty_returnsTrue() throws Exception {
+        // arrange
+        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
+        threadPool.initializeThreadPool();
+        FSqrWorkerThread borrowedThread1 = threadPool.borrowThread();
+        threadPool.workerComplete( borrowedThread1 );
+
+        // act
+        boolean result = threadPool.isWorkerThreadAvailable();
+
+        // assert
+        assertThat( result, equalTo( true ) );
+    }
+
+    @Test
+    public void testGetNumberOfFinishedThreads_InitializeBorrowThenCompleteBorrowQueueEmpty_returnsZero() throws Exception {
+        // arrange
+        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
+        threadPool.initializeThreadPool();
+        FSqrWorkerThread borrowedThread1 = threadPool.borrowThread();
+        threadPool.workerComplete( borrowedThread1 );
+        threadPool.isWorkerThreadAvailable();
+
+        // act
+        int result = threadPool.getNumberOfFinishedThreads();
+
+        // assert
+        assertThat( result, equalTo( 0 ) );
+
+    }
+
 }
