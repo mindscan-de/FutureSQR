@@ -28,6 +28,7 @@ package de.mindscan.futuresqr.core.dispatcher.impl;
 import de.mindscan.futuresqr.core.dispatcher.TaskDispatcher;
 import de.mindscan.futuresqr.core.queue.ThreadBoundArrayDeque;
 import de.mindscan.futuresqr.core.task.FSqrTask;
+import de.mindscan.futuresqr.core.thread.FSqrThreadPool;
 import de.mindscan.futuresqr.core.thread.FSqrWorkerThreadPool;
 
 /**
@@ -51,6 +52,7 @@ public class SimpleTaskDispatcherImpl implements TaskDispatcher {
     }
 
     public SimpleTaskDispatcherImpl( int threadPoolSize, String threadPoolName ) {
+        // TODO reevaluate how .... we will substitute this
         this.threadPool = new FSqrWorkerThreadPool( threadPoolSize, threadPoolName );
     }
 
@@ -60,7 +62,14 @@ public class SimpleTaskDispatcherImpl implements TaskDispatcher {
     @Override
     public void setTaskQueue( ThreadBoundArrayDeque<FSqrTask> taskQueue ) {
         this.taskQueue = taskQueue;
+    }
 
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void setThreadPool( FSqrThreadPool threadPool ) {
+        // TODO Auto-generated method stub
     }
 
     /** 
