@@ -47,9 +47,10 @@ public class TaskDispatcherThread extends FSqrThread {
     public TaskDispatcherThread( TaskDispatcher taskDispatcher, FSqrThreadPool threadPool ) {
         super( "FSqr-TaskDispatcher-Thread" );
 
+        this.threadPool = threadPool;
         this.taskQueue = new ThreadBoundArrayDeque<FSqrTask>( this );
-        // TODO: implement a thread pool setter 
-        // this.taskDispatcher.setThreadPool( this.threadPool );
+
+        this.taskDispatcher.setThreadPool( this.threadPool );
         this.taskDispatcher.setTaskQueue( this.taskQueue );
     }
 
