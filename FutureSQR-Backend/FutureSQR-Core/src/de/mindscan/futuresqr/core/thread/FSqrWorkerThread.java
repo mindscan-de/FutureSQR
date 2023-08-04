@@ -36,6 +36,10 @@ public class FSqrWorkerThread extends FSqrThread {
     private FSqrWorkerThreadLifecylce workerThreadState;
     private FSqrWorkerThreadPool threadPool;
 
+    // TODO:
+    // volatile Runnable fsqrTask;
+    // volatile FSqrTask fsqrTask;
+
     /**
      * @param threadName
      */
