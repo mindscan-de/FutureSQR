@@ -52,6 +52,7 @@ public class FSqrWorkerThreadPool implements FSqrThreadPool {
         this.threadPoolName = threadPoolName;
 
         this.createdWorkers = new ArrayDeque<>( threadPoolSize + 1 );
+        // TODO: actually this should be an ArrayDeque which is able to wake up the taskdispatcherthread. using the taskdspatcherthreadmutex 
         this.pooledWorkers = new ArrayDeque<>( threadPoolSize + 1 );
         this.borrowedWorkers = new HashSet<>( threadPoolSize + 1 );
         this.finishedWorkers = new ArrayDeque<>( threadPoolSize + 1 );
@@ -70,16 +71,11 @@ public class FSqrWorkerThreadPool implements FSqrThreadPool {
         // we move each thread from created to pooled 
         while ((createdWorker = createdWorkers.pollFirst()) != null) {
 
-            // tell each thread that it is now pooled
-            createdWorker.pooled();
-
             // start thread (Thread.start())
             createdWorker.start();
 
             // put thread into the pooled queue
-            synchronized (pooledWorkers) {
-                pooledWorkers.addLast( createdWorker );
-            }
+            addToPooled( createdWorker );
         }
     }
 
@@ -191,15 +187,24 @@ public class FSqrWorkerThreadPool implements FSqrThreadPool {
                 break;
             }
             else {
-                finishedWorker.pooled();
-
-                synchronized (pooledWorkers) {
-                    pooledWorkers.addLast( finishedWorker );
-                }
+                addToPooled( finishedWorker );
             }
+        }
+    }
 
+    private void addToPooled( FSqrWorkerThread workerThread ) {
+        // first declare the element pooled
+        workerThread.pooled();
+
+        // only then add it to the pooled workers again 
+        synchronized (pooledWorkers) {
+            pooledWorkers.addLast( workerThread );
         }
 
+        // only then wake up a waiting mutex, that may poll the pooled worker "instantly", otherwise we have 
+        // lifecycle exceptions and such.
+
+        // TODO: we should also let a dispatcher know, that an element was added to the pool. 
     }
 
     public void gracefulShutdownThreadPool() {
