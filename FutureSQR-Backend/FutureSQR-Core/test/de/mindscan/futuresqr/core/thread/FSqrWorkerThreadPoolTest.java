@@ -315,4 +315,29 @@ public class FSqrWorkerThreadPoolTest {
         assertThat( result, equalTo( "Pool" ) );
     }
 
+    @Test
+    public void testIsShutdownInitiated_Ctor_returnsFalse() throws Exception {
+        // arrange
+        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Pool" );
+
+        // act
+        boolean result = threadPool.isShutdownInitiated();
+
+        // assert
+        assertThat( result, equalTo( false ) );
+    }
+
+    @Test
+    public void testIsShutdownInitiated_CtorGracefulShutdown_returnsTrue() throws Exception {
+        // arrange
+        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Pool" );
+        threadPool.gracefulShutdownThreadPool();
+
+        // act
+        boolean result = threadPool.isShutdownInitiated();
+
+        // assert
+        assertThat( result, equalTo( true ) );
+    }
+
 }
