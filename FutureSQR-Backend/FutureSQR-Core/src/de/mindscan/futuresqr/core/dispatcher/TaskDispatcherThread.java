@@ -37,7 +37,8 @@ public class TaskDispatcherThread extends FSqrThread {
 
     private ThreadBoundArrayDeque<FSqrTask> taskQueue;
     private TaskDispatcher taskDispatcher;
-    // is this really needed ?
+
+    // TODO reevaluate whether this is really needed - it depends how we handle the run method. 
     private FSqrThreadPool threadPool;
 
     /**
@@ -81,7 +82,10 @@ public class TaskDispatcherThread extends FSqrThread {
                     continue;
                 }
 
+                // TODO: maybe have a taskdispatcher quit request event.... to quit this loop.
+
                 // get the first free Runner, or should that be part of the taskDispatcher..
+                // TODO: maybe provide the thread pool here instead of using the setter...
                 this.taskDispatcher.runTask( taskToRun );
             }
 
@@ -90,7 +94,7 @@ public class TaskDispatcherThread extends FSqrThread {
             e.printStackTrace();
         }
         finally {
-            // TODO shutdown the taskdispatcher;
+            // TODO shutdown the task dispatcher;
         }
     }
 }
