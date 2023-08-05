@@ -163,6 +163,8 @@ public class FSqrWorkerThreadPool implements FSqrThreadPool {
             synchronized (finishedWorkers) {
                 finishedWorkers.addLast( finishedThread );
             }
+
+            // TODO: maybe call the collect finished threads, to unlock the WorkerThreadPool, who might wait for this. 
         }
     }
 
@@ -204,7 +206,9 @@ public class FSqrWorkerThreadPool implements FSqrThreadPool {
         // only then wake up a waiting mutex, that may poll the pooled worker "instantly", otherwise we have 
         // lifecycle exceptions and such.
 
-        // TODO: we should also let a dispatcher know, that an element was added to the pool. 
+        // TODO: we should also let a dispatcher know, that an element was added to the pool.
+        // problem is that this is run while "collectFinishedThreads" in "isWorkerThreadAvailable" is called, 
+        // which means that this will essentially become a infinite wait
     }
 
     public void gracefulShutdownThreadPool() {
