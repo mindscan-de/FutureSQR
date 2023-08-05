@@ -95,21 +95,21 @@ public class FSqrWorkerThreadPool implements FSqrThreadPool {
         }
     }
 
-    // isWorkerThreadAvailable, looks if pooledQueue is not empty
+    @Override
     public boolean isWorkerThreadAvailable() {
         // no worker is available if shutown is going on.
         if (shutdownInitiated) {
             return false;
         }
 
-        // if empty we try to collect all the finished threads, and then check if pooled Queue is still empty .. thats then the result.
         synchronized (pooledWorkers) {
             if (!pooledWorkers.isEmpty()) {
                 return true;
             }
         }
 
-        this.collectFinishedThreads();
+        // if empty, try to recycle finished threads 
+        this.recycleFinishedThreads();
 
         synchronized (pooledWorkers) {
             return !pooledWorkers.isEmpty();
@@ -185,8 +185,7 @@ public class FSqrWorkerThreadPool implements FSqrThreadPool {
     }
 
     // we take all threads from the finished queue declare them pooled and add them to the pooled Deque
-    // rename to recycleFinishedThreads...?
-    public void collectFinishedThreads() {
+    public void recycleFinishedThreads() {
         FSqrWorkerThread finishedWorker;
 
         // only transfer a maximum number of threadpool size to the pooledWorkers

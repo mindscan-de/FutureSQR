@@ -30,8 +30,15 @@ package de.mindscan.futuresqr.core.thread;
  */
 public interface FSqrThreadPool {
 
+    /**
+     * Provides information whether the pooled WorkerThread queue is not empty.
+     * @return <code>true</code> if a WorkerThread is available to be assigned to a Task, <code>false</code> otherwise, for example in case a shutdown for the pool is initiated.
+     */
     boolean isWorkerThreadAvailable();
 
+    /**
+     * This will prepare all threads in the Pool.
+     */
     void initializeThreadPool();
 
 }
