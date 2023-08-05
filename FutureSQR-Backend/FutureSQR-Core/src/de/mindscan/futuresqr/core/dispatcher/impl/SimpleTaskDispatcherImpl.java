@@ -41,8 +41,8 @@ public class SimpleTaskDispatcherImpl implements TaskDispatcher {
 
     private ThreadBoundArrayDeque<FSqrTask> taskQueue;
 
-    // TODO maybe we should have the WorkerThreadPool as a dependency. Maybe i will mov this outside later. 
-    private FSqrWorkerThreadPool threadPool;
+    // TODO maybe we should have the WorkerThreadPool as a dependency. Maybe i will move this outside later. 
+    private FSqrThreadPool threadPool;
 
     /**
      * 
@@ -69,7 +69,7 @@ public class SimpleTaskDispatcherImpl implements TaskDispatcher {
      */
     @Override
     public void setThreadPool( FSqrThreadPool threadPool ) {
-        // TODO Auto-generated method stub
+        // this.threadPool = threadPool;
     }
 
     /** 
@@ -94,8 +94,6 @@ public class SimpleTaskDispatcherImpl implements TaskDispatcher {
      */
     @Override
     public boolean isTaskWorkerAvailable() {
-        // TODO: this will only work if the threadPool is initialized...
-
         return threadPool.isWorkerThreadAvailable();
     }
 
@@ -104,7 +102,6 @@ public class SimpleTaskDispatcherImpl implements TaskDispatcher {
      */
     @Override
     public void runTask( FSqrTask taskToRun ) {
-        // TODO Auto-generated method stub
         // get a workerthread from the worker threadpool
         // then delegate the execution of the task to run to the WorkerThread
         // and the workerthread then returns itself back to the theeadpool, 

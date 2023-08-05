@@ -30,4 +30,6 @@ package de.mindscan.futuresqr.core.thread;
  */
 public interface FSqrThreadPool {
 
+    boolean isWorkerThreadAvailable();
+
 }
