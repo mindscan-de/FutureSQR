@@ -26,12 +26,25 @@
 package de.mindscan.futuresqr.core.thread;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
+ * The FSqrWorkerThreadPool manages a number of FSqrWorkerThread, their creation, their 
+ * availability in a pool and if they are borrowed or finished with the assigned task.
+ *  
+ * These WorkerThreads have different states within the pool. A WorkerThread is either
+ * created, pooled, borrowed and finished. The ThreadPool is currently implemented as
+ * a kind of static threadpool, where each worker thread lives forever. Probably this
+ * has to change later, wehere the threadpool creates and finishes threads all the time,
+ * such they are "fresh" and without baggage, and if they throw an exception can still 
+ * be reused - or may end in a deadlock.
  * 
+ * But for now this concept is good enough and just a proof-of-concept.
+ *  
  */
 public class FSqrWorkerThreadPool implements FSqrThreadPool {
 
@@ -39,10 +52,12 @@ public class FSqrWorkerThreadPool implements FSqrThreadPool {
     private final Deque<FSqrWorkerThread> pooledWorkers;
     private final Set<FSqrWorkerThread> borrowedWorkers;
     private final Deque<FSqrWorkerThread> finishedWorkers;
-    private String threadPoolName;
+    private final List<FSqrWorkerThread> allKnownWorkers;
+
+    private final String threadPoolName;
+    private final int threadPoolSize;
 
     private boolean shutdownInitiated = false;
-    private int threadPoolSize;
 
     /**
      * 
@@ -52,29 +67,30 @@ public class FSqrWorkerThreadPool implements FSqrThreadPool {
         this.threadPoolName = threadPoolName;
 
         this.createdWorkers = new ArrayDeque<>( threadPoolSize + 1 );
-        // TODO: actually this should be an ArrayDeque which is able to wake up the taskdispatcherthread. using the taskdspatcherthreadmutex 
         this.pooledWorkers = new ArrayDeque<>( threadPoolSize + 1 );
         this.borrowedWorkers = new HashSet<>( threadPoolSize + 1 );
         this.finishedWorkers = new ArrayDeque<>( threadPoolSize + 1 );
+        this.allKnownWorkers = new ArrayList<>( threadPoolSize + 1 );
 
-        // create threads and then put them into the created threads queue
+        createThreadPool( threadPoolSize, threadPoolName );
+    }
+
+    private void createThreadPool( int threadPoolSize, String threadPoolName ) {
         for (int i = 0; i < threadPoolSize; i++) {
             FSqrWorkerThread threadWorker = new FSqrWorkerThread( this, threadPoolName + "Worker-" + i );
+
             this.createdWorkers.addLast( threadWorker );
-            // TODO: maybe have a set of all known threads as well, such we can easier do a threaddump, and a killall operation. also we can then dig for lost threads?
+            this.allKnownWorkers.add( threadWorker );
         }
     }
 
+    @Override
     public void initializeThreadPool() {
         FSqrWorkerThread createdWorker;
 
-        // we move each thread from created to pooled 
+        // move each thread from created to pooled 
         while ((createdWorker = createdWorkers.pollFirst()) != null) {
-
-            // start thread (Thread.start())
             createdWorker.start();
-
-            // put thread into the pooled queue
             addToPooled( createdWorker );
         }
     }
@@ -169,6 +185,7 @@ public class FSqrWorkerThreadPool implements FSqrThreadPool {
     }
 
     // we take all threads from the finished queue declare them pooled and add them to the pooled Deque
+    // rename to recycleFinishedThreads...?
     public void collectFinishedThreads() {
         FSqrWorkerThread finishedWorker;
 

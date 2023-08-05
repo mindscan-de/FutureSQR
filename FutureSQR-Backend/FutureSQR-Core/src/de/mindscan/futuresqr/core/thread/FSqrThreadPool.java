@@ -32,4 +32,6 @@ public interface FSqrThreadPool {
 
     boolean isWorkerThreadAvailable();
 
+    void initializeThreadPool();
+
 }
