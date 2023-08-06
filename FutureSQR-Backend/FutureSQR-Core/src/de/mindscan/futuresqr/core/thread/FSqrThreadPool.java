@@ -41,4 +41,11 @@ public interface FSqrThreadPool {
      */
     void initializeThreadPool();
 
+    /**
+     * This method returns the first available thread from the thread workers queue.
+     * @return A borrowed thread ready to be used for a task. 
+     * @throws IllegalStateException in case there is no thread to borrow. Test that {@link #isWorkerThreadAvailable()} is <code>true</code> before borrowing.
+     */
+    FSqrWorkerThread borrowThread();
+
 }

@@ -13,7 +13,7 @@ public class FSqrWorkerThreadPoolTest {
     @Test
     public void testFSqrWorkerThreadPool_CtorOnly_noException() throws Exception {
         // arrange
-        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
+        FSqrThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
 
         // act
         // assert
@@ -71,7 +71,7 @@ public class FSqrWorkerThreadPoolTest {
     @Test
     public void testBorrowThread_Uninitialized_throwsIllegalStateException() throws Exception {
         // arrange
-        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
+        FSqrThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
 
         // act
         // assert
@@ -81,7 +81,7 @@ public class FSqrWorkerThreadPoolTest {
     @Test
     public void testBorrowThread_Initialized_threadIsNotNull() throws Exception {
         // arrange
-        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
+        FSqrThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
         threadPool.initializeThreadPool();
 
         // act
@@ -94,7 +94,7 @@ public class FSqrWorkerThreadPoolTest {
     @Test
     public void testBorrowThread_initialized_threadIsInBorrowedCondition() throws Exception {
         // arrange
-        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
+        FSqrThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
         threadPool.initializeThreadPool();
 
         // act
@@ -153,7 +153,7 @@ public class FSqrWorkerThreadPoolTest {
     @Test
     public void testIsWorkerThreadAvailable_NotInitialized_returnFalse() throws Exception {
         // arrange
-        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 3, "Test" );
+        FSqrThreadPool threadPool = new FSqrWorkerThreadPool( 3, "Test" );
 
         // act
         boolean result = threadPool.isWorkerThreadAvailable();
@@ -165,7 +165,7 @@ public class FSqrWorkerThreadPoolTest {
     @Test
     public void testIsWorkerThreadAvailable_Initialized_returnTrue() throws Exception {
         // arrange
-        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 3, "Test" );
+        FSqrThreadPool threadPool = new FSqrWorkerThreadPool( 3, "Test" );
         threadPool.initializeThreadPool();
 
         // act
@@ -248,7 +248,7 @@ public class FSqrWorkerThreadPoolTest {
     @Test
     public void testIsWorkerThreadAvailable_InitializeBorrowAndBorrowQueueEmpty_returnsFalse() throws Exception {
         // arrange
-        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
+        FSqrThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
         threadPool.initializeThreadPool();
         FSqrWorkerThread borrowedThread1 = threadPool.borrowThread();
 

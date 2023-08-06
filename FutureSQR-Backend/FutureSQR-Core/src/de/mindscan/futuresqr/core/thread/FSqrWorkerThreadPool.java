@@ -44,7 +44,8 @@ import java.util.Set;
  * be reused - or may end in a deadlock.
  * 
  * But for now this concept is good enough and just a proof-of-concept.
- *  
+ * 
+ * TODO: this whole task/worker/dispatcher concept has to be simplified much more...
  */
 public class FSqrWorkerThreadPool implements FSqrThreadPool {
 
@@ -97,8 +98,7 @@ public class FSqrWorkerThreadPool implements FSqrThreadPool {
 
     @Override
     public boolean isWorkerThreadAvailable() {
-        // no worker is available if shutown is going on.
-        if (shutdownInitiated) {
+        if (isShutdownInitiated()) {
             return false;
         }
 
@@ -108,7 +108,6 @@ public class FSqrWorkerThreadPool implements FSqrThreadPool {
             }
         }
 
-        // if empty, try to recycle finished threads 
         this.recycleFinishedThreads();
 
         synchronized (pooledWorkers) {
@@ -116,39 +115,28 @@ public class FSqrWorkerThreadPool implements FSqrThreadPool {
         }
     }
 
-    // TODO BORROW... we can only borrow, if isWorkerAvaiable, this must be checked before, otherwise 
-    // borrow thread must not be called. this method should never return null, instead throw an illegal state exception
+    @Override
     public FSqrWorkerThread borrowThread() {
-        // TODO: you cant borrow if shutdown is going on....
-        if (shutdownInitiated) {
-
+        if (isShutdownInitiated()) {
+            throw new IllegalStateException( "shutdown is active, no more threads can get borrowed." );
         }
 
         FSqrWorkerThread borrowedWorker;
-        // we look for a pooled thread in the pooled list, and pull the first. (synchronized)
+
         synchronized (pooledWorkers) {
             borrowedWorker = pooledWorkers.pollFirst();
         }
 
         if (borrowedWorker == null) {
-            if (isShutdownInitiated()) {
-                // actually we are in shutdown mode, we should not start or borrow new threads
-            }
-            else {
-                // REEEE this queue was empty, throw an illegal state exception....
-                throw new IllegalStateException( "make sure a workerthread is available using #isWorkerThreadAvailable(), there is no workerthread for you." );
-            }
+            throw new IllegalStateException( "make sure a workerthread is available using #isWorkerThreadAvailable(), there is no workerthread available." );
         }
 
-        // TODO we should have a check for shutdown --- we should then invoke terminated on borrowed worker?
-
-        // we tell the thread that this thread is now borrowed.
         borrowedWorker.borrowed();
 
-        // we add the thread to the borrowed queue
         synchronized (borrowedWorkers) {
             borrowedWorkers.add( borrowedWorker );
         }
+
         return borrowedWorker;
     }
 
