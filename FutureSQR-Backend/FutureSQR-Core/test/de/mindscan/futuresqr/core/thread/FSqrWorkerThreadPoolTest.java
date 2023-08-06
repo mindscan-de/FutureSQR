@@ -193,7 +193,7 @@ public class FSqrWorkerThreadPoolTest {
     @Test
     public void testWorkerComplete_Null_throwsIllegalArgumentException() throws Exception {
         // arrange
-        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
+        FSqrThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
         threadPool.initializeThreadPool();
 
         // act
@@ -262,7 +262,7 @@ public class FSqrWorkerThreadPoolTest {
     @Test
     public void testIsWorkerThreadAvailable_InitializeBorrowThenCompleteBorrowQueueEmpty_returnsTrue() throws Exception {
         // arrange
-        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
+        FSqrThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
         threadPool.initializeThreadPool();
         FSqrWorkerThread borrowedThread1 = threadPool.borrowThread();
         threadPool.workerComplete( borrowedThread1 );

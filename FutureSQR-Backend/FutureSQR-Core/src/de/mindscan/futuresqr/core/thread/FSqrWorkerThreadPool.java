@@ -38,8 +38,8 @@ import java.util.Set;
  *  
  * These WorkerThreads have different states within the pool. A WorkerThread is either
  * created, pooled, borrowed and finished. The ThreadPool is currently implemented as
- * a kind of static threadpool, where each worker thread lives forever. Probably this
- * has to change later, wehere the threadpool creates and finishes threads all the time,
+ * a kind of static thread pool, where each worker thread lives forever. Probably this
+ * has to change later, where the thread pool creates and finishes threads all the time,
  * such they are "fresh" and without baggage, and if they throw an exception can still 
  * be reused - or may end in a deadlock.
  * 
@@ -140,35 +140,45 @@ public class FSqrWorkerThreadPool implements FSqrThreadPool {
         return borrowedWorker;
     }
 
-    // workerComplete() is used to inform the pool that this worker thread is available again after it was borrowed.
-    public void workerComplete( FSqrWorkerThread finishedThread ) {
-        if (finishedThread == null) {
-            throw new IllegalArgumentException( "the finished thread must not be null." );
+    @Override
+    public void workerComplete( FSqrWorkerThread completedThread ) {
+        if (completedThread == null) {
+            throw new IllegalArgumentException( "the completed thread must not be null." );
         }
 
         boolean result;
 
         synchronized (borrowedWorkers) {
-            result = borrowedWorkers.remove( finishedThread );
+            result = borrowedWorkers.remove( completedThread );
         }
 
         if (result == false) {
+            // UNDECIDED MXM:
             // we should have found this in the borrowed Workers ...
+            // maybe something went wrong, but we currently don't know
+            // maybe this should be logged, if a logging framework becomes available during development
             return;
         }
 
         if (isShutdownInitiated()) {
-            // TODO: actually we should shut down the thread via join (and not return it into the queue)
-            // TODO: remove from full threadlist.
-            // finishedThread.terminated();
+            // UNDECIDED MXM:
+            // actually we should shut down the thread via join (and not return it into the queue)
+            // remove from allKnownWorkers thread list.
+            // maybe put them into a terminated list as well instead of terminated.
+            // maybe have a thread which will terminate threads, which will be terminated, when the last thread is terminated.
+            // since this is called from the completed Thread itself, this might be a wrong decision here.
+            // completedThread.terminated();
         }
         else {
             // we take it from the borrowed queue to finished queue
             synchronized (finishedWorkers) {
-                finishedWorkers.addLast( finishedThread );
+                finishedWorkers.addLast( completedThread );
             }
 
-            // TODO: maybe call the collect finished threads, to unlock the WorkerThreadPool, who might wait for this. 
+            // UNDECIDED MXM:
+            // maybe call the collect finished threads, to unlock the WorkerThreadPool, who might wait for this.
+            // that would introduce different thread calls on recycleFinihesThreads
+            // this.recycleFinishedThreads():
         }
     }
 

@@ -48,4 +48,12 @@ public interface FSqrThreadPool {
      */
     FSqrWorkerThread borrowThread();
 
+    /**
+     * This method is the key to be able to reuse a thread. A worker thread must indicate that the
+     * worker has completed the work, such that the this worker thread becomes available again for
+     * the pool. This method must be called e.g. from the worker thread itself.
+     * @param completedThread the completed worker thread.
+     */
+    void workerComplete( FSqrWorkerThread completedThread );
+
 }
