@@ -89,16 +89,18 @@ public class SimpleTaskDispatcherImpl implements TaskDispatcher {
         // then delegate/assign the execution of the task to run to the WorkerThread
         workerThread.assignTask( taskToRun );
 
-        // then run the assigned task....
-        // workerThread.startAssignedTask();
+        // fire and forget...
+        // then run the assigned task.... 
+        workerThread.startAssignedTask();
 
-        // and the worker thread then returns itself back to the theead pool, 
+        // and the worker thread then returns itself back to the thread pool, 
         // when either the task throws and exception or is ready.
+        // workerThread knows its own thread pool, so worker thread can announce itself as ready to the pool.
 
+        // UNDECIDED MXM:
         // maybe we want to allocate between long tasks and short tasks, such that there is always capacity for short tasks.
         // maybe we just have two task dispatchers, one for long running jobs and one for fast jobs, instead of writing complex allocation logic.
 
-        // workerThread knows its own thread pool, so worker thread can announce itself as ready to the pool.
     }
 
 }

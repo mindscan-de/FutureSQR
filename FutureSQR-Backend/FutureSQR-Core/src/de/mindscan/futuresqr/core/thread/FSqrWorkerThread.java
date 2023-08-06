@@ -139,4 +139,11 @@ public class FSqrWorkerThread extends FSqrThread {
         this.fsqrTask = taskToRun;
     }
 
+    /**
+     * 
+     */
+    public void startAssignedTask() {
+        // TODO Auto-generated method stub
+    }
+
 }
