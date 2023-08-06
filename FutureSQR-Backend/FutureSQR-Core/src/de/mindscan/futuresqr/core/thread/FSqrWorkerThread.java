@@ -25,6 +25,8 @@
  */
 package de.mindscan.futuresqr.core.thread;
 
+import de.mindscan.futuresqr.core.task.FSqrTask;
+
 /**
  * actually the worker threads are started, then they wait until a task is assigned
  * and the will run that assigned task until it finishes, then 
@@ -36,9 +38,8 @@ public class FSqrWorkerThread extends FSqrThread {
     private FSqrWorkerThreadLifecylce workerThreadState;
     private FSqrWorkerThreadPool threadPool;
 
-    // TODO:
     // volatile Runnable fsqrTask;
-    // volatile FSqrTask fsqrTask;
+    volatile FSqrTask fsqrTask;
 
     /**
      * @param threadName
@@ -48,6 +49,7 @@ public class FSqrWorkerThread extends FSqrThread {
 
         this.workerThreadState = FSqrWorkerThreadLifecylce.CREATED;
         this.threadPool = threadPool;
+        this.fsqrTask = null;
     }
 
     public void resetWorkerThread() {
@@ -128,6 +130,13 @@ public class FSqrWorkerThread extends FSqrThread {
 
     public FSqrWorkerThreadLifecylce getWorkerThreadState() {
         return workerThreadState;
+    }
+
+    /**
+     * @param taskToRun
+     */
+    public void assignTask( FSqrTask taskToRun ) {
+        this.fsqrTask = taskToRun;
     }
 
 }

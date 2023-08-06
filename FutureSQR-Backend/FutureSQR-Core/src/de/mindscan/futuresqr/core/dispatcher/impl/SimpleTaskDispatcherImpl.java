@@ -86,10 +86,11 @@ public class SimpleTaskDispatcherImpl implements TaskDispatcher {
         // get a worker thread from the worker threadpool
         FSqrWorkerThread workerThread = threadPool.borrowThread();
 
-        // then delegate the execution of the task to run to the WorkerThread
-        // workerThread.assignTask(taskToRun);
-        // ?
-        // workerThread.runTask(taskToRun);
+        // then delegate/assign the execution of the task to run to the WorkerThread
+        workerThread.assignTask( taskToRun );
+
+        // then run the assigned task....
+        // workerThread.startAssignedTask();
 
         // and the worker thread then returns itself back to the theead pool, 
         // when either the task throws and exception or is ready.
@@ -97,7 +98,7 @@ public class SimpleTaskDispatcherImpl implements TaskDispatcher {
         // maybe we want to allocate between long tasks and short tasks, such that there is always capacity for short tasks.
         // maybe we just have two task dispatchers, one for long running jobs and one for fast jobs, instead of writing complex allocation logic.
 
-        // workerThread knows its own threadpool, so workerthread can announce itself as ready to the pool.
+        // workerThread knows its own thread pool, so worker thread can announce itself as ready to the pool.
     }
 
 }
