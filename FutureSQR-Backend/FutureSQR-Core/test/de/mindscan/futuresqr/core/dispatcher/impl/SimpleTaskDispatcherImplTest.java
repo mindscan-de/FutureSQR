@@ -81,4 +81,19 @@ public class SimpleTaskDispatcherImplTest {
         Mockito.verify( taskQueue, times( 1 ) ).add( expectedTask );
     }
 
+    @Test
+    public void testRunTask__invokesBorrowThreadOnPool() throws Exception {
+        // cpxuaaa
+    }
+
+    @Test
+    public void testRunTask__assignsTaskToWorkerThreadFromPool() throws Exception {
+        // cpxuaaa
+    }
+
+    @Test
+    public void testRunTask__startAssignedTaskOnWorkerThreadFromPool() throws Exception {
+        // cpxuaaa
+    }
+
 }
