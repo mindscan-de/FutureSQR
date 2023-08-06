@@ -225,10 +225,12 @@ public class FSqrWorkerThreadPool implements FSqrThreadPool {
         // which means that this will essentially become a infinite wait
     }
 
+    @Override
     public void gracefulShutdownThreadPool() {
         this.shutdownInitiated = true;
     }
 
+    @Override
     public boolean isShutdownInitiated() {
         return shutdownInitiated;
     }

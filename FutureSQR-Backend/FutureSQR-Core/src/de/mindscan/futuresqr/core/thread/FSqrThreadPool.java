@@ -56,4 +56,15 @@ public interface FSqrThreadPool {
      */
     void workerComplete( FSqrWorkerThread completedThread );
 
+    /**
+     * 
+     * @return
+     */
+    boolean isShutdownInitiated();
+
+    /**
+     * instruct the thread pool complete all threads gracefully.
+     */
+    void gracefulShutdownThreadPool();
+
 }

@@ -178,7 +178,7 @@ public class FSqrWorkerThreadPoolTest {
     @Test
     public void testIsWorkerThreadAvailable_InitialitedAndInShutDown_returnFalse() throws Exception {
         // arrange
-        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
+        FSqrThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
         threadPool.initializeThreadPool();
         threadPool.gracefulShutdownThreadPool();
 
@@ -318,7 +318,7 @@ public class FSqrWorkerThreadPoolTest {
     @Test
     public void testIsShutdownInitiated_Ctor_returnsFalse() throws Exception {
         // arrange
-        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Pool" );
+        FSqrThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Pool" );
 
         // act
         boolean result = threadPool.isShutdownInitiated();
@@ -330,7 +330,7 @@ public class FSqrWorkerThreadPoolTest {
     @Test
     public void testIsShutdownInitiated_CtorGracefulShutdown_returnsTrue() throws Exception {
         // arrange
-        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Pool" );
+        FSqrThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Pool" );
         threadPool.gracefulShutdownThreadPool();
 
         // act
