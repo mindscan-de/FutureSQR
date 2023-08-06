@@ -29,6 +29,7 @@ import de.mindscan.futuresqr.core.dispatcher.TaskDispatcher;
 import de.mindscan.futuresqr.core.queue.ThreadBoundArrayDeque;
 import de.mindscan.futuresqr.core.task.FSqrTask;
 import de.mindscan.futuresqr.core.thread.FSqrThreadPool;
+import de.mindscan.futuresqr.core.thread.FSqrWorkerThread;
 
 /**
  * 
@@ -82,17 +83,21 @@ public class SimpleTaskDispatcherImpl implements TaskDispatcher {
      */
     @Override
     public void runTask( FSqrTask taskToRun ) {
-        // get a workerthread from the worker threadpool
+        // get a worker thread from the worker threadpool
+        FSqrWorkerThread workerThread = threadPool.borrowThread();
+
         // then delegate the execution of the task to run to the WorkerThread
-        // and the workerthread then returns itself back to the theeadpool, 
+        // workerThread.assignTask(taskToRun);
+        // ?
+        // workerThread.runTask(taskToRun);
+
+        // and the worker thread then returns itself back to the theead pool, 
         // when either the task throws and exception or is ready.
 
         // maybe we want to allocate between long tasks and short tasks, such that there is always capacity for short tasks.
-        // maybe we just have zwo taskdispatchers, one for long running jobs and one for fast jobs, instead of writing complex allocation logic.
+        // maybe we just have two task dispatchers, one for long running jobs and one for fast jobs, instead of writing complex allocation logic.
 
-        // workerThread = borrowFrom(threadPool);
-        // workerThread knowsHis own threadpool, so workerthread can announce itself
-        // workerThread.runTask(taskToRun);
+        // workerThread knows its own threadpool, so workerthread can announce itself as ready to the pool.
     }
 
 }
