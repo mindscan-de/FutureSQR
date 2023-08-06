@@ -340,4 +340,16 @@ public class FSqrWorkerThreadPoolTest {
         assertThat( result, equalTo( true ) );
     }
 
+    @Test
+    public void testBorrowThread_ShutdownThreadPool_throwsIllegalStateException() throws Exception {
+        // arrange
+        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
+        threadPool.initializeThreadPool();
+        threadPool.gracefulShutdownThreadPool();
+
+        // act
+        // assert
+        Assertions.assertThrows( IllegalStateException.class, () -> threadPool.borrowThread() );
+    }
+
 }
