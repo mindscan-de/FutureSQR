@@ -343,7 +343,7 @@ public class FSqrWorkerThreadPoolTest {
     @Test
     public void testBorrowThread_ShutdownThreadPool_throwsIllegalStateException() throws Exception {
         // arrange
-        FSqrWorkerThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
+        FSqrThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
         threadPool.initializeThreadPool();
         threadPool.gracefulShutdownThreadPool();
 

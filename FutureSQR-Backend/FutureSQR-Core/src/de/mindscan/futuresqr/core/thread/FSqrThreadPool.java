@@ -67,4 +67,10 @@ public interface FSqrThreadPool {
      */
     void gracefulShutdownThreadPool();
 
+    /**
+     * take all finished threads, recycle them and then mark them pooled and return them
+     * to the pool.  
+     */
+    void recycleFinishedThreads();
+
 }

@@ -182,7 +182,7 @@ public class FSqrWorkerThreadPool implements FSqrThreadPool {
         }
     }
 
-    // we take all threads from the finished queue declare them pooled and add them to the pooled Deque
+    @Override
     public void recycleFinishedThreads() {
         FSqrWorkerThread finishedWorker;
 
@@ -192,12 +192,13 @@ public class FSqrWorkerThreadPool implements FSqrThreadPool {
                 finishedWorker = finishedWorkers.pollFirst();
             }
 
-            // if no thread in finished workers found, we can quit collecting finished threads
             if (finishedWorker == null) {
+                // if no thread any more, we quit recycling finished threads
                 break;
             }
 
             if (isShutdownInitiated()) {
+                // UNDECIDED MXM:
                 // if we are in shutdown mode, we don't forward this thread to the pooled workers any more.
                 // or we terminate them?
                 break;
@@ -220,7 +221,8 @@ public class FSqrWorkerThreadPool implements FSqrThreadPool {
         // only then wake up a waiting mutex, that may poll the pooled worker "instantly", otherwise we have 
         // lifecycle exceptions and such.
 
-        // TODO: we should also let a dispatcher know, that an element was added to the pool.
+        // UNDECIDED MXM:
+        // we should also let a dispatcher know, that an element was added to the pool.
         // problem is that this is run while "collectFinishedThreads" in "isWorkerThreadAvailable" is called, 
         // which means that this will essentially become a infinite wait
     }
