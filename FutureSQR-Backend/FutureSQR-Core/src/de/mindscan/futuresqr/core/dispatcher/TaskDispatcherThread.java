@@ -39,6 +39,8 @@ public class TaskDispatcherThread extends FSqrThread {
     private TaskDispatcher taskDispatcher;
     private FSqrThreadPool threadPool;
 
+    private volatile boolean shutdown = false;
+
     public TaskDispatcherThread( TaskDispatcher taskDispatcher, FSqrThreadPool threadPool ) {
         super( "FSqr-TaskDispatcher-Thread" );
 
@@ -54,7 +56,7 @@ public class TaskDispatcherThread extends FSqrThread {
         try {
             // UNDECIDED MXM:
             // Not sure whether I like this design/implementation idea, but for now it is just conserving the idea. 
-            while (true) {
+            while (!shutdown) {
                 // UNDECIDED MXM:
                 // The problem is that the worker threads are a limited resource ...
                 // therefore this must wait first for a free thread-worker resource,
@@ -98,7 +100,14 @@ public class TaskDispatcherThread extends FSqrThread {
             e.printStackTrace();
         }
         finally {
-            // TODO shutdown the task dispatcher;
+            this.threadPool.gracefulShutdownThreadPool();
+            // stop all threads. / maybe wait for completion?
+            // this.threadPool.finish/terminateAll threads.
         }
+
+    }
+
+    public void shutdown() {
+        this.shutdown = true;
     }
 }
