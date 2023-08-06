@@ -68,7 +68,7 @@ public class TaskDispatcherThread extends FSqrThread {
                 // became available again. actually we must resume this thread for 
                 // the right reason....
 
-                // because the tasks may not be time critical this might be a good enough solution for some time
+                // because the tasks may not be time critical this is a good enough solution for some time
                 // maybe we need something more responsive later.
                 while (!taskDispatcher.isTaskWorkerAvailable()) {
                     try {
@@ -78,23 +78,19 @@ public class TaskDispatcherThread extends FSqrThread {
                     }
                 }
 
+                // this is a blocking call
                 FSqrTask taskToRun = taskQueue.poll();
 
-                // because when it was blocked, and no task was available, receive a null value and then we just 
-                // restart this loop and collect the task, on the second attempt, which is then first in the queue.
-
                 if (taskToRun == null) {
+                    // because when it was blocked, and no task was available, taskToRuin is a null value and 
+                    // then we just restart this loop and collect the task, on the second attempt, which is 
+                    // then first in the queue.
                     continue;
                 }
-
-                // TODO: maybe have a taskdispatcher quit request event which the dispatcherThread could subscribe to
-                //      .... to quit this loop. or someone else and the dispatcherthread gets a signal and it may
-                //      be looked into in this loop. 
 
                 // TODO: maybe provide the thread pool here instead of using the setter (setThreadPool)...
                 this.taskDispatcher.runTask( taskToRun );
             }
-
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -104,7 +100,6 @@ public class TaskDispatcherThread extends FSqrThread {
             // stop all threads. / maybe wait for completion?
             // this.threadPool.finish/terminateAll threads.
         }
-
     }
 
     public void shutdown() {
