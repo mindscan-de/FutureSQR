@@ -35,9 +35,6 @@ import de.mindscan.futuresqr.core.thread.FSqrThreadPool;
  */
 public class SimpleTaskDispatcherImpl implements TaskDispatcher {
 
-    private static final int DEFAULT_THREAD_POOL_SIZE = 5;
-    private static final String DEFAULT_THREAD_POOL_NAME = "TaskDispatcherPool";
-
     private ThreadBoundArrayDeque<FSqrTask> taskQueue;
     private FSqrThreadPool threadPool;
 
@@ -59,6 +56,8 @@ public class SimpleTaskDispatcherImpl implements TaskDispatcher {
     @Override
     public void dispatchTask( FSqrTask taskToDispatch ) {
         if (taskToDispatch == null) {
+            // UNDECIDED MXM:
+            // log this or throw illegal argument exception?
             return;
         }
 
