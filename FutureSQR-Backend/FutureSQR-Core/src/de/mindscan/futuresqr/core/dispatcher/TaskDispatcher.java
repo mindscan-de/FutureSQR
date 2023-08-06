@@ -27,7 +27,6 @@ package de.mindscan.futuresqr.core.dispatcher;
 
 import de.mindscan.futuresqr.core.queue.ThreadBoundArrayDeque;
 import de.mindscan.futuresqr.core.task.FSqrTask;
-import de.mindscan.futuresqr.core.thread.FSqrThreadPool;
 
 /**
  * 
@@ -47,9 +46,6 @@ public interface TaskDispatcher {
      * @param taskQueue
      */
     void setTaskQueue( ThreadBoundArrayDeque<FSqrTask> taskQueue );
-
-    // 
-    void setThreadPool( FSqrThreadPool threadPool );
 
     /**
      * @param taskToRun

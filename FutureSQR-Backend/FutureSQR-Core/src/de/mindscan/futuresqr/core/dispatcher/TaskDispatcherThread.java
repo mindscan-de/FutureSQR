@@ -31,45 +31,40 @@ import de.mindscan.futuresqr.core.thread.FSqrThread;
 import de.mindscan.futuresqr.core.thread.FSqrThreadPool;
 
 /**
- * 
+ * This is a thread running a TaskDispatcher using the TaskDispatcher implementation and a given thread pool.
  */
 public class TaskDispatcherThread extends FSqrThread {
 
     private ThreadBoundArrayDeque<FSqrTask> taskQueue;
     private TaskDispatcher taskDispatcher;
-
-    // TODO reevaluate whether this is really needed - it depends how we handle the run method. 
     private FSqrThreadPool threadPool;
 
-    /**
-     * 
-     */
     public TaskDispatcherThread( TaskDispatcher taskDispatcher, FSqrThreadPool threadPool ) {
         super( "FSqr-TaskDispatcher-Thread" );
 
+        this.taskDispatcher = taskDispatcher;
         this.threadPool = threadPool;
+
         this.taskQueue = new ThreadBoundArrayDeque<FSqrTask>( this );
-
-        // TODO: should the threadPool know about the dispatcher thread, such that the threadpool can notify?
-
-        this.taskDispatcher.setThreadPool( this.threadPool );
         this.taskDispatcher.setTaskQueue( this.taskQueue );
     }
 
     @Override
     public void run() {
         try {
-
-            // TODO: Not sure whether i like this design/implementation idea, but for now it is just 
-            //       conserving the idea. 
+            // UNDECIDED MXM:
+            // Not sure whether I like this design/implementation idea, but for now it is just conserving the idea. 
             while (true) {
-                // The problem is that the worker threads are a limited resource....
-                // therefore we should wait at first for a free thread-worker resource,
+                // UNDECIDED MXM:
+                // The problem is that the worker threads are a limited resource ...
+                // therefore this must wait first for a free thread-worker resource,
                 // and if available, we take one task element from the Queue
 
-                // I really don't like it but actually it removes quite a lot of headaches.
-                // we just look every 200 ms or so, new thread workers became available again. 
-                // actually we must resume this thread for the right reason....
+                // UNDECIDED MXM:
+                // I really don't like it but actually it removes quite a lot of 
+                // headaches we just look every 200 ms or so, new thread workers 
+                // became available again. actually we must resume this thread for 
+                // the right reason....
 
                 // because the tasks may not be time critical this might be a good enough solution for some time
                 // maybe we need something more responsive later.

@@ -29,7 +29,6 @@ import de.mindscan.futuresqr.core.dispatcher.TaskDispatcher;
 import de.mindscan.futuresqr.core.queue.ThreadBoundArrayDeque;
 import de.mindscan.futuresqr.core.task.FSqrTask;
 import de.mindscan.futuresqr.core.thread.FSqrThreadPool;
-import de.mindscan.futuresqr.core.thread.FSqrWorkerThreadPool;
 
 /**
  * 
@@ -40,20 +39,10 @@ public class SimpleTaskDispatcherImpl implements TaskDispatcher {
     private static final String DEFAULT_THREAD_POOL_NAME = "TaskDispatcherPool";
 
     private ThreadBoundArrayDeque<FSqrTask> taskQueue;
-
-    // TODO maybe we should have the WorkerThreadPool as a dependency. Maybe i will move this outside later. 
     private FSqrThreadPool threadPool;
 
-    /**
-     * 
-     */
-    public SimpleTaskDispatcherImpl() {
-        this( DEFAULT_THREAD_POOL_SIZE, DEFAULT_THREAD_POOL_NAME );
-    }
-
-    public SimpleTaskDispatcherImpl( int threadPoolSize, String threadPoolName ) {
-        // TODO reevaluate how .... we will substitute this
-        this.threadPool = new FSqrWorkerThreadPool( threadPoolSize, threadPoolName );
+    public SimpleTaskDispatcherImpl( FSqrThreadPool threadPool ) {
+        this.threadPool = threadPool;
     }
 
     /** 
@@ -62,14 +51,6 @@ public class SimpleTaskDispatcherImpl implements TaskDispatcher {
     @Override
     public void setTaskQueue( ThreadBoundArrayDeque<FSqrTask> taskQueue ) {
         this.taskQueue = taskQueue;
-    }
-
-    /** 
-     * {@inheritDoc}
-     */
-    @Override
-    public void setThreadPool( FSqrThreadPool threadPool ) {
-        // this.threadPool = threadPool;
     }
 
     /** 
