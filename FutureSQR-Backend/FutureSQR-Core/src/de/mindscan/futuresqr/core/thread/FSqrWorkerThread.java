@@ -38,8 +38,11 @@ public class FSqrWorkerThread extends FSqrThread {
     private FSqrWorkerThreadLifecylce workerThreadState;
     private FSqrWorkerThreadPool threadPool;
 
-    // volatile Runnable fsqrTask;
+    private Object runAssignedTaskMonitor = new Object();
+    volatile boolean runAssignedTask = false;
+
     volatile FSqrTask fsqrTask;
+    private boolean shutdownWorker = false;
 
     /**
      * @param threadName
@@ -54,6 +57,8 @@ public class FSqrWorkerThread extends FSqrThread {
 
     public void resetWorkerThread() {
         // TODO: clear assigned task.
+        this.assignTask( null );
+        this.runAssignedTask = false;
     }
 
     /**
@@ -75,6 +80,7 @@ public class FSqrWorkerThread extends FSqrThread {
     }
 
     void finished() {
+        stopAssignedTask();
         this.workerThreadState = FSqrWorkerThreadLifecylce.checkTransition( this.workerThreadState, FSqrWorkerThreadLifecylce.FINISHED );
 
         try {
@@ -110,20 +116,49 @@ public class FSqrWorkerThread extends FSqrThread {
      */
     @Override
     public void run() {
-        // TODO: Decide we either use resume / suspend... or wait and notify....
-        // 
-        // TODO: SLEEP and DREAM AND Wait until you receive a workload... and you are good to go.
-        // {
-        //   then stay awake and alive and run this workload (FSqrTask)
-        // }
+        while (!shutdownWorker) {
+
+            // we wait until a task is assigned 
+            while (!runAssignedTask && !shutdownWorker) {
+                try {
+                    runAssignedTaskMonitor.wait();
+                }
+                catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (shutdownWorker) {
+                return;
+            }
+
+            // TODO: ready to go....
+
+            if (fsqrTask != null) {
+                runWorkload();
+            }
+        }
     }
 
     public void runWorkload() {
+
         // TODO: Switch Lifecycle to started
         // TODO: Prepare the task
 
+        // PHASE PREPARE TASK.
+
         // TODO: switch Lifeclycle to running
-        // TODO: execute the task...
+        // PHASE RUN
+        try {
+            // execute the task... / external code may throw exceptions, we need to catch these, such that the
+            // worker can be recycled.
+            this.fsqrTask.run();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // PHASE CLEANUP TASK / FINISH TASK 
 
         finished();
     }
@@ -143,7 +178,17 @@ public class FSqrWorkerThread extends FSqrThread {
      * 
      */
     public void startAssignedTask() {
-        // TODO Auto-generated method stub
+        this.runAssignedTask = true;
+        runAssignedTaskMonitor.notify();
     }
 
+    public void stopAssignedTask() {
+        this.runAssignedTask = false;
+        runAssignedTaskMonitor.notify();
+    }
+
+    public void quitWorker() {
+        this.shutdownWorker = true;
+        runAssignedTaskMonitor.notify();
+    }
 }
