@@ -56,45 +56,8 @@ public class FSqrWorkerThread extends FSqrThread {
     }
 
     public void resetWorkerThread() {
-        // TODO: clear assigned task.
-        this.assignTask( null );
         this.runAssignedTask = false;
-    }
-
-    /**
-     * inform worker thread, that this thread is now pooled. 
-     */
-    void pooled() {
-        this.workerThreadState = FSqrWorkerThreadLifecylce.checkTransition( this.workerThreadState, FSqrWorkerThreadLifecylce.POOLED );
-
-        // onPooled()
-    }
-
-    /**
-     * inform worker thread,  
-     */
-    void borrowed() {
-        this.workerThreadState = FSqrWorkerThreadLifecylce.checkTransition( this.workerThreadState, FSqrWorkerThreadLifecylce.BORROWED );
-
-        // onBorrowed()
-    }
-
-    void terminated() {
-        this.workerThreadState = FSqrWorkerThreadLifecylce.checkTransition( this.workerThreadState, FSqrWorkerThreadLifecylce.TERMINATED );
-
-        // TODO we have to clean up this worker, such as weith resetWorkerState and interrupt the run method...
-        // maybe terminated should issue the join command on this thread.
-    }
-
-    /**
-     * 
-     */
-    protected void onFinished() {
-        // cleanup and reset ourselves
-        this.resetWorkerThread();
-
-        // inform the Thread pool to accept this thread back into the worker thread pool
-        threadPool.workerComplete( this );
+        this.assignTask( null );
     }
 
     /** 
@@ -194,4 +157,41 @@ public class FSqrWorkerThread extends FSqrThread {
         this.shutdownWorker = true;
         runAssignedTaskMonitor.notify();
     }
+
+    /**
+     * inform worker thread, that this thread is now pooled. 
+     */
+    void pooled() {
+        this.workerThreadState = FSqrWorkerThreadLifecylce.checkTransition( this.workerThreadState, FSqrWorkerThreadLifecylce.POOLED );
+
+        // onPooled()
+    }
+
+    /**
+     * inform worker thread,  
+     */
+    void borrowed() {
+        this.workerThreadState = FSqrWorkerThreadLifecylce.checkTransition( this.workerThreadState, FSqrWorkerThreadLifecylce.BORROWED );
+
+        // onBorrowed()
+    }
+
+    void terminated() {
+        this.workerThreadState = FSqrWorkerThreadLifecylce.checkTransition( this.workerThreadState, FSqrWorkerThreadLifecylce.TERMINATED );
+
+        // TODO we have to clean up this worker, such as weith resetWorkerState and interrupt the run method...
+        // maybe terminated should issue the join command on this thread.
+    }
+
+    /**
+     * 
+     */
+    protected void onFinished() {
+        // cleanup and reset ourselves
+        this.resetWorkerThread();
+
+        // inform the Thread pool to accept this thread back into the worker thread pool
+        threadPool.workerComplete( this );
+    }
+
 }
