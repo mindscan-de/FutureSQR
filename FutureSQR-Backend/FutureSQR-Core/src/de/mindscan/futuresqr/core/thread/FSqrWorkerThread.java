@@ -79,18 +79,6 @@ public class FSqrWorkerThread extends FSqrThread {
         // onBorrowed()
     }
 
-    void finished() {
-        stopAssignedTask();
-        this.workerThreadState = FSqrWorkerThreadLifecylce.checkTransition( this.workerThreadState, FSqrWorkerThreadLifecylce.FINISHED );
-
-        try {
-            onFinished();
-        }
-        catch (Exception e) {
-            // TODO: handle exception
-        }
-    }
-
     void terminated() {
         this.workerThreadState = FSqrWorkerThreadLifecylce.checkTransition( this.workerThreadState, FSqrWorkerThreadLifecylce.TERMINATED );
 
@@ -139,13 +127,18 @@ public class FSqrWorkerThread extends FSqrThread {
     }
 
     public void runWorkload() {
-
         // TODO: Switch Lifecycle to started
-        // TODO: Prepare the task
 
         // PHASE PREPARE TASK.
+        try {
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // TODO: switch Lifeclycle to running
+
         // PHASE RUN
         try {
             // execute the task... / external code may throw exceptions, we need to catch these, such that the
@@ -157,8 +150,26 @@ public class FSqrWorkerThread extends FSqrThread {
         }
 
         // PHASE CLEANUP TASK / FINISH TASK 
+        try {
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         finished();
+    }
+
+    void finished() {
+        stopAssignedTask();
+        this.workerThreadState = FSqrWorkerThreadLifecylce.checkTransition( this.workerThreadState, FSqrWorkerThreadLifecylce.FINISHED );
+
+        try {
+            onFinished();
+        }
+        catch (Exception e) {
+            // TODO: handle exception
+        }
     }
 
     public FSqrWorkerThreadLifecylce getWorkerThreadState() {
