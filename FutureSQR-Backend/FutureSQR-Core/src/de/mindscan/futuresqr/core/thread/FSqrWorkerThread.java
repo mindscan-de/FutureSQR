@@ -105,11 +105,9 @@ public class FSqrWorkerThread extends FSqrThread {
         // cleanup and reset ourselves
         this.resetWorkerThread();
 
-        // inform the Threadpool to accept this thread back into the worker thread pool
+        // inform the Thread pool to accept this thread back into the worker thread pool
         threadPool.workerComplete( this );
     }
-
-    // TODO assign workload, and the workload is wrapped in the run function.
 
     /** 
      * {@inheritDoc}
@@ -167,16 +165,10 @@ public class FSqrWorkerThread extends FSqrThread {
         return workerThreadState;
     }
 
-    /**
-     * @param taskToRun
-     */
     public void assignTask( FSqrTask taskToRun ) {
         this.fsqrTask = taskToRun;
     }
 
-    /**
-     * 
-     */
     public void startAssignedTask() {
         this.runAssignedTask = true;
         runAssignedTaskMonitor.notify();
