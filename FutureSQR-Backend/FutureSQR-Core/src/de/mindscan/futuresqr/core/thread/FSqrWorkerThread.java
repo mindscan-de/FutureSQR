@@ -55,11 +55,6 @@ public class FSqrWorkerThread extends FSqrThread {
         this.fsqrTask = null;
     }
 
-    public void resetWorkerThread() {
-        this.runAssignedTask = false;
-        this.assignTask( null );
-    }
-
     /** 
      * {@inheritDoc}
      */
@@ -192,6 +187,11 @@ public class FSqrWorkerThread extends FSqrThread {
 
         // inform the Thread pool to accept this thread back into the worker thread pool
         threadPool.workerComplete( this );
+    }
+
+    public void resetWorkerThread() {
+        this.runAssignedTask = false;
+        this.assignTask( null );
     }
 
 }
