@@ -83,14 +83,14 @@ public class SimpleTaskDispatcherImpl implements TaskDispatcher {
      */
     @Override
     public void runTask( FSqrTask taskToRun ) {
-        // get a worker thread from the worker threadpool
+        // get a worker thread from the worker thread pool
         FSqrWorkerThread workerThread = threadPool.borrowThread();
 
         // then delegate/assign the execution of the task to run to the WorkerThread
         workerThread.assignTask( taskToRun );
 
         // fire and forget...
-        // then run the assigned task.... 
+        // then run the assigned task.... / non-blocking - just unblock a semaphore or something.
         workerThread.startAssignedTask();
 
         // and the worker thread then returns itself back to the thread pool, 

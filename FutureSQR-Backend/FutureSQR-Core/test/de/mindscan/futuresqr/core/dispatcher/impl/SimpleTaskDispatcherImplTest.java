@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import de.mindscan.futuresqr.core.queue.ThreadBoundArrayDeque;
 import de.mindscan.futuresqr.core.task.FSqrTask;
 import de.mindscan.futuresqr.core.thread.FSqrThreadPool;
+import de.mindscan.futuresqr.core.thread.FSqrWorkerThread;
 
 public class SimpleTaskDispatcherImplTest {
 
@@ -83,17 +84,53 @@ public class SimpleTaskDispatcherImplTest {
 
     @Test
     public void testRunTask__invokesBorrowThreadOnPool() throws Exception {
-        // cpxuaaa
+        // arrange
+        FSqrTask expectedTask = Mockito.mock( FSqrTask.class, "expectedTask" );
+        FSqrWorkerThread expectedThread = Mockito.mock( FSqrWorkerThread.class, "expectedThread" );
+
+        FSqrThreadPool threadPool = Mockito.mock( FSqrThreadPool.class, "threadPool" );
+        Mockito.doReturn( expectedThread ).when( threadPool ).borrowThread();
+        SimpleTaskDispatcherImpl taskDispatcher = new SimpleTaskDispatcherImpl( threadPool );
+
+        // act
+        taskDispatcher.runTask( expectedTask );
+
+        // assert
+        Mockito.verify( threadPool, times( 1 ) ).borrowThread();
     }
 
     @Test
     public void testRunTask__assignsTaskToWorkerThreadFromPool() throws Exception {
-        // cpxuaaa
+        // arrange
+        FSqrTask expectedTask = Mockito.mock( FSqrTask.class, "expectedTask" );
+        FSqrWorkerThread expectedThread = Mockito.mock( FSqrWorkerThread.class, "expectedThread" );
+
+        FSqrThreadPool threadPool = Mockito.mock( FSqrThreadPool.class, "threadPool" );
+        Mockito.doReturn( expectedThread ).when( threadPool ).borrowThread();
+        SimpleTaskDispatcherImpl taskDispatcher = new SimpleTaskDispatcherImpl( threadPool );
+
+        // act
+        taskDispatcher.runTask( expectedTask );
+
+        // assert
+        Mockito.verify( expectedThread, times( 1 ) ).assignTask( expectedTask );
     }
 
     @Test
     public void testRunTask__startAssignedTaskOnWorkerThreadFromPool() throws Exception {
-        // cpxuaaa
+        // arrange
+        FSqrTask expectedTask = Mockito.mock( FSqrTask.class, "expectedTask" );
+        FSqrWorkerThread expectedThread = Mockito.mock( FSqrWorkerThread.class, "expectedThread" );
+
+        FSqrThreadPool threadPool = Mockito.mock( FSqrThreadPool.class, "threadPool" );
+        Mockito.doReturn( expectedThread ).when( threadPool ).borrowThread();
+        SimpleTaskDispatcherImpl taskDispatcher = new SimpleTaskDispatcherImpl( threadPool );
+
+        // act
+        taskDispatcher.runTask( expectedTask );
+
+        // assert
+        Mockito.verify( expectedThread, times( 1 ) ).startAssignedTask();
     }
 
 }
