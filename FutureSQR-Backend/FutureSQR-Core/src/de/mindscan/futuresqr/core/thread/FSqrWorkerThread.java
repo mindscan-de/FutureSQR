@@ -89,7 +89,7 @@ public class FSqrWorkerThread extends FSqrThread {
 
         // PHASE PREPARE TASK.
         try {
-
+            this.fsqrTask.prepare();
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -109,7 +109,7 @@ public class FSqrWorkerThread extends FSqrThread {
 
         // PHASE CLEANUP TASK / FINISH TASK 
         try {
-
+            this.fsqrTask.cleanup();
         }
         catch (Exception e) {
             e.printStackTrace();

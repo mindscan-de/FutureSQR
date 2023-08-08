@@ -43,4 +43,20 @@ public class FSqrTask implements Runnable {
 
     }
 
+    /**
+     * 
+     */
+    public void prepare() {
+        // TODO Auto-generated method stub
+
+    }
+
+    /**
+     * 
+     */
+    public void cleanup() {
+        // TODO Auto-generated method stub
+
+    }
+
 }
