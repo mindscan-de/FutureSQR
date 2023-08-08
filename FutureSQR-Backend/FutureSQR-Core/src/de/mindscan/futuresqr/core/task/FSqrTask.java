@@ -30,33 +30,26 @@ package de.mindscan.futuresqr.core.task;
  */
 public class FSqrTask implements Runnable {
 
-    // TODO:
-    // prepare task - We need some thing to insert some data into the task prior to execution ?
-    // or should that be done when the task is created and we just rund this task?
+    /**
+     * 
+     */
+    public void prepare() {
+        // intentionally left blank
+    }
 
     /** 
      * {@inheritDoc}
      */
     @Override
     public void run() {
-        // TODO Auto-generated method stub
-
-    }
-
-    /**
-     * 
-     */
-    public void prepare() {
-        // TODO Auto-generated method stub
-
+        // intentionally left blank    
     }
 
     /**
      * 
      */
     public void cleanup() {
-        // TODO Auto-generated method stub
-
+        // intentionally left blank    
     }
 
 }
