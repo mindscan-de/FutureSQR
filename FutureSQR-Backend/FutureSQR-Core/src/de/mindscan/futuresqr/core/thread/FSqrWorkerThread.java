@@ -85,7 +85,7 @@ public class FSqrWorkerThread extends FSqrThread {
     }
 
     public void runWorkload() {
-        // TODO: Switch Lifecycle to started
+        this.workerThreadState = FSqrWorkerThreadLifecylce.checkTransition( this.workerThreadState, FSqrWorkerThreadLifecylce.STARTING );
 
         // PHASE PREPARE TASK.
         try {
@@ -95,7 +95,7 @@ public class FSqrWorkerThread extends FSqrThread {
             e.printStackTrace();
         }
 
-        // TODO: switch Lifeclycle to running
+        this.workerThreadState = FSqrWorkerThreadLifecylce.checkTransition( this.workerThreadState, FSqrWorkerThreadLifecylce.RUNNING );
 
         // PHASE RUN
         try {
@@ -107,7 +107,8 @@ public class FSqrWorkerThread extends FSqrThread {
             e.printStackTrace();
         }
 
-        // PHASE CLEANUP TASK / FINISH TASK 
+        // PHASE CLEANUP TASK / FINISH TASK
+
         try {
             this.fsqrTask.cleanup();
         }
