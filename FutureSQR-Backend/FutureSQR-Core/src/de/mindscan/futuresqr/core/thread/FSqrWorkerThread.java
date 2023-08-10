@@ -127,7 +127,7 @@ public class FSqrWorkerThread extends FSqrThread {
             onFinished();
         }
         catch (Exception e) {
-            // TODO: handle exception
+            e.printStackTrace();
         }
     }
 
