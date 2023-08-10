@@ -54,12 +54,14 @@ class FSqrWorkerThreadTest {
         FSqrWorkerThread thread = new FSqrWorkerThread( threadPool, theadName );
 
         FSqrTask taskToRun = Mockito.mock( FSqrTask.class, "taskToRun" );
-        thread.assignTask( taskToRun );
-        thread.startAssignedTask();
+        thread.start();
 
         // act
         // assert
-        thread.start();
+        Thread.sleep( 1000 );
+        thread.assignTask( taskToRun );
+        Thread.sleep( 1000 );
+        thread.startAssignedTask();
         Thread.sleep( 1000 );
 
         thread.quitWorker();

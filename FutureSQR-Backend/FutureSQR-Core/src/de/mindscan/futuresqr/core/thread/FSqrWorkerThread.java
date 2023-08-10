@@ -39,10 +39,10 @@ public class FSqrWorkerThread extends FSqrThread {
     private FSqrWorkerThreadPool threadPool;
 
     private Object runAssignedTaskMonitor = new Object();
-    volatile boolean runAssignedTask = false;
+    boolean runAssignedTask = false;
 
     volatile FSqrTask fsqrTask;
-    private boolean shutdownWorker = false;
+    boolean shutdownWorker = false;
 
     /**
      * @param threadName
@@ -62,13 +62,18 @@ public class FSqrWorkerThread extends FSqrThread {
     public void run() {
         while (!shutdownWorker) {
 
-            // we wait until a task is assigned 
-            while (!runAssignedTask && !shutdownWorker) {
-                try {
-                    runAssignedTaskMonitor.wait();
-                }
-                catch (InterruptedException e) {
-                    e.printStackTrace();
+            synchronized (runAssignedTaskMonitor) {
+                // we wait until a task is assigned
+                System.out.println( runAssignedTask + " " + shutdownWorker );
+                while (!runAssignedTask && !shutdownWorker) {
+                    System.out.println( runAssignedTask + " " + shutdownWorker );
+
+                    try {
+                        runAssignedTaskMonitor.wait();
+                    }
+                    catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
@@ -141,28 +146,23 @@ public class FSqrWorkerThread extends FSqrThread {
 
     public void startAssignedTask() {
         this.runAssignedTask = true;
-        try {
+
+        synchronized (runAssignedTaskMonitor) {
             runAssignedTaskMonitor.notifyAll();
-        }
-        catch (Exception e) {
         }
     }
 
     public void stopAssignedTask() {
         this.runAssignedTask = false;
-        try {
+        synchronized (runAssignedTaskMonitor) {
             runAssignedTaskMonitor.notifyAll();
-        }
-        catch (Exception e) {
         }
     }
 
     public void quitWorker() {
         this.shutdownWorker = true;
-        try {
+        synchronized (runAssignedTaskMonitor) {
             runAssignedTaskMonitor.notifyAll();
-        }
-        catch (Exception e) {
         }
     }
 
