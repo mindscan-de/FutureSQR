@@ -61,13 +61,9 @@ public class FSqrWorkerThread extends FSqrThread {
     @Override
     public void run() {
         while (!shutdownWorker) {
-
             synchronized (runAssignedTaskMonitor) {
                 // we wait until a task is assigned
-                System.out.println( runAssignedTask + " " + shutdownWorker );
                 while (!runAssignedTask && !shutdownWorker) {
-                    System.out.println( runAssignedTask + " " + shutdownWorker );
-
                     try {
                         runAssignedTaskMonitor.wait();
                     }
@@ -146,23 +142,22 @@ public class FSqrWorkerThread extends FSqrThread {
 
     public void startAssignedTask() {
         this.runAssignedTask = true;
-
         synchronized (runAssignedTaskMonitor) {
-            runAssignedTaskMonitor.notifyAll();
+            runAssignedTaskMonitor.notify();
         }
     }
 
     public void stopAssignedTask() {
         this.runAssignedTask = false;
         synchronized (runAssignedTaskMonitor) {
-            runAssignedTaskMonitor.notifyAll();
+            runAssignedTaskMonitor.notify();
         }
     }
 
     public void quitWorker() {
         this.shutdownWorker = true;
         synchronized (runAssignedTaskMonitor) {
-            runAssignedTaskMonitor.notifyAll();
+            runAssignedTaskMonitor.notify();
         }
     }
 
