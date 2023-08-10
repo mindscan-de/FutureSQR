@@ -141,17 +141,29 @@ public class FSqrWorkerThread extends FSqrThread {
 
     public void startAssignedTask() {
         this.runAssignedTask = true;
-        runAssignedTaskMonitor.notify();
+        try {
+            runAssignedTaskMonitor.notifyAll();
+        }
+        catch (Exception e) {
+        }
     }
 
     public void stopAssignedTask() {
         this.runAssignedTask = false;
-        runAssignedTaskMonitor.notify();
+        try {
+            runAssignedTaskMonitor.notifyAll();
+        }
+        catch (Exception e) {
+        }
     }
 
     public void quitWorker() {
         this.shutdownWorker = true;
-        runAssignedTaskMonitor.notify();
+        try {
+            runAssignedTaskMonitor.notifyAll();
+        }
+        catch (Exception e) {
+        }
     }
 
     /**
