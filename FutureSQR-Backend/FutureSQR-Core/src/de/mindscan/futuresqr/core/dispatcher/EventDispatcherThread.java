@@ -85,6 +85,8 @@ public class EventDispatcherThread extends FSqrThread {
     }
 
     public void shutdown() {
+        FSqrEvent shutDownEvent = new FSqrThreadSigAbortRequestEvent();
         this.shutdown = true;
+        this.eventQueue.add( shutDownEvent );
     }
 }
