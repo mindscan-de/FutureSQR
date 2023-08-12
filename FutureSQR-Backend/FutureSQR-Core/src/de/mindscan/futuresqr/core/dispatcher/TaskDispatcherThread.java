@@ -26,6 +26,7 @@
 package de.mindscan.futuresqr.core.dispatcher;
 
 import de.mindscan.futuresqr.core.queue.ThreadBoundArrayDeque;
+import de.mindscan.futuresqr.core.task.FSqrNopTask;
 import de.mindscan.futuresqr.core.task.FSqrTask;
 import de.mindscan.futuresqr.core.thread.FSqrThread;
 import de.mindscan.futuresqr.core.thread.FSqrThreadPool;
@@ -103,6 +104,8 @@ public class TaskDispatcherThread extends FSqrThread {
     }
 
     public void shutdown() {
+        FSqrTask nopTask = new FSqrNopTask();
         this.shutdown = true;
+        this.taskQueue.add( nopTask );
     }
 }
