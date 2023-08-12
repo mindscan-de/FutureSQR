@@ -37,6 +37,7 @@ public class EventDispatcherThread extends FSqrThread {
 
     private ThreadBoundArrayDeque<FSqrEvent> eventQueue;
     private EventDispatcher eventDispatcher;
+    private volatile boolean shutdown = false;
 
     public EventDispatcherThread( EventDispatcher eventDispatcher ) {
         super( "FSqr-EventDispatcher-Thread" );
@@ -54,8 +55,7 @@ public class EventDispatcherThread extends FSqrThread {
     @Override
     public void run() {
         try {
-            int i = 0;
-            while (true) {
+            while (!shutdown) {
                 // this will suspend this event dispatcher thread if this queue is empty
                 // and is resumed after any thread added an element to the deque.
                 FSqrEvent eventToHandle = eventQueue.poll();
@@ -82,5 +82,9 @@ public class EventDispatcherThread extends FSqrThread {
             // TODO: add logging some when later.
             e.printStackTrace();
         }
+    }
+
+    public void shutdown() {
+        this.shutdown = true;
     }
 }
