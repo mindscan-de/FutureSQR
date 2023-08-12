@@ -76,6 +76,7 @@ public class TaskDispatcherThread extends FSqrThread {
                         Thread.sleep( 200 );
                     }
                     catch (InterruptedException ex) {
+                        Thread.currentThread().interrupt();
                     }
                 }
 
@@ -106,6 +107,6 @@ public class TaskDispatcherThread extends FSqrThread {
     public void shutdown() {
         FSqrTask nopTask = new FSqrNopTask();
         this.shutdown = true;
-        this.taskQueue.add( nopTask );
+        this.taskDispatcher.dispatchTask( nopTask );
     }
 }
