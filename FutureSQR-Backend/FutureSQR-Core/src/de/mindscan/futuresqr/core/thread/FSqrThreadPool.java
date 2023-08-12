@@ -73,4 +73,9 @@ public interface FSqrThreadPool {
      */
     void recycleFinishedThreads();
 
+    /**
+     * 
+     */
+    void killAll();
+
 }

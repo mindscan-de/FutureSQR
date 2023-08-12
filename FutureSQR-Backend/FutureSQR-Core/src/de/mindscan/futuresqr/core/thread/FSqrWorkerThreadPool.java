@@ -266,4 +266,13 @@ public class FSqrWorkerThreadPool implements FSqrThreadPool {
     public void printThreadDump() {
         // we want to dump every threadstate and every worker.
     }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void killAll() {
+        // TODO Auto-generated method stub
+
+    }
 }
