@@ -25,8 +25,11 @@
  */
 package de.mindscan.futuresqr.devmain;
 
+import de.mindscan.futuresqr.core.dispatcher.EventDispatcher;
+import de.mindscan.futuresqr.core.dispatcher.EventDispatcherThread;
 import de.mindscan.futuresqr.core.dispatcher.TaskDispatcher;
 import de.mindscan.futuresqr.core.dispatcher.TaskDispatcherThread;
+import de.mindscan.futuresqr.core.dispatcher.impl.SimpleEventDispatcherImpl;
 import de.mindscan.futuresqr.core.dispatcher.impl.SimpleTaskDispatcherImpl;
 import de.mindscan.futuresqr.core.thread.FSqrThreadPool;
 import de.mindscan.futuresqr.core.thread.FSqrWorkerThreadPool;
@@ -45,13 +48,27 @@ public class DevBackendMainV1 {
     }
 
     public void run() {
+        // start :: taskdispatcher
         FSqrThreadPool threadPool = new FSqrWorkerThreadPool( 2, "TaskPool" );
         TaskDispatcher taskDispatcher = new SimpleTaskDispatcherImpl( threadPool );
         TaskDispatcherThread taskDispatcherThread = new TaskDispatcherThread( taskDispatcher, threadPool );
+        // taskDispatcherThread.start();
 
-        taskDispatcherThread.start();
+        // start :: eventdispatcher
+        EventDispatcher eventDispatcher = new SimpleEventDispatcherImpl();
+        EventDispatcherThread eventDispatcherThread = new EventDispatcherThread( eventDispatcher );
+        eventDispatcherThread.start();
+
+        // TODO: actually we want to dispatch some of the interesting tasks.
         // UpdateProjectCacheTask task = new UpdateProjectCacheTask( "futuresqr" );
         // taskDispatcher.dispatchTask( task );
+
+        //
+        System.out.println( "Test" );
+
+        // 
+        eventDispatcherThread.shutdown();
+        taskDispatcherThread.shutdown();
 
     }
 }
