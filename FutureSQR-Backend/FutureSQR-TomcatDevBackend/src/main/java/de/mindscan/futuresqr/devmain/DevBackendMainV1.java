@@ -50,6 +50,7 @@ public class DevBackendMainV1 {
     public void run() {
         // start :: taskdispatcher
         FSqrThreadPool threadPool = new FSqrWorkerThreadPool( 2, "TaskPool" );
+        threadPool.initializeThreadPool();
         TaskDispatcher taskDispatcher = new SimpleTaskDispatcherImpl( threadPool );
         TaskDispatcherThread taskDispatcherThread = new TaskDispatcherThread( taskDispatcher, threadPool );
         taskDispatcherThread.start();
@@ -59,16 +60,23 @@ public class DevBackendMainV1 {
         EventDispatcherThread eventDispatcherThread = new EventDispatcherThread( eventDispatcher );
         eventDispatcherThread.start();
 
+        // 
+        //
+        System.out.println( "Test in the application stuff here..." );
+
+        //
         // TODO: actually we want to dispatch some of the interesting tasks.
         // UpdateProjectCacheTask task = new UpdateProjectCacheTask( "futuresqr" );
         // taskDispatcher.dispatchTask( task );
 
-        //
-        System.out.println( "Test" );
+        // 
 
         // shutdown 
         taskDispatcherThread.shutdown();
         eventDispatcherThread.shutdown();
+
+        // now killall workers in threadpool - not yet nice, but let's see.
+        threadPool.killAll();
 
         System.out.println( "shutdown invoked." );
     }

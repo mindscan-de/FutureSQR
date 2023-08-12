@@ -101,6 +101,7 @@ public class TaskDispatcherThread extends FSqrThread {
             this.threadPool.gracefulShutdownThreadPool();
             // stop all threads. / maybe wait for completion?
             // this.threadPool.finish/terminateAll threads.
+            System.out.println( "Gracefulshutdown initiated..." );
         }
     }
 
