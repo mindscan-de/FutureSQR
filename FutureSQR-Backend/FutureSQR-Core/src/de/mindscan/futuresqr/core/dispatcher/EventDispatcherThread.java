@@ -26,6 +26,7 @@
 package de.mindscan.futuresqr.core.dispatcher;
 
 import de.mindscan.futuresqr.core.events.FSqrEvent;
+import de.mindscan.futuresqr.core.events.FSqrThreadNopEvent;
 import de.mindscan.futuresqr.core.events.FSqrThreadSigAbortRequestEvent;
 import de.mindscan.futuresqr.core.queue.ThreadBoundArrayDeque;
 import de.mindscan.futuresqr.core.thread.FSqrThread;
@@ -62,6 +63,11 @@ public class EventDispatcherThread extends FSqrThread {
 
                 // if it was empty the last time, we must ignore it.
                 if (eventToHandle == null) {
+                    continue;
+                }
+
+                if (eventToHandle instanceof FSqrThreadNopEvent) {
+                    // No operation event (e.g. for testing and unlocking the EventDispatcherThread
                     continue;
                 }
 
