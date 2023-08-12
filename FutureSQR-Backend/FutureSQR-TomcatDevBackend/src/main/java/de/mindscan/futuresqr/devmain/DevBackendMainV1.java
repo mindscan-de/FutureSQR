@@ -52,7 +52,7 @@ public class DevBackendMainV1 {
         FSqrThreadPool threadPool = new FSqrWorkerThreadPool( 2, "TaskPool" );
         TaskDispatcher taskDispatcher = new SimpleTaskDispatcherImpl( threadPool );
         TaskDispatcherThread taskDispatcherThread = new TaskDispatcherThread( taskDispatcher, threadPool );
-        // taskDispatcherThread.start();
+        taskDispatcherThread.start();
 
         // start :: eventdispatcher
         EventDispatcher eventDispatcher = new SimpleEventDispatcherImpl();
@@ -66,9 +66,10 @@ public class DevBackendMainV1 {
         //
         System.out.println( "Test" );
 
-        // 
-        eventDispatcherThread.shutdown();
+        // shutdown 
         taskDispatcherThread.shutdown();
+        eventDispatcherThread.shutdown();
 
+        System.out.println( "shutdown invoked." );
     }
 }
