@@ -60,9 +60,13 @@ public class DevBackendMainV1 {
         EventDispatcherThread eventDispatcherThread = new EventDispatcherThread( eventDispatcher );
         eventDispatcherThread.start();
 
-        // 
+        // TODO: next we must make the FSqrTask stuff compatible to the ReviewSystem-Core Background tasks.
+        //       such that these reviewsystem core tasks can be run by the event and taskdispatcher system.
+
         //
-        System.out.println( "Test in the application stuff here..." );
+        System.out.println( "Test the application stuff here..." );
+
+        // provide some mechanism to let this application run, and be able to quit it, e.g. open / provide some console... 
 
         //
         // TODO: actually we want to dispatch some of the interesting tasks.
