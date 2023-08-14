@@ -274,11 +274,11 @@ public class FSqrWorkerThreadPool implements FSqrThreadPool {
     public void killAll() {
         synchronized (allKnownWorkers) {
             while (allKnownWorkers.size() > 0) {
-                FSqrWorkerThread removed = allKnownWorkers.remove( 0 );
+                FSqrWorkerThread removedWorker = allKnownWorkers.remove( 0 );
+                System.out.println( "stop thread: " + removedWorker.getName() );
                 try {
-                    System.out.println( "stop thread: " + removed.getName() );
-                    removed.quitWorker();
-                    removed.join( 100 );
+                    removedWorker.quitWorker();
+                    removedWorker.join( 100 );
                 }
                 catch (InterruptedException e) {
                     e.printStackTrace();
