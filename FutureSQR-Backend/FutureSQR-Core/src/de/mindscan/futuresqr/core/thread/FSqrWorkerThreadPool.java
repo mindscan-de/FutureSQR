@@ -265,6 +265,11 @@ public class FSqrWorkerThreadPool implements FSqrThreadPool {
 
     public void printThreadDump() {
         // we want to dump every threadstate and every worker.
+        synchronized (allKnownWorkers) {
+            for (FSqrWorkerThread fSqrWorkerThread : allKnownWorkers) {
+                // fSqrWorkerThread.getStackTrace()
+            }
+        }
     }
 
     /** 
