@@ -352,4 +352,19 @@ public class FSqrWorkerThreadPoolTest {
         Assertions.assertThrows( IllegalStateException.class, () -> threadPool.borrowThread() );
     }
 
+    @Test
+    public void testKillAll_initializeThreadPool_BorrowedThreadIsTerminated() throws Exception {
+        // arrange
+        FSqrThreadPool threadPool = new FSqrWorkerThreadPool( 1, "Test" );
+        threadPool.initializeThreadPool();
+        FSqrWorkerThread borrowedThread = threadPool.borrowThread();
+
+        // act
+        threadPool.killAll();
+
+        // assert
+        boolean result = borrowedThread.isAlive();
+        assertThat( result, equalTo( false ) );
+    }
+
 }
