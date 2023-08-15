@@ -33,6 +33,7 @@ import de.mindscan.futuresqr.core.dispatcher.impl.SimpleEventDispatcherImpl;
 import de.mindscan.futuresqr.core.dispatcher.impl.SimpleTaskDispatcherImpl;
 import de.mindscan.futuresqr.core.thread.FSqrThreadPool;
 import de.mindscan.futuresqr.core.thread.FSqrWorkerThreadPool;
+import de.mindscan.futuresqr.crawlers.tasks.DetectNewScmProjectBranchesTask;
 
 /**
  * 
@@ -66,8 +67,18 @@ public class DevBackendMainV1 {
         //
         System.out.println( "Test the application stuff here..." );
 
-        // provide some mechanism to let this application run, and be able to quit it, e.g. open / provide some console... 
+        // provide some mechanism to let this application run, and be able to quit it, e.g. open / provide some console...
 
+        DetectNewScmProjectBranchesTask detectTask = new DetectNewScmProjectBranchesTask( "futuresqr" );
+        taskDispatcher.dispatchTask( detectTask );
+
+        try {
+            Thread.sleep( 10000 );
+        }
+        catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         //
         // TODO: actually we want to dispatch some of the interesting tasks.
         // UpdateProjectCacheTask task = new UpdateProjectCacheTask( "futuresqr" );

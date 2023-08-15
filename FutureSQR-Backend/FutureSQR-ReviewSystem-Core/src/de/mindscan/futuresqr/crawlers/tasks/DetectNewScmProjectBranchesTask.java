@@ -72,6 +72,8 @@ public class DetectNewScmProjectBranchesTask extends FSqrBackgroundTaskBase {
         // in case something is new we add this branch configuration to the current scm-configuration and emit 
         // a "NewBranchDiscoveredEvent" with the projectIdentifier and the Branchname and the full url?
 
+        System.out.println( "Test.... DetectNewScmProjectBranchesTask" );
+
     }
 
     // this is for passive discovery....
