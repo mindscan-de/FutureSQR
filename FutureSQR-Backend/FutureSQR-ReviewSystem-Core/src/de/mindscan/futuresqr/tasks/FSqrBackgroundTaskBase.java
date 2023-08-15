@@ -25,10 +25,12 @@
  */
 package de.mindscan.futuresqr.tasks;
 
+import de.mindscan.futuresqr.core.task.FSqrTask;
+
 /**
  * 
  */
-public abstract class FSqrBackgroundTaskBase implements FSqrBackgroundTask {
+public abstract class FSqrBackgroundTaskBase extends FSqrTask implements FSqrBackgroundTask {
 
     private FSqrTaskExecutionContext taskContext;
 
@@ -50,6 +52,14 @@ public abstract class FSqrBackgroundTaskBase implements FSqrBackgroundTask {
 
     protected FSqrTaskExecutionContext getTaskContext() {
         return taskContext;
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    final public void run() {
+        execute();
     }
 
 }
