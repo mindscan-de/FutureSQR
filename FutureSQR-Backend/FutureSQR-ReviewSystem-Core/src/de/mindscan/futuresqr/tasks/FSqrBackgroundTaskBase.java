@@ -58,10 +58,28 @@ public abstract class FSqrBackgroundTaskBase extends FSqrTask implements FSqrBac
      * {@inheritDoc}
      */
     @Override
+    final public void prepare() {
+        // TODO Auto-generated method stub
+        super.prepare();
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
     final public void run() {
 
         // TODO: actually we want to provide an event consumer, such that a task can create new indicative events
         execute();
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void cleanup() {
+        // TODO Auto-generated method stub
+        super.cleanup();
     }
 
 }
