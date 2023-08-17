@@ -54,6 +54,10 @@ public abstract class FSqrBackgroundTaskBase extends FSqrTask implements FSqrBac
         return taskContext;
     }
 
+    // ----------------------------------------
+    // Interface of the FSqrTask implementation
+    // ----------------------------------------
+
     /** 
      * {@inheritDoc}
      */
@@ -70,6 +74,7 @@ public abstract class FSqrBackgroundTaskBase extends FSqrTask implements FSqrBac
     final public void run() {
 
         // TODO: actually we want to provide an event consumer, such that a task can create new indicative events
+        // convert this call execution to a FSqrBackgroundTask
         execute();
     }
 
@@ -77,7 +82,7 @@ public abstract class FSqrBackgroundTaskBase extends FSqrTask implements FSqrBac
      * {@inheritDoc}
      */
     @Override
-    public void cleanup() {
+    final public void cleanup() {
         // TODO Auto-generated method stub
         super.cleanup();
     }
