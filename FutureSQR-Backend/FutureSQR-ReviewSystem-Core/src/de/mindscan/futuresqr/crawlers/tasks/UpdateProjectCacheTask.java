@@ -25,6 +25,7 @@
  */
 package de.mindscan.futuresqr.crawlers.tasks;
 
+import de.mindscan.futuresqr.domain.repository.FSqrScmRepositoryServices;
 import de.mindscan.futuresqr.tasks.FSqrBackgroundTaskBase;
 
 /**
@@ -46,7 +47,13 @@ public class UpdateProjectCacheTask extends FSqrBackgroundTaskBase {
      */
     @Override
     public void execute() {
+
+        // TODO: actually the Services must be initialized first, probably as part of the 
+
         // TODO see current implementation of FSqrScmRepositoryServicesImpl#updateProjectCache
+        FSqrScmRepositoryServices scmRepositoryServices = this.getTaskContext().getServices().getScmRepositoryServices();
+        scmRepositoryServices.updateProjectCache( this.projectIdentifier );
+
     }
 
 }
