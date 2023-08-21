@@ -34,6 +34,8 @@ import de.mindscan.futuresqr.core.dispatcher.impl.SimpleTaskDispatcherImpl;
 import de.mindscan.futuresqr.core.thread.FSqrThreadPool;
 import de.mindscan.futuresqr.core.thread.FSqrWorkerThreadPool;
 import de.mindscan.futuresqr.crawlers.tasks.DetectNewScmProjectBranchesTask;
+import de.mindscan.futuresqr.domain.application.FSqrApplication;
+import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 
 /**
  * 
@@ -60,6 +62,13 @@ public class DevBackendMainV1 {
         EventDispatcher eventDispatcher = new SimpleEventDispatcherImpl();
         EventDispatcherThread eventDispatcherThread = new EventDispatcherThread( eventDispatcher );
         eventDispatcherThread.start();
+
+        // TODO: start application code?
+        // problem is now that the webserver and this instance work on the same sqlite database file.
+        // so we will need a better database later.
+        FSqrApplicationServices services = FSqrApplication.getInstance().getServices();
+        // Do we need some additional initialization? 
+        // A factory for the Tasks, which initializes the tasks correctly?
 
         // TODO: next we must make the FSqrTask stuff compatible to the ReviewSystem-Core Background tasks.
         //       such that these reviewsystem core tasks can be run by the event and taskdispatcher system.
