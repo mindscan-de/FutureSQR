@@ -34,4 +34,6 @@ public interface FSqrTaskExecutionContext {
 
     FSqrApplicationServices getServices();
 
+    // TODO: actually we need the different dispatchers (event and tasks and so on to be reachable here too..
+
 }
