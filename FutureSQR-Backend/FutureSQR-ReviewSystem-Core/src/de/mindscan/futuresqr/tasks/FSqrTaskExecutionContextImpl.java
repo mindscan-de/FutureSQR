@@ -23,40 +23,22 @@
  * SOFTWARE.
  * 
  */
-package de.mindscan.futuresqr.crawlers;
+package de.mindscan.futuresqr.tasks;
 
-import de.mindscan.futuresqr.crawlers.tasks.UpdateProjectCacheTask;
-import de.mindscan.futuresqr.tasks.FSqrBackgroundTask;
-import de.mindscan.futuresqr.tasks.FSqrTaskExecutionContext;
-import de.mindscan.futuresqr.tasks.FSqrTaskExecutionContextImpl;
+import de.mindscan.futuresqr.domain.application.FSqrApplication;
+import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 
 /**
  * 
  */
-public class CrawlerTaskFactory {
-    // TODO: I don't particular like it but bootstrapping the whole SCM crawler application will be done later.
-    private static FSqrTaskExecutionContext taskContext = new FSqrTaskExecutionContextImpl();
+public class FSqrTaskExecutionContextImpl implements FSqrTaskExecutionContext {
 
-    /**
-     * 
+    /** 
+     * {@inheritDoc}
      */
-    public CrawlerTaskFactory() {
-        // TODO: initialize a taskContext
-    }
-
-    FSqrBackgroundTask getUpdateProjectCacheTask( String projectIdentifier ) {
-        FSqrBackgroundTask task = new UpdateProjectCacheTask( projectIdentifier );
-
-        init( task );
-
-        return task;
-    }
-
-    /**
-     * @param task
-     */
-    private void init( FSqrBackgroundTask task ) {
-        task.setSetTaskExecutionContext( taskContext );
+    @Override
+    public FSqrApplicationServices getServices() {
+        return FSqrApplication.getInstance().getServices();
     }
 
 }
