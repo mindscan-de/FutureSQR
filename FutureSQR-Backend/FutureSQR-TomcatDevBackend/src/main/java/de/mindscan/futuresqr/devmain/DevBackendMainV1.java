@@ -34,9 +34,9 @@ import de.mindscan.futuresqr.core.dispatcher.impl.SimpleTaskDispatcherImpl;
 import de.mindscan.futuresqr.core.thread.FSqrThreadPool;
 import de.mindscan.futuresqr.core.thread.FSqrWorkerThreadPool;
 import de.mindscan.futuresqr.crawlers.CrawlerTaskFactory;
-import de.mindscan.futuresqr.crawlers.tasks.DetectNewScmProjectBranchesTask;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
+import de.mindscan.futuresqr.tasks.FSqrBackgroundTaskBase;
 
 /**
  * 
@@ -85,7 +85,8 @@ public class DevBackendMainV1 {
 
         // provide some mechanism to let this application run, and be able to quit it, e.g. open / provide some console...
 
-        DetectNewScmProjectBranchesTask detectTask = new DetectNewScmProjectBranchesTask( "futuresqr" );
+        FSqrBackgroundTaskBase detectTask = crawlerTaskFactory.geDetectNewScmProjectBranchesTask( "futuresqr" );
+
         taskDispatcher.dispatchTask( detectTask );
 
         try {
