@@ -35,6 +35,9 @@ import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
  */
 public class FSqrTaskExecutionContextImpl implements FSqrTaskExecutionContext {
 
+    private TaskDispatcher taskDispatcher;
+    private EventDispatcher eventDispatcher;
+
     /** 
      * {@inheritDoc}
      */
@@ -48,8 +51,7 @@ public class FSqrTaskExecutionContextImpl implements FSqrTaskExecutionContext {
      */
     @Override
     public void setTaskDispatcher( TaskDispatcher taskDispatcher ) {
-        // TODO Auto-generated method stub
-
+        this.taskDispatcher = taskDispatcher;
     }
 
     /** 
@@ -57,8 +59,7 @@ public class FSqrTaskExecutionContextImpl implements FSqrTaskExecutionContext {
      */
     @Override
     public void setEventDispatcher( EventDispatcher eventDispatcher ) {
-        // TODO Auto-generated method stub
-
+        this.eventDispatcher = eventDispatcher;
     }
 
     /** 
@@ -66,8 +67,7 @@ public class FSqrTaskExecutionContextImpl implements FSqrTaskExecutionContext {
      */
     @Override
     public TaskDispatcher getTaskDispatcher() {
-        // TODO Auto-generated method stub
-        return null;
+        return taskDispatcher;
     }
 
     /** 
@@ -75,8 +75,7 @@ public class FSqrTaskExecutionContextImpl implements FSqrTaskExecutionContext {
      */
     @Override
     public EventDispatcher getEventDispatcher() {
-        // TODO Auto-generated method stub
-        return null;
+        return eventDispatcher;
     }
 
 }
