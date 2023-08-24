@@ -59,4 +59,7 @@ public class CrawlerTaskFactory {
         task.setSetTaskExecutionContext( taskContext );
     }
 
+    public FSqrTaskExecutionContext getTaskContext() {
+        return taskContext;
+    }
 }
