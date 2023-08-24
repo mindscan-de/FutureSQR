@@ -25,8 +25,10 @@
  */
 package de.mindscan.futuresqr.crawlers;
 
+import de.mindscan.futuresqr.crawlers.tasks.DetectNewScmProjectBranchesTask;
 import de.mindscan.futuresqr.crawlers.tasks.UpdateProjectCacheTask;
 import de.mindscan.futuresqr.tasks.FSqrBackgroundTask;
+import de.mindscan.futuresqr.tasks.FSqrBackgroundTaskBase;
 import de.mindscan.futuresqr.tasks.FSqrTaskExecutionContext;
 import de.mindscan.futuresqr.tasks.FSqrTaskExecutionContextImpl;
 
@@ -44,8 +46,16 @@ public class CrawlerTaskFactory {
         // TODO: initialize a taskContext
     }
 
-    FSqrBackgroundTask getUpdateProjectCacheTask( String projectIdentifier ) {
-        FSqrBackgroundTask task = new UpdateProjectCacheTask( projectIdentifier );
+    public FSqrBackgroundTaskBase getUpdateProjectCacheTask( String projectIdentifier ) {
+        FSqrBackgroundTaskBase task = new UpdateProjectCacheTask( projectIdentifier );
+
+        init( task );
+
+        return task;
+    }
+
+    public FSqrBackgroundTaskBase geDetectNewScmProjectBranchesTask( String projectIdentifier ) {
+        FSqrBackgroundTaskBase task = new DetectNewScmProjectBranchesTask( projectIdentifier );
 
         init( task );
 
@@ -62,4 +72,5 @@ public class CrawlerTaskFactory {
     public FSqrTaskExecutionContext getTaskContext() {
         return taskContext;
     }
+
 }
