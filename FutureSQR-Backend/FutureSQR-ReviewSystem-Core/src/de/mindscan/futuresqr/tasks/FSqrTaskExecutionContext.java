@@ -25,6 +25,8 @@
  */
 package de.mindscan.futuresqr.tasks;
 
+import de.mindscan.futuresqr.core.dispatcher.EventDispatcher;
+import de.mindscan.futuresqr.core.dispatcher.TaskDispatcher;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 
 /**
@@ -34,6 +36,18 @@ public interface FSqrTaskExecutionContext {
 
     FSqrApplicationServices getServices();
 
-    // TODO: actually we need the different dispatchers (event and tasks and so on to be reachable here too..
+    /**
+     * @param taskDispatcher
+     */
+    void setTaskDispatcher( TaskDispatcher taskDispatcher );
 
+    /**
+     * @param eventDispatcher
+     */
+    void setEventDispatcher( EventDispatcher eventDispatcher );
+
+    // TODO: actually we need the different dispatchers (event and tasks and so on to be reachable here too..
+    TaskDispatcher getTaskDispatcher();
+
+    EventDispatcher getEventDispatcher();
 }
