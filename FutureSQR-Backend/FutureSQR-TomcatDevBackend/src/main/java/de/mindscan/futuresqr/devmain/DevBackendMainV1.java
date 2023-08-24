@@ -33,6 +33,7 @@ import de.mindscan.futuresqr.core.dispatcher.impl.SimpleEventDispatcherImpl;
 import de.mindscan.futuresqr.core.dispatcher.impl.SimpleTaskDispatcherImpl;
 import de.mindscan.futuresqr.core.thread.FSqrThreadPool;
 import de.mindscan.futuresqr.core.thread.FSqrWorkerThreadPool;
+import de.mindscan.futuresqr.crawlers.CrawlerTaskFactory;
 import de.mindscan.futuresqr.crawlers.tasks.DetectNewScmProjectBranchesTask;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
@@ -51,6 +52,8 @@ public class DevBackendMainV1 {
     }
 
     public void run() {
+        CrawlerTaskFactory crawlerTaskFactory = new CrawlerTaskFactory();
+
         // start :: taskdispatcher
         FSqrThreadPool threadPool = new FSqrWorkerThreadPool( 2, "TaskPool" );
         threadPool.initializeThreadPool();
@@ -62,6 +65,10 @@ public class DevBackendMainV1 {
         EventDispatcher eventDispatcher = new SimpleEventDispatcherImpl();
         EventDispatcherThread eventDispatcherThread = new EventDispatcherThread( eventDispatcher );
         eventDispatcherThread.start();
+
+        // set the taskContext
+        crawlerTaskFactory.getTaskContext().setTaskDispatcher( taskDispatcher );
+        crawlerTaskFactory.getTaskContext().setEventDispatcher( eventDispatcher );
 
         // TODO: start application code?
         // problem is now that the webserver and this instance work on the same sqlite database file.
