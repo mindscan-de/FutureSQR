@@ -86,11 +86,13 @@ public class DevBackendMainV1 {
         // provide some mechanism to let this application run, and be able to quit it, e.g. open / provide some console...
 
         FSqrBackgroundTaskBase detectTask = crawlerTaskFactory.geDetectNewScmProjectBranchesTask( "futuresqr" );
-
         taskDispatcher.dispatchTask( detectTask );
 
+        FSqrBackgroundTaskBase updateTask = crawlerTaskFactory.getUpdateProjectCacheTask( "futuresqr" );
+        taskDispatcher.dispatchTask( updateTask );
+
         try {
-            Thread.sleep( 10000 );
+            Thread.sleep( 20000 );
         }
         catch (InterruptedException e) {
             // TODO Auto-generated catch block

@@ -38,7 +38,8 @@ public class ScmVoidOutputProcessor implements GitCLICommandOutputProcessor<Void
      */
     @Override
     public Void transform( GitCLICommandOutput output ) {
-
+        // TODO: for debugging only, there should be some kind of system flag and log/trace system, where this can be enabled or not.
+        System.out.println( new String( output.getProcessOutput() ) );
         return null;
     }
 
