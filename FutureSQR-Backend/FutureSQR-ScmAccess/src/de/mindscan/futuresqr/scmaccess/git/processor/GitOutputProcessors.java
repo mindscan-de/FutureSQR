@@ -34,12 +34,14 @@ import de.mindscan.futuresqr.scmaccess.git.processor.impl.ScmFullChangeSetListOu
 import de.mindscan.futuresqr.scmaccess.git.processor.impl.ScmFullChangeSetOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.git.processor.impl.ScmHistoryOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.git.processor.impl.ScmSingleRevisionFileChangeListOutputProcessor;
+import de.mindscan.futuresqr.scmaccess.git.processor.impl.ScmUpdateResultOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.git.processor.impl.ScmVoidOutputProcessor;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileContent;
 import de.mindscan.futuresqr.scmaccess.types.ScmFileHistory;
 import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
 import de.mindscan.futuresqr.scmaccess.types.ScmHistory;
 import de.mindscan.futuresqr.scmaccess.types.ScmSingleRevisionFileChangeList;
+import de.mindscan.futuresqr.scmaccess.types.ScmUpdateResult;
 
 /**
  * 
@@ -68,6 +70,10 @@ public class GitOutputProcessors {
 
     public static GitCLICommandOutputProcessor<List<ScmFullChangeSet>> toScmFullChangeSetList() {
         return new ScmFullChangeSetListOutputProcessor();
+    }
+
+    public static GitCLICommandOutputProcessor<ScmUpdateResult> toScmUpdateResult() {
+        return new ScmUpdateResultOutputProcessor();
     }
 
     public static GitCLICommandOutputProcessor<Void> toScmVoid() {
