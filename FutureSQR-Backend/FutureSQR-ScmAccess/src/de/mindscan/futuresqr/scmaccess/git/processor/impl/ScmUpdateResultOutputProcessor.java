@@ -68,7 +68,8 @@ public class ScmUpdateResultOutputProcessor implements GitCLICommandOutputProces
 
         // updated - from - to
         // update result updated / uptodate / failed
-        return null;
+
+        return new ScmUpdateResult();
     }
 
 }

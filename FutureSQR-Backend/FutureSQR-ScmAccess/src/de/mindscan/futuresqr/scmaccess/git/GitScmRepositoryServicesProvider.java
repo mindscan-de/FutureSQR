@@ -30,6 +30,7 @@ import de.mindscan.futuresqr.scmaccess.ScmRepositoryServicesProvider;
 import de.mindscan.futuresqr.scmaccess.git.command.GitCommands;
 import de.mindscan.futuresqr.scmaccess.git.processor.GitOutputProcessors;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
+import de.mindscan.futuresqr.scmaccess.types.ScmUpdateResult;
 
 /**
  * 
@@ -49,11 +50,11 @@ public class GitScmRepositoryServicesProvider implements ScmRepositoryServicesPr
      * {@inheritDoc}
      */
     @Override
-    public void updateProjectCache( ScmRepository repository, String branchName ) {
-        @SuppressWarnings( "unused" )
-        Void scmVoid = gitCliExecutor // 
+    public ScmUpdateResult updateProjectCache( ScmRepository repository, String branchName ) {
+        ScmUpdateResult result = gitCliExecutor // 
                         .execute( repository, GitCommands.createUpdateLocalRepositoryCommand( branchName ) ) //
-                        .transform( GitOutputProcessors.toScmVoid() );
+                        .transform( GitOutputProcessors.toScmUpdateResult() );
+        return result;
     }
 
 }
