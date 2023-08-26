@@ -25,7 +25,14 @@
  */
 package de.mindscan.futuresqr.crawlers.tasks;
 
-import de.mindscan.futuresqr.domain.repository.FSqrScmRepositoryServices;
+import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
+import de.mindscan.futuresqr.domain.configuration.impl.FSqrScmConfigrationProvider;
+import de.mindscan.futuresqr.domain.model.FSqrScmProjectConfiguration;
+import de.mindscan.futuresqr.domain.model.FSqrScmProjectType;
+import de.mindscan.futuresqr.domain.model.m2m.ScmRepositoryFactory;
+import de.mindscan.futuresqr.scmaccess.ScmAccessFactory;
+import de.mindscan.futuresqr.scmaccess.ScmRepositoryServicesProvider;
+import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
 import de.mindscan.futuresqr.tasks.FSqrBackgroundTaskBase;
 
 /**
@@ -48,12 +55,41 @@ public class UpdateProjectCacheTask extends FSqrBackgroundTaskBase {
     @Override
     public void execute() {
 
-        // TODO: actually the Services must be initialized first, probably as part of the 
+        this.updateProject( projectIdentifier );
 
-        // TODO see current implementation of FSqrScmRepositoryServicesImpl#updateProjectCache
-        FSqrScmRepositoryServices scmRepositoryServices = this.getTaskContext().getServices().getScmRepositoryServices();
-        scmRepositoryServices.updateProjectCache( this.projectIdentifier );
+    }
 
+    public void updateProject( String projectId ) {
+        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
+        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
+            ScmRepository scmRepository = toScmRepository( scmConfiguration );
+            String branchName = scmConfiguration.getScmGitAdminConfiguration().getDefaultBranchName();
+
+            if (branchName != null && !branchName.trim().isEmpty()) {
+                FSqrApplicationServices applicationServices = this.getApplicationServices();
+
+                ScmRepositoryServicesProvider gitScmRepositoryServicesProvider = ScmAccessFactory
+                                .getGitRepositoryServicesProvider( new FSqrScmConfigrationProvider( applicationServices.getSystemConfiguration() ) );
+
+                gitScmRepositoryServicesProvider.updateProjectCache( scmRepository, branchName );
+            }
+            else {
+                System.out.println( "[updateProjectCache] - branchName is empty - must be fixed." );
+            }
+        }
+
+    }
+
+    private FSqrScmProjectConfiguration toScmConfiguration( String projectId ) {
+        FSqrApplicationServices applicationServices = this.getApplicationServices();
+
+        return applicationServices.getConfigurationRepository().getProjectConfiguration( projectId );
+    }
+
+    private ScmRepository toScmRepository( FSqrScmProjectConfiguration scmConfiguration ) {
+        FSqrApplicationServices applicationServices = this.getApplicationServices();
+
+        return ScmRepositoryFactory.toScmRepository( applicationServices.getSystemConfiguration(), scmConfiguration );
     }
 
 }
