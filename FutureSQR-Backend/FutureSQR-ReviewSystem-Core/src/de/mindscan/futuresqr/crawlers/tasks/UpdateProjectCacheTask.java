@@ -53,7 +53,7 @@ public class UpdateProjectCacheTask extends FSqrBackgroundTaskBase {
      * {@inheritDoc}
      */
     @Override
-    public void execute() {
+    public void taskExecute() {
 
         this.updateProject( projectIdentifier );
 

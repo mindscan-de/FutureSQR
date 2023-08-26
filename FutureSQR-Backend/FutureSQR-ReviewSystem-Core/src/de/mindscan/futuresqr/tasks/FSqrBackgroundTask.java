@@ -59,6 +59,9 @@ public interface FSqrBackgroundTask {
 
     void setSetTaskExecutionContext( FSqrTaskExecutionContext taskContext );
 
+    // TODO: here we should provide the FSQRApplicationService.
+    void taskPrepare();
+
     /**
      * TODO: 
      * we need to provide an information about the Execution Context, such that a task can signal success
@@ -67,6 +70,7 @@ public interface FSqrBackgroundTask {
      * provide an event consumer which will collect events for the next round. 
      * 
      */
-    void execute();
+    void taskExecute();
 
+    void taskCleanup();
 }

@@ -29,7 +29,9 @@ import de.mindscan.futuresqr.core.task.FSqrTask;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 
 /**
- * 
+ * This is basically an adapter for the FSqrTask system, but extended for the
+ * FSqrBackgroundTask related to SCM tasks, which may or may not need some time
+ * to complete. 
  */
 public abstract class FSqrBackgroundTaskBase extends FSqrTask implements FSqrBackgroundTask {
 
@@ -68,7 +70,8 @@ public abstract class FSqrBackgroundTaskBase extends FSqrTask implements FSqrBac
      */
     @Override
     final public void prepare() {
-        // TODO Auto-generated method stub
+        // TODO: provide application services for task preparation
+        taskPrepare();
         super.prepare();
     }
 
@@ -76,11 +79,18 @@ public abstract class FSqrBackgroundTaskBase extends FSqrTask implements FSqrBac
      * {@inheritDoc}
      */
     @Override
-    final public void run() {
+    public void taskPrepare() {
+        // intentionally left blank
+    }
 
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    final public void run() {
         // TODO: actually we want to provide an event consumer, such that a task can create new indicative events
         // convert this call execution to a FSqrBackgroundTask
-        execute();
+        taskExecute();
     }
 
     /** 
@@ -88,8 +98,16 @@ public abstract class FSqrBackgroundTaskBase extends FSqrTask implements FSqrBac
      */
     @Override
     final public void cleanup() {
-        // TODO Auto-generated method stub
+        taskCleanup();
         super.cleanup();
+    }
+
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void taskCleanup() {
+        // intentionally left blank
     }
 
 }

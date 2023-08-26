@@ -63,7 +63,7 @@ public class DetectNewScmProjectBranchesTask extends FSqrBackgroundTaskBase {
      * {@inheritDoc}
      */
     @Override
-    public void execute() {
+    public void taskExecute() {
         // TODO Auto-generated method stub
         // according to the scm we want to read all branches, and compare 
         // them to known branches

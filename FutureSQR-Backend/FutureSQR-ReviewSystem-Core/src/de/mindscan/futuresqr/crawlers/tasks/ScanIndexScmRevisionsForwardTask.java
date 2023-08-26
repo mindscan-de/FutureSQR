@@ -60,7 +60,7 @@ public class ScanIndexScmRevisionsForwardTask extends FSqrBackgroundTaskBase {
      * {@inheritDoc}
      */
     @Override
-    public void execute() {
+    public void taskExecute() {
         // TODO: set execution context / also we want a kind of repository implementation related to crawler only code
 
         // use a different crawler services repository... 

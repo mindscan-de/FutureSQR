@@ -57,7 +57,7 @@ public class ScanIndexScmRevisionsBackwardsTask extends FSqrBackgroundTaskBase {
      * {@inheritDoc}
      */
     @Override
-    public void execute() {
+    public void taskExecute() {
         FSqrApplicationServices services = getTaskContext().getServices();
 
         // TODO: actually we must scan backward from here....
