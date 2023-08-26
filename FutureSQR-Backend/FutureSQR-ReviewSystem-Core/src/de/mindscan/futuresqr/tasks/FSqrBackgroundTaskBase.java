@@ -26,6 +26,7 @@
 package de.mindscan.futuresqr.tasks;
 
 import de.mindscan.futuresqr.core.task.FSqrTask;
+import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 
 /**
  * 
@@ -52,6 +53,10 @@ public abstract class FSqrBackgroundTaskBase extends FSqrTask implements FSqrBac
 
     protected FSqrTaskExecutionContext getTaskContext() {
         return taskContext;
+    }
+
+    protected FSqrApplicationServices getApplicationServices() {
+        return taskContext.getServices();
     }
 
     // ----------------------------------------
