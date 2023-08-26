@@ -40,11 +40,13 @@ import de.mindscan.futuresqr.domain.model.changeset.FSqrRevisionFullChangeSet;
 public interface FSqrScmRepositoryServices extends FSqrRepository {
 
     // update local project cache.
-
+    // TODO: provide return result, such that we can react, if an update was performed.
+    // if it is queried, no return result is required.
     void updateProjectCache( String projectId );
 
     // clone and checkout project
-
+    // TODO: provide return result such that we can react, if checkout was successful or not.
+    // if it is queried, no return result is required.
     void cloneCheckoutToProjectCache( String projectId );
 
     // -------------------------------------------------------------------------------------------------------
