@@ -33,6 +33,7 @@ import de.mindscan.futuresqr.domain.model.m2m.ScmRepositoryFactory;
 import de.mindscan.futuresqr.scmaccess.ScmAccessFactory;
 import de.mindscan.futuresqr.scmaccess.ScmRepositoryServicesProvider;
 import de.mindscan.futuresqr.scmaccess.types.ScmRepository;
+import de.mindscan.futuresqr.scmaccess.types.ScmUpdateResult;
 import de.mindscan.futuresqr.tasks.FSqrBackgroundTaskBase;
 
 /**
@@ -71,7 +72,9 @@ public class UpdateProjectCacheTask extends FSqrBackgroundTaskBase {
                 ScmRepositoryServicesProvider gitScmRepositoryServicesProvider = ScmAccessFactory
                                 .getGitRepositoryServicesProvider( new FSqrScmConfigrationProvider( applicationServices.getSystemConfiguration() ) );
 
-                gitScmRepositoryServicesProvider.updateProjectCache( scmRepository, branchName );
+                ScmUpdateResult gitPullResult = gitScmRepositoryServicesProvider.updateProjectCache( scmRepository, branchName );
+
+                // TODO: react to git pull result.. and emit neccessary events... e.g. ScmProjectUpdatedEvent....
             }
             else {
                 System.out.println( "[updateProjectCache] - branchName is empty - must be fixed." );
