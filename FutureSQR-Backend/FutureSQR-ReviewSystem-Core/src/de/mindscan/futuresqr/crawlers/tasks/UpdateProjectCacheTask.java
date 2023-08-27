@@ -74,13 +74,27 @@ public class UpdateProjectCacheTask extends FSqrBackgroundTaskBase {
 
                 ScmUpdateResult gitPullResult = gitScmRepositoryServicesProvider.updateProjectCache( scmRepository, branchName );
 
-                // TODO: react to git pull result.. and emit neccessary events... e.g. ScmProjectUpdatedEvent....
+                switch (gitPullResult.getResult()) {
+                    case SUCCESS_RESULT: {
+                        // TODO: check if update result is "uptodate"
+                        // TODO: check if update result is "updated" then emit event.
+                    }
+                        break;
+                    case FAILED_RESULT: {
+                        // TODO log something?
+                        // TODO or emit result?
+                    }
+                        break;
+                    default:
+                        // TODO: do something here?
+                        break;
+                }
             }
-            else {
-                System.out.println( "[updateProjectCache] - branchName is empty - must be fixed." );
-            }
+            // TODO: react to git pull result.. and emit necessary events... e.g. ScmProjectUpdatedEvent....
         }
-
+        else {
+            System.out.println( "[updateProjectCache] - branchName is empty - must be fixed." );
+        }
     }
 
     private FSqrScmProjectConfiguration toScmConfiguration( String projectId ) {
