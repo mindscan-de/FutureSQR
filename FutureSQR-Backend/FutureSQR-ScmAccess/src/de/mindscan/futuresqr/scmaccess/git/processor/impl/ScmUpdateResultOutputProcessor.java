@@ -73,7 +73,8 @@ public class ScmUpdateResultOutputProcessor implements GitCLICommandOutputProces
 
         ScmUpdateResult scmUpdateResult = new ScmUpdateResult( ScmResultType.SUCCESS_RESULT );
 
-        // provide statistics 
+        // provide statistics number of files changed / paths / number of plus or minus for files.
+        // provide revision info for updates, from where to where
         // provide provide status, whether it was updated or not or whether it was already up to date.
 
         return scmUpdateResult;
