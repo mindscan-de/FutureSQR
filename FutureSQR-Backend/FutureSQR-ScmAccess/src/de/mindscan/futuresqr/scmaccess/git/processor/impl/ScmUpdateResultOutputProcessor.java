@@ -27,6 +27,7 @@ package de.mindscan.futuresqr.scmaccess.git.processor.impl;
 
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutput;
 import de.mindscan.futuresqr.scmaccess.git.GitCLICommandOutputProcessor;
+import de.mindscan.futuresqr.scmaccess.types.ScmResultType;
 import de.mindscan.futuresqr.scmaccess.types.ScmUpdateResult;
 
 /**
@@ -61,6 +62,7 @@ public class ScmUpdateResultOutputProcessor implements GitCLICommandOutputProces
         
         parse.... up-to-date
         
+        parse.... error e.g. missing connection etc.
         
          */
 
@@ -69,7 +71,12 @@ public class ScmUpdateResultOutputProcessor implements GitCLICommandOutputProces
         // updated - from - to
         // update result updated / uptodate / failed
 
-        return new ScmUpdateResult();
+        ScmUpdateResult scmUpdateResult = new ScmUpdateResult( ScmResultType.SUCCESS_RESULT );
+
+        // provide statistics 
+        // provide provide status, whether it was updated or not or whether it was already up to date.
+
+        return scmUpdateResult;
     }
 
 }

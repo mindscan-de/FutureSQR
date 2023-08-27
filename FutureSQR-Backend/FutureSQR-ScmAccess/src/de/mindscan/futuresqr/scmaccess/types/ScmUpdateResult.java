@@ -30,4 +30,20 @@ package de.mindscan.futuresqr.scmaccess.types;
  */
 public class ScmUpdateResult {
 
+    private ScmResultType result;
+
+    /**
+     * 
+     */
+    public ScmUpdateResult( ScmResultType result ) {
+        this.result = result;
+    }
+
+    /**
+     * @return the result
+     */
+    public ScmResultType getResult() {
+        return result;
+    }
+
 }
