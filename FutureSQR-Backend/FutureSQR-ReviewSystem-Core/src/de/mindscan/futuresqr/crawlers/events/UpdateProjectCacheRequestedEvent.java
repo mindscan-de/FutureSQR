@@ -47,4 +47,11 @@ public class UpdateProjectCacheRequestedEvent implements FSqrEvent {
         this.projectIdentifier = projectIdentifier;
     }
 
+    /**
+     * @return the projectIdentifier
+     */
+    public String getProjectIdentifier() {
+        return projectIdentifier;
+    }
+
 }
