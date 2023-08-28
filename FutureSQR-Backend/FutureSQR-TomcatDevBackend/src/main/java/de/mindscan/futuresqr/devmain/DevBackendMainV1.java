@@ -96,8 +96,9 @@ public class DevBackendMainV1 {
         taskDispatcher.dispatchTask( detectTask );
 
         // TODO: check if we can request this task using an event.
-        FSqrBackgroundTaskBase updateTask = crawlerTaskFactory.getUpdateProjectCacheTask( "futuresqr" );
-        taskDispatcher.dispatchTask( updateTask );
+        // FSqrBackgroundTaskBase updateTask = crawlerTaskFactory.getUpdateProjectCacheTask( "futuresqr" );
+        // taskDispatcher.dispatchTask( updateTask );
+        eventDispatcher.dispatchEvent( new UpdateProjectCacheRequestedEvent( "futuresqr" ) );
 
         try {
             Thread.sleep( 20000 );
