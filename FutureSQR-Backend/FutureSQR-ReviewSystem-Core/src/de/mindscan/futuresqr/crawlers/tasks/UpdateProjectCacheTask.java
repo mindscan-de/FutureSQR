@@ -76,8 +76,11 @@ public class UpdateProjectCacheTask extends FSqrBackgroundTaskBase {
 
                 switch (gitPullResult.getResult()) {
                     case SUCCESS_RESULT: {
+                        // this can update to a last checked event. (e.g. if we want to report when it was last checked but not updated)
                         // TODO: check if update result is "uptodate"
+
                         // TODO: check if update result is "updated" then emit event.
+                        // last updated event
                     }
                         break;
                     case FAILED_RESULT: {
