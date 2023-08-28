@@ -41,7 +41,6 @@ import de.mindscan.futuresqr.domain.repository.FSqrScmRepositoryServices;
 import de.mindscan.futuresqr.scmaccess.ScmAccessFactory;
 import de.mindscan.futuresqr.scmaccess.ScmContentProvider;
 import de.mindscan.futuresqr.scmaccess.ScmHistoryProvider;
-import de.mindscan.futuresqr.scmaccess.ScmRepositoryServicesProvider;
 import de.mindscan.futuresqr.scmaccess.types.ScmBasicRevisionInformation;
 import de.mindscan.futuresqr.scmaccess.types.ScmFullChangeSet;
 import de.mindscan.futuresqr.scmaccess.types.ScmHistory;
@@ -80,7 +79,6 @@ import de.mindscan.futuresqr.scmaccess.types.ScmSingleRevisionFileChangeList;
 public class FSqrScmRepositoryServicesImpl implements FSqrScmRepositoryServices {
 
     private FSqrApplicationServices applicationServices;
-    private ScmRepositoryServicesProvider gitScmRepositoryServicesProvider;
     private ScmContentProvider gitScmContentProvider;
     private ScmHistoryProvider gitScmHistoryProvider;
 
@@ -90,7 +88,6 @@ public class FSqrScmRepositoryServicesImpl implements FSqrScmRepositoryServices 
     public FSqrScmRepositoryServicesImpl() {
         this.applicationServices = new FSqrApplicationServicesUnitialized();
 
-        this.gitScmRepositoryServicesProvider = ScmAccessFactory.getEmptyRepositoryServicesProvider();
         this.gitScmContentProvider = ScmAccessFactory.getEmptyContentProvider();
         this.gitScmHistoryProvider = ScmAccessFactory.getEmptyHistoryProvider();
     }
@@ -102,12 +99,8 @@ public class FSqrScmRepositoryServicesImpl implements FSqrScmRepositoryServices 
     public void setApplicationServices( FSqrApplicationServices services ) {
         this.applicationServices = services;
 
-        this.gitScmRepositoryServicesProvider = ScmAccessFactory
-                        .getGitRepositoryServicesProvider( new FSqrScmConfigrationProvider( services.getSystemConfiguration() ) );
-
         this.gitScmContentProvider = ScmAccessFactory.getGitContentProvider( new FSqrScmConfigrationProvider( services.getSystemConfiguration() ) );
         this.gitScmHistoryProvider = ScmAccessFactory.getGitHistoryProvider( new FSqrScmConfigrationProvider( services.getSystemConfiguration() ) );
-
     }
 
     /** 
@@ -121,22 +114,6 @@ public class FSqrScmRepositoryServicesImpl implements FSqrScmRepositoryServices 
         // TODO: either schedule the task directly, or request via event dispatcher.
         // taskscheduler.schedule(new UpdateProjectCacheTask(projectId));
         // eventdispatcher.dispatch(new UpdateProjectCacheRequestedEvent(projectId));
-
-        // ----------------------------------------------------------------
-        // TODO: refactor to command and execute in crawler / scm-low-level
-        // ----------------------------------------------------------------
-        FSqrScmProjectConfiguration scmConfiguration = toScmConfiguration( projectId );
-        if (scmConfiguration.isScmProjectType( FSqrScmProjectType.git )) {
-            ScmRepository scmRepository = toScmRepository( scmConfiguration );
-            String branchName = scmConfiguration.getScmGitAdminConfiguration().getDefaultBranchName();
-
-            if (branchName != null && !branchName.trim().isEmpty()) {
-                gitScmRepositoryServicesProvider.updateProjectCache( scmRepository, branchName );
-            }
-            else {
-                System.out.println( "[updateProjectCache] - branchName is empty - must be fixed." );
-            }
-        }
     }
 
     /** 
