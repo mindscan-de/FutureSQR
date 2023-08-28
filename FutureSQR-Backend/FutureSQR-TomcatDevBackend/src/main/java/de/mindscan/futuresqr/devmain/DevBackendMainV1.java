@@ -31,9 +31,12 @@ import de.mindscan.futuresqr.core.dispatcher.TaskDispatcher;
 import de.mindscan.futuresqr.core.dispatcher.TaskDispatcherThread;
 import de.mindscan.futuresqr.core.dispatcher.impl.SimpleEventDispatcherImpl;
 import de.mindscan.futuresqr.core.dispatcher.impl.SimpleTaskDispatcherImpl;
+import de.mindscan.futuresqr.core.events.FSqrEvent;
+import de.mindscan.futuresqr.core.events.FSqrEventListener;
 import de.mindscan.futuresqr.core.thread.FSqrThreadPool;
 import de.mindscan.futuresqr.core.thread.FSqrWorkerThreadPool;
 import de.mindscan.futuresqr.crawlers.CrawlerTaskFactory;
+import de.mindscan.futuresqr.crawlers.events.UpdateProjectCacheRequestedEvent;
 import de.mindscan.futuresqr.domain.application.FSqrApplication;
 import de.mindscan.futuresqr.domain.application.FSqrApplicationServices;
 import de.mindscan.futuresqr.tasks.FSqrBackgroundTaskBase;
@@ -70,6 +73,10 @@ public class DevBackendMainV1 {
         crawlerTaskFactory.getTaskContext().setTaskDispatcher( taskDispatcher );
         crawlerTaskFactory.getTaskContext().setEventDispatcher( eventDispatcher );
 
+        // initialize the Application and the event listeners.
+        // 
+        initCrawlerEngine( eventDispatcher, crawlerTaskFactory );
+
         // TODO: start application code?
         // problem is now that the webserver and this instance work on the same sqlite database file.
         // so we will need a better database later.
@@ -88,6 +95,7 @@ public class DevBackendMainV1 {
         FSqrBackgroundTaskBase detectTask = crawlerTaskFactory.geDetectNewScmProjectBranchesTask( "futuresqr" );
         taskDispatcher.dispatchTask( detectTask );
 
+        // TODO: check if we can request this task using an event.
         FSqrBackgroundTaskBase updateTask = crawlerTaskFactory.getUpdateProjectCacheTask( "futuresqr" );
         taskDispatcher.dispatchTask( updateTask );
 
@@ -113,5 +121,28 @@ public class DevBackendMainV1 {
         threadPool.killAll();
 
         System.out.println( "shutdown invoked." );
+    }
+
+    /**
+     * @param eventDispatcher
+     * @param crawlerTaskFactory 
+     */
+    private void initCrawlerEngine( EventDispatcher eventDispatcher, CrawlerTaskFactory crawlerTaskFactory ) {
+        // each of these listeners should be generically instantiated a
+        // not nice yet, but let's see how this develops.
+        FSqrEventListener updateProjectCacheRequestListener = new FSqrEventListener() {
+            @Override
+            public void handleEvent( FSqrEvent event ) {
+                // an update of the local project cache was requested, we actually want to dispatch a new task as an answer.
+                FSqrBackgroundTaskBase task = crawlerTaskFactory.getUpdateProjectCacheTask( ((UpdateProjectCacheRequestedEvent) event).getProjectIdentifier() );
+
+                // dispatch new Task.
+                crawlerTaskFactory.getTaskContext().getTaskDispatcher().dispatchTask( task );
+            }
+
+        };
+        // we register a listener, which is able to dispatch a new task in case someone requests an u pdate project CacheRequest
+        eventDispatcher.registerEventListener( UpdateProjectCacheRequestedEvent.class, updateProjectCacheRequestListener );
+
     }
 }
