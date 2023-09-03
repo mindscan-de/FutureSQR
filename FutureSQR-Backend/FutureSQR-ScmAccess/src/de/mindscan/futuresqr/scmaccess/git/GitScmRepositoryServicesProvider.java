@@ -57,4 +57,14 @@ public class GitScmRepositoryServicesProvider implements ScmRepositoryServicesPr
         return result;
     }
 
+    /**
+     * This method is available to replace the default GitCLUCommandExecutor with a different one, e.g. for tests
+     * or with other configurations later.
+     * 
+     * @param alternateExecutor
+     */
+    void setGitCLICommandExecutor( GitCLICommandExecutor alternateExecutor ) {
+        this.gitCliExecutor = alternateExecutor;
+    }
+
 }
