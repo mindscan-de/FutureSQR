@@ -39,7 +39,7 @@ public class GitScmRepositoryServicesProviderTest {
     }
 
     @Test
-    public void testUpdateProjectCache_getFromRevision_resultIsB2092B33() throws Exception {
+    public void testUpdateProjectCache_getToRevision_resultIsB2092B33() throws Exception {
         // arrange
         GitScmRepositoryServicesProvider provider = new GitScmRepositoryServicesProvider( new HardcodedScmConfigurationProviderImpl() );
         provider.setGitCLICommandExecutor( getFakeGitCommandExecutor() );

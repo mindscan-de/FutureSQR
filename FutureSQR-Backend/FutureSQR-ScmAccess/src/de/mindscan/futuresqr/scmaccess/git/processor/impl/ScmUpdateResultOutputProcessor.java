@@ -49,7 +49,7 @@ public class ScmUpdateResultOutputProcessor implements GitCLICommandOutputProces
         // -- what if not?
         // ELSE UPTODATE
         // -- 
-        
+
         // it is over after two newlines
 
         /**
@@ -84,6 +84,9 @@ public class ScmUpdateResultOutputProcessor implements GitCLICommandOutputProces
         // provide statistics number of files changed / paths / number of plus or minus for files.
         // provide revision info for updates, from where to where
         // provide provide status, whether it was updated or not or whether it was already up to date.
+
+        scmUpdateResult.updatedFromRevision = "ac96c349";
+        scmUpdateResult.updatedToRevision = "b2092b33";
 
         return scmUpdateResult;
     }
