@@ -44,6 +44,14 @@ public class ScmUpdateResultOutputProcessor implements GitCLICommandOutputProces
 
         System.out.println( commandOutput );
 
+        // GIT_UPDATE_UPDATING_MODE
+        // -- MODE FAST-FORWARD?
+        // -- what if not?
+        // ELSE UPTODATE
+        // -- 
+        
+        // it is over after two newlines
+
         /**
          * 
         parse....  updating
