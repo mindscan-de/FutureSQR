@@ -32,6 +32,9 @@ public class ScmUpdateResult {
 
     private ScmResultType result;
 
+    public String updatedFromRevision = "";
+    public String updatedToRevision = "";
+
     /**
      * 
      */
@@ -44,6 +47,16 @@ public class ScmUpdateResult {
      */
     public ScmResultType getResult() {
         return result;
+    }
+
+    // TODO: subresult: updated, uptodate, timeout?, no route to host.
+
+    public String getUpdatedFromRevision() {
+        return updatedFromRevision;
+    }
+
+    public String getUpdatedToRevision() {
+        return updatedToRevision;
     }
 
 }
