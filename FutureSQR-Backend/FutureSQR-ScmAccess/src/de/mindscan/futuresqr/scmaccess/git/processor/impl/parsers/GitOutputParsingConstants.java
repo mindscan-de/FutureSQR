@@ -55,4 +55,8 @@ public class GitOutputParsingConstants {
     public static final String GIT_DIFF_BINARY_FILES_IDENTIFIER = "Binary files";
     public static final String GIT_DIFF_NO_NEWLINE_AT_END_OF_FILE_INDICATOR = "\\ No newline at end of file";
 
+    public static final String GIT_UPDATE_UPDATING_MODE = "Updating ";
+    public static final String GIT_UPDATE_FAST_FORWARD = "Fast-forward";
+    public static final String GIT_UPDATE_CREATE_NEW_FILE_MODE = "create mode ";
+
 }
